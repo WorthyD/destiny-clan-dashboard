@@ -12,7 +12,7 @@ jobs:
   deployment:
     # Operating system to run job on
     runs-on: ubuntu-latest
-    enviornment: production
+    environment: production
     # Steps in job
     steps:
       # Get code from repo
