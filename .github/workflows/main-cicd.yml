@@ -20,6 +20,8 @@ jobs:
     name: Test and Build App
     runs-on: ubuntu-latest
     environment: dev
+    env:
+      API_KEY: ${{ secrets.API_KEY }}
     steps:
       # Get code from repo
       - name: Checkout code
@@ -30,13 +32,11 @@ jobs:
         with:
           node-version: 16.x
       # Run npm install and build on our code
-
       - name: Run Install
         run: npm install
       - name: Run Make Config
         run: npm run config
-        env:
-          API_KEY: ${{ secrets.API_KEY }}
+
       - name: Run lint
         run: npm run lint
       - name: Run test
