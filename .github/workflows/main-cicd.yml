@@ -19,6 +19,7 @@ jobs:
   test_and_build:
     name: Test and Build App
     runs-on: ubuntu-latest
+    environment: production
     steps:
       # Get code from repo
       - name: Checkout code
@@ -32,6 +33,10 @@ jobs:
 
       - name: Run Install
         run: npm install
+      - name: Run Make Config
+        run: npm config
+        env:
+          API_KEY: ${{ secrets.API_KEY }}
       - name: Run lint
         run: npm run lint
       - name: Run test
@@ -55,7 +60,10 @@ jobs:
           node-version: 16.x
       # Run npm install and build on our code
       - run: npm install
+      - run: npm config
       - run: npm run build-all
+        env:
+          API_KEY: ${{ secrets.API_KEY }}
       # Deploy to Netlify using our production secrets
       - name: Deploy to netlify
         uses: netlify/actions/cli@master
@@ -65,7 +73,6 @@ jobs:
         with:
           args: deploy --dir=build --prod
           secrets: '["DEV_NETLIFY_AUTH_TOKEN", "NETLIFY_SITE_ID"]'
-
 
   deployment_prod:
     # Operating system to run job on
@@ -86,7 +93,10 @@ jobs:
           node-version: 16.x
       # Run npm install and build on our code
       - run: npm install
+      - run: npm config
       - run: npm run build-all
+        env:
+          API_KEY: ${{ secrets.API_KEY }}
       # Deploy to Netlify using our production secrets
       - name: Deploy to netlify
         uses: netlify/actions/cli@master
