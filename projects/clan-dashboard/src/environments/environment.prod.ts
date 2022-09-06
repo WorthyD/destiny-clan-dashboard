@@ -1,3 +1,5 @@
+import { secretKeys } from './secrets';
 export const environment = {
-  production: true
+  production: true,
+  apiKey: secretKeys.apiKey,
 };
