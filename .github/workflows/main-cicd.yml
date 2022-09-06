@@ -35,14 +35,15 @@ jobs:
         run: npm install
       - name: Run Make Config
         run: npm config
-        env:
-          API_KEY: ${{ secrets.API_KEY }}
+
       - name: Run lint
         run: npm run lint
       - name: Run test
         run: npm run test
       - name: Run build
         run: npm run build-all
+        env:
+          API_KEY: ${{ secrets.API_KEY }}
 
   deployment_dev:
     name: Deployment (Dev)
@@ -76,6 +77,7 @@ jobs:
 
   deployment_prod:
     # Operating system to run job on
+    name: Deployment (Prod)
     runs-on: ubuntu-latest
     environment: production
     needs:
