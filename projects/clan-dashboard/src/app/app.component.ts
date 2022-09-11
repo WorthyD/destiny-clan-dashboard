@@ -8,5 +8,5 @@ import { environment } from '../environments/environment';
 })
 export class AppComponent {
   title = 'clan-dashboard';
-  test = environment.apiKey;
+  test = ''; // environment.apiKey;
 }

@@ -1,0 +1,17 @@
+/* To learn more about this file see: https://angular.io/config/tsconfig. */
+/*
+  I don't like doing this, but it's the only way I've figured out how to get the @core/*
+  paths with VSCode to respect it and not expose them to the whole application.
+*/
+{
+  "extends": "../../tsconfig.json",
+  "compilerOptions": {
+    "paths": {
+      "@core/*": ["projects/clan-dashboard/src/app/core/*"],
+      "@features/*": ["src/app/features/*"],
+      "@shared/*": ["src/app/shared/*"],
+      "@environment/*": ["src/environments/*"],
+      "@utilities/*": ["src/app/utilities/*"]
+    }
+  },
+}
