@@ -8,7 +8,7 @@
         "projects/data/src/public-api"
       ],
       "@destiny/data/*": [
-        "projects/data/src/*/public-api"
+        "projects/data/src/lib/*/public-api"
       ],
     },
     "outDir": "./dist/out-tsc",
@@ -26,6 +26,9 @@
     "importHelpers": true,
     "target": "es2020",
     "module": "es2020",
+    "typeRoots": [
+      "node_modules/@types"
+    ],
     "lib": [
       "es2020",
       "dom"

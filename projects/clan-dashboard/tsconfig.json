@@ -11,7 +11,13 @@
       "@features/*": ["src/app/features/*"],
       "@shared/*": ["src/app/shared/*"],
       "@environment/*": ["src/environments/*"],
-      "@utilities/*": ["src/app/utilities/*"]
+      "@utilities/*": ["src/app/utilities/*"],
+      "@destiny/data": [
+        "projects/data/src/public-api"
+      ],
+      "@destiny/data/*": [
+        "projects/data/src/lib/*/public-api"
+      ]
     }
   },
 }
