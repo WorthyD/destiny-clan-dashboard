@@ -3,6 +3,14 @@
   "compileOnSave": false,
   "compilerOptions": {
     "baseUrl": "./",
+    "paths": {
+      "@destiny/data": [
+        "projects/data/src/public-api"
+      ],
+      "@destiny/data/*": [
+        "projects/data/src/*/public-api"
+      ],
+    },
     "outDir": "./dist/out-tsc",
     "forceConsistentCasingInFileNames": true,
     "strict": false,
