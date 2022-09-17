@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 
 import { Destiny2Service } from 'bungie-api-angular';
-import { map, of } from 'rxjs';
+import { map, Observable, of, switchMap } from 'rxjs';
 import { nowPlusMinutes } from '../utility/date-utils';
 import { ManifestDatabaseService } from './manifest-database.service';
 
@@ -12,6 +12,11 @@ const MANIFEST_PATH_KEY = 'MANIFEST_PATH_KEY';
 const MANIFEST_PATH_EXP_KEY = 'MANIFEST_PATH_EXP_KEY';
 
 const VERSION = 'v1';
+
+export interface CachedManifest {
+  id: string;
+  data: any;
+}
 
 @Injectable({
   providedIn: 'root'
@@ -39,7 +44,7 @@ export class ManifestLoaderService {
   private getManifest(language: string) {
     return this.d2service.destiny2GetDestinyManifest().pipe(
       map((response) => {
-        // console.log(response.Response.jsonWorldContentPaths[language]);
+        console.log(response.Response);
         return response.Response.jsonWorldContentPaths[language];
       })
     );
@@ -82,9 +87,9 @@ export class ManifestLoaderService {
     });
   }
 
-  public loadManifestData(language: string = 'en', tableNames): Promise<CachedManifest> {
-    return this.getManifestFromCache(language)
-      .toPromise()
-      .then((path) => this.requestDefinitionsArchive(path, tableNames));
+  public loadManifestData(language: string = 'en', tableNames): Observable<CachedManifest> {
+    return this.getManifestFromCache(language).pipe(switchMap((path ) =>(this.requestDefinitionsArchive(path, tableNames))))
+    // .toPromise()
+    // .then((path) => this.requestDefinitionsArchive(path, tableNames));
   }
 }

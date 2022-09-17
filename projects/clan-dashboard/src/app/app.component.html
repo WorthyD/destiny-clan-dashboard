@@ -1,4 +1,5 @@
 <div>
+  {{(manifestState$ | async) | json}}
   <div class="content-wrapper">
     <router-outlet #o="outlet"></router-outlet>
   </div>
