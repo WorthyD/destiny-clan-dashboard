@@ -8,6 +8,7 @@ import { StoreModule } from '@ngrx/store';
 import { coreReducers, coreEffects } from './core.state';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { Configuration } from 'bungie-api-angular';
 
 @NgModule({
   declarations: [],
@@ -20,6 +21,17 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
   ],
   providers: [
     { provide: AppConfig, useValue: environment },
+    // {
+    //   provide: Configuration,
+    //   useFactory: () => new Configuration(
+    //     {
+
+    //       //basePath: environment.apiUrl,
+    //       //accessToken: authService.getAccessToken.bind(authService)
+    //     }
+    //   ),
+    //   multi: false
+    // },
     {
       provide: HTTP_INTERCEPTORS,
       useClass: ApiKeyInterceptor,

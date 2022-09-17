@@ -24,7 +24,7 @@
     "@ngrx/effects": "^14.3.1",
     "@ngrx/store": "^14.3.1",
     "@ngrx/store-devtools": "^14.3.1",
-    "bungie-api-angular": "^0.6.0",
+    "bungie-api-angular": "^0.6.1",
     "idb": "^7.0.2",
     "rxjs": "~7.5.0",
     "tslib": "^2.3.0",
