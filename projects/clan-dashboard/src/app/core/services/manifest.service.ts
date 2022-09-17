@@ -4,6 +4,7 @@ import { ActivityModeDefinitionService } from '@core/definition-services/activit
 import { MilestoneDefinitionService } from '@core/definition-services/milestone-definition.service';
 import { PresentationNodeDefinitionService } from '@core/definition-services/presentation-node-definition.service';
 import { ManifestLoaderService } from '@destiny/data/manifest';
+import { map } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -41,28 +42,30 @@ export class ManifestService {
     ];
     return this.loader
       .loadManifestData('en', tables)
-      .then((x) => {
-        if (x && x.data) {
-          if (x.data.DestinyActivityModeDefinition) {
-            this.activityModeService.initializeCache(x.data.DestinyActivityModeDefinition);
-          }
-          if (x.data.DestinyActivityDefinition) {
-            this.activityService.initializeCache(x.data.DestinyActivityDefinition);
+      .pipe(
+        map((x) => {
+          if (x && x.data) {
+            if (x.data.DestinyActivityModeDefinition) {
+              this.activityModeService.initializeCache(x.data.DestinyActivityModeDefinition);
+            }
+            if (x.data.DestinyActivityDefinition) {
+              this.activityService.initializeCache(x.data.DestinyActivityDefinition);
+            }
+
+            if (x.data.DestinyMilestoneDefinition) {
+              this.milestoneDefinitionService.initializeCache(x.data.DestinyMilestoneDefinition);
+            }
+            if (x.data.DestinyPresentationNodeDefinition) {
+              this.presentationNodeDefinitionService.initializeCache(x.data.DestinyPresentationNodeDefinition);
+            }
           }
 
-          if (x.data.DestinyMilestoneDefinition) {
-            this.milestoneDefinitionService.initializeCache(x.data.DestinyMilestoneDefinition);
-          }
-          if (x.data.DestinyPresentationNodeDefinition) {
-            this.presentationNodeDefinitionService.initializeCache(x.data.DestinyPresentationNodeDefinition);
-          }
-        }
-
-        console.timeEnd('loadManifest');
-        return true;
-      })
-      .catch((err: any) => {
-        console.error(err);
-      });
+          console.timeEnd('loadManifest');
+          return true;
+        })
+      )
+      // .catch((err: any) => {
+      //   console.error(err);
+      // });
   }
 }

@@ -14,8 +14,16 @@ export class ManifestEffects {
   loadManifest$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(loadManifest),
+      // map(() => {
+      //   return loadManifestComplete();
+      // })
       switchMap(() => {
-        return this.manifestService.loadManifest().pipe(map(() => loadManifestComplete()));
+      //map(() => {
+        return this.manifestService.loadManifest().pipe(
+          map(() => {
+            return loadManifestComplete();
+          })
+        );
 
         // return from().pipe(
         //   map((x) => {

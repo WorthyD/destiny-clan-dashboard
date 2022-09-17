@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 
 import { Destiny2Service } from 'bungie-api-angular';
-import { map, Observable, of, switchMap } from 'rxjs';
+import { map, Observable, of, switchMap, take } from 'rxjs';
 import { nowPlusMinutes } from '../utility/date-utils';
 import { ManifestDatabaseService } from './manifest-database.service';
 
@@ -44,7 +44,7 @@ export class ManifestLoaderService {
   private getManifest(language: string) {
     return this.d2service.destiny2GetDestinyManifest().pipe(
       map((response) => {
-        console.log(response.Response);
+        console.log(response);
         return response.Response.jsonWorldContentPaths[language];
       })
     );
@@ -88,7 +88,10 @@ export class ManifestLoaderService {
   }
 
   public loadManifestData(language: string = 'en', tableNames): Observable<CachedManifest> {
-    return this.getManifestFromCache(language).pipe(switchMap((path ) =>(this.requestDefinitionsArchive(path, tableNames))))
+    return this.getManifestFromCache(language).pipe(
+      take(1),
+      switchMap((path) => this.requestDefinitionsArchive(path, tableNames))
+    );
     // .toPromise()
     // .then((path) => this.requestDefinitionsArchive(path, tableNames));
   }
