@@ -5,23 +5,23 @@ import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 import { from, of } from 'rxjs';
 import { catchError, map, switchMap } from 'rxjs/operators';
-import { loadManifest, loadManifestComplete, loadManifestFailure } from './manifest.actions';
+// import { loadManifest, loadManifestComplete, loadManifestFailure } from './manifest.actions';
 
 @Injectable()
-export class ManifestEffects {
-  constructor(private actions$: Actions, private manifestService: ManifestService, private store: Store) {}
+export class ClansEffects {
+  constructor(private actions$: Actions, private store: Store) {}
 
-  loadManifest$ = createEffect(() => {
-    return this.actions$.pipe(
-      ofType(loadManifest),
-      switchMap(() => {
-        return this.manifestService.loadManifest().pipe(
-          map(() => {
-            return loadManifestComplete();
-          }),
-          catchError(async (error) => loadManifestFailure(error))
-        );
-      })
-    );
-  });
+  // loadManifest$ = createEffect(() => {
+  //   return this.actions$.pipe(
+  //     ofType(loadManifest),
+  //     switchMap(() => {
+  //       return this.manifestService.loadManifest().pipe(
+  //         map(() => {
+  //           return loadManifestComplete();
+  //         }),
+  //         catchError(async (error) => loadManifestFailure(error))
+  //       );
+  //     })
+  //   );
+  // });
 }

@@ -1,32 +1,37 @@
 import { createReducer, on } from '@ngrx/store';
-import { initialManifestState, ManifestState } from '../clans.state';
-import { loadManifest, loadManifestComplete, loadManifestFailure } from './manifest.actions';
+import { initialClanState, ClansState } from './clans.state';
+import { addClan, removeClan, setClans } from './clans.actions';
 
-export const ManifestReducer = createReducer(
-  initialManifestState,
-  on(
-    loadManifest,
-    (state): ManifestState => ({
+export const ClansReducer = createReducer(
+  initialClanState,
+  on(addClan, (state, { clanId }): ClansState => {
+    const clans = state.clans;
+    if (clans.indexOf(clanId) === -1) {
+      state.clans.push(clanId);
+    }
+    return {
       ...state,
-      loaded: false,
-      loading: true
-    })
-  ),
-  on(
-    loadManifestComplete,
-    (state): ManifestState => ({
+      clans
+    };
+  }),
+  on(removeClan, (state, { clanId }): ClansState => {
+    const clans = state.clans;
+
+    const indexOfClan = clans.indexOf(clanId);
+    if (indexOfClan > -1) {
+      clans.slice(indexOfClan, 1);
+    }
+
+    return {
       ...state,
-      loaded: true,
-      loading: false
-    })
-  ),
+      clans
+    };
+  }),
   on(
-    loadManifestFailure,
-    (state, { error }): ManifestState => ({
+    setClans,
+    (state, { clanIds }): ClansState => ({
       ...state,
-      loaded: false,
-      loading: false,
-      error
+      clans: clanIds
     })
   )
 );

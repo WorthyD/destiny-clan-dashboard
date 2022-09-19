@@ -1,8 +1,8 @@
 import { createAction, props } from '@ngrx/store';
 
-const base = '[Manifest] - ';
+const base = 'Clans] - ';
 const name = (sr) => `${base}${sr}`;
 
-export const loadManifest = createAction(name('load'));
-export const loadManifestComplete = createAction(name('complete'));
-export const loadManifestFailure = createAction(name('failure'), props<{ error: any }>());
+export const setClans = createAction(name('Set Clans'), props<{ clanIds: [] }>());
+export const addClan = createAction(name('Add Clan'), props<{ clanId: string }>());
+export const removeClan = createAction(name('Remove Clan'), props<{ clanId: string }>());
