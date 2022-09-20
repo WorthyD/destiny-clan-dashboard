@@ -5,17 +5,18 @@ import { environment } from '../../environments/environment';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ApiKeyInterceptor } from './interceptors/apikey.interceptor';
 import { StoreModule } from '@ngrx/store';
-import { coreReducers, coreEffects } from './core.state';
+import { coreReducers, coreEffects, metaReducers } from './core.state';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { Configuration } from 'bungie-api-angular';
+
 
 @NgModule({
   declarations: [],
   imports: [
     CommonModule,
     HttpClientModule,
-    StoreModule.forRoot(coreReducers),
+    StoreModule.forRoot(coreReducers, { metaReducers }),
     EffectsModule.forRoot(coreEffects),
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production })
   ],

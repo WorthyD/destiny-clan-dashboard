@@ -44,7 +44,6 @@ export class ManifestLoaderService {
   private getManifest(language: string) {
     return this.d2service.destiny2GetDestinyManifest().pipe(
       map((response) => {
-        console.log(response);
         return response.Response.jsonWorldContentPaths[language];
       })
     );
@@ -92,7 +91,5 @@ export class ManifestLoaderService {
       take(1),
       switchMap((path) => this.requestDefinitionsArchive(path, tableNames))
     );
-    // .toPromise()
-    // .then((path) => this.requestDefinitionsArchive(path, tableNames));
   }
 }
