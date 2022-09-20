@@ -5,9 +5,10 @@ import { addClan, removeClan, setClans } from './clans.actions';
 export const ClansReducer = createReducer(
   initialClanState,
   on(addClan, (state, { clanId }): ClansState => {
-    const clans = state.clans;
+    const clans = state.clans.map(c => c);
+    console.log(clans);
     if (clans.indexOf(clanId) === -1) {
-      state.clans.push(clanId);
+      clans.push(clanId);
     }
     return {
       ...state,
