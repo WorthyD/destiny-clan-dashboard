@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { addClan, selectClansStateClans } from '@core/store/clans';
+import { addClan, getAllClans } from '@core/store/clans';
 import { Store } from '@ngrx/store';
 
 @Component({
@@ -10,7 +10,7 @@ import { Store } from '@ngrx/store';
 export class ClanSearchComponent {
   constructor(private store: Store) {}
 
-  clans$ = this.store.select(selectClansStateClans);
+  clans$ = this.store.select(getAllClans);
   addClan(clanId: string) {
     this.store.dispatch(addClan({ clanId }));
   }

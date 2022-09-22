@@ -1,38 +1,24 @@
 import { createReducer, on } from '@ngrx/store';
-import { initialClanState, ClansState } from './clans.state';
+import { initialClanState, ClansState, ClanConfigAdapter, DefaultClanConfig } from './clans.state';
 import { addClan, removeClan, setClans } from './clans.actions';
 
 export const ClansReducer = createReducer(
   initialClanState,
-  on(addClan, (state, { clanId }): ClansState => {
-    const clans = state.clans.map(c => c);
+  on(addClan, (state, { clanId }) => {
+    const clans = state.ids.map((c) => c);
+
     console.log(clans);
     if (clans.indexOf(clanId) === -1) {
-      clans.push(clanId);
+      //const newClangConfig = {}
+      return ClanConfigAdapter.upsertOne({ clanId, ...DefaultClanConfig }, { ...state });
     }
+
     return {
-      ...state,
-      clans
+      ...state
     };
   }),
   on(removeClan, (state, { clanId }): ClansState => {
-    const clans = state.clans;
-
-    const indexOfClan = clans.indexOf(clanId);
-    if (indexOfClan > -1) {
-      clans.slice(indexOfClan, 1);
-    }
-
-    return {
-      ...state,
-      clans
-    };
+    return ClanConfigAdapter.removeOne(clanId, { ...state });
   }),
-  on(
-    setClans,
-    (state, { clanIds }): ClansState => ({
-      ...state,
-      clans: clanIds
-    })
-  )
+  on(setClans, (state, { clanIds }): ClansState => ClanConfigAdapter.setAll(clanIds, { ...state }))
 );
