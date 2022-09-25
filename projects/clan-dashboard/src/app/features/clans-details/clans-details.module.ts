@@ -6,6 +6,7 @@ import { ClansDetailsService } from './clans-details.service';
 @NgModule({
   declarations: [ClansDetailsComponent],
   providers: [ClansDetailsService],
+  exports: [ClansDetailsComponent],
   imports: [CommonModule]
 })
 export class ClansDetailsModule {}

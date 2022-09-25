@@ -39,15 +39,15 @@ export class AppIndexedDb extends BaseAppIndexedDb {
     super(name, DB_VERSION, STORE_IDS, initializeValues);
   }
 
-  getAllData(store: StoreId) {
+  override getAllData(store: StoreId) {
     return super.getAllData(store);
   }
 
-  getById(store: StoreId, id) {
+  override getById(store: StoreId, id) {
     return super.getById(store, id);
   }
 
-  updateValues(values: DBObject[], collectionId: string) {
+  override updateValues(values: DBObject[], collectionId: string) {
     return super.updateValues(values, collectionId);
   }
 }

@@ -6,8 +6,7 @@ import { ClansDetailsService } from './clans-details.service';
   templateUrl: './clans-details.component.html',
   styleUrls: ['./clans-details.component.scss']
 })
-export class ClansDetailsComponent implements OnInit {
+export class ClansDetailsComponent {
   constructor(private clansDetailsService: ClansDetailsService) {}
-
-  ngOnInit(): void {}
+  clansInfo$ = this.clansDetailsService.clanInfo$;
 }

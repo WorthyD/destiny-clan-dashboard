@@ -8,10 +8,10 @@
   "compilerOptions": {
     "paths": {
       "@core/*": ["projects/clan-dashboard/src/app/core/*"],
-      "@features/*": ["src/app/features/*"],
-      "@shared/*": ["src/app/shared/*"],
-      "@environment/*": ["src/environments/*"],
-      "@utilities/*": ["src/app/utilities/*"],
+      "@features/*": ["projects/clan-dashboard/src/app/features/*"],
+      "@shared/*": ["projects/clan-dashboard/src/app/shared/*"],
+      "@environment/*": ["projects/clan-dashboard/src/app/environments/*"],
+      "@utilities/*": ["projects/clan-dashboard/src/app/utilities/*"],
       "@destiny/data": [
         "projects/data/src/public-api"
       ],

@@ -36,8 +36,8 @@ export class BaseClanService {
     return false;
   }
 
-  updateDB(clanId: number, rowId: string, data: any) {
-    this.clanDbBase.update(clanId.toString(), this.tableName, [
+  updateDB(clanId: string, rowId: string, data: any) {
+    this.clanDbBase.update(clanId, this.tableName, [
       {
         id: rowId,
         createDate: new Date(),

@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
 import { Destiny2Service, GroupV2Service } from 'bungie-api-angular';
-import { StoreId } from '../../db/app-indexed-db';
 
 import { map, take, catchError, mergeMap, switchMap } from 'rxjs/operators';
 import { ClanDatabase } from '../clan-database';
 import { of, from } from 'rxjs';
 import { BaseClanService } from '../base-clan.service';
+import { StoreId } from '../../db/clan-indexed-db';
 
 @Injectable()
 export class ClanDetailsService extends BaseClanService {
@@ -15,11 +15,11 @@ export class ClanDetailsService extends BaseClanService {
   constructor(private groupService: GroupV2Service, private clanDb: ClanDatabase) {
     super(clanDb, StoreId.ClanDetails);
   }
-  private getClanDetailsFromAPI(clanId: number) {
-    return this.groupService.groupV2GetGroup(clanId);
+  private getClanDetailsFromAPI(clanId: string) {
+    return this.groupService.groupV2GetGroup(clanId as unknown as number);
   }
 
-  private getClanDetails(clanId: number) {
+  private getClanDetails(clanId: string) {
     return from(this.getDataFromCache(clanId.toString(), this.rowId)).pipe(
       switchMap((cachedData) => {
         if (this.isCacheValid(cachedData, 10)) {
@@ -33,6 +33,7 @@ export class ClanDetailsService extends BaseClanService {
 
               return clanDetail.Response.detail;
             }
+            throw Error('Clan Not found');
           }),
           catchError((error) => {
             if (cachedData && cachedData.data) {
@@ -44,7 +45,7 @@ export class ClanDetailsService extends BaseClanService {
       })
     );
   }
-  getClanDetailsSerialized(clanId: number) {
+  getClanDetailsSerialized(clanId: string) {
     return this.getClanDetails(clanId).pipe(
       map((clanDetails) => {
         // Todo: serialize
