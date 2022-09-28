@@ -6,6 +6,8 @@ import { ClanDatabase } from '../clan-database';
 import { of, from } from 'rxjs';
 import { BaseClanService } from '../base-clan.service';
 import { StoreId } from '../../db/clan-indexed-db';
+import { clanDetailSerializer } from './clan-detail-serializer';
+import { CLAN_LEVEL_HASH } from '../../hashes/clan-details';
 
 @Injectable()
 export class ClanDetailsService extends BaseClanService {
@@ -29,9 +31,10 @@ export class ClanDetailsService extends BaseClanService {
         return this.getClanDetailsFromAPI(clanId).pipe(
           map((clanDetail) => {
             if (clanDetail.Response) {
-              this.updateDB(clanId, this.rowId, clanDetail.Response.detail);
+              const clanDetails = clanDetailSerializer(clanDetail.Response.detail, [CLAN_LEVEL_HASH]);
+              this.updateDB(clanId, this.rowId, clanDetails);
 
-              return clanDetail.Response.detail;
+              return clanDetails;
             }
             throw Error('Clan Not found');
           }),
@@ -45,12 +48,8 @@ export class ClanDetailsService extends BaseClanService {
       })
     );
   }
+
   getClanDetailsSerialized(clanId: string) {
-    return this.getClanDetails(clanId).pipe(
-      map((clanDetails) => {
-        // Todo: serialize
-        return clanDetails;
-      })
-    );
+    return this.getClanDetails(clanId);
   }
 }

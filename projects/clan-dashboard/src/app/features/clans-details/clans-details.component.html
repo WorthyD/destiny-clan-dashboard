@@ -1,9 +1,10 @@
 <p>clans-details works!</p>
 <ng-container *ngIf="clansInfo$ | async as clansInfo">
   <ng-container *ngFor="let clanInfo of clansInfo">
-    <h1>clanInfo.name</h1>
-    <h2>clanInfo.memberCount</h2>
-    <h2>clanInfo.memberCount</h2>
+    <h1>{{clanInfo.name}} - {{clanInfo.clanInfo.clanCallsign}}</h1>
+    <h2>Member Count - {{clanInfo.memberCount}}</h2>
+    <h2>{{clanInfo.clanInfo.d2ClanProgressions['584850370'].level}} /
+      {{clanInfo.clanInfo.d2ClanProgressions['584850370'].levelCap}}</h2>
     <div>
 
     </div>

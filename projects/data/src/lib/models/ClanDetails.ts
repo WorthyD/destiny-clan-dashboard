@@ -4,6 +4,7 @@ export interface ClanDetails {
   name: string;
   creationDate: string;
   about: string;
+  memberCount: number;
 
   clanInfo: {
     clanCallsign: string;

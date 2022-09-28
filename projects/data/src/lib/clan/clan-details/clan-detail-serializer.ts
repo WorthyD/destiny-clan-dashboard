@@ -5,6 +5,7 @@ export function clanDetailSerializer(group: GroupsV2GroupV2, progressionHashes: 
   return {
     groupId: group?.groupId?.toString() || '',
     name: group.name,
+    memberCount: group.memberCount,
     creationDate: group.creationDate as string,
     about: group.about,
     clanInfo: {
