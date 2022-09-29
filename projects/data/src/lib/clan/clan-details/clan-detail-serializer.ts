@@ -9,7 +9,7 @@ export function clanDetailSerializer(group: GroupsV2GroupV2, progressionHashes: 
     creationDate: group.creationDate as string,
     about: group.about,
     clanInfo: {
-      clanCallsign: group.clanInfo.clanCallsign,
+      clanCallsign: group.clanInfo?.clanCallsign,
       d2ClanProgressions: serializeProgression(group.clanInfo, progressionHashes)
     }
   };
@@ -19,7 +19,7 @@ function serializeProgression(clanInfo: GroupsV2GroupV2ClanInfoAndInvestment, pr
   const progression = {};
 
   progressionHashes.forEach((hash) => {
-    progression[hash] = clanInfo.d2ClanProgressions[hash];
+    progression[hash] = clanInfo?.d2ClanProgressions[hash];
   });
 
   return progression;
