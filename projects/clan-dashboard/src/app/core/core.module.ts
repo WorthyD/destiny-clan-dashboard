@@ -10,6 +10,7 @@ import { EffectsModule } from '@ngrx/effects';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { Configuration } from 'bungie-api-angular';
 import { ClanDbModule } from '@destiny/data/clan';
+import { LayoutModule } from './layout/layout.module';
 
 @NgModule({
   declarations: [],
@@ -17,6 +18,7 @@ import { ClanDbModule } from '@destiny/data/clan';
     CommonModule,
     HttpClientModule,
     ClanDbModule,
+    LayoutModule,
     StoreModule.forRoot(coreReducers, { metaReducers }),
     EffectsModule.forRoot(coreEffects),
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production })
