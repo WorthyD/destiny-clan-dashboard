@@ -9,6 +9,22 @@ describe('Base Clan Service', () => {
     return new Date(new Date().setMinutes(new Date().getMinutes() + minutes));
   }
 
+  describe('getAllDataFromCache', () => {
+    let service: BaseClanService;
+    beforeEach(() => {
+      service = new BaseClanService(mockClanDB, StoreId.MemberRecentActivities);
+      service.updateDB('test', 'test', {});
+    });
+
+    it('should return all data', (done) => {
+      const d = service.getAllDataFromCache('test');
+      d.then((result) => {
+        expect(result).toBeDefined();
+        done();
+      });
+    });
+  });
+
   describe('isCacheValid', () => {
     let service;
     beforeEach(() => {

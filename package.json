@@ -8,6 +8,7 @@
     "watch": "ng build --watch --configuration development",
     "test": "ng test --watch false --browsers=ChromeHeadless",
     "test:data": "ng test --project=data --browsers=ChromeHeadless ",
+    "test:data:coverage": "ng test --project=data --browsers=ChromeHeadless --code-coverage=true --watch=false",
     "config": "ts-node set-env.ts",
     "build-all": "ng build",
     "lint": "ng lint"
