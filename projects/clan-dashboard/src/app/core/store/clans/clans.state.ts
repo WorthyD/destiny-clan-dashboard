@@ -4,6 +4,8 @@ import { createEntityAdapter, EntityAdapter, EntityState } from '@ngrx/entity';
 export interface ClanConfig {
   clanId: string;
   enabled: boolean;
+  memberUpdate: string;
+  profileUpdate: string;
 }
 
 export interface ClansState extends EntityState<ClanConfig> {}
