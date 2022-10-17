@@ -8,19 +8,28 @@ import { HttpClientTestingModule } from '@angular/common/http/testing';
 // TOOD: FIgure out better solution for this
 import { ClanMembersServiceMock } from '../../../../../data/src/lib/clan/clan-members/clan-members.service.mock';
 import { take } from 'rxjs';
+import { ProfileWorkerServiceMock } from '../../workers/profile-worker.service.mock';
+import { ProfileWorkerService } from '../../workers/profile-worker.service';
 
 fdescribe('ClanUpdaterService', () => {
   let service: ClanUpdaterService;
   let memberService: ClanMembersService;
+  let profileWorker: ProfileWorkerService;
   let store: MockStore;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [HttpClientTestingModule],
-      providers: [provideMockStore(), { provide: ClanMembersService, useClass: ClanMembersServiceMock }]
+      providers: [
+        provideMockStore(),
+        { provide: ClanMembersService, useClass: ClanMembersServiceMock },
+        { provide: ProfileWorkerService, useClass: ProfileWorkerServiceMock }
+      ]
     });
     service = TestBed.inject(ClanUpdaterService);
     memberService = TestBed.inject(ClanMembersService);
+    profileWorker =  TestBed.inject(ProfileWorkerService);
+
 
     store = TestBed.inject(MockStore);
     store.overrideSelector(selectEnabledClans, [
@@ -44,7 +53,7 @@ fdescribe('ClanUpdaterService', () => {
   });
 
   describe('update', () => {
-    it('should update enabled things', (done) => {
+    it('should update clan members', (done) => {
       const dataSourceSpy = spyOn(memberService, 'getClanMembersSerialized').and.callThrough();
       // service.update();
       const x = 'test';
@@ -59,5 +68,18 @@ fdescribe('ClanUpdaterService', () => {
           done();
         });
     });
+    // it('should update clan profiles', (done) => {
+    //   const dataSourceSpy = spyOn(profileWorker, 'loadProfiles').and.callThrough();
+    //   // service.update();
+    //   const x = 'test';
+    //   service
+    //     .update()
+    //     .pipe(take(1))
+    //     .subscribe((result) => {
+    //       //expect(service.update()).toBe('true');
+    //       expect(dataSourceSpy).toHaveBeenCalledTimes(2);
+    //       done();
+    //     });
+    // });
   });
 });
