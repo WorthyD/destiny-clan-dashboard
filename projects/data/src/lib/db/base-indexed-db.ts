@@ -37,7 +37,7 @@ export class BaseAppIndexedDb {
   }
 
   removeData() {
-    this.db
+   return this.db
       .then((db) => {
         this.resetInitialValues();
         db.close();

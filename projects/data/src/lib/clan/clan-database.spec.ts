@@ -25,11 +25,10 @@ fdescribe('Clan Database', () => {
   });
 
   afterEach((done) => {
-    // database.purgeDatabase().then(() => {
-    //   console.log('deleted');
-    //   done();
-    // });
-    done();
+    database.removeData().then(() => {
+      console.log('deleted');
+      done();
+    });
   });
 
   describe('getAll', () => {

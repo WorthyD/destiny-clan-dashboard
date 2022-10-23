@@ -32,8 +32,9 @@ export class ClansEffects {
       ofType(clanActions.updateClanProfileSync),
       concatLatestFrom(() => this.store.select(selectClansState)),
       map(([action, clans]) => {
-        //return this.store.dispatch(clanActions.updateClan({ clan: null }));
-        return clanActions.updateClan({ clan: null });
+        const clanToUpdate = clans.entities[action.clanId];
+        clanToUpdate.profileUpdate = new Date().toString();
+        return clanActions.updateClan({ clan: clanToUpdate });
       })
     );
   });

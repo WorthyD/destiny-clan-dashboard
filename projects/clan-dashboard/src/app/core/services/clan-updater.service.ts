@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { mergeMap, map, catchError, toArray, switchMap, tap, take, filter } from 'rxjs/operators';
-import { ClanConfig, selectEnabledClans } from '../store/clans';
+import { ClanConfig, selectEnabledClans, updateClanProfileSync } from '../store/clans';
 import { ClanMembersService } from '@destiny/data/clan/clan-members';
 import { from, Observable, of } from 'rxjs';
 import { GroupsV2GroupMember } from 'bungie-api-angular';
@@ -89,6 +89,7 @@ export class ClanUpdaterService {
           // );
           // return memberProfileActions.loadMemberProfileSuccess();
           console.log(`done ${clan.clanConfig.clanId}`, x);
+          this.store.dispatch(updateClanProfileSync({ clanId: clan.clanConfig.clanId }));
           return clan;
         })
       );
