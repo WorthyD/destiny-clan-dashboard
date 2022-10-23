@@ -7,7 +7,7 @@ import { Store } from '@ngrx/store';
 import { from, of, combineLatest, merge } from 'rxjs';
 import { catchError, map, switchMap } from 'rxjs/operators';
 // import { loadManifest, loadManifestComplete, loadManifestFailure } from './manifest.actions';
-import { addClan, removeClan, setClans } from './clans.actions';
+import * as clanActions from './clans.actions';
 import { selectClansState } from './clans.selectors';
 import { tap, withLatestFrom, distinctUntilChanged, filter } from 'rxjs/operators';
 
@@ -15,16 +15,29 @@ const CLANS_KEY = 'clans';
 @Injectable()
 export class ClansEffects {
   constructor(private actions$: Actions, private store: Store, private localStorageService: LocalStorageService) {}
+
   persistSettings$ = createEffect(
     () => {
       return this.actions$.pipe(
-        ofType(addClan, removeClan, setClans),
+        ofType(clanActions.addClan, clanActions.removeClan, clanActions.setClans, clanActions.updateClan),
         concatLatestFrom(() => this.store.select(selectClansState)),
         tap(([action, clans]) => this.localStorageService.setItem(CLANS_KEY, clans))
       );
     },
     { dispatch: false }
   );
+
+  updateLastProfileSync$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(clanActions.updateClanProfileSync),
+      concatLatestFrom(() => this.store.select(selectClansState)),
+      map(([action, clans]) => {
+        //return this.store.dispatch(clanActions.updateClan({ clan: null }));
+        return clanActions.updateClan({ clan: null });
+      })
+    );
+  });
+
   // loadManifest$ = createEffect(() => {
   //   return this.actions$.pipe(
   //     ofType(loadManifest),

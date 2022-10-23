@@ -55,6 +55,7 @@ fdescribe('ClanUpdaterService', () => {
   describe('update', () => {
     it('should update clan members', (done) => {
       const dataSourceSpy = spyOn(memberService, 'getClanMembersSerialized').and.callThrough();
+      const storeSpy = spyOn(store, 'dispatch').and.callThrough();
       // service.update();
       const x = 'test';
       service
