@@ -14,6 +14,7 @@ export class ProfileWorkerService {
 
   // loadProfiles(clanId: string, clanMembers: ClanMember[], progress?: (done) => any): void {
   loadProfiles(clanId: string, clanMembers: any[], progress?: (done) => any): void {
+    console.log('url', import.meta.url);
     const worker = new Worker(new URL('./profile.worker', import.meta.url));
     worker.onmessage = ({ data }) => {
       if (data.type === 'progress') {

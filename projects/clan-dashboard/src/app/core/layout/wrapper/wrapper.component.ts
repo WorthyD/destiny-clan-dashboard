@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { take } from 'rxjs';
+import { ClanUpdaterService } from '../../services/clan-updater.service';
 
 @Component({
   selector: 'app-wrapper',
@@ -6,10 +8,9 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./wrapper.component.scss']
 })
 export class WrapperComponent implements OnInit {
-
-  constructor() { }
+  constructor(private clanUpdaterService: ClanUpdaterService) {}
 
   ngOnInit(): void {
+    this.clanUpdaterService.update().pipe(take(1)).subscribe();
   }
-
 }

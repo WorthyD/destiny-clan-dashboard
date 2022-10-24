@@ -11,6 +11,7 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { Configuration } from 'bungie-api-angular';
 import { ClanDbModule } from '@destiny/data/clan';
 import { LayoutModule } from './layout/layout.module';
+import { ClanMembersService } from '@destiny/data/clan/clan-members';
 
 @NgModule({
   declarations: [],
@@ -24,6 +25,7 @@ import { LayoutModule } from './layout/layout.module';
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production })
   ],
   providers: [
+    ClanMembersService,
     { provide: AppConfig, useValue: environment },
     // {
     //   provide: Configuration,
