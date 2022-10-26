@@ -6,6 +6,8 @@ import { ClanMembersService } from '@destiny/data/clan/clan-members';
 import { from, Observable, of } from 'rxjs';
 import { GroupsV2GroupMember } from 'bungie-api-angular';
 import { ProfileWorkerService } from '../../workers/profile-worker.service';
+import { nowPlusMinutes } from 'projects/data/src/lib/utility/date-utils';
+import { AppConfig } from '@core/config/app-config';
 
 interface ClanConfigMembers {
   clanConfig: ClanConfig;
@@ -21,7 +23,8 @@ export class ClanUpdaterService {
   constructor(
     private store: Store,
     private memberService: ClanMembersService,
-    private profileWorkerService: ProfileWorkerService
+    private profileWorkerService: ProfileWorkerService,
+    private appConfig: AppConfig
   ) {}
 
   update() {
@@ -49,11 +52,14 @@ export class ClanUpdaterService {
     );
   }
 
-  profilesUpdate(clans: ClanConfigMembers[]) {
+  profilesUpdate(clans: ClanConfigMembers[]): Observable<ClanConfigMembers[]> {
     return from(clans).pipe(
       mergeMap((x) => {
-        console.log('merge map', x.clanConfig.clanId);
-        return this.profileUpdate(x).pipe(map((cm) => cm));
+        return this.profileUpdate(x).pipe(map((cm) => x));
+        //}
+
+        //
+        //return of(x);
       }, 1),
       toArray(),
       tap((x) => console.log('toarray 2', x))
@@ -61,8 +67,12 @@ export class ClanUpdaterService {
   }
 
   profileUpdate(clan: ClanConfigMembers): Observable<ClanConfigMembers> {
-    console.log('testing', clan.clanConfig.clanId);
-    if (true === true) {
+    const lastUpdate = new Date(clan.clanConfig.profileUpdate || '1/1/1900');
+    const staleDate = nowPlusMinutes(-this.appConfig.constants.PROFILE_UPDATING_EXP_MINUTES);
+
+    if (staleDate > lastUpdate) {
+      console.log(`Updating ${clan.clanConfig.clanId}`);
+      //if (true === true) {
       // this.store.dispatch(
       //   addNotification({ notification: { id: 'memberProfile', title: 'Updating Profiles', data: { progress: 0 } } })
       // );
@@ -94,7 +104,7 @@ export class ClanUpdaterService {
         })
       );
     }
-    console.log('else');
+    console.log(`Valid Cache ${clan.clanConfig.clanId}`);
     return of(clan);
   }
 }

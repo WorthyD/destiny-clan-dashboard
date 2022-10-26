@@ -4,7 +4,6 @@ import { ClansState, ClanConfigAdapter } from './clans.state';
 
 export const selectClansState = createFeatureSelector<ClansState>('clans');
 
-
 export const {
   selectIds: selectClanIds,
   selectEntities: selectAllClanEntities,
@@ -13,3 +12,9 @@ export const {
 } = ClanConfigAdapter.getSelectors(selectClansState);
 
 export const selectEnabledClans = createSelector(selectAllClans, (state) => state.filter((c) => c.enabled === true));
+export const selectEnabledClanIds = createSelector(selectAllClans, (state) =>
+  state.filter((c) => c.enabled === true).map((x) => x.clanId)
+);
+
+export const selectLastProfileUpdate = (clanId: string) =>
+  createSelector(selectAllClanEntities, (state) => (clanId && state[clanId]?.profileUpdate) || '');

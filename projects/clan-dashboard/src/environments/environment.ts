@@ -4,10 +4,12 @@
 const packageJson = require('../../../../package.json');
 // import { version } from '../../../../package.json';
 import { secretKeys } from './secrets';
+import { baseConstants } from './constants';
 export const environment = {
+  constants: {...baseConstants},
   production: false,
   apiKey: secretKeys.apiKey,
-  appVersion: packageJson.version,
+  appVersion: packageJson.version
 };
 
 /*
