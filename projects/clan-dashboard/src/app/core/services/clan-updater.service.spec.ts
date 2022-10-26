@@ -10,8 +10,10 @@ import { ClanMembersServiceMock } from '../../../../../data/src/lib/clan/clan-me
 import { take } from 'rxjs';
 import { ProfileWorkerServiceMock } from '../../workers/profile-worker.service.mock';
 import { ProfileWorkerService } from '../../workers/profile-worker.service';
+import { AppConfig } from '@core/config/app-config';
+import { MockConfig } from '@core/config/app-config.mock';
 
-fdescribe('ClanUpdaterService', () => {
+describe('ClanUpdaterService', () => {
   let service: ClanUpdaterService;
   let memberService: ClanMembersService;
   let profileWorker: ProfileWorkerService;
@@ -23,13 +25,16 @@ fdescribe('ClanUpdaterService', () => {
       providers: [
         provideMockStore(),
         { provide: ClanMembersService, useClass: ClanMembersServiceMock },
-        { provide: ProfileWorkerService, useClass: ProfileWorkerServiceMock }
+        { provide: ProfileWorkerService, useClass: ProfileWorkerServiceMock },
+        {
+          provide: AppConfig,
+          useValue: MockConfig
+        }
       ]
     });
     service = TestBed.inject(ClanUpdaterService);
     memberService = TestBed.inject(ClanMembersService);
-    profileWorker =  TestBed.inject(ProfileWorkerService);
-
+    profileWorker = TestBed.inject(ProfileWorkerService);
 
     store = TestBed.inject(MockStore);
     store.overrideSelector(selectEnabledClans, [

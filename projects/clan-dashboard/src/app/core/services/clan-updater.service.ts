@@ -71,7 +71,7 @@ export class ClanUpdaterService {
     const staleDate = nowPlusMinutes(-this.appConfig.constants.PROFILE_UPDATING_EXP_MINUTES);
 
     if (staleDate > lastUpdate) {
-      console.log(`Updating ${clan.clanConfig.clanId}`);
+      //      console.log(`Updating ${clan.clanConfig.clanId}`);
       //if (true === true) {
       // this.store.dispatch(
       //   addNotification({ notification: { id: 'memberProfile', title: 'Updating Profiles', data: { progress: 0 } } })
@@ -86,7 +86,7 @@ export class ClanUpdaterService {
         //     }
         //   })
         // );
-        console.log('progress', progressCount);
+        //       console.log('progress', progressCount);
       };
       this.profileWorkerService.loadProfiles(clan.clanConfig.clanId, clan.members, progress);
       return this.profileWorkerService.members.pipe(
@@ -98,13 +98,13 @@ export class ClanUpdaterService {
           //   removeNotification({ notification: { id: 'memberProfile', title: 'Updating Profiles', data: 'done' } })
           // );
           // return memberProfileActions.loadMemberProfileSuccess();
-          console.log(`done ${clan.clanConfig.clanId}`, x);
+          //         console.log(`done ${clan.clanConfig.clanId}`, x);
           this.store.dispatch(updateClanProfileSync({ clanId: clan.clanConfig.clanId }));
           return clan;
         })
       );
     }
-    console.log(`Valid Cache ${clan.clanConfig.clanId}`);
+    //console.log(`Valid Cache ${clan.clanConfig.clanId}`);
     return of(clan);
   }
 }
