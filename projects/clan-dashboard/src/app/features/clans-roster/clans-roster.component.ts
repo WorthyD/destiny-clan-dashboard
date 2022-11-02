@@ -9,6 +9,9 @@ import { ClansRosterService } from './clans-roster.service';
 export class ClansRosterComponent implements OnInit {
   constructor(private clansRosterService: ClansRosterService) {}
   stuff$ = this.clansRosterService.activeClanUpdateDates$;
+  stuff2$ = this.clansRosterService.activeClanPeople$;
+  members$ = this.clansRosterService.clanMembers$;
+  profiles$ = this.clansRosterService.clanProfiles$;
 
   ngOnInit(): void {}
 }

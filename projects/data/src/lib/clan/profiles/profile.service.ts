@@ -9,6 +9,7 @@ import { nowPlusDays, unixTimeStampToDate } from '../../utility/date-utils';
 import { StoreId } from '../../db/clan-indexed-db';
 import { ClanDatabase } from '../clan-database';
 import { ClanMember } from '../../models/ClanMember';
+//import { MemberProfile } from '../../models/MemberProfile';
 // import { ClanMember } from 'projects/bungie-models/src/lib/models/ClanMember';
 // import { latestSeason } from 'projects/bungie-models/src/lib/entities/seasons/season-latest';
 interface MemberProfile {}
@@ -16,10 +17,16 @@ interface MemberProfile {}
 export class ProfileService {
   private tableName: StoreId = StoreId.MemberProfiles;
   private concurrentRequests = 20;
-  private profileComponents = [100, 104, 200, 202];
+  // 100 Profiles
+  // 104 Profile Progression
+  // 200 Characters
+  // 202 Character progression
+  // 800 Collections
+  // 900 Milestones
+  private profileComponents = [100, 104, 200, 202, 800, 900];
 
   // TODO: Pull this from somewhere else.
-  private TRACKED_HASHES = [3902035969, 2770852111]
+  private TRACKED_HASHES = [3902035969, 2770852111];
 
   constructor(private clanDb: ClanDatabase, private apiKey: string) {}
 
@@ -89,8 +96,18 @@ export class ProfileService {
     );
   }
 
-  getSerializedProfiles(clanId: string, members: ClanMember[]): Observable<MemberProfile> {
-    return from(members).pipe(mergeMap((member) => this.getSerializedProfile(clanId, member), this.concurrentRequests));
+  getSerializedProfiles<T>(
+    clanId: string,
+    members: ClanMember[],
+    collectionHashes: any[],
+    profileRecords: any[]
+  ): Observable<T> {
+    return from(members).pipe(
+      mergeMap(
+        (member) => this.getSerializedProfile(clanId, member, collectionHashes, profileRecords),
+        100
+      )
+    ) as Observable<T>;
   }
 
   getSerializedProfilesWithProgress(
@@ -100,7 +117,7 @@ export class ProfileService {
   ): Observable<MemberProfile[]> {
     let complete = 0;
     return from(members)
-      .pipe(mergeMap((member) => this.getSerializedProfile(clanId, member), this.concurrentRequests))
+      .pipe(mergeMap((member) => this.getSerializedProfile(clanId, member, [], []), this.concurrentRequests))
       .pipe(
         bufferTime(1000, undefined, 100),
         /**
@@ -118,10 +135,15 @@ export class ProfileService {
       );
   }
 
-  getSerializedProfile(clanId: string, member: ClanMember): Observable<MemberProfile> {
+  getSerializedProfile(
+    clanId: string,
+    member: ClanMember,
+    collectionHashes: any[],
+    profileRecords: any[]
+  ): Observable<MemberProfile> {
     return this.getProfile(clanId, member).pipe(
       map((profile) => {
-        return profileSerializer(profile, this.TRACKED_HASHES) as MemberProfile;
+        return profileSerializer(profile, this.TRACKED_HASHES, collectionHashes, profileRecords) as MemberProfile;
       })
     );
   }

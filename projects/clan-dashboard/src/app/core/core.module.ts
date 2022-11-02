@@ -12,6 +12,8 @@ import { Configuration } from 'bungie-api-angular';
 import { ClanDbModule } from '@destiny/data/clan';
 import { LayoutModule } from './layout/layout.module';
 import { ClanMembersService } from '@destiny/data/clan/clan-members';
+import { ProfileService } from 'projects/data/src/lib/clan/profiles/profile.service';
+import { ClanDatabase } from 'projects/data/src/lib/clan/clan-database';
 
 @NgModule({
   declarations: [],
@@ -26,6 +28,13 @@ import { ClanMembersService } from '@destiny/data/clan/clan-members';
   ],
   providers: [
     ClanMembersService,
+    {
+      provide: ProfileService,
+      useFactory: (canDB) => {
+        return new ProfileService(canDB, environment.apiKey);
+      },
+      deps: [ClanDatabase]
+    },
     { provide: AppConfig, useValue: environment },
     // {
     //   provide: Configuration,

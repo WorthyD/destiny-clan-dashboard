@@ -29,18 +29,18 @@ export class ClanUpdaterService {
 
   update() {
     return this.activeClanIds$.pipe(
-      tap((x) => console.log('starting')),
+      // tap((x) => console.log('starting')),
       switchMap((activeClans) => this.memberUpdate(activeClans)),
-      tap((x) => console.log('Member Update Complete', x)),
+      //tap((x) => console.log('Member Update Complete', x)),
       switchMap((clans) => this.profilesUpdate(clans)),
-      tap((x) => console.log('complete', x))
+      // tap((x) => console.log('complete', x))
     );
   }
 
   memberUpdate(activeClans) {
     return from(activeClans).pipe(
       mergeMap((clanConfig: ClanConfig) => {
-        console.log('merge map', clanConfig.clanId);
+        //console.log('merge map', clanConfig.clanId);
         return this.memberService.getClanMembersSerialized(clanConfig.clanId).pipe(
           map((members) => ({
             members,
@@ -62,7 +62,7 @@ export class ClanUpdaterService {
         //return of(x);
       }, 1),
       toArray(),
-      tap((x) => console.log('toarray 2', x))
+   ///   tap((x) => console.log('toarray 2', x))
     );
   }
 

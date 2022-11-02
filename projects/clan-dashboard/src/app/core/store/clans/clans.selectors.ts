@@ -18,6 +18,5 @@ export const selectEnabledClanIds = createSelector(selectAllClans, (state) =>
 
 export const selectLastProfileUpdate = (clanId: string) =>
   createSelector(selectAllClanEntities, (state) => {
-    console.log('selector', clanId);
     return (clanId && state[clanId]?.profileUpdate) || '';
   });

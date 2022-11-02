@@ -23,13 +23,8 @@
             "polyfills": "projects/clan-dashboard/src/polyfills.ts",
             "tsConfig": "projects/clan-dashboard/tsconfig.app.json",
             "inlineStyleLanguage": "scss",
-            "assets": [
-              "projects/clan-dashboard/src/favicon.ico",
-              "projects/clan-dashboard/src/assets"
-            ],
-            "styles": [
-              "projects/clan-dashboard/src/styles.scss"
-            ],
+            "assets": [],
+            "styles": ["projects/clan-dashboard/src/styles.scss"],
             "scripts": [],
             "webWorkerTsConfig": "projects/clan-dashboard/tsconfig.worker.json"
           },
@@ -92,13 +87,8 @@
             "tsConfig": "projects/clan-dashboard/tsconfig.spec.json",
             "karmaConfig": "projects/clan-dashboard/karma.conf.js",
             "inlineStyleLanguage": "scss",
-            "assets": [
-              "projects/clan-dashboard/src/favicon.ico",
-              "projects/clan-dashboard/src/assets"
-            ],
-            "styles": [
-              "projects/clan-dashboard/src/styles.scss"
-            ],
+            "assets": ["projects/clan-dashboard/src/favicon.ico", "projects/clan-dashboard/src/assets"],
+            "styles": ["projects/clan-dashboard/src/styles.scss"],
             "scripts": [],
             "webWorkerTsConfig": "projects/clan-dashboard/tsconfig.worker.json"
           }
@@ -106,10 +96,20 @@
         "lint": {
           "builder": "@angular-eslint/builder:lint",
           "options": {
-            "lintFilePatterns": [
-              "projects/clan-dashboard/**/*.ts",
-              "projects/clan-dashboard/**/*.html"
-            ]
+            "lintFilePatterns": ["projects/clan-dashboard/**/*.ts", "projects/clan-dashboard/**/*.html"]
+          }
+        },
+        "storybook": {
+          "builder": "@storybook/angular:start-storybook",
+          "options": {
+            "browserTarget": "angular-cli:build",
+            "port": 6006
+          }
+        },
+        "build-storybook": {
+          "builder": "@storybook/angular:build-storybook",
+          "options": {
+            "browserTarget": "angular-cli:build"
           }
         }
       }
@@ -146,18 +146,69 @@
         "lint": {
           "builder": "@angular-eslint/builder:lint",
           "options": {
-            "lintFilePatterns": [
-              "projects/data/**/*.ts",
-              "projects/data/**/*.html"
-            ]
+            "lintFilePatterns": ["projects/data/**/*.ts", "projects/data/**/*.html"]
+          }
+        }
+      }
+    },
+    "components": {
+      "projectType": "library",
+      "root": "projects/components",
+      "sourceRoot": "projects/components/src",
+      "prefix": "lib",
+      "schematics": {
+        "@schematics/angular:component": {
+          "style": "scss"
+        }
+      },
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:ng-packagr",
+          "options": {
+            "project": "projects/components/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/components/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "projects/components/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/components/src/test.ts",
+            "tsConfig": "projects/components/tsconfig.spec.json",
+            "karmaConfig": "projects/components/karma.conf.js"
+          }
+        },
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "lintFilePatterns": ["projects/components/**/*.ts", "projects/components/**/*.html"]
+          }
+        },
+
+        "storybook": {
+          "builder": "@storybook/angular:start-storybook",
+          "options": {
+            "browserTarget": "angular-cli:build",
+            "port": 6006
+          }
+        },
+        "build-storybook": {
+          "builder": "@storybook/angular:build-storybook",
+          "options": {
+            "browserTarget": "angular-cli:build"
           }
         }
       }
     }
   },
   "cli": {
-    "schematicCollections": [
-      "@angular-eslint/schematics"
-    ]
+    "schematicCollections": ["@angular-eslint/schematics"]
   }
 }

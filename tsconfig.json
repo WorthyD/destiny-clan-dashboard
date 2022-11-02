@@ -13,6 +13,9 @@ Todo: Eventually turn strict on.
       "@destiny/data/*": [
         "projects/data/src/lib/*/public-api"
       ],
+      "components": [
+        "dist/components"
+      ],
     },
     "outDir": "./dist/out-tsc",
     "forceConsistentCasingInFileNames": true,
