@@ -1,15 +1,16 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import { Observable } from 'rxjs';
+import { RenderedView } from './rendered-view.interface';
 
 @Component({
   selector: 'lib-rendered-view',
   templateUrl: './rendered-view.component.html',
-  styleUrls: ['./rendered-view.component.scss']
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class RenderedViewComponent implements OnInit {
+export class RenderedViewComponent {
+  views: Observable<RenderedView[]>;
 
-  constructor() { }
+  @Input() text: string;
 
-  ngOnInit(): void {
-  }
-
+  @Input() childrenViews: RenderedView[] = [];
 }

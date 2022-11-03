@@ -217,12 +217,12 @@
         },
         {
             "name": "ClanInfo",
-            "id": "interface-ClanInfo-4bd6065fc63a0b6c22f6845c8c690e96f87b0fc2c3dea174cb8a5694a216970274534001488783bdee9743953d849695fbf1c54006ceb567cdd8863886c8d69a",
+            "id": "interface-ClanInfo-c9537a5d010936f22dfb61fc74d474235be034a72a0f57df93376bf8bdf066af11a4797bf682e4e9642aeeb5f749c409c92c62a8d9ba4f9e52c6a73f924914e3",
             "file": "projects/clan-dashboard/src/app/features/clans-details/clans-details.service.ts",
             "deprecated": false,
             "deprecationMessage": "",
             "type": "interface",
-            "sourceCode": "import { Injectable } from '@angular/core';\nimport { Store } from '@ngrx/store';\nimport { selectEnabledClans } from '@core/store/clans';\nimport { from, of } from 'rxjs';\nimport { map, mergeMap, toArray, switchMap } from 'rxjs/operators';\nimport { ClanDetailsService as DataService } from '@destiny/data/clan/clan-details';\n\ninterface ClanInfo{\n  ClanName: string;\n  ClanMemberCount: string;\n\n}\n\n\n@Injectable()\nexport class ClansDetailsService {\n  activeClanIds$ = this.store.select(selectEnabledClans);\n\n  clanInfo$ = this.activeClanIds$.pipe(\n    switchMap((clanConfigs) => {\n      return from(clanConfigs).pipe(\n        mergeMap((clanConfig) => {\n          // return of(clanConfig);\n          return this.dataService.getClanDetailsSerialized(clanConfig.clanId);\n        }),\n        toArray()\n      );\n    })\n  );\n\n  constructor(private store: Store, private dataService: DataService) {}\n}\n",
+            "sourceCode": "import { Injectable } from '@angular/core';\r\nimport { Store } from '@ngrx/store';\r\nimport { selectEnabledClans } from '@core/store/clans';\r\nimport { from, of } from 'rxjs';\r\nimport { map, mergeMap, toArray, switchMap } from 'rxjs/operators';\r\nimport { ClanDetailsService as DataService } from '@destiny/data/clan/clan-details';\r\n\r\ninterface ClanInfo{\r\n  ClanName: string;\r\n  ClanMemberCount: string;\r\n\r\n}\r\n\r\n\r\n@Injectable()\r\nexport class ClansDetailsService {\r\n  activeClanIds$ = this.store.select(selectEnabledClans);\r\n\r\n  clanInfo$ = this.activeClanIds$.pipe(\r\n    switchMap((clanConfigs) => {\r\n      return from(clanConfigs).pipe(\r\n        mergeMap((clanConfig) => {\r\n          // return of(clanConfig);\r\n          return this.dataService.getClanDetailsSerialized(clanConfig.clanId);\r\n        }),\r\n        toArray()\r\n      );\r\n    })\r\n  );\r\n\r\n  constructor(private store: Store, private dataService: DataService) {}\r\n}\r\n",
             "properties": [
                 {
                     "name": "ClanMemberCount",
@@ -787,12 +787,12 @@
         },
         {
             "name": "User",
-            "id": "interface-User-9c7e5f1bbbab702cb032307d130876cb68969b0cd4eedef32a0c8cad8081a54e5f8f577ed6ad4539c1b99a1d246cb34031d198c2ea8eba440e64e91b14f01fdc",
+            "id": "interface-User-dcc5c3137cd472dd0002d85b562efd23162e3eff53ca4438a6251e6c46e3b8299076255380d1d42f386510cb6f2cbaab49fa5b5f253be459cdc3869428c5c400",
             "file": "stories/User.ts",
             "deprecated": false,
             "deprecationMessage": "",
             "type": "interface",
-            "sourceCode": "export interface User {}\n",
+            "sourceCode": "export interface User {}\r\n",
             "properties": [],
             "indexSignatures": [],
             "methods": []
@@ -905,7 +905,7 @@
     "injectables": [
         {
             "name": "ActivityDefinitionService",
-            "id": "injectable-ActivityDefinitionService-4b4f0901d7e54271e86d2e6bf86f3e80a4a399f9825f72ca146bdcf5477f811c6d713237a044e3fcedc85b04c7f91822650d9f923a27d74046768bca7c94e78b",
+            "id": "injectable-ActivityDefinitionService-1f5510b4a23118a63d0a1e34a2639fdb113b22b34b461b39119448980cdda9e61d633669b6e0023ba4aa63a2d8dd313ae8aca02481e13c7a6700727a7bcfae2f",
             "file": "projects/clan-dashboard/src/app/core/definition-services/activity-definition.service.ts",
             "properties": [
                 {
@@ -958,13 +958,13 @@
             "deprecationMessage": "",
             "description": "",
             "rawdescription": "\n",
-            "sourceCode": "import { Injectable } from '@angular/core';\nimport { DestinyDefinitionsDestinyActivityDefinition } from 'bungie-api-angular';\nimport { BaseDefinitionService } from './base-definition.service';\n\n@Injectable({\n  providedIn: 'root'\n})\nexport class ActivityDefinitionService  extends BaseDefinitionService<DestinyDefinitionsDestinyActivityDefinition> {}{\n}\n",
+            "sourceCode": "import { Injectable } from '@angular/core';\r\nimport { DestinyDefinitionsDestinyActivityDefinition } from 'bungie-api-angular';\r\nimport { BaseDefinitionService } from './base-definition.service';\r\n\r\n@Injectable({\r\n  providedIn: 'root'\r\n})\r\nexport class ActivityDefinitionService  extends BaseDefinitionService<DestinyDefinitionsDestinyActivityDefinition> {}{\r\n}\r\n",
             "extends": "BaseDefinitionService",
             "type": "injectable"
         },
         {
             "name": "ActivityModeDefinitionService",
-            "id": "injectable-ActivityModeDefinitionService-747f48f713435384dca120cffb286130ea9cf2842bd2f8b8cf316ce00d545b787807ee6b1c72cbc3ad49c397f68c7f4bdfb031da98a3eb1cef646f878e25b24a",
+            "id": "injectable-ActivityModeDefinitionService-8c396bade508f0cd61136e4ba5a2bb555e28e246d289b3ed3708d7d2794d961b159289e7a4cec5bda02957e0638b500c7ddbd70d7ad78d1a19430fc8363e44f5",
             "file": "projects/clan-dashboard/src/app/core/definition-services/activity-mode-definition.service.ts",
             "properties": [
                 {
@@ -1017,7 +1017,7 @@
             "deprecationMessage": "",
             "description": "",
             "rawdescription": "\n",
-            "sourceCode": "import { Injectable } from '@angular/core';\nimport { DestinyDefinitionsDestinyActivityModeDefinition } from 'bungie-api-angular';\nimport { BaseDefinitionService } from './base-definition.service';\n\n@Injectable({\n  providedIn: 'root'\n})\nexport class ActivityModeDefinitionService extends BaseDefinitionService<DestinyDefinitionsDestinyActivityModeDefinition> {}\n",
+            "sourceCode": "import { Injectable } from '@angular/core';\r\nimport { DestinyDefinitionsDestinyActivityModeDefinition } from 'bungie-api-angular';\r\nimport { BaseDefinitionService } from './base-definition.service';\r\n\r\n@Injectable({\r\n  providedIn: 'root'\r\n})\r\nexport class ActivityModeDefinitionService extends BaseDefinitionService<DestinyDefinitionsDestinyActivityModeDefinition> {}\r\n",
             "extends": "BaseDefinitionService",
             "type": "injectable"
         },
@@ -1769,7 +1769,7 @@
         },
         {
             "name": "ClansDetailsService",
-            "id": "injectable-ClansDetailsService-4bd6065fc63a0b6c22f6845c8c690e96f87b0fc2c3dea174cb8a5694a216970274534001488783bdee9743953d849695fbf1c54006ceb567cdd8863886c8d69a",
+            "id": "injectable-ClansDetailsService-c9537a5d010936f22dfb61fc74d474235be034a72a0f57df93376bf8bdf066af11a4797bf682e4e9642aeeb5f749c409c92c62a8d9ba4f9e52c6a73f924914e3",
             "file": "projects/clan-dashboard/src/app/features/clans-details/clans-details.service.ts",
             "properties": [
                 {
@@ -1784,7 +1784,7 @@
                 },
                 {
                     "name": "clanInfo$",
-                    "defaultValue": "this.activeClanIds$.pipe(\n    switchMap((clanConfigs) => {\n      return from(clanConfigs).pipe(\n        mergeMap((clanConfig) => {\n          // return of(clanConfig);\n          return this.dataService.getClanDetailsSerialized(clanConfig.clanId);\n        }),\n        toArray()\n      );\n    })\n  )",
+                    "defaultValue": "this.activeClanIds$.pipe(\r\n    switchMap((clanConfigs) => {\r\n      return from(clanConfigs).pipe(\r\n        mergeMap((clanConfig) => {\r\n          // return of(clanConfig);\r\n          return this.dataService.getClanDetailsSerialized(clanConfig.clanId);\r\n        }),\r\n        toArray()\r\n      );\r\n    })\r\n  )",
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "",
@@ -1798,7 +1798,7 @@
             "deprecationMessage": "",
             "description": "",
             "rawdescription": "\n",
-            "sourceCode": "import { Injectable } from '@angular/core';\nimport { Store } from '@ngrx/store';\nimport { selectEnabledClans } from '@core/store/clans';\nimport { from, of } from 'rxjs';\nimport { map, mergeMap, toArray, switchMap } from 'rxjs/operators';\nimport { ClanDetailsService as DataService } from '@destiny/data/clan/clan-details';\n\ninterface ClanInfo{\n  ClanName: string;\n  ClanMemberCount: string;\n\n}\n\n\n@Injectable()\nexport class ClansDetailsService {\n  activeClanIds$ = this.store.select(selectEnabledClans);\n\n  clanInfo$ = this.activeClanIds$.pipe(\n    switchMap((clanConfigs) => {\n      return from(clanConfigs).pipe(\n        mergeMap((clanConfig) => {\n          // return of(clanConfig);\n          return this.dataService.getClanDetailsSerialized(clanConfig.clanId);\n        }),\n        toArray()\n      );\n    })\n  );\n\n  constructor(private store: Store, private dataService: DataService) {}\n}\n",
+            "sourceCode": "import { Injectable } from '@angular/core';\r\nimport { Store } from '@ngrx/store';\r\nimport { selectEnabledClans } from '@core/store/clans';\r\nimport { from, of } from 'rxjs';\r\nimport { map, mergeMap, toArray, switchMap } from 'rxjs/operators';\r\nimport { ClanDetailsService as DataService } from '@destiny/data/clan/clan-details';\r\n\r\ninterface ClanInfo{\r\n  ClanName: string;\r\n  ClanMemberCount: string;\r\n\r\n}\r\n\r\n\r\n@Injectable()\r\nexport class ClansDetailsService {\r\n  activeClanIds$ = this.store.select(selectEnabledClans);\r\n\r\n  clanInfo$ = this.activeClanIds$.pipe(\r\n    switchMap((clanConfigs) => {\r\n      return from(clanConfigs).pipe(\r\n        mergeMap((clanConfig) => {\r\n          // return of(clanConfig);\r\n          return this.dataService.getClanDetailsSerialized(clanConfig.clanId);\r\n        }),\r\n        toArray()\r\n      );\r\n    })\r\n  );\r\n\r\n  constructor(private store: Store, private dataService: DataService) {}\r\n}\r\n",
             "constructorObj": {
                 "name": "constructor",
                 "description": "",
@@ -2390,7 +2390,7 @@
         },
         {
             "name": "ManifestDatabaseService",
-            "id": "injectable-ManifestDatabaseService-4900196c103294835dd90dccfb33f969429c45cd912d8e0add1655782bb3ff18106efad66bfa68a11075e9f74953c4e1e22ac7cf13da867a65ab67d4969544da",
+            "id": "injectable-ManifestDatabaseService-6f8892c42255d27eabc0ee0cfc52060927c17710ed345276ac4757ad4d90e58199cff3b4fd91c7ebc90ac959cfac592532666a46c43c9bd1ff932bb4eb846a3b",
             "file": "projects/data/src/lib/manifest/manifest-database.service.ts",
             "properties": [
                 {
@@ -2658,7 +2658,7 @@
             "deprecationMessage": "",
             "description": "",
             "rawdescription": "\n",
-            "sourceCode": "import { Injectable } from '@angular/core';\nimport { AppIndexedDb, StoreId } from '../db/app-indexed-db';\n\n@Injectable({\n  providedIn: 'root'\n})\nexport class ManifestDatabaseService {\n\n  private database: AppIndexedDb;\n\n  getValues(repository: string): Promise<any[]> {\n    return this.getDatabase(repository).getAllData('allData');\n  }\n\n  closeDatabase(repository: string) {\n    return this.getDatabase(repository).close();\n  }\n\n  update(repository: string, type: StoreId, entities: any[]): Promise<void> {\n    return this.getDatabase(repository).updateValues(entities, type);\n  }\n\n  remove(repository: string, type: StoreId, ids: string[]): Promise<void> {\n    return this.getDatabase(repository).removeValues(ids, type);\n  }\n\n  removeAll(repository: string, type: StoreId) {\n    return this.getDatabase(repository).removeAllValues(type);\n  }\n\n  private getDatabase(repository: string) {\n    if (this.database && this.database.name === repository) {\n      return this.database;\n    }\n\n    if (this.database) {\n      this.database.close();\n    }\n\n    this.database = new AppIndexedDb(repository);\n    return this.database;\n  }\n}\n",
+            "sourceCode": "import { Injectable } from '@angular/core';\r\nimport { AppIndexedDb, StoreId } from '../db/app-indexed-db';\r\n\r\n@Injectable({\r\n  providedIn: 'root'\r\n})\r\nexport class ManifestDatabaseService {\r\n\r\n  private database: AppIndexedDb;\r\n\r\n  getValues(repository: string): Promise<any[]> {\r\n    return this.getDatabase(repository).getAllData('allData');\r\n  }\r\n\r\n  closeDatabase(repository: string) {\r\n    return this.getDatabase(repository).close();\r\n  }\r\n\r\n  update(repository: string, type: StoreId, entities: any[]): Promise<void> {\r\n    return this.getDatabase(repository).updateValues(entities, type);\r\n  }\r\n\r\n  remove(repository: string, type: StoreId, ids: string[]): Promise<void> {\r\n    return this.getDatabase(repository).removeValues(ids, type);\r\n  }\r\n\r\n  removeAll(repository: string, type: StoreId) {\r\n    return this.getDatabase(repository).removeAllValues(type);\r\n  }\r\n\r\n  private getDatabase(repository: string) {\r\n    if (this.database && this.database.name === repository) {\r\n      return this.database;\r\n    }\r\n\r\n    if (this.database) {\r\n      this.database.close();\r\n    }\r\n\r\n    this.database = new AppIndexedDb(repository);\r\n    return this.database;\r\n  }\r\n}\r\n",
             "type": "injectable"
         },
         {
@@ -3104,7 +3104,7 @@
         },
         {
             "name": "MilestoneDefinitionService",
-            "id": "injectable-MilestoneDefinitionService-46b98527b64306d72cb790fdd79acd5047e87e3f671de2ce4267e66dd588eef9b08ccd697f89bbd4df7d9e02cd2546f23f4ba31be7074fa9547f8f589fb86654",
+            "id": "injectable-MilestoneDefinitionService-f2e895e7c658849bccec2344fe20302066ad808eb408ac1aa06da71f08e1f0868f5fe67640dc25f2065cf4387fd00418eb3c1f991ff566c5d644aa0050872b83",
             "file": "projects/clan-dashboard/src/app/core/definition-services/milestone-definition.service.ts",
             "properties": [
                 {
@@ -3157,13 +3157,13 @@
             "deprecationMessage": "",
             "description": "",
             "rawdescription": "\n",
-            "sourceCode": "import { Injectable } from '@angular/core';\nimport { DestinyDefinitionsMilestonesDestinyMilestoneDefinition } from 'bungie-api-angular';\nimport { BaseDefinitionService } from './base-definition.service';\n\n@Injectable({\n  providedIn: 'root'\n})\nexport class MilestoneDefinitionService extends BaseDefinitionService<DestinyDefinitionsMilestonesDestinyMilestoneDefinition> {}\n",
+            "sourceCode": "import { Injectable } from '@angular/core';\r\nimport { DestinyDefinitionsMilestonesDestinyMilestoneDefinition } from 'bungie-api-angular';\r\nimport { BaseDefinitionService } from './base-definition.service';\r\n\r\n@Injectable({\r\n  providedIn: 'root'\r\n})\r\nexport class MilestoneDefinitionService extends BaseDefinitionService<DestinyDefinitionsMilestonesDestinyMilestoneDefinition> {}\r\n",
             "extends": "BaseDefinitionService",
             "type": "injectable"
         },
         {
             "name": "PresentationNodeDefinitionService",
-            "id": "injectable-PresentationNodeDefinitionService-6738f747fdb7e2e3fad9b0625213d57ea7ba534e285dfe33915ac8787df556e4dd46559f70b037222b15d8666ec8735f79a5aa166371058d461d05db1a785e9f",
+            "id": "injectable-PresentationNodeDefinitionService-309c4c6b9d8ea09fe4c9fa9633d482d63323e32723d74cca8bee213311e18c1ce1f523fdf2b57262f087e3efbab1cc89ea909ae1aec1f774d2400f9c46699420",
             "file": "projects/clan-dashboard/src/app/core/definition-services/presentation-node-definition.service.ts",
             "properties": [
                 {
@@ -3216,7 +3216,7 @@
             "deprecationMessage": "",
             "description": "",
             "rawdescription": "\n",
-            "sourceCode": "import { Injectable } from '@angular/core';\nimport { DestinyDefinitionsPresentationDestinyPresentationNodeDefinition } from 'bungie-api-angular';\nimport { BaseDefinitionService } from './base-definition.service';\n\n@Injectable({\n  providedIn: 'root'\n})\nexport class PresentationNodeDefinitionService  extends BaseDefinitionService<DestinyDefinitionsPresentationDestinyPresentationNodeDefinition> {\n\n}\n",
+            "sourceCode": "import { Injectable } from '@angular/core';\r\nimport { DestinyDefinitionsPresentationDestinyPresentationNodeDefinition } from 'bungie-api-angular';\r\nimport { BaseDefinitionService } from './base-definition.service';\r\n\r\n@Injectable({\r\n  providedIn: 'root'\r\n})\r\nexport class PresentationNodeDefinitionService  extends BaseDefinitionService<DestinyDefinitionsPresentationDestinyPresentationNodeDefinition> {\r\n\r\n}\r\n",
             "extends": "BaseDefinitionService",
             "type": "injectable"
         },
@@ -6129,7 +6129,7 @@
         },
         {
             "name": "ButtonComponent",
-            "id": "component-ButtonComponent-4ef205c97a334c309aa4001c8ab4a6d9571dcae18d0e85aaf0d367467ab5d3a9f13ab3573726f1fcb409bc9b49894dadfb80b1bbe1b6ba7041455ad9d4922004",
+            "id": "component-ButtonComponent-8ceaf520f96e5437b08eeda244d84efb29effe62ddca4fc38eaa229085c2a1126c5715e61445bae741505aca1e4d377b350cb05fadd1dc45d9b2bbf7527029f1",
             "file": "stories/button.component.ts",
             "encapsulation": [],
             "entryComponents": [],
@@ -6162,15 +6162,15 @@
                     "deprecationMessage": "",
                     "jsdoctags": [
                         {
-                            "pos": 711,
-                            "end": 724,
+                            "pos": 747,
+                            "end": 761,
                             "flags": 4227072,
                             "modifierFlagsCache": 0,
                             "transformFlags": 0,
                             "kind": 325,
                             "tagName": {
-                                "pos": 712,
-                                "end": 720,
+                                "pos": 748,
+                                "end": 756,
                                 "flags": 4227072,
                                 "modifierFlagsCache": 0,
                                 "transformFlags": 0,
@@ -6230,11 +6230,11 @@
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { Component, Input, Output, EventEmitter } from '@angular/core';\n\n@Component({\n  selector: 'storybook-button',\n  template: ` <button\n    type=\"button\"\n    (click)=\"onClick.emit($event)\"\n    [ngClass]=\"classes\"\n    [ngStyle]=\"{ 'background-color': backgroundColor }\"\n  >\n    {{ label }}\n  </button>`,\n  styleUrls: ['./button.css'],\n})\nexport default class ButtonComponent {\n  /**\n   * Is this the principal call to action on the page?\n   */\n  @Input()\n  primary = false;\n\n  /**\n   * What background color to use\n   */\n  @Input()\n  backgroundColor?: string;\n\n  /**\n   * How large should the button be?\n   */\n  @Input()\n  size: 'small' | 'medium' | 'large' = 'medium';\n\n  /**\n   * Button contents\n   *\n   * @required\n   */\n  @Input()\n  label = 'Button';\n\n  /**\n   * Optional click handler\n   */\n  @Output()\n  onClick = new EventEmitter<Event>();\n\n  public get classes(): string[] {\n    const mode = this.primary ? 'storybook-button--primary' : 'storybook-button--secondary';\n\n    return ['storybook-button', `storybook-button--${this.size}`, mode];\n  }\n}\n",
+            "sourceCode": "import { Component, Input, Output, EventEmitter } from '@angular/core';\r\n\r\n@Component({\r\n  selector: 'storybook-button',\r\n  template: ` <button\r\n    type=\"button\"\r\n    (click)=\"onClick.emit($event)\"\r\n    [ngClass]=\"classes\"\r\n    [ngStyle]=\"{ 'background-color': backgroundColor }\"\r\n  >\r\n    {{ label }}\r\n  </button>`,\r\n  styleUrls: ['./button.css'],\r\n})\r\nexport default class ButtonComponent {\r\n  /**\r\n   * Is this the principal call to action on the page?\r\n   */\r\n  @Input()\r\n  primary = false;\r\n\r\n  /**\r\n   * What background color to use\r\n   */\r\n  @Input()\r\n  backgroundColor?: string;\r\n\r\n  /**\r\n   * How large should the button be?\r\n   */\r\n  @Input()\r\n  size: 'small' | 'medium' | 'large' = 'medium';\r\n\r\n  /**\r\n   * Button contents\r\n   *\r\n   * @required\r\n   */\r\n  @Input()\r\n  label = 'Button';\r\n\r\n  /**\r\n   * Optional click handler\r\n   */\r\n  @Output()\r\n  onClick = new EventEmitter<Event>();\r\n\r\n  public get classes(): string[] {\r\n    const mode = this.primary ? 'storybook-button--primary' : 'storybook-button--secondary';\r\n\r\n    return ['storybook-button', `storybook-button--${this.size}`, mode];\r\n  }\r\n}\r\n",
             "assetsDirs": [],
             "styleUrlsData": [
                 {
-                    "data": ".storybook-button {\n  font-family: 'Nunito Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;\n  font-weight: 700;\n  border: 0;\n  border-radius: 3em;\n  cursor: pointer;\n  display: inline-block;\n  line-height: 1;\n}\n.storybook-button--primary {\n  color: white;\n  background-color: #1ea7fd;\n}\n.storybook-button--secondary {\n  color: #333;\n  background-color: transparent;\n  box-shadow: rgba(0, 0, 0, 0.15) 0px 0px 0px 1px inset;\n}\n.storybook-button--small {\n  font-size: 12px;\n  padding: 10px 16px;\n}\n.storybook-button--medium {\n  font-size: 14px;\n  padding: 11px 20px;\n}\n.storybook-button--large {\n  font-size: 16px;\n  padding: 12px 24px;\n}\n",
+                    "data": ".storybook-button {\r\n  font-family: 'Nunito Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;\r\n  font-weight: 700;\r\n  border: 0;\r\n  border-radius: 3em;\r\n  cursor: pointer;\r\n  display: inline-block;\r\n  line-height: 1;\r\n}\r\n.storybook-button--primary {\r\n  color: white;\r\n  background-color: #1ea7fd;\r\n}\r\n.storybook-button--secondary {\r\n  color: #333;\r\n  background-color: transparent;\r\n  box-shadow: rgba(0, 0, 0, 0.15) 0px 0px 0px 1px inset;\r\n}\r\n.storybook-button--small {\r\n  font-size: 12px;\r\n  padding: 10px 16px;\r\n}\r\n.storybook-button--medium {\r\n  font-size: 14px;\r\n  padding: 11px 20px;\r\n}\r\n.storybook-button--large {\r\n  font-size: 16px;\r\n  padding: 12px 24px;\r\n}\r\n",
                     "styleUrl": "./button.css"
                 }
             ],
@@ -6253,7 +6253,7 @@
         },
         {
             "name": "ClansDetailsComponent",
-            "id": "component-ClansDetailsComponent-e98ba07ce5e9eea1f29a751345323496dac54a0af9b938220679711e05b39a4e9e131e6e7bd8c99377fccd86eb33c7d439d02d221a8bff2c8f3f8a1cb3bd0433",
+            "id": "component-ClansDetailsComponent-97e88b263bc686d385ebf4bde9c2b0871b37253dee2f4b52de2d9ab87baa203acd5ac6429cbbcae6e87ed7c20220784b58a384098adcbe068741a364dfeed153",
             "file": "projects/clan-dashboard/src/app/features/clans-details/clans-details.component.ts",
             "encapsulation": [],
             "entryComponents": [],
@@ -6291,7 +6291,7 @@
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { Component, OnInit } from '@angular/core';\nimport { ClansDetailsService } from './clans-details.service';\n\n@Component({\n  selector: 'app-clans-details',\n  templateUrl: './clans-details.component.html',\n  styleUrls: ['./clans-details.component.scss']\n})\nexport class ClansDetailsComponent {\n  constructor(private clansDetailsService: ClansDetailsService) {}\n  clansInfo$ = this.clansDetailsService.clanInfo$;\n}\n",
+            "sourceCode": "import { Component, OnInit } from '@angular/core';\r\nimport { ClansDetailsService } from './clans-details.service';\r\n\r\n@Component({\r\n  selector: 'app-clans-details',\r\n  templateUrl: './clans-details.component.html',\r\n  styleUrls: ['./clans-details.component.scss']\r\n})\r\nexport class ClansDetailsComponent {\r\n  constructor(private clansDetailsService: ClansDetailsService) {}\r\n  clansInfo$ = this.clansDetailsService.clanInfo$;\r\n}\r\n",
             "assetsDirs": [],
             "styleUrlsData": [
                 {
@@ -6436,7 +6436,7 @@
         },
         {
             "name": "ClansRosterComponent",
-            "id": "component-ClansRosterComponent-c1e9b7d766f8cbb5e1d004f28f3b2c0e144f92a5b85f7ff549b33bd01f1e772c34d5f726b264936258470812b24190f5ce29e1fde5dcb3d95d3cfe56e789579c",
+            "id": "component-ClansRosterComponent-fb4e1dfceafa46b90712f4dcd8c8a4dc34d136d6bda82652410493b655e10cb1ae1a1c0c4be87969b98fcd38fa843eb421c4db028371e5cd65220a9eab837b49",
             "file": "projects/clan-dashboard/src/app/features/clans-roster/clans-roster.component.ts",
             "encapsulation": [],
             "entryComponents": [],
@@ -6515,7 +6515,7 @@
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { Component, OnInit } from '@angular/core';\nimport { ClansRosterService } from './clans-roster.service';\n\n@Component({\n  selector: 'app-clans-roster',\n  templateUrl: './clans-roster.component.html',\n  styleUrls: ['./clans-roster.component.scss']\n})\nexport class ClansRosterComponent implements OnInit {\n  constructor(private clansRosterService: ClansRosterService) {}\n  stuff$ = this.clansRosterService.activeClanUpdateDates$;\n  stuff2$ = this.clansRosterService.activeClanPeople$;\n  members$ = this.clansRosterService.clanMembers$;\n  profiles$ = this.clansRosterService.clanProfiles$;\n\n  ngOnInit(): void {}\n}\n",
+            "sourceCode": "import { Component, OnInit } from '@angular/core';\r\nimport { ClansRosterService } from './clans-roster.service';\r\n\r\n@Component({\r\n  selector: 'app-clans-roster',\r\n  templateUrl: './clans-roster.component.html',\r\n  styleUrls: ['./clans-roster.component.scss']\r\n})\r\nexport class ClansRosterComponent implements OnInit {\r\n  constructor(private clansRosterService: ClansRosterService) {}\r\n  stuff$ = this.clansRosterService.activeClanUpdateDates$;\r\n  stuff2$ = this.clansRosterService.activeClanPeople$;\r\n  members$ = this.clansRosterService.clanMembers$;\r\n  profiles$ = this.clansRosterService.clanProfiles$;\r\n\r\n  ngOnInit(): void {}\r\n}\r\n",
             "assetsDirs": [],
             "styleUrlsData": [
                 {
@@ -6557,7 +6557,7 @@
         },
         {
             "name": "DashboardComponent",
-            "id": "component-DashboardComponent-4efd686c4f7fc90f8d88765a4b9650d38dda11bff4590e4d821e4c04e88343f97c325a6a5f577e74ac4e8e7a25840a1a90818ceb53c37e31c5d477da3a081956",
+            "id": "component-DashboardComponent-7077bff6e13dd8161f4ed7be9b97388a47336fab1e7cd2368357378f6433077bf40fd804d8f57fbe6f11f6155c907e34848008b6e2584e97cff36a9da657ce03",
             "file": "projects/clan-dashboard/src/app/views/dashboard/dashboard.component.ts",
             "encapsulation": [],
             "entryComponents": [],
@@ -6595,7 +6595,7 @@
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { Component, OnInit } from '@angular/core';\n\n@Component({\n  selector: 'app-dashboard',\n  templateUrl: './dashboard.component.html',\n  styleUrls: ['./dashboard.component.scss']\n})\nexport class DashboardComponent implements OnInit {\n\n  constructor() { }\n\n  ngOnInit(): void {\n  }\n\n}\n",
+            "sourceCode": "import { Component, OnInit } from '@angular/core';\r\n\r\n@Component({\r\n  selector: 'app-dashboard',\r\n  templateUrl: './dashboard.component.html',\r\n  styleUrls: ['./dashboard.component.scss']\r\n})\r\nexport class DashboardComponent implements OnInit {\r\n\r\n  constructor() { }\r\n\r\n  ngOnInit(): void {\r\n  }\r\n\r\n}\r\n",
             "assetsDirs": [],
             "styleUrlsData": [
                 {
@@ -6615,11 +6615,11 @@
             "implements": [
                 "OnInit"
             ],
-            "templateData": "<p>dashboard works!</p>\n<app-clans-details></app-clans-details>\n"
+            "templateData": "<p>dashboard works!</p>\r\n<app-clans-details></app-clans-details>\r\n"
         },
         {
             "name": "HeaderComponent",
-            "id": "component-HeaderComponent-a557eec14f72c438a8033301f4d6ce023e0a1844a3b06ec2b38794a612acc31735ae78a5ee10071b230c8c20d699eb914554e69d07ade54adb371da8efb464cc",
+            "id": "component-HeaderComponent-bda17aa3451a9f731685153f2587877b8267c32007f05e7abad3581336e6bc02346a1b660e8c69c4d90b4526b6e047b3ac1f4246252c9dc83985c9148aab5e97",
             "file": "stories/header.component.ts",
             "encapsulation": [],
             "entryComponents": [],
@@ -6680,11 +6680,11 @@
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { Component, Input, Output, EventEmitter } from '@angular/core';\nimport { User } from './User';\n\n@Component({\n  selector: 'storybook-header',\n  template: `<header>\n    <div class=\"wrapper\">\n      <div>\n        <svg width=\"32\" height=\"32\" viewBox=\"0 0 32 32\" xmlns=\"http://www.w3.org/2000/svg\">\n          <g fill=\"none\" fillRule=\"evenodd\">\n            <path\n              d=\"M10 0h12a10 10 0 0110 10v12a10 10 0 01-10 10H10A10 10 0 010 22V10A10 10 0 0110 0z\"\n              fill=\"#FFF\"\n            />\n            <path\n              d=\"M5.3 10.6l10.4 6v11.1l-10.4-6v-11zm11.4-6.2l9.7 5.5-9.7 5.6V4.4z\"\n              fill=\"#555AB9\"\n            />\n            <path\n              d=\"M27.2 10.6v11.2l-10.5 6V16.5l10.5-6zM15.7 4.4v11L6 10l9.7-5.5z\"\n              fill=\"#91BAF8\"\n            />\n          </g>\n        </svg>\n        <h1>Acme</h1>\n      </div>\n      <div>\n        <div *ngIf=\"user\">\n          <span class=\"welcome\">\n            Welcome, <b>{{ user.name }}</b\n            >!\n          </span>\n          <storybook-button\n            *ngIf=\"user\"\n            size=\"small\"\n            (onClick)=\"onLogout.emit($event)\"\n            label=\"Log out\"\n          ></storybook-button>\n        </div>\n        <div *ngIf=\"!user\">\n          <storybook-button\n            *ngIf=\"!user\"\n            size=\"small\"\n            class=\"margin-left\"\n            (onClick)=\"onLogin.emit($event)\"\n            label=\"Log in\"\n          ></storybook-button>\n          <storybook-button\n            *ngIf=\"!user\"\n            primary\n            size=\"small\"\n            primary=\"true\"\n            class=\"margin-left\"\n            (onClick)=\"onCreateAccount.emit($event)\"\n            label=\"Sign up\"\n          ></storybook-button>\n        </div>\n      </div>\n    </div>\n  </header>`,\n  styleUrls: ['./header.css'],\n})\nexport default class HeaderComponent {\n  @Input()\n  user: User | null = null;\n\n  @Output()\n  onLogin = new EventEmitter<Event>();\n\n  @Output()\n  onLogout = new EventEmitter<Event>();\n\n  @Output()\n  onCreateAccount = new EventEmitter<Event>();\n}\n",
+            "sourceCode": "import { Component, Input, Output, EventEmitter } from '@angular/core';\r\nimport { User } from './User';\r\n\r\n@Component({\r\n  selector: 'storybook-header',\r\n  template: `<header>\r\n    <div class=\"wrapper\">\r\n      <div>\r\n        <svg width=\"32\" height=\"32\" viewBox=\"0 0 32 32\" xmlns=\"http://www.w3.org/2000/svg\">\r\n          <g fill=\"none\" fillRule=\"evenodd\">\r\n            <path\r\n              d=\"M10 0h12a10 10 0 0110 10v12a10 10 0 01-10 10H10A10 10 0 010 22V10A10 10 0 0110 0z\"\r\n              fill=\"#FFF\"\r\n            />\r\n            <path\r\n              d=\"M5.3 10.6l10.4 6v11.1l-10.4-6v-11zm11.4-6.2l9.7 5.5-9.7 5.6V4.4z\"\r\n              fill=\"#555AB9\"\r\n            />\r\n            <path\r\n              d=\"M27.2 10.6v11.2l-10.5 6V16.5l10.5-6zM15.7 4.4v11L6 10l9.7-5.5z\"\r\n              fill=\"#91BAF8\"\r\n            />\r\n          </g>\r\n        </svg>\r\n        <h1>Acme</h1>\r\n      </div>\r\n      <div>\r\n        <div *ngIf=\"user\">\r\n          <span class=\"welcome\">\r\n            Welcome, <b>{{ user.name }}</b\r\n            >!\r\n          </span>\r\n          <storybook-button\r\n            *ngIf=\"user\"\r\n            size=\"small\"\r\n            (onClick)=\"onLogout.emit($event)\"\r\n            label=\"Log out\"\r\n          ></storybook-button>\r\n        </div>\r\n        <div *ngIf=\"!user\">\r\n          <storybook-button\r\n            *ngIf=\"!user\"\r\n            size=\"small\"\r\n            class=\"margin-left\"\r\n            (onClick)=\"onLogin.emit($event)\"\r\n            label=\"Log in\"\r\n          ></storybook-button>\r\n          <storybook-button\r\n            *ngIf=\"!user\"\r\n            primary\r\n            size=\"small\"\r\n            primary=\"true\"\r\n            class=\"margin-left\"\r\n            (onClick)=\"onCreateAccount.emit($event)\"\r\n            label=\"Sign up\"\r\n          ></storybook-button>\r\n        </div>\r\n      </div>\r\n    </div>\r\n  </header>`,\r\n  styleUrls: ['./header.css'],\r\n})\r\nexport default class HeaderComponent {\r\n  @Input()\r\n  user: User | null = null;\r\n\r\n  @Output()\r\n  onLogin = new EventEmitter<Event>();\r\n\r\n  @Output()\r\n  onLogout = new EventEmitter<Event>();\r\n\r\n  @Output()\r\n  onCreateAccount = new EventEmitter<Event>();\r\n}\r\n",
             "assetsDirs": [],
             "styleUrlsData": [
                 {
-                    "data": ".wrapper {\n  font-family: 'Nunito Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;\n  border-bottom: 1px solid rgba(0, 0, 0, 0.1);\n  padding: 15px 20px;\n  display: flex;\n  align-items: center;\n  justify-content: space-between;\n}\n\nsvg {\n  display: inline-block;\n  vertical-align: top;\n}\n\nh1 {\n  font-weight: 900;\n  font-size: 20px;\n  line-height: 1;\n  margin: 6px 0 6px 10px;\n  display: inline-block;\n  vertical-align: top;\n}\n\nbutton + button {\n  margin-left: 10px;\n}\n\n.welcome {\n  color: #333;\n  font-size: 14px;\n  margin-right: 10px;\n}\n",
+                    "data": ".wrapper {\r\n  font-family: 'Nunito Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;\r\n  border-bottom: 1px solid rgba(0, 0, 0, 0.1);\r\n  padding: 15px 20px;\r\n  display: flex;\r\n  align-items: center;\r\n  justify-content: space-between;\r\n}\r\n\r\nsvg {\r\n  display: inline-block;\r\n  vertical-align: top;\r\n}\r\n\r\nh1 {\r\n  font-weight: 900;\r\n  font-size: 20px;\r\n  line-height: 1;\r\n  margin: 6px 0 6px 10px;\r\n  display: inline-block;\r\n  vertical-align: top;\r\n}\r\n\r\nbutton + button {\r\n  margin-left: 10px;\r\n}\r\n\r\n.welcome {\r\n  color: #333;\r\n  font-size: 14px;\r\n  margin-right: 10px;\r\n}\r\n",
                     "styleUrl": "./header.css"
                 }
             ],
@@ -6692,7 +6692,7 @@
         },
         {
             "name": "PageComponent",
-            "id": "component-PageComponent-7126d8c2607c946741c651482413b43feb72b2d63cac9d3ac173fde206a5e635eb4cdbf7ca7ac9327c7d4d05cf7ef619144c34c11609ad677081d0ee4e855064",
+            "id": "component-PageComponent-1fc7c24c98b4f0b0f413d91f5a6126f11ad55647457f5a7f372b7f83fe8ecd6dbe67b5ca4b826ed20b9bfbc04d5606b15f82a203b1311f98b18bd28ec9f4fc7c",
             "file": "stories/page.component.ts",
             "encapsulation": [],
             "entryComponents": [],
@@ -6760,11 +6760,11 @@
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { Component } from '@angular/core';\nimport { User } from './User';\n\n@Component({\n  selector: 'storybook-page',\n  template: `<article>\n    <storybook-header\n      [user]=\"user\"\n      (onLogout)=\"doLogout()\"\n      (onLogin)=\"doLogin()\"\n      (onCreateAccount)=\"doCreateAccount()\"\n    ></storybook-header>\n    <section>\n      <h2>Pages in Storybook</h2>\n      <p>\n        We recommend building UIs with a\n        <a href=\"https://componentdriven.org\" target=\"_blank\" rel=\"noopener noreferrer\">\n          <strong>component-driven</strong>\n        </a>\n        process starting with atomic components and ending with pages.\n      </p>\n      <p>\n        Render pages with mock data. This makes it easy to build and review page states without\n        needing to navigate to them in your app. Here are some handy patterns for managing page data\n        in Storybook:\n      </p>\n      <ul>\n        <li>\n          Use a higher-level connected component. Storybook helps you compose such data from the\n          \"args\" of child component stories\n        </li>\n        <li>\n          Assemble data in the page component from your services. You can mock these services out\n          using Storybook.\n        </li>\n      </ul>\n      <p>\n        Get a guided tutorial on component-driven development at\n        <a href=\"https://storybook.js.org/tutorials/\" target=\"_blank\" rel=\"noopener noreferrer\">\n          Storybook tutorials\n        </a>\n        . Read more in the\n        <a href=\"https://storybook.js.org/docs\" target=\"_blank\" rel=\"noopener noreferrer\"> docs </a>\n        .\n      </p>\n      <div class=\"tip-wrapper\">\n        <span class=\"tip\">Tip</span> Adjust the width of the canvas with the\n        <svg width=\"10\" height=\"10\" viewBox=\"0 0 12 12\" xmlns=\"http://www.w3.org/2000/svg\">\n          <g fill=\"none\" fillRule=\"evenodd\">\n            <path\n              d=\"M1.5 5.2h4.8c.3 0 .5.2.5.4v5.1c-.1.2-.3.3-.4.3H1.4a.5.5 0 01-.5-.4V5.7c0-.3.2-.5.5-.5zm0-2.1h6.9c.3 0 .5.2.5.4v7a.5.5 0 01-1 0V4H1.5a.5.5 0 010-1zm0-2.1h9c.3 0 .5.2.5.4v9.1a.5.5 0 01-1 0V2H1.5a.5.5 0 010-1zm4.3 5.2H2V10h3.8V6.2z\"\n              id=\"a\"\n              fill=\"#999\"\n            />\n          </g>\n        </svg>\n        Viewports addon in the toolbar\n      </div>\n    </section>\n  </article>`,\n  styleUrls: ['./page.css'],\n})\nexport default class PageComponent {\n  user: User | null = null;\n\n  doLogout() {\n    this.user = null;\n  }\n\n  doLogin() {\n    this.user = { name: 'Jane Doe' };\n  }\n\n  doCreateAccount() {\n    this.user = { name: 'Jane Doe' };\n  }\n}\n",
+            "sourceCode": "import { Component } from '@angular/core';\r\nimport { User } from './User';\r\n\r\n@Component({\r\n  selector: 'storybook-page',\r\n  template: `<article>\r\n    <storybook-header\r\n      [user]=\"user\"\r\n      (onLogout)=\"doLogout()\"\r\n      (onLogin)=\"doLogin()\"\r\n      (onCreateAccount)=\"doCreateAccount()\"\r\n    ></storybook-header>\r\n    <section>\r\n      <h2>Pages in Storybook</h2>\r\n      <p>\r\n        We recommend building UIs with a\r\n        <a href=\"https://componentdriven.org\" target=\"_blank\" rel=\"noopener noreferrer\">\r\n          <strong>component-driven</strong>\r\n        </a>\r\n        process starting with atomic components and ending with pages.\r\n      </p>\r\n      <p>\r\n        Render pages with mock data. This makes it easy to build and review page states without\r\n        needing to navigate to them in your app. Here are some handy patterns for managing page data\r\n        in Storybook:\r\n      </p>\r\n      <ul>\r\n        <li>\r\n          Use a higher-level connected component. Storybook helps you compose such data from the\r\n          \"args\" of child component stories\r\n        </li>\r\n        <li>\r\n          Assemble data in the page component from your services. You can mock these services out\r\n          using Storybook.\r\n        </li>\r\n      </ul>\r\n      <p>\r\n        Get a guided tutorial on component-driven development at\r\n        <a href=\"https://storybook.js.org/tutorials/\" target=\"_blank\" rel=\"noopener noreferrer\">\r\n          Storybook tutorials\r\n        </a>\r\n        . Read more in the\r\n        <a href=\"https://storybook.js.org/docs\" target=\"_blank\" rel=\"noopener noreferrer\"> docs </a>\r\n        .\r\n      </p>\r\n      <div class=\"tip-wrapper\">\r\n        <span class=\"tip\">Tip</span> Adjust the width of the canvas with the\r\n        <svg width=\"10\" height=\"10\" viewBox=\"0 0 12 12\" xmlns=\"http://www.w3.org/2000/svg\">\r\n          <g fill=\"none\" fillRule=\"evenodd\">\r\n            <path\r\n              d=\"M1.5 5.2h4.8c.3 0 .5.2.5.4v5.1c-.1.2-.3.3-.4.3H1.4a.5.5 0 01-.5-.4V5.7c0-.3.2-.5.5-.5zm0-2.1h6.9c.3 0 .5.2.5.4v7a.5.5 0 01-1 0V4H1.5a.5.5 0 010-1zm0-2.1h9c.3 0 .5.2.5.4v9.1a.5.5 0 01-1 0V2H1.5a.5.5 0 010-1zm4.3 5.2H2V10h3.8V6.2z\"\r\n              id=\"a\"\r\n              fill=\"#999\"\r\n            />\r\n          </g>\r\n        </svg>\r\n        Viewports addon in the toolbar\r\n      </div>\r\n    </section>\r\n  </article>`,\r\n  styleUrls: ['./page.css'],\r\n})\r\nexport default class PageComponent {\r\n  user: User | null = null;\r\n\r\n  doLogout() {\r\n    this.user = null;\r\n  }\r\n\r\n  doLogin() {\r\n    this.user = { name: 'Jane Doe' };\r\n  }\r\n\r\n  doCreateAccount() {\r\n    this.user = { name: 'Jane Doe' };\r\n  }\r\n}\r\n",
             "assetsDirs": [],
             "styleUrlsData": [
                 {
-                    "data": "section {\n  font-family: 'Nunito Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;\n  font-size: 14px;\n  line-height: 24px;\n  padding: 48px 20px;\n  margin: 0 auto;\n  max-width: 600px;\n  color: #333;\n}\n\nsection h2 {\n  font-weight: 900;\n  font-size: 32px;\n  line-height: 1;\n  margin: 0 0 4px;\n  display: inline-block;\n  vertical-align: top;\n}\n\nsection p {\n  margin: 1em 0;\n}\n\nsection a {\n  text-decoration: none;\n  color: #1ea7fd;\n}\n\nsection ul {\n  padding-left: 30px;\n  margin: 1em 0;\n}\n\nsection li {\n  margin-bottom: 8px;\n}\n\nsection .tip {\n  display: inline-block;\n  border-radius: 1em;\n  font-size: 11px;\n  line-height: 12px;\n  font-weight: 700;\n  background: #e7fdd8;\n  color: #66bf3c;\n  padding: 4px 12px;\n  margin-right: 10px;\n  vertical-align: top;\n}\n\nsection .tip-wrapper {\n  font-size: 13px;\n  line-height: 20px;\n  margin-top: 40px;\n  margin-bottom: 40px;\n}\n\nsection .tip-wrapper svg {\n  display: inline-block;\n  height: 12px;\n  width: 12px;\n  margin-right: 4px;\n  vertical-align: top;\n  margin-top: 3px;\n}\n\nsection .tip-wrapper svg path {\n  fill: #1ea7fd;\n}\n",
+                    "data": "section {\r\n  font-family: 'Nunito Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;\r\n  font-size: 14px;\r\n  line-height: 24px;\r\n  padding: 48px 20px;\r\n  margin: 0 auto;\r\n  max-width: 600px;\r\n  color: #333;\r\n}\r\n\r\nsection h2 {\r\n  font-weight: 900;\r\n  font-size: 32px;\r\n  line-height: 1;\r\n  margin: 0 0 4px;\r\n  display: inline-block;\r\n  vertical-align: top;\r\n}\r\n\r\nsection p {\r\n  margin: 1em 0;\r\n}\r\n\r\nsection a {\r\n  text-decoration: none;\r\n  color: #1ea7fd;\r\n}\r\n\r\nsection ul {\r\n  padding-left: 30px;\r\n  margin: 1em 0;\r\n}\r\n\r\nsection li {\r\n  margin-bottom: 8px;\r\n}\r\n\r\nsection .tip {\r\n  display: inline-block;\r\n  border-radius: 1em;\r\n  font-size: 11px;\r\n  line-height: 12px;\r\n  font-weight: 700;\r\n  background: #e7fdd8;\r\n  color: #66bf3c;\r\n  padding: 4px 12px;\r\n  margin-right: 10px;\r\n  vertical-align: top;\r\n}\r\n\r\nsection .tip-wrapper {\r\n  font-size: 13px;\r\n  line-height: 20px;\r\n  margin-top: 40px;\r\n  margin-bottom: 40px;\r\n}\r\n\r\nsection .tip-wrapper svg {\r\n  display: inline-block;\r\n  height: 12px;\r\n  width: 12px;\r\n  margin-right: 4px;\r\n  vertical-align: top;\r\n  margin-top: 3px;\r\n}\r\n\r\nsection .tip-wrapper svg path {\r\n  fill: #1ea7fd;\r\n}\r\n",
                     "styleUrl": "./page.css"
                 }
             ],
@@ -6772,7 +6772,7 @@
         },
         {
             "name": "RenderedViewComponent",
-            "id": "component-RenderedViewComponent-23bccaf4f076872516dcc6232a8706215614b9583337edeaf5837637e51d3b305212001c43372dcc08cffad8b9e5055c28bfe875e32454340f470b0e9a9a7dc6",
+            "id": "component-RenderedViewComponent-fa628025d662d044916467ef6e552eb838f490b7320a87dc90d03e32b86878e8f81975bc6589dfa4920ce499074f10366037d23ed4068d26a9dd388da2b5c76a",
             "file": "projects/components/src/lib/shared/rendered-view/rendered-view.component.ts",
             "encapsulation": [],
             "entryComponents": [],
@@ -6810,7 +6810,7 @@
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { Component, OnInit } from '@angular/core';\n\n@Component({\n  selector: 'lib-rendered-view',\n  templateUrl: './rendered-view.component.html',\n  styleUrls: ['./rendered-view.component.scss']\n})\nexport class RenderedViewComponent implements OnInit {\n\n  constructor() { }\n\n  ngOnInit(): void {\n  }\n\n}\n",
+            "sourceCode": "import { Component, OnInit } from '@angular/core';\r\n\r\n@Component({\r\n  selector: 'lib-rendered-view',\r\n  templateUrl: './rendered-view.component.html',\r\n  styleUrls: ['./rendered-view.component.scss']\r\n})\r\nexport class RenderedViewComponent implements OnInit {\r\n\r\n  constructor() { }\r\n\r\n  ngOnInit(): void {\r\n  }\r\n\r\n}\r\n",
             "assetsDirs": [],
             "styleUrlsData": [
                 {
@@ -6830,11 +6830,11 @@
             "implements": [
                 "OnInit"
             ],
-            "templateData": "<p>rendered-view works!</p>\n"
+            "templateData": "<p>rendered-view works!</p>\r\n"
         },
         {
             "name": "RosterComponent",
-            "id": "component-RosterComponent-13fef27e12d35f403d76fc5d9f3e90d6ac2f62c4c78ada455442ebcb03be8145fc22144e41bd96b374b9fb4ae6c358b1a6f7c46f02768f073898eea716eca0f4",
+            "id": "component-RosterComponent-c295280506afb1ad13c0bff7d6d0ed5734362cf10100f7696285a27ab8eef43e5597c25a27ebe3598ff517e5edd60988a01c0745ef4a099b48fe832b6180eef8",
             "file": "projects/clan-dashboard/src/app/views/roster/roster.component.ts",
             "encapsulation": [],
             "entryComponents": [],
@@ -6872,7 +6872,7 @@
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { Component, OnInit } from '@angular/core';\r\n\r\n@Component({\r\n  selector: 'app-roster',\r\n  templateUrl: './roster.component.html',\r\n  styleUrls: ['./roster.component.scss']\r\n})\r\nexport class RosterComponent implements OnInit {\r\n\r\n  constructor() { }\r\n\r\n  ngOnInit(): void {\r\n  }\r\n\r\n}\r\n",
+            "sourceCode": "import { Component, OnInit } from '@angular/core';\n\n@Component({\n  selector: 'app-roster',\n  templateUrl: './roster.component.html',\n  styleUrls: ['./roster.component.scss']\n})\nexport class RosterComponent implements OnInit {\n\n  constructor() { }\n\n  ngOnInit(): void {\n  }\n\n}\n",
             "assetsDirs": [],
             "styleUrlsData": [
                 {
@@ -6892,11 +6892,11 @@
             "implements": [
                 "OnInit"
             ],
-            "templateData": "<p>roster works!</p>\r\n<app-clans-roster></app-clans-roster>\r\n"
+            "templateData": "<p>roster works!</p>\n<app-clans-roster></app-clans-roster>\n"
         },
         {
             "name": "TableViewComponent",
-            "id": "component-TableViewComponent-13273a9367944efc09fe8531b06b25a55d214433df619423995e8c409fbf21614d4a92f67b48c4618b985191922cfece0df169c79a20b086e454a4ee7659e608",
+            "id": "component-TableViewComponent-ce099051a9c6cbb697786b4d96dbd83dd5be32eb7565c45553bfc0f0e8089e3c093c9ff48c51e28d953eae63b7c9818642aee6f262bdb3fd71395c7a1e347171",
             "file": "projects/components/src/lib/shared/table-view/table-view.component.ts",
             "encapsulation": [],
             "entryComponents": [],
@@ -6934,7 +6934,7 @@
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { Component, OnInit } from '@angular/core';\n\n@Component({\n  selector: 'lib-table-view',\n  templateUrl: './table-view.component.html',\n  styleUrls: ['./table-view.component.scss']\n})\nexport class TableViewComponent implements OnInit {\n\n  constructor() { }\n\n  ngOnInit(): void {\n  }\n\n}\n",
+            "sourceCode": "import { Component, OnInit } from '@angular/core';\r\n\r\n@Component({\r\n  selector: 'lib-table-view',\r\n  templateUrl: './table-view.component.html',\r\n  styleUrls: ['./table-view.component.scss']\r\n})\r\nexport class TableViewComponent implements OnInit {\r\n\r\n  constructor() { }\r\n\r\n  ngOnInit(): void {\r\n  }\r\n\r\n}\r\n",
             "assetsDirs": [],
             "styleUrlsData": [
                 {
@@ -6954,7 +6954,7 @@
             "implements": [
                 "OnInit"
             ],
-            "templateData": "<p>table-view works!</p>\n"
+            "templateData": "<p>table-view works!</p>\r\n"
         },
         {
             "name": "WrapperComponent",
@@ -7040,13 +7040,13 @@
     "modules": [
         {
             "name": "AppModule",
-            "id": "module-AppModule-36e7fa17ba2937026f2b9abc832b39af318c7a49081ce5a5d6a35fb5f43ef4a1938ef245628974ea34cea5c7a168cac7bd99fdf389eaee5292b927c7de299870",
+            "id": "module-AppModule-e8b0281cefd0e4f23a26c6d95d5fe63076a19a089aefd4ce31447be309678bd8a950e326dd0eec9f54785180b6b6d47b477fb78a1ce667c0e6543c1c8467c834",
             "description": "",
             "deprecationMessage": "",
             "deprecated": false,
             "file": "projects/clan-dashboard/src/app/app.module.ts",
             "methods": [],
-            "sourceCode": "import { NgModule } from '@angular/core';\nimport { BrowserModule } from '@angular/platform-browser';\n\nimport { AppRoutingModule } from './app-routing.module';\nimport { AppComponent } from './app.component';\nimport { CoreModule } from '@core/core.module';\n\n\n@NgModule({\n  declarations: [AppComponent],\n  imports: [BrowserModule, AppRoutingModule, CoreModule],\n  providers: [],\n  bootstrap: [AppComponent]\n})\nexport class AppModule {}\n",
+            "sourceCode": "import { NgModule } from '@angular/core';\r\nimport { BrowserModule } from '@angular/platform-browser';\r\n\r\nimport { AppRoutingModule } from './app-routing.module';\r\nimport { AppComponent } from './app.component';\r\nimport { CoreModule } from '@core/core.module';\r\n\r\n\r\n@NgModule({\r\n  declarations: [AppComponent],\r\n  imports: [BrowserModule, AppRoutingModule, CoreModule],\r\n  providers: [],\r\n  bootstrap: [AppComponent]\r\n})\r\nexport class AppModule {}\r\n",
             "children": [
                 {
                     "type": "providers",
@@ -7167,13 +7167,13 @@
         },
         {
             "name": "ClansDetailsModule",
-            "id": "module-ClansDetailsModule-b8bb1146bbb8f804dcd81a708e52e9ab781d157c0ff155bd87791fb07a946b259575b7c8a23ea3b66586c268f064389d010ea7169538aba09f7816797f63c6cd",
+            "id": "module-ClansDetailsModule-f4122bdaf69f0fcd276290c4bb3d69faf074371b3a2fdbcc0b7f069b9d28da24eee3c531c1a7548e672e4bc084dd12108ba41792bab1f9ee7812dafbcd8ee4c3",
             "description": "",
             "deprecationMessage": "",
             "deprecated": false,
             "file": "projects/clan-dashboard/src/app/features/clans-details/clans-details.module.ts",
             "methods": [],
-            "sourceCode": "import { NgModule } from '@angular/core';\nimport { CommonModule } from '@angular/common';\nimport { ClansDetailsComponent } from './clans-details.component';\nimport { ClansDetailsService } from './clans-details.service';\n\n@NgModule({\n  declarations: [ClansDetailsComponent],\n  providers: [ClansDetailsService],\n  exports: [ClansDetailsComponent],\n  imports: [CommonModule]\n})\nexport class ClansDetailsModule {}\n",
+            "sourceCode": "import { NgModule } from '@angular/core';\r\nimport { CommonModule } from '@angular/common';\r\nimport { ClansDetailsComponent } from './clans-details.component';\r\nimport { ClansDetailsService } from './clans-details.service';\r\n\r\n@NgModule({\r\n  declarations: [ClansDetailsComponent],\r\n  providers: [ClansDetailsService],\r\n  exports: [ClansDetailsComponent],\r\n  imports: [CommonModule]\r\n})\r\nexport class ClansDetailsModule {}\r\n",
             "children": [
                 {
                     "type": "providers",
@@ -7215,13 +7215,13 @@
         },
         {
             "name": "ClanSearchModule",
-            "id": "module-ClanSearchModule-3b76ecc9a9ad9644435c3c051adca2eb80c73a8bf247082c6209a20f09720946c52370271e04f6ecf6581992be60d0bfe693d07fa80361c394c6680158cb9441",
+            "id": "module-ClanSearchModule-9186d01fa88e50d0267f776cb6cfa302a3df57ed4da77aa66802566b188005787d8b9f2534acaa031b36fdcbc287840fcec1702c48e74a7b2bb60fa449c60959",
             "description": "",
             "deprecationMessage": "",
             "deprecated": false,
             "file": "projects/clan-dashboard/src/app/views/clan-search/clan-search.module.ts",
             "methods": [],
-            "sourceCode": "import { NgModule } from '@angular/core';\nimport { CommonModule } from '@angular/common';\nimport { ClanSearchComponent } from './clan-search.component';\nimport { ClanSearchRoutingModule } from './clan-search-routing.module';\n\n@NgModule({\n  declarations: [ClanSearchComponent],\n  imports: [CommonModule, ClanSearchRoutingModule]\n})\nexport class ClanSearchModule {}\n",
+            "sourceCode": "import { NgModule } from '@angular/core';\r\nimport { CommonModule } from '@angular/common';\r\nimport { ClanSearchComponent } from './clan-search.component';\r\nimport { ClanSearchRoutingModule } from './clan-search-routing.module';\r\n\r\n@NgModule({\r\n  declarations: [ClanSearchComponent],\r\n  imports: [CommonModule, ClanSearchRoutingModule]\r\n})\r\nexport class ClanSearchModule {}\r\n",
             "children": [
                 {
                     "type": "providers",
@@ -7295,13 +7295,13 @@
         },
         {
             "name": "ClansRosterModule",
-            "id": "module-ClansRosterModule-2fd5d30c21bafe9fbecbb1bbedfedffa0063d7e74d359b021016219d46913c68a48577f52bf7df78baac7879ecaf37deaac470eb516ff4053d2536d2ec2e2d92",
+            "id": "module-ClansRosterModule-4968af02374a2937591f6e2a9582bb8f245e696e074def8216dc36ca2f462aa48d7c3bf7714479fd101f2940581b10b3f649df87d8298c24e4ef5bbb929cdf4c",
             "description": "",
             "deprecationMessage": "",
             "deprecated": false,
             "file": "projects/clan-dashboard/src/app/features/clans-roster/clans-roster.module.ts",
             "methods": [],
-            "sourceCode": "import { NgModule } from '@angular/core';\nimport { CommonModule } from '@angular/common';\nimport { ClansRosterComponent } from './clans-roster.component';\nimport { ClansRosterService } from './clans-roster.service';\n\n@NgModule({\n  declarations: [ClansRosterComponent],\n  providers: [ClansRosterService],\n  exports: [ClansRosterComponent],\n  imports: [CommonModule]\n})\nexport class ClansRosterModule {}\n",
+            "sourceCode": "import { NgModule } from '@angular/core';\r\nimport { CommonModule } from '@angular/common';\r\nimport { ClansRosterComponent } from './clans-roster.component';\r\nimport { ClansRosterService } from './clans-roster.service';\r\n\r\n@NgModule({\r\n  declarations: [ClansRosterComponent],\r\n  providers: [ClansRosterService],\r\n  exports: [ClansRosterComponent],\r\n  imports: [CommonModule]\r\n})\r\nexport class ClansRosterModule {}\r\n",
             "children": [
                 {
                     "type": "providers",
@@ -7393,13 +7393,13 @@
         },
         {
             "name": "DashboardModule",
-            "id": "module-DashboardModule-a1166c0fccc1eeb8466a289337257ef60755015c7ca0bd2f307aed1d7a05902b2c61686c1f352223ef3f7fb8bc73992716e0afe0b8817bc410cdb1e67962023c",
+            "id": "module-DashboardModule-33e1179d0ef9044089301ff8ff7cec0392e4a184c957209a3894f956486bb615c0a27dc31166277fa7bb03f3731b210c6d317caaf08b4a7ecdcc77cfa27f28eb",
             "description": "",
             "deprecationMessage": "",
             "deprecated": false,
             "file": "projects/clan-dashboard/src/app/views/dashboard/dashboard.module.ts",
             "methods": [],
-            "sourceCode": "import { NgModule } from '@angular/core';\nimport { CommonModule } from '@angular/common';\nimport { DashboardComponent } from './dashboard.component';\nimport { DashboardRoutingModule } from './dashboard-routing.module';\n//import {} from '@features/\nimport { ClansDetailsModule } from '@features/clans-details';\n\n@NgModule({\n  declarations: [DashboardComponent],\n  imports: [CommonModule, DashboardRoutingModule, ClansDetailsModule]\n})\nexport class DashboardModule {}\n",
+            "sourceCode": "import { NgModule } from '@angular/core';\r\nimport { CommonModule } from '@angular/common';\r\nimport { DashboardComponent } from './dashboard.component';\r\nimport { DashboardRoutingModule } from './dashboard-routing.module';\r\n//import {} from '@features/\r\nimport { ClansDetailsModule } from '@features/clans-details';\r\n\r\n@NgModule({\r\n  declarations: [DashboardComponent],\r\n  imports: [CommonModule, DashboardRoutingModule, ClansDetailsModule]\r\n})\r\nexport class DashboardModule {}\r\n",
             "children": [
                 {
                     "type": "providers",
@@ -7476,13 +7476,13 @@
         },
         {
             "name": "LayoutModule",
-            "id": "module-LayoutModule-78ece4c4f608af582ae37997f0b9cf5216b0736b3a72e492cb743473100c2ce801b480263be9eaf09522c7edac71dc374a6cc63dc3ab1b022e5ea20e903ad1c6",
+            "id": "module-LayoutModule-88d39b464e3dcdeb16ec8da4ba324887800c8c993cce6bb35048e687c19f43b8ba0dd04200a5ceb43dd22975153aeeb1970ffd24d9af16150539635edad6f8fc",
             "description": "",
             "deprecationMessage": "",
             "deprecated": false,
             "file": "projects/clan-dashboard/src/app/core/layout/layout.module.ts",
             "methods": [],
-            "sourceCode": "import { NgModule } from '@angular/core';\r\nimport { CommonModule } from '@angular/common';\r\nimport { WrapperComponent } from './wrapper/wrapper.component';\r\nimport { RouterModule } from '@angular/router';\r\n\r\n@NgModule({\r\n  declarations: [WrapperComponent],\r\n  imports: [CommonModule, RouterModule]\r\n})\r\nexport class LayoutModule {}\r\n",
+            "sourceCode": "import { NgModule } from '@angular/core';\nimport { CommonModule } from '@angular/common';\nimport { WrapperComponent } from './wrapper/wrapper.component';\nimport { RouterModule } from '@angular/router';\n\n@NgModule({\n  declarations: [WrapperComponent],\n  imports: [CommonModule, RouterModule]\n})\nexport class LayoutModule {}\n",
             "children": [
                 {
                     "type": "providers",
@@ -7516,13 +7516,13 @@
         },
         {
             "name": "RenderedViewModule",
-            "id": "module-RenderedViewModule-1b9e4f364d257034f308519269fab0a40a29abffe46eaee42c58c5c0eb99f791965da112f9c5dcc19e5bfdf1ba6c1d5b42b7d0ab48866eae8236138dd218d4a1",
+            "id": "module-RenderedViewModule-9a51ed259de3f490dd2d8b249c3ee488ddb860c1c269c971c96d6551372b7d4dc7ebf9c09fd7e0b401c058bfcaa76ab7caf1eedc9970dcebae803e9739054a6e",
             "description": "",
             "deprecationMessage": "",
             "deprecated": false,
             "file": "projects/components/src/lib/shared/rendered-view/rendered-view.module.ts",
             "methods": [],
-            "sourceCode": "import { NgModule } from '@angular/core';\nimport { CommonModule } from '@angular/common';\nimport { RenderedViewComponent } from './rendered-view.component';\n\n\n\n@NgModule({\n  declarations: [\n    RenderedViewComponent\n  ],\n  imports: [\n    CommonModule\n  ]\n})\nexport class RenderedViewModule { }\n",
+            "sourceCode": "import { NgModule } from '@angular/core';\r\nimport { CommonModule } from '@angular/common';\r\nimport { RenderedViewComponent } from './rendered-view.component';\r\n\r\n\r\n\r\n@NgModule({\r\n  declarations: [\r\n    RenderedViewComponent\r\n  ],\r\n  imports: [\r\n    CommonModule\r\n  ]\r\n})\r\nexport class RenderedViewModule { }\r\n",
             "children": [
                 {
                     "type": "providers",
@@ -7639,13 +7639,13 @@
         },
         {
             "name": "SharedModule",
-            "id": "module-SharedModule-7c0a60f3ad12ff99549fe4765c76af297e980adc3859b3d23d6a0fb20fbe7021ad5d74c4aa584f6cfad45af60848d2d5ff42e0eb68b0a6784a0bf82ce4c32b75",
+            "id": "module-SharedModule-e8886111f38cdd66856109356cd0b022c45b0da84513b42af7c3bf5f73ff6c7a0fb19f2e1047981843940e60ef632068359f2105b93957785fccba0db4fb53d1",
             "description": "",
             "deprecationMessage": "",
             "deprecated": false,
             "file": "projects/components/src/lib/shared/shared.module.ts",
             "methods": [],
-            "sourceCode": "import { NgModule } from '@angular/core';\nimport { CommonModule } from '@angular/common';\nimport { TableViewComponent } from './table-view/table-view.component';\n\n\n\n@NgModule({\n  declarations: [\n    TableViewComponent,\n  ],\n  imports: [\n    CommonModule\n  ]\n})\nexport class SharedModule { }\n",
+            "sourceCode": "import { NgModule } from '@angular/core';\r\nimport { CommonModule } from '@angular/common';\r\nimport { TableViewComponent } from './table-view/table-view.component';\r\n\r\n\r\n\r\n@NgModule({\r\n  declarations: [\r\n    TableViewComponent,\r\n  ],\r\n  imports: [\r\n    CommonModule\r\n  ]\r\n})\r\nexport class SharedModule { }\r\n",
             "children": [
                 {
                     "type": "providers",
@@ -8335,7 +8335,7 @@
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "Story<Button>",
-                "defaultValue": "(args: Button) => ({\n  props: args,\n})"
+                "defaultValue": "(args: Button) => ({\r\n  props: args,\r\n})"
             },
             {
                 "name": "Template",
@@ -8345,7 +8345,7 @@
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "Story<Header>",
-                "defaultValue": "(args: Header) => ({\n  props: args,\n})"
+                "defaultValue": "(args: Header) => ({\r\n  props: args,\r\n})"
             },
             {
                 "name": "Template",
@@ -8355,7 +8355,7 @@
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "Story<Page>",
-                "defaultValue": "(args: Page) => ({\n  props: args,\n})"
+                "defaultValue": "(args: Page) => ({\r\n  props: args,\r\n})"
             },
             {
                 "name": "Template",
@@ -9717,7 +9717,7 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "Story<Button>",
-                    "defaultValue": "(args: Button) => ({\n  props: args,\n})"
+                    "defaultValue": "(args: Button) => ({\r\n  props: args,\r\n})"
                 }
             ],
             "stories/Header.stories.ts": [
@@ -9749,7 +9749,7 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "Story<Header>",
-                    "defaultValue": "(args: Header) => ({\n  props: args,\n})"
+                    "defaultValue": "(args: Header) => ({\r\n  props: args,\r\n})"
                 }
             ],
             "stories/Page.stories.ts": [
@@ -9781,7 +9781,7 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "Story<Page>",
-                    "defaultValue": "(args: Page) => ({\n  props: args,\n})"
+                    "defaultValue": "(args: Page) => ({\r\n  props: args,\r\n})"
                 }
             ],
             "projects/data/src/lib/manifest/manifest-loader.service.ts": [

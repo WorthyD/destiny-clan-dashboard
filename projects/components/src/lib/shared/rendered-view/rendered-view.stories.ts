@@ -1,23 +1,33 @@
-import { Meta, Story } from "@storybook/angular";
-import { RenderedViewComponent } from "./rendered-view.component";
+import { Meta, Story } from '@storybook/angular';
+import { RenderedViewComponent } from './rendered-view.component';
 
 export default {
   title: 'Example/View',
   component: RenderedViewComponent,
   // More on argTypes: https://storybook.js.org/docs/angular/api/argtypes
-  argTypes: {
-    backgroundColor: { control: 'color' },
-  },
+  argTypes: {}
 } as Meta;
 
 // More on component templates: https://storybook.js.org/docs/angular/writing-stories/introduction#using-args
 const Template: Story<RenderedViewComponent> = (args: RenderedViewComponent) => ({
-  props: args,
+  props: args
 });
 
 export const Primary = Template.bind({});
 // More on args: https://storybook.js.org/docs/angular/writing-stories/args
 Primary.args = {
-  primary: true,
-  label: 'Button',
+  text: 'Hello world'
+};
+
+export const Children = Template.bind({});
+// More on args: https://storybook.js.org/docs/angular/writing-stories/args
+Children.args = {
+  childrenViews: [
+    {
+      text: 'Testing'
+    },
+    {
+      text: 'Testing 2'
+    }
+  ]
 };

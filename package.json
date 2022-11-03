@@ -10,7 +10,7 @@
     "test:ui": "ng test --project=clan-dashboard",
     "test:data": "ng test --project=data --browsers=ChromeHeadless ",
     "test:data:coverage": "ng test --project=data --browsers=ChromeHeadless --code-coverage=true --watch=false",
-    "docs:json": "compodoc -p ./tsconfig.json -e json -d .",
+    "docs:json": "./node_modules/.bin/compodoc -p ./tsconfig.json -e json -d .",
     "storybook": "npm run docs:json && start-storybook -p 6006",
     "config": "ts-node set-env.ts",
     "build-all": "ng build",
