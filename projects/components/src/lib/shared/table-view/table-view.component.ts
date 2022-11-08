@@ -5,7 +5,12 @@ import { Filterer } from '../../data/filterer';
 import { Grouper } from '../../data/grouper';
 import { Sorter } from '../../data/sorter';
 import { RenderedView, Viewer, ViewLabel } from '../../data/viewer';
-//import { PageEvent } from '@angular/material/paginator';
+import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
+import { MatTableModule } from '@angular/material/table';
+import { MatDividerModule } from '@angular/material/divider';
+import { CommonModule } from '@angular/common';
+// import { RenderedViewModule } from '../rendered-view/rendered-view.module';
+import { RenderedViewComponent } from '../rendered-view/rendered-view.component';
 
 export interface Item {
   id: string;
@@ -28,7 +33,6 @@ export interface Item {
   dbModified?: string;
 }
 
-
 interface TablePage {
   index: number;
   size: number;
@@ -37,6 +41,8 @@ interface TablePage {
 @Component({
   selector: 'lib-table-view',
   templateUrl: './table-view.component.html',
+  imports: [CommonModule, MatTableModule, RenderedViewComponent, MatPaginatorModule, MatDividerModule],
+  standalone: true,
   styleUrls: ['./table-view.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
@@ -69,7 +75,7 @@ export class TableViewComponent implements OnInit {
   ngOnInit(): void {
     // TODO: Cannot be in ngOnInit since the inputs may change
     const curatedData = this.dataSource.data.pipe(this.filterer.filter(), this.sorter.sort());
-    this.renderedData = combineLatest(curatedData, this.page).pipe(
+    this.renderedData = combineLatest([curatedData, this.page]).pipe(
       map(([data, page]) => data.slice(page.index * page.size, page.index * page.size + page.size))
     );
     this.itemCount = curatedData.pipe(map((d) => d.length));
@@ -95,7 +101,7 @@ export class TableViewComponent implements OnInit {
     );
   }
 
-  // setPage(event: PageEvent) {
-  //   this.page.next({ index: event.pageIndex, size: event.pageSize });
-  // }
+  setPage(event: PageEvent) {
+    this.page.next({ index: event.pageIndex, size: event.pageSize });
+  }
 }

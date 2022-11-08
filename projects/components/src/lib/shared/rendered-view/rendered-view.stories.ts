@@ -2,7 +2,7 @@ import { Meta, Story } from '@storybook/angular';
 import { RenderedViewComponent } from './rendered-view.component';
 
 export default {
-  title: 'Example/View',
+  title: 'Components/View',
   component: RenderedViewComponent,
   // More on argTypes: https://storybook.js.org/docs/angular/api/argtypes
   argTypes: {}
@@ -16,7 +16,8 @@ const Template: Story<RenderedViewComponent> = (args: RenderedViewComponent) => 
 export const Primary = Template.bind({});
 // More on args: https://storybook.js.org/docs/angular/writing-stories/args
 Primary.args = {
-  text: 'Hello world'
+  text: 'Hello world',
+  childrenViews: null
 };
 
 export const Children = Template.bind({});

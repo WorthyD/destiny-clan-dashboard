@@ -52,7 +52,7 @@ export class Sorter<T = any, C = any> {
 
   sort(): (items$: Observable<T[]>) => Observable<T[]> {
     return (items$: Observable<T[]>) => {
-      return combineLatest(items$, this.state, this.contextProvider)
+      return combineLatest([items$, this.state, this.contextProvider])
           .pipe(map(([items, state, context]) => {
             const sortMetadata = this.metadata.get(state.sort);
             if (!sortMetadata) {
