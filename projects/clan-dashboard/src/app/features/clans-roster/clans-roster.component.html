@@ -1,12 +1,21 @@
 <p>clans-roster works!</p>
 <!-- {{(stuff$ | async) | json}} -->
-<hr>
+<!-- <hr>
+stuff2:
 {{(stuff2$ | async) | json}}
 <hr>
 <div style="height:100px; overflow:scroll">
+  <pre>
   {{(members$ | async) | json}}}
-</div>
-<div style="height:100px; overflow:scroll">
+</pre>
+</div> -->
+<!-- <div style="height:600px; overflow:scroll">
 
+  <pre>
   {{(profiles$ | async) | json}}}
-</div>
+  </pre>
+</div> -->
+<lib-table-view *ngIf="rosterInfo$ | async as rosterInfo" [dataSource]="rosterInfo.dataSource"
+  [viewer]="rosterInfo.viewer">
+
+</lib-table-view>

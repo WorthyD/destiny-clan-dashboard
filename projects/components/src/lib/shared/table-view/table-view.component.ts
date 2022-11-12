@@ -1,16 +1,21 @@
+// Component originated from https://github.com/crafted/crafted
+
+import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
 import { BehaviorSubject, combineLatest, map, Observable, shareReplay } from 'rxjs';
+
+import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
+import { MatTableModule } from '@angular/material/table';
+import { MatDividerModule } from '@angular/material/divider';
+import { RenderedViewComponent } from '../rendered-view/rendered-view.component';
+import { DisplayOptionsComponent } from '../display-options/display-options.component';
+
+import { RenderedView, Viewer, ViewLabel } from '../../data/viewer';
+import { Exporter } from '../../data/exporter';
 import { DataSource } from '../../data/data-source';
 import { Filterer } from '../../data/filterer';
 import { Grouper } from '../../data/grouper';
 import { Sorter } from '../../data/sorter';
-import { RenderedView, Viewer, ViewLabel } from '../../data/viewer';
-import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
-import { MatTableModule } from '@angular/material/table';
-import { MatDividerModule } from '@angular/material/divider';
-import { CommonModule } from '@angular/common';
-// import { RenderedViewModule } from '../rendered-view/rendered-view.module';
-import { RenderedViewComponent } from '../rendered-view/rendered-view.component';
 
 export interface Item {
   id: string;
@@ -41,7 +46,14 @@ interface TablePage {
 @Component({
   selector: 'lib-table-view',
   templateUrl: './table-view.component.html',
-  imports: [CommonModule, MatTableModule, RenderedViewComponent, MatPaginatorModule, MatDividerModule],
+  imports: [
+    CommonModule,
+    MatTableModule,
+    RenderedViewComponent,
+    MatPaginatorModule,
+    MatDividerModule,
+    DisplayOptionsComponent
+  ],
   standalone: true,
   styleUrls: ['./table-view.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
@@ -62,6 +74,8 @@ export class TableViewComponent implements OnInit {
   @Input() sorter: Sorter;
 
   @Input() dataSource: DataSource;
+
+  @Input() exporter: Exporter;
 
   @Input() loading: boolean;
 
@@ -103,5 +117,8 @@ export class TableViewComponent implements OnInit {
 
   setPage(event: PageEvent) {
     this.page.next({ index: event.pageIndex, size: event.pageSize });
+  }
+  export() {
+    this.exporter.exportData('', this.renderedData);
   }
 }

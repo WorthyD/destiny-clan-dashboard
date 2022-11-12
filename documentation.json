@@ -334,6 +334,47 @@
             "methods": []
         },
         {
+            "name": "ClanMemberProfile",
+            "id": "interface-ClanMemberProfile-163a5c137b3749adc4003746eb7fbd0cb8df624d741b08f81151f231e1ae9a18533cc380a1136d8f69230fa0f59b7f58730217f556ee7466754378efcb3fee24",
+            "file": "projects/clan-dashboard/src/app/features/clans-roster/clans-roster.service.ts",
+            "deprecated": false,
+            "deprecationMessage": "",
+            "type": "interface",
+            "sourceCode": "import { Injectable } from '@angular/core';\r\nimport { Store } from '@ngrx/store';\r\nimport { selectEnabledClanIds, selectEnabledClans, selectLastProfileUpdate } from '@core/store/clans';\r\nimport { forkJoin, from, map, mergeMap, switchMap, tap, toArray, combineLatest, distinctUntilChanged, Observable } from 'rxjs';\r\n// import {} from '@destiny/data/';\r\nimport { ClanMembersService } from '@destiny/data/clan/clan-members';\r\nimport { ProfileService } from 'projects/data/src/lib/clan/profiles/profile.service';\r\nimport { MemberProfile } from '@destiny/data/models';\r\nimport { GroupsV2GroupMember } from 'bungie-api-angular';\r\n\r\nexport interface ClanMemberProfile {\r\n  clanId: string;\r\n  member: GroupsV2GroupMember;\r\n  profile: MemberProfile;\r\n}\r\n\r\n@Injectable()\r\nexport class ClansRosterService {\r\n  activeClansId$ = this.store.select(selectEnabledClanIds);\r\n\r\n  activeClanUpdateDates$ = this.activeClansId$.pipe(\r\n    switchMap((clanIds) => {\r\n      const arraySelectors = clanIds.map((clanId) => {\r\n        return this.store.select(selectLastProfileUpdate(clanId));\r\n      });\r\n\r\n      return combineLatest(arraySelectors);\r\n      // return from(clanIds).pipe(\r\n      //   switchMap((clanId) => {\r\n      //     console.log('', clanId);\r\n      //     return this.store.select(selectLastProfileUpdate(clanId));\r\n      //   })\r\n\r\n      //   // tap((x) => {\r\n      //   //   console.log('tapping1', x);\r\n      //   // })\r\n      // );\r\n    })\r\n  );\r\n\r\n  clanMembers$ = this.activeClansId$.pipe(\r\n    switchMap((activeClanIds) => {\r\n      console.log('active clans');\r\n      return from(activeClanIds).pipe(\r\n        mergeMap((clanId) => {\r\n          console.log('mmerge map');\r\n          return this.memberService.getClanMembersSerialized(clanId).pipe(\r\n            map((result) => {\r\n              return { clanId, members: result };\r\n            })\r\n          );\r\n        }),\r\n        toArray()\r\n      );\r\n    }),\r\n    tap((x) => console.log(x))\r\n  );\r\n\r\n  clanProfiles$: Observable<ClanMemberProfile[]> = this.clanMembers$.pipe(\r\n    switchMap((clansAndMembers) => {\r\n      return from(clansAndMembers).pipe(\r\n        mergeMap((clanAndMembers) => {\r\n          return this.profileService\r\n            .getSerializedProfiles<MemberProfile>(clanAndMembers.clanId, clanAndMembers.members, [], [])\r\n            .pipe(\r\n              map((result: MemberProfile) => {\r\n                return {\r\n                  clanId: clanAndMembers.clanId,\r\n                  member: clanAndMembers.members.find(\r\n                    (x) => x.destinyUserInfo?.membershipId == result.profile.data.userInfo?.membershipId\r\n                  ),\r\n                  profile: result\r\n                };\r\n              })\r\n            );\r\n        }),\r\n        toArray()\r\n      );\r\n    })\r\n  );\r\n\r\n  // Whenever activeClanUpdateDates gets updated. Run this observable.\r\n  activeClanPeople$ = this.activeClanUpdateDates$.pipe(\r\n    map((x) => {\r\n      return (\r\n        combineLatest([this.activeClansId$, this.activeClanUpdateDates$]),\r\n        map(([clans, clanDates]) => {\r\n          return clans;\r\n        })\r\n      );\r\n    })\r\n  );\r\n\r\n  constructor(\r\n    private store: Store,\r\n    private memberService: ClanMembersService,\r\n    private profileService: ProfileService\r\n  ) {}\r\n}\r\n",
+            "properties": [
+                {
+                    "name": "clanId",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "string",
+                    "optional": false,
+                    "description": "",
+                    "line": 12
+                },
+                {
+                    "name": "member",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "GroupsV2GroupMember",
+                    "optional": false,
+                    "description": "",
+                    "line": 13
+                },
+                {
+                    "name": "profile",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "MemberProfile",
+                    "optional": false,
+                    "description": "",
+                    "line": 14
+                }
+            ],
+            "indexSignatures": [],
+            "kind": 165,
+            "methods": []
+        },
+        {
             "name": "ClanMembersServiceInterface",
             "id": "interface-ClanMembersServiceInterface-d62de745f09221ef0a8063c3462fc92537d9fd527ac47185e06898e946566a5a619307bbdd734e097c30023e628096a5f605491e39c4b6355bc4cbf40d04eb0a",
             "file": "projects/data/src/lib/clan/clan-members/clan-members.interface.ts",
@@ -713,6 +754,61 @@
                     "optional": false,
                     "description": "",
                     "line": 32
+                }
+            ],
+            "indexSignatures": [],
+            "kind": 165,
+            "methods": []
+        },
+        {
+            "name": "ExporterMetadata",
+            "id": "interface-ExporterMetadata-8cd58574103f490abd8865195ac12ebafbcb8fefe499a340291fb2ac5efe11ef8059137c2f5406fee9f8297a45cce6cad7f2bfd7ad925b1aabacc736d17b6b09",
+            "file": "projects/components/src/lib/data/exporter.ts",
+            "deprecated": false,
+            "deprecationMessage": "",
+            "type": "interface",
+            "sourceCode": "import { Observable, take } from 'rxjs';\r\n\r\nexport interface ExporterMetadata<T = any, C = any> {\r\n  label: string;\r\n  text: (item: T, context: C) => string | null;\r\n}\r\nexport interface ExporterOptions<T, C> {\r\n  metadata?: Map<string, ExporterMetadata<T, C>>;\r\n  //contextProvider?: SorterContextProvider<C>;\r\n  // initialState?: SorterState;\r\n}\r\n\r\nexport class Exporter<T = any, C = any> {\r\n  private metadata: Map<string, ExporterMetadata<T, C>>;\r\n\r\n  constructor(options: ExporterOptions<T, C> = {}) {\r\n    this.metadata = options.metadata || new Map();\r\n  }\r\n\r\n  exportData(name: string, items$: Observable<T[]>): void {\r\n    items$.pipe(take(1)).subscribe((items) => {\r\n      const keys = [];\r\n      this.metadata.forEach((value, key) => keys.push(key));\r\n      const formattedObj = items.map((item) => {\r\n        const obj = {};\r\n        keys.forEach((key) => {\r\n          const config = this.metadata.get(key);\r\n          obj[config.label] = config.text(item, null);\r\n        });\r\n        return obj;\r\n      });\r\n      downloadCSV({ filename: `${name}-${new Date().getTime()}` }, formattedObj);\r\n    });\r\n  }\r\n}\r\n\r\nfunction downloadCSV(args, stockData) {\r\n  let data, filename, link;\r\n  let csv = convertArrayOfObjectsToCSV({\r\n    data: stockData\r\n  });\r\n  if (csv == null) {\r\n    return;\r\n  }\r\n\r\n  filename = args.filename || 'export.csv';\r\n\r\n  if (!csv.match(/^data:text\\/csv/i)) {\r\n    csv = 'data:text/csv;charset=utf-8,' + csv;\r\n  }\r\n  data = encodeURI(csv);\r\n\r\n  link = document.createElement('a');\r\n  link.setAttribute('href', data);\r\n  link.setAttribute('download', filename);\r\n  link.click();\r\n}\r\nfunction convertArrayOfObjectsToCSV(args) {\r\n  let result, ctr, keys, columnDelimiter, lineDelimiter, data;\r\n\r\n  data = args.data || null;\r\n  if (data == null || !data.length) {\r\n    return null;\r\n  }\r\n\r\n  columnDelimiter = args.columnDelimiter || ',';\r\n  lineDelimiter = args.lineDelimiter || '\\n';\r\n\r\n  keys = Object.keys(data[0]);\r\n\r\n  result = '';\r\n  result += keys.join(columnDelimiter);\r\n  result += lineDelimiter;\r\n\r\n  data.forEach(function (item) {\r\n    ctr = 0;\r\n    keys.forEach(function (key) {\r\n      if (ctr > 0) {\r\n        result += columnDelimiter;\r\n      }\r\n\r\n      result += item[key];\r\n      ctr++;\r\n    });\r\n    result += lineDelimiter;\r\n  });\r\n\r\n  return result;\r\n}\r\n",
+            "properties": [
+                {
+                    "name": "label",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "string",
+                    "optional": false,
+                    "description": "",
+                    "line": 4
+                },
+                {
+                    "name": "text",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "function",
+                    "optional": false,
+                    "description": "",
+                    "line": 5
+                }
+            ],
+            "indexSignatures": [],
+            "kind": 165,
+            "methods": []
+        },
+        {
+            "name": "ExporterOptions",
+            "id": "interface-ExporterOptions-8cd58574103f490abd8865195ac12ebafbcb8fefe499a340291fb2ac5efe11ef8059137c2f5406fee9f8297a45cce6cad7f2bfd7ad925b1aabacc736d17b6b09",
+            "file": "projects/components/src/lib/data/exporter.ts",
+            "deprecated": false,
+            "deprecationMessage": "",
+            "type": "interface",
+            "sourceCode": "import { Observable, take } from 'rxjs';\r\n\r\nexport interface ExporterMetadata<T = any, C = any> {\r\n  label: string;\r\n  text: (item: T, context: C) => string | null;\r\n}\r\nexport interface ExporterOptions<T, C> {\r\n  metadata?: Map<string, ExporterMetadata<T, C>>;\r\n  //contextProvider?: SorterContextProvider<C>;\r\n  // initialState?: SorterState;\r\n}\r\n\r\nexport class Exporter<T = any, C = any> {\r\n  private metadata: Map<string, ExporterMetadata<T, C>>;\r\n\r\n  constructor(options: ExporterOptions<T, C> = {}) {\r\n    this.metadata = options.metadata || new Map();\r\n  }\r\n\r\n  exportData(name: string, items$: Observable<T[]>): void {\r\n    items$.pipe(take(1)).subscribe((items) => {\r\n      const keys = [];\r\n      this.metadata.forEach((value, key) => keys.push(key));\r\n      const formattedObj = items.map((item) => {\r\n        const obj = {};\r\n        keys.forEach((key) => {\r\n          const config = this.metadata.get(key);\r\n          obj[config.label] = config.text(item, null);\r\n        });\r\n        return obj;\r\n      });\r\n      downloadCSV({ filename: `${name}-${new Date().getTime()}` }, formattedObj);\r\n    });\r\n  }\r\n}\r\n\r\nfunction downloadCSV(args, stockData) {\r\n  let data, filename, link;\r\n  let csv = convertArrayOfObjectsToCSV({\r\n    data: stockData\r\n  });\r\n  if (csv == null) {\r\n    return;\r\n  }\r\n\r\n  filename = args.filename || 'export.csv';\r\n\r\n  if (!csv.match(/^data:text\\/csv/i)) {\r\n    csv = 'data:text/csv;charset=utf-8,' + csv;\r\n  }\r\n  data = encodeURI(csv);\r\n\r\n  link = document.createElement('a');\r\n  link.setAttribute('href', data);\r\n  link.setAttribute('download', filename);\r\n  link.click();\r\n}\r\nfunction convertArrayOfObjectsToCSV(args) {\r\n  let result, ctr, keys, columnDelimiter, lineDelimiter, data;\r\n\r\n  data = args.data || null;\r\n  if (data == null || !data.length) {\r\n    return null;\r\n  }\r\n\r\n  columnDelimiter = args.columnDelimiter || ',';\r\n  lineDelimiter = args.lineDelimiter || '\\n';\r\n\r\n  keys = Object.keys(data[0]);\r\n\r\n  result = '';\r\n  result += keys.join(columnDelimiter);\r\n  result += lineDelimiter;\r\n\r\n  data.forEach(function (item) {\r\n    ctr = 0;\r\n    keys.forEach(function (key) {\r\n      if (ctr > 0) {\r\n        result += columnDelimiter;\r\n      }\r\n\r\n      result += item[key];\r\n      ctr++;\r\n    });\r\n    result += lineDelimiter;\r\n  });\r\n\r\n  return result;\r\n}\r\n",
+            "properties": [
+                {
+                    "name": "metadata",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Map<string | ExporterMetadata<T, C>>",
+                    "optional": true,
+                    "description": "",
+                    "line": 8
                 }
             ],
             "indexSignatures": [],
@@ -1103,12 +1199,12 @@
         },
         {
             "name": "Item",
-            "id": "interface-Item-314ffa4741cb1284741e2e0e710c9dd782a4d24d6a4263f3b78b5fedaa2e8cfc4684f831b15385beeed74ac948c3d795512f3c8f59fac11bc8dd035fdbad1edd",
+            "id": "interface-Item-897b3ec1d4974d37dd89dc9c78d9bdb3ac71efcc06eace0f101d7b8b2c386b91afd884895fa6e16f8506f2069b7db14f1a073154291c5e58dc9162b6ec5ec362",
             "file": "projects/components/src/lib/shared/table-view/table-view.component.ts",
             "deprecated": false,
             "deprecationMessage": "",
             "type": "interface",
-            "sourceCode": "import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';\r\nimport { BehaviorSubject, combineLatest, map, Observable, shareReplay } from 'rxjs';\r\nimport { DataSource } from '../../data/data-source';\r\nimport { Filterer } from '../../data/filterer';\r\nimport { Grouper } from '../../data/grouper';\r\nimport { Sorter } from '../../data/sorter';\r\nimport { RenderedView, Viewer, ViewLabel } from '../../data/viewer';\r\nimport { MatPaginatorModule, PageEvent } from '@angular/material/paginator';\r\nimport { MatTableModule } from '@angular/material/table';\r\nimport { MatDividerModule } from '@angular/material/divider';\r\nimport { CommonModule } from '@angular/common';\r\n// import { RenderedViewModule } from '../rendered-view/rendered-view.module';\r\nimport { RenderedViewComponent } from '../rendered-view/rendered-view.component';\r\n\r\nexport interface Item {\r\n  id: string;\r\n  assignees: string[];\r\n  body: string;\r\n  title: string;\r\n  comments: number;\r\n  labels: string[];\r\n  number: number;\r\n  state: string;\r\n  reporter: string;\r\n  created: string;\r\n  closed: string;\r\n  updated: string;\r\n  // reactions: Reactions;\r\n  pr: boolean;\r\n  url: string;\r\n  //  statuses: ItemStatus[];\r\n  dbAdded?: string;\r\n  dbModified?: string;\r\n}\r\n\r\ninterface TablePage {\r\n  index: number;\r\n  size: number;\r\n}\r\n\r\n@Component({\r\n  selector: 'lib-table-view',\r\n  templateUrl: './table-view.component.html',\r\n  imports: [CommonModule, MatTableModule, RenderedViewComponent, MatPaginatorModule, MatDividerModule],\r\n  standalone: true,\r\n  styleUrls: ['./table-view.component.scss'],\r\n  changeDetection: ChangeDetectionStrategy.OnPush\r\n})\r\nexport class TableViewComponent implements OnInit {\r\n  displayedColumns: Observable<string[]>;\r\n\r\n  views: ViewLabel[];\r\n\r\n  renderedHtml: Observable<Map<Item, Map<string, Observable<RenderedView>>>>;\r\n\r\n  @Input() filterer: Filterer;\r\n\r\n  @Input() viewer: Viewer;\r\n\r\n  @Input() grouper: Grouper;\r\n\r\n  @Input() sorter: Sorter;\r\n\r\n  @Input() dataSource: DataSource;\r\n\r\n  @Input() loading: boolean;\r\n\r\n  itemCount: Observable<number>;\r\n\r\n  page: BehaviorSubject<TablePage> = new BehaviorSubject({ size: 20, index: 0 });\r\n\r\n  renderedData: Observable<Item[]>;\r\n  constructor() {}\r\n\r\n  ngOnInit(): void {\r\n    // TODO: Cannot be in ngOnInit since the inputs may change\r\n    const curatedData = this.dataSource.data.pipe(this.filterer.filter(), this.sorter.sort());\r\n    this.renderedData = combineLatest([curatedData, this.page]).pipe(\r\n      map(([data, page]) => data.slice(page.index * page.size, page.index * page.size + page.size))\r\n    );\r\n    this.itemCount = curatedData.pipe(map((d) => d.length));\r\n\r\n    this.views = this.viewer.getViews();\r\n    this.displayedColumns = this.viewer.state.pipe(\r\n      map((state) => {\r\n        return this.views.map((v) => v.id).filter((v) => state.views.indexOf(v) !== -1);\r\n      })\r\n    );\r\n\r\n    this.renderedHtml = this.renderedData.pipe(\r\n      map((items) => {\r\n        const renderedHtml = new Map<Item, Map<string, Observable<RenderedView>>>();\r\n        items.forEach((item) => {\r\n          const itemRenderedViews = new Map<string, Observable<RenderedView>>();\r\n          this.views.forEach((view) => itemRenderedViews.set(view.id, this.viewer.getRenderedView(item, view.id)));\r\n          renderedHtml.set(item, itemRenderedViews);\r\n        });\r\n        return renderedHtml;\r\n      }),\r\n      shareReplay(1)\r\n    );\r\n  }\r\n\r\n  // setPage(event: PageEvent) {\r\n  //   this.page.next({ index: event.pageIndex, size: event.pageSize });\r\n  // }\r\n}\r\n",
+            "sourceCode": "import { CommonModule } from '@angular/common';\r\nimport { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';\r\nimport { BehaviorSubject, combineLatest, map, Observable, shareReplay } from 'rxjs';\r\n\r\nimport { MatPaginatorModule, PageEvent } from '@angular/material/paginator';\r\nimport { MatTableModule } from '@angular/material/table';\r\nimport { MatDividerModule } from '@angular/material/divider';\r\nimport { RenderedViewComponent } from '../rendered-view/rendered-view.component';\r\nimport { DisplayOptionsComponent } from '../display-options/display-options.component';\r\n\r\nimport { RenderedView, Viewer, ViewLabel } from '../../data/viewer';\r\nimport { Exporter } from '../../data/exporter';\r\nimport { DataSource } from '../../data/data-source';\r\nimport { Filterer } from '../../data/filterer';\r\nimport { Grouper } from '../../data/grouper';\r\nimport { Sorter } from '../../data/sorter';\r\n\r\nexport interface Item {\r\n  id: string;\r\n  assignees: string[];\r\n  body: string;\r\n  title: string;\r\n  comments: number;\r\n  labels: string[];\r\n  number: number;\r\n  state: string;\r\n  reporter: string;\r\n  created: string;\r\n  closed: string;\r\n  updated: string;\r\n  // reactions: Reactions;\r\n  pr: boolean;\r\n  url: string;\r\n  //  statuses: ItemStatus[];\r\n  dbAdded?: string;\r\n  dbModified?: string;\r\n}\r\n\r\ninterface TablePage {\r\n  index: number;\r\n  size: number;\r\n}\r\n\r\n@Component({\r\n  selector: 'lib-table-view',\r\n  templateUrl: './table-view.component.html',\r\n  imports: [\r\n    CommonModule,\r\n    MatTableModule,\r\n    RenderedViewComponent,\r\n    MatPaginatorModule,\r\n    MatDividerModule,\r\n    DisplayOptionsComponent\r\n  ],\r\n  standalone: true,\r\n  styleUrls: ['./table-view.component.scss'],\r\n  changeDetection: ChangeDetectionStrategy.OnPush\r\n})\r\nexport class TableViewComponent implements OnInit {\r\n  displayedColumns: Observable<string[]>;\r\n\r\n  views: ViewLabel[];\r\n\r\n  renderedHtml: Observable<Map<Item, Map<string, Observable<RenderedView>>>>;\r\n\r\n  @Input() filterer: Filterer;\r\n\r\n  @Input() viewer: Viewer;\r\n\r\n  @Input() grouper: Grouper;\r\n\r\n  @Input() sorter: Sorter;\r\n\r\n  @Input() dataSource: DataSource;\r\n\r\n  @Input() exporter: Exporter;\r\n\r\n  @Input() loading: boolean;\r\n\r\n  itemCount: Observable<number>;\r\n\r\n  page: BehaviorSubject<TablePage> = new BehaviorSubject({ size: 20, index: 0 });\r\n\r\n  renderedData: Observable<Item[]>;\r\n  constructor() {}\r\n\r\n  ngOnInit(): void {\r\n    // TODO: Cannot be in ngOnInit since the inputs may change\r\n    const curatedData = this.dataSource.data.pipe(this.filterer.filter(), this.sorter.sort());\r\n    this.renderedData = combineLatest([curatedData, this.page]).pipe(\r\n      map(([data, page]) => data.slice(page.index * page.size, page.index * page.size + page.size))\r\n    );\r\n    this.itemCount = curatedData.pipe(map((d) => d.length));\r\n\r\n    this.views = this.viewer.getViews();\r\n    this.displayedColumns = this.viewer.state.pipe(\r\n      map((state) => {\r\n        return this.views.map((v) => v.id).filter((v) => state.views.indexOf(v) !== -1);\r\n      })\r\n    );\r\n\r\n    this.renderedHtml = this.renderedData.pipe(\r\n      map((items) => {\r\n        const renderedHtml = new Map<Item, Map<string, Observable<RenderedView>>>();\r\n        items.forEach((item) => {\r\n          const itemRenderedViews = new Map<string, Observable<RenderedView>>();\r\n          this.views.forEach((view) => itemRenderedViews.set(view.id, this.viewer.getRenderedView(item, view.id)));\r\n          renderedHtml.set(item, itemRenderedViews);\r\n        });\r\n        return renderedHtml;\r\n      }),\r\n      shareReplay(1)\r\n    );\r\n  }\r\n\r\n  setPage(event: PageEvent) {\r\n    this.page.next({ index: event.pageIndex, size: event.pageSize });\r\n  }\r\n  export() {\r\n    this.exporter.exportData('', this.renderedData);\r\n  }\r\n}\r\n",
             "properties": [
                 {
                     "name": "assignees",
@@ -1117,7 +1213,7 @@
                     "type": "string[]",
                     "optional": false,
                     "description": "",
-                    "line": 17
+                    "line": 22
                 },
                 {
                     "name": "body",
@@ -1126,7 +1222,7 @@
                     "type": "string",
                     "optional": false,
                     "description": "",
-                    "line": 18
+                    "line": 23
                 },
                 {
                     "name": "closed",
@@ -1135,7 +1231,7 @@
                     "type": "string",
                     "optional": false,
                     "description": "",
-                    "line": 26
+                    "line": 31
                 },
                 {
                     "name": "comments",
@@ -1144,7 +1240,7 @@
                     "type": "number",
                     "optional": false,
                     "description": "",
-                    "line": 20
+                    "line": 25
                 },
                 {
                     "name": "created",
@@ -1153,7 +1249,7 @@
                     "type": "string",
                     "optional": false,
                     "description": "",
-                    "line": 25
+                    "line": 30
                 },
                 {
                     "name": "dbAdded",
@@ -1162,7 +1258,7 @@
                     "type": "string",
                     "optional": true,
                     "description": "",
-                    "line": 32
+                    "line": 37
                 },
                 {
                     "name": "dbModified",
@@ -1171,7 +1267,7 @@
                     "type": "string",
                     "optional": true,
                     "description": "",
-                    "line": 33
+                    "line": 38
                 },
                 {
                     "name": "id",
@@ -1180,7 +1276,7 @@
                     "type": "string",
                     "optional": false,
                     "description": "",
-                    "line": 16
+                    "line": 21
                 },
                 {
                     "name": "labels",
@@ -1189,7 +1285,7 @@
                     "type": "string[]",
                     "optional": false,
                     "description": "",
-                    "line": 21
+                    "line": 26
                 },
                 {
                     "name": "number",
@@ -1198,7 +1294,7 @@
                     "type": "number",
                     "optional": false,
                     "description": "",
-                    "line": 22
+                    "line": 27
                 },
                 {
                     "name": "pr",
@@ -1207,7 +1303,7 @@
                     "type": "boolean",
                     "optional": false,
                     "description": "",
-                    "line": 29
+                    "line": 34
                 },
                 {
                     "name": "reporter",
@@ -1216,7 +1312,7 @@
                     "type": "string",
                     "optional": false,
                     "description": "",
-                    "line": 24
+                    "line": 29
                 },
                 {
                     "name": "state",
@@ -1225,7 +1321,7 @@
                     "type": "string",
                     "optional": false,
                     "description": "",
-                    "line": 23
+                    "line": 28
                 },
                 {
                     "name": "title",
@@ -1234,7 +1330,7 @@
                     "type": "string",
                     "optional": false,
                     "description": "",
-                    "line": 19
+                    "line": 24
                 },
                 {
                     "name": "updated",
@@ -1243,7 +1339,7 @@
                     "type": "string",
                     "optional": false,
                     "description": "",
-                    "line": 27
+                    "line": 32
                 },
                 {
                     "name": "url",
@@ -1252,7 +1348,7 @@
                     "type": "string",
                     "optional": false,
                     "description": "",
-                    "line": 30
+                    "line": 35
                 }
             ],
             "indexSignatures": [],
@@ -1490,6 +1586,74 @@
             "methods": []
         },
         {
+            "name": "QueryResources",
+            "id": "interface-QueryResources-bbf546a7584553e2bee785c3819f288c3446774807964111d0a5440aec3bd3953be50b45727672386680337d1d1ec5ca3285bd8c6794caa5a43445dcc5fbf258",
+            "file": "projects/clan-dashboard/src/app/features/clans-roster/clans-roster.component.ts",
+            "deprecated": false,
+            "deprecationMessage": "",
+            "type": "interface",
+            "sourceCode": "import { Component, OnInit, ViewRef } from '@angular/core';\nimport { DataSource, Filterer, Grouper, Sorter, Viewer } from '@destiny/components';\nimport { combineLatest, filter, map, Observable } from 'rxjs';\nimport { CLAN_ROSTER_VIEWER_METADATA } from './clan-roster-metadata';\nimport { ClanMemberProfile, ClansRosterService } from './clans-roster.service';\n\ninterface QueryResources {\n  loading: Observable<boolean>;\n  viewer: Viewer;\n  filterer: Filterer;\n  grouper: Grouper;\n  sorter: Sorter;\n  dataSource: DataSource;\n}\n\n@Component({\n  selector: 'app-clans-roster',\n  templateUrl: './clans-roster.component.html',\n  styleUrls: ['./clans-roster.component.scss']\n})\nexport class ClansRosterComponent implements OnInit {\n  constructor(private clansRosterService: ClansRosterService) {}\n  // stuff2$ = this.clansRosterService.activeClanPeople$;\n  //members$ = this.clansRosterService.clanMembers$;\n  profiles$ = this.clansRosterService.clanProfiles$;\n\n  rosterViewer = new Viewer({ metadata: CLAN_ROSTER_VIEWER_METADATA });\n\n  rosterInfo$ = combineLatest([this.clansRosterService.clanProfiles$]).pipe(\n    map(([clanProfiles]) => {\n      return {\n        dataSource:new DataSource<ClanMemberProfile>({ data: clanProfiles }) ,\n        viewer: this.rosterViewer\n      };\n    }),\n    filter(ds => !!ds)\n  );\n\n  ngOnInit(): void {}\n}\n",
+            "properties": [
+                {
+                    "name": "dataSource",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "DataSource",
+                    "optional": false,
+                    "description": "",
+                    "line": 13
+                },
+                {
+                    "name": "filterer",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Filterer",
+                    "optional": false,
+                    "description": "",
+                    "line": 10
+                },
+                {
+                    "name": "grouper",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Grouper",
+                    "optional": false,
+                    "description": "",
+                    "line": 11
+                },
+                {
+                    "name": "loading",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Observable<boolean>",
+                    "optional": false,
+                    "description": "",
+                    "line": 8
+                },
+                {
+                    "name": "sorter",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Sorter",
+                    "optional": false,
+                    "description": "",
+                    "line": 12
+                },
+                {
+                    "name": "viewer",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Viewer",
+                    "optional": false,
+                    "description": "",
+                    "line": 9
+                }
+            ],
+            "indexSignatures": [],
+            "kind": 165,
+            "methods": []
+        },
+        {
             "name": "RenderedViewWithChildren",
             "id": "interface-RenderedViewWithChildren-71dc8ae945e2cba1c7ac5909a2a36576706ec595eaba25dbcb892db877b4a07f7cf9e8cc6a0a7948c2e67b921d1933f54356ff461aec7f86249b220a9f045e46",
             "file": "projects/components/src/lib/data/viewer.ts",
@@ -1573,12 +1737,12 @@
         },
         {
             "name": "SorterMetadata",
-            "id": "interface-SorterMetadata-9e909afd62ddeb103e1bb055129cc2bfea2723452575ec647effbcd5013f57a1d4171741ca22849f9fc27681e0536bbe64542e3cb388851216af469dd31b92e6",
+            "id": "interface-SorterMetadata-c09137ab5d43fd609c396313e8caf2a377316e87e3952b786a4f573c85a61401ef116622f39985c64243cfb158eeded7645e899bc4d3f2a07bcffcfbd47436f3",
             "file": "projects/components/src/lib/data/sorter.ts",
             "deprecated": false,
             "deprecationMessage": "",
             "type": "interface",
-            "sourceCode": "import {combineLatest, EMPTY, Observable, ReplaySubject} from 'rxjs';\r\nimport {map, startWith} from 'rxjs/operators';\r\n\r\nexport interface SorterState {\r\n  sort: string;\r\n  reverse: boolean;\r\n}\r\n\r\nexport type SortComparator<T, C> = (a: T, b: T, context: C) => number;\r\n\r\nexport interface SorterMetadata<T = any, C = any> {\r\n  label: string;\r\n  comparator: SortComparator<T, C>;\r\n}\r\n\r\nexport type SorterContextProvider<C> = Observable<C>;\r\n\r\nexport interface SortLabel {\r\n  id: string;\r\n  label: string;\r\n}\r\n\r\nfunction sortItems<T, C>(\r\n    items: T[], comparator: SortComparator<T, C>, reverse: boolean, context: C) {\r\n  items.sort((a, b) => comparator(a, b, context));\r\n\r\n  if (reverse) {\r\n    items.reverse();\r\n  }\r\n\r\n  return items;\r\n}\r\n\r\nexport interface SorterOptions<T, C> {\r\n  metadata?: Map<string, SorterMetadata<T, C>>;\r\n  contextProvider?: SorterContextProvider<C>;\r\n  initialState?: SorterState;\r\n}\r\n\r\nexport class Sorter<T = any, C = any> {\r\n  private metadata: Map<string, SorterMetadata<T, C>>;\r\n\r\n  private contextProvider: SorterContextProvider<C>;\r\n\r\n  state = new ReplaySubject<SorterState>(1);\r\n\r\n  constructor(options: SorterOptions<T, C> = {}) {\r\n    this.metadata = options.metadata || new Map();\r\n    this.state.next(options.initialState || {sort: this.getSorts()[0].id, reverse: false});\r\n    this.contextProvider = options.contextProvider || EMPTY.pipe(startWith(null));\r\n  }\r\n\r\n  sort(): (items$: Observable<T[]>) => Observable<T[]> {\r\n    return (items$: Observable<T[]>) => {\r\n      return combineLatest(items$, this.state, this.contextProvider)\r\n          .pipe(map(([items, state, context]) => {\r\n            const sortMetadata = this.metadata.get(state.sort);\r\n            if (!sortMetadata) {\r\n              throw new Error(`No configuration set up for sort ${state.sort}`);\r\n            }\r\n\r\n            return sortItems(items, sortMetadata.comparator, state.reverse, context);\r\n          }));\r\n    };\r\n  }\r\n\r\n  getSorts(): SortLabel[] {\r\n    const sorts: SortLabel[] = [];\r\n    this.metadata.forEach((value, key) => sorts.push({id: key, label: value.label}));\r\n    return sorts;\r\n  }\r\n\r\n  setState(state: SorterState) {\r\n    this.state.next({...state});\r\n  }\r\n\r\n  isEquivalent(otherState?: SorterState): Observable<boolean> {\r\n    return this.state.pipe(map(state => {\r\n      if (!otherState) {\r\n        return false;\r\n      }\r\n      return state.sort === otherState.sort && state.reverse === otherState.reverse;\r\n    }));\r\n  }\r\n}\r\n",
+            "sourceCode": "import {combineLatest, EMPTY, Observable, ReplaySubject} from 'rxjs';\r\nimport {map, startWith} from 'rxjs/operators';\r\n\r\nexport interface SorterState {\r\n  sort: string;\r\n  reverse: boolean;\r\n}\r\n\r\nexport type SortComparator<T, C> = (a: T, b: T, context: C) => number;\r\n\r\nexport interface SorterMetadata<T = any, C = any> {\r\n  label: string;\r\n  comparator: SortComparator<T, C>;\r\n}\r\n\r\nexport type SorterContextProvider<C> = Observable<C>;\r\n\r\nexport interface SortLabel {\r\n  id: string;\r\n  label: string;\r\n}\r\n\r\nfunction sortItems<T, C>(\r\n    items: T[], comparator: SortComparator<T, C>, reverse: boolean, context: C) {\r\n  items.sort((a, b) => comparator(a, b, context));\r\n\r\n  if (reverse) {\r\n    items.reverse();\r\n  }\r\n\r\n  return items;\r\n}\r\n\r\nexport interface SorterOptions<T, C> {\r\n  metadata?: Map<string, SorterMetadata<T, C>>;\r\n  contextProvider?: SorterContextProvider<C>;\r\n  initialState?: SorterState;\r\n}\r\n\r\nexport class Sorter<T = any, C = any> {\r\n  private metadata: Map<string, SorterMetadata<T, C>>;\r\n\r\n  private contextProvider: SorterContextProvider<C>;\r\n\r\n  state = new ReplaySubject<SorterState>(1);\r\n\r\n  constructor(options: SorterOptions<T, C> = {}) {\r\n    this.metadata = options.metadata || new Map();\r\n    this.state.next(options.initialState || {sort: this.getSorts()[0].id, reverse: false});\r\n    this.contextProvider = options.contextProvider || EMPTY.pipe(startWith(null));\r\n  }\r\n\r\n  sort(): (items$: Observable<T[]>) => Observable<T[]> {\r\n    return (items$: Observable<T[]>) => {\r\n      return combineLatest([items$, this.state, this.contextProvider])\r\n          .pipe(map(([items, state, context]) => {\r\n            const sortMetadata = this.metadata.get(state.sort);\r\n            if (!sortMetadata) {\r\n              throw new Error(`No configuration set up for sort ${state.sort}`);\r\n            }\r\n\r\n            return sortItems(items, sortMetadata.comparator, state.reverse, context);\r\n          }));\r\n    };\r\n  }\r\n\r\n  getSorts(): SortLabel[] {\r\n    const sorts: SortLabel[] = [];\r\n    this.metadata.forEach((value, key) => sorts.push({id: key, label: value.label}));\r\n    return sorts;\r\n  }\r\n\r\n  setState(state: SorterState) {\r\n    this.state.next({...state});\r\n  }\r\n\r\n  isEquivalent(otherState?: SorterState): Observable<boolean> {\r\n    return this.state.pipe(map(state => {\r\n      if (!otherState) {\r\n        return false;\r\n      }\r\n      return state.sort === otherState.sort && state.reverse === otherState.reverse;\r\n    }));\r\n  }\r\n}\r\n",
             "properties": [
                 {
                     "name": "comparator",
@@ -1605,12 +1769,12 @@
         },
         {
             "name": "SorterOptions",
-            "id": "interface-SorterOptions-9e909afd62ddeb103e1bb055129cc2bfea2723452575ec647effbcd5013f57a1d4171741ca22849f9fc27681e0536bbe64542e3cb388851216af469dd31b92e6",
+            "id": "interface-SorterOptions-c09137ab5d43fd609c396313e8caf2a377316e87e3952b786a4f573c85a61401ef116622f39985c64243cfb158eeded7645e899bc4d3f2a07bcffcfbd47436f3",
             "file": "projects/components/src/lib/data/sorter.ts",
             "deprecated": false,
             "deprecationMessage": "",
             "type": "interface",
-            "sourceCode": "import {combineLatest, EMPTY, Observable, ReplaySubject} from 'rxjs';\r\nimport {map, startWith} from 'rxjs/operators';\r\n\r\nexport interface SorterState {\r\n  sort: string;\r\n  reverse: boolean;\r\n}\r\n\r\nexport type SortComparator<T, C> = (a: T, b: T, context: C) => number;\r\n\r\nexport interface SorterMetadata<T = any, C = any> {\r\n  label: string;\r\n  comparator: SortComparator<T, C>;\r\n}\r\n\r\nexport type SorterContextProvider<C> = Observable<C>;\r\n\r\nexport interface SortLabel {\r\n  id: string;\r\n  label: string;\r\n}\r\n\r\nfunction sortItems<T, C>(\r\n    items: T[], comparator: SortComparator<T, C>, reverse: boolean, context: C) {\r\n  items.sort((a, b) => comparator(a, b, context));\r\n\r\n  if (reverse) {\r\n    items.reverse();\r\n  }\r\n\r\n  return items;\r\n}\r\n\r\nexport interface SorterOptions<T, C> {\r\n  metadata?: Map<string, SorterMetadata<T, C>>;\r\n  contextProvider?: SorterContextProvider<C>;\r\n  initialState?: SorterState;\r\n}\r\n\r\nexport class Sorter<T = any, C = any> {\r\n  private metadata: Map<string, SorterMetadata<T, C>>;\r\n\r\n  private contextProvider: SorterContextProvider<C>;\r\n\r\n  state = new ReplaySubject<SorterState>(1);\r\n\r\n  constructor(options: SorterOptions<T, C> = {}) {\r\n    this.metadata = options.metadata || new Map();\r\n    this.state.next(options.initialState || {sort: this.getSorts()[0].id, reverse: false});\r\n    this.contextProvider = options.contextProvider || EMPTY.pipe(startWith(null));\r\n  }\r\n\r\n  sort(): (items$: Observable<T[]>) => Observable<T[]> {\r\n    return (items$: Observable<T[]>) => {\r\n      return combineLatest(items$, this.state, this.contextProvider)\r\n          .pipe(map(([items, state, context]) => {\r\n            const sortMetadata = this.metadata.get(state.sort);\r\n            if (!sortMetadata) {\r\n              throw new Error(`No configuration set up for sort ${state.sort}`);\r\n            }\r\n\r\n            return sortItems(items, sortMetadata.comparator, state.reverse, context);\r\n          }));\r\n    };\r\n  }\r\n\r\n  getSorts(): SortLabel[] {\r\n    const sorts: SortLabel[] = [];\r\n    this.metadata.forEach((value, key) => sorts.push({id: key, label: value.label}));\r\n    return sorts;\r\n  }\r\n\r\n  setState(state: SorterState) {\r\n    this.state.next({...state});\r\n  }\r\n\r\n  isEquivalent(otherState?: SorterState): Observable<boolean> {\r\n    return this.state.pipe(map(state => {\r\n      if (!otherState) {\r\n        return false;\r\n      }\r\n      return state.sort === otherState.sort && state.reverse === otherState.reverse;\r\n    }));\r\n  }\r\n}\r\n",
+            "sourceCode": "import {combineLatest, EMPTY, Observable, ReplaySubject} from 'rxjs';\r\nimport {map, startWith} from 'rxjs/operators';\r\n\r\nexport interface SorterState {\r\n  sort: string;\r\n  reverse: boolean;\r\n}\r\n\r\nexport type SortComparator<T, C> = (a: T, b: T, context: C) => number;\r\n\r\nexport interface SorterMetadata<T = any, C = any> {\r\n  label: string;\r\n  comparator: SortComparator<T, C>;\r\n}\r\n\r\nexport type SorterContextProvider<C> = Observable<C>;\r\n\r\nexport interface SortLabel {\r\n  id: string;\r\n  label: string;\r\n}\r\n\r\nfunction sortItems<T, C>(\r\n    items: T[], comparator: SortComparator<T, C>, reverse: boolean, context: C) {\r\n  items.sort((a, b) => comparator(a, b, context));\r\n\r\n  if (reverse) {\r\n    items.reverse();\r\n  }\r\n\r\n  return items;\r\n}\r\n\r\nexport interface SorterOptions<T, C> {\r\n  metadata?: Map<string, SorterMetadata<T, C>>;\r\n  contextProvider?: SorterContextProvider<C>;\r\n  initialState?: SorterState;\r\n}\r\n\r\nexport class Sorter<T = any, C = any> {\r\n  private metadata: Map<string, SorterMetadata<T, C>>;\r\n\r\n  private contextProvider: SorterContextProvider<C>;\r\n\r\n  state = new ReplaySubject<SorterState>(1);\r\n\r\n  constructor(options: SorterOptions<T, C> = {}) {\r\n    this.metadata = options.metadata || new Map();\r\n    this.state.next(options.initialState || {sort: this.getSorts()[0].id, reverse: false});\r\n    this.contextProvider = options.contextProvider || EMPTY.pipe(startWith(null));\r\n  }\r\n\r\n  sort(): (items$: Observable<T[]>) => Observable<T[]> {\r\n    return (items$: Observable<T[]>) => {\r\n      return combineLatest([items$, this.state, this.contextProvider])\r\n          .pipe(map(([items, state, context]) => {\r\n            const sortMetadata = this.metadata.get(state.sort);\r\n            if (!sortMetadata) {\r\n              throw new Error(`No configuration set up for sort ${state.sort}`);\r\n            }\r\n\r\n            return sortItems(items, sortMetadata.comparator, state.reverse, context);\r\n          }));\r\n    };\r\n  }\r\n\r\n  getSorts(): SortLabel[] {\r\n    const sorts: SortLabel[] = [];\r\n    this.metadata.forEach((value, key) => sorts.push({id: key, label: value.label}));\r\n    return sorts;\r\n  }\r\n\r\n  setState(state: SorterState) {\r\n    this.state.next({...state});\r\n  }\r\n\r\n  isEquivalent(otherState?: SorterState): Observable<boolean> {\r\n    return this.state.pipe(map(state => {\r\n      if (!otherState) {\r\n        return false;\r\n      }\r\n      return state.sort === otherState.sort && state.reverse === otherState.reverse;\r\n    }));\r\n  }\r\n}\r\n",
             "properties": [
                 {
                     "name": "contextProvider",
@@ -1646,12 +1810,12 @@
         },
         {
             "name": "SorterState",
-            "id": "interface-SorterState-9e909afd62ddeb103e1bb055129cc2bfea2723452575ec647effbcd5013f57a1d4171741ca22849f9fc27681e0536bbe64542e3cb388851216af469dd31b92e6",
+            "id": "interface-SorterState-c09137ab5d43fd609c396313e8caf2a377316e87e3952b786a4f573c85a61401ef116622f39985c64243cfb158eeded7645e899bc4d3f2a07bcffcfbd47436f3",
             "file": "projects/components/src/lib/data/sorter.ts",
             "deprecated": false,
             "deprecationMessage": "",
             "type": "interface",
-            "sourceCode": "import {combineLatest, EMPTY, Observable, ReplaySubject} from 'rxjs';\r\nimport {map, startWith} from 'rxjs/operators';\r\n\r\nexport interface SorterState {\r\n  sort: string;\r\n  reverse: boolean;\r\n}\r\n\r\nexport type SortComparator<T, C> = (a: T, b: T, context: C) => number;\r\n\r\nexport interface SorterMetadata<T = any, C = any> {\r\n  label: string;\r\n  comparator: SortComparator<T, C>;\r\n}\r\n\r\nexport type SorterContextProvider<C> = Observable<C>;\r\n\r\nexport interface SortLabel {\r\n  id: string;\r\n  label: string;\r\n}\r\n\r\nfunction sortItems<T, C>(\r\n    items: T[], comparator: SortComparator<T, C>, reverse: boolean, context: C) {\r\n  items.sort((a, b) => comparator(a, b, context));\r\n\r\n  if (reverse) {\r\n    items.reverse();\r\n  }\r\n\r\n  return items;\r\n}\r\n\r\nexport interface SorterOptions<T, C> {\r\n  metadata?: Map<string, SorterMetadata<T, C>>;\r\n  contextProvider?: SorterContextProvider<C>;\r\n  initialState?: SorterState;\r\n}\r\n\r\nexport class Sorter<T = any, C = any> {\r\n  private metadata: Map<string, SorterMetadata<T, C>>;\r\n\r\n  private contextProvider: SorterContextProvider<C>;\r\n\r\n  state = new ReplaySubject<SorterState>(1);\r\n\r\n  constructor(options: SorterOptions<T, C> = {}) {\r\n    this.metadata = options.metadata || new Map();\r\n    this.state.next(options.initialState || {sort: this.getSorts()[0].id, reverse: false});\r\n    this.contextProvider = options.contextProvider || EMPTY.pipe(startWith(null));\r\n  }\r\n\r\n  sort(): (items$: Observable<T[]>) => Observable<T[]> {\r\n    return (items$: Observable<T[]>) => {\r\n      return combineLatest(items$, this.state, this.contextProvider)\r\n          .pipe(map(([items, state, context]) => {\r\n            const sortMetadata = this.metadata.get(state.sort);\r\n            if (!sortMetadata) {\r\n              throw new Error(`No configuration set up for sort ${state.sort}`);\r\n            }\r\n\r\n            return sortItems(items, sortMetadata.comparator, state.reverse, context);\r\n          }));\r\n    };\r\n  }\r\n\r\n  getSorts(): SortLabel[] {\r\n    const sorts: SortLabel[] = [];\r\n    this.metadata.forEach((value, key) => sorts.push({id: key, label: value.label}));\r\n    return sorts;\r\n  }\r\n\r\n  setState(state: SorterState) {\r\n    this.state.next({...state});\r\n  }\r\n\r\n  isEquivalent(otherState?: SorterState): Observable<boolean> {\r\n    return this.state.pipe(map(state => {\r\n      if (!otherState) {\r\n        return false;\r\n      }\r\n      return state.sort === otherState.sort && state.reverse === otherState.reverse;\r\n    }));\r\n  }\r\n}\r\n",
+            "sourceCode": "import {combineLatest, EMPTY, Observable, ReplaySubject} from 'rxjs';\r\nimport {map, startWith} from 'rxjs/operators';\r\n\r\nexport interface SorterState {\r\n  sort: string;\r\n  reverse: boolean;\r\n}\r\n\r\nexport type SortComparator<T, C> = (a: T, b: T, context: C) => number;\r\n\r\nexport interface SorterMetadata<T = any, C = any> {\r\n  label: string;\r\n  comparator: SortComparator<T, C>;\r\n}\r\n\r\nexport type SorterContextProvider<C> = Observable<C>;\r\n\r\nexport interface SortLabel {\r\n  id: string;\r\n  label: string;\r\n}\r\n\r\nfunction sortItems<T, C>(\r\n    items: T[], comparator: SortComparator<T, C>, reverse: boolean, context: C) {\r\n  items.sort((a, b) => comparator(a, b, context));\r\n\r\n  if (reverse) {\r\n    items.reverse();\r\n  }\r\n\r\n  return items;\r\n}\r\n\r\nexport interface SorterOptions<T, C> {\r\n  metadata?: Map<string, SorterMetadata<T, C>>;\r\n  contextProvider?: SorterContextProvider<C>;\r\n  initialState?: SorterState;\r\n}\r\n\r\nexport class Sorter<T = any, C = any> {\r\n  private metadata: Map<string, SorterMetadata<T, C>>;\r\n\r\n  private contextProvider: SorterContextProvider<C>;\r\n\r\n  state = new ReplaySubject<SorterState>(1);\r\n\r\n  constructor(options: SorterOptions<T, C> = {}) {\r\n    this.metadata = options.metadata || new Map();\r\n    this.state.next(options.initialState || {sort: this.getSorts()[0].id, reverse: false});\r\n    this.contextProvider = options.contextProvider || EMPTY.pipe(startWith(null));\r\n  }\r\n\r\n  sort(): (items$: Observable<T[]>) => Observable<T[]> {\r\n    return (items$: Observable<T[]>) => {\r\n      return combineLatest([items$, this.state, this.contextProvider])\r\n          .pipe(map(([items, state, context]) => {\r\n            const sortMetadata = this.metadata.get(state.sort);\r\n            if (!sortMetadata) {\r\n              throw new Error(`No configuration set up for sort ${state.sort}`);\r\n            }\r\n\r\n            return sortItems(items, sortMetadata.comparator, state.reverse, context);\r\n          }));\r\n    };\r\n  }\r\n\r\n  getSorts(): SortLabel[] {\r\n    const sorts: SortLabel[] = [];\r\n    this.metadata.forEach((value, key) => sorts.push({id: key, label: value.label}));\r\n    return sorts;\r\n  }\r\n\r\n  setState(state: SorterState) {\r\n    this.state.next({...state});\r\n  }\r\n\r\n  isEquivalent(otherState?: SorterState): Observable<boolean> {\r\n    return this.state.pipe(map(state => {\r\n      if (!otherState) {\r\n        return false;\r\n      }\r\n      return state.sort === otherState.sort && state.reverse === otherState.reverse;\r\n    }));\r\n  }\r\n}\r\n",
             "properties": [
                 {
                     "name": "reverse",
@@ -1678,12 +1842,12 @@
         },
         {
             "name": "SortLabel",
-            "id": "interface-SortLabel-9e909afd62ddeb103e1bb055129cc2bfea2723452575ec647effbcd5013f57a1d4171741ca22849f9fc27681e0536bbe64542e3cb388851216af469dd31b92e6",
+            "id": "interface-SortLabel-c09137ab5d43fd609c396313e8caf2a377316e87e3952b786a4f573c85a61401ef116622f39985c64243cfb158eeded7645e899bc4d3f2a07bcffcfbd47436f3",
             "file": "projects/components/src/lib/data/sorter.ts",
             "deprecated": false,
             "deprecationMessage": "",
             "type": "interface",
-            "sourceCode": "import {combineLatest, EMPTY, Observable, ReplaySubject} from 'rxjs';\r\nimport {map, startWith} from 'rxjs/operators';\r\n\r\nexport interface SorterState {\r\n  sort: string;\r\n  reverse: boolean;\r\n}\r\n\r\nexport type SortComparator<T, C> = (a: T, b: T, context: C) => number;\r\n\r\nexport interface SorterMetadata<T = any, C = any> {\r\n  label: string;\r\n  comparator: SortComparator<T, C>;\r\n}\r\n\r\nexport type SorterContextProvider<C> = Observable<C>;\r\n\r\nexport interface SortLabel {\r\n  id: string;\r\n  label: string;\r\n}\r\n\r\nfunction sortItems<T, C>(\r\n    items: T[], comparator: SortComparator<T, C>, reverse: boolean, context: C) {\r\n  items.sort((a, b) => comparator(a, b, context));\r\n\r\n  if (reverse) {\r\n    items.reverse();\r\n  }\r\n\r\n  return items;\r\n}\r\n\r\nexport interface SorterOptions<T, C> {\r\n  metadata?: Map<string, SorterMetadata<T, C>>;\r\n  contextProvider?: SorterContextProvider<C>;\r\n  initialState?: SorterState;\r\n}\r\n\r\nexport class Sorter<T = any, C = any> {\r\n  private metadata: Map<string, SorterMetadata<T, C>>;\r\n\r\n  private contextProvider: SorterContextProvider<C>;\r\n\r\n  state = new ReplaySubject<SorterState>(1);\r\n\r\n  constructor(options: SorterOptions<T, C> = {}) {\r\n    this.metadata = options.metadata || new Map();\r\n    this.state.next(options.initialState || {sort: this.getSorts()[0].id, reverse: false});\r\n    this.contextProvider = options.contextProvider || EMPTY.pipe(startWith(null));\r\n  }\r\n\r\n  sort(): (items$: Observable<T[]>) => Observable<T[]> {\r\n    return (items$: Observable<T[]>) => {\r\n      return combineLatest(items$, this.state, this.contextProvider)\r\n          .pipe(map(([items, state, context]) => {\r\n            const sortMetadata = this.metadata.get(state.sort);\r\n            if (!sortMetadata) {\r\n              throw new Error(`No configuration set up for sort ${state.sort}`);\r\n            }\r\n\r\n            return sortItems(items, sortMetadata.comparator, state.reverse, context);\r\n          }));\r\n    };\r\n  }\r\n\r\n  getSorts(): SortLabel[] {\r\n    const sorts: SortLabel[] = [];\r\n    this.metadata.forEach((value, key) => sorts.push({id: key, label: value.label}));\r\n    return sorts;\r\n  }\r\n\r\n  setState(state: SorterState) {\r\n    this.state.next({...state});\r\n  }\r\n\r\n  isEquivalent(otherState?: SorterState): Observable<boolean> {\r\n    return this.state.pipe(map(state => {\r\n      if (!otherState) {\r\n        return false;\r\n      }\r\n      return state.sort === otherState.sort && state.reverse === otherState.reverse;\r\n    }));\r\n  }\r\n}\r\n",
+            "sourceCode": "import {combineLatest, EMPTY, Observable, ReplaySubject} from 'rxjs';\r\nimport {map, startWith} from 'rxjs/operators';\r\n\r\nexport interface SorterState {\r\n  sort: string;\r\n  reverse: boolean;\r\n}\r\n\r\nexport type SortComparator<T, C> = (a: T, b: T, context: C) => number;\r\n\r\nexport interface SorterMetadata<T = any, C = any> {\r\n  label: string;\r\n  comparator: SortComparator<T, C>;\r\n}\r\n\r\nexport type SorterContextProvider<C> = Observable<C>;\r\n\r\nexport interface SortLabel {\r\n  id: string;\r\n  label: string;\r\n}\r\n\r\nfunction sortItems<T, C>(\r\n    items: T[], comparator: SortComparator<T, C>, reverse: boolean, context: C) {\r\n  items.sort((a, b) => comparator(a, b, context));\r\n\r\n  if (reverse) {\r\n    items.reverse();\r\n  }\r\n\r\n  return items;\r\n}\r\n\r\nexport interface SorterOptions<T, C> {\r\n  metadata?: Map<string, SorterMetadata<T, C>>;\r\n  contextProvider?: SorterContextProvider<C>;\r\n  initialState?: SorterState;\r\n}\r\n\r\nexport class Sorter<T = any, C = any> {\r\n  private metadata: Map<string, SorterMetadata<T, C>>;\r\n\r\n  private contextProvider: SorterContextProvider<C>;\r\n\r\n  state = new ReplaySubject<SorterState>(1);\r\n\r\n  constructor(options: SorterOptions<T, C> = {}) {\r\n    this.metadata = options.metadata || new Map();\r\n    this.state.next(options.initialState || {sort: this.getSorts()[0].id, reverse: false});\r\n    this.contextProvider = options.contextProvider || EMPTY.pipe(startWith(null));\r\n  }\r\n\r\n  sort(): (items$: Observable<T[]>) => Observable<T[]> {\r\n    return (items$: Observable<T[]>) => {\r\n      return combineLatest([items$, this.state, this.contextProvider])\r\n          .pipe(map(([items, state, context]) => {\r\n            const sortMetadata = this.metadata.get(state.sort);\r\n            if (!sortMetadata) {\r\n              throw new Error(`No configuration set up for sort ${state.sort}`);\r\n            }\r\n\r\n            return sortItems(items, sortMetadata.comparator, state.reverse, context);\r\n          }));\r\n    };\r\n  }\r\n\r\n  getSorts(): SortLabel[] {\r\n    const sorts: SortLabel[] = [];\r\n    this.metadata.forEach((value, key) => sorts.push({id: key, label: value.label}));\r\n    return sorts;\r\n  }\r\n\r\n  setState(state: SorterState) {\r\n    this.state.next({...state});\r\n  }\r\n\r\n  isEquivalent(otherState?: SorterState): Observable<boolean> {\r\n    return this.state.pipe(map(state => {\r\n      if (!otherState) {\r\n        return false;\r\n      }\r\n      return state.sort === otherState.sort && state.reverse === otherState.reverse;\r\n    }));\r\n  }\r\n}\r\n",
             "properties": [
                 {
                     "name": "id",
@@ -1861,12 +2025,12 @@
         },
         {
             "name": "TablePage",
-            "id": "interface-TablePage-314ffa4741cb1284741e2e0e710c9dd782a4d24d6a4263f3b78b5fedaa2e8cfc4684f831b15385beeed74ac948c3d795512f3c8f59fac11bc8dd035fdbad1edd",
+            "id": "interface-TablePage-897b3ec1d4974d37dd89dc9c78d9bdb3ac71efcc06eace0f101d7b8b2c386b91afd884895fa6e16f8506f2069b7db14f1a073154291c5e58dc9162b6ec5ec362",
             "file": "projects/components/src/lib/shared/table-view/table-view.component.ts",
             "deprecated": false,
             "deprecationMessage": "",
             "type": "interface",
-            "sourceCode": "import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';\r\nimport { BehaviorSubject, combineLatest, map, Observable, shareReplay } from 'rxjs';\r\nimport { DataSource } from '../../data/data-source';\r\nimport { Filterer } from '../../data/filterer';\r\nimport { Grouper } from '../../data/grouper';\r\nimport { Sorter } from '../../data/sorter';\r\nimport { RenderedView, Viewer, ViewLabel } from '../../data/viewer';\r\nimport { MatPaginatorModule, PageEvent } from '@angular/material/paginator';\r\nimport { MatTableModule } from '@angular/material/table';\r\nimport { MatDividerModule } from '@angular/material/divider';\r\nimport { CommonModule } from '@angular/common';\r\n// import { RenderedViewModule } from '../rendered-view/rendered-view.module';\r\nimport { RenderedViewComponent } from '../rendered-view/rendered-view.component';\r\n\r\nexport interface Item {\r\n  id: string;\r\n  assignees: string[];\r\n  body: string;\r\n  title: string;\r\n  comments: number;\r\n  labels: string[];\r\n  number: number;\r\n  state: string;\r\n  reporter: string;\r\n  created: string;\r\n  closed: string;\r\n  updated: string;\r\n  // reactions: Reactions;\r\n  pr: boolean;\r\n  url: string;\r\n  //  statuses: ItemStatus[];\r\n  dbAdded?: string;\r\n  dbModified?: string;\r\n}\r\n\r\ninterface TablePage {\r\n  index: number;\r\n  size: number;\r\n}\r\n\r\n@Component({\r\n  selector: 'lib-table-view',\r\n  templateUrl: './table-view.component.html',\r\n  imports: [CommonModule, MatTableModule, RenderedViewComponent, MatPaginatorModule, MatDividerModule],\r\n  standalone: true,\r\n  styleUrls: ['./table-view.component.scss'],\r\n  changeDetection: ChangeDetectionStrategy.OnPush\r\n})\r\nexport class TableViewComponent implements OnInit {\r\n  displayedColumns: Observable<string[]>;\r\n\r\n  views: ViewLabel[];\r\n\r\n  renderedHtml: Observable<Map<Item, Map<string, Observable<RenderedView>>>>;\r\n\r\n  @Input() filterer: Filterer;\r\n\r\n  @Input() viewer: Viewer;\r\n\r\n  @Input() grouper: Grouper;\r\n\r\n  @Input() sorter: Sorter;\r\n\r\n  @Input() dataSource: DataSource;\r\n\r\n  @Input() loading: boolean;\r\n\r\n  itemCount: Observable<number>;\r\n\r\n  page: BehaviorSubject<TablePage> = new BehaviorSubject({ size: 20, index: 0 });\r\n\r\n  renderedData: Observable<Item[]>;\r\n  constructor() {}\r\n\r\n  ngOnInit(): void {\r\n    // TODO: Cannot be in ngOnInit since the inputs may change\r\n    const curatedData = this.dataSource.data.pipe(this.filterer.filter(), this.sorter.sort());\r\n    this.renderedData = combineLatest([curatedData, this.page]).pipe(\r\n      map(([data, page]) => data.slice(page.index * page.size, page.index * page.size + page.size))\r\n    );\r\n    this.itemCount = curatedData.pipe(map((d) => d.length));\r\n\r\n    this.views = this.viewer.getViews();\r\n    this.displayedColumns = this.viewer.state.pipe(\r\n      map((state) => {\r\n        return this.views.map((v) => v.id).filter((v) => state.views.indexOf(v) !== -1);\r\n      })\r\n    );\r\n\r\n    this.renderedHtml = this.renderedData.pipe(\r\n      map((items) => {\r\n        const renderedHtml = new Map<Item, Map<string, Observable<RenderedView>>>();\r\n        items.forEach((item) => {\r\n          const itemRenderedViews = new Map<string, Observable<RenderedView>>();\r\n          this.views.forEach((view) => itemRenderedViews.set(view.id, this.viewer.getRenderedView(item, view.id)));\r\n          renderedHtml.set(item, itemRenderedViews);\r\n        });\r\n        return renderedHtml;\r\n      }),\r\n      shareReplay(1)\r\n    );\r\n  }\r\n\r\n  // setPage(event: PageEvent) {\r\n  //   this.page.next({ index: event.pageIndex, size: event.pageSize });\r\n  // }\r\n}\r\n",
+            "sourceCode": "import { CommonModule } from '@angular/common';\r\nimport { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';\r\nimport { BehaviorSubject, combineLatest, map, Observable, shareReplay } from 'rxjs';\r\n\r\nimport { MatPaginatorModule, PageEvent } from '@angular/material/paginator';\r\nimport { MatTableModule } from '@angular/material/table';\r\nimport { MatDividerModule } from '@angular/material/divider';\r\nimport { RenderedViewComponent } from '../rendered-view/rendered-view.component';\r\nimport { DisplayOptionsComponent } from '../display-options/display-options.component';\r\n\r\nimport { RenderedView, Viewer, ViewLabel } from '../../data/viewer';\r\nimport { Exporter } from '../../data/exporter';\r\nimport { DataSource } from '../../data/data-source';\r\nimport { Filterer } from '../../data/filterer';\r\nimport { Grouper } from '../../data/grouper';\r\nimport { Sorter } from '../../data/sorter';\r\n\r\nexport interface Item {\r\n  id: string;\r\n  assignees: string[];\r\n  body: string;\r\n  title: string;\r\n  comments: number;\r\n  labels: string[];\r\n  number: number;\r\n  state: string;\r\n  reporter: string;\r\n  created: string;\r\n  closed: string;\r\n  updated: string;\r\n  // reactions: Reactions;\r\n  pr: boolean;\r\n  url: string;\r\n  //  statuses: ItemStatus[];\r\n  dbAdded?: string;\r\n  dbModified?: string;\r\n}\r\n\r\ninterface TablePage {\r\n  index: number;\r\n  size: number;\r\n}\r\n\r\n@Component({\r\n  selector: 'lib-table-view',\r\n  templateUrl: './table-view.component.html',\r\n  imports: [\r\n    CommonModule,\r\n    MatTableModule,\r\n    RenderedViewComponent,\r\n    MatPaginatorModule,\r\n    MatDividerModule,\r\n    DisplayOptionsComponent\r\n  ],\r\n  standalone: true,\r\n  styleUrls: ['./table-view.component.scss'],\r\n  changeDetection: ChangeDetectionStrategy.OnPush\r\n})\r\nexport class TableViewComponent implements OnInit {\r\n  displayedColumns: Observable<string[]>;\r\n\r\n  views: ViewLabel[];\r\n\r\n  renderedHtml: Observable<Map<Item, Map<string, Observable<RenderedView>>>>;\r\n\r\n  @Input() filterer: Filterer;\r\n\r\n  @Input() viewer: Viewer;\r\n\r\n  @Input() grouper: Grouper;\r\n\r\n  @Input() sorter: Sorter;\r\n\r\n  @Input() dataSource: DataSource;\r\n\r\n  @Input() exporter: Exporter;\r\n\r\n  @Input() loading: boolean;\r\n\r\n  itemCount: Observable<number>;\r\n\r\n  page: BehaviorSubject<TablePage> = new BehaviorSubject({ size: 20, index: 0 });\r\n\r\n  renderedData: Observable<Item[]>;\r\n  constructor() {}\r\n\r\n  ngOnInit(): void {\r\n    // TODO: Cannot be in ngOnInit since the inputs may change\r\n    const curatedData = this.dataSource.data.pipe(this.filterer.filter(), this.sorter.sort());\r\n    this.renderedData = combineLatest([curatedData, this.page]).pipe(\r\n      map(([data, page]) => data.slice(page.index * page.size, page.index * page.size + page.size))\r\n    );\r\n    this.itemCount = curatedData.pipe(map((d) => d.length));\r\n\r\n    this.views = this.viewer.getViews();\r\n    this.displayedColumns = this.viewer.state.pipe(\r\n      map((state) => {\r\n        return this.views.map((v) => v.id).filter((v) => state.views.indexOf(v) !== -1);\r\n      })\r\n    );\r\n\r\n    this.renderedHtml = this.renderedData.pipe(\r\n      map((items) => {\r\n        const renderedHtml = new Map<Item, Map<string, Observable<RenderedView>>>();\r\n        items.forEach((item) => {\r\n          const itemRenderedViews = new Map<string, Observable<RenderedView>>();\r\n          this.views.forEach((view) => itemRenderedViews.set(view.id, this.viewer.getRenderedView(item, view.id)));\r\n          renderedHtml.set(item, itemRenderedViews);\r\n        });\r\n        return renderedHtml;\r\n      }),\r\n      shareReplay(1)\r\n    );\r\n  }\r\n\r\n  setPage(event: PageEvent) {\r\n    this.page.next({ index: event.pageIndex, size: event.pageSize });\r\n  }\r\n  export() {\r\n    this.exporter.exportData('', this.renderedData);\r\n  }\r\n}\r\n",
             "properties": [
                 {
                     "name": "index",
@@ -1875,7 +2039,7 @@
                     "type": "number",
                     "optional": false,
                     "description": "",
-                    "line": 37
+                    "line": 42
                 },
                 {
                     "name": "size",
@@ -1884,7 +2048,7 @@
                     "type": "number",
                     "optional": false,
                     "description": "",
-                    "line": 38
+                    "line": 43
                 }
             ],
             "indexSignatures": [],
@@ -3268,7 +3432,7 @@
         },
         {
             "name": "ClansRosterService",
-            "id": "injectable-ClansRosterService-9337b4c88ce24d08e59c41bc0e9cb7ed3069e2ca0e8f20f520e60fa5cc81ab229af27a09cda49ed19526b256a526faa76b0f10efb285680af159d08f70633ba6",
+            "id": "injectable-ClansRosterService-163a5c137b3749adc4003746eb7fbd0cb8df624d741b08f81151f231e1ae9a18533cc380a1136d8f69230fa0f59b7f58730217f556ee7466754378efcb3fee24",
             "file": "projects/clan-dashboard/src/app/features/clans-roster/clans-roster.service.ts",
             "properties": [
                 {
@@ -3279,7 +3443,7 @@
                     "type": "",
                     "optional": false,
                     "description": "",
-                    "line": 76
+                    "line": 83
                 },
                 {
                     "name": "activeClansId$",
@@ -3289,7 +3453,7 @@
                     "type": "",
                     "optional": false,
                     "description": "",
-                    "line": 12
+                    "line": 19
                 },
                 {
                     "name": "activeClanUpdateDates$",
@@ -3299,7 +3463,7 @@
                     "type": "",
                     "optional": false,
                     "description": "",
-                    "line": 14
+                    "line": 21
                 },
                 {
                     "name": "clanMembers$",
@@ -3309,17 +3473,17 @@
                     "type": "",
                     "optional": false,
                     "description": "",
-                    "line": 34
+                    "line": 41
                 },
                 {
                     "name": "clanProfiles$",
-                    "defaultValue": "this.clanMembers$.pipe(\r\n    switchMap((clansAndMembers) => {\r\n      return from(clansAndMembers).pipe(\r\n        mergeMap((clanAndMembers) => {\r\n          return this.profileService\r\n            .getSerializedProfiles<MemberProfile>(clanAndMembers.clanId, clanAndMembers.members, [], [])\r\n            .pipe(\r\n              map((result: MemberProfile) => {\r\n                return {\r\n                  clanId: clanAndMembers.clanId,\r\n                  members: clanAndMembers.members.find(\r\n                    (x) => x.destinyUserInfo?.membershipId == result.profile.data.userInfo?.membershipId\r\n                  ),\r\n                  profiles: result\r\n                };\r\n              })\r\n            );\r\n        }),\r\n        toArray()\r\n      );\r\n    })\r\n  )",
+                    "defaultValue": "this.clanMembers$.pipe(\r\n    switchMap((clansAndMembers) => {\r\n      return from(clansAndMembers).pipe(\r\n        mergeMap((clanAndMembers) => {\r\n          return this.profileService\r\n            .getSerializedProfiles<MemberProfile>(clanAndMembers.clanId, clanAndMembers.members, [], [])\r\n            .pipe(\r\n              map((result: MemberProfile) => {\r\n                return {\r\n                  clanId: clanAndMembers.clanId,\r\n                  member: clanAndMembers.members.find(\r\n                    (x) => x.destinyUserInfo?.membershipId == result.profile.data.userInfo?.membershipId\r\n                  ),\r\n                  profile: result\r\n                };\r\n              })\r\n            );\r\n        }),\r\n        toArray()\r\n      );\r\n    })\r\n  )",
                     "deprecated": false,
                     "deprecationMessage": "",
-                    "type": "",
+                    "type": "Observable<ClanMemberProfile[]>",
                     "optional": false,
                     "description": "",
-                    "line": 52
+                    "line": 59
                 }
             ],
             "methods": [],
@@ -3327,7 +3491,7 @@
             "deprecationMessage": "",
             "description": "",
             "rawdescription": "\n",
-            "sourceCode": "import { Injectable } from '@angular/core';\r\nimport { Store } from '@ngrx/store';\r\nimport { selectEnabledClanIds, selectEnabledClans, selectLastProfileUpdate } from '@core/store/clans';\r\nimport { forkJoin, from, map, mergeMap, switchMap, tap, toArray, combineLatest, distinctUntilChanged } from 'rxjs';\r\n// import {} from '@destiny/data/';\r\nimport { ClanMembersService } from '@destiny/data/clan/clan-members';\r\nimport { ProfileService } from 'projects/data/src/lib/clan/profiles/profile.service';\r\nimport { MemberProfile } from '@destiny/data/models';\r\n\r\n@Injectable()\r\nexport class ClansRosterService {\r\n  activeClansId$ = this.store.select(selectEnabledClanIds);\r\n\r\n  activeClanUpdateDates$ = this.activeClansId$.pipe(\r\n    switchMap((clanIds) => {\r\n      const arraySelectors = clanIds.map((clanId) => {\r\n        return this.store.select(selectLastProfileUpdate(clanId));\r\n      });\r\n\r\n      return combineLatest(arraySelectors);\r\n      // return from(clanIds).pipe(\r\n      //   switchMap((clanId) => {\r\n      //     console.log('', clanId);\r\n      //     return this.store.select(selectLastProfileUpdate(clanId));\r\n      //   })\r\n\r\n      //   // tap((x) => {\r\n      //   //   console.log('tapping1', x);\r\n      //   // })\r\n      // );\r\n    })\r\n  );\r\n\r\n  clanMembers$ = this.activeClansId$.pipe(\r\n    switchMap((activeClanIds) => {\r\n      console.log('active clans');\r\n      return from(activeClanIds).pipe(\r\n        mergeMap((clanId) => {\r\n          console.log('mmerge map');\r\n          return this.memberService.getClanMembersSerialized(clanId).pipe(\r\n            map((result) => {\r\n              return { clanId, members: result };\r\n            })\r\n          );\r\n        }),\r\n        toArray()\r\n      );\r\n    }),\r\n    tap((x) => console.log(x))\r\n  );\r\n\r\n  clanProfiles$ = this.clanMembers$.pipe(\r\n    switchMap((clansAndMembers) => {\r\n      return from(clansAndMembers).pipe(\r\n        mergeMap((clanAndMembers) => {\r\n          return this.profileService\r\n            .getSerializedProfiles<MemberProfile>(clanAndMembers.clanId, clanAndMembers.members, [], [])\r\n            .pipe(\r\n              map((result: MemberProfile) => {\r\n                return {\r\n                  clanId: clanAndMembers.clanId,\r\n                  members: clanAndMembers.members.find(\r\n                    (x) => x.destinyUserInfo?.membershipId == result.profile.data.userInfo?.membershipId\r\n                  ),\r\n                  profiles: result\r\n                };\r\n              })\r\n            );\r\n        }),\r\n        toArray()\r\n      );\r\n    })\r\n  );\r\n\r\n  // Whenever activeClanUpdateDates gets updated. Run this observable.\r\n  activeClanPeople$ = this.activeClanUpdateDates$.pipe(\r\n    map((x) => {\r\n      return (\r\n        combineLatest([this.activeClansId$, this.activeClanUpdateDates$]),\r\n        map(([clans, clanDates]) => {\r\n          return clans;\r\n        })\r\n      );\r\n    })\r\n  );\r\n\r\n  constructor(\r\n    private store: Store,\r\n    private memberService: ClanMembersService,\r\n    private profileService: ProfileService\r\n  ) {}\r\n}\r\n",
+            "sourceCode": "import { Injectable } from '@angular/core';\r\nimport { Store } from '@ngrx/store';\r\nimport { selectEnabledClanIds, selectEnabledClans, selectLastProfileUpdate } from '@core/store/clans';\r\nimport { forkJoin, from, map, mergeMap, switchMap, tap, toArray, combineLatest, distinctUntilChanged, Observable } from 'rxjs';\r\n// import {} from '@destiny/data/';\r\nimport { ClanMembersService } from '@destiny/data/clan/clan-members';\r\nimport { ProfileService } from 'projects/data/src/lib/clan/profiles/profile.service';\r\nimport { MemberProfile } from '@destiny/data/models';\r\nimport { GroupsV2GroupMember } from 'bungie-api-angular';\r\n\r\nexport interface ClanMemberProfile {\r\n  clanId: string;\r\n  member: GroupsV2GroupMember;\r\n  profile: MemberProfile;\r\n}\r\n\r\n@Injectable()\r\nexport class ClansRosterService {\r\n  activeClansId$ = this.store.select(selectEnabledClanIds);\r\n\r\n  activeClanUpdateDates$ = this.activeClansId$.pipe(\r\n    switchMap((clanIds) => {\r\n      const arraySelectors = clanIds.map((clanId) => {\r\n        return this.store.select(selectLastProfileUpdate(clanId));\r\n      });\r\n\r\n      return combineLatest(arraySelectors);\r\n      // return from(clanIds).pipe(\r\n      //   switchMap((clanId) => {\r\n      //     console.log('', clanId);\r\n      //     return this.store.select(selectLastProfileUpdate(clanId));\r\n      //   })\r\n\r\n      //   // tap((x) => {\r\n      //   //   console.log('tapping1', x);\r\n      //   // })\r\n      // );\r\n    })\r\n  );\r\n\r\n  clanMembers$ = this.activeClansId$.pipe(\r\n    switchMap((activeClanIds) => {\r\n      console.log('active clans');\r\n      return from(activeClanIds).pipe(\r\n        mergeMap((clanId) => {\r\n          console.log('mmerge map');\r\n          return this.memberService.getClanMembersSerialized(clanId).pipe(\r\n            map((result) => {\r\n              return { clanId, members: result };\r\n            })\r\n          );\r\n        }),\r\n        toArray()\r\n      );\r\n    }),\r\n    tap((x) => console.log(x))\r\n  );\r\n\r\n  clanProfiles$: Observable<ClanMemberProfile[]> = this.clanMembers$.pipe(\r\n    switchMap((clansAndMembers) => {\r\n      return from(clansAndMembers).pipe(\r\n        mergeMap((clanAndMembers) => {\r\n          return this.profileService\r\n            .getSerializedProfiles<MemberProfile>(clanAndMembers.clanId, clanAndMembers.members, [], [])\r\n            .pipe(\r\n              map((result: MemberProfile) => {\r\n                return {\r\n                  clanId: clanAndMembers.clanId,\r\n                  member: clanAndMembers.members.find(\r\n                    (x) => x.destinyUserInfo?.membershipId == result.profile.data.userInfo?.membershipId\r\n                  ),\r\n                  profile: result\r\n                };\r\n              })\r\n            );\r\n        }),\r\n        toArray()\r\n      );\r\n    })\r\n  );\r\n\r\n  // Whenever activeClanUpdateDates gets updated. Run this observable.\r\n  activeClanPeople$ = this.activeClanUpdateDates$.pipe(\r\n    map((x) => {\r\n      return (\r\n        combineLatest([this.activeClansId$, this.activeClanUpdateDates$]),\r\n        map(([clans, clanDates]) => {\r\n          return clans;\r\n        })\r\n      );\r\n    })\r\n  );\r\n\r\n  constructor(\r\n    private store: Store,\r\n    private memberService: ClanMembersService,\r\n    private profileService: ProfileService\r\n  ) {}\r\n}\r\n",
             "constructorObj": {
                 "name": "constructor",
                 "description": "",
@@ -3353,7 +3517,7 @@
                         "deprecationMessage": ""
                     }
                 ],
-                "line": 85,
+                "line": 92,
                 "jsdoctags": [
                     {
                         "name": "store",
@@ -6904,6 +7068,107 @@
             "hostListeners": []
         },
         {
+            "name": "Exporter",
+            "id": "class-Exporter-8cd58574103f490abd8865195ac12ebafbcb8fefe499a340291fb2ac5efe11ef8059137c2f5406fee9f8297a45cce6cad7f2bfd7ad925b1aabacc736d17b6b09",
+            "file": "projects/components/src/lib/data/exporter.ts",
+            "deprecated": false,
+            "deprecationMessage": "",
+            "type": "class",
+            "sourceCode": "import { Observable, take } from 'rxjs';\r\n\r\nexport interface ExporterMetadata<T = any, C = any> {\r\n  label: string;\r\n  text: (item: T, context: C) => string | null;\r\n}\r\nexport interface ExporterOptions<T, C> {\r\n  metadata?: Map<string, ExporterMetadata<T, C>>;\r\n  //contextProvider?: SorterContextProvider<C>;\r\n  // initialState?: SorterState;\r\n}\r\n\r\nexport class Exporter<T = any, C = any> {\r\n  private metadata: Map<string, ExporterMetadata<T, C>>;\r\n\r\n  constructor(options: ExporterOptions<T, C> = {}) {\r\n    this.metadata = options.metadata || new Map();\r\n  }\r\n\r\n  exportData(name: string, items$: Observable<T[]>): void {\r\n    items$.pipe(take(1)).subscribe((items) => {\r\n      const keys = [];\r\n      this.metadata.forEach((value, key) => keys.push(key));\r\n      const formattedObj = items.map((item) => {\r\n        const obj = {};\r\n        keys.forEach((key) => {\r\n          const config = this.metadata.get(key);\r\n          obj[config.label] = config.text(item, null);\r\n        });\r\n        return obj;\r\n      });\r\n      downloadCSV({ filename: `${name}-${new Date().getTime()}` }, formattedObj);\r\n    });\r\n  }\r\n}\r\n\r\nfunction downloadCSV(args, stockData) {\r\n  let data, filename, link;\r\n  let csv = convertArrayOfObjectsToCSV({\r\n    data: stockData\r\n  });\r\n  if (csv == null) {\r\n    return;\r\n  }\r\n\r\n  filename = args.filename || 'export.csv';\r\n\r\n  if (!csv.match(/^data:text\\/csv/i)) {\r\n    csv = 'data:text/csv;charset=utf-8,' + csv;\r\n  }\r\n  data = encodeURI(csv);\r\n\r\n  link = document.createElement('a');\r\n  link.setAttribute('href', data);\r\n  link.setAttribute('download', filename);\r\n  link.click();\r\n}\r\nfunction convertArrayOfObjectsToCSV(args) {\r\n  let result, ctr, keys, columnDelimiter, lineDelimiter, data;\r\n\r\n  data = args.data || null;\r\n  if (data == null || !data.length) {\r\n    return null;\r\n  }\r\n\r\n  columnDelimiter = args.columnDelimiter || ',';\r\n  lineDelimiter = args.lineDelimiter || '\\n';\r\n\r\n  keys = Object.keys(data[0]);\r\n\r\n  result = '';\r\n  result += keys.join(columnDelimiter);\r\n  result += lineDelimiter;\r\n\r\n  data.forEach(function (item) {\r\n    ctr = 0;\r\n    keys.forEach(function (key) {\r\n      if (ctr > 0) {\r\n        result += columnDelimiter;\r\n      }\r\n\r\n      result += item[key];\r\n      ctr++;\r\n    });\r\n    result += lineDelimiter;\r\n  });\r\n\r\n  return result;\r\n}\r\n",
+            "constructorObj": {
+                "name": "constructor",
+                "description": "",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "args": [
+                    {
+                        "name": "options",
+                        "type": "ExporterOptions<T | C>",
+                        "deprecated": false,
+                        "deprecationMessage": "",
+                        "defaultValue": "{}"
+                    }
+                ],
+                "line": 14,
+                "jsdoctags": [
+                    {
+                        "name": "options",
+                        "type": "ExporterOptions<T | C>",
+                        "deprecated": false,
+                        "deprecationMessage": "",
+                        "defaultValue": "{}",
+                        "tagName": {
+                            "text": "param"
+                        }
+                    }
+                ]
+            },
+            "properties": [
+                {
+                    "name": "metadata",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Map<string | ExporterMetadata<T, C>>",
+                    "optional": false,
+                    "description": "",
+                    "line": 14,
+                    "modifierKind": [
+                        121
+                    ]
+                }
+            ],
+            "methods": [
+                {
+                    "name": "exportData",
+                    "args": [
+                        {
+                            "name": "name",
+                            "type": "string",
+                            "deprecated": false,
+                            "deprecationMessage": ""
+                        },
+                        {
+                            "name": "items$",
+                            "type": "Observable<T[]>",
+                            "deprecated": false,
+                            "deprecationMessage": ""
+                        }
+                    ],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 20,
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "jsdoctags": [
+                        {
+                            "name": "name",
+                            "type": "string",
+                            "deprecated": false,
+                            "deprecationMessage": "",
+                            "tagName": {
+                                "text": "param"
+                            }
+                        },
+                        {
+                            "name": "items$",
+                            "type": "Observable<T[]>",
+                            "deprecated": false,
+                            "deprecationMessage": "",
+                            "tagName": {
+                                "text": "param"
+                            }
+                        }
+                    ]
+                }
+            ],
+            "indexSignatures": [],
+            "inputsClass": [],
+            "outputsClass": [],
+            "hostBindings": [],
+            "hostListeners": []
+        },
+        {
             "name": "Filterer",
             "id": "class-Filterer-bcb7b8ca0b03703bd848fff1c46af5a180f8a15dcc9aff327a2f92635536d07869bae3bc4ec6d513e40b18b5ac750c15990ecc3f713e0343a9a39534c1d6a517",
             "file": "projects/components/src/lib/data/filterer.ts",
@@ -8068,12 +8333,12 @@
         },
         {
             "name": "Sorter",
-            "id": "class-Sorter-9e909afd62ddeb103e1bb055129cc2bfea2723452575ec647effbcd5013f57a1d4171741ca22849f9fc27681e0536bbe64542e3cb388851216af469dd31b92e6",
+            "id": "class-Sorter-c09137ab5d43fd609c396313e8caf2a377316e87e3952b786a4f573c85a61401ef116622f39985c64243cfb158eeded7645e899bc4d3f2a07bcffcfbd47436f3",
             "file": "projects/components/src/lib/data/sorter.ts",
             "deprecated": false,
             "deprecationMessage": "",
             "type": "class",
-            "sourceCode": "import {combineLatest, EMPTY, Observable, ReplaySubject} from 'rxjs';\r\nimport {map, startWith} from 'rxjs/operators';\r\n\r\nexport interface SorterState {\r\n  sort: string;\r\n  reverse: boolean;\r\n}\r\n\r\nexport type SortComparator<T, C> = (a: T, b: T, context: C) => number;\r\n\r\nexport interface SorterMetadata<T = any, C = any> {\r\n  label: string;\r\n  comparator: SortComparator<T, C>;\r\n}\r\n\r\nexport type SorterContextProvider<C> = Observable<C>;\r\n\r\nexport interface SortLabel {\r\n  id: string;\r\n  label: string;\r\n}\r\n\r\nfunction sortItems<T, C>(\r\n    items: T[], comparator: SortComparator<T, C>, reverse: boolean, context: C) {\r\n  items.sort((a, b) => comparator(a, b, context));\r\n\r\n  if (reverse) {\r\n    items.reverse();\r\n  }\r\n\r\n  return items;\r\n}\r\n\r\nexport interface SorterOptions<T, C> {\r\n  metadata?: Map<string, SorterMetadata<T, C>>;\r\n  contextProvider?: SorterContextProvider<C>;\r\n  initialState?: SorterState;\r\n}\r\n\r\nexport class Sorter<T = any, C = any> {\r\n  private metadata: Map<string, SorterMetadata<T, C>>;\r\n\r\n  private contextProvider: SorterContextProvider<C>;\r\n\r\n  state = new ReplaySubject<SorterState>(1);\r\n\r\n  constructor(options: SorterOptions<T, C> = {}) {\r\n    this.metadata = options.metadata || new Map();\r\n    this.state.next(options.initialState || {sort: this.getSorts()[0].id, reverse: false});\r\n    this.contextProvider = options.contextProvider || EMPTY.pipe(startWith(null));\r\n  }\r\n\r\n  sort(): (items$: Observable<T[]>) => Observable<T[]> {\r\n    return (items$: Observable<T[]>) => {\r\n      return combineLatest(items$, this.state, this.contextProvider)\r\n          .pipe(map(([items, state, context]) => {\r\n            const sortMetadata = this.metadata.get(state.sort);\r\n            if (!sortMetadata) {\r\n              throw new Error(`No configuration set up for sort ${state.sort}`);\r\n            }\r\n\r\n            return sortItems(items, sortMetadata.comparator, state.reverse, context);\r\n          }));\r\n    };\r\n  }\r\n\r\n  getSorts(): SortLabel[] {\r\n    const sorts: SortLabel[] = [];\r\n    this.metadata.forEach((value, key) => sorts.push({id: key, label: value.label}));\r\n    return sorts;\r\n  }\r\n\r\n  setState(state: SorterState) {\r\n    this.state.next({...state});\r\n  }\r\n\r\n  isEquivalent(otherState?: SorterState): Observable<boolean> {\r\n    return this.state.pipe(map(state => {\r\n      if (!otherState) {\r\n        return false;\r\n      }\r\n      return state.sort === otherState.sort && state.reverse === otherState.reverse;\r\n    }));\r\n  }\r\n}\r\n",
+            "sourceCode": "import {combineLatest, EMPTY, Observable, ReplaySubject} from 'rxjs';\r\nimport {map, startWith} from 'rxjs/operators';\r\n\r\nexport interface SorterState {\r\n  sort: string;\r\n  reverse: boolean;\r\n}\r\n\r\nexport type SortComparator<T, C> = (a: T, b: T, context: C) => number;\r\n\r\nexport interface SorterMetadata<T = any, C = any> {\r\n  label: string;\r\n  comparator: SortComparator<T, C>;\r\n}\r\n\r\nexport type SorterContextProvider<C> = Observable<C>;\r\n\r\nexport interface SortLabel {\r\n  id: string;\r\n  label: string;\r\n}\r\n\r\nfunction sortItems<T, C>(\r\n    items: T[], comparator: SortComparator<T, C>, reverse: boolean, context: C) {\r\n  items.sort((a, b) => comparator(a, b, context));\r\n\r\n  if (reverse) {\r\n    items.reverse();\r\n  }\r\n\r\n  return items;\r\n}\r\n\r\nexport interface SorterOptions<T, C> {\r\n  metadata?: Map<string, SorterMetadata<T, C>>;\r\n  contextProvider?: SorterContextProvider<C>;\r\n  initialState?: SorterState;\r\n}\r\n\r\nexport class Sorter<T = any, C = any> {\r\n  private metadata: Map<string, SorterMetadata<T, C>>;\r\n\r\n  private contextProvider: SorterContextProvider<C>;\r\n\r\n  state = new ReplaySubject<SorterState>(1);\r\n\r\n  constructor(options: SorterOptions<T, C> = {}) {\r\n    this.metadata = options.metadata || new Map();\r\n    this.state.next(options.initialState || {sort: this.getSorts()[0].id, reverse: false});\r\n    this.contextProvider = options.contextProvider || EMPTY.pipe(startWith(null));\r\n  }\r\n\r\n  sort(): (items$: Observable<T[]>) => Observable<T[]> {\r\n    return (items$: Observable<T[]>) => {\r\n      return combineLatest([items$, this.state, this.contextProvider])\r\n          .pipe(map(([items, state, context]) => {\r\n            const sortMetadata = this.metadata.get(state.sort);\r\n            if (!sortMetadata) {\r\n              throw new Error(`No configuration set up for sort ${state.sort}`);\r\n            }\r\n\r\n            return sortItems(items, sortMetadata.comparator, state.reverse, context);\r\n          }));\r\n    };\r\n  }\r\n\r\n  getSorts(): SortLabel[] {\r\n    const sorts: SortLabel[] = [];\r\n    this.metadata.forEach((value, key) => sorts.push({id: key, label: value.label}));\r\n    return sorts;\r\n  }\r\n\r\n  setState(state: SorterState) {\r\n    this.state.next({...state});\r\n  }\r\n\r\n  isEquivalent(otherState?: SorterState): Observable<boolean> {\r\n    return this.state.pipe(map(state => {\r\n      if (!otherState) {\r\n        return false;\r\n      }\r\n      return state.sort === otherState.sort && state.reverse === otherState.reverse;\r\n    }));\r\n  }\r\n}\r\n",
             "constructorObj": {
                 "name": "constructor",
                 "description": "",
@@ -8882,7 +9147,7 @@
         },
         {
             "name": "ClansRosterComponent",
-            "id": "component-ClansRosterComponent-c1e9b7d766f8cbb5e1d004f28f3b2c0e144f92a5b85f7ff549b33bd01f1e772c34d5f726b264936258470812b24190f5ce29e1fde5dcb3d95d3cfe56e789579c",
+            "id": "component-ClansRosterComponent-bbf546a7584553e2bee785c3819f288c3446774807964111d0a5440aec3bd3953be50b45727672386680337d1d1ec5ca3285bd8c6794caa5a43445dcc5fbf258",
             "file": "projects/clan-dashboard/src/app/features/clans-roster/clans-roster.component.ts",
             "encapsulation": [],
             "entryComponents": [],
@@ -8902,16 +9167,6 @@
             "outputsClass": [],
             "propertiesClass": [
                 {
-                    "name": "members$",
-                    "defaultValue": "this.clansRosterService.clanMembers$",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "",
-                    "optional": false,
-                    "description": "",
-                    "line": 13
-                },
-                {
                     "name": "profiles$",
                     "defaultValue": "this.clansRosterService.clanProfiles$",
                     "deprecated": false,
@@ -8919,27 +9174,27 @@
                     "type": "",
                     "optional": false,
                     "description": "",
-                    "line": 14
+                    "line": 25
                 },
                 {
-                    "name": "stuff$",
-                    "defaultValue": "this.clansRosterService.activeClanUpdateDates$",
+                    "name": "rosterInfo$",
+                    "defaultValue": "combineLatest([this.clansRosterService.clanProfiles$]).pipe(\n    map(([clanProfiles]) => {\n      return {\n        dataSource:new DataSource<ClanMemberProfile>({ data: clanProfiles }) ,\n        viewer: this.rosterViewer\n      };\n    }),\n    filter(ds => !!ds)\n  )",
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "",
                     "optional": false,
                     "description": "",
-                    "line": 11
+                    "line": 29
                 },
                 {
-                    "name": "stuff2$",
-                    "defaultValue": "this.clansRosterService.activeClanPeople$",
+                    "name": "rosterViewer",
+                    "defaultValue": "new Viewer({ metadata: CLAN_ROSTER_VIEWER_METADATA })",
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "",
                     "optional": false,
                     "description": "",
-                    "line": 12
+                    "line": 27
                 }
             ],
             "methodsClass": [
@@ -8949,7 +9204,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 16,
+                    "line": 39,
                     "deprecated": false,
                     "deprecationMessage": ""
                 }
@@ -8961,7 +9216,7 @@
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { Component, OnInit } from '@angular/core';\nimport { ClansRosterService } from './clans-roster.service';\n\n@Component({\n  selector: 'app-clans-roster',\n  templateUrl: './clans-roster.component.html',\n  styleUrls: ['./clans-roster.component.scss']\n})\nexport class ClansRosterComponent implements OnInit {\n  constructor(private clansRosterService: ClansRosterService) {}\n  stuff$ = this.clansRosterService.activeClanUpdateDates$;\n  stuff2$ = this.clansRosterService.activeClanPeople$;\n  members$ = this.clansRosterService.clanMembers$;\n  profiles$ = this.clansRosterService.clanProfiles$;\n\n  ngOnInit(): void {}\n}\n",
+            "sourceCode": "import { Component, OnInit, ViewRef } from '@angular/core';\nimport { DataSource, Filterer, Grouper, Sorter, Viewer } from '@destiny/components';\nimport { combineLatest, filter, map, Observable } from 'rxjs';\nimport { CLAN_ROSTER_VIEWER_METADATA } from './clan-roster-metadata';\nimport { ClanMemberProfile, ClansRosterService } from './clans-roster.service';\n\ninterface QueryResources {\n  loading: Observable<boolean>;\n  viewer: Viewer;\n  filterer: Filterer;\n  grouper: Grouper;\n  sorter: Sorter;\n  dataSource: DataSource;\n}\n\n@Component({\n  selector: 'app-clans-roster',\n  templateUrl: './clans-roster.component.html',\n  styleUrls: ['./clans-roster.component.scss']\n})\nexport class ClansRosterComponent implements OnInit {\n  constructor(private clansRosterService: ClansRosterService) {}\n  // stuff2$ = this.clansRosterService.activeClanPeople$;\n  //members$ = this.clansRosterService.clanMembers$;\n  profiles$ = this.clansRosterService.clanProfiles$;\n\n  rosterViewer = new Viewer({ metadata: CLAN_ROSTER_VIEWER_METADATA });\n\n  rosterInfo$ = combineLatest([this.clansRosterService.clanProfiles$]).pipe(\n    map(([clanProfiles]) => {\n      return {\n        dataSource:new DataSource<ClanMemberProfile>({ data: clanProfiles }) ,\n        viewer: this.rosterViewer\n      };\n    }),\n    filter(ds => !!ds)\n  );\n\n  ngOnInit(): void {}\n}\n",
             "assetsDirs": [],
             "styleUrlsData": [
                 {
@@ -8983,7 +9238,7 @@
                         "deprecationMessage": ""
                     }
                 ],
-                "line": 9,
+                "line": 21,
                 "jsdoctags": [
                     {
                         "name": "clansRosterService",
@@ -8999,7 +9254,7 @@
             "implements": [
                 "OnInit"
             ],
-            "templateData": "<p>clans-roster works!</p>\r\n<!-- {{(stuff$ | async) | json}} -->\r\n<hr>\r\n{{(stuff2$ | async) | json}}\r\n<hr>\r\n<div style=\"height:100px; overflow:scroll\">\r\n  {{(members$ | async) | json}}}\r\n</div>\r\n<div style=\"height:100px; overflow:scroll\">\r\n\r\n  {{(profiles$ | async) | json}}}\r\n</div>\r\n"
+            "templateData": "<p>clans-roster works!</p>\r\n<!-- {{(stuff$ | async) | json}} -->\r\n<!-- <hr>\r\nstuff2:\r\n{{(stuff2$ | async) | json}}\r\n<hr>\r\n<div style=\"height:100px; overflow:scroll\">\r\n  <pre>\r\n  {{(members$ | async) | json}}}\r\n</pre>\r\n</div> -->\r\n<!-- <div style=\"height:600px; overflow:scroll\">\r\n\r\n  <pre>\r\n  {{(profiles$ | async) | json}}}\r\n  </pre>\r\n</div> -->\r\n<lib-table-view *ngIf=\"rosterInfo$ | async as rosterInfo\" [dataSource]=\"rosterInfo.dataSource\"\r\n  [viewer]=\"rosterInfo.viewer\">\r\n\r\n</lib-table-view>\r\n"
         },
         {
             "name": "DashboardComponent",
@@ -9062,6 +9317,224 @@
                 "OnInit"
             ],
             "templateData": "<p>dashboard works!</p>\n<app-clans-details></app-clans-details>\n"
+        },
+        {
+            "name": "DisplayOptionsComponent",
+            "id": "component-DisplayOptionsComponent-38514466fe57a6105ad2e413cadac09baecc8ffb4366024a0837c3ba76eb3578a03b8ed8fe764e6c1dfff3479c0cd9f2786520ce0144f16534eb1e0131d560cb",
+            "file": "projects/components/src/lib/shared/display-options/display-options.component.ts",
+            "changeDetection": "ChangeDetectionStrategy.OnPush",
+            "encapsulation": [],
+            "entryComponents": [],
+            "inputs": [],
+            "outputs": [],
+            "providers": [],
+            "selector": "lib-display-options",
+            "styleUrls": [
+                "./display-options.component.scss"
+            ],
+            "styles": [],
+            "templateUrl": [
+                "./display-options.component.html"
+            ],
+            "viewProviders": [],
+            "inputsClass": [
+                {
+                    "name": "grouper",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "line": 28,
+                    "type": "Grouper",
+                    "decorators": []
+                },
+                {
+                    "name": "sorter",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "line": 30,
+                    "type": "Sorter",
+                    "decorators": []
+                },
+                {
+                    "name": "viewer",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "line": 32,
+                    "type": "Viewer",
+                    "decorators": []
+                }
+            ],
+            "outputsClass": [],
+            "propertiesClass": [
+                {
+                    "name": "groups",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "GroupLabel[]",
+                    "optional": false,
+                    "description": "",
+                    "line": 22
+                },
+                {
+                    "name": "sorts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "SortLabel[]",
+                    "optional": false,
+                    "description": "",
+                    "line": 24
+                },
+                {
+                    "name": "views",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "ViewLabel[]",
+                    "optional": false,
+                    "description": "",
+                    "line": 26
+                }
+            ],
+            "methodsClass": [
+                {
+                    "name": "ngOnChanges",
+                    "args": [
+                        {
+                            "name": "simpleChanges",
+                            "type": "SimpleChanges",
+                            "deprecated": false,
+                            "deprecationMessage": ""
+                        }
+                    ],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 36,
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "jsdoctags": [
+                        {
+                            "name": "simpleChanges",
+                            "type": "SimpleChanges",
+                            "deprecated": false,
+                            "deprecationMessage": "",
+                            "tagName": {
+                                "text": "param"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "setGroup",
+                    "args": [
+                        {
+                            "name": "group",
+                            "type": "string",
+                            "deprecated": false,
+                            "deprecationMessage": ""
+                        }
+                    ],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 48,
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "jsdoctags": [
+                        {
+                            "name": "group",
+                            "type": "string",
+                            "deprecated": false,
+                            "deprecationMessage": "",
+                            "tagName": {
+                                "text": "param"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "setSort",
+                    "args": [
+                        {
+                            "name": "sort",
+                            "type": "string",
+                            "deprecated": false,
+                            "deprecationMessage": ""
+                        }
+                    ],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 52,
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "jsdoctags": [
+                        {
+                            "name": "sort",
+                            "type": "string",
+                            "deprecated": false,
+                            "deprecationMessage": "",
+                            "tagName": {
+                                "text": "param"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "toggleViewKey",
+                    "args": [
+                        {
+                            "name": "view",
+                            "type": "string",
+                            "deprecated": false,
+                            "deprecationMessage": ""
+                        }
+                    ],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 65,
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "jsdoctags": [
+                        {
+                            "name": "view",
+                            "type": "string",
+                            "deprecated": false,
+                            "deprecationMessage": "",
+                            "tagName": {
+                                "text": "param"
+                            }
+                        }
+                    ]
+                }
+            ],
+            "deprecated": false,
+            "deprecationMessage": "",
+            "hostBindings": [],
+            "hostListeners": [],
+            "description": "",
+            "rawdescription": "\n",
+            "type": "component",
+            "sourceCode": "import { CommonModule } from '@angular/common';\nimport { ChangeDetectionStrategy, Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';\nimport { FormsModule } from '@angular/forms';\nimport { MatButtonModule } from '@angular/material/button';\nimport { MatIconModule } from '@angular/material/icon';\nimport { MatMenuModule } from '@angular/material/menu';\nimport { take } from 'rxjs';\nimport { Grouper, GroupLabel } from '../../data/grouper';\nimport { Sorter, SortLabel } from '../../data/sorter';\nimport { Viewer, ViewLabel } from '../../data/viewer';\n\n@Component({\n  selector: 'lib-display-options',\n  templateUrl: './display-options.component.html',\n  imports: [CommonModule, FormsModule, MatButtonModule, MatMenuModule, MatIconModule],\n  standalone: true,\n  styleUrls: ['./display-options.component.scss'],\n  changeDetection: ChangeDetectionStrategy.OnPush\n})\nexport class DisplayOptionsComponent implements OnChanges {\n  groups: GroupLabel[];\n\n  sorts: SortLabel[];\n\n  views: ViewLabel[];\n\n  @Input() grouper: Grouper;\n\n  @Input() sorter: Sorter;\n\n  @Input() viewer: Viewer;\n\n  constructor() {}\n\n  ngOnChanges(simpleChanges: SimpleChanges) {\n    if (simpleChanges['grouper']) {\n      this.groups = this.grouper ? this.grouper.getGroups() : [];\n    }\n    if (simpleChanges['sorter']) {\n      this.sorts = this.sorter ? this.sorter.getSorts() : [];\n    }\n    if (simpleChanges['viewer']) {\n      this.views = this.viewer ? this.viewer.getViews() : [];\n    }\n  }\n\n  setGroup(group: string) {\n    this.grouper.setState({ group });\n  }\n\n  setSort(sort: string) {\n    this.sorter.state.pipe(take(1)).subscribe((state) => {\n      let reverse = state.reverse;\n      if (state.sort === sort) {\n        reverse = !reverse;\n      } else {\n        reverse = false;\n      }\n\n      this.sorter.setState({ ...state, sort, reverse });\n    });\n  }\n\n  toggleViewKey(view: string) {\n    this.viewer.toggle(view);\n  }\n}\n",
+            "assetsDirs": [],
+            "styleUrlsData": [
+                {
+                    "data": "button.mat-button {\r\n  min-width: 0;\r\n  display: block;\r\n  padding: 0 8px;\r\n}\r\n\r\n.button-content {\r\n  display: flex;\r\n  align-items: center;\r\n}\r\n\r\n.options-menu-trigger {\r\n  white-space: nowrap;\r\n  text-overflow: ellipsis;\r\n  overflow: hidden;\r\n  font-size: 12px;\r\n}\r\n\r\nbutton.mat-menu-item {\r\n  mat-icon {\r\n    visibility: hidden;\r\n  }\r\n\r\n  &.selected {\r\n    font-weight: bold;\r\n    mat-icon {\r\n      visibility: visible;\r\n    }\r\n  }\r\n}\r\n\r\n.mat-menu-item {\r\n  //@include slim-menu-item();\r\n}\r\n",
+                    "styleUrl": "./display-options.component.scss"
+                }
+            ],
+            "stylesData": "",
+            "constructorObj": {
+                "name": "constructor",
+                "description": "",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "args": [],
+                "line": 32
+            },
+            "implements": [
+                "OnChanges"
+            ],
+            "templateData": "<button mat-button [mat-menu-trigger-for]=\"rootMenu\">\n  <div class=\"options-menu-trigger\"> Display Options </div>\n</button>\n\n<mat-menu #rootMenu=\"matMenu\">\n  <button *ngIf=\"grouper\" mat-menu-item [matMenuTriggerFor]=\"groupingMenu\">\n    Group By\n  </button>\n  <button *ngIf=\"sorter\" mat-menu-item [matMenuTriggerFor]=\"sortingMenu\">\n    Sort By\n  </button>\n  <button *ngIf=\"viewer\" mat-menu-item [matMenuTriggerFor]=\"viewingMenu\">\n    View\n  </button>\n</mat-menu>\n\n<!-- Group Menu -->\n<mat-menu #groupingMenu=\"matMenu\">\n  <button mat-menu-item *ngFor=\"let group of groups\"\n          [class.selected]=\"(grouper.state | async).group === group.id\"\n          (click)=\"setGroup(group.id); $event.stopPropagation();\">\n    <div class=\"button-content\">\n      <mat-icon>check</mat-icon>\n      {{group.label}}\n    </div>\n  </button>\n</mat-menu>\n\n<!-- Sort Menu -->\n<mat-menu #sortingMenu=\"matMenu\">\n  <button mat-menu-item *ngFor=\"let sort of sorts\"\n          [class.selected]=\"(sorter.state | async).sort === sort.id\"\n          (click)=\"setSort(sort.id); $event.stopPropagation();\">\n    <div class=\"button-content\">\n      <mat-icon>\n        {{(sorter.state | async).reverse ? 'arrow_downward' : 'arrow_upward'}}\n      </mat-icon>\n      {{sort.label}}\n    </div>\n  </button>\n</mat-menu>\n\n<!-- View Menu -->\n<mat-menu #viewingMenu=\"matMenu\">\n  <button mat-menu-item *ngFor=\"let view of views\"\n          [class.selected]=\"(viewer.state | async).views.indexOf(view.id) !== -1\"\n          (click)=\"viewer.toggle(view.id); $event.stopPropagation();\">\n    <div class=\"button-content\">\n      <mat-icon>check</mat-icon>\n      {{view.label}}\n    </div>\n  </button>\n</mat-menu>\n"
         },
         {
             "name": "HeaderComponent",
@@ -9239,7 +9712,7 @@
                     "defaultValue": "[]",
                     "deprecated": false,
                     "deprecationMessage": "",
-                    "line": 18,
+                    "line": 20,
                     "type": "RenderedView[]",
                     "decorators": []
                 },
@@ -9247,7 +9720,7 @@
                     "name": "text",
                     "deprecated": false,
                     "deprecationMessage": "",
-                    "line": 16,
+                    "line": 18,
                     "type": "string",
                     "decorators": []
                 }
@@ -9261,7 +9734,7 @@
                     "type": "Observable<RenderedView[]>",
                     "optional": false,
                     "description": "",
-                    "line": 14
+                    "line": 16
                 }
             ],
             "methodsClass": [],
@@ -9276,7 +9749,7 @@
             "assetsDirs": [],
             "styleUrlsData": "",
             "stylesData": "",
-            "templateData": "{{text}}\r\n<ng-container *ngFor=\"let view of childrenViews\">\r\n  <lib-rendered-view *ngIf=\"view\" [class]=\"view.classList || ''\" [ngStyle]=\"view.styles || {}\" [text]=\"view.text\"\r\n    [childrenViews]=\"view?.children\">\r\n  </lib-rendered-view>\r\n</ng-container>\r\n"
+            "templateData": "{{text}}\r\n<ng-container *ngFor=\"let view of childrenViews\">\r\n  <lib-rendered-view *ngIf=\"view\" [class]=\"view.classList || ''\" [ngStyle]=\"view.styles || {}\" [text]=\"view['text']\"\r\n    [childrenViews]=\"view['children']\">\r\n  </lib-rendered-view>\r\n</ng-container>\r\n"
         },
         {
             "name": "RosterComponent",
@@ -9342,7 +9815,7 @@
         },
         {
             "name": "TableViewComponent",
-            "id": "component-TableViewComponent-314ffa4741cb1284741e2e0e710c9dd782a4d24d6a4263f3b78b5fedaa2e8cfc4684f831b15385beeed74ac948c3d795512f3c8f59fac11bc8dd035fdbad1edd",
+            "id": "component-TableViewComponent-897b3ec1d4974d37dd89dc9c78d9bdb3ac71efcc06eace0f101d7b8b2c386b91afd884895fa6e16f8506f2069b7db14f1a073154291c5e58dc9162b6ec5ec362",
             "file": "projects/components/src/lib/shared/table-view/table-view.component.ts",
             "changeDetection": "ChangeDetectionStrategy.OnPush",
             "encapsulation": [],
@@ -9364,15 +9837,23 @@
                     "name": "dataSource",
                     "deprecated": false,
                     "deprecationMessage": "",
-                    "line": 64,
+                    "line": 76,
                     "type": "DataSource",
+                    "decorators": []
+                },
+                {
+                    "name": "exporter",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "line": 78,
+                    "type": "Exporter",
                     "decorators": []
                 },
                 {
                     "name": "filterer",
                     "deprecated": false,
                     "deprecationMessage": "",
-                    "line": 56,
+                    "line": 68,
                     "type": "Filterer",
                     "decorators": []
                 },
@@ -9380,7 +9861,7 @@
                     "name": "grouper",
                     "deprecated": false,
                     "deprecationMessage": "",
-                    "line": 60,
+                    "line": 72,
                     "type": "Grouper",
                     "decorators": []
                 },
@@ -9388,7 +9869,7 @@
                     "name": "loading",
                     "deprecated": false,
                     "deprecationMessage": "",
-                    "line": 66,
+                    "line": 80,
                     "type": "boolean",
                     "decorators": []
                 },
@@ -9396,7 +9877,7 @@
                     "name": "sorter",
                     "deprecated": false,
                     "deprecationMessage": "",
-                    "line": 62,
+                    "line": 74,
                     "type": "Sorter",
                     "decorators": []
                 },
@@ -9404,7 +9885,7 @@
                     "name": "viewer",
                     "deprecated": false,
                     "deprecationMessage": "",
-                    "line": 58,
+                    "line": 70,
                     "type": "Viewer",
                     "decorators": []
                 }
@@ -9418,7 +9899,7 @@
                     "type": "Observable<string[]>",
                     "optional": false,
                     "description": "",
-                    "line": 50
+                    "line": 62
                 },
                 {
                     "name": "itemCount",
@@ -9427,7 +9908,7 @@
                     "type": "Observable<number>",
                     "optional": false,
                     "description": "",
-                    "line": 68
+                    "line": 82
                 },
                 {
                     "name": "page",
@@ -9437,7 +9918,7 @@
                     "type": "BehaviorSubject<TablePage>",
                     "optional": false,
                     "description": "",
-                    "line": 70
+                    "line": 84
                 },
                 {
                     "name": "renderedData",
@@ -9446,7 +9927,7 @@
                     "type": "Observable<Item[]>",
                     "optional": false,
                     "description": "",
-                    "line": 72
+                    "line": 86
                 },
                 {
                     "name": "renderedHtml",
@@ -9455,7 +9936,7 @@
                     "type": "Observable<Map<Item, Map<string, Observable<RenderedView>>>>",
                     "optional": false,
                     "description": "",
-                    "line": 54
+                    "line": 66
                 },
                 {
                     "name": "views",
@@ -9464,19 +9945,57 @@
                     "type": "ViewLabel[]",
                     "optional": false,
                     "description": "",
-                    "line": 52
+                    "line": 64
                 }
             ],
             "methodsClass": [
+                {
+                    "name": "export",
+                    "args": [],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 121,
+                    "deprecated": false,
+                    "deprecationMessage": ""
+                },
                 {
                     "name": "ngOnInit",
                     "args": [],
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 75,
+                    "line": 89,
                     "deprecated": false,
                     "deprecationMessage": ""
+                },
+                {
+                    "name": "setPage",
+                    "args": [
+                        {
+                            "name": "event",
+                            "type": "PageEvent",
+                            "deprecated": false,
+                            "deprecationMessage": ""
+                        }
+                    ],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 118,
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "jsdoctags": [
+                        {
+                            "name": "event",
+                            "type": "PageEvent",
+                            "deprecated": false,
+                            "deprecationMessage": "",
+                            "tagName": {
+                                "text": "param"
+                            }
+                        }
+                    ]
                 }
             ],
             "deprecated": false,
@@ -9486,7 +10005,7 @@
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';\r\nimport { BehaviorSubject, combineLatest, map, Observable, shareReplay } from 'rxjs';\r\nimport { DataSource } from '../../data/data-source';\r\nimport { Filterer } from '../../data/filterer';\r\nimport { Grouper } from '../../data/grouper';\r\nimport { Sorter } from '../../data/sorter';\r\nimport { RenderedView, Viewer, ViewLabel } from '../../data/viewer';\r\nimport { MatPaginatorModule, PageEvent } from '@angular/material/paginator';\r\nimport { MatTableModule } from '@angular/material/table';\r\nimport { MatDividerModule } from '@angular/material/divider';\r\nimport { CommonModule } from '@angular/common';\r\n// import { RenderedViewModule } from '../rendered-view/rendered-view.module';\r\nimport { RenderedViewComponent } from '../rendered-view/rendered-view.component';\r\n\r\nexport interface Item {\r\n  id: string;\r\n  assignees: string[];\r\n  body: string;\r\n  title: string;\r\n  comments: number;\r\n  labels: string[];\r\n  number: number;\r\n  state: string;\r\n  reporter: string;\r\n  created: string;\r\n  closed: string;\r\n  updated: string;\r\n  // reactions: Reactions;\r\n  pr: boolean;\r\n  url: string;\r\n  //  statuses: ItemStatus[];\r\n  dbAdded?: string;\r\n  dbModified?: string;\r\n}\r\n\r\ninterface TablePage {\r\n  index: number;\r\n  size: number;\r\n}\r\n\r\n@Component({\r\n  selector: 'lib-table-view',\r\n  templateUrl: './table-view.component.html',\r\n  imports: [CommonModule, MatTableModule, RenderedViewComponent, MatPaginatorModule, MatDividerModule],\r\n  standalone: true,\r\n  styleUrls: ['./table-view.component.scss'],\r\n  changeDetection: ChangeDetectionStrategy.OnPush\r\n})\r\nexport class TableViewComponent implements OnInit {\r\n  displayedColumns: Observable<string[]>;\r\n\r\n  views: ViewLabel[];\r\n\r\n  renderedHtml: Observable<Map<Item, Map<string, Observable<RenderedView>>>>;\r\n\r\n  @Input() filterer: Filterer;\r\n\r\n  @Input() viewer: Viewer;\r\n\r\n  @Input() grouper: Grouper;\r\n\r\n  @Input() sorter: Sorter;\r\n\r\n  @Input() dataSource: DataSource;\r\n\r\n  @Input() loading: boolean;\r\n\r\n  itemCount: Observable<number>;\r\n\r\n  page: BehaviorSubject<TablePage> = new BehaviorSubject({ size: 20, index: 0 });\r\n\r\n  renderedData: Observable<Item[]>;\r\n  constructor() {}\r\n\r\n  ngOnInit(): void {\r\n    // TODO: Cannot be in ngOnInit since the inputs may change\r\n    const curatedData = this.dataSource.data.pipe(this.filterer.filter(), this.sorter.sort());\r\n    this.renderedData = combineLatest([curatedData, this.page]).pipe(\r\n      map(([data, page]) => data.slice(page.index * page.size, page.index * page.size + page.size))\r\n    );\r\n    this.itemCount = curatedData.pipe(map((d) => d.length));\r\n\r\n    this.views = this.viewer.getViews();\r\n    this.displayedColumns = this.viewer.state.pipe(\r\n      map((state) => {\r\n        return this.views.map((v) => v.id).filter((v) => state.views.indexOf(v) !== -1);\r\n      })\r\n    );\r\n\r\n    this.renderedHtml = this.renderedData.pipe(\r\n      map((items) => {\r\n        const renderedHtml = new Map<Item, Map<string, Observable<RenderedView>>>();\r\n        items.forEach((item) => {\r\n          const itemRenderedViews = new Map<string, Observable<RenderedView>>();\r\n          this.views.forEach((view) => itemRenderedViews.set(view.id, this.viewer.getRenderedView(item, view.id)));\r\n          renderedHtml.set(item, itemRenderedViews);\r\n        });\r\n        return renderedHtml;\r\n      }),\r\n      shareReplay(1)\r\n    );\r\n  }\r\n\r\n  // setPage(event: PageEvent) {\r\n  //   this.page.next({ index: event.pageIndex, size: event.pageSize });\r\n  // }\r\n}\r\n",
+            "sourceCode": "import { CommonModule } from '@angular/common';\r\nimport { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';\r\nimport { BehaviorSubject, combineLatest, map, Observable, shareReplay } from 'rxjs';\r\n\r\nimport { MatPaginatorModule, PageEvent } from '@angular/material/paginator';\r\nimport { MatTableModule } from '@angular/material/table';\r\nimport { MatDividerModule } from '@angular/material/divider';\r\nimport { RenderedViewComponent } from '../rendered-view/rendered-view.component';\r\nimport { DisplayOptionsComponent } from '../display-options/display-options.component';\r\n\r\nimport { RenderedView, Viewer, ViewLabel } from '../../data/viewer';\r\nimport { Exporter } from '../../data/exporter';\r\nimport { DataSource } from '../../data/data-source';\r\nimport { Filterer } from '../../data/filterer';\r\nimport { Grouper } from '../../data/grouper';\r\nimport { Sorter } from '../../data/sorter';\r\n\r\nexport interface Item {\r\n  id: string;\r\n  assignees: string[];\r\n  body: string;\r\n  title: string;\r\n  comments: number;\r\n  labels: string[];\r\n  number: number;\r\n  state: string;\r\n  reporter: string;\r\n  created: string;\r\n  closed: string;\r\n  updated: string;\r\n  // reactions: Reactions;\r\n  pr: boolean;\r\n  url: string;\r\n  //  statuses: ItemStatus[];\r\n  dbAdded?: string;\r\n  dbModified?: string;\r\n}\r\n\r\ninterface TablePage {\r\n  index: number;\r\n  size: number;\r\n}\r\n\r\n@Component({\r\n  selector: 'lib-table-view',\r\n  templateUrl: './table-view.component.html',\r\n  imports: [\r\n    CommonModule,\r\n    MatTableModule,\r\n    RenderedViewComponent,\r\n    MatPaginatorModule,\r\n    MatDividerModule,\r\n    DisplayOptionsComponent\r\n  ],\r\n  standalone: true,\r\n  styleUrls: ['./table-view.component.scss'],\r\n  changeDetection: ChangeDetectionStrategy.OnPush\r\n})\r\nexport class TableViewComponent implements OnInit {\r\n  displayedColumns: Observable<string[]>;\r\n\r\n  views: ViewLabel[];\r\n\r\n  renderedHtml: Observable<Map<Item, Map<string, Observable<RenderedView>>>>;\r\n\r\n  @Input() filterer: Filterer;\r\n\r\n  @Input() viewer: Viewer;\r\n\r\n  @Input() grouper: Grouper;\r\n\r\n  @Input() sorter: Sorter;\r\n\r\n  @Input() dataSource: DataSource;\r\n\r\n  @Input() exporter: Exporter;\r\n\r\n  @Input() loading: boolean;\r\n\r\n  itemCount: Observable<number>;\r\n\r\n  page: BehaviorSubject<TablePage> = new BehaviorSubject({ size: 20, index: 0 });\r\n\r\n  renderedData: Observable<Item[]>;\r\n  constructor() {}\r\n\r\n  ngOnInit(): void {\r\n    // TODO: Cannot be in ngOnInit since the inputs may change\r\n    const curatedData = this.dataSource.data.pipe(this.filterer.filter(), this.sorter.sort());\r\n    this.renderedData = combineLatest([curatedData, this.page]).pipe(\r\n      map(([data, page]) => data.slice(page.index * page.size, page.index * page.size + page.size))\r\n    );\r\n    this.itemCount = curatedData.pipe(map((d) => d.length));\r\n\r\n    this.views = this.viewer.getViews();\r\n    this.displayedColumns = this.viewer.state.pipe(\r\n      map((state) => {\r\n        return this.views.map((v) => v.id).filter((v) => state.views.indexOf(v) !== -1);\r\n      })\r\n    );\r\n\r\n    this.renderedHtml = this.renderedData.pipe(\r\n      map((items) => {\r\n        const renderedHtml = new Map<Item, Map<string, Observable<RenderedView>>>();\r\n        items.forEach((item) => {\r\n          const itemRenderedViews = new Map<string, Observable<RenderedView>>();\r\n          this.views.forEach((view) => itemRenderedViews.set(view.id, this.viewer.getRenderedView(item, view.id)));\r\n          renderedHtml.set(item, itemRenderedViews);\r\n        });\r\n        return renderedHtml;\r\n      }),\r\n      shareReplay(1)\r\n    );\r\n  }\r\n\r\n  setPage(event: PageEvent) {\r\n    this.page.next({ index: event.pageIndex, size: event.pageSize });\r\n  }\r\n  export() {\r\n    this.exporter.exportData('', this.renderedData);\r\n  }\r\n}\r\n",
             "assetsDirs": [],
             "styleUrlsData": [
                 {
@@ -9501,12 +10020,12 @@
                 "deprecated": false,
                 "deprecationMessage": "",
                 "args": [],
-                "line": 72
+                "line": 86
             },
             "implements": [
                 "OnInit"
             ],
-            "templateData": " <div class=\"header theme-background-card\">\r\n   <!-- <advanced-search [filterer]=\"filterer\" [dataSource]=\"dataSource\">\r\n  </advanced-search> -->\r\n\r\n   <div class=\"header-actions\">\r\n     <!-- <display-options [sorter]=\"sorter\" [viewer]=\"viewer\"></display-options> -->\r\n   </div>\r\n </div>\r\n\r\n <div class=\"table-container\">\r\n   <table mat-table [dataSource]=\"renderedData\">\r\n     <ng-container *ngFor=\"let view of views\" [matColumnDef]=\"view.id\">\r\n       <th mat-header-cell *matHeaderCellDef>\r\n         {{view.label}}\r\n       </th>\r\n       <td mat-cell *matCellDef=\"let item\">\r\n         <ng-container *ngIf=\"(renderedHtml | async).get(item).get(view.id) | async as view\">\r\n           <lib-rendered-view *ngIf=\"view\" [class]=\"view.classList || ''\" [ngStyle]=\"view.styles || {}\"\r\n             [text]=\"view.text || ''\" [childrenViews]=\"view.children || null\">\r\n           </lib-rendered-view>\r\n         </ng-container>\r\n       </td>\r\n     </ng-container>\r\n\r\n     <tr mat-header-row *matHeaderRowDef=\"displayedColumns | async; sticky: true\"></tr>\r\n     <tr mat-row *matRowDef=\"let item; columns: displayedColumns | async;\"></tr>\r\n   </table>\r\n </div>\r\n\r\n <mat-divider></mat-divider>\r\n\r\n <mat-paginator (page)=\"setPage($event)\" [pageSize]=\"(page | async).size\" [length]=\"itemCount | async\">\r\n </mat-paginator>\r\n"
+            "templateData": " <div class=\"header theme-background-card\">\r\n   <!-- <advanced-search [filterer]=\"filterer\" [dataSource]=\"dataSource\">\r\n  </advanced-search> -->\r\n\r\n   <div class=\"header-actions\">\r\n     <lib-display-options [sorter]=\"sorter\" [viewer]=\"viewer\"></lib-display-options>\r\n     <button (click)=\"export()\">Export</button>\r\n   </div>\r\n </div>\r\n\r\n <div class=\"table-container\">\r\n   <table mat-table [dataSource]=\"renderedData\">\r\n     <ng-container *ngFor=\"let view of views\" [matColumnDef]=\"view.id\">\r\n       <th mat-header-cell *matHeaderCellDef>\r\n         {{view.label}}\r\n       </th>\r\n       <td mat-cell *matCellDef=\"let item\">\r\n         <ng-container *ngIf=\"(renderedHtml | async).get(item).get(view.id) | async as view\">\r\n           <lib-rendered-view *ngIf=\"view\" [class]=\"view.classList || ''\" [ngStyle]=\"view.styles || {}\"\r\n             [text]=\"view['text'] || ''\" [childrenViews]=\"view['children'] || null\">\r\n           </lib-rendered-view>\r\n         </ng-container>\r\n       </td>\r\n     </ng-container>\r\n\r\n     <tr mat-header-row *matHeaderRowDef=\"displayedColumns | async; sticky: true\"></tr>\r\n     <tr mat-row *matRowDef=\"let item; columns: displayedColumns | async;\"></tr>\r\n   </table>\r\n </div>\r\n\r\n <mat-divider></mat-divider>\r\n\r\n <!-- <mat-paginator (page)=\"setPage($event)\" [pageSize]=\"(page | async).size\" [length]=\"itemCount | async\">\r\n</mat-paginator> -->\r\n"
         },
         {
             "name": "WrapperComponent",
@@ -9847,13 +10366,13 @@
         },
         {
             "name": "ClansRosterModule",
-            "id": "module-ClansRosterModule-2fd5d30c21bafe9fbecbb1bbedfedffa0063d7e74d359b021016219d46913c68a48577f52bf7df78baac7879ecaf37deaac470eb516ff4053d2536d2ec2e2d92",
+            "id": "module-ClansRosterModule-033c5449c739406799930c5ec36d9876602060da713424cf4ed414e36b002ff0e35d4dfa9f4f5bf534dc720300844c19b778952304b692d44399d9e9ae60223d",
             "description": "",
             "deprecationMessage": "",
             "deprecated": false,
             "file": "projects/clan-dashboard/src/app/features/clans-roster/clans-roster.module.ts",
             "methods": [],
-            "sourceCode": "import { NgModule } from '@angular/core';\nimport { CommonModule } from '@angular/common';\nimport { ClansRosterComponent } from './clans-roster.component';\nimport { ClansRosterService } from './clans-roster.service';\n\n@NgModule({\n  declarations: [ClansRosterComponent],\n  providers: [ClansRosterService],\n  exports: [ClansRosterComponent],\n  imports: [CommonModule]\n})\nexport class ClansRosterModule {}\n",
+            "sourceCode": "import { NgModule } from '@angular/core';\nimport { CommonModule } from '@angular/common';\nimport { ClansRosterComponent } from './clans-roster.component';\nimport { ClansRosterService } from './clans-roster.service';\n// import {} from '@destiny/data\nimport { TableViewComponent } from '@destiny/components/shared/table-view';\n\n@NgModule({\n  declarations: [ClansRosterComponent],\n  providers: [ClansRosterService],\n  exports: [ClansRosterComponent],\n  imports: [CommonModule, TableViewComponent]\n})\nexport class ClansRosterModule {}\n",
             "children": [
                 {
                     "type": "providers",
@@ -9873,7 +10392,11 @@
                 },
                 {
                     "type": "imports",
-                    "elements": []
+                    "elements": [
+                        {
+                            "name": "TableViewComponent"
+                        }
+                    ]
                 },
                 {
                     "type": "exports",
@@ -10151,13 +10674,13 @@
         },
         {
             "name": "SharedModule",
-            "id": "module-SharedModule-7c0a60f3ad12ff99549fe4765c76af297e980adc3859b3d23d6a0fb20fbe7021ad5d74c4aa584f6cfad45af60848d2d5ff42e0eb68b0a6784a0bf82ce4c32b75",
+            "id": "module-SharedModule-b422cf796ba298eca6e3c9fd6243af1ad1cf9380a8f23bb80bce0c40fc25725d4891162d3cd674a1bd71c6548fbfdd200d034853c398813fa0ebf57847a0f5f9",
             "description": "",
             "deprecationMessage": "",
             "deprecated": false,
             "file": "projects/components/src/lib/shared/shared.module.ts",
             "methods": [],
-            "sourceCode": "import { NgModule } from '@angular/core';\nimport { CommonModule } from '@angular/common';\nimport { TableViewComponent } from './table-view/table-view.component';\n\n\n\n@NgModule({\n  declarations: [\n    TableViewComponent,\n  ],\n  imports: [\n    CommonModule\n  ]\n})\nexport class SharedModule { }\n",
+            "sourceCode": "import { NgModule } from '@angular/core';\nimport { CommonModule } from '@angular/common';\n\n\n\n@NgModule({\n  declarations: [\n  ],\n  imports: [\n    CommonModule\n  ]\n})\nexport class SharedModule { }\n",
             "children": [
                 {
                     "type": "providers",
@@ -10165,11 +10688,7 @@
                 },
                 {
                     "type": "declarations",
-                    "elements": [
-                        {
-                            "name": "TableViewComponent"
-                        }
-                    ]
+                    "elements": []
                 },
                 {
                     "type": "imports",
@@ -10271,6 +10790,16 @@
                 "deprecationMessage": "",
                 "type": "string",
                 "defaultValue": "'584850370'"
+            },
+            {
+                "name": "CLAN_ROSTER_VIEWER_METADATA",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/clan-dashboard/src/app/features/clans-roster/clan-roster-metadata/ClanRosterViewer.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "",
+                "defaultValue": "new Map<string, ViewerMetadata<ClanMemberProfile>>([\r\n  [\r\n    'platform',\r\n    { label: 'Platform', render: (item: ClanMemberProfile) => ({ styles: { fontWeight: 'bold' }, text: `${item.member.destinyUserInfo.membershipType}` }) }\r\n  ],\r\n  ['destinyDisplayName', { label: 'Destiny Display Name', render: (item: ClanMemberProfile) => ({ text: `${item.member.destinyUserInfo.displayName}` }) }],\r\n  //['name', { label: 'Name', render: (item) => ({ text: `${item.name}` }) }],\r\n  //['startDate', { label: 'Start Date', render: (item) => ({ text: `${new Date(item.startDate).toDateString()}` }) }]\r\n])"
             },
             {
                 "name": "ClanConfigAdapter",
@@ -10425,6 +10954,16 @@
                 "defaultValue": "{\r\n  constants: {...baseConstants},\r\n  production: false,\r\n  apiKey: secretKeys.apiKey,\r\n  appVersion: packageJson.version\r\n}"
             },
             {
+                "name": "EXAMPLE_EXPORTER_METADATA",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/components/src/lib/__mocks__/ListViewExporter.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "",
+                "defaultValue": "new Map<string, ExporterMetadata<MockListItem>>([\r\n  ['id', { label: 'Id', text: (item) => item.id.toString() }],\r\n  ['startDate', { label: 'Start Date', text: (item) => new Date(item.startDate).toDateString() }]\r\n])"
+            },
+            {
                 "name": "EXAMPLE_FILTERER_METADATA",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
@@ -10452,7 +10991,7 @@
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "",
-                "defaultValue": "new Map<string, SorterMetadata<MockListItem>>([\r\n  [\r\n    'id',\r\n    {\r\n      label: 'ID',\r\n      comparator: (a, b) => (a.id < b.id ? -1 : 1)\r\n    }\r\n  ]\r\n])"
+                "defaultValue": "new Map<string, SorterMetadata<MockListItem>>([\r\n  [\r\n    'id',\r\n    {\r\n      label: 'ID',\r\n      comparator: (a, b) => (a.id < b.id ? -1 : 1)\r\n    }\r\n  ],\r\n  [\r\n    'name',\r\n    {\r\n      label: 'Name',\r\n      comparator: (a, b) => (a.name.toLowerCase() < b.name.toLowerCase() ? -1 : 1)\r\n    }\r\n  ]\r\n])"
             },
             {
                 "name": "EXAMPLE_VIEWER_METADATA",
@@ -10462,7 +11001,7 @@
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "",
-                "defaultValue": "new Map<string, ViewerMetadata<MockListItem>>([\r\n  ['id', { label: 'id', render: (item) => ({ styles: { fontWeight: 'bold' }, text: `${item.id}` }) }],\r\n  ['isPublic', { label: 'Is Public', render: (item) => ({ text: `${item.isPublic}` }) }],\r\n  ['name', { label: 'Name', render: (item) => ({ text: `${item.name}` }) }],\r\n  ['startDate', { label: 'Name', render: (item) => ({ text: `${new Date(item.startDate).toDateString()}` }) }]\r\n])"
+                "defaultValue": "new Map<string, ViewerMetadata<MockListItem>>([\r\n  ['id', { label: 'id', render: (item) => ({ styles: { fontWeight: 'bold' }, text: `${item.id}` }) }],\r\n  ['isPublic', { label: 'Is Public', render: (item) => ({ text: `${item.isPublic}` }) }],\r\n  ['name', { label: 'Name', render: (item) => ({ text: `${item.name}` }) }],\r\n  ['startDate', { label: 'Start Date', render: (item) => ({ text: `${new Date(item.startDate).toDateString()}` }) }]\r\n])"
             },
             {
                 "name": "fs",
@@ -10699,6 +11238,16 @@
                 "ctype": "miscellaneous",
                 "subtype": "variable",
                 "file": "stories/Button.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "",
+                "defaultValue": "Template.bind({})"
+            },
+            {
+                "name": "Primary",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/components/src/lib/shared/display-options/display-options.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "",
@@ -10985,6 +11534,16 @@
                 "name": "Template",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
+                "file": "projects/components/src/lib/shared/display-options/display-options.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Story<DisplayOptionsComponent>",
+                "defaultValue": "(args: DisplayOptionsComponent) => ({\r\n  props: args\r\n})"
+            },
+            {
+                "name": "Template",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
                 "file": "projects/components/src/lib/shared/rendered-view/rendered-view.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
@@ -11128,6 +11687,34 @@
                 ]
             },
             {
+                "name": "convertArrayOfObjectsToCSV",
+                "file": "projects/components/src/lib/data/exporter.ts",
+                "ctype": "miscellaneous",
+                "subtype": "function",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "description": "",
+                "args": [
+                    {
+                        "name": "args",
+                        "type": "",
+                        "deprecated": false,
+                        "deprecationMessage": ""
+                    }
+                ],
+                "jsdoctags": [
+                    {
+                        "name": "args",
+                        "type": "",
+                        "deprecated": false,
+                        "deprecationMessage": "",
+                        "tagName": {
+                            "text": "param"
+                        }
+                    }
+                ]
+            },
+            {
                 "name": "dateMatchesEquality",
                 "file": "projects/components/src/lib/data/utility/filter-matcher.ts",
                 "ctype": "miscellaneous",
@@ -11205,6 +11792,49 @@
                 "jsdoctags": [
                     {
                         "name": "d",
+                        "type": "",
+                        "deprecated": false,
+                        "deprecationMessage": "",
+                        "tagName": {
+                            "text": "param"
+                        }
+                    }
+                ]
+            },
+            {
+                "name": "downloadCSV",
+                "file": "projects/components/src/lib/data/exporter.ts",
+                "ctype": "miscellaneous",
+                "subtype": "function",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "description": "",
+                "args": [
+                    {
+                        "name": "args",
+                        "type": "",
+                        "deprecated": false,
+                        "deprecationMessage": ""
+                    },
+                    {
+                        "name": "stockData",
+                        "type": "",
+                        "deprecated": false,
+                        "deprecationMessage": ""
+                    }
+                ],
+                "jsdoctags": [
+                    {
+                        "name": "args",
+                        "type": "",
+                        "deprecated": false,
+                        "deprecationMessage": "",
+                        "tagName": {
+                            "text": "param"
+                        }
+                    },
+                    {
+                        "name": "stockData",
                         "type": "",
                         "deprecated": false,
                         "deprecationMessage": "",
@@ -12819,6 +13449,18 @@
                     "defaultValue": "'584850370'"
                 }
             ],
+            "projects/clan-dashboard/src/app/features/clans-roster/clan-roster-metadata/ClanRosterViewer.ts": [
+                {
+                    "name": "CLAN_ROSTER_VIEWER_METADATA",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/clan-dashboard/src/app/features/clans-roster/clan-roster-metadata/ClanRosterViewer.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "defaultValue": "new Map<string, ViewerMetadata<ClanMemberProfile>>([\r\n  [\r\n    'platform',\r\n    { label: 'Platform', render: (item: ClanMemberProfile) => ({ styles: { fontWeight: 'bold' }, text: `${item.member.destinyUserInfo.membershipType}` }) }\r\n  ],\r\n  ['destinyDisplayName', { label: 'Destiny Display Name', render: (item: ClanMemberProfile) => ({ text: `${item.member.destinyUserInfo.displayName}` }) }],\r\n  //['name', { label: 'Name', render: (item) => ({ text: `${item.name}` }) }],\r\n  //['startDate', { label: 'Start Date', render: (item) => ({ text: `${new Date(item.startDate).toDateString()}` }) }]\r\n])"
+                }
+            ],
             "projects/clan-dashboard/src/app/core/store/clans/clans.state.ts": [
                 {
                     "name": "ClanConfigAdapter",
@@ -13104,6 +13746,18 @@
                     "defaultValue": "require('../../../../package.json')"
                 }
             ],
+            "projects/components/src/lib/__mocks__/ListViewExporter.ts": [
+                {
+                    "name": "EXAMPLE_EXPORTER_METADATA",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/components/src/lib/__mocks__/ListViewExporter.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "defaultValue": "new Map<string, ExporterMetadata<MockListItem>>([\r\n  ['id', { label: 'Id', text: (item) => item.id.toString() }],\r\n  ['startDate', { label: 'Start Date', text: (item) => new Date(item.startDate).toDateString() }]\r\n])"
+                }
+            ],
             "projects/components/src/lib/__mocks__/ListItemFilterer.ts": [
                 {
                     "name": "EXAMPLE_FILTERER_METADATA",
@@ -13137,7 +13791,7 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "",
-                    "defaultValue": "new Map<string, SorterMetadata<MockListItem>>([\r\n  [\r\n    'id',\r\n    {\r\n      label: 'ID',\r\n      comparator: (a, b) => (a.id < b.id ? -1 : 1)\r\n    }\r\n  ]\r\n])"
+                    "defaultValue": "new Map<string, SorterMetadata<MockListItem>>([\r\n  [\r\n    'id',\r\n    {\r\n      label: 'ID',\r\n      comparator: (a, b) => (a.id < b.id ? -1 : 1)\r\n    }\r\n  ],\r\n  [\r\n    'name',\r\n    {\r\n      label: 'Name',\r\n      comparator: (a, b) => (a.name.toLowerCase() < b.name.toLowerCase() ? -1 : 1)\r\n    }\r\n  ]\r\n])"
                 }
             ],
             "projects/components/src/lib/__mocks__/ListItemViewer.ts": [
@@ -13149,7 +13803,7 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "",
-                    "defaultValue": "new Map<string, ViewerMetadata<MockListItem>>([\r\n  ['id', { label: 'id', render: (item) => ({ styles: { fontWeight: 'bold' }, text: `${item.id}` }) }],\r\n  ['isPublic', { label: 'Is Public', render: (item) => ({ text: `${item.isPublic}` }) }],\r\n  ['name', { label: 'Name', render: (item) => ({ text: `${item.name}` }) }],\r\n  ['startDate', { label: 'Name', render: (item) => ({ text: `${new Date(item.startDate).toDateString()}` }) }]\r\n])"
+                    "defaultValue": "new Map<string, ViewerMetadata<MockListItem>>([\r\n  ['id', { label: 'id', render: (item) => ({ styles: { fontWeight: 'bold' }, text: `${item.id}` }) }],\r\n  ['isPublic', { label: 'Is Public', render: (item) => ({ text: `${item.isPublic}` }) }],\r\n  ['name', { label: 'Name', render: (item) => ({ text: `${item.name}` }) }],\r\n  ['startDate', { label: 'Start Date', render: (item) => ({ text: `${new Date(item.startDate).toDateString()}` }) }]\r\n])"
                 }
             ],
             "projects/clan-dashboard/src/app/core/store/manifest/manifest.state.ts": [
@@ -13386,6 +14040,28 @@
                     "deprecationMessage": "",
                     "type": "AppConfig",
                     "defaultValue": "{\r\n  apiKey: '',\r\n  appVersion: '',\r\n  constants: {\r\n    PROFILE_UPDATING_EXP_MINUTES: 10\r\n  }\r\n}"
+                }
+            ],
+            "projects/components/src/lib/shared/display-options/display-options.stories.ts": [
+                {
+                    "name": "Primary",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/components/src/lib/shared/display-options/display-options.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "defaultValue": "Template.bind({})"
+                },
+                {
+                    "name": "Template",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/components/src/lib/shared/display-options/display-options.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Story<DisplayOptionsComponent>",
+                    "defaultValue": "(args: DisplayOptionsComponent) => ({\r\n  props: args\r\n})"
                 }
             ],
             "projects/components/src/lib/shared/table-view/table-view.stories.ts": [
@@ -13991,6 +14667,79 @@
                         },
                         {
                             "name": "progressionHashes",
+                            "deprecated": false,
+                            "deprecationMessage": "",
+                            "tagName": {
+                                "text": "param"
+                            }
+                        }
+                    ]
+                }
+            ],
+            "projects/components/src/lib/data/exporter.ts": [
+                {
+                    "name": "convertArrayOfObjectsToCSV",
+                    "file": "projects/components/src/lib/data/exporter.ts",
+                    "ctype": "miscellaneous",
+                    "subtype": "function",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "description": "",
+                    "args": [
+                        {
+                            "name": "args",
+                            "type": "",
+                            "deprecated": false,
+                            "deprecationMessage": ""
+                        }
+                    ],
+                    "jsdoctags": [
+                        {
+                            "name": "args",
+                            "type": "",
+                            "deprecated": false,
+                            "deprecationMessage": "",
+                            "tagName": {
+                                "text": "param"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "downloadCSV",
+                    "file": "projects/components/src/lib/data/exporter.ts",
+                    "ctype": "miscellaneous",
+                    "subtype": "function",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "description": "",
+                    "args": [
+                        {
+                            "name": "args",
+                            "type": "",
+                            "deprecated": false,
+                            "deprecationMessage": ""
+                        },
+                        {
+                            "name": "stockData",
+                            "type": "",
+                            "deprecated": false,
+                            "deprecationMessage": ""
+                        }
+                    ],
+                    "jsdoctags": [
+                        {
+                            "name": "args",
+                            "type": "",
+                            "deprecated": false,
+                            "deprecationMessage": "",
+                            "tagName": {
+                                "text": "param"
+                            }
+                        },
+                        {
+                            "name": "stockData",
+                            "type": "",
                             "deprecated": false,
                             "deprecationMessage": "",
                             "tagName": {
@@ -15795,10 +16544,29 @@
                 "status": "low"
             },
             {
+                "filePath": "projects/clan-dashboard/src/app/features/clans-roster/clan-roster-metadata/ClanRosterViewer.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "CLAN_ROSTER_VIEWER_METADATA",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
                 "filePath": "projects/clan-dashboard/src/app/features/clans-roster/clans-roster.component.ts",
                 "type": "component",
                 "linktype": "component",
                 "name": "ClansRosterComponent",
+                "coveragePercent": 0,
+                "coverageCount": "0/6",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/clan-dashboard/src/app/features/clans-roster/clans-roster.component.ts",
+                "type": "interface",
+                "linktype": "interface",
+                "name": "QueryResources",
                 "coveragePercent": 0,
                 "coverageCount": "0/7",
                 "status": "low"
@@ -15810,6 +16578,15 @@
                 "name": "ClansRosterService",
                 "coveragePercent": 0,
                 "coverageCount": "0/7",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/clan-dashboard/src/app/features/clans-roster/clans-roster.service.ts",
+                "type": "interface",
+                "linktype": "interface",
+                "name": "ClanMemberProfile",
+                "coveragePercent": 0,
+                "coverageCount": "0/4",
                 "status": "low"
             },
             {
@@ -16007,6 +16784,16 @@
                 "status": "low"
             },
             {
+                "filePath": "projects/components/src/lib/__mocks__/ListViewExporter.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "EXAMPLE_EXPORTER_METADATA",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
                 "filePath": "projects/components/src/lib/data/data-source.ts",
                 "type": "class",
                 "linktype": "classe",
@@ -16040,6 +16827,53 @@
                 "name": "DataSourceOptions",
                 "coveragePercent": 0,
                 "coverageCount": "0/3",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/components/src/lib/data/exporter.ts",
+                "type": "class",
+                "linktype": "classe",
+                "name": "Exporter",
+                "coveragePercent": 0,
+                "coverageCount": "0/4",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/components/src/lib/data/exporter.ts",
+                "type": "interface",
+                "linktype": "interface",
+                "name": "ExporterMetadata",
+                "coveragePercent": 0,
+                "coverageCount": "0/3",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/components/src/lib/data/exporter.ts",
+                "type": "interface",
+                "linktype": "interface",
+                "name": "ExporterOptions",
+                "coveragePercent": 0,
+                "coverageCount": "0/2",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/components/src/lib/data/exporter.ts",
+                "type": "function",
+                "linktype": "miscellaneous",
+                "linksubtype": "function",
+                "name": "convertArrayOfObjectsToCSV",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/components/src/lib/data/exporter.ts",
+                "type": "function",
+                "linktype": "miscellaneous",
+                "linksubtype": "function",
+                "name": "downloadCSV",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
                 "status": "low"
             },
             {
@@ -16453,6 +17287,35 @@
                 "status": "low"
             },
             {
+                "filePath": "projects/components/src/lib/shared/display-options/display-options.component.ts",
+                "type": "component",
+                "linktype": "component",
+                "name": "DisplayOptionsComponent",
+                "coveragePercent": 0,
+                "coverageCount": "0/12",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/components/src/lib/shared/display-options/display-options.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Primary",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/components/src/lib/shared/display-options/display-options.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Template",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
                 "filePath": "projects/components/src/lib/shared/rendered-view/rendered-view.component.ts",
                 "type": "component",
                 "linktype": "component",
@@ -16497,7 +17360,7 @@
                 "linktype": "component",
                 "name": "TableViewComponent",
                 "coveragePercent": 0,
-                "coverageCount": "0/15",
+                "coverageCount": "0/18",
                 "status": "low"
             },
             {

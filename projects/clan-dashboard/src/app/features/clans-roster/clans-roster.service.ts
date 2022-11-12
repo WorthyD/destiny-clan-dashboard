@@ -1,11 +1,18 @@
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { selectEnabledClanIds, selectEnabledClans, selectLastProfileUpdate } from '@core/store/clans';
-import { forkJoin, from, map, mergeMap, switchMap, tap, toArray, combineLatest, distinctUntilChanged } from 'rxjs';
+import { forkJoin, from, map, mergeMap, switchMap, tap, toArray, combineLatest, distinctUntilChanged, Observable } from 'rxjs';
 // import {} from '@destiny/data/';
 import { ClanMembersService } from '@destiny/data/clan/clan-members';
 import { ProfileService } from 'projects/data/src/lib/clan/profiles/profile.service';
 import { MemberProfile } from '@destiny/data/models';
+import { GroupsV2GroupMember } from 'bungie-api-angular';
+
+export interface ClanMemberProfile {
+  clanId: string;
+  member: GroupsV2GroupMember;
+  profile: MemberProfile;
+}
 
 @Injectable()
 export class ClansRosterService {
@@ -49,7 +56,7 @@ export class ClansRosterService {
     tap((x) => console.log(x))
   );
 
-  clanProfiles$ = this.clanMembers$.pipe(
+  clanProfiles$: Observable<ClanMemberProfile[]> = this.clanMembers$.pipe(
     switchMap((clansAndMembers) => {
       return from(clansAndMembers).pipe(
         mergeMap((clanAndMembers) => {
@@ -59,10 +66,10 @@ export class ClansRosterService {
               map((result: MemberProfile) => {
                 return {
                   clanId: clanAndMembers.clanId,
-                  members: clanAndMembers.members.find(
+                  member: clanAndMembers.members.find(
                     (x) => x.destinyUserInfo?.membershipId == result.profile.data.userInfo?.membershipId
                   ),
-                  profiles: result
+                  profile: result
                 };
               })
             );

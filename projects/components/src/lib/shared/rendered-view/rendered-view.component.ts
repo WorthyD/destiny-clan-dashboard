@@ -1,3 +1,5 @@
+//  component originated form https://github.com/crafted/crafted
+
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { Observable } from 'rxjs';

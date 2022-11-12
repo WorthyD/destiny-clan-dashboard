@@ -17,7 +17,14 @@
       ],
       "@destiny/data/*": [
         "projects/data/src/lib/*/public-api"
+      ],
+      "@destiny/components": [
+        "projects/components/src/public-api"
+      ],
+      "@destiny/components/*": [
+        "projects/components/src/lib/*/public-api"
       ]
+
     }
   },
 }
