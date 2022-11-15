@@ -1,5 +1,98 @@
 {
-    "pipes": [],
+    "pipes": [
+        {
+            "name": "BungieDatePipe",
+            "id": "pipe-BungieDatePipe-e123588f0d85899fbdfeecd50b2af84499dfcd1253234a3d1593631fb5189c574272cb837095c382c2b8f240a05d31c21830777dcd720ed7dca5d4eb8a18fc84",
+            "file": "projects/components/src/lib/pipes/bungie-date/bungie-date.pipe.ts",
+            "type": "pipe",
+            "deprecated": false,
+            "deprecationMessage": "",
+            "description": "",
+            "rawdescription": "\n",
+            "properties": [],
+            "methods": [
+                {
+                    "name": "transform",
+                    "args": [
+                        {
+                            "name": "date",
+                            "type": "Date",
+                            "deprecated": false,
+                            "deprecationMessage": ""
+                        }
+                    ],
+                    "optional": false,
+                    "returnType": "any",
+                    "typeParameters": [],
+                    "line": 13,
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "modifierKind": [
+                        158
+                    ],
+                    "jsdoctags": [
+                        {
+                            "name": "date",
+                            "type": "Date",
+                            "deprecated": false,
+                            "deprecationMessage": "",
+                            "tagName": {
+                                "text": "param"
+                            }
+                        }
+                    ]
+                }
+            ],
+            "ngname": "bungieDate",
+            "sourceCode": "import { DatePipe } from '@angular/common';\r\nimport { Inject, LOCALE_ID, Pipe, PipeTransform } from '@angular/core';\r\n\r\n@Pipe({\r\n  name: 'bungieDate'\r\n})\r\nexport class BungieDatePipe extends DatePipe implements PipeTransform {\r\n\r\n  constructor(@Inject(LOCALE_ID) locale: string) {\r\n    super(locale);\r\n  }\r\n\r\n  override transform(date: Date): any {\r\n    return super.transform(date, 'yyyy-MM-dd');\r\n  }\r\n}\r\n"
+        },
+        {
+            "name": "BungieDateTimePipe",
+            "id": "pipe-BungieDateTimePipe-2e67c8cd25646d7199b620b906312eb141c53a8b64d1db03a7757c78a910d2007730503440b0460edf8ed29d32a521bfc2501f2df745ce2e2fe67be3237c9271",
+            "file": "projects/components/src/lib/pipes/bungie-date/bungie-date-time.pipe.ts",
+            "type": "pipe",
+            "deprecated": false,
+            "deprecationMessage": "",
+            "description": "",
+            "rawdescription": "\n",
+            "properties": [],
+            "methods": [
+                {
+                    "name": "transform",
+                    "args": [
+                        {
+                            "name": "date",
+                            "type": "Date",
+                            "deprecated": false,
+                            "deprecationMessage": ""
+                        }
+                    ],
+                    "optional": false,
+                    "returnType": "any",
+                    "typeParameters": [],
+                    "line": 12,
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "modifierKind": [
+                        158
+                    ],
+                    "jsdoctags": [
+                        {
+                            "name": "date",
+                            "type": "Date",
+                            "deprecated": false,
+                            "deprecationMessage": "",
+                            "tagName": {
+                                "text": "param"
+                            }
+                        }
+                    ]
+                }
+            ],
+            "ngname": "bungieDateTime",
+            "sourceCode": "import { DatePipe } from '@angular/common';\r\nimport { Inject, LOCALE_ID, Pipe, PipeTransform } from '@angular/core';\r\n\r\n@Pipe({\r\n  name: 'bungieDateTime'\r\n})\r\nexport class BungieDateTimePipe extends DatePipe implements PipeTransform {\r\n  constructor(@Inject(LOCALE_ID) locale: string) {\r\n    super(locale);\r\n  }\r\n\r\n  override transform(date: Date): any {\r\n    return super.transform(date, 'yyyy-MM-dd h:mm a');\r\n  }\r\n}\r\n"
+        }
+    ],
     "interfaces": [
         {
             "name": "AppState",
@@ -1199,12 +1292,12 @@
         },
         {
             "name": "Item",
-            "id": "interface-Item-897b3ec1d4974d37dd89dc9c78d9bdb3ac71efcc06eace0f101d7b8b2c386b91afd884895fa6e16f8506f2069b7db14f1a073154291c5e58dc9162b6ec5ec362",
+            "id": "interface-Item-6fa76a97fa6c779a5e68be163cf053cbfd0fbfaa71cf99c7263b97d8639f657e78aa7fb236c4113c2d89fba8e02f58adc2ac649f10afb7451ea422f977e597fd",
             "file": "projects/components/src/lib/shared/table-view/table-view.component.ts",
             "deprecated": false,
             "deprecationMessage": "",
             "type": "interface",
-            "sourceCode": "import { CommonModule } from '@angular/common';\r\nimport { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';\r\nimport { BehaviorSubject, combineLatest, map, Observable, shareReplay } from 'rxjs';\r\n\r\nimport { MatPaginatorModule, PageEvent } from '@angular/material/paginator';\r\nimport { MatTableModule } from '@angular/material/table';\r\nimport { MatDividerModule } from '@angular/material/divider';\r\nimport { RenderedViewComponent } from '../rendered-view/rendered-view.component';\r\nimport { DisplayOptionsComponent } from '../display-options/display-options.component';\r\n\r\nimport { RenderedView, Viewer, ViewLabel } from '../../data/viewer';\r\nimport { Exporter } from '../../data/exporter';\r\nimport { DataSource } from '../../data/data-source';\r\nimport { Filterer } from '../../data/filterer';\r\nimport { Grouper } from '../../data/grouper';\r\nimport { Sorter } from '../../data/sorter';\r\n\r\nexport interface Item {\r\n  id: string;\r\n  assignees: string[];\r\n  body: string;\r\n  title: string;\r\n  comments: number;\r\n  labels: string[];\r\n  number: number;\r\n  state: string;\r\n  reporter: string;\r\n  created: string;\r\n  closed: string;\r\n  updated: string;\r\n  // reactions: Reactions;\r\n  pr: boolean;\r\n  url: string;\r\n  //  statuses: ItemStatus[];\r\n  dbAdded?: string;\r\n  dbModified?: string;\r\n}\r\n\r\ninterface TablePage {\r\n  index: number;\r\n  size: number;\r\n}\r\n\r\n@Component({\r\n  selector: 'lib-table-view',\r\n  templateUrl: './table-view.component.html',\r\n  imports: [\r\n    CommonModule,\r\n    MatTableModule,\r\n    RenderedViewComponent,\r\n    MatPaginatorModule,\r\n    MatDividerModule,\r\n    DisplayOptionsComponent\r\n  ],\r\n  standalone: true,\r\n  styleUrls: ['./table-view.component.scss'],\r\n  changeDetection: ChangeDetectionStrategy.OnPush\r\n})\r\nexport class TableViewComponent implements OnInit {\r\n  displayedColumns: Observable<string[]>;\r\n\r\n  views: ViewLabel[];\r\n\r\n  renderedHtml: Observable<Map<Item, Map<string, Observable<RenderedView>>>>;\r\n\r\n  @Input() filterer: Filterer;\r\n\r\n  @Input() viewer: Viewer;\r\n\r\n  @Input() grouper: Grouper;\r\n\r\n  @Input() sorter: Sorter;\r\n\r\n  @Input() dataSource: DataSource;\r\n\r\n  @Input() exporter: Exporter;\r\n\r\n  @Input() loading: boolean;\r\n\r\n  itemCount: Observable<number>;\r\n\r\n  page: BehaviorSubject<TablePage> = new BehaviorSubject({ size: 20, index: 0 });\r\n\r\n  renderedData: Observable<Item[]>;\r\n  constructor() {}\r\n\r\n  ngOnInit(): void {\r\n    // TODO: Cannot be in ngOnInit since the inputs may change\r\n    const curatedData = this.dataSource.data.pipe(this.filterer.filter(), this.sorter.sort());\r\n    this.renderedData = combineLatest([curatedData, this.page]).pipe(\r\n      map(([data, page]) => data.slice(page.index * page.size, page.index * page.size + page.size))\r\n    );\r\n    this.itemCount = curatedData.pipe(map((d) => d.length));\r\n\r\n    this.views = this.viewer.getViews();\r\n    this.displayedColumns = this.viewer.state.pipe(\r\n      map((state) => {\r\n        return this.views.map((v) => v.id).filter((v) => state.views.indexOf(v) !== -1);\r\n      })\r\n    );\r\n\r\n    this.renderedHtml = this.renderedData.pipe(\r\n      map((items) => {\r\n        const renderedHtml = new Map<Item, Map<string, Observable<RenderedView>>>();\r\n        items.forEach((item) => {\r\n          const itemRenderedViews = new Map<string, Observable<RenderedView>>();\r\n          this.views.forEach((view) => itemRenderedViews.set(view.id, this.viewer.getRenderedView(item, view.id)));\r\n          renderedHtml.set(item, itemRenderedViews);\r\n        });\r\n        return renderedHtml;\r\n      }),\r\n      shareReplay(1)\r\n    );\r\n  }\r\n\r\n  setPage(event: PageEvent) {\r\n    this.page.next({ index: event.pageIndex, size: event.pageSize });\r\n  }\r\n  export() {\r\n    this.exporter.exportData('', this.renderedData);\r\n  }\r\n}\r\n",
+            "sourceCode": "import { CommonModule } from '@angular/common';\r\nimport { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';\r\nimport { BehaviorSubject, combineLatest, map, Observable, shareReplay } from 'rxjs';\r\n\r\nimport { MatPaginatorModule, PageEvent } from '@angular/material/paginator';\r\nimport { MatTableModule } from '@angular/material/table';\r\nimport { MatDividerModule } from '@angular/material/divider';\r\nimport { RenderedViewComponent } from '../rendered-view/rendered-view.component';\r\nimport { DisplayOptionsComponent } from '../display-options/display-options.component';\r\n\r\nimport { RenderedView, Viewer, ViewLabel } from '../../data/viewer';\r\nimport { Exporter } from '../../data/exporter';\r\nimport { DataSource } from '../../data/data-source';\r\nimport { Filterer } from '../../data/filterer';\r\nimport { Grouper } from '../../data/grouper';\r\nimport { Sorter } from '../../data/sorter';\r\n\r\nexport interface Item {\r\n  id: string;\r\n  assignees: string[];\r\n  body: string;\r\n  title: string;\r\n  comments: number;\r\n  labels: string[];\r\n  number: number;\r\n  state: string;\r\n  reporter: string;\r\n  created: string;\r\n  closed: string;\r\n  updated: string;\r\n  // reactions: Reactions;\r\n  pr: boolean;\r\n  url: string;\r\n  //  statuses: ItemStatus[];\r\n  dbAdded?: string;\r\n  dbModified?: string;\r\n}\r\n\r\ninterface TablePage {\r\n  index: number;\r\n  size: number;\r\n}\r\n\r\n@Component({\r\n  selector: 'lib-table-view',\r\n  templateUrl: './table-view.component.html',\r\n  imports: [\r\n    CommonModule,\r\n    MatTableModule,\r\n    RenderedViewComponent,\r\n    MatPaginatorModule,\r\n    MatDividerModule,\r\n    DisplayOptionsComponent\r\n  ],\r\n  standalone: true,\r\n  styleUrls: ['./table-view.component.scss'],\r\n  changeDetection: ChangeDetectionStrategy.OnPush\r\n})\r\nexport class TableViewComponent implements OnInit {\r\n  displayedColumns: Observable<string[]>;\r\n\r\n  views: ViewLabel[];\r\n\r\n  renderedHtml: Observable<Map<Item, Map<string, Observable<RenderedView>>>>;\r\n\r\n  @Input() filterer: Filterer;\r\n\r\n  @Input() viewer: Viewer;\r\n\r\n  @Input() grouper: Grouper;\r\n\r\n  @Input() sorter: Sorter;\r\n\r\n  @Input() dataSource: DataSource;\r\n\r\n  @Input() exporter: Exporter;\r\n\r\n  @Input() loading: boolean;\r\n\r\n  itemCount: Observable<number>;\r\n\r\n  page: BehaviorSubject<TablePage> = new BehaviorSubject({ size: 100, index: 0 });\r\n\r\n  renderedData: Observable<Item[]>;\r\n  constructor() {}\r\n\r\n  ngOnInit(): void {\r\n    // TODO: Cannot be in ngOnInit since the inputs may change\r\n    const curatedData = this.dataSource.data.pipe(this.filterer.filter(), this.sorter.sort());\r\n    this.renderedData = combineLatest([curatedData, this.page]).pipe(\r\n      map(([data, page]) => data.slice(page.index * page.size, page.index * page.size + page.size))\r\n    );\r\n    this.itemCount = curatedData.pipe(map((d) => d.length));\r\n\r\n    this.views = this.viewer.getViews();\r\n    this.displayedColumns = this.viewer.state.pipe(\r\n      map((state) => {\r\n        return this.views.map((v) => v.id).filter((v) => state.views.indexOf(v) !== -1);\r\n      })\r\n    );\r\n\r\n    this.renderedHtml = this.renderedData.pipe(\r\n      map((items) => {\r\n        const renderedHtml = new Map<Item, Map<string, Observable<RenderedView>>>();\r\n        items.forEach((item) => {\r\n          const itemRenderedViews = new Map<string, Observable<RenderedView>>();\r\n          this.views.forEach((view) => itemRenderedViews.set(view.id, this.viewer.getRenderedView(item, view.id)));\r\n          renderedHtml.set(item, itemRenderedViews);\r\n        });\r\n        return renderedHtml;\r\n      }),\r\n      shareReplay(1)\r\n    );\r\n  }\r\n\r\n  setPage(event: PageEvent) {\r\n    this.page.next({ index: event.pageIndex, size: event.pageSize });\r\n  }\r\n  export() {\r\n    this.exporter.exportData('', this.renderedData);\r\n  }\r\n}\r\n",
             "properties": [
                 {
                     "name": "assignees",
@@ -1586,74 +1679,6 @@
             "methods": []
         },
         {
-            "name": "QueryResources",
-            "id": "interface-QueryResources-bbf546a7584553e2bee785c3819f288c3446774807964111d0a5440aec3bd3953be50b45727672386680337d1d1ec5ca3285bd8c6794caa5a43445dcc5fbf258",
-            "file": "projects/clan-dashboard/src/app/features/clans-roster/clans-roster.component.ts",
-            "deprecated": false,
-            "deprecationMessage": "",
-            "type": "interface",
-            "sourceCode": "import { Component, OnInit, ViewRef } from '@angular/core';\nimport { DataSource, Filterer, Grouper, Sorter, Viewer } from '@destiny/components';\nimport { combineLatest, filter, map, Observable } from 'rxjs';\nimport { CLAN_ROSTER_VIEWER_METADATA } from './clan-roster-metadata';\nimport { ClanMemberProfile, ClansRosterService } from './clans-roster.service';\n\ninterface QueryResources {\n  loading: Observable<boolean>;\n  viewer: Viewer;\n  filterer: Filterer;\n  grouper: Grouper;\n  sorter: Sorter;\n  dataSource: DataSource;\n}\n\n@Component({\n  selector: 'app-clans-roster',\n  templateUrl: './clans-roster.component.html',\n  styleUrls: ['./clans-roster.component.scss']\n})\nexport class ClansRosterComponent implements OnInit {\n  constructor(private clansRosterService: ClansRosterService) {}\n  // stuff2$ = this.clansRosterService.activeClanPeople$;\n  //members$ = this.clansRosterService.clanMembers$;\n  profiles$ = this.clansRosterService.clanProfiles$;\n\n  rosterViewer = new Viewer({ metadata: CLAN_ROSTER_VIEWER_METADATA });\n\n  rosterInfo$ = combineLatest([this.clansRosterService.clanProfiles$]).pipe(\n    map(([clanProfiles]) => {\n      return {\n        dataSource:new DataSource<ClanMemberProfile>({ data: clanProfiles }) ,\n        viewer: this.rosterViewer\n      };\n    }),\n    filter(ds => !!ds)\n  );\n\n  ngOnInit(): void {}\n}\n",
-            "properties": [
-                {
-                    "name": "dataSource",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "DataSource",
-                    "optional": false,
-                    "description": "",
-                    "line": 13
-                },
-                {
-                    "name": "filterer",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "Filterer",
-                    "optional": false,
-                    "description": "",
-                    "line": 10
-                },
-                {
-                    "name": "grouper",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "Grouper",
-                    "optional": false,
-                    "description": "",
-                    "line": 11
-                },
-                {
-                    "name": "loading",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "Observable<boolean>",
-                    "optional": false,
-                    "description": "",
-                    "line": 8
-                },
-                {
-                    "name": "sorter",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "Sorter",
-                    "optional": false,
-                    "description": "",
-                    "line": 12
-                },
-                {
-                    "name": "viewer",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "Viewer",
-                    "optional": false,
-                    "description": "",
-                    "line": 9
-                }
-            ],
-            "indexSignatures": [],
-            "kind": 165,
-            "methods": []
-        },
-        {
             "name": "RenderedViewWithChildren",
             "id": "interface-RenderedViewWithChildren-71dc8ae945e2cba1c7ac5909a2a36576706ec595eaba25dbcb892db877b4a07f7cf9e8cc6a0a7948c2e67b921d1933f54356ff461aec7f86249b220a9f045e46",
             "file": "projects/components/src/lib/data/viewer.ts",
@@ -1729,6 +1754,65 @@
                     "optional": false,
                     "description": "",
                     "line": 9
+                }
+            ],
+            "indexSignatures": [],
+            "kind": 165,
+            "methods": []
+        },
+        {
+            "name": "RosterResources",
+            "id": "interface-RosterResources-fc531b51b28a70d2e9aa2ffc20086e9505e0fb119c6167c513e6470278726ba176970548d1dc345f1e583af9441f1c59d9dbfcc8b1bac11aba31a2529f22e7c2",
+            "file": "projects/clan-dashboard/src/app/features/clans-roster/clans-roster.component.ts",
+            "deprecated": false,
+            "deprecationMessage": "",
+            "type": "interface",
+            "sourceCode": "import { Component, OnInit, ViewRef } from '@angular/core';\nimport { DataSource, Filterer, Grouper, Sorter, Viewer } from '@destiny/components';\nimport { combineLatest, filter, map, Observable, of } from 'rxjs';\nimport { CLAN_ROSTER_VIEWER_METADATA } from './clan-roster-metadata';\nimport { CLAN_ROSTER_FILTERER_METADATA } from './clan-roster-metadata/ClanRosterFilterer';\nimport { CLAN_ROSTER_SORTER_METADATA } from './clan-roster-metadata/ClanRosterSorter';\nimport { ClanMemberProfile, ClansRosterService } from './clans-roster.service';\n\nimport { BungieDatePipe, BungieDateTimePipe } from '@destiny/components/pipes/bungie-date';\ninterface RosterResources {\n  loading: Observable<boolean>;\n  viewer: Viewer;\n  filterer: Filterer;\n  //grouper: Grouper;\n  sorter: Sorter;\n  dataSource: DataSource;\n}\n\n@Component({\n  selector: 'app-clans-roster',\n  templateUrl: './clans-roster.component.html',\n  styleUrls: ['./clans-roster.component.scss']\n})\nexport class ClansRosterComponent implements OnInit {\n  constructor(\n    private clansRosterService: ClansRosterService,\n    private bungieDatePage: BungieDatePipe,\n    private bungieDateTimePipe: BungieDateTimePipe\n  ) {}\n  // stuff2$ = this.clansRosterService.activeClanPeople$;\n  //members$ = this.clansRosterService.clanMembers$;\n  profiles$ = this.clansRosterService.clanProfiles$;\n\n  rosterViewer = new Viewer({\n    metadata: CLAN_ROSTER_VIEWER_METADATA,\n    contextProvider: this.createViewContextProvider()\n  });\n  rosterFilter = new Filterer({ metadata: CLAN_ROSTER_FILTERER_METADATA });\n  rosterSorter = new Sorter({ metadata: CLAN_ROSTER_SORTER_METADATA });\n\n  rosterInfo$: Observable<RosterResources> = combineLatest([this.clansRosterService.clanProfiles$]).pipe(\n    map(([clanProfiles]) => {\n      return {\n        loading: of(false),\n        dataSource: new DataSource<ClanMemberProfile>({ data: clanProfiles }),\n        viewer: this.rosterViewer,\n        filterer: this.rosterFilter,\n        sorter: this.rosterSorter\n      };\n    }),\n    filter((ds) => !!ds)\n  );\n\n  createViewContextProvider() {\n    return of((item: ClanMemberProfile) => ({\n      item,\n      datePipe: this.bungieDatePage,\n      dateTimePipe: this.bungieDateTimePipe\n    }));\n  }\n\n  ngOnInit(): void {}\n}\n",
+            "properties": [
+                {
+                    "name": "dataSource",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "DataSource",
+                    "optional": false,
+                    "description": "",
+                    "line": 16
+                },
+                {
+                    "name": "filterer",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Filterer",
+                    "optional": false,
+                    "description": "",
+                    "line": 13
+                },
+                {
+                    "name": "loading",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Observable<boolean>",
+                    "optional": false,
+                    "description": "",
+                    "line": 11
+                },
+                {
+                    "name": "sorter",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Sorter",
+                    "optional": false,
+                    "description": "",
+                    "line": 15
+                },
+                {
+                    "name": "viewer",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Viewer",
+                    "optional": false,
+                    "description": "",
+                    "line": 12
                 }
             ],
             "indexSignatures": [],
@@ -2025,12 +2109,12 @@
         },
         {
             "name": "TablePage",
-            "id": "interface-TablePage-897b3ec1d4974d37dd89dc9c78d9bdb3ac71efcc06eace0f101d7b8b2c386b91afd884895fa6e16f8506f2069b7db14f1a073154291c5e58dc9162b6ec5ec362",
+            "id": "interface-TablePage-6fa76a97fa6c779a5e68be163cf053cbfd0fbfaa71cf99c7263b97d8639f657e78aa7fb236c4113c2d89fba8e02f58adc2ac649f10afb7451ea422f977e597fd",
             "file": "projects/components/src/lib/shared/table-view/table-view.component.ts",
             "deprecated": false,
             "deprecationMessage": "",
             "type": "interface",
-            "sourceCode": "import { CommonModule } from '@angular/common';\r\nimport { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';\r\nimport { BehaviorSubject, combineLatest, map, Observable, shareReplay } from 'rxjs';\r\n\r\nimport { MatPaginatorModule, PageEvent } from '@angular/material/paginator';\r\nimport { MatTableModule } from '@angular/material/table';\r\nimport { MatDividerModule } from '@angular/material/divider';\r\nimport { RenderedViewComponent } from '../rendered-view/rendered-view.component';\r\nimport { DisplayOptionsComponent } from '../display-options/display-options.component';\r\n\r\nimport { RenderedView, Viewer, ViewLabel } from '../../data/viewer';\r\nimport { Exporter } from '../../data/exporter';\r\nimport { DataSource } from '../../data/data-source';\r\nimport { Filterer } from '../../data/filterer';\r\nimport { Grouper } from '../../data/grouper';\r\nimport { Sorter } from '../../data/sorter';\r\n\r\nexport interface Item {\r\n  id: string;\r\n  assignees: string[];\r\n  body: string;\r\n  title: string;\r\n  comments: number;\r\n  labels: string[];\r\n  number: number;\r\n  state: string;\r\n  reporter: string;\r\n  created: string;\r\n  closed: string;\r\n  updated: string;\r\n  // reactions: Reactions;\r\n  pr: boolean;\r\n  url: string;\r\n  //  statuses: ItemStatus[];\r\n  dbAdded?: string;\r\n  dbModified?: string;\r\n}\r\n\r\ninterface TablePage {\r\n  index: number;\r\n  size: number;\r\n}\r\n\r\n@Component({\r\n  selector: 'lib-table-view',\r\n  templateUrl: './table-view.component.html',\r\n  imports: [\r\n    CommonModule,\r\n    MatTableModule,\r\n    RenderedViewComponent,\r\n    MatPaginatorModule,\r\n    MatDividerModule,\r\n    DisplayOptionsComponent\r\n  ],\r\n  standalone: true,\r\n  styleUrls: ['./table-view.component.scss'],\r\n  changeDetection: ChangeDetectionStrategy.OnPush\r\n})\r\nexport class TableViewComponent implements OnInit {\r\n  displayedColumns: Observable<string[]>;\r\n\r\n  views: ViewLabel[];\r\n\r\n  renderedHtml: Observable<Map<Item, Map<string, Observable<RenderedView>>>>;\r\n\r\n  @Input() filterer: Filterer;\r\n\r\n  @Input() viewer: Viewer;\r\n\r\n  @Input() grouper: Grouper;\r\n\r\n  @Input() sorter: Sorter;\r\n\r\n  @Input() dataSource: DataSource;\r\n\r\n  @Input() exporter: Exporter;\r\n\r\n  @Input() loading: boolean;\r\n\r\n  itemCount: Observable<number>;\r\n\r\n  page: BehaviorSubject<TablePage> = new BehaviorSubject({ size: 20, index: 0 });\r\n\r\n  renderedData: Observable<Item[]>;\r\n  constructor() {}\r\n\r\n  ngOnInit(): void {\r\n    // TODO: Cannot be in ngOnInit since the inputs may change\r\n    const curatedData = this.dataSource.data.pipe(this.filterer.filter(), this.sorter.sort());\r\n    this.renderedData = combineLatest([curatedData, this.page]).pipe(\r\n      map(([data, page]) => data.slice(page.index * page.size, page.index * page.size + page.size))\r\n    );\r\n    this.itemCount = curatedData.pipe(map((d) => d.length));\r\n\r\n    this.views = this.viewer.getViews();\r\n    this.displayedColumns = this.viewer.state.pipe(\r\n      map((state) => {\r\n        return this.views.map((v) => v.id).filter((v) => state.views.indexOf(v) !== -1);\r\n      })\r\n    );\r\n\r\n    this.renderedHtml = this.renderedData.pipe(\r\n      map((items) => {\r\n        const renderedHtml = new Map<Item, Map<string, Observable<RenderedView>>>();\r\n        items.forEach((item) => {\r\n          const itemRenderedViews = new Map<string, Observable<RenderedView>>();\r\n          this.views.forEach((view) => itemRenderedViews.set(view.id, this.viewer.getRenderedView(item, view.id)));\r\n          renderedHtml.set(item, itemRenderedViews);\r\n        });\r\n        return renderedHtml;\r\n      }),\r\n      shareReplay(1)\r\n    );\r\n  }\r\n\r\n  setPage(event: PageEvent) {\r\n    this.page.next({ index: event.pageIndex, size: event.pageSize });\r\n  }\r\n  export() {\r\n    this.exporter.exportData('', this.renderedData);\r\n  }\r\n}\r\n",
+            "sourceCode": "import { CommonModule } from '@angular/common';\r\nimport { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';\r\nimport { BehaviorSubject, combineLatest, map, Observable, shareReplay } from 'rxjs';\r\n\r\nimport { MatPaginatorModule, PageEvent } from '@angular/material/paginator';\r\nimport { MatTableModule } from '@angular/material/table';\r\nimport { MatDividerModule } from '@angular/material/divider';\r\nimport { RenderedViewComponent } from '../rendered-view/rendered-view.component';\r\nimport { DisplayOptionsComponent } from '../display-options/display-options.component';\r\n\r\nimport { RenderedView, Viewer, ViewLabel } from '../../data/viewer';\r\nimport { Exporter } from '../../data/exporter';\r\nimport { DataSource } from '../../data/data-source';\r\nimport { Filterer } from '../../data/filterer';\r\nimport { Grouper } from '../../data/grouper';\r\nimport { Sorter } from '../../data/sorter';\r\n\r\nexport interface Item {\r\n  id: string;\r\n  assignees: string[];\r\n  body: string;\r\n  title: string;\r\n  comments: number;\r\n  labels: string[];\r\n  number: number;\r\n  state: string;\r\n  reporter: string;\r\n  created: string;\r\n  closed: string;\r\n  updated: string;\r\n  // reactions: Reactions;\r\n  pr: boolean;\r\n  url: string;\r\n  //  statuses: ItemStatus[];\r\n  dbAdded?: string;\r\n  dbModified?: string;\r\n}\r\n\r\ninterface TablePage {\r\n  index: number;\r\n  size: number;\r\n}\r\n\r\n@Component({\r\n  selector: 'lib-table-view',\r\n  templateUrl: './table-view.component.html',\r\n  imports: [\r\n    CommonModule,\r\n    MatTableModule,\r\n    RenderedViewComponent,\r\n    MatPaginatorModule,\r\n    MatDividerModule,\r\n    DisplayOptionsComponent\r\n  ],\r\n  standalone: true,\r\n  styleUrls: ['./table-view.component.scss'],\r\n  changeDetection: ChangeDetectionStrategy.OnPush\r\n})\r\nexport class TableViewComponent implements OnInit {\r\n  displayedColumns: Observable<string[]>;\r\n\r\n  views: ViewLabel[];\r\n\r\n  renderedHtml: Observable<Map<Item, Map<string, Observable<RenderedView>>>>;\r\n\r\n  @Input() filterer: Filterer;\r\n\r\n  @Input() viewer: Viewer;\r\n\r\n  @Input() grouper: Grouper;\r\n\r\n  @Input() sorter: Sorter;\r\n\r\n  @Input() dataSource: DataSource;\r\n\r\n  @Input() exporter: Exporter;\r\n\r\n  @Input() loading: boolean;\r\n\r\n  itemCount: Observable<number>;\r\n\r\n  page: BehaviorSubject<TablePage> = new BehaviorSubject({ size: 100, index: 0 });\r\n\r\n  renderedData: Observable<Item[]>;\r\n  constructor() {}\r\n\r\n  ngOnInit(): void {\r\n    // TODO: Cannot be in ngOnInit since the inputs may change\r\n    const curatedData = this.dataSource.data.pipe(this.filterer.filter(), this.sorter.sort());\r\n    this.renderedData = combineLatest([curatedData, this.page]).pipe(\r\n      map(([data, page]) => data.slice(page.index * page.size, page.index * page.size + page.size))\r\n    );\r\n    this.itemCount = curatedData.pipe(map((d) => d.length));\r\n\r\n    this.views = this.viewer.getViews();\r\n    this.displayedColumns = this.viewer.state.pipe(\r\n      map((state) => {\r\n        return this.views.map((v) => v.id).filter((v) => state.views.indexOf(v) !== -1);\r\n      })\r\n    );\r\n\r\n    this.renderedHtml = this.renderedData.pipe(\r\n      map((items) => {\r\n        const renderedHtml = new Map<Item, Map<string, Observable<RenderedView>>>();\r\n        items.forEach((item) => {\r\n          const itemRenderedViews = new Map<string, Observable<RenderedView>>();\r\n          this.views.forEach((view) => itemRenderedViews.set(view.id, this.viewer.getRenderedView(item, view.id)));\r\n          renderedHtml.set(item, itemRenderedViews);\r\n        });\r\n        return renderedHtml;\r\n      }),\r\n      shareReplay(1)\r\n    );\r\n  }\r\n\r\n  setPage(event: PageEvent) {\r\n    this.page.next({ index: event.pageIndex, size: event.pageSize });\r\n  }\r\n  export() {\r\n    this.exporter.exportData('', this.renderedData);\r\n  }\r\n}\r\n",
             "properties": [
                 {
                     "name": "index",
@@ -2265,6 +2349,47 @@
                     "optional": true,
                     "description": "",
                     "line": 14
+                }
+            ],
+            "indexSignatures": [],
+            "kind": 165,
+            "methods": []
+        },
+        {
+            "name": "ViewContext",
+            "id": "interface-ViewContext-a02b668db2f0a2fc3ed6fd5a65130022c2458ed7b9642dcdb79fd2d7b94506b1130038b2797bf095b32d1ab3488fc9d04e5b2c219ad1fdf823607610164ac2f3",
+            "file": "projects/clan-dashboard/src/app/features/clans-roster/clan-roster-metadata/ClanRosterViewer.ts",
+            "deprecated": false,
+            "deprecationMessage": "",
+            "type": "interface",
+            "sourceCode": "import { ViewerMetadata } from '@destiny/components';\r\n\r\nimport { ClanMemberProfile } from '../clans-roster.service';\r\nimport { BungieDatePipe, BungieDateTimePipe } from '@destiny/components/pipes/bungie-date';\r\n\r\ninterface ViewContext {\r\n  item: ClanMemberProfile;\r\n  datePipe: BungieDatePipe;\r\n  dateTimePipe: BungieDateTimePipe;\r\n}\r\nconst LANG = 'en-us';\r\n\r\nexport const CLAN_ROSTER_VIEWER_METADATA = new Map<string, ViewerMetadata<ClanMemberProfile, ViewContext>>([\r\n  [\r\n    'platform',\r\n    {\r\n      label: 'Platform',\r\n      render: (item: ClanMemberProfile) => ({ styles: {}, text: `${item.member.destinyUserInfo.membershipType}` })\r\n    }\r\n  ],\r\n  [\r\n    'destinyDisplayName',\r\n    {\r\n      label: 'Destiny Display Name',\r\n      render: (item: ClanMemberProfile) => ({ text: `${item.member.destinyUserInfo.displayName}` })\r\n    }\r\n  ],\r\n  [\r\n    'bungieDisplayName',\r\n    {\r\n      label: 'Bungie Display Name',\r\n      render: (item: ClanMemberProfile) => ({ text: `${item.member.bungieNetUserInfo?.displayName}` })\r\n    }\r\n  ],\r\n  [\r\n    'characters',\r\n    {\r\n      label: 'Characters',\r\n      render: (item: ClanMemberProfile) => ({ text: `TODO` })\r\n    }\r\n  ],\r\n  [\r\n    'powerLevel',\r\n    {\r\n      label: '+',\r\n      render: (item: ClanMemberProfile) => ({\r\n        text: `${item.profile?.profileProgression?.data?.seasonalArtifact?.powerBonus}`\r\n      })\r\n    }\r\n  ],\r\n  [\r\n    'activeTriumph',\r\n    {\r\n      label: 'Active Triumph',\r\n      render: (item: ClanMemberProfile) => ({\r\n        text: `${item.profile?.profileRecords?.data?.activeScore}`\r\n      })\r\n    }\r\n  ],\r\n  [\r\n    'lifetimeTriumph',\r\n    {\r\n      label: 'Lifetime Triumph',\r\n      render: (item: ClanMemberProfile) => ({\r\n        text: `${item.profile?.profileRecords?.data?.lifetimeScore}`\r\n      })\r\n    }\r\n  ],\r\n  [\r\n    'clanJoinDate',\r\n    {\r\n      label: 'Clan Join Date',\r\n      render: (item: ClanMemberProfile, context: ViewContext) => {\r\n        return {\r\n          text: `${context.datePipe.transform(item.member?.joinDate as unknown as Date)}`\r\n        };\r\n      }\r\n    }\r\n  ],\r\n  [\r\n    'dateLastPlayed',\r\n    {\r\n      label: 'Last Played',\r\n      render: (item: ClanMemberProfile, context: ViewContext) => {\r\n        return {\r\n          text: `${context.dateTimePipe.transform(item.profile?.profile.data.dateLastPlayed as unknown as Date)}`\r\n        };\r\n      }\r\n    }\r\n  ]\r\n\r\n  //['name', { label: 'Name', render: (item) => ({ text: `${item.name}` }) }],\r\n  //['startDate', { label: 'Start Date', render: (item) => ({ text: `${new Date(item.startDate).toDateString()}` }) }]\r\n]);\r\n",
+            "properties": [
+                {
+                    "name": "datePipe",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "BungieDatePipe",
+                    "optional": false,
+                    "description": "",
+                    "line": 8
+                },
+                {
+                    "name": "dateTimePipe",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "BungieDateTimePipe",
+                    "optional": false,
+                    "description": "",
+                    "line": 9
+                },
+                {
+                    "name": "item",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "ClanMemberProfile",
+                    "optional": false,
+                    "description": "",
+                    "line": 7
                 }
             ],
             "indexSignatures": [],
@@ -8739,7 +8864,66 @@
             "hostListeners": []
         }
     ],
-    "directives": [],
+    "directives": [
+        {
+            "name": "DynamicCompDirective",
+            "id": "directive-DynamicCompDirective-63b5dd5b62a8daa7ebff607d69ac0f204cbd7c5a8daec643e60749c0dae8e976e2633159bfbfd8e8caeadb5cdc94efe4c2a568444b413fdbab08694249787c65",
+            "file": "projects/components/src/lib/shared/rendered-view/rendered-view.component.ts",
+            "type": "directive",
+            "description": "",
+            "rawdescription": "\n",
+            "sourceCode": "import { CommonModule } from '@angular/common';\r\nimport {\r\n  ChangeDetectionStrategy,\r\n  Component,\r\n  ComponentFactoryResolver,\r\n  Input,\r\n  OnInit,\r\n  ViewContainerRef,\r\n  Directive,\r\n  ViewChild,\r\n  NgModule\r\n} from '@angular/core';\r\nimport { Observable } from 'rxjs';\r\nimport { RenderedView } from '../../data/viewer';\r\nimport { TestComponent } from './test/test.component';\r\n\r\n@Directive({\r\n  selector: '[libDynamicComp]'\r\n})\r\nexport class DynamicCompDirective {\r\n  constructor(public viewContainerRef: ViewContainerRef) {}\r\n}\r\n@NgModule({\r\n  declarations: [DynamicCompDirective, TestComponent],\r\n  exports: [DynamicCompDirective, TestComponent],\r\n  imports: [CommonModule]\r\n})\r\nexport class RenderedViewModule {}\r\n\r\n@Component({\r\n  selector: 'lib-rendered-view',\r\n  templateUrl: './rendered-view.component.html',\r\n  imports: [CommonModule, RenderedViewModule],\r\n  standalone: true,\r\n  changeDetection: ChangeDetectionStrategy.OnPush\r\n})\r\nexport class RenderedViewComponent implements OnInit {\r\n  @ViewChild(DynamicCompDirective, { static: true }) libDynamicComp!: DynamicCompDirective;\r\n  //   constructor(public viewContainerRef: ViewContainerRef, private componentFactoryResolver: ComponentFactoryResolver) {}\r\n  views: Observable<RenderedView[]>;\r\n\r\n  @Input() text: string;\r\n\r\n  @Input() childrenViews: RenderedView[] = [];\r\n  @Input() component: any;\r\n  @Input() data: any;\r\n\r\n  ngOnInit() {\r\n    // const componentFactory = this.componentFactoryResolver.resolveComponentFactory(this.component);\r\n    // // this.viewContainerRef.clear();\r\n\r\n    // const componentRef = this.viewContainerRef.createComponent(componentFactory);\r\n    //componentRef.instance['data'] = this.data;\r\n\r\n    if (this.component){\r\n    const viewContainerRef = this.libDynamicComp.viewContainerRef;\r\n    viewContainerRef.clear();\r\n\r\n    console.log('component',this.component);\r\n    const componentRef = viewContainerRef.createComponent(this.component);\r\n    //  componentRef.instance['data'] = this.data;\r\n    }else{\r\n    console.log('no comp');\r\n    }\r\n  }\r\n}\r\n",
+            "selector": "[libDynamicComp]",
+            "providers": [],
+            "inputsClass": [],
+            "outputsClass": [],
+            "deprecated": false,
+            "deprecationMessage": "",
+            "hostBindings": [],
+            "hostListeners": [],
+            "propertiesClass": [
+                {
+                    "name": "viewContainerRef",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "ViewContainerRef",
+                    "optional": false,
+                    "description": "",
+                    "line": 23,
+                    "modifierKind": [
+                        123
+                    ]
+                }
+            ],
+            "methodsClass": [],
+            "constructorObj": {
+                "name": "constructor",
+                "description": "",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "args": [
+                    {
+                        "name": "viewContainerRef",
+                        "type": "ViewContainerRef",
+                        "deprecated": false,
+                        "deprecationMessage": ""
+                    }
+                ],
+                "line": 22,
+                "jsdoctags": [
+                    {
+                        "name": "viewContainerRef",
+                        "type": "ViewContainerRef",
+                        "deprecated": false,
+                        "deprecationMessage": "",
+                        "tagName": {
+                            "text": "param"
+                        }
+                    }
+                ]
+            }
+        }
+    ],
     "components": [
         {
             "name": "AppComponent",
@@ -9147,7 +9331,7 @@
         },
         {
             "name": "ClansRosterComponent",
-            "id": "component-ClansRosterComponent-bbf546a7584553e2bee785c3819f288c3446774807964111d0a5440aec3bd3953be50b45727672386680337d1d1ec5ca3285bd8c6794caa5a43445dcc5fbf258",
+            "id": "component-ClansRosterComponent-fc531b51b28a70d2e9aa2ffc20086e9505e0fb119c6167c513e6470278726ba176970548d1dc345f1e583af9441f1c59d9dbfcc8b1bac11aba31a2529f22e7c2",
             "file": "projects/clan-dashboard/src/app/features/clans-roster/clans-roster.component.ts",
             "encapsulation": [],
             "entryComponents": [],
@@ -9174,37 +9358,67 @@
                     "type": "",
                     "optional": false,
                     "description": "",
-                    "line": 25
+                    "line": 32
+                },
+                {
+                    "name": "rosterFilter",
+                    "defaultValue": "new Filterer({ metadata: CLAN_ROSTER_FILTERER_METADATA })",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "optional": false,
+                    "description": "",
+                    "line": 38
                 },
                 {
                     "name": "rosterInfo$",
-                    "defaultValue": "combineLatest([this.clansRosterService.clanProfiles$]).pipe(\n    map(([clanProfiles]) => {\n      return {\n        dataSource:new DataSource<ClanMemberProfile>({ data: clanProfiles }) ,\n        viewer: this.rosterViewer\n      };\n    }),\n    filter(ds => !!ds)\n  )",
+                    "defaultValue": "combineLatest([this.clansRosterService.clanProfiles$]).pipe(\n    map(([clanProfiles]) => {\n      return {\n        loading: of(false),\n        dataSource: new DataSource<ClanMemberProfile>({ data: clanProfiles }),\n        viewer: this.rosterViewer,\n        filterer: this.rosterFilter,\n        sorter: this.rosterSorter\n      };\n    }),\n    filter((ds) => !!ds)\n  )",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Observable<RosterResources>",
+                    "optional": false,
+                    "description": "",
+                    "line": 41
+                },
+                {
+                    "name": "rosterSorter",
+                    "defaultValue": "new Sorter({ metadata: CLAN_ROSTER_SORTER_METADATA })",
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "",
                     "optional": false,
                     "description": "",
-                    "line": 29
+                    "line": 39
                 },
                 {
                     "name": "rosterViewer",
-                    "defaultValue": "new Viewer({ metadata: CLAN_ROSTER_VIEWER_METADATA })",
+                    "defaultValue": "new Viewer({\n    metadata: CLAN_ROSTER_VIEWER_METADATA,\n    contextProvider: this.createViewContextProvider()\n  })",
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "",
                     "optional": false,
                     "description": "",
-                    "line": 27
+                    "line": 34
                 }
             ],
             "methodsClass": [
+                {
+                    "name": "createViewContextProvider",
+                    "args": [],
+                    "optional": false,
+                    "returnType": "any",
+                    "typeParameters": [],
+                    "line": 54,
+                    "deprecated": false,
+                    "deprecationMessage": ""
+                },
                 {
                     "name": "ngOnInit",
                     "args": [],
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 39,
+                    "line": 62,
                     "deprecated": false,
                     "deprecationMessage": ""
                 }
@@ -9216,7 +9430,7 @@
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { Component, OnInit, ViewRef } from '@angular/core';\nimport { DataSource, Filterer, Grouper, Sorter, Viewer } from '@destiny/components';\nimport { combineLatest, filter, map, Observable } from 'rxjs';\nimport { CLAN_ROSTER_VIEWER_METADATA } from './clan-roster-metadata';\nimport { ClanMemberProfile, ClansRosterService } from './clans-roster.service';\n\ninterface QueryResources {\n  loading: Observable<boolean>;\n  viewer: Viewer;\n  filterer: Filterer;\n  grouper: Grouper;\n  sorter: Sorter;\n  dataSource: DataSource;\n}\n\n@Component({\n  selector: 'app-clans-roster',\n  templateUrl: './clans-roster.component.html',\n  styleUrls: ['./clans-roster.component.scss']\n})\nexport class ClansRosterComponent implements OnInit {\n  constructor(private clansRosterService: ClansRosterService) {}\n  // stuff2$ = this.clansRosterService.activeClanPeople$;\n  //members$ = this.clansRosterService.clanMembers$;\n  profiles$ = this.clansRosterService.clanProfiles$;\n\n  rosterViewer = new Viewer({ metadata: CLAN_ROSTER_VIEWER_METADATA });\n\n  rosterInfo$ = combineLatest([this.clansRosterService.clanProfiles$]).pipe(\n    map(([clanProfiles]) => {\n      return {\n        dataSource:new DataSource<ClanMemberProfile>({ data: clanProfiles }) ,\n        viewer: this.rosterViewer\n      };\n    }),\n    filter(ds => !!ds)\n  );\n\n  ngOnInit(): void {}\n}\n",
+            "sourceCode": "import { Component, OnInit, ViewRef } from '@angular/core';\nimport { DataSource, Filterer, Grouper, Sorter, Viewer } from '@destiny/components';\nimport { combineLatest, filter, map, Observable, of } from 'rxjs';\nimport { CLAN_ROSTER_VIEWER_METADATA } from './clan-roster-metadata';\nimport { CLAN_ROSTER_FILTERER_METADATA } from './clan-roster-metadata/ClanRosterFilterer';\nimport { CLAN_ROSTER_SORTER_METADATA } from './clan-roster-metadata/ClanRosterSorter';\nimport { ClanMemberProfile, ClansRosterService } from './clans-roster.service';\n\nimport { BungieDatePipe, BungieDateTimePipe } from '@destiny/components/pipes/bungie-date';\ninterface RosterResources {\n  loading: Observable<boolean>;\n  viewer: Viewer;\n  filterer: Filterer;\n  //grouper: Grouper;\n  sorter: Sorter;\n  dataSource: DataSource;\n}\n\n@Component({\n  selector: 'app-clans-roster',\n  templateUrl: './clans-roster.component.html',\n  styleUrls: ['./clans-roster.component.scss']\n})\nexport class ClansRosterComponent implements OnInit {\n  constructor(\n    private clansRosterService: ClansRosterService,\n    private bungieDatePage: BungieDatePipe,\n    private bungieDateTimePipe: BungieDateTimePipe\n  ) {}\n  // stuff2$ = this.clansRosterService.activeClanPeople$;\n  //members$ = this.clansRosterService.clanMembers$;\n  profiles$ = this.clansRosterService.clanProfiles$;\n\n  rosterViewer = new Viewer({\n    metadata: CLAN_ROSTER_VIEWER_METADATA,\n    contextProvider: this.createViewContextProvider()\n  });\n  rosterFilter = new Filterer({ metadata: CLAN_ROSTER_FILTERER_METADATA });\n  rosterSorter = new Sorter({ metadata: CLAN_ROSTER_SORTER_METADATA });\n\n  rosterInfo$: Observable<RosterResources> = combineLatest([this.clansRosterService.clanProfiles$]).pipe(\n    map(([clanProfiles]) => {\n      return {\n        loading: of(false),\n        dataSource: new DataSource<ClanMemberProfile>({ data: clanProfiles }),\n        viewer: this.rosterViewer,\n        filterer: this.rosterFilter,\n        sorter: this.rosterSorter\n      };\n    }),\n    filter((ds) => !!ds)\n  );\n\n  createViewContextProvider() {\n    return of((item: ClanMemberProfile) => ({\n      item,\n      datePipe: this.bungieDatePage,\n      dateTimePipe: this.bungieDateTimePipe\n    }));\n  }\n\n  ngOnInit(): void {}\n}\n",
             "assetsDirs": [],
             "styleUrlsData": [
                 {
@@ -9236,13 +9450,43 @@
                         "type": "ClansRosterService",
                         "deprecated": false,
                         "deprecationMessage": ""
+                    },
+                    {
+                        "name": "bungieDatePage",
+                        "type": "BungieDatePipe",
+                        "deprecated": false,
+                        "deprecationMessage": ""
+                    },
+                    {
+                        "name": "bungieDateTimePipe",
+                        "type": "BungieDateTimePipe",
+                        "deprecated": false,
+                        "deprecationMessage": ""
                     }
                 ],
-                "line": 21,
+                "line": 24,
                 "jsdoctags": [
                     {
                         "name": "clansRosterService",
                         "type": "ClansRosterService",
+                        "deprecated": false,
+                        "deprecationMessage": "",
+                        "tagName": {
+                            "text": "param"
+                        }
+                    },
+                    {
+                        "name": "bungieDatePage",
+                        "type": "BungieDatePipe",
+                        "deprecated": false,
+                        "deprecationMessage": "",
+                        "tagName": {
+                            "text": "param"
+                        }
+                    },
+                    {
+                        "name": "bungieDateTimePipe",
+                        "type": "BungieDateTimePipe",
                         "deprecated": false,
                         "deprecationMessage": "",
                         "tagName": {
@@ -9254,7 +9498,7 @@
             "implements": [
                 "OnInit"
             ],
-            "templateData": "<p>clans-roster works!</p>\r\n<!-- {{(stuff$ | async) | json}} -->\r\n<!-- <hr>\r\nstuff2:\r\n{{(stuff2$ | async) | json}}\r\n<hr>\r\n<div style=\"height:100px; overflow:scroll\">\r\n  <pre>\r\n  {{(members$ | async) | json}}}\r\n</pre>\r\n</div> -->\r\n<!-- <div style=\"height:600px; overflow:scroll\">\r\n\r\n  <pre>\r\n  {{(profiles$ | async) | json}}}\r\n  </pre>\r\n</div> -->\r\n<lib-table-view *ngIf=\"rosterInfo$ | async as rosterInfo\" [dataSource]=\"rosterInfo.dataSource\"\r\n  [viewer]=\"rosterInfo.viewer\">\r\n\r\n</lib-table-view>\r\n"
+            "templateData": "<p>clans-roster works!</p>\r\n<!-- {{(stuff$ | async) | json}} -->\r\n<!-- <hr>\r\nstuff2:\r\n{{(stuff2$ | async) | json}}\r\n<hr>\r\n<div style=\"height:100px; overflow:scroll\">\r\n  <pre>\r\n  {{(members$ | async) | json}}}\r\n</pre>\r\n</div> -->\r\n<!-- <div style=\"height:600px; overflow:scroll\">\r\n\r\n  <pre>\r\n  {{(profiles$ | async) | json}}}\r\n  </pre>\r\n</div> -->\r\n<lib-table-view *ngIf=\"rosterInfo$ | async as rosterInfo\" [dataSource]=\"rosterInfo.dataSource\"\r\n  [viewer]=\"rosterInfo.viewer\"\r\n  [filterer]=\"rosterInfo.filterer\"\r\n  [sorter]=\"rosterInfo.sorter\">\r\n\r\n</lib-table-view>\r\n"
         },
         {
             "name": "DashboardComponent",
@@ -9691,7 +9935,7 @@
         },
         {
             "name": "RenderedViewComponent",
-            "id": "component-RenderedViewComponent-8e6d7e329e03e68d161ace7bcff866f524b6aa38c48e09e98efd4c5c2eb895e0db6b9b27494c65af70cad2e33f5a784b810e593dc1da9400eb79072ec485ab4b",
+            "id": "component-RenderedViewComponent-63b5dd5b62a8daa7ebff607d69ac0f204cbd7c5a8daec643e60749c0dae8e976e2633159bfbfd8e8caeadb5cdc94efe4c2a568444b413fdbab08694249787c65",
             "file": "projects/components/src/lib/shared/rendered-view/rendered-view.component.ts",
             "changeDetection": "ChangeDetectionStrategy.OnPush",
             "encapsulation": [],
@@ -9712,15 +9956,31 @@
                     "defaultValue": "[]",
                     "deprecated": false,
                     "deprecationMessage": "",
-                    "line": 20,
+                    "line": 46,
                     "type": "RenderedView[]",
+                    "decorators": []
+                },
+                {
+                    "name": "component",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "line": 47,
+                    "type": "any",
+                    "decorators": []
+                },
+                {
+                    "name": "data",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "line": 48,
+                    "type": "any",
                     "decorators": []
                 },
                 {
                     "name": "text",
                     "deprecated": false,
                     "deprecationMessage": "",
-                    "line": 18,
+                    "line": 44,
                     "type": "string",
                     "decorators": []
                 }
@@ -9728,16 +9988,42 @@
             "outputsClass": [],
             "propertiesClass": [
                 {
+                    "name": "libDynamicComp",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "DynamicCompDirective",
+                    "optional": false,
+                    "description": "",
+                    "line": 40,
+                    "decorators": [
+                        {
+                            "name": "ViewChild",
+                            "stringifiedArguments": "DynamicCompDirective, {static: true}"
+                        }
+                    ]
+                },
+                {
                     "name": "views",
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "Observable<RenderedView[]>",
                     "optional": false,
                     "description": "",
-                    "line": 16
+                    "line": 42
                 }
             ],
-            "methodsClass": [],
+            "methodsClass": [
+                {
+                    "name": "ngOnInit",
+                    "args": [],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 50,
+                    "deprecated": false,
+                    "deprecationMessage": ""
+                }
+            ],
             "deprecated": false,
             "deprecationMessage": "",
             "hostBindings": [],
@@ -9745,11 +10031,14 @@
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { CommonModule } from '@angular/common';\r\nimport { ChangeDetectionStrategy, Component, Input } from '@angular/core';\r\nimport { Observable } from 'rxjs';\r\nimport { RenderedView } from '../../data/viewer';\r\n\r\n@Component({\r\n  selector: 'lib-rendered-view',\r\n  templateUrl: './rendered-view.component.html',\r\n  imports: [CommonModule],\r\n  standalone: true,\r\n  changeDetection: ChangeDetectionStrategy.OnPush\r\n})\r\nexport class RenderedViewComponent {\r\n  views: Observable<RenderedView[]>;\r\n\r\n  @Input() text: string;\r\n\r\n  @Input() childrenViews: RenderedView[] = [];\r\n}\r\n",
+            "sourceCode": "import { CommonModule } from '@angular/common';\r\nimport {\r\n  ChangeDetectionStrategy,\r\n  Component,\r\n  ComponentFactoryResolver,\r\n  Input,\r\n  OnInit,\r\n  ViewContainerRef,\r\n  Directive,\r\n  ViewChild,\r\n  NgModule\r\n} from '@angular/core';\r\nimport { Observable } from 'rxjs';\r\nimport { RenderedView } from '../../data/viewer';\r\nimport { TestComponent } from './test/test.component';\r\n\r\n@Directive({\r\n  selector: '[libDynamicComp]'\r\n})\r\nexport class DynamicCompDirective {\r\n  constructor(public viewContainerRef: ViewContainerRef) {}\r\n}\r\n@NgModule({\r\n  declarations: [DynamicCompDirective, TestComponent],\r\n  exports: [DynamicCompDirective, TestComponent],\r\n  imports: [CommonModule]\r\n})\r\nexport class RenderedViewModule {}\r\n\r\n@Component({\r\n  selector: 'lib-rendered-view',\r\n  templateUrl: './rendered-view.component.html',\r\n  imports: [CommonModule, RenderedViewModule],\r\n  standalone: true,\r\n  changeDetection: ChangeDetectionStrategy.OnPush\r\n})\r\nexport class RenderedViewComponent implements OnInit {\r\n  @ViewChild(DynamicCompDirective, { static: true }) libDynamicComp!: DynamicCompDirective;\r\n  //   constructor(public viewContainerRef: ViewContainerRef, private componentFactoryResolver: ComponentFactoryResolver) {}\r\n  views: Observable<RenderedView[]>;\r\n\r\n  @Input() text: string;\r\n\r\n  @Input() childrenViews: RenderedView[] = [];\r\n  @Input() component: any;\r\n  @Input() data: any;\r\n\r\n  ngOnInit() {\r\n    // const componentFactory = this.componentFactoryResolver.resolveComponentFactory(this.component);\r\n    // // this.viewContainerRef.clear();\r\n\r\n    // const componentRef = this.viewContainerRef.createComponent(componentFactory);\r\n    //componentRef.instance['data'] = this.data;\r\n\r\n    if (this.component){\r\n    const viewContainerRef = this.libDynamicComp.viewContainerRef;\r\n    viewContainerRef.clear();\r\n\r\n    console.log('component',this.component);\r\n    const componentRef = viewContainerRef.createComponent(this.component);\r\n    //  componentRef.instance['data'] = this.data;\r\n    }else{\r\n    console.log('no comp');\r\n    }\r\n  }\r\n}\r\n",
             "assetsDirs": [],
             "styleUrlsData": "",
             "stylesData": "",
-            "templateData": "{{text}}\r\n<ng-container *ngFor=\"let view of childrenViews\">\r\n  <lib-rendered-view *ngIf=\"view\" [class]=\"view.classList || ''\" [ngStyle]=\"view.styles || {}\" [text]=\"view['text']\"\r\n    [childrenViews]=\"view['children']\">\r\n  </lib-rendered-view>\r\n</ng-container>\r\n"
+            "implements": [
+                "OnInit"
+            ],
+            "templateData": "{{text}}\r\n<ng-template libDynamicComp></ng-template>\r\n<ng-container *ngFor=\"let view of childrenViews\">\r\n  <lib-rendered-view *ngIf=\"view\" [class]=\"view.classList || ''\" [ngStyle]=\"view.styles || {}\" [text]=\"view['text']\"\r\n    [childrenViews]=\"view['children']\">\r\n  </lib-rendered-view>\r\n</ng-container>\r\n"
         },
         {
             "name": "RosterComponent",
@@ -9815,7 +10104,7 @@
         },
         {
             "name": "TableViewComponent",
-            "id": "component-TableViewComponent-897b3ec1d4974d37dd89dc9c78d9bdb3ac71efcc06eace0f101d7b8b2c386b91afd884895fa6e16f8506f2069b7db14f1a073154291c5e58dc9162b6ec5ec362",
+            "id": "component-TableViewComponent-6fa76a97fa6c779a5e68be163cf053cbfd0fbfaa71cf99c7263b97d8639f657e78aa7fb236c4113c2d89fba8e02f58adc2ac649f10afb7451ea422f977e597fd",
             "file": "projects/components/src/lib/shared/table-view/table-view.component.ts",
             "changeDetection": "ChangeDetectionStrategy.OnPush",
             "encapsulation": [],
@@ -9912,7 +10201,7 @@
                 },
                 {
                     "name": "page",
-                    "defaultValue": "new BehaviorSubject({ size: 20, index: 0 })",
+                    "defaultValue": "new BehaviorSubject({ size: 100, index: 0 })",
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "BehaviorSubject<TablePage>",
@@ -10005,7 +10294,7 @@
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { CommonModule } from '@angular/common';\r\nimport { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';\r\nimport { BehaviorSubject, combineLatest, map, Observable, shareReplay } from 'rxjs';\r\n\r\nimport { MatPaginatorModule, PageEvent } from '@angular/material/paginator';\r\nimport { MatTableModule } from '@angular/material/table';\r\nimport { MatDividerModule } from '@angular/material/divider';\r\nimport { RenderedViewComponent } from '../rendered-view/rendered-view.component';\r\nimport { DisplayOptionsComponent } from '../display-options/display-options.component';\r\n\r\nimport { RenderedView, Viewer, ViewLabel } from '../../data/viewer';\r\nimport { Exporter } from '../../data/exporter';\r\nimport { DataSource } from '../../data/data-source';\r\nimport { Filterer } from '../../data/filterer';\r\nimport { Grouper } from '../../data/grouper';\r\nimport { Sorter } from '../../data/sorter';\r\n\r\nexport interface Item {\r\n  id: string;\r\n  assignees: string[];\r\n  body: string;\r\n  title: string;\r\n  comments: number;\r\n  labels: string[];\r\n  number: number;\r\n  state: string;\r\n  reporter: string;\r\n  created: string;\r\n  closed: string;\r\n  updated: string;\r\n  // reactions: Reactions;\r\n  pr: boolean;\r\n  url: string;\r\n  //  statuses: ItemStatus[];\r\n  dbAdded?: string;\r\n  dbModified?: string;\r\n}\r\n\r\ninterface TablePage {\r\n  index: number;\r\n  size: number;\r\n}\r\n\r\n@Component({\r\n  selector: 'lib-table-view',\r\n  templateUrl: './table-view.component.html',\r\n  imports: [\r\n    CommonModule,\r\n    MatTableModule,\r\n    RenderedViewComponent,\r\n    MatPaginatorModule,\r\n    MatDividerModule,\r\n    DisplayOptionsComponent\r\n  ],\r\n  standalone: true,\r\n  styleUrls: ['./table-view.component.scss'],\r\n  changeDetection: ChangeDetectionStrategy.OnPush\r\n})\r\nexport class TableViewComponent implements OnInit {\r\n  displayedColumns: Observable<string[]>;\r\n\r\n  views: ViewLabel[];\r\n\r\n  renderedHtml: Observable<Map<Item, Map<string, Observable<RenderedView>>>>;\r\n\r\n  @Input() filterer: Filterer;\r\n\r\n  @Input() viewer: Viewer;\r\n\r\n  @Input() grouper: Grouper;\r\n\r\n  @Input() sorter: Sorter;\r\n\r\n  @Input() dataSource: DataSource;\r\n\r\n  @Input() exporter: Exporter;\r\n\r\n  @Input() loading: boolean;\r\n\r\n  itemCount: Observable<number>;\r\n\r\n  page: BehaviorSubject<TablePage> = new BehaviorSubject({ size: 20, index: 0 });\r\n\r\n  renderedData: Observable<Item[]>;\r\n  constructor() {}\r\n\r\n  ngOnInit(): void {\r\n    // TODO: Cannot be in ngOnInit since the inputs may change\r\n    const curatedData = this.dataSource.data.pipe(this.filterer.filter(), this.sorter.sort());\r\n    this.renderedData = combineLatest([curatedData, this.page]).pipe(\r\n      map(([data, page]) => data.slice(page.index * page.size, page.index * page.size + page.size))\r\n    );\r\n    this.itemCount = curatedData.pipe(map((d) => d.length));\r\n\r\n    this.views = this.viewer.getViews();\r\n    this.displayedColumns = this.viewer.state.pipe(\r\n      map((state) => {\r\n        return this.views.map((v) => v.id).filter((v) => state.views.indexOf(v) !== -1);\r\n      })\r\n    );\r\n\r\n    this.renderedHtml = this.renderedData.pipe(\r\n      map((items) => {\r\n        const renderedHtml = new Map<Item, Map<string, Observable<RenderedView>>>();\r\n        items.forEach((item) => {\r\n          const itemRenderedViews = new Map<string, Observable<RenderedView>>();\r\n          this.views.forEach((view) => itemRenderedViews.set(view.id, this.viewer.getRenderedView(item, view.id)));\r\n          renderedHtml.set(item, itemRenderedViews);\r\n        });\r\n        return renderedHtml;\r\n      }),\r\n      shareReplay(1)\r\n    );\r\n  }\r\n\r\n  setPage(event: PageEvent) {\r\n    this.page.next({ index: event.pageIndex, size: event.pageSize });\r\n  }\r\n  export() {\r\n    this.exporter.exportData('', this.renderedData);\r\n  }\r\n}\r\n",
+            "sourceCode": "import { CommonModule } from '@angular/common';\r\nimport { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';\r\nimport { BehaviorSubject, combineLatest, map, Observable, shareReplay } from 'rxjs';\r\n\r\nimport { MatPaginatorModule, PageEvent } from '@angular/material/paginator';\r\nimport { MatTableModule } from '@angular/material/table';\r\nimport { MatDividerModule } from '@angular/material/divider';\r\nimport { RenderedViewComponent } from '../rendered-view/rendered-view.component';\r\nimport { DisplayOptionsComponent } from '../display-options/display-options.component';\r\n\r\nimport { RenderedView, Viewer, ViewLabel } from '../../data/viewer';\r\nimport { Exporter } from '../../data/exporter';\r\nimport { DataSource } from '../../data/data-source';\r\nimport { Filterer } from '../../data/filterer';\r\nimport { Grouper } from '../../data/grouper';\r\nimport { Sorter } from '../../data/sorter';\r\n\r\nexport interface Item {\r\n  id: string;\r\n  assignees: string[];\r\n  body: string;\r\n  title: string;\r\n  comments: number;\r\n  labels: string[];\r\n  number: number;\r\n  state: string;\r\n  reporter: string;\r\n  created: string;\r\n  closed: string;\r\n  updated: string;\r\n  // reactions: Reactions;\r\n  pr: boolean;\r\n  url: string;\r\n  //  statuses: ItemStatus[];\r\n  dbAdded?: string;\r\n  dbModified?: string;\r\n}\r\n\r\ninterface TablePage {\r\n  index: number;\r\n  size: number;\r\n}\r\n\r\n@Component({\r\n  selector: 'lib-table-view',\r\n  templateUrl: './table-view.component.html',\r\n  imports: [\r\n    CommonModule,\r\n    MatTableModule,\r\n    RenderedViewComponent,\r\n    MatPaginatorModule,\r\n    MatDividerModule,\r\n    DisplayOptionsComponent\r\n  ],\r\n  standalone: true,\r\n  styleUrls: ['./table-view.component.scss'],\r\n  changeDetection: ChangeDetectionStrategy.OnPush\r\n})\r\nexport class TableViewComponent implements OnInit {\r\n  displayedColumns: Observable<string[]>;\r\n\r\n  views: ViewLabel[];\r\n\r\n  renderedHtml: Observable<Map<Item, Map<string, Observable<RenderedView>>>>;\r\n\r\n  @Input() filterer: Filterer;\r\n\r\n  @Input() viewer: Viewer;\r\n\r\n  @Input() grouper: Grouper;\r\n\r\n  @Input() sorter: Sorter;\r\n\r\n  @Input() dataSource: DataSource;\r\n\r\n  @Input() exporter: Exporter;\r\n\r\n  @Input() loading: boolean;\r\n\r\n  itemCount: Observable<number>;\r\n\r\n  page: BehaviorSubject<TablePage> = new BehaviorSubject({ size: 100, index: 0 });\r\n\r\n  renderedData: Observable<Item[]>;\r\n  constructor() {}\r\n\r\n  ngOnInit(): void {\r\n    // TODO: Cannot be in ngOnInit since the inputs may change\r\n    const curatedData = this.dataSource.data.pipe(this.filterer.filter(), this.sorter.sort());\r\n    this.renderedData = combineLatest([curatedData, this.page]).pipe(\r\n      map(([data, page]) => data.slice(page.index * page.size, page.index * page.size + page.size))\r\n    );\r\n    this.itemCount = curatedData.pipe(map((d) => d.length));\r\n\r\n    this.views = this.viewer.getViews();\r\n    this.displayedColumns = this.viewer.state.pipe(\r\n      map((state) => {\r\n        return this.views.map((v) => v.id).filter((v) => state.views.indexOf(v) !== -1);\r\n      })\r\n    );\r\n\r\n    this.renderedHtml = this.renderedData.pipe(\r\n      map((items) => {\r\n        const renderedHtml = new Map<Item, Map<string, Observable<RenderedView>>>();\r\n        items.forEach((item) => {\r\n          const itemRenderedViews = new Map<string, Observable<RenderedView>>();\r\n          this.views.forEach((view) => itemRenderedViews.set(view.id, this.viewer.getRenderedView(item, view.id)));\r\n          renderedHtml.set(item, itemRenderedViews);\r\n        });\r\n        return renderedHtml;\r\n      }),\r\n      shareReplay(1)\r\n    );\r\n  }\r\n\r\n  setPage(event: PageEvent) {\r\n    this.page.next({ index: event.pageIndex, size: event.pageSize });\r\n  }\r\n  export() {\r\n    this.exporter.exportData('', this.renderedData);\r\n  }\r\n}\r\n",
             "assetsDirs": [],
             "styleUrlsData": [
                 {
@@ -10025,7 +10314,69 @@
             "implements": [
                 "OnInit"
             ],
-            "templateData": " <div class=\"header theme-background-card\">\r\n   <!-- <advanced-search [filterer]=\"filterer\" [dataSource]=\"dataSource\">\r\n  </advanced-search> -->\r\n\r\n   <div class=\"header-actions\">\r\n     <lib-display-options [sorter]=\"sorter\" [viewer]=\"viewer\"></lib-display-options>\r\n     <button (click)=\"export()\">Export</button>\r\n   </div>\r\n </div>\r\n\r\n <div class=\"table-container\">\r\n   <table mat-table [dataSource]=\"renderedData\">\r\n     <ng-container *ngFor=\"let view of views\" [matColumnDef]=\"view.id\">\r\n       <th mat-header-cell *matHeaderCellDef>\r\n         {{view.label}}\r\n       </th>\r\n       <td mat-cell *matCellDef=\"let item\">\r\n         <ng-container *ngIf=\"(renderedHtml | async).get(item).get(view.id) | async as view\">\r\n           <lib-rendered-view *ngIf=\"view\" [class]=\"view.classList || ''\" [ngStyle]=\"view.styles || {}\"\r\n             [text]=\"view['text'] || ''\" [childrenViews]=\"view['children'] || null\">\r\n           </lib-rendered-view>\r\n         </ng-container>\r\n       </td>\r\n     </ng-container>\r\n\r\n     <tr mat-header-row *matHeaderRowDef=\"displayedColumns | async; sticky: true\"></tr>\r\n     <tr mat-row *matRowDef=\"let item; columns: displayedColumns | async;\"></tr>\r\n   </table>\r\n </div>\r\n\r\n <mat-divider></mat-divider>\r\n\r\n <!-- <mat-paginator (page)=\"setPage($event)\" [pageSize]=\"(page | async).size\" [length]=\"itemCount | async\">\r\n</mat-paginator> -->\r\n"
+            "templateData": " <div class=\"header theme-background-card\">\r\n   <!-- <advanced-search [filterer]=\"filterer\" [dataSource]=\"dataSource\">\r\n  </advanced-search> -->\r\n\r\n   <div class=\"header-actions\">\r\n     <lib-display-options [sorter]=\"sorter\" [viewer]=\"viewer\"></lib-display-options>\r\n     <button (click)=\"export()\">Export</button>\r\n   </div>\r\n </div>\r\n\r\n <div class=\"table-container\">\r\n   <table mat-table [dataSource]=\"renderedData\">\r\n     <ng-container *ngFor=\"let view of views\" [matColumnDef]=\"view.id\">\r\n       <th mat-header-cell *matHeaderCellDef>\r\n         {{view.label}}\r\n       </th>\r\n       <td mat-cell *matCellDef=\"let item\">\r\n         <ng-container *ngIf=\"(renderedHtml | async).get(item).get(view.id) | async as view\">\r\n           <lib-rendered-view *ngIf=\"view\" [class]=\"view.classList || ''\" [ngStyle]=\"view.styles || {}\"\r\n             [text]=\"view['text'] || ''\" [childrenViews]=\"view['children'] || null\">\r\n           </lib-rendered-view>\r\n         </ng-container>\r\n       </td>\r\n     </ng-container>\r\n\r\n     <tr mat-header-row *matHeaderRowDef=\"displayedColumns | async; sticky: true\"></tr>\r\n     <tr mat-row *matRowDef=\"let item; columns: displayedColumns | async;\"></tr>\r\n   </table>\r\n </div>\r\n\r\n <mat-divider></mat-divider>\r\n\r\n <mat-paginator (page)=\"setPage($event)\" [pageSize]=\"(page | async).size\" [length]=\"itemCount | async\">\r\n </mat-paginator>\r\n"
+        },
+        {
+            "name": "TestComponent",
+            "id": "component-TestComponent-a98dd35e2fa91984edb159be2ecd1c3bb6eed45156e7d527c0791a221796558a99f175765f28ca6bd2528c63bf23d41d2f14511cad3c2fd1e0e59e5468632ab7",
+            "file": "projects/components/src/lib/shared/rendered-view/test/test.component.ts",
+            "encapsulation": [],
+            "entryComponents": [],
+            "inputs": [],
+            "outputs": [],
+            "providers": [],
+            "selector": "lib-test",
+            "styleUrls": [
+                "./test.component.scss"
+            ],
+            "styles": [],
+            "templateUrl": [
+                "./test.component.html"
+            ],
+            "viewProviders": [],
+            "inputsClass": [],
+            "outputsClass": [],
+            "propertiesClass": [],
+            "methodsClass": [
+                {
+                    "name": "ngOnInit",
+                    "args": [],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 12,
+                    "deprecated": false,
+                    "deprecationMessage": ""
+                }
+            ],
+            "deprecated": false,
+            "deprecationMessage": "",
+            "hostBindings": [],
+            "hostListeners": [],
+            "description": "",
+            "rawdescription": "\n",
+            "type": "component",
+            "sourceCode": "import { Component, OnInit } from '@angular/core';\n\n@Component({\n  selector: 'lib-test',\n  templateUrl: './test.component.html',\n  styleUrls: ['./test.component.scss']\n})\nexport class TestComponent implements OnInit {\n\n  constructor() { }\n\n  ngOnInit(): void {\n  }\n\n}\n",
+            "assetsDirs": [],
+            "styleUrlsData": [
+                {
+                    "data": "",
+                    "styleUrl": "./test.component.scss"
+                }
+            ],
+            "stylesData": "",
+            "constructorObj": {
+                "name": "constructor",
+                "description": "",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "args": [],
+                "line": 8
+            },
+            "implements": [
+                "OnInit"
+            ],
+            "templateData": "<p>test works!</p>\n"
         },
         {
             "name": "WrapperComponent",
@@ -10366,13 +10717,13 @@
         },
         {
             "name": "ClansRosterModule",
-            "id": "module-ClansRosterModule-033c5449c739406799930c5ec36d9876602060da713424cf4ed414e36b002ff0e35d4dfa9f4f5bf534dc720300844c19b778952304b692d44399d9e9ae60223d",
+            "id": "module-ClansRosterModule-8083f5936e811411e09dffa85dd442f66b79593e29420a21bc21658e2b3bcc461ea57dade6c6c7641231519b0b126de3809410deb2aa5a9676bd2b9ca6b9404a",
             "description": "",
             "deprecationMessage": "",
             "deprecated": false,
             "file": "projects/clan-dashboard/src/app/features/clans-roster/clans-roster.module.ts",
             "methods": [],
-            "sourceCode": "import { NgModule } from '@angular/core';\nimport { CommonModule } from '@angular/common';\nimport { ClansRosterComponent } from './clans-roster.component';\nimport { ClansRosterService } from './clans-roster.service';\n// import {} from '@destiny/data\nimport { TableViewComponent } from '@destiny/components/shared/table-view';\n\n@NgModule({\n  declarations: [ClansRosterComponent],\n  providers: [ClansRosterService],\n  exports: [ClansRosterComponent],\n  imports: [CommonModule, TableViewComponent]\n})\nexport class ClansRosterModule {}\n",
+            "sourceCode": "import { NgModule } from '@angular/core';\nimport { CommonModule } from '@angular/common';\nimport { ClansRosterComponent } from './clans-roster.component';\nimport { ClansRosterService } from './clans-roster.service';\n// import {} from '@destiny/data\nimport { TableViewComponent } from '@destiny/components/shared/table-view';\nimport { PipesModule } from '@destiny/components/pipes';\n\n@NgModule({\n  declarations: [ClansRosterComponent],\n  providers: [ClansRosterService],\n  exports: [ClansRosterComponent],\n  imports: [CommonModule, TableViewComponent, PipesModule]\n})\nexport class ClansRosterModule {}\n",
             "children": [
                 {
                     "type": "providers",
@@ -10590,6 +10941,106 @@
             ]
         },
         {
+            "name": "PipesModule",
+            "id": "module-PipesModule-9111156e2993e1c272131e51274b8621812726258aba04174aaf283ac07347ab228b25fbafb6c6d1ef27a245e295837c25dab4319235e85626e299cc2a5bfb2f",
+            "description": "",
+            "deprecationMessage": "",
+            "deprecated": false,
+            "file": "projects/components/src/lib/pipes/pipes.module.ts",
+            "methods": [],
+            "sourceCode": "import { NgModule } from '@angular/core';\r\nimport { CommonModule } from '@angular/common';\r\n// import { DateAgoPipe } from './date-ago.pipe';\r\n// import { ClassTypeTextPipe } from './class-type/class-type-text.pipe';\r\n// import { RaceTypeTextPipe } from './race-type/race-type-text.pipe';\r\n// import { GenderTypeTextPipe } from './gender-type/gender-type-text.pipe';\r\n// import { RaidReportUrlPipe } from './raid-report-url/raid-report-url.pipe';\r\n// import { DestinyTrackerUrlPipe } from './destiny-tracker-url/destiny-tracker-url.pipe';\r\n// import { BungieProfileUrlPipe } from './bungie-profile-url/bungie-profile-url.pipe';\r\n// import { RaidReportProfileUrlPipe } from './raid-report-url/raid-report-profile-url.pipe';\r\n// import { PlaytimePipe, PlaytimeMillisecondsPipe } from './playtime/playtime.pipe';\r\n// import { DungeonReportUrlPipe } from './dungeon-report-url/dungeon-report-url.pipe';\r\n// import { DungeonReportProfileUrlPipe } from './dungeon-report-url/dungeon-report-profile-url.pipe';\r\nimport { BungieDatePipe } from './bungie-date/bungie-date.pipe';\r\nimport { BungieDateTimePipe } from './bungie-date/bungie-date-time.pipe';\r\n// import { MemberTypePipe } from './member-type/member-type.pipe';\r\n// import { SortByClassPipe } from './sortByClass/sort-by-class.pipe';\r\n// import { RaidCompletionTotalPipe } from './raid-completion-total/raid-completion-total.pipe';\r\n// import { MetricTotalPipe } from './metric-total/metric-total.pipe';\r\n// import { InCollectionsPipe } from './in-collections/in-collections.pipe';\r\n// import { InCollectionsTotalPipe } from './in-collections/in-collections-total.pipe';\r\n// import { D2ChecklistUrlPipe } from './d2-checklist-url/d2-checklist-url.pipe';\r\n// import { TriumphReportPipe } from './triumph-report/triumph-report.pipe';\r\n\r\nconst pipes = [\r\n  // DateAgoPipe,\r\n  // ClassTypeTextPipe,\r\n  // RaceTypeTextPipe,\r\n  // GenderTypeTextPipe,\r\n  // RaidReportUrlPipe,\r\n  // DestinyTrackerUrlPipe,\r\n  // BungieProfileUrlPipe,\r\n  // RaidReportProfileUrlPipe,\r\n  // PlaytimePipe,\r\n  // PlaytimeMillisecondsPipe,\r\n  // DungeonReportUrlPipe,\r\n  // DungeonReportProfileUrlPipe,\r\n  BungieDatePipe,\r\n  BungieDateTimePipe\r\n  // MemberTypePipe,\r\n  // SortByClassPipe,\r\n  // RaidCompletionTotalPipe,\r\n  // MetricTotalPipe,\r\n  // InCollectionsPipe,\r\n  // InCollectionsTotalPipe,\r\n  // D2ChecklistUrlPipe,\r\n  // TriumphReportPipe\r\n];\r\n\r\n@NgModule({\r\n  providers: [...pipes],\r\n  declarations: [...pipes],\r\n  exports: [...pipes],\r\n  imports: [CommonModule]\r\n})\r\nexport class PipesModule {}\r\n",
+            "children": [
+                {
+                    "type": "providers",
+                    "elements": []
+                },
+                {
+                    "type": "declarations",
+                    "elements": [
+                        {
+                            "name": "BungieDatePipe"
+                        },
+                        {
+                            "name": "BungieDateTimePipe"
+                        }
+                    ]
+                },
+                {
+                    "type": "imports",
+                    "elements": []
+                },
+                {
+                    "type": "exports",
+                    "elements": [
+                        {
+                            "name": "BungieDatePipe"
+                        },
+                        {
+                            "name": "BungieDateTimePipe"
+                        }
+                    ]
+                },
+                {
+                    "type": "bootstrap",
+                    "elements": []
+                },
+                {
+                    "type": "classes",
+                    "elements": []
+                }
+            ]
+        },
+        {
+            "name": "RenderedViewModule",
+            "id": "module-RenderedViewModule-63b5dd5b62a8daa7ebff607d69ac0f204cbd7c5a8daec643e60749c0dae8e976e2633159bfbfd8e8caeadb5cdc94efe4c2a568444b413fdbab08694249787c65",
+            "description": "",
+            "deprecationMessage": "",
+            "deprecated": false,
+            "file": "projects/components/src/lib/shared/rendered-view/rendered-view.component.ts",
+            "methods": [],
+            "sourceCode": "//  component originated form https://github.com/crafted/crafted\r\n\r\nimport { CommonModule } from '@angular/common';\r\nimport {\r\n  ChangeDetectionStrategy,\r\n  Component,\r\n  ComponentFactoryResolver,\r\n  Input,\r\n  OnInit,\r\n  ViewContainerRef,\r\n  Directive,\r\n  ViewChild,\r\n  NgModule\r\n} from '@angular/core';\r\nimport { Observable } from 'rxjs';\r\nimport { RenderedView } from '../../data/viewer';\r\nimport { TestComponent } from './test/test.component';\r\n\r\n@Directive({\r\n  selector: '[libDynamicComp]'\r\n})\r\nexport class DynamicCompDirective {\r\n  constructor(public viewContainerRef: ViewContainerRef) {}\r\n}\r\n@NgModule({\r\n  declarations: [DynamicCompDirective, TestComponent],\r\n  exports: [DynamicCompDirective, TestComponent],\r\n  imports: [CommonModule]\r\n})\r\nexport class RenderedViewModule {}\r\n\r\n@Component({\r\n  selector: 'lib-rendered-view',\r\n  templateUrl: './rendered-view.component.html',\r\n  imports: [CommonModule, RenderedViewModule],\r\n  standalone: true,\r\n  changeDetection: ChangeDetectionStrategy.OnPush\r\n})\r\nexport class RenderedViewComponent implements OnInit {\r\n  @ViewChild(DynamicCompDirective, { static: true }) libDynamicComp!: DynamicCompDirective;\r\n  //   constructor(public viewContainerRef: ViewContainerRef, private componentFactoryResolver: ComponentFactoryResolver) {}\r\n  views: Observable<RenderedView[]>;\r\n\r\n  @Input() text: string;\r\n\r\n  @Input() childrenViews: RenderedView[] = [];\r\n  @Input() component: any;\r\n  @Input() data: any;\r\n\r\n  ngOnInit() {\r\n    // const componentFactory = this.componentFactoryResolver.resolveComponentFactory(this.component);\r\n    // // this.viewContainerRef.clear();\r\n\r\n    // const componentRef = this.viewContainerRef.createComponent(componentFactory);\r\n    //componentRef.instance['data'] = this.data;\r\n\r\n    if (this.component){\r\n    const viewContainerRef = this.libDynamicComp.viewContainerRef;\r\n    viewContainerRef.clear();\r\n\r\n    console.log('component',this.component);\r\n    const componentRef = viewContainerRef.createComponent(this.component);\r\n    //  componentRef.instance['data'] = this.data;\r\n    }else{\r\n    console.log('no comp');\r\n    }\r\n  }\r\n}\r\n",
+            "children": [
+                {
+                    "type": "providers",
+                    "elements": []
+                },
+                {
+                    "type": "declarations",
+                    "elements": [
+                        {
+                            "name": "DynamicCompDirective"
+                        },
+                        {
+                            "name": "TestComponent"
+                        }
+                    ]
+                },
+                {
+                    "type": "imports",
+                    "elements": []
+                },
+                {
+                    "type": "exports",
+                    "elements": [
+                        {
+                            "name": "DynamicCompDirective"
+                        },
+                        {
+                            "name": "TestComponent"
+                        }
+                    ]
+                },
+                {
+                    "type": "bootstrap",
+                    "elements": []
+                },
+                {
+                    "type": "classes",
+                    "elements": []
+                }
+            ]
+        },
+        {
             "name": "RosterModule",
             "id": "module-RosterModule-664d80d93710cfdeea7126563ac398402ffc27f8b759bace2d10cf40bf3a1909a507bf7530dd08529eba949d2c4598d72eb7b3fbec5d247ee70e919ec0adecc4",
             "description": "",
@@ -10792,6 +11243,26 @@
                 "defaultValue": "'584850370'"
             },
             {
+                "name": "CLAN_ROSTER_FILTERER_METADATA",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/clan-dashboard/src/app/features/clans-roster/clan-roster-metadata/ClanRosterFilterer.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "",
+                "defaultValue": "new Map<string, FiltererMetadata<ClanMemberProfile>>([\r\n  // [\r\n  //   'destinyDisplayName',\r\n  //   {\r\n  //     label: 'Destiny Display Name',\r\n  //     type: 'text',\r\n  //     matcher: (item, filter) =>\r\n  //       textMatchesEquality(item.member.destinyUserInfo.displayName, filter.value, filter.equality)\r\n  //   }\r\n  // ]\r\n])"
+            },
+            {
+                "name": "CLAN_ROSTER_SORTER_METADATA",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/clan-dashboard/src/app/features/clans-roster/clan-roster-metadata/ClanRosterSorter.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "",
+                "defaultValue": "new Map<string, SorterMetadata<ClanMemberProfile>>([\r\n//   [\r\n//     'id',\r\n//     {\r\n//       label: 'ID',\r\n//       comparator: (a, b) => (a.id < b.id ? -1 : 1)\r\n//     }\r\n//   ],\r\n  [\r\n    'destinyDisplayName',\r\n    {\r\n      label: 'Destiny Display Name',\r\n      comparator: (a, b) => (a.member.destinyUserInfo.displayName.toLowerCase() < b.member.destinyUserInfo.displayName.toLowerCase() ? -1 : 1)\r\n    }\r\n  ]\r\n ])"
+            },
+            {
                 "name": "CLAN_ROSTER_VIEWER_METADATA",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
@@ -10799,7 +11270,7 @@
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "",
-                "defaultValue": "new Map<string, ViewerMetadata<ClanMemberProfile>>([\r\n  [\r\n    'platform',\r\n    { label: 'Platform', render: (item: ClanMemberProfile) => ({ styles: { fontWeight: 'bold' }, text: `${item.member.destinyUserInfo.membershipType}` }) }\r\n  ],\r\n  ['destinyDisplayName', { label: 'Destiny Display Name', render: (item: ClanMemberProfile) => ({ text: `${item.member.destinyUserInfo.displayName}` }) }],\r\n  //['name', { label: 'Name', render: (item) => ({ text: `${item.name}` }) }],\r\n  //['startDate', { label: 'Start Date', render: (item) => ({ text: `${new Date(item.startDate).toDateString()}` }) }]\r\n])"
+                "defaultValue": "new Map<string, ViewerMetadata<ClanMemberProfile, ViewContext>>([\r\n  [\r\n    'platform',\r\n    {\r\n      label: 'Platform',\r\n      render: (item: ClanMemberProfile) => ({ styles: {}, text: `${item.member.destinyUserInfo.membershipType}` })\r\n    }\r\n  ],\r\n  [\r\n    'destinyDisplayName',\r\n    {\r\n      label: 'Destiny Display Name',\r\n      render: (item: ClanMemberProfile) => ({ text: `${item.member.destinyUserInfo.displayName}` })\r\n    }\r\n  ],\r\n  [\r\n    'bungieDisplayName',\r\n    {\r\n      label: 'Bungie Display Name',\r\n      render: (item: ClanMemberProfile) => ({ text: `${item.member.bungieNetUserInfo?.displayName}` })\r\n    }\r\n  ],\r\n  [\r\n    'characters',\r\n    {\r\n      label: 'Characters',\r\n      render: (item: ClanMemberProfile) => ({ text: `TODO` })\r\n    }\r\n  ],\r\n  [\r\n    'powerLevel',\r\n    {\r\n      label: '+',\r\n      render: (item: ClanMemberProfile) => ({\r\n        text: `${item.profile?.profileProgression?.data?.seasonalArtifact?.powerBonus}`\r\n      })\r\n    }\r\n  ],\r\n  [\r\n    'activeTriumph',\r\n    {\r\n      label: 'Active Triumph',\r\n      render: (item: ClanMemberProfile) => ({\r\n        text: `${item.profile?.profileRecords?.data?.activeScore}`\r\n      })\r\n    }\r\n  ],\r\n  [\r\n    'lifetimeTriumph',\r\n    {\r\n      label: 'Lifetime Triumph',\r\n      render: (item: ClanMemberProfile) => ({\r\n        text: `${item.profile?.profileRecords?.data?.lifetimeScore}`\r\n      })\r\n    }\r\n  ],\r\n  [\r\n    'clanJoinDate',\r\n    {\r\n      label: 'Clan Join Date',\r\n      render: (item: ClanMemberProfile, context: ViewContext) => {\r\n        return {\r\n          text: `${context.datePipe.transform(item.member?.joinDate as unknown as Date)}`\r\n        };\r\n      }\r\n    }\r\n  ],\r\n  [\r\n    'dateLastPlayed',\r\n    {\r\n      label: 'Last Played',\r\n      render: (item: ClanMemberProfile, context: ViewContext) => {\r\n        return {\r\n          text: `${context.dateTimePipe.transform(item.profile?.profile.data.dateLastPlayed as unknown as Date)}`\r\n        };\r\n      }\r\n    }\r\n  ]\r\n\r\n  //['name', { label: 'Name', render: (item) => ({ text: `${item.name}` }) }],\r\n  //['startDate', { label: 'Start Date', render: (item) => ({ text: `${new Date(item.startDate).toDateString()}` }) }]\r\n])"
             },
             {
                 "name": "ClanConfigAdapter",
@@ -10832,10 +11303,20 @@
                 "defaultValue": "createReducer(\r\n  initialClanState,\r\n  on(addClan, (state, { clanId }) => {\r\n    const clans = state.ids.map((c) => c);\r\n\r\n    if (clans.indexOf(clanId) === -1) {\r\n      //const newClangConfig = {}\r\n      return ClanConfigAdapter.upsertOne({ clanId, ...DefaultClanConfig }, { ...state });\r\n    }\r\n\r\n    return {\r\n      ...state\r\n    };\r\n  }),\r\n  //  on(updateClanProfileSync, (state, {}): ClanState => {\r\n\r\n  // }),\r\n  on(updateClan, (state, { clan }): ClansState => {\r\n    return ClanConfigAdapter.upsertOne(clan, { ...state });\r\n  }),\r\n  on(removeClan, (state, { clanId }): ClansState => {\r\n    return ClanConfigAdapter.removeOne(clanId, { ...state });\r\n  }),\r\n  on(setClans, (state, { clanIds }): ClansState => ClanConfigAdapter.setAll(clanIds, { ...state }))\r\n)"
             },
             {
+                "name": "Components",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/components/src/lib/shared/rendered-view/rendered-view.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "",
+                "defaultValue": "Template.bind({})"
+            },
+            {
                 "name": "context",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "projects/clan-dashboard/src/test.ts",
+                "file": "projects/components/src/test.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "",
@@ -10845,7 +11326,7 @@
                 "name": "context",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "projects/components/src/test.ts",
+                "file": "projects/clan-dashboard/src/test.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "",
@@ -10937,21 +11418,21 @@
                 "name": "environment",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "projects/clan-dashboard/src/environments/environment.prod.ts",
-                "deprecated": false,
-                "deprecationMessage": "",
-                "type": "object",
-                "defaultValue": "{\r\n  constants: { ...baseConstants },\r\n  production: true,\r\n  apiKey: secretKeys.apiKey,\r\n  appVersion: packageJson.version\r\n}"
-            },
-            {
-                "name": "environment",
-                "ctype": "miscellaneous",
-                "subtype": "variable",
                 "file": "projects/clan-dashboard/src/environments/environment.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "object",
                 "defaultValue": "{\r\n  constants: {...baseConstants},\r\n  production: false,\r\n  apiKey: secretKeys.apiKey,\r\n  appVersion: packageJson.version\r\n}"
+            },
+            {
+                "name": "environment",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/clan-dashboard/src/environments/environment.prod.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "object",
+                "defaultValue": "{\r\n  constants: { ...baseConstants },\r\n  production: true,\r\n  apiKey: secretKeys.apiKey,\r\n  appVersion: packageJson.version\r\n}"
             },
             {
                 "name": "EXAMPLE_EXPORTER_METADATA",
@@ -11032,6 +11513,16 @@
                 "deprecationMessage": "",
                 "type": "ManifestState",
                 "defaultValue": "{\r\n  loading: false,\r\n  loaded: false,\r\n  error: null,\r\n  isApiDown: false\r\n}"
+            },
+            {
+                "name": "LANG",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/clan-dashboard/src/app/features/clans-roster/clan-roster-metadata/ClanRosterViewer.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "string",
+                "defaultValue": "'en-us'"
             },
             {
                 "name": "Large",
@@ -11217,7 +11708,7 @@
                 "name": "packageJson",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "projects/clan-dashboard/src/environments/environment.prod.ts",
+                "file": "projects/clan-dashboard/src/environments/environment.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "",
@@ -11227,11 +11718,21 @@
                 "name": "packageJson",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "projects/clan-dashboard/src/environments/environment.ts",
+                "file": "projects/clan-dashboard/src/environments/environment.prod.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "",
                 "defaultValue": "require('../../../../package.json')"
+            },
+            {
+                "name": "pipes",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/components/src/lib/pipes/pipes.module.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "[]",
+                "defaultValue": "[\r\n  // DateAgoPipe,\r\n  // ClassTypeTextPipe,\r\n  // RaceTypeTextPipe,\r\n  // GenderTypeTextPipe,\r\n  // RaidReportUrlPipe,\r\n  // DestinyTrackerUrlPipe,\r\n  // BungieProfileUrlPipe,\r\n  // RaidReportProfileUrlPipe,\r\n  // PlaytimePipe,\r\n  // PlaytimeMillisecondsPipe,\r\n  // DungeonReportUrlPipe,\r\n  // DungeonReportProfileUrlPipe,\r\n  BungieDatePipe,\r\n  BungieDateTimePipe\r\n  // MemberTypePipe,\r\n  // SortByClassPipe,\r\n  // RaidCompletionTotalPipe,\r\n  // MetricTotalPipe,\r\n  // InCollectionsPipe,\r\n  // InCollectionsTotalPipe,\r\n  // D2ChecklistUrlPipe,\r\n  // TriumphReportPipe\r\n]"
             },
             {
                 "name": "Primary",
@@ -11247,7 +11748,7 @@
                 "name": "Primary",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "projects/components/src/lib/shared/display-options/display-options.stories.ts",
+                "file": "projects/components/src/lib/shared/rendered-view/rendered-view.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "",
@@ -11257,7 +11758,7 @@
                 "name": "Primary",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "projects/components/src/lib/shared/rendered-view/rendered-view.stories.ts",
+                "file": "projects/components/src/lib/shared/display-options/display-options.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "",
@@ -11287,7 +11788,7 @@
                 "name": "require",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "projects/clan-dashboard/src/test.ts",
+                "file": "projects/components/src/test.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "literal type"
@@ -11296,7 +11797,7 @@
                 "name": "require",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "projects/components/src/test.ts",
+                "file": "projects/clan-dashboard/src/test.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "literal type"
@@ -11534,21 +12035,21 @@
                 "name": "Template",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "projects/components/src/lib/shared/display-options/display-options.stories.ts",
-                "deprecated": false,
-                "deprecationMessage": "",
-                "type": "Story<DisplayOptionsComponent>",
-                "defaultValue": "(args: DisplayOptionsComponent) => ({\r\n  props: args\r\n})"
-            },
-            {
-                "name": "Template",
-                "ctype": "miscellaneous",
-                "subtype": "variable",
                 "file": "projects/components/src/lib/shared/rendered-view/rendered-view.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "Story<RenderedViewComponent>",
                 "defaultValue": "(args: RenderedViewComponent) => ({\r\n  props: args\r\n})"
+            },
+            {
+                "name": "Template",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/components/src/lib/shared/display-options/display-options.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Story<DisplayOptionsComponent>",
+                "defaultValue": "(args: DisplayOptionsComponent) => ({\r\n  props: args\r\n})"
             },
             {
                 "name": "Template",
@@ -13417,6 +13918,16 @@
                     "defaultValue": "Template.bind({})"
                 },
                 {
+                    "name": "Components",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/components/src/lib/shared/rendered-view/rendered-view.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "defaultValue": "Template.bind({})"
+                },
+                {
                     "name": "Primary",
                     "ctype": "miscellaneous",
                     "subtype": "variable",
@@ -13449,6 +13960,30 @@
                     "defaultValue": "'584850370'"
                 }
             ],
+            "projects/clan-dashboard/src/app/features/clans-roster/clan-roster-metadata/ClanRosterFilterer.ts": [
+                {
+                    "name": "CLAN_ROSTER_FILTERER_METADATA",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/clan-dashboard/src/app/features/clans-roster/clan-roster-metadata/ClanRosterFilterer.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "defaultValue": "new Map<string, FiltererMetadata<ClanMemberProfile>>([\r\n  // [\r\n  //   'destinyDisplayName',\r\n  //   {\r\n  //     label: 'Destiny Display Name',\r\n  //     type: 'text',\r\n  //     matcher: (item, filter) =>\r\n  //       textMatchesEquality(item.member.destinyUserInfo.displayName, filter.value, filter.equality)\r\n  //   }\r\n  // ]\r\n])"
+                }
+            ],
+            "projects/clan-dashboard/src/app/features/clans-roster/clan-roster-metadata/ClanRosterSorter.ts": [
+                {
+                    "name": "CLAN_ROSTER_SORTER_METADATA",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/clan-dashboard/src/app/features/clans-roster/clan-roster-metadata/ClanRosterSorter.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "defaultValue": "new Map<string, SorterMetadata<ClanMemberProfile>>([\r\n//   [\r\n//     'id',\r\n//     {\r\n//       label: 'ID',\r\n//       comparator: (a, b) => (a.id < b.id ? -1 : 1)\r\n//     }\r\n//   ],\r\n  [\r\n    'destinyDisplayName',\r\n    {\r\n      label: 'Destiny Display Name',\r\n      comparator: (a, b) => (a.member.destinyUserInfo.displayName.toLowerCase() < b.member.destinyUserInfo.displayName.toLowerCase() ? -1 : 1)\r\n    }\r\n  ]\r\n ])"
+                }
+            ],
             "projects/clan-dashboard/src/app/features/clans-roster/clan-roster-metadata/ClanRosterViewer.ts": [
                 {
                     "name": "CLAN_ROSTER_VIEWER_METADATA",
@@ -13458,7 +13993,17 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "",
-                    "defaultValue": "new Map<string, ViewerMetadata<ClanMemberProfile>>([\r\n  [\r\n    'platform',\r\n    { label: 'Platform', render: (item: ClanMemberProfile) => ({ styles: { fontWeight: 'bold' }, text: `${item.member.destinyUserInfo.membershipType}` }) }\r\n  ],\r\n  ['destinyDisplayName', { label: 'Destiny Display Name', render: (item: ClanMemberProfile) => ({ text: `${item.member.destinyUserInfo.displayName}` }) }],\r\n  //['name', { label: 'Name', render: (item) => ({ text: `${item.name}` }) }],\r\n  //['startDate', { label: 'Start Date', render: (item) => ({ text: `${new Date(item.startDate).toDateString()}` }) }]\r\n])"
+                    "defaultValue": "new Map<string, ViewerMetadata<ClanMemberProfile, ViewContext>>([\r\n  [\r\n    'platform',\r\n    {\r\n      label: 'Platform',\r\n      render: (item: ClanMemberProfile) => ({ styles: {}, text: `${item.member.destinyUserInfo.membershipType}` })\r\n    }\r\n  ],\r\n  [\r\n    'destinyDisplayName',\r\n    {\r\n      label: 'Destiny Display Name',\r\n      render: (item: ClanMemberProfile) => ({ text: `${item.member.destinyUserInfo.displayName}` })\r\n    }\r\n  ],\r\n  [\r\n    'bungieDisplayName',\r\n    {\r\n      label: 'Bungie Display Name',\r\n      render: (item: ClanMemberProfile) => ({ text: `${item.member.bungieNetUserInfo?.displayName}` })\r\n    }\r\n  ],\r\n  [\r\n    'characters',\r\n    {\r\n      label: 'Characters',\r\n      render: (item: ClanMemberProfile) => ({ text: `TODO` })\r\n    }\r\n  ],\r\n  [\r\n    'powerLevel',\r\n    {\r\n      label: '+',\r\n      render: (item: ClanMemberProfile) => ({\r\n        text: `${item.profile?.profileProgression?.data?.seasonalArtifact?.powerBonus}`\r\n      })\r\n    }\r\n  ],\r\n  [\r\n    'activeTriumph',\r\n    {\r\n      label: 'Active Triumph',\r\n      render: (item: ClanMemberProfile) => ({\r\n        text: `${item.profile?.profileRecords?.data?.activeScore}`\r\n      })\r\n    }\r\n  ],\r\n  [\r\n    'lifetimeTriumph',\r\n    {\r\n      label: 'Lifetime Triumph',\r\n      render: (item: ClanMemberProfile) => ({\r\n        text: `${item.profile?.profileRecords?.data?.lifetimeScore}`\r\n      })\r\n    }\r\n  ],\r\n  [\r\n    'clanJoinDate',\r\n    {\r\n      label: 'Clan Join Date',\r\n      render: (item: ClanMemberProfile, context: ViewContext) => {\r\n        return {\r\n          text: `${context.datePipe.transform(item.member?.joinDate as unknown as Date)}`\r\n        };\r\n      }\r\n    }\r\n  ],\r\n  [\r\n    'dateLastPlayed',\r\n    {\r\n      label: 'Last Played',\r\n      render: (item: ClanMemberProfile, context: ViewContext) => {\r\n        return {\r\n          text: `${context.dateTimePipe.transform(item.profile?.profile.data.dateLastPlayed as unknown as Date)}`\r\n        };\r\n      }\r\n    }\r\n  ]\r\n\r\n  //['name', { label: 'Name', render: (item) => ({ text: `${item.name}` }) }],\r\n  //['startDate', { label: 'Start Date', render: (item) => ({ text: `${new Date(item.startDate).toDateString()}` }) }]\r\n])"
+                },
+                {
+                    "name": "LANG",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/clan-dashboard/src/app/features/clans-roster/clan-roster-metadata/ClanRosterViewer.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "string",
+                    "defaultValue": "'en-us'"
                 }
             ],
             "projects/clan-dashboard/src/app/core/store/clans/clans.state.ts": [
@@ -13517,27 +14062,6 @@
                     "defaultValue": "createReducer(\r\n  initialClanState,\r\n  on(addClan, (state, { clanId }) => {\r\n    const clans = state.ids.map((c) => c);\r\n\r\n    if (clans.indexOf(clanId) === -1) {\r\n      //const newClangConfig = {}\r\n      return ClanConfigAdapter.upsertOne({ clanId, ...DefaultClanConfig }, { ...state });\r\n    }\r\n\r\n    return {\r\n      ...state\r\n    };\r\n  }),\r\n  //  on(updateClanProfileSync, (state, {}): ClanState => {\r\n\r\n  // }),\r\n  on(updateClan, (state, { clan }): ClansState => {\r\n    return ClanConfigAdapter.upsertOne(clan, { ...state });\r\n  }),\r\n  on(removeClan, (state, { clanId }): ClansState => {\r\n    return ClanConfigAdapter.removeOne(clanId, { ...state });\r\n  }),\r\n  on(setClans, (state, { clanIds }): ClansState => ClanConfigAdapter.setAll(clanIds, { ...state }))\r\n)"
                 }
             ],
-            "projects/clan-dashboard/src/test.ts": [
-                {
-                    "name": "context",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "projects/clan-dashboard/src/test.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "",
-                    "defaultValue": "require.context('./', true, /\\.spec\\.ts$/)"
-                },
-                {
-                    "name": "require",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "projects/clan-dashboard/src/test.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "literal type"
-                }
-            ],
             "projects/components/src/test.ts": [
                 {
                     "name": "context",
@@ -13554,6 +14078,27 @@
                     "ctype": "miscellaneous",
                     "subtype": "variable",
                     "file": "projects/components/src/test.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "literal type"
+                }
+            ],
+            "projects/clan-dashboard/src/test.ts": [
+                {
+                    "name": "context",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/clan-dashboard/src/test.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "defaultValue": "require.context('./', true, /\\.spec\\.ts$/)"
+                },
+                {
+                    "name": "require",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/clan-dashboard/src/test.ts",
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "literal type"
@@ -13702,28 +14247,6 @@
                     "defaultValue": "'./projects/clan-dashboard/src/environments/secrets.ts'"
                 }
             ],
-            "projects/clan-dashboard/src/environments/environment.prod.ts": [
-                {
-                    "name": "environment",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "projects/clan-dashboard/src/environments/environment.prod.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "object",
-                    "defaultValue": "{\r\n  constants: { ...baseConstants },\r\n  production: true,\r\n  apiKey: secretKeys.apiKey,\r\n  appVersion: packageJson.version\r\n}"
-                },
-                {
-                    "name": "packageJson",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "projects/clan-dashboard/src/environments/environment.prod.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "",
-                    "defaultValue": "require('../../../../package.json')"
-                }
-            ],
             "projects/clan-dashboard/src/environments/environment.ts": [
                 {
                     "name": "environment",
@@ -13740,6 +14263,28 @@
                     "ctype": "miscellaneous",
                     "subtype": "variable",
                     "file": "projects/clan-dashboard/src/environments/environment.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "defaultValue": "require('../../../../package.json')"
+                }
+            ],
+            "projects/clan-dashboard/src/environments/environment.prod.ts": [
+                {
+                    "name": "environment",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/clan-dashboard/src/environments/environment.prod.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "object",
+                    "defaultValue": "{\r\n  constants: { ...baseConstants },\r\n  production: true,\r\n  apiKey: secretKeys.apiKey,\r\n  appVersion: packageJson.version\r\n}"
+                },
+                {
+                    "name": "packageJson",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/clan-dashboard/src/environments/environment.prod.ts",
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "",
@@ -14040,6 +14585,18 @@
                     "deprecationMessage": "",
                     "type": "AppConfig",
                     "defaultValue": "{\r\n  apiKey: '',\r\n  appVersion: '',\r\n  constants: {\r\n    PROFILE_UPDATING_EXP_MINUTES: 10\r\n  }\r\n}"
+                }
+            ],
+            "projects/components/src/lib/pipes/pipes.module.ts": [
+                {
+                    "name": "pipes",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/components/src/lib/pipes/pipes.module.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "[]",
+                    "defaultValue": "[\r\n  // DateAgoPipe,\r\n  // ClassTypeTextPipe,\r\n  // RaceTypeTextPipe,\r\n  // GenderTypeTextPipe,\r\n  // RaidReportUrlPipe,\r\n  // DestinyTrackerUrlPipe,\r\n  // BungieProfileUrlPipe,\r\n  // RaidReportProfileUrlPipe,\r\n  // PlaytimePipe,\r\n  // PlaytimeMillisecondsPipe,\r\n  // DungeonReportUrlPipe,\r\n  // DungeonReportProfileUrlPipe,\r\n  BungieDatePipe,\r\n  BungieDateTimePipe\r\n  // MemberTypePipe,\r\n  // SortByClassPipe,\r\n  // RaidCompletionTotalPipe,\r\n  // MetricTotalPipe,\r\n  // InCollectionsPipe,\r\n  // InCollectionsTotalPipe,\r\n  // D2ChecklistUrlPipe,\r\n  // TriumphReportPipe\r\n]"
                 }
             ],
             "projects/components/src/lib/shared/display-options/display-options.stories.ts": [
@@ -16544,6 +17101,35 @@
                 "status": "low"
             },
             {
+                "filePath": "projects/clan-dashboard/src/app/features/clans-roster/clan-roster-metadata/ClanRosterFilterer.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "CLAN_ROSTER_FILTERER_METADATA",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/clan-dashboard/src/app/features/clans-roster/clan-roster-metadata/ClanRosterSorter.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "CLAN_ROSTER_SORTER_METADATA",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/clan-dashboard/src/app/features/clans-roster/clan-roster-metadata/ClanRosterViewer.ts",
+                "type": "interface",
+                "linktype": "interface",
+                "name": "ViewContext",
+                "coveragePercent": 0,
+                "coverageCount": "0/4",
+                "status": "low"
+            },
+            {
                 "filePath": "projects/clan-dashboard/src/app/features/clans-roster/clan-roster-metadata/ClanRosterViewer.ts",
                 "type": "variable",
                 "linktype": "miscellaneous",
@@ -16554,21 +17140,31 @@
                 "status": "low"
             },
             {
+                "filePath": "projects/clan-dashboard/src/app/features/clans-roster/clan-roster-metadata/ClanRosterViewer.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "LANG",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
                 "filePath": "projects/clan-dashboard/src/app/features/clans-roster/clans-roster.component.ts",
                 "type": "component",
                 "linktype": "component",
                 "name": "ClansRosterComponent",
                 "coveragePercent": 0,
-                "coverageCount": "0/6",
+                "coverageCount": "0/9",
                 "status": "low"
             },
             {
                 "filePath": "projects/clan-dashboard/src/app/features/clans-roster/clans-roster.component.ts",
                 "type": "interface",
                 "linktype": "interface",
-                "name": "QueryResources",
+                "name": "RosterResources",
                 "coveragePercent": 0,
-                "coverageCount": "0/7",
+                "coverageCount": "0/6",
                 "status": "low"
             },
             {
@@ -17287,6 +17883,34 @@
                 "status": "low"
             },
             {
+                "filePath": "projects/components/src/lib/pipes/bungie-date/bungie-date-time.pipe.ts",
+                "type": "pipe",
+                "linktype": "pipe",
+                "name": "BungieDateTimePipe",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/components/src/lib/pipes/bungie-date/bungie-date.pipe.ts",
+                "type": "pipe",
+                "linktype": "pipe",
+                "name": "BungieDatePipe",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/components/src/lib/pipes/pipes.module.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "pipes",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
                 "filePath": "projects/components/src/lib/shared/display-options/display-options.component.ts",
                 "type": "component",
                 "linktype": "component",
@@ -17321,7 +17945,16 @@
                 "linktype": "component",
                 "name": "RenderedViewComponent",
                 "coveragePercent": 0,
-                "coverageCount": "0/4",
+                "coverageCount": "0/8",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/components/src/lib/shared/rendered-view/rendered-view.component.ts",
+                "type": "directive",
+                "linktype": "directive",
+                "name": "DynamicCompDirective",
+                "coveragePercent": 0,
+                "coverageCount": "0/3",
                 "status": "low"
             },
             {
@@ -17330,6 +17963,16 @@
                 "linktype": "miscellaneous",
                 "linksubtype": "variable",
                 "name": "Children",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/components/src/lib/shared/rendered-view/rendered-view.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Components",
                 "coveragePercent": 0,
                 "coverageCount": "0/1",
                 "status": "low"
@@ -17352,6 +17995,15 @@
                 "name": "Template",
                 "coveragePercent": 0,
                 "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/components/src/lib/shared/rendered-view/test/test.component.ts",
+                "type": "component",
+                "linktype": "component",
+                "name": "TestComponent",
+                "coveragePercent": 0,
+                "coverageCount": "0/3",
                 "status": "low"
             },
             {

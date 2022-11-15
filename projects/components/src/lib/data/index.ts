@@ -5,3 +5,4 @@ export * from './filterer-types';
 export * from './grouper';
 export * from './sorter';
 export * from './viewer';
+export * from './utility';

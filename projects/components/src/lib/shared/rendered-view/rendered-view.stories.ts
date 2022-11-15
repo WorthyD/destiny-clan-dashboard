@@ -1,5 +1,6 @@
 import { Meta, Story } from '@storybook/angular';
 import { RenderedViewComponent } from './rendered-view.component';
+import { TestComponent } from './test/test.component';
 
 export default {
   title: 'Components/View',
@@ -31,4 +32,12 @@ Children.args = {
       text: 'Testing 2'
     }
   ]
+};
+export const Components = Template.bind({});
+// More on args: https://storybook.js.org/docs/angular/writing-stories/args
+Components.args = {
+  component: TestComponent,
+  data: {
+    test: 'testing'
+  }
 };

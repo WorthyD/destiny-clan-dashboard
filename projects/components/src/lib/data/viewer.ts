@@ -1,5 +1,5 @@
-import {combineLatest, EMPTY, Observable, ReplaySubject} from 'rxjs';
-import {map, startWith, take} from 'rxjs/operators';
+import { combineLatest, EMPTY, Observable, ReplaySubject } from 'rxjs';
+import { map, startWith, take } from 'rxjs/operators';
 
 export interface ViewerState {
   views: string[];
@@ -8,16 +8,22 @@ export interface ViewerState {
 interface RenderedViewWithText {
   text: string;
   classList?: string;
-  styles?: {[key in string]: string};
+  styles?: { [key in string]: string };
+}
+interface RenderedWithComponent {
+  component: any;
+  data: any;
+  classList?: string;
+  styles?: { [key in string]: string };
 }
 
 interface RenderedViewWithChildren {
   children: RenderedView[];
   classList?: string;
-  styles?: {[key in string]: string};
+  styles?: { [key in string]: string };
 }
 
-export type RenderedView = RenderedViewWithText|RenderedViewWithChildren;
+export type RenderedView = RenderedViewWithText | RenderedViewWithChildren | RenderedWithComponent;
 
 export interface ViewerMetadata<T = any, C = any> {
   label: string;

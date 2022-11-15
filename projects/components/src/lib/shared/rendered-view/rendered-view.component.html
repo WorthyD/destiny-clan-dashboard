@@ -1,4 +1,5 @@
 {{text}}
+<ng-template libDynamicComp></ng-template>
 <ng-container *ngFor="let view of childrenViews">
   <lib-rendered-view *ngIf="view" [class]="view.classList || ''" [ngStyle]="view.styles || {}" [text]="view['text']"
     [childrenViews]="view['children']">

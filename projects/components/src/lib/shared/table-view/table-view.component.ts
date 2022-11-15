@@ -16,6 +16,7 @@ import { DataSource } from '../../data/data-source';
 import { Filterer } from '../../data/filterer';
 import { Grouper } from '../../data/grouper';
 import { Sorter } from '../../data/sorter';
+import { RenderedViewModule } from '../rendered-view/rendered-view.module';
 
 export interface Item {
   id: string;
@@ -49,7 +50,7 @@ interface TablePage {
   imports: [
     CommonModule,
     MatTableModule,
-    RenderedViewComponent,
+    RenderedViewModule,
     MatPaginatorModule,
     MatDividerModule,
     DisplayOptionsComponent
@@ -81,7 +82,7 @@ export class TableViewComponent implements OnInit {
 
   itemCount: Observable<number>;
 
-  page: BehaviorSubject<TablePage> = new BehaviorSubject({ size: 20, index: 0 });
+  page: BehaviorSubject<TablePage> = new BehaviorSubject({ size: 100, index: 0 });
 
   renderedData: Observable<Item[]>;
   constructor() {}

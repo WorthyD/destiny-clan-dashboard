@@ -3,6 +3,9 @@ import { select, Store } from '@ngrx/store';
 import { environment } from '../environments/environment';
 import { AppState } from '@core/core.state';
 import { loadManifest, selectManifestState } from '@core/store/manifest';
+import { DomSanitizer } from '@angular/platform-browser';
+import { MatIconRegistry } from '@angular/material/icon';
+import { registerIcons } from '@destiny/components/icons';
 
 @Component({
   selector: 'app-root',
@@ -15,7 +18,9 @@ export class AppComponent {
 
   manifestState$ = this.store.select(selectManifestState);
 
-  constructor(private store: Store) {
+  constructor(private store: Store, iconRegistry: MatIconRegistry, domSanitizer: DomSanitizer) {
+    registerIcons(iconRegistry, domSanitizer);
+
     this.store.dispatch(loadManifest());
   }
 }

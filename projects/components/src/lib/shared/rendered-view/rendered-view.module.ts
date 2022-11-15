@@ -1,10 +1,11 @@
-// import { NgModule } from '@angular/core';
-// import { CommonModule } from '@angular/common';
-// import { RenderedViewComponent } from './rendered-view.component';
+import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { RenderedViewComponent } from './rendered-view.component';
+import { RenderedViewDynamicCompDirective } from './rendered-view-component.directive';
 
-// @NgModule({
-//   declarations: [RenderedViewComponent],
-//   exports: [RenderedViewComponent],
-//   imports: [CommonModule]
-// })
-// export class RenderedViewModule {}
+@NgModule({
+  declarations: [RenderedViewComponent, RenderedViewDynamicCompDirective],
+  exports: [RenderedViewComponent],
+  imports: [CommonModule]
+})
+export class RenderedViewModule {}

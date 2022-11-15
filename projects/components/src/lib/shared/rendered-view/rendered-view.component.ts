@@ -1,21 +1,42 @@
 //  component originated form https://github.com/crafted/crafted
-
-import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  Input,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
 import { Observable } from 'rxjs';
 import { RenderedView } from '../../data/viewer';
+import { RenderedViewDynamicCompDirective } from './rendered-view-component.directive';
 
 @Component({
   selector: 'lib-rendered-view',
   templateUrl: './rendered-view.component.html',
-  imports: [CommonModule],
-  standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class RenderedViewComponent {
+export class RenderedViewComponent implements OnInit {
+  @ViewChild(RenderedViewDynamicCompDirective, { static: true }) libDynamicComp!: RenderedViewDynamicCompDirective;
   views: Observable<RenderedView[]>;
 
   @Input() text: string;
 
   @Input() childrenViews: RenderedView[] = [];
+  @Input() component: any;
+  @Input() data: any;
+
+  ngOnInit() {
+    // TODO: Keep eye on this for performance.
+    if (this.component) {
+
+      console.log('component');
+      const viewContainerRef = this.libDynamicComp.viewContainerRef;
+      viewContainerRef.clear();
+
+      const componentRef = viewContainerRef.createComponent(this.component);
+      for (const property in this.data) {
+        componentRef.instance[property] = this.data[property];
+      }
+    }
+  }
 }

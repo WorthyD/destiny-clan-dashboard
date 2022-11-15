@@ -16,6 +16,8 @@ stuff2:
   </pre>
 </div> -->
 <lib-table-view *ngIf="rosterInfo$ | async as rosterInfo" [dataSource]="rosterInfo.dataSource"
-  [viewer]="rosterInfo.viewer">
+  [viewer]="rosterInfo.viewer"
+  [filterer]="rosterInfo.filterer"
+  [sorter]="rosterInfo.sorter">
 
 </lib-table-view>
