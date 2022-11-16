@@ -1,4 +1,4 @@
-#  Name of workflow
+# #  Name of workflow
 name: Main CI/CD
 
 # When workflow is triggered
@@ -37,10 +37,10 @@ jobs:
       - name: Run Make Config
         run: npm run config
 
-      - name: Run lint
-        run: npm run lint
-      - name: Run test
-        run: npm run test
+      # - name: Run lint
+      #   run: npm run lint
+      # - name: Run test
+      #   run: npm run test
       - name: Run build
         run: npm run build
 
