@@ -56,7 +56,7 @@ export class ClansRosterService {
         toArray()
       );
     }),
-    tap((x) => console.log(x))
+    // tap((x) => console.log(x))
   );
 
   clanProfiles$: Observable<ClanMemberProfile[]> = this.clanMembers$.pipe(

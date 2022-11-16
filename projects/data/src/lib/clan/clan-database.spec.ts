@@ -26,7 +26,6 @@ fdescribe('Clan Database', () => {
 
   afterEach((done) => {
     database.removeData().then(() => {
-      console.log('deleted');
       done();
     });
   });
