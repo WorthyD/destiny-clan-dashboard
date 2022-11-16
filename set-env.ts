@@ -3,7 +3,7 @@ var fs = require('fs');
 const targetPath = './projects/clan-dashboard/src/environments/secrets.ts';
 
 const envConfigFile = `export const secretKeys = {
-  apiKey: '${process.env.API_KEY}',
+  apiKey: '${process.env['API_KEY']}',
 };
 `;
 
