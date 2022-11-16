@@ -17,6 +17,7 @@ import { Filterer } from '../../data/filterer';
 import { Grouper } from '../../data/grouper';
 import { Sorter } from '../../data/sorter';
 import { RenderedViewModule } from '../rendered-view/rendered-view.module';
+import { MatButtonModule } from '@angular/material/button';
 
 export interface Item {
   id: string;
@@ -50,6 +51,7 @@ interface TablePage {
   imports: [
     CommonModule,
     MatTableModule,
+    MatButtonModule,
     RenderedViewModule,
     MatPaginatorModule,
     MatDividerModule,
@@ -65,6 +67,8 @@ export class TableViewComponent implements OnInit {
   views: ViewLabel[];
 
   renderedHtml: Observable<Map<Item, Map<string, Observable<RenderedView>>>>;
+
+  @Input() header: string;
 
   @Input() filterer: Filterer;
 
@@ -82,7 +86,7 @@ export class TableViewComponent implements OnInit {
 
   itemCount: Observable<number>;
 
-  page: BehaviorSubject<TablePage> = new BehaviorSubject({ size: 100, index: 0 });
+  page: BehaviorSubject<TablePage> = new BehaviorSubject({ size: 10, index: 0 });
 
   renderedData: Observable<Item[]>;
   constructor() {}
@@ -120,6 +124,6 @@ export class TableViewComponent implements OnInit {
     this.page.next({ index: event.pageIndex, size: event.pageSize });
   }
   export() {
-    this.exporter.exportData('', this.renderedData);
+    this.exporter.exportData(this.header?.toLowerCase()?.replace(' ', '_'), this.renderedData);
   }
 }

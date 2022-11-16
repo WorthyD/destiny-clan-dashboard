@@ -11,7 +11,7 @@ export class ClanSearchComponent {
   constructor(private store: Store) {}
 
   clans$ = this.store.select(selectAllClans);
-  addClan(clanId: string) {
-    this.store.dispatch(addClan({ clanId }));
+  addClan(clanId: string, clanName: string, clanTag: string) {
+    this.store.dispatch(addClan({ clanId, clanName, clanTag }));
   }
 }

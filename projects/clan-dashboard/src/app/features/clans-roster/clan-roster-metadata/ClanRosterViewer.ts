@@ -3,13 +3,13 @@ import { ViewerMetadata } from '@destiny/components';
 import { ClanMemberProfile } from '../clans-roster.service';
 import { BungieDatePipe, BungieDateTimePipe } from '@destiny/components/pipes/bungie-date';
 import { MemberTypeComponent } from '@destiny/components/icons';
+import { ClassCellComponent } from '../class-cell/class-cell.component';
 
 interface ViewContext {
   item: ClanMemberProfile;
   datePipe: BungieDatePipe;
   dateTimePipe: BungieDateTimePipe;
 }
-const LANG = 'en-us';
 
 export const CLAN_ROSTER_VIEWER_METADATA = new Map<string, ViewerMetadata<ClanMemberProfile, ViewContext>>([
   [
@@ -42,7 +42,22 @@ export const CLAN_ROSTER_VIEWER_METADATA = new Map<string, ViewerMetadata<ClanMe
     'characters',
     {
       label: 'Characters',
-      render: (item: ClanMemberProfile) => ({ text: `TODO` })
+      render: (item: ClanMemberProfile) => {
+        const characterIds = item.profile?.profile?.data?.characterIds;
+        return {
+          classList: 'characters-cell',
+          children: characterIds.map((id) => {
+            return {
+              classList: 'character-cell',
+              component: ClassCellComponent,
+              data: {
+                characterHash: id,
+                profile: item.profile
+              }
+            };
+          })
+        };
+      }
     }
   ],
   [
@@ -50,6 +65,7 @@ export const CLAN_ROSTER_VIEWER_METADATA = new Map<string, ViewerMetadata<ClanMe
     {
       label: '+',
       render: (item: ClanMemberProfile) => ({
+        classList: 'power-cell',
         text: `${item.profile?.profileProgression?.data?.seasonalArtifact?.powerBonus}`
       })
     }
@@ -72,6 +88,18 @@ export const CLAN_ROSTER_VIEWER_METADATA = new Map<string, ViewerMetadata<ClanMe
       })
     }
   ],
+  [
+    'clan',
+    {
+      label: 'Clan',
+      render: (item: ClanMemberProfile, context: ViewContext) => {
+        return {
+          text: `${item.clan.clanName}`
+        };
+      }
+    }
+  ],
+
   [
     'clanJoinDate',
     {

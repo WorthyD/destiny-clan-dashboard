@@ -63,7 +63,7 @@ jobs:
       # Run npm install and build on our code
       - run: npm install
       - run: npm run config
-      - run: npm run build-all
+      - run: npm run build
       - name: Deploy to Netlify
         uses: nwtgck/actions-netlify@v1.2
         with:
@@ -96,7 +96,7 @@ jobs:
       # Run npm install and build on our code
       - run: npm install
       - run: npm run config
-      - run: npm run build-all
+      - run: npm run build
       # Deploy to Netlify using our production secrets
       - name: Deploy to Netlify
         uses: nwtgck/actions-netlify@v1.2
@@ -131,13 +131,13 @@ jobs:
       # Run npm install and build on our code
       - run: npm install
       - run: npm run config
-      - run: npm run build-all
+      - run: npm run build
 
       # Deploy to Netlify using our production secrets
       - name: Deploy to Netlify
         uses: nwtgck/actions-netlify@v1.2
         with:
-          publish-dir: "./dist/worthyd-github-actions"
+          publish-dir: "./dist/clan-dashboard"
           production-deploy: true
         env:
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}

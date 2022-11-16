@@ -4,12 +4,12 @@ import { addClan, removeClan, setClans, updateClanProfileSync, updateClan } from
 
 export const ClansReducer = createReducer(
   initialClanState,
-  on(addClan, (state, { clanId }) => {
+  on(addClan, (state, { clanId, clanName, clanTag }) => {
     const clans = state.ids.map((c) => c);
 
     if (clans.indexOf(clanId) === -1) {
       //const newClangConfig = {}
-      return ClanConfigAdapter.upsertOne({ clanId, ...DefaultClanConfig }, { ...state });
+      return ClanConfigAdapter.upsertOne({ clanId, clanName, clanTag, ...DefaultClanConfig }, { ...state });
     }
 
     return {

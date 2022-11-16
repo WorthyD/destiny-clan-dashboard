@@ -1,11 +1,5 @@
 //  component originated form https://github.com/crafted/crafted
-import {
-  ChangeDetectionStrategy,
-  Component,
-  Input,
-  OnInit,
-  ViewChild,
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, OnInit, ViewChild } from '@angular/core';
 import { Observable } from 'rxjs';
 import { RenderedView } from '../../data/viewer';
 import { RenderedViewDynamicCompDirective } from './rendered-view-component.directive';
@@ -28,8 +22,6 @@ export class RenderedViewComponent implements OnInit {
   ngOnInit() {
     // TODO: Keep eye on this for performance.
     if (this.component) {
-
-      console.log('component');
       const viewContainerRef = this.libDynamicComp.viewContainerRef;
       viewContainerRef.clear();
 

@@ -1,4 +1,3 @@
-<p>clans-roster works!</p>
 <!-- {{(stuff$ | async) | json}} -->
 <!-- <hr>
 stuff2:
@@ -15,9 +14,14 @@ stuff2:
   {{(profiles$ | async) | json}}}
   </pre>
 </div> -->
-<lib-table-view *ngIf="rosterInfo$ | async as rosterInfo" [dataSource]="rosterInfo.dataSource"
-  [viewer]="rosterInfo.viewer"
-  [filterer]="rosterInfo.filterer"
-  [sorter]="rosterInfo.sorter">
+<div class="clan-roster">
+  <lib-table-view *ngIf="rosterInfo$ | async as rosterInfo; else loading" [dataSource]="rosterInfo.dataSource"
+    [header]="'Clan Roster'" [viewer]="rosterInfo.viewer" [filterer]="rosterInfo.filterer" [sorter]="rosterInfo.sorter">
 
-</lib-table-view>
+  </lib-table-view>
+
+  <ng-template #loading>
+    Loading Roster
+  </ng-template>
+
+</div>

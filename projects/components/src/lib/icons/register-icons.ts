@@ -17,4 +17,5 @@ export const registerIcons = (registry: MatIconRegistry, domSanitizer: DomSaniti
         const path = svgIcons[name];
         registry.addSvgIcon(name, domSanitizer.bypassSecurityTrustResourceUrl(path));
     });
+    console.log('registering icons', registry.getNamedSvgIcon('twitch'));
 };

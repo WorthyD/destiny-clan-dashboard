@@ -1,10 +1,11 @@
  <div class="header theme-background-card">
+   <h3>{{header}}</h3>
    <!-- <advanced-search [filterer]="filterer" [dataSource]="dataSource">
   </advanced-search> -->
 
    <div class="header-actions">
      <lib-display-options [sorter]="sorter" [viewer]="viewer"></lib-display-options>
-     <button (click)="export()">Export</button>
+     <button mat-button (click)="export()">Export</button>
    </div>
  </div>
 
@@ -17,7 +18,8 @@
        <td mat-cell *matCellDef="let item">
          <ng-container *ngIf="(renderedHtml | async).get(item).get(view.id) | async as view">
            <lib-rendered-view *ngIf="view" [class]="view.classList || ''" [ngStyle]="view.styles || {}"
-             [text]="view['text'] || ''" [childrenViews]="view['children'] || null">
+             [text]="view['text'] || ''" [childrenViews]="view['children'] || null"
+             [component]="view['component'] || null" [data]="view['data'] || null">
            </lib-rendered-view>
          </ng-container>
        </td>

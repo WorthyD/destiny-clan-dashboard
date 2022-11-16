@@ -4,7 +4,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve --port 4321 --open",
-    "build": "ng build",
+    "build": "ng build --project=clan-dashboard",
     "watch": "ng build --watch --configuration development",
     "test": "ng test --watch false --browsers=ChromeHeadless",
     "test:ui": "ng test --project=clan-dashboard",
@@ -15,7 +15,6 @@
     "docs:json": "compodoc -p ./tsconfig.json -e json -d .",
     "storybook": "npm run docs:json && start-storybook -p 6006",
     "config": "ts-node set-env.ts",
-    "build-all": "ng build",
     "lint": "ng lint"
   },
   "private": true,

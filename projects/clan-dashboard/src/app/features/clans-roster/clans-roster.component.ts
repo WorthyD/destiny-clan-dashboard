@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewRef } from '@angular/core';
+import { Component, OnInit, ViewRef, ViewEncapsulation, ChangeDetectionStrategy } from '@angular/core';
 import { DataSource, Filterer, Grouper, Sorter, Viewer } from '@destiny/components';
 import { combineLatest, filter, map, Observable, of } from 'rxjs';
 import { CLAN_ROSTER_VIEWER_METADATA } from './clan-roster-metadata';
@@ -19,7 +19,9 @@ interface RosterResources {
 @Component({
   selector: 'app-clans-roster',
   templateUrl: './clans-roster.component.html',
-  styleUrls: ['./clans-roster.component.scss']
+  styleUrls: ['./clans-roster.component.scss'],
+  encapsulation: ViewEncapsulation.None,
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ClansRosterComponent implements OnInit {
   constructor(

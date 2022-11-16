@@ -12,8 +12,11 @@
 
 .header {
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   justify-content: space-between;
+  .header-actions {
+    display: flex;
+  }
 }
 
 .item-count {
@@ -39,11 +42,11 @@ table {
   width: 100%;
 
   td {
-    padding-top: 4px;
-    padding-bottom: 4px;
+ //   padding-top: 4px;
+//    padding-bottom: 4px;
   }
 }
 
 .mat-menu-item {
-//   @include slim-menu-item();
+  //   @include slim-menu-item();
 }

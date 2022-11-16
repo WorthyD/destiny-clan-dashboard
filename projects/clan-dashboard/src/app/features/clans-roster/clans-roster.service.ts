@@ -9,19 +9,24 @@ import { MemberProfile } from '@destiny/data/models';
 import { GroupsV2GroupMember } from 'bungie-api-angular';
 
 export interface ClanMemberProfile {
-  clanId: string;
+  clan: {
+    clanId: string;
+    clanName: string;
+    clanTag: string;
+  };
   member: GroupsV2GroupMember;
   profile: MemberProfile;
 }
 
 @Injectable()
 export class ClansRosterService {
+  activeClans$ = this.store.select(selectEnabledClans);
   activeClansId$ = this.store.select(selectEnabledClanIds);
 
-  activeClanUpdateDates$ = this.activeClansId$.pipe(
-    switchMap((clanIds) => {
-      const arraySelectors = clanIds.map((clanId) => {
-        return this.store.select(selectLastProfileUpdate(clanId));
+  activeClanUpdateDates$ = this.activeClans$.pipe(
+    switchMap((clans) => {
+      const arraySelectors = clans.map((clan) => {
+        return this.store.select(selectLastProfileUpdate(clan.clanId));
       });
 
       return combineLatest(arraySelectors);
@@ -38,15 +43,13 @@ export class ClansRosterService {
     })
   );
 
-  clanMembers$ = this.activeClansId$.pipe(
-    switchMap((activeClanIds) => {
-      console.log('active clans');
-      return from(activeClanIds).pipe(
-        mergeMap((clanId) => {
-          console.log('mmerge map');
-          return this.memberService.getClanMembersSerialized(clanId).pipe(
+  clanMembers$ = this.activeClans$.pipe(
+    switchMap((activeClans) => {
+      return from(activeClans).pipe(
+        mergeMap((clan) => {
+          return this.memberService.getClanMembersSerialized(clan.clanId).pipe(
             map((result) => {
-              return { clanId, members: result };
+              return { clan, members: result };
             })
           );
         }),
@@ -61,11 +64,15 @@ export class ClansRosterService {
       return from(clansAndMembers).pipe(
         mergeMap((clanAndMembers) => {
           return this.profileService
-            .getSerializedProfiles<MemberProfile>(clanAndMembers.clanId, clanAndMembers.members, [], [])
+            .getSerializedProfiles<MemberProfile>(clanAndMembers.clan.clanId, clanAndMembers.members, [], [])
             .pipe(
               map((result: MemberProfile) => {
                 return {
-                  clanId: clanAndMembers.clanId,
+                  clan: {
+                    clanId: clanAndMembers.clan.clanId,
+                    clanName:clanAndMembers.clan.clanName,
+                    clanTag:clanAndMembers.clan.clanTag,
+                  },
                   member: clanAndMembers.members.find(
                     (x) => x.destinyUserInfo?.membershipId == result.profile.data.userInfo?.membershipId
                   ),

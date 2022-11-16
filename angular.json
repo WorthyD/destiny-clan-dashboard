@@ -23,7 +23,7 @@
             "polyfills": "projects/clan-dashboard/src/polyfills.ts",
             "tsConfig": "projects/clan-dashboard/tsconfig.app.json",
             "inlineStyleLanguage": "scss",
-            "assets": [],
+            "assets": ["projects/clan-dashboard/src/favicon.ico", "projects/clan-dashboard/src/assets", "projects/clan-dashboard/src/_redirects"],
             "styles": ["projects/clan-dashboard/src/styles.scss"],
             "scripts": [],
             "webWorkerTsConfig": "projects/clan-dashboard/tsconfig.worker.json"
