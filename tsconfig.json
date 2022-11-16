@@ -1,8 +1,22 @@
-/* To learn more about this file see: https://angular.io/config/tsconfig. */
+/* To learn more about this file see: https://angular.io/config/tsconfig.
+
+Todo: Eventually turn strict on.
+*/
 {
   "compileOnSave": false,
   "compilerOptions": {
     "baseUrl": "./",
+    "paths": {
+      "@destiny/data": [
+        "projects/data/src/public-api"
+      ],
+      "@destiny/data/*": [
+        "projects/data/src/lib/*/public-api"
+      ],
+      "components": [
+        "dist/components"
+      ],
+    },
     "outDir": "./dist/out-tsc",
     "forceConsistentCasingInFileNames": true,
     "strict": false,
@@ -18,10 +32,14 @@
     "importHelpers": true,
     "target": "es2020",
     "module": "es2020",
+    "typeRoots": [
+      "node_modules/@types"
+    ],
     "lib": [
       "es2020",
       "dom"
     ]
+
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,

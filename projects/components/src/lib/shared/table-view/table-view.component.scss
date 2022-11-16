@@ -1,0 +1,52 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.filter {
+  max-width: 650px;
+  margin: 8px auto;
+  width: 100%;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  .header-actions {
+    display: flex;
+  }
+}
+
+.item-count {
+  padding-left: 24px;
+}
+
+advanced-search {
+  flex: 1;
+  margin-top: 12px;
+  padding-left: 24px;
+  max-width: 650px;
+}
+
+.header-actions {
+  padding: 16px;
+}
+
+.table-container {
+  overflow: auto;
+}
+
+table {
+  width: 100%;
+
+  td {
+ //   padding-top: 4px;
+//    padding-bottom: 4px;
+  }
+}
+
+.mat-menu-item {
+  //   @include slim-menu-item();
+}

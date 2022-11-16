@@ -1,0 +1,21 @@
+{
+  "extends": "../projects/clan-dashboard/tsconfig.app.json",
+  "compilerOptions": {
+    "types": [
+      "node"
+    ],
+    "allowSyntheticDefaultImports": true
+  },
+  "exclude": [
+    "../projects/**/test.ts",
+    "../src/**/*.worker.ts",
+    "../projects/**/*.spec.ts"
+  ],
+  "include": [
+    "../projects/**/*",
+    "../stories/**/*",
+  ],
+  "files": [
+    "./typings.d.ts"
+  ]
+}

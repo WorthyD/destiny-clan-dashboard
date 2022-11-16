@@ -1,0 +1,27 @@
+<!-- {{(stuff$ | async) | json}} -->
+<!-- <hr>
+stuff2:
+{{(stuff2$ | async) | json}}
+<hr>
+<div style="height:100px; overflow:scroll">
+  <pre>
+  {{(members$ | async) | json}}}
+</pre>
+</div> -->
+<!-- <div style="height:600px; overflow:scroll">
+
+  <pre>
+  {{(profiles$ | async) | json}}}
+  </pre>
+</div> -->
+<div class="clan-roster">
+  <lib-table-view *ngIf="rosterInfo$ | async as rosterInfo; else loading" [dataSource]="rosterInfo.dataSource"
+    [header]="'Clan Roster'" [viewer]="rosterInfo.viewer" [filterer]="rosterInfo.filterer" [sorter]="rosterInfo.sorter">
+
+  </lib-table-view>
+
+  <ng-template #loading>
+    Loading Roster
+  </ng-template>
+
+</div>

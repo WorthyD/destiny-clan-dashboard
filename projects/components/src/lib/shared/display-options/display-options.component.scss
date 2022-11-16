@@ -1,0 +1,34 @@
+button.mat-button {
+  min-width: 0;
+  display: block;
+  padding: 0 8px;
+}
+
+.button-content {
+  display: flex;
+  align-items: center;
+}
+
+.options-menu-trigger {
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  font-size: 12px;
+}
+
+button.mat-menu-item {
+  mat-icon {
+    visibility: hidden;
+  }
+
+  &.selected {
+    font-weight: bold;
+    mat-icon {
+      visibility: visible;
+    }
+  }
+}
+
+.mat-menu-item {
+  //@include slim-menu-item();
+}
