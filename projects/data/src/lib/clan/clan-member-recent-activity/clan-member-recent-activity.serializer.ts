@@ -1,5 +1,5 @@
 // import { MemberActivityStats, MemberActivityRecentStats, MemberActivityRecentStatsActivity } from 'bungie-models';
-import { MemberActivityRecentStats } from '../../models/MemberActivityRecentStats';
+import { MemberActivityRecentStats, MemberActivityRecentStatsActivity } from '../../models/MemberActivityRecentStats';
 import { MemberActivityStats } from '../../models/MemberActivityStat';
 // import { MemberActivityRecentStats } from 'projects/components/src/lib/clan-roster-activity-table/clan-roster-activity-table.component';
 import { groupActivities } from '../../utility/group-activity-by-date';

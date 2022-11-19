@@ -17,8 +17,8 @@ import { MemberActivityTime } from '../../models/MemberActivityTime';
 export abstract class BaseClanAggregateTimeService {
   readonly CONCURRENT_COUNT = 10;
   private memberActivityService: ClanMemberRecentActivityService;
-  constructor(private clanDb: ClanDatabase, private appConfig: AppConfig) {
-    this.memberActivityService = new ClanMemberRecentActivityService(clanDb, appConfig.apiKey);
+  constructor(private clanDb: ClanDatabase, private apiKey: string) {
+    this.memberActivityService = new ClanMemberRecentActivityService(clanDb, apiKey);
   }
 
   abstract getClanActivityStatsForDuration(memberActivities: MemberActivityTime[], activityMode, count);

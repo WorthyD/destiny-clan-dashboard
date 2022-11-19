@@ -5,13 +5,14 @@ import { from, Observable } from 'rxjs';
 import { mergeMap, map, toArray } from 'rxjs/operators';
 // import { MemberActivityStats, MemberProfile, MemberActivityRecentStats } from 'bungie-models';
 
-import { clanMemberRecentActivitySerializer } from './clan-member-recent-activity.serializer';
-import { clanMemberActivitySerializer } from '../clan-member-activity/clan-member-activity.serializer';
-import { MemberProfile } from 'projects/bungie-models/src/lib/models/MemberProfile';
-import { MemberActivityStats } from 'projects/bungie-models/src/lib/models/MemberActivityStat';
-import { MemberActivityRecentStats } from 'projects/bungie-models/src/lib/models/MemberActivityRecentStats';
+//import { clanMemberRecentActivitySerializer } from './clan-member-recent-activity.serializer';
+//import { MemberProfile } from 'projects/bungie-models/src/lib/models/MemberProfile';
+//import { MemberActivityRecentStats } from 'projects/bungie-models/src/lib/models/MemberActivityRecentStats';
 import { ClanDatabase } from '../clan-database';
 import { StoreId } from '../../db/clan-indexed-db';
+import { MemberProfile } from '../../models';
+import { MemberActivityRecentStats } from '../../models/MemberActivityRecentStats';
+import { clanMemberRecentActivitySerializer } from './clan-member-recent-activity.serializer';
 
 export class ClanMemberRecentActivityService extends BaseMemberActivityService {
   private concurrentRequests = 5;

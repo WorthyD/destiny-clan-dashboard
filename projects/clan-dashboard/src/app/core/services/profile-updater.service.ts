@@ -9,48 +9,16 @@ import { ProfileWorkerService } from '../../workers/profile-worker/profile-worke
 import { nowPlusMinutes } from 'projects/data/src/lib/utility/date-utils';
 import { AppConfig } from '@core/config/app-config';
 
-export interface ClanConfigMembers {
-  clanConfig: ClanConfig;
-  members: GroupsV2GroupMember[];
-}
-
 @Injectable({
   providedIn: 'root'
 })
-export class ClanUpdaterService {
-  activeClanIds$ = this.store.select(selectEnabledClans);
-
+export class ProfileUpdaterService {
   constructor(
     private store: Store,
     private memberService: ClanMembersService,
     private profileWorkerService: ProfileWorkerService,
     private appConfig: AppConfig
   ) {}
-
-  update() {
-    return this.activeClanIds$.pipe(
-      // tap((x) => console.log('starting')),
-      switchMap((activeClans) => this.memberUpdate(activeClans)),
-      //tap((x) => console.log('Member Update Complete', x)),
-      switchMap((clans) => this.profilesUpdate(clans)),
-      // tap((x) => console.log('complete', x))
-    );
-  }
-
-  memberUpdate(activeClans) {
-    return from(activeClans).pipe(
-      mergeMap((clanConfig: ClanConfig) => {
-        //console.log('merge map', clanConfig.clanId);
-        return this.memberService.getClanMembersSerialized(clanConfig.clanId).pipe(
-          map((members) => ({
-            members,
-            clanConfig
-          }))
-        );
-      }, 1),
-      toArray()
-    );
-  }
 
   profilesUpdate(clans: ClanConfigMembers[]): Observable<ClanConfigMembers[]> {
     return from(clans).pipe(
@@ -61,8 +29,8 @@ export class ClanUpdaterService {
         //
         //return of(x);
       }, 1),
-      toArray(),
-   ///   tap((x) => console.log('toarray 2', x))
+      toArray()
+      ///   tap((x) => console.log('toarray 2', x))
     );
   }
 
