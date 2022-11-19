@@ -8,34 +8,42 @@ import { GroupsV2GroupMember } from 'bungie-api-angular';
 import { ProfileWorkerService } from '../../workers/profile-worker/profile-worker.service';
 import { nowPlusMinutes } from 'projects/data/src/lib/utility/date-utils';
 import { AppConfig } from '@core/config/app-config';
+import { ClanConfigMembers } from './clan-updater.service';
+import { ProfileService } from 'projects/data/src/lib/clan/profiles/profile.service';
+import { ClanDatabase } from 'projects/data/src/lib/clan/clan-database';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProfileUpdaterService {
+  profileService: ProfileService;
   constructor(
     private store: Store,
     private memberService: ClanMembersService,
     private profileWorkerService: ProfileWorkerService,
     private appConfig: AppConfig
-  ) {}
+  ) {
+    const clanDB = new ClanDatabase();
+    this.profileService = new ProfileService(clanDB, appConfig.apiKey);
+  }
 
   profilesUpdate(clans: ClanConfigMembers[]): Observable<ClanConfigMembers[]> {
     return from(clans).pipe(
       mergeMap((x) => {
-        return this.profileUpdate(x).pipe(map((cm) => x));
+        return this.profileUpdate(x).pipe(map((cm) => cm));
         //}
 
         //
         //return of(x);
       }, 1),
-      toArray()
-      ///   tap((x) => console.log('toarray 2', x))
+      toArray(),
+      // tap((x) => console.log('toarray 2', x))
     );
   }
 
   profileUpdate(clan: ClanConfigMembers): Observable<ClanConfigMembers> {
     const lastUpdate = new Date(clan.clanConfig.profileUpdate || '1/1/1900');
+    // const lastUpdate = new Date('1/1/1900');
     const staleDate = nowPlusMinutes(-this.appConfig.constants.PROFILE_UPDATING_EXP_MINUTES);
 
     if (staleDate > lastUpdate) {
@@ -56,8 +64,7 @@ export class ProfileUpdaterService {
         // );
         //       console.log('progress', progressCount);
       };
-      this.profileWorkerService.loadProfiles(clan.clanConfig.clanId, clan.members, progress);
-      return this.profileWorkerService.members.pipe(
+      return this.profileWorkerService.loadProfiles(clan.clanConfig.clanId, clan.members, progress).pipe(
         filter((x) => x.length > 0),
         take(1),
         map((x) => {
@@ -67,12 +74,23 @@ export class ProfileUpdaterService {
           // );
           // return memberProfileActions.loadMemberProfileSuccess();
           //         console.log(`done ${clan.clanConfig.clanId}`, x);
+          //  console.log('member workers', x);
           this.store.dispatch(updateClanProfileSync({ clanId: clan.clanConfig.clanId }));
-          return clan;
+          console.log('clan done', x);
+          return {
+            ...clan,
+            profiles: x
+          };
         })
       );
     }
     //console.log(`Valid Cache ${clan.clanConfig.clanId}`);
-    return of(clan);
+    //; return of(clan);
+    // console.log('getting from cache');
+    return this.profileService.getSerializedProfilesFromCache(clan.clanConfig.clanId, clan.members, [], []).pipe(
+      map((x) => {
+        return { ...clan, profiles: x };
+      })
+    );
   }
 }

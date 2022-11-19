@@ -8,7 +8,7 @@ import { environment } from '../../../environments/environment';
 })
 export class ProfileRecentActivityWorkerService {
   constructor() {}
-  updateAllRecentActivityCache(clanId: string, clanMembers: MemberProfile[], progress?: (done) => any): Observable<boolean> {
+  updateAllRecentActivityCache(clanId: string, clanMembers: any[], progress?: (done) => any): Observable<boolean> {
     const activityCacheComplete: Subject<boolean> = new Subject();
     const worker = new Worker(new URL('./profile-recent-activity-updater.worker', import.meta.url));
     worker.onmessage = ({ data }) => {

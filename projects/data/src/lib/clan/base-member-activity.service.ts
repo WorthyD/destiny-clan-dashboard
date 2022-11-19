@@ -10,11 +10,17 @@ import { mergeMap, map, catchError, toArray, switchMap, tap } from 'rxjs/operato
 import { Observable, of, from, defer, concat, EMPTY, forkJoin } from 'rxjs';
 import { ClanDatabase } from './clan-database';
 import { DBObject, StoreId } from '../db/clan-indexed-db';
-import { MemberProfile } from '../models';
+import { MemberActivityStats } from '../models/MemberActivityStat';
+import { MemberActivityTime } from '../models/MemberActivityTime';
+import { clanMemberActivitySerializer } from './clan-member-activity/clan-member-activity.serializer';
+//import { MemberProfile } from '../models';
 //import { clanMemberActivitySerializer } from './clan-member-activity/clan-member-activity.serializer';
 //import { MemberProfile } from 'projects/bungie-models/src/lib/models/MemberProfile';
 //import { MemberActivityTime } from 'projects/bungie-models/src/lib/models/MemberActivityTime';
 //import { MemberActivityStats } from 'projects/bungie-models/src/lib/models/MemberActivityStat';
+interface MemberProfile {
+  profile: any;
+}
 
 interface ActivityCollection {
   activities: any[];
@@ -173,6 +179,7 @@ export class BaseMemberActivityService extends BaseClanService {
           this.updateDB(clanId, characterActivityId, slimmedActivities);
           return slimmedActivities;
         }
+        return of([]);
       }),
       catchError((error) => {
         if (error.error?.ErrorStatus === 'DestinyPrivacyRestriction') {
@@ -272,9 +279,9 @@ export class BaseMemberActivityService extends BaseClanService {
       })
     );
   }
-  getMemberActivity(clanId: number, member: MemberProfile, activityMode: number = 0): Observable<MemberActivityStats> {
+  getMemberActivity(clanId: number, member: any, activityMode: number = 0): Observable<MemberActivityStats> {
     return from(member.profile.data.characterIds).pipe(
-      mergeMap((characterId) => {
+      mergeMap((characterId: number) => {
         return this.getMemberCharacterActivitySerialized(clanId, member, characterId, activityMode);
       }),
       map((x) => {
@@ -306,5 +313,4 @@ export class BaseMemberActivityService extends BaseClanService {
       })
     );
   }
-
 }

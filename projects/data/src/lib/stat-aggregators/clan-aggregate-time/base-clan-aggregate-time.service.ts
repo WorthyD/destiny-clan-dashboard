@@ -7,7 +7,7 @@ import { from, Observable } from 'rxjs';
 import { map, mergeMap } from 'rxjs/operators';
 import { ClanDatabase } from '../../clan/clan-database';
 import { ClanMemberRecentActivityService } from '../../clan/clan-member-recent-activity/clan-member-recent-activity.service';
-import { MemberProfile } from '../../models';
+import { ActivityStats, MemberProfile } from '../../models';
 import { MemberActivityTime } from '../../models/MemberActivityTime';
 // import { AppConfig } from 'src/app/app.config';
 // import { ClanMemberRecentActivityService } from '../../clan-db/clan-member-recent-activity/clan-member-recent-activity.service';

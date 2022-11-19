@@ -19,7 +19,14 @@ export class ClansEffects {
   persistSettings$ = createEffect(
     () => {
       return this.actions$.pipe(
-        ofType(clanActions.addClan, clanActions.removeClan, clanActions.setClans, clanActions.updateClan),
+        ofType(
+          clanActions.addClan,
+          clanActions.removeClan,
+          clanActions.setClans,
+          clanActions.updateClan
+          //clanActions.updateClanMemberActivitySync,
+          //clanActions.updateClanProfileSync
+        ),
         concatLatestFrom(() => this.store.select(selectClansState)),
         tap(([action, clans]) => this.localStorageService.setItem(CLANS_KEY, clans))
       );
@@ -36,6 +43,19 @@ export class ClansEffects {
         // console.log(clanToUpdate);
         // clanToUpdate.profileUpdate = new Date().toString();
         return clanActions.updateClan({ clan: { ...clanToUpdate, profileUpdate: new Date().toString() } });
+      })
+    );
+  });
+
+  updateLastMemberActivitySync$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(clanActions.updateClanMemberActivitySync),
+      concatLatestFrom(() => this.store.select(selectClansState)),
+      map(([action, clans]) => {
+        const clanToUpdate = clans.entities[action.clanId];
+        // console.log(clanToUpdate);
+        // clanToUpdate.profileUpdate = new Date().toString();
+        return clanActions.updateClan({ clan: { ...clanToUpdate, memberRecentActivityUpdate: new Date().toString() } });
       })
     );
   });

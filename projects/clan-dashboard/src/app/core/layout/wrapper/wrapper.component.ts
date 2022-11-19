@@ -11,6 +11,10 @@ export class WrapperComponent implements OnInit {
   constructor(private clanUpdaterService: ClanUpdaterService) {}
 
   ngOnInit(): void {
-    this.clanUpdaterService.update().pipe(take(1)).subscribe();
+    console.log('wrapper init');
+    this.clanUpdaterService
+      .update()
+      .pipe(take(1))
+      .subscribe((x) => console.log('done done'));
   }
 }

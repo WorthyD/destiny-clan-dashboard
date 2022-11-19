@@ -103,11 +103,20 @@ export class ProfileService {
     profileRecords: any[]
   ): Observable<T> {
     return from(members).pipe(
-      mergeMap(
-        (member) => this.getSerializedProfile(clanId, member, collectionHashes, profileRecords),
-        100
-      )
+      mergeMap((member) => this.getSerializedProfile(clanId, member, collectionHashes, profileRecords), 100)
     ) as Observable<T>;
+  }
+
+  getSerializedProfilesFromCache(
+    clanId: string,
+    members: ClanMember[],
+    collectionHashes: any[],
+    profileRecords: any[]
+  ): Observable<MemberProfile[]> {
+    return from(members).pipe(
+      mergeMap((member) => this.getSerializedProfileFromCache(clanId, member, collectionHashes, profileRecords), 100),
+      toArray()
+    )
   }
 
   getSerializedProfilesWithProgress(
@@ -144,6 +153,18 @@ export class ProfileService {
     return this.getProfile(clanId, member).pipe(
       map((profile) => {
         return profileSerializer(profile, this.TRACKED_HASHES, collectionHashes, profileRecords) as MemberProfile;
+      })
+    );
+  }
+  getSerializedProfileFromCache(
+    clanId: string,
+    member: ClanMember,
+    collectionHashes: any[],
+    profileRecords: any[]
+  ): Observable<MemberProfile> {
+    return from(this.getProfileFromCache(clanId, member)).pipe(
+      map((profile) => {
+        return profileSerializer(profile.data, this.TRACKED_HASHES, collectionHashes, profileRecords) as MemberProfile;
       })
     );
   }

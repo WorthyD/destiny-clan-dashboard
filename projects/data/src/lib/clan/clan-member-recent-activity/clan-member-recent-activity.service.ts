@@ -10,9 +10,13 @@ import { mergeMap, map, toArray } from 'rxjs/operators';
 //import { MemberActivityRecentStats } from 'projects/bungie-models/src/lib/models/MemberActivityRecentStats';
 import { ClanDatabase } from '../clan-database';
 import { StoreId } from '../../db/clan-indexed-db';
-import { MemberProfile } from '../../models';
+// import { MemberProfile } from '../../models';
 import { MemberActivityRecentStats } from '../../models/MemberActivityRecentStats';
 import { clanMemberRecentActivitySerializer } from './clan-member-recent-activity.serializer';
+
+interface MemberProfile {
+  profile: any;
+}
 
 export class ClanMemberRecentActivityService extends BaseMemberActivityService {
   private concurrentRequests = 5;
