@@ -124,6 +124,6 @@ export class TableViewComponent implements OnInit {
     this.page.next({ index: event.pageIndex, size: event.pageSize });
   }
   export() {
-    this.exporter.exportData(this.header?.toLowerCase()?.replace(' ', '_'), this.renderedData);
+    this.exporter.exportData(this.header?.toLowerCase()?.replace(' ', '_'), this.dataSource.data);
   }
 }

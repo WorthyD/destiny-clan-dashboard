@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 //import { MemberProfile, ClanMember } from 'bungie-models';
 import { BehaviorSubject, Observable, of } from 'rxjs';
-import { environment } from '../../environments/environment';
+import { environment } from '../../../environments/environment';
 import { MemberProfile } from '@destiny/data/models';
 
 @Injectable({

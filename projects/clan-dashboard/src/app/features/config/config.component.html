@@ -1,5 +1,7 @@
-<ng-container *ngFor="clanConfigs$ | async as clanConfig">
-  <app-clan-config [clanConfig]="clanConfig">
+<div class="config-wrapper">
+  <ng-container *ngFor="let clanConfig of clanConfigs$ | async ">
+    <app-clan-config [clanConfig]="clanConfig">
 
-  </app-clan-config>
-</ng-container>
+    </app-clan-config>
+  </ng-container>
+</div>

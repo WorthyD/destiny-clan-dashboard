@@ -17,6 +17,10 @@ const routes: Routes = [
       {
         path: 'roster',
         loadChildren: () => import('./views/roster/roster.module').then((module) => module.RosterModule)
+      },
+      {
+        path: 'config',
+        loadChildren: () => import('./views/config/config.module').then((module) => module.ConfigModule)
       }
     ]
   },

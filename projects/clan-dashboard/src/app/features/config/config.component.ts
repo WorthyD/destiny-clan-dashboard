@@ -8,13 +8,11 @@ import { selectAllClans } from '@core/store/clans';
   templateUrl: './config.component.html',
   styleUrls: ['./config.component.scss']
 })
-export class ConfigComponent implements OnInit {
+export class ConfigComponent  {
 
   constructor(private store: Store) { }
 
   clanConfigs$ = this.store.select(selectAllClans);
 
-  ngOnInit(): void {
-  }
 
 }

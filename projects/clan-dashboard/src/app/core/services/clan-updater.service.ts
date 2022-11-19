@@ -5,7 +5,7 @@ import { ClanConfig, selectEnabledClans, updateClanProfileSync } from '../store/
 import { ClanMembersService } from '@destiny/data/clan/clan-members';
 import { from, Observable, of } from 'rxjs';
 import { GroupsV2GroupMember } from 'bungie-api-angular';
-import { ProfileWorkerService } from '../../workers/profile-worker.service';
+import { ProfileWorkerService } from '../../workers/profile-worker/profile-worker.service';
 import { nowPlusMinutes } from 'projects/data/src/lib/utility/date-utils';
 import { AppConfig } from '@core/config/app-config';
 

@@ -1,20 +1,22 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ClanConfig } from '@core/store/clans';
+import { Store } from '@ngrx/store';
 import { ClanDatabase } from 'projects/data/src/lib/clan/clan-database';
+
+import { removeClan } from '@core/store/clans/clans.actions';
 
 @Component({
   selector: 'app-clan-config',
   templateUrl: './clan-config.component.html',
   styleUrls: ['./clan-config.component.scss']
 })
-export class ClanConfigComponent implements OnInit {
+export class ClanConfigComponent {
   @Input() clanConfig: ClanConfig;
 
-  constructor(private db: ClanDatabase) {}
+  constructor(private db: ClanDatabase, private store: Store) {}
 
-  ngOnInit(): void {}
-
-  deleteClanData(){
+  deleteClanData() {
+    this.store.dispatch(removeClan({ clanId: this.clanConfig.clanId }));
     this.db.deleteDatabase(this.clanConfig.clanId);
     /*
     window.localStorage.removeItem(`lastActivityUpdate-${x}`)
