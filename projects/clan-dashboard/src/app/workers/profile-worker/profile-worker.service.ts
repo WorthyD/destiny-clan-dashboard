@@ -22,7 +22,6 @@ export class ProfileWorkerService {
       if (data.type === 'progress') {
         progress(data.data);
       } else if (data.type === 'complete') {
-        console.log('complete', clanId);
         members.next(data.data);
         //activityCacheComplete.next(true);
       }

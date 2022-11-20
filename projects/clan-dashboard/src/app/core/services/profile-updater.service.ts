@@ -29,14 +29,11 @@ export class ProfileUpdaterService {
 
   profilesUpdate(clans: ClanConfigMembers[]): Observable<ClanConfigMembers[]> {
     return from(clans).pipe(
+      // TODO Verify Merge Map is appropriate for this.
       mergeMap((x) => {
         return this.profileUpdate(x).pipe(map((cm) => cm));
-        //}
-
-        //
-        //return of(x);
       }, 1),
-      toArray(),
+      toArray()
       // tap((x) => console.log('toarray 2', x))
     );
   }
@@ -76,7 +73,6 @@ export class ProfileUpdaterService {
           //         console.log(`done ${clan.clanConfig.clanId}`, x);
           //  console.log('member workers', x);
           this.store.dispatch(updateClanProfileSync({ clanId: clan.clanConfig.clanId }));
-          console.log('clan done', x);
           return {
             ...clan,
             profiles: x

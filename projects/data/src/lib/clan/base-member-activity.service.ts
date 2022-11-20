@@ -196,7 +196,7 @@ export class BaseMemberActivityService extends BaseClanService {
   }
 
   // TODO: Update the 2 nonsense.
-  groupActivitiesToMember2(memberProfile: MemberProfile, allActivities: DBObject[], activityMode: number = 0) {
+  groupActivitiesToMember(memberProfile: MemberProfile, allActivities: DBObject[], activityMode: number = 0) {
     const memberProfileId = `${memberProfile.profile.data.userInfo.membershipType}-${memberProfile.profile.data.userInfo.membershipId}`;
 
     const memberActivitiesDB = allActivities.filter((x) => x.id.startsWith(memberProfileId));
@@ -220,24 +220,24 @@ export class BaseMemberActivityService extends BaseClanService {
     };
   }
 
-  groupActivitiesToMembers2(
+  groupActivitiesToMembers(
     memberProfiles: MemberProfile[],
     allActivities: DBObject[],
     activityMode: number = 0
   ): any[] {
     return memberProfiles.map((memberProfile) => {
-      return this.groupActivitiesToMember2(memberProfile, allActivities, activityMode);
+      return this.groupActivitiesToMember(memberProfile, allActivities, activityMode);
     });
   }
 
-  getAllActivitiesFromCache2(
+  getAllActivitiesFromCache(
     clanId: number,
     memberProfiles: MemberProfile[],
     activityMode = 0
   ): Observable<MemberActivityTime[]> {
     return from(this.getAllDataFromCache(clanId.toString())).pipe(
       map((x) => {
-        const y = this.groupActivitiesToMembers2(memberProfiles, x, activityMode);
+        const y = this.groupActivitiesToMembers(memberProfiles, x, activityMode);
         return y;
       })
     );
