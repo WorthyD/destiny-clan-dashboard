@@ -27,7 +27,8 @@ export class ProfileRecentActivityWorkerService {
     return activityCacheComplete;
   }
 
-  getAllRecentActivitiesFromCache(clanId: string, memberProfiles: MemberProfile[]): Observable<any> {
+  //getAllRecentActivitiesFromCache(clanId: string, memberProfiles: MemberProfile[]): Observable<any> {
+  getAllRecentActivitiesFromCache(clanId: string, memberProfiles: any[]): Observable<any> {
     const memberActivities = new Subject();
     const worker = new Worker(new URL('./profile-recent-activity-getter.worker', import.meta.url));
     worker.onmessage = ({ data }) => {

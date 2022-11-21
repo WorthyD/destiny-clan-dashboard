@@ -1,7 +1,18 @@
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { selectEnabledClanIds, selectEnabledClans, selectLastProfileUpdate } from '@core/store/clans';
-import { forkJoin, from, map, mergeMap, switchMap, tap, toArray, combineLatest, distinctUntilChanged, Observable } from 'rxjs';
+import {
+  forkJoin,
+  from,
+  map,
+  mergeMap,
+  switchMap,
+  tap,
+  toArray,
+  combineLatest,
+  distinctUntilChanged,
+  Observable
+} from 'rxjs';
 // import {} from '@destiny/data/';
 import { ClanMembersService } from '@destiny/data/clan/clan-members';
 import { ProfileService } from 'projects/data/src/lib/clan/profiles/profile.service';
@@ -55,7 +66,7 @@ export class ClansRosterService {
         }),
         toArray()
       );
-    }),
+    })
     // tap((x) => console.log(x))
   );
 
@@ -70,8 +81,8 @@ export class ClansRosterService {
                 return {
                   clan: {
                     clanId: clanAndMembers.clan.clanId,
-                    clanName:clanAndMembers.clan.clanName,
-                    clanTag:clanAndMembers.clan.clanTag,
+                    clanName: clanAndMembers.clan.clanName,
+                    clanTag: clanAndMembers.clan.clanTag
                   },
                   member: clanAndMembers.members.find(
                     (x) => x.destinyUserInfo?.membershipId == result.profile.data.userInfo?.membershipId
@@ -86,6 +97,7 @@ export class ClansRosterService {
     })
   );
 
+  // TODO: Use this next
   // Whenever activeClanUpdateDates gets updated. Run this observable.
   activeClanPeople$ = this.activeClanUpdateDates$.pipe(
     map((x) => {
