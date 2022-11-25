@@ -9,7 +9,6 @@ export class MemberTypeComponent  {
   @Input()
   type;
   constructor(){
-  console.log('stuff');
   }
 
 

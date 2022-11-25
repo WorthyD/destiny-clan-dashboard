@@ -8,6 +8,7 @@ export interface ClanConfig {
   enabled: boolean;
   memberUpdate: string;
   profileUpdate: string;
+  memberRecentActivityUpdate: string;
 }
 
 export interface ClansState extends EntityState<ClanConfig> {}

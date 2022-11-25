@@ -51,7 +51,7 @@
     width: 100%;
     background-color: #b78c25b3;
     color: #fff;
-    padding: 0 8px ;
+    padding: 0 8px;
   }
   .score-cell {
     display: flex;
@@ -61,4 +61,7 @@
     text-align: center;
     width: 100%;
   }
+}
+.loading {
+  text-align: center;
 }

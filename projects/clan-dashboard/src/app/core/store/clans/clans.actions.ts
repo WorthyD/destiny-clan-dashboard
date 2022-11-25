@@ -10,3 +10,4 @@ export const updateClan = createAction(name('Update Clan'), props<{ clan: ClanCo
 export const removeClan = createAction(name('Remove Clan'), props<{ clanId: string }>());
 
 export const updateClanProfileSync = createAction(name('Update Clan Sync'), props<{ clanId: string }>());
+export const updateClanMemberActivitySync = createAction(name('Update Clan Activity Sync'), props<{ clanId: string }>());

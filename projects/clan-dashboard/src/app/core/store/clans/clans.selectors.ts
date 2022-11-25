@@ -20,3 +20,8 @@ export const selectLastProfileUpdate = (clanId: string) =>
   createSelector(selectAllClanEntities, (state) => {
     return (clanId && state[clanId]?.profileUpdate) || '';
   });
+
+export const selectLastRecentActivityUpdate = (clanId: string) =>
+  createSelector(selectAllClanEntities, (state) => {
+    return (clanId && state[clanId]?.memberRecentActivityUpdate) || '';
+  });

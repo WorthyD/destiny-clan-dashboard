@@ -2,6 +2,9 @@
   <nav>
     <a routerLink="/">Dashboard</a>
     <a routerLink="/roster">Roster View</a>
+    <a routerLink="/recent-activity">Recent Activity</a>
+    <a routerLink="/config">Config</a>
+    <span *ngIf="loading">Updater Running</span>
   </nav>
   <router-outlet></router-outlet>
 </div>

@@ -1,6 +1,6 @@
 //import { ClanDatabase } from '../ClanDatabase';
 import { map, catchError, mergeMap, bufferTime, toArray } from 'rxjs/operators';
-import { Observable, from, of } from 'rxjs';
+import { Observable, from, of, throwError } from 'rxjs';
 
 //import { StoreId } from '../app-indexed-db';
 
@@ -47,10 +47,16 @@ export class ProfileService {
       fetch(url, { headers: { 'X-API-Key': this.apiKey } })
         .then((response) => response.json())
         .then((data) => {
+          if (!data.Response) {
+            throw data;
+          }
           observer.next(data);
           observer.complete();
         })
-        .catch((err) => observer.error(err));
+        .catch((err) => {
+          console.log('error', err);
+          observer.error(err);
+        });
     });
   }
 
@@ -86,9 +92,15 @@ export class ProfileService {
             if (cachedData && cachedData.data) {
               return of(cachedData.data);
             }
-            if (error?.error?.ErrorStatus === 'DestinyAccountNotFound') {
+            if (error?.ErrorStatus === 'DestinyAccountNotFound') {
+              console.error(`Error retrieving profile, not found`, member);
               return of();
             }
+            if (error?.ErrorStatus === 'DestinyUnexpectedError') {
+              console.error(`Error retrieving profile`, member);
+              return of();
+            }
+
             throw error;
           })
         );
@@ -103,11 +115,20 @@ export class ProfileService {
     profileRecords: any[]
   ): Observable<T> {
     return from(members).pipe(
-      mergeMap(
-        (member) => this.getSerializedProfile(clanId, member, collectionHashes, profileRecords),
-        100
-      )
+      mergeMap((member) => this.getSerializedProfile(clanId, member, collectionHashes, profileRecords), 100)
     ) as Observable<T>;
+  }
+
+  getSerializedProfilesFromCache(
+    clanId: string,
+    members: ClanMember[],
+    collectionHashes: any[],
+    profileRecords: any[]
+  ): Observable<MemberProfile[]> {
+    return from(members).pipe(
+      mergeMap((member) => this.getSerializedProfileFromCache(clanId, member, collectionHashes, profileRecords), 100),
+      toArray()
+    );
   }
 
   getSerializedProfilesWithProgress(
@@ -144,6 +165,23 @@ export class ProfileService {
     return this.getProfile(clanId, member).pipe(
       map((profile) => {
         return profileSerializer(profile, this.TRACKED_HASHES, collectionHashes, profileRecords) as MemberProfile;
+      })
+    );
+  }
+  getSerializedProfileFromCache(
+    clanId: string,
+    member: ClanMember,
+    collectionHashes: any[],
+    profileRecords: any[]
+  ): Observable<MemberProfile> {
+    return from(this.getProfileFromCache(clanId, member)).pipe(
+      map((profile) => {
+        return profileSerializer(
+          profile?.data || [],
+          this.TRACKED_HASHES,
+          collectionHashes,
+          profileRecords
+        ) as MemberProfile;
       })
     );
   }

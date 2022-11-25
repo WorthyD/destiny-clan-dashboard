@@ -9,8 +9,13 @@ import { ClanUpdaterService } from '../../services/clan-updater.service';
 })
 export class WrapperComponent implements OnInit {
   constructor(private clanUpdaterService: ClanUpdaterService) {}
+  loading: boolean = false;
 
   ngOnInit(): void {
-    this.clanUpdaterService.update().pipe(take(1)).subscribe();
+    this.loading = true;
+    this.clanUpdaterService
+      .update()
+      .pipe(take(1))
+      .subscribe((x) => (this.loading = false));
   }
 }

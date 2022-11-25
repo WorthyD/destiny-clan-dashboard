@@ -86,7 +86,7 @@ export class TableViewComponent implements OnInit {
 
   itemCount: Observable<number>;
 
-  page: BehaviorSubject<TablePage> = new BehaviorSubject({ size: 10, index: 0 });
+  page: BehaviorSubject<TablePage> = new BehaviorSubject({ size: 25, index: 0 });
 
   renderedData: Observable<Item[]>;
   constructor() {}
@@ -124,6 +124,6 @@ export class TableViewComponent implements OnInit {
     this.page.next({ index: event.pageIndex, size: event.pageSize });
   }
   export() {
-    this.exporter.exportData(this.header?.toLowerCase()?.replace(' ', '_'), this.renderedData);
+    this.exporter.exportData(this.header?.toLowerCase()?.replace(' ', '_'), this.dataSource.data);
   }
 }

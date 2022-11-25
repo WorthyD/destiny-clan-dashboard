@@ -17,6 +17,15 @@ const routes: Routes = [
       {
         path: 'roster',
         loadChildren: () => import('./views/roster/roster.module').then((module) => module.RosterModule)
+      },
+      {
+        path: 'recent-activity',
+        loadChildren: () =>
+          import('./views/recent-activity/recent-activity.module').then((module) => module.RecentActivityModule)
+      },
+      {
+        path: 'config',
+        loadChildren: () => import('./views/config/config.module').then((module) => module.ConfigModule)
       }
     ]
   },
