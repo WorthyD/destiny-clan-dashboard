@@ -85,7 +85,7 @@ export class ClansRosterService {
                     clanTag: clanAndMembers.clan.clanTag
                   },
                   member: clanAndMembers.members.find(
-                    (x) => x.destinyUserInfo?.membershipId == result.profile.data.userInfo?.membershipId
+                    (x) => x.destinyUserInfo?.membershipId == result?.profile?.data?.userInfo?.membershipId
                   ),
                   profile: result
                 };

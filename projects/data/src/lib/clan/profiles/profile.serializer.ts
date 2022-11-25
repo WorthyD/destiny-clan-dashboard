@@ -4,6 +4,9 @@ export function profileSerializer(
   collectionHashes: number[] | string[],
   profileRecords: any[]
 ) {
+  if (!p || !p.profile) {
+    return undefined;
+  }
   return {
     profile: {
       data: {

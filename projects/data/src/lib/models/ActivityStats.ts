@@ -1,4 +1,4 @@
-import { MemberProfile } from './MemberProfile';
+// import { MemberProfile } from './MemberProfile';
 
 export interface Activity {
   displayName: string;
@@ -10,6 +10,17 @@ export interface Activity {
   isVaulted?: boolean;
 }
 export interface ActivityStats {
-  memberProfile: MemberProfile;
-  stats: any;
+  memberProfile: any; // TODO: Map out
+  stats: MemberActivityRecentStats;
+}
+export interface MemberActivityRecentStats {
+  id: string;
+  activities: MemberActivityRecentStatsActivity[];
+  lastNinetyDays: number;
+  lastMonth: number;
+  lastWeek: number;
+}
+export interface MemberActivityRecentStatsActivity {
+  date: string | Date;
+  seconds: number;
 }

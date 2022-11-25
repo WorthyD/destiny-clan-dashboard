@@ -1,36 +1,42 @@
-import { Observable, take } from 'rxjs';
+import { combineLatest, EMPTY, Observable, startWith, take } from 'rxjs';
 
 export interface ExporterMetadata<T = any, C = any> {
   label: string;
   text: (item: T, context: C) => string | null;
 }
+export type ExporterContextProvider<T, C> = Observable<(item: T) => C>;
+
 export interface ExporterOptions<T, C> {
   metadata?: Map<string, ExporterMetadata<T, C>>;
-  //contextProvider?: SorterContextProvider<C>;
+  contextProvider?: ExporterContextProvider<T, C>;
   // initialState?: SorterState;
 }
 
 export class Exporter<T = any, C = any> {
   private metadata: Map<string, ExporterMetadata<T, C>>;
+  private contextProvider: ExporterContextProvider<T, C>;
 
   constructor(options: ExporterOptions<T, C> = {}) {
     this.metadata = options.metadata || new Map();
+    this.contextProvider = options.contextProvider || EMPTY.pipe(startWith(() => null));
   }
 
   exportData(name: string, items$: Observable<T[]>): void {
-    items$.pipe(take(1)).subscribe((items) => {
-      const keys = [];
-      this.metadata.forEach((value, key) => keys.push(key));
-      const formattedObj = items.map((item) => {
-        const obj = {};
-        keys.forEach((key) => {
-          const config = this.metadata.get(key);
-          obj[config.label] = config.text(item, null);
+    combineLatest([items$, this.contextProvider])
+      .pipe(take(1))
+      .subscribe(([items, context]) => {
+        const keys = [];
+        this.metadata.forEach((value, key) => keys.push(key));
+        const formattedObj = items.map((item) => {
+          const obj = {};
+          keys.forEach((key) => {
+            const config = this.metadata.get(key);
+            obj[config.label] = config.text(item, context(item));
+          });
+          return obj;
         });
-        return obj;
+        downloadCSV({ filename: `${name}-${new Date().getTime()}` }, formattedObj);
       });
-      downloadCSV({ filename: `${name}-${new Date().getTime()}` }, formattedObj);
-    });
   }
 }
 

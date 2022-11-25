@@ -19,7 +19,7 @@ export const CLAN_ROSTER_VIEWER_METADATA = new Map<string, ViewerMetadata<ClanMe
       render: (item: ClanMemberProfile) => ({
         //        styles: {},
         component: MemberTypeComponent,
-        data: { type: item.member.destinyUserInfo.membershipType }
+        data: { type: item.member?.destinyUserInfo?.membershipType || 0}
         //text: `${item.member.destinyUserInfo.membershipType}`
       })
     }
@@ -28,14 +28,14 @@ export const CLAN_ROSTER_VIEWER_METADATA = new Map<string, ViewerMetadata<ClanMe
     'destinyDisplayName',
     {
       label: 'Destiny Display Name',
-      render: (item: ClanMemberProfile) => ({ text: `${item.member.destinyUserInfo.displayName}` })
+      render: (item: ClanMemberProfile) => ({ text: `${item.member?.destinyUserInfo?.displayName || ''}` })
     }
   ],
   [
     'bungieDisplayName',
     {
       label: 'Bungie Display Name',
-      render: (item: ClanMemberProfile) => ({ text: `${item.member.bungieNetUserInfo?.displayName}` })
+      render: (item: ClanMemberProfile) => ({ text: `${item.member?.bungieNetUserInfo?.displayName || ''}` })
     }
   ],
   [
@@ -46,7 +46,7 @@ export const CLAN_ROSTER_VIEWER_METADATA = new Map<string, ViewerMetadata<ClanMe
         const characterIds = item.profile?.profile?.data?.characterIds;
         return {
           classList: 'characters-cell',
-          children: characterIds.map((id) => {
+          children: characterIds?.map((id) => {
             return {
               classList: 'character-cell',
               component: ClassCellComponent,

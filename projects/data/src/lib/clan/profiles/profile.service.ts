@@ -116,7 +116,7 @@ export class ProfileService {
     return from(members).pipe(
       mergeMap((member) => this.getSerializedProfileFromCache(clanId, member, collectionHashes, profileRecords), 100),
       toArray()
-    )
+    );
   }
 
   getSerializedProfilesWithProgress(
@@ -164,7 +164,12 @@ export class ProfileService {
   ): Observable<MemberProfile> {
     return from(this.getProfileFromCache(clanId, member)).pipe(
       map((profile) => {
-        return profileSerializer(profile.data, this.TRACKED_HASHES, collectionHashes, profileRecords) as MemberProfile;
+        return profileSerializer(
+          profile?.data || [],
+          this.TRACKED_HASHES,
+          collectionHashes,
+          profileRecords
+        ) as MemberProfile;
       })
     );
   }

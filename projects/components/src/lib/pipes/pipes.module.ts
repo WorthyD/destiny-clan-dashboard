@@ -21,6 +21,7 @@ import { MemberTypePipe } from './member-type/member-type.pipe';
 // import { InCollectionsTotalPipe } from './in-collections/in-collections-total.pipe';
 // import { D2ChecklistUrlPipe } from './d2-checklist-url/d2-checklist-url.pipe';
 // import { TriumphReportPipe } from './triumph-report/triumph-report.pipe';
+import { PlaytimeMillisecondsPipe, PlaytimePipe } from './playtime/playtime.pipe';
 
 const pipes = [
   // DateAgoPipe,
@@ -35,6 +36,8 @@ const pipes = [
   // PlaytimeMillisecondsPipe,
   // DungeonReportUrlPipe,
   // DungeonReportProfileUrlPipe,
+  PlaytimePipe,
+  PlaytimeMillisecondsPipe,
   BungieDatePipe,
   BungieDateTimePipe,
   MemberTypePipe

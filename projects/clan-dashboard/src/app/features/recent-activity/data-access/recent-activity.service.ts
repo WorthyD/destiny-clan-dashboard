@@ -1,18 +1,21 @@
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { selectEnabledClanIds, selectEnabledClans, selectLastRecentActivityUpdate } from '@core/store/clans';
-import { combineLatest, from, map, mergeMap, Observable, switchMap, tap, toArray } from 'rxjs';
+import { combineLatest, from, map, mergeMap, Observable, switchMap, take, tap, toArray } from 'rxjs';
 import { ClanMemberProfile } from '@features/clans-roster/clans-roster.service';
 import { ClanMembersService } from '@destiny/data/clan/clan-members';
 import { ProfileService } from 'projects/data/src/lib/clan/profiles/profile.service';
 import { MemberProfile } from '@destiny/data/models';
+import { getClanMemberId, getMemberProfileId } from '@destiny/data/utility';
 import { ProfileRecentActivityWorkerService } from '../../../workers/profile-recent-activity/profile-recent-activity.service';
+import { GroupsV2GroupMember } from 'bungie-api-angular';
+import { ProfileRecentActivity } from '../models/profile-recent-activity';
 @Injectable()
 export class RecentActivityService {
   activeClans$ = this.store.select(selectEnabledClans);
   activeClansId$ = this.store.select(selectEnabledClanIds);
 
-  activeClanUpdateDates$ = this.activeClans$.pipe(
+  activeClanUpdateDates$: Observable<string[]> = this.activeClans$.pipe(
     switchMap((clans) => {
       const arraySelectors = clans.map((clan) => {
         return this.store.select(selectLastRecentActivityUpdate(clan.clanId));
@@ -35,10 +38,11 @@ export class RecentActivityService {
       );
     })
   );
-  clanProfiles$: Observable<any> = this.clanMembers$.pipe(
+  clanProfiles$: Observable<ProfileRecentActivity[]> = this.clanMembers$.pipe(
     //clanProfiles$: Observable<ClanMemberProfile[]> = this.clanMembers$.pipe(
     switchMap((clansAndMembers) => {
       return from(clansAndMembers).pipe(
+        //forkJoin((clanAndMembers) => {
         mergeMap((clanAndMembers) => {
           //switchMap((clanAndMembers) => {
           return this.profileService
@@ -46,10 +50,26 @@ export class RecentActivityService {
             .pipe(
               switchMap((memberProfiles) => {
                 //return of(null);
-                return this.profileActivityService.getAllRecentActivitiesFromCache(
-                  clanAndMembers.clan.clanId,
-                  memberProfiles
-                );
+                return this.profileActivityService
+                  .getAllRecentActivitiesFromCache(clanAndMembers.clan.clanId, memberProfiles)
+                  .pipe(
+                    take(1),
+                    map((clanActivities) => {
+                      return clanActivities.map((clanProfileActivity) => {
+                        return {
+                          profileActivity: clanProfileActivity,
+                          profile: memberProfiles.find(
+                            (m) => getMemberProfileId(m) === getMemberProfileId(clanProfileActivity.memberProfile)
+                          ),
+                          clan: {
+                            clanId: clanAndMembers.clan.clanId,
+                            clanName: clanAndMembers.clan.clanName,
+                            clanTag: clanAndMembers.clan.clanTag
+                          }
+                        };
+                      });
+                    })
+                  );
               })
               // map((result: MemberProfile[]) => {
               //   return {
@@ -67,10 +87,28 @@ export class RecentActivityService {
               // tap((x) => console.log('stuff', x))
             );
         }),
-        // tap((x) => console.log('before array', x)),
         toArray(),
-        tap((x) => console.log('after array', x))
+        map((x) => x.flatMap((y) => y))
+        // tap((x) => console.log('after array', x))
       );
+    })
+  );
+
+  activeClanActivity$: Observable<ProfileRecentActivity[]> = this.activeClanUpdateDates$.pipe(
+    switchMap((x) => {
+      // TODO: // console.log('verify this updates properly');
+      console.log('switch mapping', x);
+      return this.clanProfiles$;
+
+      // console.log('stuff', x);
+
+      // return (
+      //   combineLatest([this.activeClansId$, this.clanProfiles$]),
+      //   map(([clans, clanDates]) => {
+      //     console.log('stuff', clanDates);
+      //     return clanDates;
+      //   })
+      // );
     })
   );
 

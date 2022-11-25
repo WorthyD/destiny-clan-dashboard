@@ -86,7 +86,7 @@ export class TableViewComponent implements OnInit {
 
   itemCount: Observable<number>;
 
-  page: BehaviorSubject<TablePage> = new BehaviorSubject({ size: 10, index: 0 });
+  page: BehaviorSubject<TablePage> = new BehaviorSubject({ size: 25, index: 0 });
 
   renderedData: Observable<Item[]>;
   constructor() {}

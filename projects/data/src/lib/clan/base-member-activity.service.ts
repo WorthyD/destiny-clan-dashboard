@@ -127,7 +127,9 @@ export class BaseMemberActivityService extends BaseClanService {
   getMemberCharacterActivity(
     clanId: number,
     member: MemberProfile,
-    characterId: number
+    characterId: number,
+    useCache: boolean
+
     // ): Observable<Array<DestinyHistoricalStatsDestinyHistoricalStatsPeriodGroup>> {
   ): Observable<Array<any>> {
     const characterActivityId = this.getMemberActivityId(member, characterId);
@@ -139,7 +141,11 @@ export class BaseMemberActivityService extends BaseClanService {
         // }
 
         // return this.getFreshMemberCharacterActivity(clanId, member, characterId, characterActivityId, cachedData);
-        return this.verifyCacheIntegrity(clanId, member, characterId, cachedData);
+
+        if (useCache) {
+          return this.verifyCacheIntegrity(clanId, member, characterId, cachedData);
+        }
+        return of(cachedData.data);
       })
     );
   }
@@ -195,7 +201,6 @@ export class BaseMemberActivityService extends BaseClanService {
     );
   }
 
-  // TODO: Update the 2 nonsense.
   groupActivitiesToMember(memberProfile: MemberProfile, allActivities: DBObject[], activityMode: number = 0) {
     const memberProfileId = `${memberProfile.profile.data.userInfo.membershipType}-${memberProfile.profile.data.userInfo.membershipId}`;
 
@@ -279,10 +284,18 @@ export class BaseMemberActivityService extends BaseClanService {
       })
     );
   }
-  getMemberActivity(clanId: number, member: any, activityMode: number = 0): Observable<MemberActivityStats> {
+  getMemberActivity(
+    clanId: number,
+    member: any,
+    useCache: boolean,
+    activityMode: number = 0
+  ): Observable<MemberActivityStats> {
+    if (!member) {
+      return of(null);
+    }
     return from(member.profile.data.characterIds).pipe(
       mergeMap((characterId: number) => {
-        return this.getMemberCharacterActivitySerialized(clanId, member, characterId, activityMode);
+        return this.getMemberCharacterActivitySerialized(clanId, member, characterId, useCache, activityMode);
       }),
       map((x) => {
         return x.activities;
@@ -293,6 +306,10 @@ export class BaseMemberActivityService extends BaseClanService {
           id: `${member.profile.data.userInfo.membershipType}-${member.profile.data.userInfo.membershipId}`,
           activities: [].concat(...x)
         };
+      }),
+      catchError((error) => {
+        console.error(error);
+        return of(null);
       })
     );
   }
@@ -300,9 +317,10 @@ export class BaseMemberActivityService extends BaseClanService {
     clanId: number,
     member: MemberProfile,
     characterId: number,
+    useCache: boolean,
     activityMode: number = 0
   ) {
-    return this.getMemberCharacterActivity(clanId, member, characterId).pipe(
+    return this.getMemberCharacterActivity(clanId, member, characterId, useCache).pipe(
       map((activity) => {
         if (activityMode > 0) {
           activity = activity.filter((a) => a.activityDetails.modes.indexOf(activityMode) > -1);

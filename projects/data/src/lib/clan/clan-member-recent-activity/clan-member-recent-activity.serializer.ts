@@ -6,7 +6,6 @@ import { groupActivities } from '../../utility/group-activity-by-date';
 //import { getBungieStartDate } from '../../utility/date-utils';
 //import { groupActivitiesByWeek } from '../../utility/group-activity-by-week';
 
-
 export function clanMemberRecentActivitySerializer(activity: MemberActivityStats): MemberActivityRecentStats {
   let lastWeek = 0;
   let lastMonth = 0;
@@ -15,6 +14,10 @@ export function clanMemberRecentActivitySerializer(activity: MemberActivityStats
   const lwDate = new Date(today.setDate(today.getDate() - 7));
   const lmDate = new Date(today.setDate(today.getDate() - 30));
   const l90Date = new Date(today.setDate(today.getDate() - 90));
+
+  if (!activity) {
+    return null;
+  }
 
   activity.activities.forEach((x) => {
     const actDate = new Date(x.period);
@@ -40,7 +43,7 @@ export function clanMemberRecentActivitySerializer(activity: MemberActivityStats
   };
 }
 
- function groupActivitiesByWeek(data): Array<MemberActivityRecentStatsActivity> {
+function groupActivitiesByWeek(data): Array<MemberActivityRecentStatsActivity> {
   const raw = data.map((x) => {
     return {
       date: getBungieStartDate(new Date(x.period)),
@@ -73,7 +76,6 @@ export function getBungieStartDate(date): Date {
 
   return newDate;
 }
-
 
 // function getBungieStartDate(date) {
 //   const offset = date.getDay() >= 2 ? 2 : -5;

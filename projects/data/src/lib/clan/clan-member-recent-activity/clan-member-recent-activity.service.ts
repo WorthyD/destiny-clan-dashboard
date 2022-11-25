@@ -32,64 +32,14 @@ export class ClanMemberRecentActivityService extends BaseMemberActivityService {
   }
   getSerializedProfileActivity(
     clanId: number,
-    member: MemberProfile,
+    member: any,
+    useCache: boolean,
     activityMode: number = 0
   ): Observable<MemberActivityRecentStats> {
-    return this.getMemberActivity(clanId, member, activityMode).pipe(
+    return this.getMemberActivity(clanId, member, useCache, activityMode).pipe(
       map((profileActivity) => {
         return clanMemberRecentActivitySerializer(profileActivity);
       })
     );
   }
-  // getMemberCharacterActivitySerialized(
-  //   clanId: number,
-  //   member: MemberProfile,
-  //   characterId: number,
-  //   activityMode: number = 0
-  // ) {
-  //   return this.getMemberCharacterActivity(clanId, member, characterId).pipe(
-  //     map((activity) => {
-  //       if (activityMode > 0) {
-  //         activity = activity.filter((a) => a.activityDetails.modes.indexOf(activityMode) > -1);
-  //       }
-  //       return {
-  //         activities: activity.map((a) => clanMemberActivitySerializer(a))
-  //       };
-  //     })
-  //   );
-  // }
-  // getMemberActivity(clanId: number, member: MemberProfile, activityMode: number = 0): Observable<MemberActivityStats> {
-  //   return from(member.profile.data.characterIds).pipe(
-  //     mergeMap((characterId) => {
-  //       return this.getMemberCharacterActivitySerialized(clanId, member, characterId, activityMode);
-  //     }),
-  //     map((x) => {
-  //       return x.activities;
-  //     }),
-  //     toArray(),
-  //     map((x) => {
-  //       return {
-  //         id: `${member.profile.data.userInfo.membershipType}-${member.profile.data.userInfo.membershipId}`,
-  //         activities: [].concat(...x)
-  //       };
-  //     })
-  //   );
-  // }
-
-  // getSerializedProfilesActivity(clanId: number, members: MemberProfile[], activityMode: number = 0) {
-  //   return from(members).pipe(
-  //     mergeMap((member) => this.getSerializedProfileActivity(clanId, member, activityMode), this.concurrentRequests)
-  //   );
-  // }
-  // getSerializedProfileActivity(
-  //   clanId: number,
-  //   member: MemberProfile,
-  //   activityMode: number = 0
-  // ): Observable<MemberActivityRecentStats> {
-  //   return this.getMemberActivity(clanId, member, activityMode).pipe(
-  //     map((profileActivity) => {
-  //       return clanMemberRecentActivitySerializer(profileActivity);
-  //     })
-  //   );
-  // }
 }

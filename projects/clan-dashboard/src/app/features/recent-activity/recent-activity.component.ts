@@ -1,17 +1,73 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { DataSource, Exporter, Filterer, Sorter, Viewer } from '@destiny/components';
+import { BungieDatePipe, BungieDateTimePipe, PlaytimePipe } from '@destiny/components/pipes';
+import { combineLatest, filter, map, Observable, of } from 'rxjs';
 import { RecentActivityService } from './data-access/recent-activity.service';
+import { ProfileRecentActivity } from './models/profile-recent-activity';
+import { CLAN_ROSTER_EXPORTER_METADATA } from './recent-activity-metadata';
+import { RECENT_ACTIVITY_FILTERER_METADATA } from './recent-activity-metadata/RecentActivityFilterer';
+import { RECENT_ACTIVITY_SORTER_METADATA } from './recent-activity-metadata/RecentActivitySorter';
+import { RECENT_ACTIVITY_VIEWER_METADATA } from './recent-activity-metadata/RecentActivityViewer';
+
+interface RosterActivityResources {
+  loading: Observable<boolean>;
+  viewer: Viewer;
+  filterer: Filterer;
+  //grouper: Grouper;
+  exporter: Exporter;
+  sorter: Sorter;
+  dataSource: DataSource;
+}
 
 @Component({
   selector: 'app-recent-activity-viewer',
   templateUrl: './recent-activity.component.html',
-  styleUrls: ['./recent-activity.component.scss']
+  styleUrls: ['./recent-activity.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class RecentActivityComponent implements OnInit {
-  constructor(private recentActivityService: RecentActivityService) {}
+  constructor(
+    private recentActivityService: RecentActivityService,
+    private playtimePipe: PlaytimePipe,
+    private bungieDateTimePipe: BungieDateTimePipe
+  ) {}
 
-  ngOnInit(): void {
-    this.recentActivityService.clanProfiles$.subscribe((x) => {
-      console.log('final', x);
-    });
+  clanProfileActivity$ = this.recentActivityService.activeClanActivity$;
+  activityViewer = new Viewer({
+    metadata: RECENT_ACTIVITY_VIEWER_METADATA,
+    contextProvider: this.createViewContextProvider()
+  });
+  activityFilterer = new Filterer({ metadata: RECENT_ACTIVITY_FILTERER_METADATA });
+  activitySorter = new Sorter({ metadata: RECENT_ACTIVITY_SORTER_METADATA });
+  activityExporter = new Exporter({
+    metadata: CLAN_ROSTER_EXPORTER_METADATA,
+    contextProvider: this.createViewContextProvider()
+  });
+
+  rosterRecentActivityInfo$: Observable<RosterActivityResources> = combineLatest([this.clanProfileActivity$]).pipe(
+    map(([clanProfiles]) => {
+      return {
+        loading: of(false),
+        dataSource: new DataSource<ProfileRecentActivity>({ data: clanProfiles }),
+        viewer: this.activityViewer,
+        filterer: this.activityFilterer,
+        exporter: this.activityExporter,
+        sorter: this.activitySorter
+        // viewer: this.rosterViewer,
+        // filterer: this.rosterFilter,
+        // exporter: this.rosterExporter,
+        // sorter: this.rosterSorter
+      };
+    }),
+    filter((ds) => !!ds)
+  );
+  createViewContextProvider() {
+    return of((item: ProfileRecentActivity) => ({
+      item,
+      playTimePipe: this.playtimePipe,
+      dateTimePipe: this.bungieDateTimePipe
+      // dateTimePipe: this.bungieDateTimePipe
+    }));
   }
+  ngOnInit(): void {}
 }
