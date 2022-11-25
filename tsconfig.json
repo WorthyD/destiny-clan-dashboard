@@ -15,7 +15,7 @@ Todo: Eventually turn strict on.
       ],
       "components": [
         "dist/components"
-      ],
+      ]
     },
     "outDir": "./dist/out-tsc",
     "forceConsistentCasingInFileNames": true,
@@ -30,7 +30,7 @@ Todo: Eventually turn strict on.
     "experimentalDecorators": true,
     "moduleResolution": "node",
     "importHelpers": true,
-    "target": "es2020",
+    "target": "ES2022",
     "module": "es2020",
     "typeRoots": [
       "node_modules/@types"
@@ -38,8 +38,8 @@ Todo: Eventually turn strict on.
     "lib": [
       "es2020",
       "dom"
-    ]
-
+    ],
+    "useDefineForClassFields": false
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,
