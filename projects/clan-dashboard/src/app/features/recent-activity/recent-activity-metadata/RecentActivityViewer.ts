@@ -15,7 +15,7 @@ export const RECENT_ACTIVITY_VIEWER_METADATA = new Map<string, ViewerMetadata<Pr
       label: 'Display Name',
       render: (item: ProfileRecentActivity) => {
         return {
-          text: `${item.profile.profile.data.userInfo.displayName}`
+          text: `${item.clanMember?.destinyUserInfo?.displayName}`
         };
       }
     }

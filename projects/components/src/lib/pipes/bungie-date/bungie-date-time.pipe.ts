@@ -10,6 +10,6 @@ export class BungieDateTimePipe extends DatePipe implements PipeTransform {
   }
 
   override transform(date: Date): any {
-    return super.transform(date, 'yyyy-MM-dd h:mm a');
+    return super.transform(date, 'yyyy-MM-dd h:mm a') || '';
   }
 }

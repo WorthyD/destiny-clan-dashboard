@@ -29,7 +29,7 @@ export class ClanActivityService {
     return this.memberActivityService.getSerializedProfileActivity(clanId, member, true, activityMode).pipe(
       map((memberActivityResponse) => {
         return {
-          memberProfile: { profile: member.profile },
+          memberProfile: { profile: member?.profile },
           stats: memberActivityResponse
         };
       })

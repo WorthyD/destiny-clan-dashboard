@@ -33,7 +33,7 @@ export class ClansRosterComponent implements OnInit {
   ) {}
   // stuff2$ = this.clansRosterService.activeClanPeople$;
   //members$ = this.clansRosterService.clanMembers$;
-  profiles$ = this.clansRosterService.clanProfiles$;
+  //profiles$ = this.clansRosterService.clanProfiles$;
 
   rosterViewer = new Viewer({
     metadata: CLAN_ROSTER_VIEWER_METADATA,
@@ -43,7 +43,7 @@ export class ClansRosterComponent implements OnInit {
   rosterSorter = new Sorter({ metadata: CLAN_ROSTER_SORTER_METADATA });
   rosterExporter = new Exporter({ metadata: CLAN_ROSTER_EXPORTER_METADATA });
 
-  rosterInfo$: Observable<RosterResources> = combineLatest([this.clansRosterService.clanProfiles$]).pipe(
+  rosterInfo$: Observable<RosterResources> = combineLatest([this.clansRosterService.activeClanPeople$]).pipe(
     map(([clanProfiles]) => {
       return {
         loading: of(false),

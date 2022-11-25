@@ -1,6 +1,6 @@
 //import { ClanDatabase } from '../ClanDatabase';
 import { map, catchError, mergeMap, bufferTime, toArray } from 'rxjs/operators';
-import { Observable, from, of } from 'rxjs';
+import { Observable, from, of, throwError } from 'rxjs';
 
 //import { StoreId } from '../app-indexed-db';
 
@@ -47,10 +47,16 @@ export class ProfileService {
       fetch(url, { headers: { 'X-API-Key': this.apiKey } })
         .then((response) => response.json())
         .then((data) => {
+          if (!data.Response) {
+            throw data;
+          }
           observer.next(data);
           observer.complete();
         })
-        .catch((err) => observer.error(err));
+        .catch((err) => {
+          console.log('error', err);
+          observer.error(err);
+        });
     });
   }
 
@@ -86,9 +92,15 @@ export class ProfileService {
             if (cachedData && cachedData.data) {
               return of(cachedData.data);
             }
-            if (error?.error?.ErrorStatus === 'DestinyAccountNotFound') {
+            if (error?.ErrorStatus === 'DestinyAccountNotFound') {
+              console.error(`Error retrieving profile, not found`, member);
               return of();
             }
+            if (error?.ErrorStatus === 'DestinyUnexpectedError') {
+              console.error(`Error retrieving profile`, member);
+              return of();
+            }
+
             throw error;
           })
         );

@@ -28,7 +28,7 @@ export const CLAN_ROSTER_EXPORTER_METADATA = new Map<string, ExporterMetadata<Cl
     {
       label: 'Character One Type',
       text: (item: ClanMemberProfile) =>
-        getClassType(item.profile.characters.data[item.profile.profile.data.characterIds[0]]?.classType) || ''
+        getClassType(item?.profile?.characters?.data[item?.profile?.profile?.data?.characterIds[0]]?.classType) || ''
     }
   ],
   [
@@ -36,7 +36,7 @@ export const CLAN_ROSTER_EXPORTER_METADATA = new Map<string, ExporterMetadata<Cl
     {
       label: 'Character One Power',
       text: (item: ClanMemberProfile) =>
-        `${item.profile.characters.data[item.profile.profile.data.characterIds[0]]?.light || ''}`
+        `${item?.profile?.characters?.data[item?.profile?.profile?.data?.characterIds[0]]?.light || ''}`
     }
   ],
   [
@@ -44,7 +44,7 @@ export const CLAN_ROSTER_EXPORTER_METADATA = new Map<string, ExporterMetadata<Cl
     {
       label: 'Character Two Type',
       text: (item: ClanMemberProfile) =>
-        getClassType(item.profile.characters.data[item.profile.profile.data.characterIds[1]]?.classType) || ''
+        getClassType(item?.profile?.characters?.data[item?.profile?.profile?.data?.characterIds[1]]?.classType) || ''
     }
   ],
   [
@@ -52,7 +52,7 @@ export const CLAN_ROSTER_EXPORTER_METADATA = new Map<string, ExporterMetadata<Cl
     {
       label: 'Character Two Power',
       text: (item: ClanMemberProfile) =>
-        `${item.profile.characters.data[item.profile.profile.data.characterIds[1]]?.light || ''}`
+        `${item?.profile?.characters?.data[item?.profile?.profile?.data?.characterIds[1]]?.light || ''}`
     }
   ],
   [
@@ -60,7 +60,7 @@ export const CLAN_ROSTER_EXPORTER_METADATA = new Map<string, ExporterMetadata<Cl
     {
       label: 'Character Three Type',
       text: (item: ClanMemberProfile) =>
-        getClassType(item.profile.characters.data[item.profile.profile.data.characterIds[2]]?.classType) || ''
+        getClassType(item?.profile?.characters?.data[item?.profile?.profile?.data?.characterIds[2]]?.classType) || ''
     }
   ],
   [
@@ -68,7 +68,7 @@ export const CLAN_ROSTER_EXPORTER_METADATA = new Map<string, ExporterMetadata<Cl
     {
       label: 'Character Three Power',
       text: (item: ClanMemberProfile) =>
-        `${item.profile.characters.data[item.profile.profile.data.characterIds[2]]?.light || ''}`
+        `${item?.profile?.characters?.data[item?.profile?.profile?.data?.characterIds[2]]?.light || ''}`
     }
   ],
   [

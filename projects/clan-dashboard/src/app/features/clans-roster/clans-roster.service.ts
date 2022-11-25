@@ -18,6 +18,7 @@ import { ClanMembersService } from '@destiny/data/clan/clan-members';
 import { ProfileService } from 'projects/data/src/lib/clan/profiles/profile.service';
 import { MemberProfile } from '@destiny/data/models';
 import { GroupsV2GroupMember } from 'bungie-api-angular';
+import { getClanMemberId, getMemberProfileId } from '@destiny/data/utility';
 
 export interface ClanMemberProfile {
   clan: {
@@ -75,20 +76,34 @@ export class ClansRosterService {
       return from(clansAndMembers).pipe(
         mergeMap((clanAndMembers) => {
           return this.profileService
-            .getSerializedProfiles<MemberProfile>(clanAndMembers.clan.clanId, clanAndMembers.members, [], [])
+            .getSerializedProfilesFromCache(clanAndMembers.clan.clanId, clanAndMembers.members, [], [])
             .pipe(
-              map((result: MemberProfile) => {
-                return {
-                  clan: {
-                    clanId: clanAndMembers.clan.clanId,
-                    clanName: clanAndMembers.clan.clanName,
-                    clanTag: clanAndMembers.clan.clanTag
-                  },
-                  member: clanAndMembers.members.find(
-                    (x) => x.destinyUserInfo?.membershipId == result?.profile?.data?.userInfo?.membershipId
-                  ),
-                  profile: result
-                };
+              switchMap((resultProfiles: MemberProfile[]) => {
+                return clanAndMembers.members.map((member) => {
+                  return {
+                    clan: {
+                      clanId: clanAndMembers.clan.clanId,
+                      clanName: clanAndMembers.clan.clanName,
+                      clanTag: clanAndMembers.clan.clanTag
+                    },
+                    member,
+                    profile: resultProfiles.find((profile) => {
+                      return getClanMemberId(member) === getMemberProfileId(profile);
+                    })
+                  };
+                });
+
+                // return {
+                //   clan: {
+                //     clanId: clanAndMembers.clan.clanId,
+                //     clanName: clanAndMembers.clan.clanName,
+                //     clanTag: clanAndMembers.clan.clanTag
+                //   },
+                //   member: clanAndMembers.members.find(
+                //     (x) => x.destinyUserInfo?.membershipId == result?.profile?.data?.userInfo?.membershipId
+                //   ),
+                //   profile: result
+                // };
               })
             );
         }),
@@ -97,16 +112,17 @@ export class ClansRosterService {
     })
   );
 
-  // TODO: Use this next
+  // TODO: Make sure UI updates eventually
   // Whenever activeClanUpdateDates gets updated. Run this observable.
   activeClanPeople$ = this.activeClanUpdateDates$.pipe(
-    map((x) => {
-      return (
-        combineLatest([this.activeClansId$, this.activeClanUpdateDates$]),
-        map(([clans, clanDates]) => {
-          return clans;
-        })
-      );
+    switchMap((x) => {
+      return this.clanProfiles$;
+      // return (
+      //   combineLatest([this.activeClansId$, this.activeClanUpdateDates$]),
+      //   map(([clans, clanDates]) => {
+      //     return clans;
+      //   })
+      // );
     })
   );
 

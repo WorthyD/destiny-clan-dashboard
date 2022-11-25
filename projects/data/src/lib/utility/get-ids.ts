@@ -5,5 +5,5 @@ export function getClanMemberId(member: ClanMember) {
 }
 
 export function getMemberProfileId(member: MemberProfile) {
-  return `${member?.profile.data.userInfo.membershipType}-${member?.profile.data.userInfo.membershipId}`;
+  return `${member?.profile?.data?.userInfo?.membershipType}-${member?.profile?.data?.userInfo?.membershipId}`;
 }

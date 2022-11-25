@@ -55,12 +55,13 @@ export class RecentActivityService {
                   .pipe(
                     take(1),
                     map((clanActivities) => {
-                      return clanActivities.map((clanProfileActivity) => {
+                      return clanAndMembers.members.map((member) => {
                         return {
-                          profileActivity: clanProfileActivity,
-                          profile: memberProfiles.find(
-                            (m) => getMemberProfileId(m) === getMemberProfileId(clanProfileActivity.memberProfile)
+                          clanMember: member,
+                          profileActivity: clanActivities.find(
+                            (ca) => getMemberProfileId(ca.memberProfile) === getClanMemberId(member)
                           ),
+                          profile: memberProfiles.find((m) => getMemberProfileId(m) === getClanMemberId(member)),
                           clan: {
                             clanId: clanAndMembers.clan.clanId,
                             clanName: clanAndMembers.clan.clanName,
@@ -68,6 +69,20 @@ export class RecentActivityService {
                           }
                         };
                       });
+
+                      // return clanActivities.map((clanProfileActivity) => {
+                      //   return {
+                      //     profileActivity: clanProfileActivity,
+                      //     profile: memberProfiles.find(
+                      //       (m) => getMemberProfileId(m) === getMemberProfileId(clanProfileActivity.memberProfile)
+                      //     ),
+                      //     clan: {
+                      //       clanId: clanAndMembers.clan.clanId,
+                      //       clanName: clanAndMembers.clan.clanName,
+                      //       clanTag: clanAndMembers.clan.clanTag
+                      //     }
+                      //   };
+                      // });
                     })
                   );
               })
@@ -97,7 +112,6 @@ export class RecentActivityService {
   activeClanActivity$: Observable<ProfileRecentActivity[]> = this.activeClanUpdateDates$.pipe(
     switchMap((x) => {
       // TODO: // console.log('verify this updates properly');
-      console.log('switch mapping', x);
       return this.clanProfiles$;
 
       // console.log('stuff', x);

@@ -13,7 +13,7 @@ export const CLAN_ROSTER_EXPORTER_METADATA = new Map<string, ExporterMetadata<Pr
     'playerName',
     {
       label: 'Display Name',
-      text: (item: ProfileRecentActivity) => `${item.profile.profile.data.userInfo.displayName}`
+      text: (item: ProfileRecentActivity) => `${item.clanMember?.destinyUserInfo?.displayName}`
     }
   ],
   [
@@ -27,21 +27,21 @@ export const CLAN_ROSTER_EXPORTER_METADATA = new Map<string, ExporterMetadata<Pr
     'lastWeek',
     {
       label: 'Last Week (Minutes)',
-      text: (item: ProfileRecentActivity) => `${convertToMinutes(item.profileActivity.stats.lastWeek)}`
+      text: (item: ProfileRecentActivity) => `${convertToMinutes(item.profileActivity?.stats?.lastWeek)}`
     }
   ],
   [
     'lastMonth',
     {
       label: 'Last Month (Minutes)',
-      text: (item: ProfileRecentActivity) => `${convertToMinutes(item.profileActivity.stats.lastMonth)}`
+      text: (item: ProfileRecentActivity) => `${convertToMinutes(item.profileActivity?.stats?.lastMonth)}`
     }
   ],
   [
     'lastNinety',
     {
       label: 'Last 90 Days (Minutes)',
-      text: (item: ProfileRecentActivity) => `${convertToMinutes(item.profileActivity.stats.lastNinetyDays)}`
+      text: (item: ProfileRecentActivity) => `${convertToMinutes(item.profileActivity?.stats?.lastNinetyDays)}`
     }
   ],
   [
@@ -49,7 +49,7 @@ export const CLAN_ROSTER_EXPORTER_METADATA = new Map<string, ExporterMetadata<Pr
     {
       label: 'Last Played',
       text: (item: ProfileRecentActivity, context: ViewContext) =>
-        `${context.dateTimePipe.transform(item.profile?.profile.data.dateLastPlayed as unknown as Date)}`
+        `${context.dateTimePipe.transform(item.profile?.profile?.data?.dateLastPlayed as unknown as Date)}`
     }
   ]
 ]);

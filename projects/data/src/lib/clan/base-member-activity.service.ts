@@ -257,6 +257,9 @@ export class BaseMemberActivityService extends BaseClanService {
         let complete = 0;
         return memberProfilesObs.pipe(
           mergeMap((memberProfile) => {
+            if (!memberProfile?.profile?.data?.characterIds) {
+              return of();
+            }
             return from(memberProfile.profile.data.characterIds).pipe(
               mergeMap((characterId: number) => {
                 const characterActivityId = this.getMemberActivityId(memberProfile, characterId);
@@ -290,7 +293,7 @@ export class BaseMemberActivityService extends BaseClanService {
     useCache: boolean,
     activityMode: number = 0
   ): Observable<MemberActivityStats> {
-    if (!member) {
+    if (!member?.profile) {
       return of(null);
     }
     return from(member.profile.data.characterIds).pipe(
