@@ -23,8 +23,14 @@
             "polyfills": "projects/clan-dashboard/src/polyfills.ts",
             "tsConfig": "projects/clan-dashboard/tsconfig.app.json",
             "inlineStyleLanguage": "scss",
-            "assets": ["projects/clan-dashboard/src/favicon.ico", "projects/clan-dashboard/src/assets", "projects/clan-dashboard/src/_redirects"],
-            "styles": ["projects/clan-dashboard/src/styles.scss"],
+            "assets": [
+              "projects/clan-dashboard/src/favicon.ico",
+              "projects/clan-dashboard/src/assets",
+              "projects/clan-dashboard/src/_redirects"
+            ],
+            "styles": [
+              "projects/clan-dashboard/src/styles.scss"
+            ],
             "scripts": [],
             "webWorkerTsConfig": "projects/clan-dashboard/tsconfig.worker.json"
           },
@@ -87,8 +93,13 @@
             "tsConfig": "projects/clan-dashboard/tsconfig.spec.json",
             "karmaConfig": "projects/clan-dashboard/karma.conf.js",
             "inlineStyleLanguage": "scss",
-            "assets": ["projects/clan-dashboard/src/favicon.ico", "projects/clan-dashboard/src/assets"],
-            "styles": ["projects/clan-dashboard/src/styles.scss"],
+            "assets": [
+              "projects/clan-dashboard/src/favicon.ico",
+              "projects/clan-dashboard/src/assets"
+            ],
+            "styles": [
+              "projects/clan-dashboard/src/styles.scss"
+            ],
             "scripts": [],
             "webWorkerTsConfig": "projects/clan-dashboard/tsconfig.worker.json"
           }
@@ -96,7 +107,10 @@
         "lint": {
           "builder": "@angular-eslint/builder:lint",
           "options": {
-            "lintFilePatterns": ["projects/clan-dashboard/**/*.ts", "projects/clan-dashboard/**/*.html"]
+            "lintFilePatterns": [
+              "projects/clan-dashboard/**/*.ts",
+              "projects/clan-dashboard/**/*.html"
+            ]
           }
         },
         "storybook": {
@@ -146,7 +160,10 @@
         "lint": {
           "builder": "@angular-eslint/builder:lint",
           "options": {
-            "lintFilePatterns": ["projects/data/**/*.ts", "projects/data/**/*.html"]
+            "lintFilePatterns": [
+              "projects/data/**/*.ts",
+              "projects/data/**/*.html"
+            ]
           }
         }
       }
@@ -188,10 +205,12 @@
         "lint": {
           "builder": "@angular-eslint/builder:lint",
           "options": {
-            "lintFilePatterns": ["projects/components/**/*.ts", "projects/components/**/*.html"]
+            "lintFilePatterns": [
+              "projects/components/**/*.ts",
+              "projects/components/**/*.html"
+            ]
           }
         },
-
         "storybook": {
           "builder": "@storybook/angular:start-storybook",
           "options": {
@@ -209,6 +228,16 @@
     }
   },
   "cli": {
-    "schematicCollections": ["@angular-eslint/schematics"]
+    "schematicCollections": [
+      "@angular-eslint/schematics"
+    ]
+  },
+  "schematics": {
+    "@angular-eslint/schematics:application": {
+      "setParserOptionsProject": true
+    },
+    "@angular-eslint/schematics:library": {
+      "setParserOptionsProject": true
+    }
   }
 }

@@ -4,8 +4,8 @@ import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
 import { BehaviorSubject, combineLatest, map, Observable, shareReplay } from 'rxjs';
 
-import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
-import { MatTableModule } from '@angular/material/table';
+import { MatLegacyPaginatorModule as MatPaginatorModule, LegacyPageEvent as PageEvent } from '@angular/material/legacy-paginator';
+import { MatLegacyTableModule as MatTableModule } from '@angular/material/legacy-table';
 import { MatDividerModule } from '@angular/material/divider';
 import { RenderedViewComponent } from '../rendered-view/rendered-view.component';
 import { DisplayOptionsComponent } from '../display-options/display-options.component';
@@ -17,7 +17,7 @@ import { Filterer } from '../../data/filterer';
 import { Grouper } from '../../data/grouper';
 import { Sorter } from '../../data/sorter';
 import { RenderedViewModule } from '../rendered-view/rendered-view.module';
-import { MatButtonModule } from '@angular/material/button';
+import { MatLegacyButtonModule as MatButtonModule } from '@angular/material/legacy-button';
 
 export interface Item {
   id: string;
