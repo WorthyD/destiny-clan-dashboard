@@ -1,10 +1,10 @@
 import { Component, OnInit, ViewRef, ViewEncapsulation, ChangeDetectionStrategy } from '@angular/core';
 import { DataSource, Exporter, Filterer, Grouper, Sorter, Viewer } from '@destiny/components';
-import { combineLatest, filter, map, Observable, of } from 'rxjs';
+import { combineLatest, filter, map, Observable, of, tap } from 'rxjs';
 import { CLAN_ROSTER_VIEWER_METADATA } from './clan-roster-metadata';
 import { CLAN_ROSTER_FILTERER_METADATA } from './clan-roster-metadata/ClanRosterFilterer';
 import { CLAN_ROSTER_SORTER_METADATA } from './clan-roster-metadata/ClanRosterSorter';
-import { ClanMemberProfile, ClansRosterService } from './clans-roster.service';
+import { ClanMemberProfile, ClansRosterService } from './data-access/clans-roster.service';
 
 import { BungieDatePipe, BungieDateTimePipe } from '@destiny/components/pipes/bungie-date';
 import { CLAN_ROSTER_EXPORTER_METADATA } from './clan-roster-metadata/ClanRosterExporter';
@@ -43,6 +43,7 @@ export class ClansRosterComponent implements OnInit {
   rosterSorter = new Sorter({ metadata: CLAN_ROSTER_SORTER_METADATA });
   rosterExporter = new Exporter({ metadata: CLAN_ROSTER_EXPORTER_METADATA });
 
+
   rosterInfo$: Observable<RosterResources> = combineLatest([this.clansRosterService.activeClanPeople$]).pipe(
     map(([clanProfiles]) => {
       return {
@@ -54,7 +55,8 @@ export class ClansRosterComponent implements OnInit {
         sorter: this.rosterSorter
       };
     }),
-    filter((ds) => !!ds)
+    filter((ds) => !!ds),
+    tap((ds) => console.log('tapping', ds))
   );
 
   createViewContextProvider() {

@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { selectEnabledClanIds, selectEnabledClans, selectLastRecentActivityUpdate } from '@core/store/clans';
 import { combineLatest, from, map, mergeMap, Observable, switchMap, take, tap, toArray } from 'rxjs';
-import { ClanMemberProfile } from '@features/clans-roster/clans-roster.service';
 import { ClanMembersService } from '@destiny/data/clan/clan-members';
 import { ProfileService } from 'projects/data/src/lib/clan/profiles/profile.service';
 import { MemberProfile } from '@destiny/data/models';

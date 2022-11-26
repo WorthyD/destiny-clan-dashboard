@@ -1,9 +1,9 @@
 import { ViewerMetadata } from '@destiny/components';
 
-import { ClanMemberProfile } from '../clans-roster.service';
 import { BungieDatePipe, BungieDateTimePipe } from '@destiny/components/pipes/bungie-date';
 import { MemberTypeComponent } from '@destiny/components/icons';
 import { ClassCellComponent } from '../class-cell/class-cell.component';
+import { ClanMemberProfile } from '../data-access/clans-roster.service';
 
 interface ViewContext {
   item: ClanMemberProfile;
