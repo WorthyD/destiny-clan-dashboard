@@ -55,7 +55,7 @@ export class MemberActivityUpdaterService {
         // );
         //       console.log('progress', progressCount);
       };
-      console.log(clan.members);
+      // console.log(clan.members);
       return this.profileRecentActivityWorkerService
         .updateAllRecentActivityCache(clan.clanConfig.clanId, clan.profiles, progress)
         .pipe(

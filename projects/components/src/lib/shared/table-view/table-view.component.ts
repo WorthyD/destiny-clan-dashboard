@@ -1,10 +1,13 @@
 // Component originated from https://github.com/crafted/crafted
 
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, OnInit, OnChanges, SimpleChanges } from '@angular/core';
 import { BehaviorSubject, combineLatest, map, Observable, shareReplay } from 'rxjs';
 
-import { MatLegacyPaginatorModule as MatPaginatorModule, LegacyPageEvent as PageEvent } from '@angular/material/legacy-paginator';
+import {
+  MatLegacyPaginatorModule as MatPaginatorModule,
+  LegacyPageEvent as PageEvent
+} from '@angular/material/legacy-paginator';
 import { MatLegacyTableModule as MatTableModule } from '@angular/material/legacy-table';
 import { MatDividerModule } from '@angular/material/divider';
 import { RenderedViewComponent } from '../rendered-view/rendered-view.component';
@@ -61,7 +64,7 @@ interface TablePage {
   styleUrls: ['./table-view.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class TableViewComponent implements OnInit {
+export class TableViewComponent implements  OnChanges {
   displayedColumns: Observable<string[]>;
 
   views: ViewLabel[];
@@ -91,33 +94,38 @@ export class TableViewComponent implements OnInit {
   renderedData: Observable<Item[]>;
   constructor() {}
 
-  ngOnInit(): void {
-    // TODO: Cannot be in ngOnInit since the inputs may change
-    const curatedData = this.dataSource.data.pipe(this.filterer.filter(), this.sorter.sort());
-    this.renderedData = combineLatest([curatedData, this.page]).pipe(
-      map(([data, page]) => data.slice(page.index * page.size, page.index * page.size + page.size))
-    );
-    this.itemCount = curatedData.pipe(map((d) => d.length));
 
-    this.views = this.viewer.getViews();
-    this.displayedColumns = this.viewer.state.pipe(
-      map((state) => {
-        return this.views.map((v) => v.id).filter((v) => state.views.indexOf(v) !== -1);
-      })
-    );
+  ngOnChanges(changes: SimpleChanges): void {
+    // TODO: Make this better
+    if (changes['dataSource'] || changes['filterer'] || changes['sorter'] || changes['viewer']) {
+      if (this.dataSource && this.filterer && this.sorter && this.viewer) {
+        const curatedData = this.dataSource.data.pipe(this.filterer.filter(), this.sorter.sort());
+        this.renderedData = combineLatest([curatedData, this.page]).pipe(
+          map(([data, page]) => data.slice(page.index * page.size, page.index * page.size + page.size))
+        );
+        this.itemCount = curatedData.pipe(map((d) => d.length));
 
-    this.renderedHtml = this.renderedData.pipe(
-      map((items) => {
-        const renderedHtml = new Map<Item, Map<string, Observable<RenderedView>>>();
-        items.forEach((item) => {
-          const itemRenderedViews = new Map<string, Observable<RenderedView>>();
-          this.views.forEach((view) => itemRenderedViews.set(view.id, this.viewer.getRenderedView(item, view.id)));
-          renderedHtml.set(item, itemRenderedViews);
-        });
-        return renderedHtml;
-      }),
-      shareReplay(1)
-    );
+        this.views = this.viewer.getViews();
+        this.displayedColumns = this.viewer.state.pipe(
+          map((state) => {
+            return this.views.map((v) => v.id).filter((v) => state.views.indexOf(v) !== -1);
+          })
+        );
+
+        this.renderedHtml = this.renderedData.pipe(
+          map((items) => {
+            const renderedHtml = new Map<Item, Map<string, Observable<RenderedView>>>();
+            items.forEach((item) => {
+              const itemRenderedViews = new Map<string, Observable<RenderedView>>();
+              this.views.forEach((view) => itemRenderedViews.set(view.id, this.viewer.getRenderedView(item, view.id)));
+              renderedHtml.set(item, itemRenderedViews);
+            });
+            return renderedHtml;
+          }),
+          shareReplay(1)
+        );
+      }
+    }
   }
 
   setPage(event: PageEvent) {
