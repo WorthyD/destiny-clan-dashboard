@@ -1,8 +1,8 @@
 // Component originated from https://github.com/crafted/crafted
 
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
-import { BehaviorSubject, combineLatest, filter, map, Observable, of, shareReplay, tap } from 'rxjs';
+import { ChangeDetectionStrategy, Component, Input, OnInit, OnChanges, SimpleChanges } from '@angular/core';
+import { BehaviorSubject, combineLatest, map, Observable, shareReplay } from 'rxjs';
 
 import {
   MatLegacyPaginatorModule as MatPaginatorModule,
@@ -64,7 +64,8 @@ interface TablePage {
   styleUrls: ['./table-view.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class TableViewComponent implements OnInit {
+export class TableViewComponent implements  OnChanges {
+  displayedColumns: Observable<string[]>;
 
   views: ViewLabel[];
 
@@ -74,20 +75,7 @@ export class TableViewComponent implements OnInit {
 
   @Input() filterer: Filterer;
 
-  _viewer: Viewer;
-  @Input() set viewer(value: Viewer) {
-    this._viewer = value;
-    this.views = value.getViews();
-    this.displayedColumns =  value.state.pipe(
-     map((state) => {
-       return this.views.map((v) => v.id).filter((v) => state.views.indexOf(v) !== -1);
-     })
-   );
-  }
-
-  get viewer() {
-    return this._viewer;
-  }
+  @Input() viewer: Viewer;
 
   @Input() grouper: Grouper;
 
@@ -99,101 +87,46 @@ export class TableViewComponent implements OnInit {
 
   @Input() loading: boolean;
 
-  displayedColumns: Observable<string[]>;
-
   itemCount: Observable<number>;
 
   page: BehaviorSubject<TablePage> = new BehaviorSubject({ size: 25, index: 0 });
 
   renderedData: Observable<Item[]>;
-  constructor() {
+  constructor() {}
+
+
+  ngOnChanges(changes: SimpleChanges): void {
+    // TODO: Make this better
+    if (changes['dataSource'] || changes['filterer'] || changes['sorter'] || changes['viewer']) {
+      if (this.dataSource && this.filterer && this.sorter && this.viewer) {
+        const curatedData = this.dataSource.data.pipe(this.filterer.filter(), this.sorter.sort());
+        this.renderedData = combineLatest([curatedData, this.page]).pipe(
+          map(([data, page]) => data.slice(page.index * page.size, page.index * page.size + page.size))
+        );
+        this.itemCount = curatedData.pipe(map((d) => d.length));
+
+        this.views = this.viewer.getViews();
+        this.displayedColumns = this.viewer.state.pipe(
+          map((state) => {
+            return this.views.map((v) => v.id).filter((v) => state.views.indexOf(v) !== -1);
+          })
+        );
+
+        this.renderedHtml = this.renderedData.pipe(
+          map((items) => {
+            const renderedHtml = new Map<Item, Map<string, Observable<RenderedView>>>();
+            items.forEach((item) => {
+              const itemRenderedViews = new Map<string, Observable<RenderedView>>();
+              this.views.forEach((view) => itemRenderedViews.set(view.id, this.viewer.getRenderedView(item, view.id)));
+              renderedHtml.set(item, itemRenderedViews);
+            });
+            return renderedHtml;
+          }),
+          shareReplay(1)
+        );
+      }
+    }
   }
-
-  ngOnInit(): void {
-    // this.dataSourceObs.pipe(map((ds) => {
-    //   const curatedData = ds.data.pipe(this.filterer.filter(), this.sorter.sort());
-
-    //   return ds;
-    // }));
-
-    // TODO: Cannot be in ngOnInit since the inputs may change
-    const curatedData = this.dataSource.data.pipe(this.filterer.filter(), this.sorter.sort());
-    this.renderedData = combineLatest([curatedData, this.page]).pipe(
-      map(([data, page]) => data.slice(page.index * page.size, page.index * page.size + page.size))
-    );
-    this.itemCount = curatedData.pipe(map((d) => d.length));
-
-    // this.views = this.viewer.getViews();
-    // this.displayedColumns = this.viewer.state.pipe(
-    //   map((state) => {
-    //     return this.views.map((v) => v.id).filter((v) => state.views.indexOf(v) !== -1);
-    //   })
-    // );
-
-    this.renderedHtml = this.renderedData.pipe(
-      map((items) => {
-        const renderedHtml = new Map<Item, Map<string, Observable<RenderedView>>>();
-        items.forEach((item) => {
-          const itemRenderedViews = new Map<string, Observable<RenderedView>>();
-          this.views.forEach((view) => itemRenderedViews.set(view.id, this.viewer.getRenderedView(item, view.id)));
-          renderedHtml.set(item, itemRenderedViews);
-        });
-        return renderedHtml;
-      }),
-      shareReplay(1)
-    );
-  }
-  // TODO: Observe testing -----------------------------------
-
-  // @Input() dataSourceObs: Observable<DataSource> = of(null);
-  // //@Input() viewer2: Observable<Viewer> = of(null);
-  // // renderedData2: Observable<Item[]>;
-  // curatedData: Observable<any> = this.dataSourceObs.pipe(
-  //   filter((ds) => !!ds),
-  //   map((ds) => {
-  //     return ds.data.pipe(this.filterer.filter(), this.sorter.sort());
-  //   })
-  // );
-  // renderedData2 = combineLatest([this.curatedData, this.page]).pipe(
-  //   map(([data, page]) => data.slice(page.index * page.size, page.index * page.size + page.size))
-  // );
-  // itemCount2 = this.curatedData.pipe(map((d) => d.length));
-  // views2 = this.viewer2.pipe(map((v) => v.getViews()));
-  // displayedColumns2 = this.viewer2.pipe(
-  //   filter((v) => !!v),
-  //   map((viewer) =>
-  //     viewer.state.pipe(
-  //       map((state) => {
-  //         return this.views.map((v) => v.id).filter((v) => state.views.indexOf(v) !== -1);
-  //       })
-  //     )
-  //   )
-  // );
-  // renderedHtml2: Observable<Map<Item, Map<string, Observable<RenderedView>>>> = combineLatest([
-  //   this.renderedData2,
-  //   this.viewer2,
-  //   this.views2
-  // ]).pipe(
-  //   map(([items, viewer2, views2]) => {
-  //     const renderedHtml = new Map<Item, Map<string, Observable<RenderedView>>>();
-  //     items.forEach((item) => {
-  //       const itemRenderedViews = new Map<string, Observable<RenderedView>>();
-  //       views2.forEach((view) => itemRenderedViews.set(view.id, viewer2.getRenderedView(item, view.id)));
-  //       renderedHtml.set(item, itemRenderedViews);
-  //     });
-  //     return renderedHtml;
-  //   }),
-  //   shareReplay(1)
-  // );
-
-  // vm$ = combineLatest([this.viewer2]).pipe(
-  //   tap((x) => console.log(x)),
-  //   map(([viewer]) => ({
-  //     viewer
-  //   }))
-  // );
-
-  // TODO: Observe testing -----------------------------------
 
   setPage(event: PageEvent) {
     this.page.next({ index: event.pageIndex, size: event.pageSize });
