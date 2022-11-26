@@ -1,8 +1,7 @@
-import { AppIndexedDb, StoreId, DBObject } from '../db/clan-indexed-db';
+import { AppIndexedDb, StoreId, DBObject, STORE_IDS } from '../db/clan-indexed-db';
 
 export class ClanDatabase {
   private database: AppIndexedDb;
-
 
   getAll(repository: string, type: StoreId): Promise<DBObject[]> {
     return this.getDatabase(repository).getAllData(type);
@@ -26,6 +25,12 @@ export class ClanDatabase {
 
   deleteDatabase(repository: string) {
     return this.getDatabase(repository, false).purgeDatabase();
+  }
+
+  purgeDatabase(repository: string) {
+    STORE_IDS.forEach((storeId) => {
+      this.getDatabase(repository, false).removeAllValues(storeId);
+    });
   }
 
   private getDatabase(repository: string, initializeValues: boolean = true) {
