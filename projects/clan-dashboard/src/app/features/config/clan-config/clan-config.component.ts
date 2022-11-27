@@ -17,8 +17,8 @@ export class ClanConfigComponent {
 
   deleteClanData() {
     this.store.dispatch(removeClan({ clanId: this.clanConfig.clanId }));
-    this.db.deleteDatabase(this.clanConfig.clanId);
-    /*
+    this.db.purgeDatabase(this.clanConfig.clanId);
+     /*
     window.localStorage.removeItem(`lastActivityUpdate-${x}`)
     window.localStorage.removeItem(`lastActivityAllUpdate-${x}`)
     window.localStorage.removeItem(`MANIFEST_PATH_KEY`)
