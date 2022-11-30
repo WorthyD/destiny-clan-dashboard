@@ -24,6 +24,12 @@ const routes: Routes = [
           import('./views/recent-activity/recent-activity.module').then((module) => module.RecentActivityModule)
       },
       {
+        path: 'seals',
+        loadChildren: () =>
+          import('./features/seals/seals-shell/seals-routing.module').then((module) => module.SealsRoutingModule)
+      },
+
+      {
         path: 'config',
         loadChildren: () => import('./views/config/config.module').then((module) => module.ConfigModule)
       }

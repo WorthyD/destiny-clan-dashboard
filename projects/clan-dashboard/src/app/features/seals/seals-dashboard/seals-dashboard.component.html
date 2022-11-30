@@ -1,0 +1,3 @@
+<ng-container *ngIf="{ seals: seals$  | async } as vm">
+  <app-seals-list [sealsList]="vm.seals"></app-seals-list>
+</ng-container>
