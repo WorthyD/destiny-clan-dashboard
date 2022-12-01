@@ -1,150 +1,51 @@
 import { ExporterMetadata } from '@destiny/components';
 import { MembershipTypes } from '@destiny/data/models/enums';
-import { ClanMemberProfile } from '../data-access/clans-roster.service';
 
+import { SealClanMember } from '../../models/seal-clan-member';
+import { getMemberName } from '@destiny/data/utility';
 // import { MockListItem } from './ListItems';
-export const CLAN_ROSTER_EXPORTER_METADATA = new Map<string, ExporterMetadata<ClanMemberProfile>>([
-  [
-    'destinyId',
-    { label: 'Membership Id', text: (item: ClanMemberProfile) => `${item.member.destinyUserInfo.membershipId}` }
-  ],
-  [
-    'platform',
-    {
-      label: 'Platform',
-      text: (item: ClanMemberProfile) => getMembershipType(item.member.destinyUserInfo.membershipType)
-    }
-  ],
+export const SEAL_DETAILS_EXPORTER_METADATA = new Map<string, ExporterMetadata<SealClanMember>>([
   [
     'destinyDisplayName',
-    { label: 'Destiny Display Name', text: (item: ClanMemberProfile) => `${item.member.destinyUserInfo?.displayName}` }
-  ],
-  [
-    'bungieDisplayName',
-    { label: 'Bungie Display Name', text: (item: ClanMemberProfile) => `${item.member.bungieNetUserInfo?.displayName}` }
-  ],
-  [
-    'characterOneType',
     {
-      label: 'Character One Type',
-      text: (item: ClanMemberProfile) =>
-        getClassType(item?.profile?.characters?.data[item?.profile?.profile?.data?.characterIds[0]]?.classType) || ''
+      label: 'Destiny Display Name',
+      text: (item: SealClanMember) => `${getMemberName(item.clanMember)}`
     }
   ],
   [
-    'characterOnePower',
+    'destinyClan',
     {
-      label: 'Character One Power',
-      text: (item: ClanMemberProfile) =>
-        `${item?.profile?.characters?.data[item?.profile?.profile?.data?.characterIds[0]]?.light || ''}`
+      label: 'Destiny Clan',
+      text: (item: SealClanMember) => `${item.clan.clanName}`
     }
   ],
   [
-    'characterTwoType',
+    'isComplete',
     {
-      label: 'Character Two Type',
-      text: (item: ClanMemberProfile) =>
-        getClassType(item?.profile?.characters?.data[item?.profile?.profile?.data?.characterIds[1]]?.classType) || ''
+      label: 'Is Completed',
+      text: (item: SealClanMember) => (item.sealProgression.isCompleted ? 'X' : '')
     }
   ],
   [
-    'characterTwoPower',
+    'completeCount',
     {
-      label: 'Character Two Power',
-      text: (item: ClanMemberProfile) =>
-        `${item?.profile?.characters?.data[item?.profile?.profile?.data?.characterIds[1]]?.light || ''}`
+      label: 'Completed Count',
+      text: (item: SealClanMember) => `${item.sealProgression.completedTriumphCount}`
     }
   ],
   [
-    'characterThreeType',
+    'totalCount',
     {
-      label: 'Character Three Type',
-      text: (item: ClanMemberProfile) =>
-        getClassType(item?.profile?.characters?.data[item?.profile?.profile?.data?.characterIds[2]]?.classType) || ''
+      label: 'Total Count',
+      text: (item: SealClanMember) => `${item.sealProgression.totalTriumphCount}`
     }
   ],
+
   [
-    'characterThreePower',
+    'progress',
     {
-      label: 'Character Three Power',
-      text: (item: ClanMemberProfile) =>
-        `${item?.profile?.characters?.data[item?.profile?.profile?.data?.characterIds[2]]?.light || ''}`
+      label: 'Is Completed',
+      text: (item: SealClanMember) => `${item.sealProgression.completionPercentage}%`
     }
-  ],
-  [
-    'powerBonus',
-    {
-      label: 'Power Bonus',
-      text: (item: ClanMemberProfile) => `${item.profile?.profileProgression?.data?.seasonalArtifact?.powerBonus}`
-    }
-  ],
-  [
-    'activeTriumph',
-    { label: 'Active Triumph', text: (item: ClanMemberProfile) => `${item.profile?.profileRecords?.data?.activeScore}` }
-  ],
-  [
-    'lifeTimeTriumph',
-    {
-      label: 'Lifetime Triumph',
-      text: (item: ClanMemberProfile) => `${item.profile?.profileRecords?.data?.lifetimeScore}`
-    }
-  ],
-  ['clanJoinDate', { label: 'Clan Join Date', text: (item: ClanMemberProfile) => `${item.member?.joinDate}` }],
-  [
-    'lastPlayed',
-    { label: 'Last Played', text: (item: ClanMemberProfile) => `${item.profile?.profile.data.dateLastPlayed}` }
   ]
 ]);
-
-function getClassType(classType) {
-  switch (classType) {
-    case 0:
-      return 'titan';
-    case 1:
-      return 'hunter';
-    case 2:
-      return 'warlock';
-    default:
-      return '';
-  }
-}
-// TODO: Update to include epic
-function getMembershipType(value) {
-  switch (value) {
-    case MembershipTypes.Xbox:
-      return 'xbox';
-    case MembershipTypes.Psn:
-      return 'playstation';
-    case MembershipTypes.Steam:
-      return 'steam';
-    case MembershipTypes.Stadia:
-      return 'stadia';
-    default:
-      return ``;
-  }
-}
-/* applyValues(stats: ClanMemberListItem[]) {
-    return stats.map((x) => {
-      const firstChar = item.profile.profile.data.characterIds[0];
-      const secondChar = item.profile.profile.data.characterIds[1];
-      const thirdChar = item.profile.profile.data.characterIds[2];
-
-      return {
-        'Destiny Membership Id': item.member.destinyUserInfo.membershipId,
-        Platform: this.getMembershipType(item.member.destinyUserInfo.membershipType),
-        'Destiny Display Name': item.member.destinyUserInfo?.displayName,
-        'Bungie Display Name': item.member.bungieNetUserInfo?.displayName,
-        'Character One Type': this.getClassType(item.profile.characters.data[firstChar]?.classType) || `${}`,
-        'Character One Power': item.profile.characters.data[firstChar]?.light || `${}`,
-        'Character Two Type': this.getClassType(item.profile.characters.data[secondChar]?.classType),
-        'Character Two Power': item.profile.characters.data[secondChar]?.light || `${}`,
-        'Character Three Type': this.getClassType(item.profile.characters.data[thirdChar]?.classType) || `${}`,
-        'Character Three Power': item.profile.characters.data[thirdChar]?.light || `${}`,
-        'Power Bonus': item.profile?.profileProgression?.data?.seasonalArtifact?.powerBonus,
-        'Active Triumph': item.profile?.profileRecords?.data?.activeScore,
-        'Lifetime Triumph': item.profile?.profileRecords?.data?.lifetimeScore,
-        'Clan Join Date': item.member?.joinDate,
-        'Last Played': item.profile?.profile.data.dateLastPlayed
-      };
-    });
-  }*/

@@ -1,125 +1,53 @@
 import { ViewerMetadata } from '@destiny/components';
 
 import { BungieDatePipe, BungieDateTimePipe } from '@destiny/components/pipes/bungie-date';
-import { MemberTypeComponent } from '@destiny/components/icons';
-import { ClassCellComponent } from '../class-cell/class-cell.component';
-import { ClanMemberProfile } from '../data-access/clans-roster.service';
+import { getMemberName } from '@destiny/data/utility';
+import { SealClanMember } from '../../models/seal-clan-member';
 
 interface ViewContext {
-  item: ClanMemberProfile;
-  datePipe: BungieDatePipe;
-  dateTimePipe: BungieDateTimePipe;
+  item: SealClanMember;
 }
 
-export const CLAN_ROSTER_VIEWER_METADATA = new Map<string, ViewerMetadata<ClanMemberProfile, ViewContext>>([
-  [
-    'platform',
-    {
-      label: 'Platform',
-      render: (item: ClanMemberProfile) => ({
-        //        styles: {},
-        component: MemberTypeComponent,
-        data: { type: item.member?.destinyUserInfo?.membershipType || 0}
-        //text: `${item.member.destinyUserInfo.membershipType}`
-      })
-    }
-  ],
+export const SEAL_DETAILS_VIEWER_METADATA = new Map<string, ViewerMetadata<SealClanMember, ViewContext>>([
   [
     'destinyDisplayName',
     {
       label: 'Destiny Display Name',
-      render: (item: ClanMemberProfile) => ({ text: `${item.member?.destinyUserInfo?.displayName || ''}` })
+      render: (item: SealClanMember) => ({ text: `${getMemberName(item.clanMember)}` })
     }
   ],
   [
-    'bungieDisplayName',
+    'destinyClan',
     {
-      label: 'Bungie Display Name',
-      render: (item: ClanMemberProfile) => ({ text: `${item.member?.bungieNetUserInfo?.displayName || ''}` })
+      label: 'Destiny Clan',
+      render: (item: SealClanMember) => ({ text: `${item.clan.clanName}` })
     }
   ],
   [
-    'characters',
+    'isComplete',
     {
-      label: 'Characters',
-      render: (item: ClanMemberProfile) => {
-        const characterIds = item.profile?.profile?.data?.characterIds;
-        return {
-          classList: 'characters-cell',
-          children: characterIds?.map((id) => {
-            return {
-              classList: 'character-cell',
-              component: ClassCellComponent,
-              data: {
-                characterHash: id,
-                profile: item.profile
-              }
-            };
-          })
-        };
-      }
-    }
-  ],
-  [
-    'powerLevel',
-    {
-      label: '+',
-      render: (item: ClanMemberProfile) => ({
-        classList: 'power-cell',
-        text: `${item.profile?.profileProgression?.data?.seasonalArtifact?.powerBonus}`
+      label: 'Is Completed',
+      render: (item: SealClanMember) => ({
+        text: item.sealProgression.isCompleted ? 'X' : ''
       })
     }
   ],
   [
-    'activeTriumph',
+    'completeCount',
     {
-      label: 'Active Triumph',
-      render: (item: ClanMemberProfile) => ({
-        text: `${item.profile?.profileRecords?.data?.activeScore}`
+      label: 'Completed Count',
+      render: (item: SealClanMember) => ({
+        text: `${item.sealProgression.completedTriumphCount || 0} / ${item.sealProgression.completedTriumphCount}`
       })
     }
   ],
   [
-    'lifetimeTriumph',
+    'progress',
     {
-      label: 'Lifetime Triumph',
-      render: (item: ClanMemberProfile) => ({
-        text: `${item.profile?.profileRecords?.data?.lifetimeScore}`
+      label: 'Is Completed',
+      render: (item: SealClanMember) => ({
+        text: `${item.sealProgression.completionPercentage}%`
       })
-    }
-  ],
-  [
-    'clan',
-    {
-      label: 'Clan',
-      render: (item: ClanMemberProfile, context: ViewContext) => {
-        return {
-          text: `${item.clan.clanName}`
-        };
-      }
-    }
-  ],
-
-  [
-    'clanJoinDate',
-    {
-      label: 'Clan Join Date',
-      render: (item: ClanMemberProfile, context: ViewContext) => {
-        return {
-          text: `${context.datePipe.transform(item.member?.joinDate as unknown as Date)}`
-        };
-      }
-    }
-  ],
-  [
-    'dateLastPlayed',
-    {
-      label: 'Last Played',
-      render: (item: ClanMemberProfile, context: ViewContext) => {
-        return {
-          text: `${context.dateTimePipe.transform(item.profile?.profile.data.dateLastPlayed as unknown as Date)}`
-        };
-      }
     }
   ]
 

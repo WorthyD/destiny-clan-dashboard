@@ -1,2 +1,14 @@
-<p>seal-details works!</p>
-{{(sealDetails$ | async) | json}}
+<div class="seal-details">
+  <lib-table-view *ngIf="sealDetailsInfo$ | async as sealDetailsInfo; else loading"
+    [dataSource]="sealDetailsInfo.dataSource" [header]="'Recent Activity'"
+    [viewer]="sealDetailsInfo.viewer" [filterer]="sealDetailsInfo.filterer"
+    [sorter]="v.sorter" [exporter]="sealDetailsInfo.exporter">
+  </lib-table-view>
+
+  <ng-template #loading>
+    <div class="loading">
+      Loading Seal Details
+    </div>
+  </ng-template>
+
+</div>

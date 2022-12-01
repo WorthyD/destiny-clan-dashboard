@@ -53,10 +53,6 @@ export class RecentActivityComponent implements OnInit {
         filterer: this.activityFilterer,
         exporter: this.activityExporter,
         sorter: this.activitySorter
-        // viewer: this.rosterViewer,
-        // filterer: this.rosterFilter,
-        // exporter: this.rosterExporter,
-        // sorter: this.rosterSorter
       };
     }),
     filter((ds) => !!ds)

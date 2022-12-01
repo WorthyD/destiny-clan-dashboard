@@ -90,6 +90,7 @@ export class SealsService {
             profile: profileSerializer(clanProfile.profile, [], [], []), // Strip records to minimize size of object
             clan: clanProfile.clan,
             sealProgression: {
+              isCompleted: profileProgression?.complete,
               completedTriumphCount: profileProgression?.progress || 0,
               totalTriumphCount: profileProgression?.completionValue || 0,
               completionPercentage: profileProgression?.progress > 0
@@ -105,10 +106,10 @@ export class SealsService {
 
   private getCompletionCount(memberProfiles, completionHash) {
     return memberProfiles.filter((m) => {
-      //   console.log(m);
       const records = m.profile?.profileRecords?.data?.records[completionHash]?.objectives;
 
       if (records) {
+        //TODO: ?? is this correct?
         return records[0]?.progress === records[0]?.completionValue;
       }
       return false;

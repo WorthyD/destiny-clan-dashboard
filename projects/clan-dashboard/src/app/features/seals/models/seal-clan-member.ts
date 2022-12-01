@@ -13,5 +13,6 @@ export interface SealClanMember {
     completedTriumphCount: number;
     totalTriumphCount:number;
     completionPercentage: number;
+    isCompleted: boolean;
   };
 }

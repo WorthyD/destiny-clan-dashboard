@@ -1,9 +1,9 @@
 import { FiltererMetadata, textMatchesEquality } from '@destiny/components';
-import { ClanMemberProfile } from '../data-access/clans-roster.service';
+import { SealClanMember } from '../../models/seal-clan-member';
 // import { numberMatchesEquality } from '../data/utility/filter-matcher';
 // import { MockListItem } from './ListItems';
 
-export const CLAN_ROSTER_FILTERER_METADATA = new Map<string, FiltererMetadata<ClanMemberProfile>>([
+export const SEAL_DETAILS_FILTERER_METADATA = new Map<string, FiltererMetadata<SealClanMember>>([
   // [
   //   'destinyDisplayName',
   //   {
