@@ -106,11 +106,11 @@ export class SealsService {
 
   private getCompletionCount(memberProfiles, completionHash) {
     return memberProfiles.filter((m) => {
-      const records = m.profile?.profileRecords?.data?.records[completionHash]?.objectives;
+      const records = m.profile?.profileRecords?.data?.records[completionHash]?.objectives[0];
 
       if (records) {
         //TODO: ?? is this correct?
-        return records[0]?.progress === records[0]?.completionValue;
+        return records.complete;
       }
       return false;
     }).length;
