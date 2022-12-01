@@ -78,13 +78,13 @@ export class SealsService {
   );
 
   getSealDetails$(sealHash): Observable<SealClanMember[]> {
-    const seal = this.allNodes[sealHash];
+    const sealCompletionHash = this.sealNodes.find((h) => h.hash == sealHash)?.completionRecordHash;
 
     return this.clanProfiles$.pipe(
       map((clanProfiles) => {
-        console.log(clanProfiles);
         return clanProfiles.map((clanProfile) => {
-          const profileProgression = clanProfile.profile.profileRecords.data.records[sealHash]?.objectives[0];
+
+          const profileProgression = clanProfile.profile.profileRecords.data.records[sealCompletionHash]?.objectives[0];
           return {
             clanMember: clanProfile.clanMember,
             profile: profileSerializer(clanProfile.profile, [], [], []), // Strip records to minimize size of object

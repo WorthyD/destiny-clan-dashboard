@@ -44,7 +44,7 @@ export const SEAL_DETAILS_EXPORTER_METADATA = new Map<string, ExporterMetadata<S
   [
     'progress',
     {
-      label: 'Is Completed',
+      label: 'Percent Complete',
       text: (item: SealClanMember) => `${item.sealProgression.completionPercentage}%`
     }
   ]

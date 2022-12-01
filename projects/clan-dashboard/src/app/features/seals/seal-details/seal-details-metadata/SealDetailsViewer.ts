@@ -37,14 +37,14 @@ export const SEAL_DETAILS_VIEWER_METADATA = new Map<string, ViewerMetadata<SealC
     {
       label: 'Completed Count',
       render: (item: SealClanMember) => ({
-        text: `${item.sealProgression.completedTriumphCount || 0} / ${item.sealProgression.completedTriumphCount}`
+        text: `${item.sealProgression.completedTriumphCount || 0} / ${item.sealProgression.totalTriumphCount}`
       })
     }
   ],
   [
     'progress',
     {
-      label: 'Is Completed',
+      label: 'Percent Completed',
       render: (item: SealClanMember) => ({
         text: `${item.sealProgression.completionPercentage}%`
       })
