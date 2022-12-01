@@ -1,0 +1,19 @@
+<div *ngIf="sealsList; else loading">
+  <p *ngIf="!sealsList.length">
+    No Seals Found
+  </p>
+  <div *ngFor="let sealDetails of sealsList">
+    <h2>{{sealDetails.seal.displayProperties.name}}</h2>
+    <h3>{{sealDetails.seal.displayProperties.description}}</h3>
+    <div>
+      {{sealDetails.completedCount}} / {{sealDetails.totalMembers}}
+    </div>
+    <a routerLink="/seals/{{sealDetails.seal.hash}}">View</a>
+
+
+  </div>
+</div>
+
+<ng-template #loading>
+  Loading Seals
+</ng-template>

@@ -1,0 +1,13 @@
+<div class="seal-details">
+  <lib-table-view *ngIf="sealDetailsInfo$ | async as sealDetailsInfo; else loading"
+    [dataSource]="sealDetailsInfo.dataSource" [header]="'Member Seal Progress'" [viewer]="sealDetailsInfo.viewer"
+    [filterer]="sealDetailsInfo.filterer" [sorter]="sealDetailsInfo.sorter" [exporter]="sealDetailsInfo.exporter">
+  </lib-table-view>
+
+  <ng-template #loading>
+    <div class="loading">
+      Loading Seal Details
+    </div>
+  </ng-template>
+
+</div>
