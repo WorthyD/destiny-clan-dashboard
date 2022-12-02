@@ -115,7 +115,7 @@ export class ClansRosterService {
 
   // TODO: Make sure UI updates eventually
   // Whenever activeClanUpdateDates gets updated. Run this observable.
-  activeClanPeople$ = this.clanProfiles$.pipe(tap((x) => console.log('tapping')));
+  activeClanPeople$ = this.clanProfiles$;//.pipe(tap((x) => console.log('tapping', x)));
   /*
   activeClanPeople$ = this.activeClanUpdateDates$.pipe(
     switchMap((x) => {

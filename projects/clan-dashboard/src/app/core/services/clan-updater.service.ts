@@ -53,7 +53,7 @@ export class ClanUpdaterService {
     return from(activeClans).pipe(
       mergeMap((clanConfig: ClanConfig) => {
         //console.log('merge map', clanConfig.clanId);
-        this.showLog && console.log('memberUpdate', clanConfig);
+       // this.showLog && console.log('memberUpdate', clanConfig);
         return this.memberService.getClanMembersSerialized(clanConfig.clanId).pipe(
           map((members) => ({
             members,
@@ -61,7 +61,7 @@ export class ClanUpdaterService {
           }))
         );
       }, 1),
-      tap((x) => this.showLog && console.log('tapping member update', x)),
+      //tap((x) => this.showLog && console.log('tapping member update', x)),
       toArray()
     );
   }

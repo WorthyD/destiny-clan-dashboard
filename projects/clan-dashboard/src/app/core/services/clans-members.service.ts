@@ -4,6 +4,7 @@ import { ClanMembersService } from '@destiny/data/clan/clan-members';
 import { Store } from '@ngrx/store';
 import { GroupsV2GroupMember } from 'bungie-api-angular';
 import {
+  BehaviorSubject,
   combineLatest,
   from,
   map,
@@ -33,7 +34,8 @@ export interface ClanConfigMembers {
 })
 export class ClansMembersService {
   private cache$: Observable<Array<ClanConfigMembers>>;
-  private reloadClanMembers$ = new Subject<void>();
+  // private reloadClanMembers$ = new Subject<void>();
+  private reloadClanMembers$ = new BehaviorSubject<void>(undefined);
 
   activeClans$ = this.store.select(selectEnabledClans);
   activeClansId$ = this.store.select(selectEnabledClanIds);
@@ -62,21 +64,28 @@ export class ClansMembersService {
     })
   );
 
-  get clanMembers$() {
-    if (!this.cache$) {
-      console.log('cache not found');
-      this.cache$ = this._clanMembers$.pipe(takeUntil(this.reloadClanMembers$), shareReplay(1));
-    }
-    console.log('cache  found');
-    return this.cache$;
-  }
+  // get clanMembers$() {
+  //   if (!this.cache$) {
+  //     console.log('cache not found');
+  //     this.cache$ = this._clanMembers$.pipe(takeUntil(this.reloadClanMembers$), shareReplay(1));
+  //   }
+  //   console.log('cache  found');
+  //   return this.cache$;
+  // }
+
+  public clanMembers$ = this.reloadClanMembers$.pipe(
+    //tap(() => console.log('premege')),
+    mergeMap(() => this._clanMembers$),
+    shareReplay(1),
+    //tap(() => console.log('replay'))
+  );
 
   forceReload() {
     // Calling next will complete the current cache instance
-    console.log('resetting cache');
+    //console.log('resetting cache');
     this.reloadClanMembers$.next();
 
-    this.cache$ = null;
+    //this.cache$ = null;
   }
 
   constructor(
