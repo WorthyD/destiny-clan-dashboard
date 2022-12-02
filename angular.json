@@ -116,7 +116,7 @@
         "storybook": {
           "builder": "@storybook/angular:start-storybook",
           "options": {
-            "browserTarget": "angular-cli:build",
+            "browserTarget": "clan-dashboard:build",
             "port": 6006
           }
         },

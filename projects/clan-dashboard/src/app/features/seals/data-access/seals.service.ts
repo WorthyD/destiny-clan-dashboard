@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { AppConfig } from '@core/config/app-config';
 import { PresentationNodeDefinitionService } from '@core/definition-services/presentation-node-definition.service';
 import { ClansMembersService } from '@core/services/clans-members.service';
 import { MemberProfile } from '@destiny/data/models';
@@ -17,19 +18,22 @@ export class SealsService {
   constructor(
     private presentationNodeService: PresentationNodeDefinitionService,
     private clansMembersService: ClansMembersService,
-    private profileService: ProfileService
+    private profileService: ProfileService,
+    private appConfig: AppConfig
   ) {
-    this.milestonesWithProfiles$.subscribe((x) => console.log('sub', x));
+    // this.milestonesWithProfiles$.subscribe((x) => console.log('sub', x));
   }
-  legacySealNode = this.presentationNodeService.definitions[1881970629]; //.getDefinitionsByHash(1881970629);
-  currentSealNodes = this.presentationNodeService.definitions[616318467];
-  allNodes = this.getNodes(this.currentSealNodes).concat(this.getNodes(this.legacySealNode));
+  //legacySealNode = this.presentationNodeService.definitions[1881970629]; //.getDefinitionsByHash(1881970629);
+  currentSealNodes = this.presentationNodeService.definitions[this.appConfig.constants.CURRENT_SEALS_HASH];
+  //allNodes = this.getNodes(this.currentSealNodes).concat(this.getNodes(this.legacySealNode));
+  allNodes = this.getNodes(this.currentSealNodes);
 
   sealNodes = this.getDefinitionsByHash(this.allNodes);
 
   private getNodes(node) {
     return node.children.presentationNodes.map((x) => x.presentationNodeHash);
   }
+
   private getDefinitionsByHash(allNodes: any[]) {
     return allNodes.map((h) => {
       return this.presentationNodeService.definitions[h];
@@ -48,7 +52,9 @@ export class SealsService {
                 return clanAndMembers.members.map((member) => {
                   return {
                     clanMember: member,
-                    profile: memberProfiles.find((m) => getMemberProfileId(m) === getClanMemberId(member)) as MemberProfile,
+                    profile: memberProfiles.find(
+                      (m) => getMemberProfileId(m) === getClanMemberId(member)
+                    ) as MemberProfile,
                     clan: {
                       clanId: clanAndMembers.clan.clanId,
                       clanName: clanAndMembers.clan.clanName,
@@ -83,7 +89,6 @@ export class SealsService {
     return this.clanProfiles$.pipe(
       map((clanProfiles) => {
         return clanProfiles.map((clanProfile) => {
-
           const profileProgression = clanProfile.profile.profileRecords.data.records[sealCompletionHash]?.objectives[0];
           return {
             clanMember: clanProfile.clanMember,
@@ -93,9 +98,10 @@ export class SealsService {
               isCompleted: profileProgression?.complete,
               completedTriumphCount: profileProgression?.progress || 0,
               totalTriumphCount: profileProgression?.completionValue || 0,
-              completionPercentage: profileProgression?.progress > 0
-              ? Math.floor((profileProgression?.progress / profileProgression?.completionValue) * 100)
-              : 0
+              completionPercentage:
+                profileProgression?.progress > 0
+                  ? Math.floor((profileProgression?.progress / profileProgression?.completionValue) * 100)
+                  : 0
             }
           };
         });

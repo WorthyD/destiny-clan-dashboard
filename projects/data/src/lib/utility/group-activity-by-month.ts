@@ -1,7 +1,8 @@
 import { formatDate } from './format-date';
-import { MemberActivityRecentStatsActivity } from 'bungie-models';
+// import { MemberActivityRecentStatsActivity } from 'bungie-models';
 import { getBungieStartDate,getFirstDayOfMonth } from './date-utils';
 import { groupActivities } from './group-activity-by-date';
+import { MemberActivityRecentStatsActivity } from '../models';
 
 export function groupActivitiesByMonth(data): Array<MemberActivityRecentStatsActivity> {
   const raw = data.map((x) => {

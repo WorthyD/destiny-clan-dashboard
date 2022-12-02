@@ -14,11 +14,12 @@ import {
   Observable
 } from 'rxjs';
 // import {} from '@destiny/data/';
-import { ClanMembersService } from '@destiny/data/clan/clan-members';
+// import { ClanMembersService } from '@destiny/data/clan/clan-members';
 import { ProfileService } from 'projects/data/src/lib/clan/profiles/profile.service';
 import { MemberProfile } from '@destiny/data/models';
 import { GroupsV2GroupMember } from 'bungie-api-angular';
 import { getClanMemberId, getMemberProfileId } from '@destiny/data/utility';
+import { ClansMembersService } from '@core/services/clans-members.service';
 
 export interface ClanMemberProfile {
   clan: {
@@ -55,23 +56,23 @@ export class ClansRosterService {
     })
   );
 
-  clanMembers$ = this.activeClans$.pipe(
-    switchMap((activeClans) => {
-      return from(activeClans).pipe(
-        mergeMap((clan) => {
-          return this.memberService.getClanMembersSerialized(clan.clanId).pipe(
-            map((result) => {
-              return { clan, members: result };
-            })
-          );
-        }),
-        toArray()
-      );
-    })
-    // tap((x) => console.log(x))
-  );
+  // clanMembers$ = this.activeClans$.pipe(
+  //   switchMap((activeClans) => {
+  //     return from(activeClans).pipe(
+  //       mergeMap((clan) => {
+  //         return this.memberService.getClanMembersSerialized(clan.clanId).pipe(
+  //           map((result) => {
+  //             return { clan, members: result };
+  //           })
+  //         );
+  //       }),
+  //       toArray()
+  //     );
+  //   })
+  //   // tap((x) => console.log(x))
+  // );
 
-  clanProfiles$: Observable<ClanMemberProfile[]> = this.clanMembers$.pipe(
+  clanProfiles$: Observable<ClanMemberProfile[]> = this.memberService.clanMembers$.pipe(
     switchMap((clansAndMembers) => {
       return from(clansAndMembers).pipe(
         mergeMap((clanAndMembers) => {
@@ -114,21 +115,18 @@ export class ClansRosterService {
 
   // TODO: Make sure UI updates eventually
   // Whenever activeClanUpdateDates gets updated. Run this observable.
+  activeClanPeople$ = this.clanProfiles$;//.pipe(tap((x) => console.log('tapping', x)));
+  /*
   activeClanPeople$ = this.activeClanUpdateDates$.pipe(
     switchMap((x) => {
       return this.clanProfiles$;
-      // return (
-      //   combineLatest([this.activeClansId$, this.activeClanUpdateDates$]),
-      //   map(([clans, clanDates]) => {
-      //     return clans;
-      //   })
-      // );
     })
   );
+  */
 
   constructor(
     private store: Store,
-    private memberService: ClanMembersService,
+    private memberService: ClansMembersService,
     private profileService: ProfileService
   ) {}
 }

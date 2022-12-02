@@ -1,5 +1,5 @@
 // import { MemberActivityRecentStatsActivity } from 'bungie-models';
-import { MemberActivityRecentStatsActivity } from 'projects/bungie-models/src/lib/models/MemberActivityRecentStats';
+import { MemberActivityRecentStatsActivity } from '../models';
 import { getBungieStartDate } from './date-utils';
 import { groupActivities } from './group-activity-by-date';
 

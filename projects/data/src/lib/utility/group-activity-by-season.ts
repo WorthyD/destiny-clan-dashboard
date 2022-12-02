@@ -1,8 +1,9 @@
 import { formatDate } from './format-date';
-import { ALL_SEASONS, MemberActivityRecentStatsActivity } from 'bungie-models';
 import { getBungieStartDate, getFirstDayOfMonth } from './date-utils';
 import { groupActivities } from './group-activity-by-date';
+import { MemberActivityRecentStatsActivity } from '../models';
 
+/*
 export function groupActivitiesBySeason(data): Array<MemberActivityRecentStatsActivity> {
   const raw = data.map((x) => {
     return {
@@ -22,7 +23,6 @@ export function groupActivityStatsBySeason(data: MemberActivityRecentStatsActivi
   });
   return groupActivities(raw);
 }
-
 export function relabelSeasons(data: MemberActivityRecentStatsActivity[]) {
   return data
     .sort((a, b) => {
@@ -49,6 +49,7 @@ function getFirstDayOfSeason(date) {
   // console.log(retDate)
   return retDate;
 }
+*/
 export function compare(a: number | string | Date, b: number | string | Date, isAsc: boolean) {
   return (a < b ? -1 : 1) * (isAsc ? 1 : -1);
 }

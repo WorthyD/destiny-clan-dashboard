@@ -11,6 +11,7 @@ import { AppConfig } from '@core/config/app-config';
 import { ClanConfigMembers } from './clan-updater.service';
 import { ProfileService } from 'projects/data/src/lib/clan/profiles/profile.service';
 import { ClanDatabase } from 'projects/data/src/lib/clan/clan-database';
+import { ClansMembersService } from './clans-members.service';
 
 @Injectable({
   providedIn: 'root'
@@ -19,7 +20,7 @@ export class ProfileUpdaterService {
   profileService: ProfileService;
   constructor(
     private store: Store,
-    private memberService: ClanMembersService,
+    private clanMemberService: ClansMembersService,
     private profileWorkerService: ProfileWorkerService,
     private appConfig: AppConfig
   ) {
@@ -72,6 +73,7 @@ export class ProfileUpdaterService {
           // return memberProfileActions.loadMemberProfileSuccess();
           //         console.log(`done ${clan.clanConfig.clanId}`, x);
           //  console.log('member workers', x);
+          this.clanMemberService.forceReload();
           this.store.dispatch(updateClanProfileSync({ clanId: clan.clanConfig.clanId }));
           return {
             ...clan,
