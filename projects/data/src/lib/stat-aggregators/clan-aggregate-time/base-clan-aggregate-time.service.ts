@@ -32,6 +32,7 @@ export abstract class BaseClanAggregateTimeService {
     });
   }
 
+  /** @deprecated use gender field instead */
   getClanActivityStats(clanId: number, clanMemberProfiles: MemberProfile[], startDate: Date, activityMode: number = 0) {
     return from(clanMemberProfiles).pipe(
       mergeMap((member) => {
@@ -40,13 +41,15 @@ export abstract class BaseClanAggregateTimeService {
     );
   }
 
+  /** @deprecated use gender field instead */
   private getMemberActivityStats(
     clanId: number,
     member: MemberProfile,
     startDate: Date,
     activityMode: number = 0
-  ): Observable<ActivityStats> {
-    return this.memberActivityService.getMemberActivity(clanId, member, activityMode).pipe(
+    // TODO: Update
+  ): Observable<any> {
+    return this.memberActivityService.getMemberActivity(clanId, member, false, activityMode).pipe(
       map((memberActivityResponse) => {
         return {
           memberProfile: { profile: member.profile },

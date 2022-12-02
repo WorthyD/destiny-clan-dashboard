@@ -1,17 +1,40 @@
 import { Injectable } from '@angular/core';
+import { ClanConfig } from '@core/store/clans';
 import { ClanMembersService } from '@destiny/data/clan/clan-members';
 import { Store } from '@ngrx/store';
-import { combineLatest, from, map, mergeMap, Observable, switchMap, take, tap, toArray } from 'rxjs';
+import { GroupsV2GroupMember } from 'bungie-api-angular';
+import {
+  combineLatest,
+  from,
+  map,
+  mergeMap,
+  Observable,
+  shareReplay,
+  Subject,
+  switchMap,
+  take,
+  takeUntil,
+  tap,
+  toArray
+} from 'rxjs';
 import {
   selectEnabledClans,
   selectEnabledClanIds,
   selectLastRecentActivityUpdate
 } from '../store/clans/clans.selectors';
 
+export interface ClanConfigMembers {
+  clan: ClanConfig;
+  members: GroupsV2GroupMember[];
+}
+
 @Injectable({
   providedIn: 'root'
 })
 export class ClansMembersService {
+  private cache$: Observable<Array<ClanConfigMembers>>;
+  private reloadClanMembers$ = new Subject<void>();
+
   activeClans$ = this.store.select(selectEnabledClans);
   activeClansId$ = this.store.select(selectEnabledClanIds);
   activeClanUpdateDates$: Observable<string[]> = this.activeClans$.pipe(
@@ -24,7 +47,7 @@ export class ClansMembersService {
     })
   );
 
-  clanMembers$ = this.activeClans$.pipe(
+  private _clanMembers$ = this.activeClans$.pipe(
     switchMap((activeClans) => {
       return from(activeClans).pipe(
         mergeMap((clan) => {
@@ -35,9 +58,26 @@ export class ClansMembersService {
           );
         }),
         toArray()
-      );
+      ) as Observable<ClanConfigMembers[]>;
     })
   );
+
+  get clanMembers$() {
+    if (!this.cache$) {
+      console.log('cache not found');
+      this.cache$ = this._clanMembers$.pipe(takeUntil(this.reloadClanMembers$), shareReplay(1));
+    }
+    console.log('cache  found');
+    return this.cache$;
+  }
+
+  forceReload() {
+    // Calling next will complete the current cache instance
+    console.log('resetting cache');
+    this.reloadClanMembers$.next();
+
+    this.cache$ = null;
+  }
 
   constructor(
     private store: Store,

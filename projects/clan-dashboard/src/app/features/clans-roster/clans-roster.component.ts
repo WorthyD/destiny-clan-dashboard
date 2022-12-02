@@ -43,7 +43,6 @@ export class ClansRosterComponent implements OnInit {
   rosterSorter = new Sorter({ metadata: CLAN_ROSTER_SORTER_METADATA });
   rosterExporter = new Exporter({ metadata: CLAN_ROSTER_EXPORTER_METADATA });
 
-
   rosterInfo$: Observable<RosterResources> = combineLatest([this.clansRosterService.activeClanPeople$]).pipe(
     map(([clanProfiles]) => {
       return {
@@ -55,8 +54,7 @@ export class ClansRosterComponent implements OnInit {
         sorter: this.rosterSorter
       };
     }),
-    filter((ds) => !!ds),
-    tap((ds) => console.log('tapping', ds))
+    filter((ds) => !!ds)
   );
 
   createViewContextProvider() {
