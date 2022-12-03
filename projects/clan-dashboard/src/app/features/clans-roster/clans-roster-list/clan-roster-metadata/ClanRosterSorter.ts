@@ -1,7 +1,7 @@
 // import { SorterMetadata } from '../data/sorter';
 
 import { SorterMetadata } from '@destiny/components';
-import { ClanMemberProfile } from '../data-access/clans-roster.service';
+import { ClanMemberProfile } from '../../data-access/clans-roster.service';
 
 // import { MockListItem } from './ListItems';
 export const CLAN_ROSTER_SORTER_METADATA = new Map<string, SorterMetadata<ClanMemberProfile>>([

@@ -1,6 +1,6 @@
 import { ExporterMetadata } from '@destiny/components';
 import { MembershipTypes } from '@destiny/data/models/enums';
-import { ClanMemberProfile } from '../data-access/clans-roster.service';
+import { ClanMemberProfile } from '../../data-access/clans-roster.service';
 
 // import { MockListItem } from './ListItems';
 export const CLAN_ROSTER_EXPORTER_METADATA = new Map<string, ExporterMetadata<ClanMemberProfile>>([

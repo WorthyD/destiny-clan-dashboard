@@ -16,7 +16,9 @@ const routes: Routes = [
       },
       {
         path: 'roster',
-        loadChildren: () => import('./views/roster/roster.module').then((module) => module.RosterModule)
+        //loadChildren: () => import('./views/roster/roster.module').then((module) => module.RosterModule)
+
+        loadChildren: () => import('./features/clans-roster/clans-roster-shell/clans-roster.module').then((module) => module.ClansRosterModule)
       },
       {
         path: 'recent-activity',

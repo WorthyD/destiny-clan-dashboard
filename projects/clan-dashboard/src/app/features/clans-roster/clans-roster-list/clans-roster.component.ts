@@ -1,12 +1,12 @@
 import { Component, OnInit, ViewRef, ViewEncapsulation, ChangeDetectionStrategy } from '@angular/core';
 import { DataSource, Exporter, Filterer, Grouper, Sorter, Viewer } from '@destiny/components';
 import { combineLatest, filter, map, Observable, of, tap } from 'rxjs';
+
+import { BungieDatePipe, BungieDateTimePipe } from '@destiny/components/pipes/bungie-date';
+import { ClanMemberProfile, ClansRosterService } from '../data-access/clans-roster.service';
 import { CLAN_ROSTER_VIEWER_METADATA } from './clan-roster-metadata';
 import { CLAN_ROSTER_FILTERER_METADATA } from './clan-roster-metadata/ClanRosterFilterer';
 import { CLAN_ROSTER_SORTER_METADATA } from './clan-roster-metadata/ClanRosterSorter';
-import { ClanMemberProfile, ClansRosterService } from './data-access/clans-roster.service';
-
-import { BungieDatePipe, BungieDateTimePipe } from '@destiny/components/pipes/bungie-date';
 import { CLAN_ROSTER_EXPORTER_METADATA } from './clan-roster-metadata/ClanRosterExporter';
 interface RosterResources {
   loading: Observable<boolean>;
