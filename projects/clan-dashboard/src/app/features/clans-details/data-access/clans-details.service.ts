@@ -4,15 +4,16 @@ import { selectEnabledClans } from '@core/store/clans';
 import { from, of } from 'rxjs';
 import { map, mergeMap, toArray, switchMap } from 'rxjs/operators';
 import { ClanDetailsService as DataService } from '@destiny/data/clan/clan-details';
+import { ClansDetailsModule } from '../clans-details-shell/clans-details.module';
 
-interface ClanInfo{
+interface ClanInfo {
   ClanName: string;
   ClanMemberCount: string;
-
 }
 
-
-@Injectable()
+@Injectable({
+  providedIn: ClansDetailsModule
+})
 export class ClansDetailsService {
   activeClanIds$ = this.store.select(selectEnabledClans);
 

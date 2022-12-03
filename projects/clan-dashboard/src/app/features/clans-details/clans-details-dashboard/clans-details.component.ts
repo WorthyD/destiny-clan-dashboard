@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ClansDetailsService } from './clans-details.service';
+import { ClansDetailsService } from '../data-access/clans-details.service';
 
 @Component({
   selector: 'app-clans-details',
