@@ -6,6 +6,7 @@
     <a routerLink="/seals">Seals</a>
     <a routerLink="/config">Config</a>
     <span *ngIf="loading">Updater Running</span>
+    <app-notifications [notifications]="notifications$ | async"></app-notifications>
   </nav>
   <router-outlet></router-outlet>
 </div>

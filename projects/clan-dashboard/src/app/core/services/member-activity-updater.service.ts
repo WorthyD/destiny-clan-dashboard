@@ -8,6 +8,7 @@ import { ClanConfigMembers } from './clan-updater.service';
 import { filter, from, map, mergeMap, Observable, of, take, toArray } from 'rxjs';
 import { nowPlusMinutes } from 'projects/data/src/lib/utility/date-utils';
 import { updateClanMemberActivitySync } from '@core/store/clans';
+import { addNotification, removeNotification, updateNotification } from '../store/notifications';
 
 @Injectable({
   providedIn: 'root'
@@ -40,19 +41,21 @@ export class MemberActivityUpdaterService {
     if (staleDate > lastUpdate) {
       //      console.log(`Updating ${clan.clanConfig.clanId}`);
       //if (true === true) {
-      // this.store.dispatch(
-      //   addNotification({ notification: { id: 'memberProfile', title: 'Updating Profiles', data: { progress: 0 } } })
-      // );
+      this.store.dispatch(
+        addNotification({
+          notification: { id: 'memberProfile', title: 'Updating Recent Activity', data: { progress: 0 } }
+        })
+      );
       const progress = (progressCount) => {
-        // this.store.dispatch(
-        //   updateNotification({
-        //     notification: {
-        //       id: 'memberProfile',
-        //       title: 'Updating Profiles',
-        //       data: { progress: progressCount }
-        //     }
-        //   })
-        // );
+        this.store.dispatch(
+          updateNotification({
+            notification: {
+              id: 'memberProfile',
+              title: 'Updating Recent Activity',
+              data: { progress: progressCount }
+            }
+          })
+        );
         //       console.log('progress', progressCount);
       };
       // console.log(clan.members);
@@ -65,9 +68,11 @@ export class MemberActivityUpdaterService {
           take(1),
           map((x) => {
             // this.store.dispatch(memberProfileActions.loadMemberProfiles({ memberProfiles: x }));
-            // this.store.dispatch(
-            //   removeNotification({ notification: { id: 'memberProfile', title: 'Updating Profiles', data: 'done' } })
-            // );
+            this.store.dispatch(
+              removeNotification({
+                notification: { id: 'memberProfile', title: 'Updating Recent Activity', data: { progress: 0 } }
+              })
+            );
             // return memberProfileActions.loadMemberProfileSuccess();
             //         console.log(`done ${clan.clanConfig.clanId}`, x);
             this.store.dispatch(updateClanMemberActivitySync({ clanId: clan.clanConfig.clanId }));
