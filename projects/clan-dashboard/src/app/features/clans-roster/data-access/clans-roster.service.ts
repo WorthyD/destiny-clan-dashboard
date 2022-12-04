@@ -33,28 +33,28 @@ export interface ClanMemberProfile {
 
 @Injectable()
 export class ClansRosterService {
-  activeClans$ = this.store.select(selectEnabledClans);
-  activeClansId$ = this.store.select(selectEnabledClanIds);
+  // activeClans$ = this.store.select(selectEnabledClans);
+  // activeClansId$ = this.store.select(selectEnabledClanIds);
 
-  activeClanUpdateDates$ = this.activeClans$.pipe(
-    switchMap((clans) => {
-      const arraySelectors = clans.map((clan) => {
-        return this.store.select(selectLastProfileUpdate(clan.clanId));
-      });
+  // activeClanUpdateDates$ = this.activeClans$.pipe(
+  //   switchMap((clans) => {
+  //     const arraySelectors = clans.map((clan) => {
+  //       return this.store.select(selectLastProfileUpdate(clan.clanId));
+  //     });
 
-      return combineLatest(arraySelectors);
-      // return from(clanIds).pipe(
-      //   switchMap((clanId) => {
-      //     console.log('', clanId);
-      //     return this.store.select(selectLastProfileUpdate(clanId));
-      //   })
+  //     return combineLatest(arraySelectors);
+  //     // return from(clanIds).pipe(
+  //     //   switchMap((clanId) => {
+  //     //     console.log('', clanId);
+  //     //     return this.store.select(selectLastProfileUpdate(clanId));
+  //     //   })
 
-      //   // tap((x) => {
-      //   //   console.log('tapping1', x);
-      //   // })
-      // );
-    })
-  );
+  //     //   // tap((x) => {
+  //     //   //   console.log('tapping1', x);
+  //     //   // })
+  //     // );
+  //   })
+  // );
 
   // clanMembers$ = this.activeClans$.pipe(
   //   switchMap((activeClans) => {
@@ -125,7 +125,6 @@ export class ClansRosterService {
   */
 
   constructor(
-    private store: Store,
     private memberService: ClansMembersService,
     private profileService: ProfileService
   ) {}

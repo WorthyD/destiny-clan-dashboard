@@ -33,21 +33,21 @@ export interface ClanConfigMembers {
   providedIn: 'root'
 })
 export class ClansMembersService {
-  private cache$: Observable<Array<ClanConfigMembers>>;
+ // private cache$: Observable<Array<ClanConfigMembers>>;
   // private reloadClanMembers$ = new Subject<void>();
   private reloadClanMembers$ = new BehaviorSubject<void>(undefined);
 
   activeClans$ = this.store.select(selectEnabledClans);
-  activeClansId$ = this.store.select(selectEnabledClanIds);
-  activeClanUpdateDates$: Observable<string[]> = this.activeClans$.pipe(
-    switchMap((clans) => {
-      const arraySelectors = clans.map((clan) => {
-        return this.store.select(selectLastRecentActivityUpdate(clan.clanId));
-      });
+  // activeClansId$ = this.store.select(selectEnabledClanIds);
+  // activeClanUpdateDates$: Observable<string[]> = this.activeClans$.pipe(
+  //   switchMap((clans) => {
+  //     const arraySelectors = clans.map((clan) => {
+  //       return this.store.select(selectLastRecentActivityUpdate(clan.clanId));
+  //     });
 
-      return combineLatest(arraySelectors);
-    })
-  );
+  //     return combineLatest(arraySelectors);
+  //   })
+  // );
 
   private _clanMembers$ = this.activeClans$.pipe(
     switchMap((activeClans) => {

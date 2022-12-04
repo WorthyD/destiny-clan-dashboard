@@ -21,7 +21,6 @@ export class ClansDetailsService {
     switchMap((clanConfigs) => {
       return from(clanConfigs).pipe(
         mergeMap((clanConfig) => {
-          // return of(clanConfig);
           return this.dataService.getClanDetailsSerialized(clanConfig.clanId);
         }),
         toArray()

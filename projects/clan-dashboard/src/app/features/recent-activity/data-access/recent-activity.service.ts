@@ -11,37 +11,39 @@ import { GroupsV2GroupMember } from 'bungie-api-angular';
 import { ProfileRecentActivity } from '../models/profile-recent-activity';
 import { RecentActivityModule } from '../recent-activity-shell/recent-activity.module';
 
+import { ClansMembersService } from '@core/services/clans-members.service';
+
 @Injectable({
   providedIn: RecentActivityModule
 })
 export class RecentActivityService {
-  activeClans$ = this.store.select(selectEnabledClans);
-  activeClansId$ = this.store.select(selectEnabledClanIds);
+  // activeClans$ = this.store.select(selectEnabledClans);
+  // activeClansId$ = this.store.select(selectEnabledClanIds);
 
-  activeClanUpdateDates$: Observable<string[]> = this.activeClans$.pipe(
-    switchMap((clans) => {
-      const arraySelectors = clans.map((clan) => {
-        return this.store.select(selectLastRecentActivityUpdate(clan.clanId));
-      });
+  // activeClanUpdateDates$: Observable<string[]> = this.activeClans$.pipe(
+  //   switchMap((clans) => {
+  //     const arraySelectors = clans.map((clan) => {
+  //       return this.store.select(selectLastRecentActivityUpdate(clan.clanId));
+  //     });
 
-      return combineLatest(arraySelectors);
-    })
-  );
-  clanMembers$ = this.activeClans$.pipe(
-    switchMap((activeClans) => {
-      return from(activeClans).pipe(
-        mergeMap((clan) => {
-          return this.memberService.getClanMembersSerialized(clan.clanId).pipe(
-            map((result) => {
-              return { clan, members: result };
-            })
-          );
-        }),
-        toArray()
-      );
-    })
-  );
-  clanProfiles$: Observable<ProfileRecentActivity[]> = this.clanMembers$.pipe(
+  //     return combineLatest(arraySelectors);
+  //   })
+  // );
+  // clanMembers$ = this.activeClans$.pipe(
+  //   switchMap((activeClans) => {
+  //     return from(activeClans).pipe(
+  //       mergeMap((clan) => {
+  //         return this.memberService.getClanMembersSerialized(clan.clanId).pipe(
+  //           map((result) => {
+  //             return { clan, members: result };
+  //           })
+  //         );
+  //       }),
+  //       toArray()
+  //     );
+  //   })
+  // );
+  activeClanActivity$: Observable<ProfileRecentActivity[]> = this.memberService.clanMembers$.pipe(
     //clanProfiles$: Observable<ClanMemberProfile[]> = this.clanMembers$.pipe(
     switchMap((clansAndMembers) => {
       return from(clansAndMembers).pipe(
@@ -111,27 +113,28 @@ export class RecentActivityService {
       );
     })
   );
+  // activeClanActivity$ = this.clanProfiles$;
+  // activeClanActivity$: Observable<ProfileRecentActivity[]> = this.activeClanUpdateDates$.pipe(
+  //   switchMap((x) => {
+  //     // TODO: // console.log('verify this updates properly');
+  //     return this.clanProfiles$;
 
-  activeClanActivity$: Observable<ProfileRecentActivity[]> = this.activeClanUpdateDates$.pipe(
-    switchMap((x) => {
-      // TODO: // console.log('verify this updates properly');
-      return this.clanProfiles$;
+  //     // console.log('stuff', x);
 
-      // console.log('stuff', x);
-
-      // return (
-      //   combineLatest([this.activeClansId$, this.clanProfiles$]),
-      //   map(([clans, clanDates]) => {
-      //     console.log('stuff', clanDates);
-      //     return clanDates;
-      //   })
-      // );
-    })
-  );
+  //     // return (
+  //     //   combineLatest([this.activeClansId$, this.clanProfiles$]),
+  //     //   map(([clans, clanDates]) => {
+  //     //     console.log('stuff', clanDates);
+  //     //     return clanDates;
+  //     //   })
+  //     // );
+  //   })
+  // );
 
   constructor(
-    private store: Store,
-    private memberService: ClanMembersService,
+    //private store: Store,
+    // private memberService: ClanMembersService,
+    private memberService: ClansMembersService,
     private profileService: ProfileService,
     private profileActivityService: ProfileRecentActivityWorkerService
   ) {}
