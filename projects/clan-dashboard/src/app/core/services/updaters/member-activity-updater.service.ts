@@ -24,13 +24,8 @@ export class MemberActivityUpdaterService {
     return from(clans).pipe(
       mergeMap((x) => {
         return this.memberActivityUpdate(x);
-        //}
-
-        //
-        //return of(x);
       }, 1),
       toArray()
-      ///   tap((x) => console.log('toarray 2', x))
     );
   }
 
@@ -39,8 +34,6 @@ export class MemberActivityUpdaterService {
     const staleDate = nowPlusMinutes(-this.appConfig.constants.PROFILE_UPDATING_EXP_MINUTES);
 
     if (staleDate > lastUpdate) {
-      //      console.log(`Updating ${clan.clanConfig.clanId}`);
-      //if (true === true) {
       this.store.dispatch(
         addNotification({
           notification: {
@@ -50,6 +43,7 @@ export class MemberActivityUpdaterService {
           }
         })
       );
+
       const progress = (progressCount) => {
         this.store.dispatch(
           updateNotification({
@@ -60,37 +54,32 @@ export class MemberActivityUpdaterService {
             }
           })
         );
-        //       console.log('progress', progressCount);
       };
-      // console.log(clan.members);
+
       return this.profileRecentActivityWorkerService
         .updateAllRecentActivityCache(clan.clanConfig.clanId, clan.profiles, progress)
         .pipe(
-          //this.profileWorkerService.loadProfiles(clan.clanConfig.clanId, clan.members, progress);
-          //return this.profileRecentActivityWorkerService.members.pipe(
-          // filter((x) => x.length > 0),
           take(1),
           map((x) => {
-            // this.store.dispatch(memberProfileActions.loadMemberProfiles({ memberProfiles: x }));
 
+            // eslint-disable-next-line @ngrx/avoid-dispatching-multiple-actions-sequentially
             this.store.dispatch(
               removeNotification({
                 notification: {
                   id: 'memberProfile',
                   title: `Updating ${clan.clanConfig.clanName} Recent Activity`,
-                  data: { progress: clan.members.length, total: clan.members.length  }
+                  data: { progress: clan.members.length, total: clan.members.length }
                 }
               })
             );
 
+            // eslint-disable-next-line @ngrx/avoid-dispatching-multiple-actions-sequentially
             this.store.dispatch(updateClanMemberActivitySync({ clanId: clan.clanConfig.clanId }));
-            // return memberProfileActions.loadMemberProfileSuccess();
-            //         console.log(`done ${clan.clanConfig.clanId}`, x);
+
             return clan;
           })
         );
     }
-    //console.log(`Valid Cache ${clan.clanConfig.clanId}`);
     return of(clan);
   }
 }

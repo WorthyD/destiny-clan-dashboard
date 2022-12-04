@@ -8,7 +8,6 @@ export const ClansReducer = createReducer(
     const clans = state.ids.map((c) => c);
 
     if (clans.indexOf(clanId) === -1) {
-      //const newClangConfig = {}
       return ClanConfigAdapter.upsertOne({ clanId, clanName, clanTag, ...DefaultClanConfig }, { ...state });
     }
 
@@ -16,9 +15,7 @@ export const ClansReducer = createReducer(
       ...state
     };
   }),
-  //  on(updateClanProfileSync, (state, {}): ClanState => {
 
-  // }),
   on(updateClan, (state, { clan }): ClansState => {
     return ClanConfigAdapter.upsertOne(clan, { ...state });
   }),

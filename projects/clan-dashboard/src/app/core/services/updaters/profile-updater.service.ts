@@ -36,18 +36,14 @@ export class ProfileUpdaterService {
         return this.profileUpdate(x).pipe(map((cm) => cm));
       }, 1),
       toArray()
-      // tap((x) => console.log('toarray 2', x))
     );
   }
 
   profileUpdate(clan: ClanConfigMembers): Observable<ClanConfigMembers> {
     const lastUpdate = new Date(clan.clanConfig.profileUpdate || '1/1/1900');
-    // const lastUpdate = new Date('1/1/1900');
     const staleDate = nowPlusMinutes(-this.appConfig.constants.PROFILE_UPDATING_EXP_MINUTES);
 
     if (staleDate > lastUpdate) {
-      //      console.log(`Updating ${clan.clanConfig.clanId}`);
-      //if (true === true) {
       this.store.dispatch(
         addNotification({
           notification: {
@@ -67,14 +63,13 @@ export class ProfileUpdaterService {
             }
           })
         );
-        //       console.log('progress', progressCount);
       };
       return this.profileWorkerService.loadProfiles(clan.clanConfig.clanId, clan.members, progress).pipe(
         filter((x) => x.length > 0),
         take(1),
         map((x) => {
-          // this.store.dispatch(memberProfileActions.loadMemberProfiles({ memberProfiles: x }));
 
+          // eslint-disable-next-line @ngrx/avoid-dispatching-multiple-actions-sequentially
           this.store.dispatch(
             removeNotification({
               notification: {
@@ -84,11 +79,10 @@ export class ProfileUpdaterService {
               }
             })
           );
+
+          // eslint-disable-next-line @ngrx/avoid-dispatching-multiple-actions-sequentially
           this.store.dispatch(updateClanProfileSync({ clanId: clan.clanConfig.clanId }));
 
-          // return memberProfileActions.loadMemberProfileSuccess();
-          //         console.log(`done ${clan.clanConfig.clanId}`, x);
-          //  console.log('member workers', x);
           this.clanMemberService.forceReload();
           return {
             ...clan,
@@ -97,9 +91,7 @@ export class ProfileUpdaterService {
         })
       );
     }
-    //console.log(`Valid Cache ${clan.clanConfig.clanId}`);
-    //; return of(clan);
-    // console.log('getting from cache');
+
     return this.profileService.getSerializedProfilesFromCache(clan.clanConfig.clanId, clan.members, [], []).pipe(
       map((x) => {
         return { ...clan, profiles: x };

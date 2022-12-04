@@ -33,21 +33,9 @@ export interface ClanConfigMembers {
   providedIn: 'root'
 })
 export class ClansMembersService {
- // private cache$: Observable<Array<ClanConfigMembers>>;
-  // private reloadClanMembers$ = new Subject<void>();
   private reloadClanMembers$ = new BehaviorSubject<void>(undefined);
 
   activeClans$ = this.store.select(selectEnabledClans);
-  // activeClansId$ = this.store.select(selectEnabledClanIds);
-  // activeClanUpdateDates$: Observable<string[]> = this.activeClans$.pipe(
-  //   switchMap((clans) => {
-  //     const arraySelectors = clans.map((clan) => {
-  //       return this.store.select(selectLastRecentActivityUpdate(clan.clanId));
-  //     });
-
-  //     return combineLatest(arraySelectors);
-  //   })
-  // );
 
   private _clanMembers$ = this.activeClans$.pipe(
     switchMap((activeClans) => {
@@ -64,32 +52,18 @@ export class ClansMembersService {
     })
   );
 
-  // get clanMembers$() {
-  //   if (!this.cache$) {
-  //     console.log('cache not found');
-  //     this.cache$ = this._clanMembers$.pipe(takeUntil(this.reloadClanMembers$), shareReplay(1));
-  //   }
-  //   console.log('cache  found');
-  //   return this.cache$;
-  // }
-
   public clanMembers$ = this.reloadClanMembers$.pipe(
-    //tap(() => console.log('premege')),
     mergeMap(() => this._clanMembers$),
-    shareReplay(1),
-    //tap(() => console.log('replay'))
+    shareReplay(1)
   );
 
   forceReload() {
     // Calling next will complete the current cache instance
-    //console.log('resetting cache');
     this.reloadClanMembers$.next();
-
-    //this.cache$ = null;
   }
 
   constructor(
     private store: Store,
-    private memberService: ClanMembersService // private profileService: ProfileService,
+    private memberService: ClanMembersService
   ) {}
 }

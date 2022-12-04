@@ -13,8 +13,6 @@ import {
   distinctUntilChanged,
   Observable
 } from 'rxjs';
-// import {} from '@destiny/data/';
-// import { ClanMembersService } from '@destiny/data/clan/clan-members';
 import { ProfileService } from 'projects/data/src/lib/clan/profiles/profile.service';
 import { MemberProfile } from '@destiny/data/models';
 import { GroupsV2GroupMember } from 'bungie-api-angular';
@@ -33,44 +31,6 @@ export interface ClanMemberProfile {
 
 @Injectable()
 export class ClansRosterService {
-  // activeClans$ = this.store.select(selectEnabledClans);
-  // activeClansId$ = this.store.select(selectEnabledClanIds);
-
-  // activeClanUpdateDates$ = this.activeClans$.pipe(
-  //   switchMap((clans) => {
-  //     const arraySelectors = clans.map((clan) => {
-  //       return this.store.select(selectLastProfileUpdate(clan.clanId));
-  //     });
-
-  //     return combineLatest(arraySelectors);
-  //     // return from(clanIds).pipe(
-  //     //   switchMap((clanId) => {
-  //     //     console.log('', clanId);
-  //     //     return this.store.select(selectLastProfileUpdate(clanId));
-  //     //   })
-
-  //     //   // tap((x) => {
-  //     //   //   console.log('tapping1', x);
-  //     //   // })
-  //     // );
-  //   })
-  // );
-
-  // clanMembers$ = this.activeClans$.pipe(
-  //   switchMap((activeClans) => {
-  //     return from(activeClans).pipe(
-  //       mergeMap((clan) => {
-  //         return this.memberService.getClanMembersSerialized(clan.clanId).pipe(
-  //           map((result) => {
-  //             return { clan, members: result };
-  //           })
-  //         );
-  //       }),
-  //       toArray()
-  //     );
-  //   })
-  //   // tap((x) => console.log(x))
-  // );
 
   clanProfiles$: Observable<ClanMemberProfile[]> = this.memberService.clanMembers$.pipe(
     switchMap((clansAndMembers) => {
@@ -93,18 +53,6 @@ export class ClansRosterService {
                     })
                   };
                 });
-
-                // return {
-                //   clan: {
-                //     clanId: clanAndMembers.clan.clanId,
-                //     clanName: clanAndMembers.clan.clanName,
-                //     clanTag: clanAndMembers.clan.clanTag
-                //   },
-                //   member: clanAndMembers.members.find(
-                //     (x) => x.destinyUserInfo?.membershipId == result?.profile?.data?.userInfo?.membershipId
-                //   ),
-                //   profile: result
-                // };
               })
             );
         }),
@@ -113,19 +61,7 @@ export class ClansRosterService {
     })
   );
 
-  // TODO: Make sure UI updates eventually
-  // Whenever activeClanUpdateDates gets updated. Run this observable.
-  activeClanPeople$ = this.clanProfiles$;//.pipe(tap((x) => console.log('tapping', x)));
-  /*
-  activeClanPeople$ = this.activeClanUpdateDates$.pipe(
-    switchMap((x) => {
-      return this.clanProfiles$;
-    })
-  );
-  */
+  activeClanPeople$ = this.clanProfiles$;
 
-  constructor(
-    private memberService: ClansMembersService,
-    private profileService: ProfileService
-  ) {}
+  constructor(private memberService: ClansMembersService, private profileService: ProfileService) {}
 }
