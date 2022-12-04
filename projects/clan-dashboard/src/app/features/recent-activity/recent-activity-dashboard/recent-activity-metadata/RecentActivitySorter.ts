@@ -1,7 +1,7 @@
 // import { SorterMetadata } from '../data/sorter';
 
 import { SorterMetadata } from '@destiny/components';
-import { ProfileRecentActivity } from '../models/profile-recent-activity';
+import { ProfileRecentActivity } from '../../models/profile-recent-activity';
 
 // import { MockListItem } from './ListItems';
 export const RECENT_ACTIVITY_SORTER_METADATA = new Map<string, SorterMetadata<ProfileRecentActivity>>([

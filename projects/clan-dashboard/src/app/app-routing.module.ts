@@ -28,7 +28,10 @@ const routes: Routes = [
       {
         path: 'recent-activity',
         loadChildren: () =>
-          import('./views/recent-activity/recent-activity.module').then((module) => module.RecentActivityModule)
+          //import('./views/recent-activity/recent-activity.module').then((module) => module.RecentActivityModule)
+          import('./features/recent-activity/recent-activity-shell/recent-activity.module').then(
+            (module) => module.RecentActivityModule
+          )
       },
       {
         path: 'seals',

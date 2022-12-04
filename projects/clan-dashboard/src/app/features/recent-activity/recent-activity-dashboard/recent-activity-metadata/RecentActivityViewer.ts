@@ -1,7 +1,7 @@
 import { ViewerMetadata } from '@destiny/components';
 import { BungieDateTimePipe } from '@destiny/components/pipes';
 import { PlaytimePipe } from '@destiny/components/pipes/playtime';
-import { ProfileRecentActivity } from '../models/profile-recent-activity';
+import { ProfileRecentActivity } from '../../models/profile-recent-activity';
 
 interface ViewContext {
   item: ProfileRecentActivity;

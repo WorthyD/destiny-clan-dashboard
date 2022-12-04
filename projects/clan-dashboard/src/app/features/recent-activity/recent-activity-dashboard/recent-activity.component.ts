@@ -2,12 +2,14 @@ import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { DataSource, Exporter, Filterer, Sorter, Viewer } from '@destiny/components';
 import { BungieDatePipe, BungieDateTimePipe, PlaytimePipe } from '@destiny/components/pipes';
 import { combineLatest, filter, map, Observable, of } from 'rxjs';
-import { RecentActivityService } from './data-access/recent-activity.service';
-import { ProfileRecentActivity } from './models/profile-recent-activity';
-import { CLAN_ROSTER_EXPORTER_METADATA } from './recent-activity-metadata';
-import { RECENT_ACTIVITY_FILTERER_METADATA } from './recent-activity-metadata/RecentActivityFilterer';
-import { RECENT_ACTIVITY_SORTER_METADATA } from './recent-activity-metadata/RecentActivitySorter';
-import { RECENT_ACTIVITY_VIEWER_METADATA } from './recent-activity-metadata/RecentActivityViewer';
+import { RecentActivityService } from '../data-access/recent-activity.service';
+import { ProfileRecentActivity } from '../models/profile-recent-activity';
+import {
+  CLAN_ROSTER_EXPORTER_METADATA,
+  RECENT_ACTIVITY_FILTERER_METADATA,
+  RECENT_ACTIVITY_SORTER_METADATA,
+  RECENT_ACTIVITY_VIEWER_METADATA
+} from './recent-activity-metadata';
 
 interface RosterActivityResources {
   loading: Observable<boolean>;

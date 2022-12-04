@@ -9,7 +9,11 @@ import { getClanMemberId, getMemberProfileId } from '@destiny/data/utility';
 import { ProfileRecentActivityWorkerService } from '../../../workers/profile-recent-activity/profile-recent-activity.service';
 import { GroupsV2GroupMember } from 'bungie-api-angular';
 import { ProfileRecentActivity } from '../models/profile-recent-activity';
-@Injectable()
+import { RecentActivityModule } from '../recent-activity-shell/recent-activity.module';
+
+@Injectable({
+  providedIn: RecentActivityModule
+})
 export class RecentActivityService {
   activeClans$ = this.store.select(selectEnabledClans);
   activeClansId$ = this.store.select(selectEnabledClanIds);

@@ -1,7 +1,7 @@
 import { ExporterMetadata } from '@destiny/components';
 import { BungieDateTimePipe, PlaytimePipe } from '@destiny/components/pipes';
 import { MembershipTypes } from '@destiny/data/models/enums';
-import { ProfileRecentActivity } from '../models/profile-recent-activity';
+import { ProfileRecentActivity } from '../../models/profile-recent-activity';
 interface ViewContext {
   item: ProfileRecentActivity;
   playTimePipe: PlaytimePipe;

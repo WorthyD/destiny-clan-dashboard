@@ -1,5 +1,5 @@
 import { FiltererMetadata, textMatchesEquality } from '@destiny/components';
-import { ProfileRecentActivity } from '../models/profile-recent-activity';
+import { ProfileRecentActivity } from '../../models/profile-recent-activity';
 // import { numberMatchesEquality } from '../data/utility/filter-matcher';
 // import { MockListItem } from './ListItems';
 
