@@ -20,10 +20,6 @@ export const ClanConfigAdapter: EntityAdapter<ClanConfig> = createEntityAdapter<
 
 export const initialClanState: ClansState = ClanConfigAdapter.getInitialState({});
 
-// export const initialClanState: ClansState = {
-//   clans: []
-// };
-
 export interface State extends AppState {
   clans: ClansState;
 }

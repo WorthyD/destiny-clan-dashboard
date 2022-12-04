@@ -107,7 +107,6 @@ export class SealsService {
         });
       })
     );
-    //return of('');
   }
 
   private getCompletionCount(memberProfiles, completionHash) {
@@ -115,7 +114,6 @@ export class SealsService {
       const records = m.profile?.profileRecords?.data?.records[completionHash]?.objectives[0];
 
       if (records) {
-        //TODO: ?? is this correct?
         return records.complete;
       }
       return false;

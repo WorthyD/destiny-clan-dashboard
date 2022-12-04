@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { DashboardModule } from './views/dashboard/dashboard.module';
 import { ClanResolveGuard } from '@core/guards/clan.guard';
 import { WrapperComponent } from '@core/layout/wrapper/wrapper.component';
 
@@ -12,16 +11,27 @@ const routes: Routes = [
     children: [
       {
         path: '',
-        loadChildren: () => import('./views/dashboard/dashboard.module').then((module) => module.DashboardModule)
+        loadChildren: () =>
+          import('./features/clans-details/clans-details-shell/clans-details.module').then(
+            (module) => module.ClansDetailsModule
+          )
       },
       {
         path: 'roster',
-        loadChildren: () => import('./views/roster/roster.module').then((module) => module.RosterModule)
+        //loadChildren: () => import('./views/roster/roster.module').then((module) => module.RosterModule)
+
+        loadChildren: () =>
+          import('./features/clans-roster/clans-roster-shell/clans-roster.module').then(
+            (module) => module.ClansRosterModule
+          )
       },
       {
         path: 'recent-activity',
         loadChildren: () =>
-          import('./views/recent-activity/recent-activity.module').then((module) => module.RecentActivityModule)
+          //import('./views/recent-activity/recent-activity.module').then((module) => module.RecentActivityModule)
+          import('./features/recent-activity/recent-activity-shell/recent-activity.module').then(
+            (module) => module.RecentActivityModule
+          )
       },
       {
         path: 'seals',
