@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { getAllNotifications } from '@core/store/notifications';
 import { select, Store } from '@ngrx/store';
 import { take } from 'rxjs';
-import { ClanUpdaterService } from '../../services/clan-updater.service';
+import { ClanUpdaterService } from '../../services/updaters/clan-updater.service';
 
 @Component({
   selector: 'app-wrapper',

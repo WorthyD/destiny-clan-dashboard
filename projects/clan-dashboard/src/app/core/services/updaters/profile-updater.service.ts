@@ -1,18 +1,18 @@
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { mergeMap, map, catchError, toArray, switchMap, tap, take, filter } from 'rxjs/operators';
-import { ClanConfig, selectEnabledClans, updateClanProfileSync } from '../store/clans';
+import { ClanConfig, selectEnabledClans, updateClanProfileSync } from '../../store/clans';
 import { ClanMembersService } from '@destiny/data/clan/clan-members';
 import { from, Observable, of } from 'rxjs';
 import { GroupsV2GroupMember } from 'bungie-api-angular';
-import { ProfileWorkerService } from '../../workers/profile-worker/profile-worker.service';
+import { ProfileWorkerService } from '../../../workers/profile-worker/profile-worker.service';
 import { nowPlusMinutes } from 'projects/data/src/lib/utility/date-utils';
 import { AppConfig } from '@core/config/app-config';
 import { ClanConfigMembers } from './clan-updater.service';
 import { ProfileService } from 'projects/data/src/lib/clan/profiles/profile.service';
 import { ClanDatabase } from 'projects/data/src/lib/clan/clan-database';
-import { ClansMembersService } from './clans-members.service';
-import { addNotification, removeNotification, updateNotification } from '../store/notifications';
+import { ClansMembersService } from '../clans-members.service';
+import { addNotification, removeNotification, updateNotification } from '../../store/notifications';
 
 @Injectable({
   providedIn: 'root'
@@ -49,15 +49,21 @@ export class ProfileUpdaterService {
       //      console.log(`Updating ${clan.clanConfig.clanId}`);
       //if (true === true) {
       this.store.dispatch(
-        addNotification({ notification: { id: 'memberProfile', title: 'Updating Profiles', data: { progress: 0 } } })
+        addNotification({
+          notification: {
+            id: 'memberProfile',
+            title: `Updating ${clan.clanConfig.clanName} Profiles`,
+            data: { progress: 0, total: clan.members.length }
+          }
+        })
       );
       const progress = (progressCount) => {
         this.store.dispatch(
           updateNotification({
             notification: {
               id: 'memberProfile',
-              title: 'Updating Profiles', // TODO ADD clann
-              data: { progress: progressCount }
+              title: `Updating ${clan.clanConfig.clanName} Profiles`, // TODO ADD clann
+              data: { progress: progressCount, total: clan.members.length }
             }
           })
         );
@@ -68,16 +74,22 @@ export class ProfileUpdaterService {
         take(1),
         map((x) => {
           // this.store.dispatch(memberProfileActions.loadMemberProfiles({ memberProfiles: x }));
+
           this.store.dispatch(
             removeNotification({
-              notification: { id: 'memberProfile', title: 'Updating Profiles', data: { progress: 100 } }
+              notification: {
+                id: 'memberProfile',
+                title: `Updating ${clan.clanConfig.clanName} Profiles`,
+                data: { progress: clan.members.length, total: clan.members.length }
+              }
             })
           );
+          this.store.dispatch(updateClanProfileSync({ clanId: clan.clanConfig.clanId }));
+
           // return memberProfileActions.loadMemberProfileSuccess();
           //         console.log(`done ${clan.clanConfig.clanId}`, x);
           //  console.log('member workers', x);
           this.clanMemberService.forceReload();
-          this.store.dispatch(updateClanProfileSync({ clanId: clan.clanConfig.clanId }));
           return {
             ...clan,
             profiles: x

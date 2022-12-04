@@ -1,9 +1,10 @@
 <div *ngFor="let notification of  notifications" class="notification">
-  <div class="progress-bar">
-    {{notification.data.progress}}
-    <!-- <mat-progress-bar mode="determinate" [value]="notification.data.progress"></mat-progress-bar> -->
-  </div>
+
   <div class="info">
     {{notification.title}}
+  </div>
+  <div class="progress-bar">
+    {{notification.data.progress}} / {{notification.data.total}}
+    <!-- <mat-progress-bar mode="determinate" [value]="notification.data.progress"></mat-progress-bar> -->
   </div>
 </div>

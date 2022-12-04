@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { mergeMap, map, catchError, toArray, switchMap, tap, take, filter, distinctUntilChanged } from 'rxjs/operators';
-import { ClanConfig, selectEnabledClans, updateClan, updateClanProfileSync } from '../store/clans';
+import { ClanConfig, selectEnabledClans, updateClan, updateClanProfileSync } from '../../store/clans';
 import { ClanMembersService } from '@destiny/data/clan/clan-members';
 import { from, Observable, of } from 'rxjs';
 import { GroupsV2GroupMember } from 'bungie-api-angular';
-import { ProfileWorkerService } from '../../workers/profile-worker/profile-worker.service';
+import { ProfileWorkerService } from '../../../workers/profile-worker/profile-worker.service';
 import { nowPlusMinutes } from 'projects/data/src/lib/utility/date-utils';
 import { AppConfig } from '@core/config/app-config';
 import { ProfileUpdaterService } from './profile-updater.service';
