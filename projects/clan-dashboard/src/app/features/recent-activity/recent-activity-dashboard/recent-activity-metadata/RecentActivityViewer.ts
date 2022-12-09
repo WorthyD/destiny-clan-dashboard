@@ -13,6 +13,7 @@ export const RECENT_ACTIVITY_VIEWER_METADATA = new Map<string, ViewerMetadata<Pr
     'playerName',
     {
       label: 'Display Name',
+      isSticky: true,
       render: (item: ProfileRecentActivity) => {
         return {
           text: `${item.clanMember?.destinyUserInfo?.displayName}`

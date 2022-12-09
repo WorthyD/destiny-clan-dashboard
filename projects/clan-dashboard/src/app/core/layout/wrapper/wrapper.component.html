@@ -13,7 +13,15 @@
         <mat-icon>menu</mat-icon>
       </button>
       <div class="clan-name">
-        <span> Destiny Clan Dashboard</span>
+        Destiny Clan Dashboard
+      </div>
+      <app-notifications [notifications]="notifications$ | async"></app-notifications>
+      <div>
+        <button mat-icon-button routerLink="config">
+          <mat-icon>
+            settings
+          </mat-icon>
+        </button>
       </div>
     </mat-toolbar-row>
   </mat-toolbar>
@@ -25,25 +33,6 @@
             Dashboard </a>
           <a mat-list-item routerLink="roster" routerLinkActive="active-link"> Roster </a>
           <a mat-list-item routerLink="recent-activity" routerLinkActive="active-link"> Member Activity </a>
-           <a mat-list-item routerLink="roster" routerLinkActive="active-link"> Roster </a>
-          <a mat-list-item routerLink="recent-activity" routerLinkActive="active-link"> Member Activity </a>
-          <a mat-list-item routerLink="roster" routerLinkActive="active-link"> Roster </a>
-          <a mat-list-item routerLink="recent-activity" routerLinkActive="active-link"> Member Activity </a>
-
-          <a mat-list-item routerLink="roster" routerLinkActive="active-link"> Roster </a>
-          <a mat-list-item routerLink="recent-activity" routerLinkActive="active-link"> Member Activity </a>
-
-          <a mat-list-item routerLink="roster" routerLinkActive="active-link"> Roster </a>
-          <a mat-list-item routerLink="recent-activity" routerLinkActive="active-link"> Member Activity </a>
-
-          <a mat-list-item routerLink="roster" routerLinkActive="active-link"> Roster </a>
-          <a mat-list-item routerLink="recent-activity" routerLinkActive="active-link"> Member Activity </a>
-
-
-         <a mat-list-item routerLink="roster" routerLinkActive="active-link"> Roster </a>
-          <a mat-list-item routerLink="recent-activity" routerLinkActive="active-link"> Member Activity </a>
-
-
 
 
 
