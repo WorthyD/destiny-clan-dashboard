@@ -16,3 +16,12 @@ export interface SealClanMember {
     isCompleted: boolean;
   };
 }
+/*
+titleInfo:{} 4 keys
+hasTitle:true
+▶
+titlesByGender:{} 2 keys
+▶
+titlesByGenderHash:{} 2 keys
+gildingTrackingRecordHash:4141599814
+*/

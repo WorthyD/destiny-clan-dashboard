@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import { MatButtonModule } from '@angular/material/button';
 import { RouterModule } from '@angular/router';
 import { SealListItem } from '@features/seals/models/seal-list-item';
 
@@ -9,7 +10,8 @@ import { SealListItem } from '@features/seals/models/seal-list-item';
   styleUrls: ['./seals-list.component.scss'],
   imports:[
     CommonModule,
-    RouterModule
+    RouterModule,
+    MatButtonModule
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true
