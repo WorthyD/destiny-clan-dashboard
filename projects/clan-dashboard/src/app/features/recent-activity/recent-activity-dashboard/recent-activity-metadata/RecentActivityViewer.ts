@@ -14,6 +14,7 @@ export const RECENT_ACTIVITY_VIEWER_METADATA = new Map<string, ViewerMetadata<Pr
     {
       label: 'Display Name',
       isSticky: true,
+      plainText: (item: ProfileRecentActivity) => `${item.clanMember?.destinyUserInfo?.displayName}`,
       render: (item: ProfileRecentActivity) => {
         return {
           text: `${item.clanMember?.destinyUserInfo?.displayName}`
@@ -25,6 +26,7 @@ export const RECENT_ACTIVITY_VIEWER_METADATA = new Map<string, ViewerMetadata<Pr
     'clanName',
     {
       label: 'Clan Name',
+      plainText: (item: ProfileRecentActivity) => `${item.clan.clanName}`,
       render: (item: ProfileRecentActivity) => {
         return {
           text: `${item.clan.clanName}`
@@ -36,6 +38,8 @@ export const RECENT_ACTIVITY_VIEWER_METADATA = new Map<string, ViewerMetadata<Pr
     'lastWeek',
     {
       label: 'Last Week',
+      plainText: (item: ProfileRecentActivity, context: ViewContext) =>
+        `${context.playTimePipe.transform(item.profileActivity.stats.lastWeek)}`,
       render: (item: ProfileRecentActivity, context: ViewContext) => {
         return {
           text: `${context.playTimePipe.transform(item.profileActivity.stats.lastWeek)}`
@@ -47,6 +51,8 @@ export const RECENT_ACTIVITY_VIEWER_METADATA = new Map<string, ViewerMetadata<Pr
     'lastMonth',
     {
       label: 'Last Month',
+      plainText: (item: ProfileRecentActivity, context: ViewContext) =>
+        `${context.playTimePipe.transform(item.profileActivity.stats.lastMonth)}`,
       render: (item: ProfileRecentActivity, context: ViewContext) => {
         return {
           text: `${context.playTimePipe.transform(item.profileActivity.stats.lastMonth)}`
@@ -58,6 +64,8 @@ export const RECENT_ACTIVITY_VIEWER_METADATA = new Map<string, ViewerMetadata<Pr
     'lastNinety',
     {
       label: 'Last 90 Days',
+      plainText: (item: ProfileRecentActivity, context: ViewContext) =>
+        `${context.playTimePipe.transform(item.profileActivity.stats.lastNinetyDays)}`,
       render: (item: ProfileRecentActivity, context: ViewContext) => {
         return {
           text: `${context.playTimePipe.transform(item.profileActivity.stats.lastNinetyDays)}`
@@ -69,6 +77,8 @@ export const RECENT_ACTIVITY_VIEWER_METADATA = new Map<string, ViewerMetadata<Pr
     'dateLastPlayed',
     {
       label: 'Last Played',
+      plainText: (item: ProfileRecentActivity, context: ViewContext) =>
+        `${context.dateTimePipe.transform(item.profile?.profile.data.dateLastPlayed as unknown as Date)}`,
       render: (item: ProfileRecentActivity, context: ViewContext) => {
         return {
           text: `${context.dateTimePipe.transform(item.profile?.profile.data.dateLastPlayed as unknown as Date)}`
