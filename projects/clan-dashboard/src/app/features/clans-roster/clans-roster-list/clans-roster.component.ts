@@ -38,7 +38,7 @@ export class ClansRosterComponent implements OnInit {
   rosterViewer = new Viewer({
     metadata: CLAN_ROSTER_VIEWER_METADATA,
     contextProvider: this.createViewContextProvider()
-  });
+  }, 'D2Dashboard_Roster_Table_Viewer');
   rosterFilter = new Filterer({ metadata: CLAN_ROSTER_FILTERER_METADATA });
   rosterSorter = new Sorter({ metadata: CLAN_ROSTER_SORTER_METADATA });
   rosterExporter = new Exporter({ metadata: CLAN_ROSTER_EXPORTER_METADATA });

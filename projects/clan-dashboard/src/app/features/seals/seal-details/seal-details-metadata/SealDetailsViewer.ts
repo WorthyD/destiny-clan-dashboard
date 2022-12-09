@@ -13,6 +13,7 @@ export const SEAL_DETAILS_VIEWER_METADATA = new Map<string, ViewerMetadata<SealC
     'destinyDisplayName',
     {
       label: 'Destiny Display Name',
+      plainText: (item: SealClanMember) => `${getMemberName(item.clanMember)}`,
       render: (item: SealClanMember) => ({ text: `${getMemberName(item.clanMember)}` })
     }
   ],
@@ -20,6 +21,7 @@ export const SEAL_DETAILS_VIEWER_METADATA = new Map<string, ViewerMetadata<SealC
     'destinyClan',
     {
       label: 'Destiny Clan',
+      plainText: (item: SealClanMember) => `${item.clan.clanName}`,
       render: (item: SealClanMember) => ({ text: `${item.clan.clanName}` })
     }
   ],
@@ -27,6 +29,7 @@ export const SEAL_DETAILS_VIEWER_METADATA = new Map<string, ViewerMetadata<SealC
     'isComplete',
     {
       label: 'Is Completed',
+      plainText: (item: SealClanMember) => (item.sealProgression.isCompleted ? 'X' : ''),
       render: (item: SealClanMember) => ({
         text: item.sealProgression.isCompleted ? 'X' : ''
       })
@@ -36,6 +39,8 @@ export const SEAL_DETAILS_VIEWER_METADATA = new Map<string, ViewerMetadata<SealC
     'completeCount',
     {
       label: 'Completed Count',
+      plainText: (item: SealClanMember) =>
+        `${item.sealProgression.completedTriumphCount || 0} / ${item.sealProgression.totalTriumphCount}`,
       render: (item: SealClanMember) => ({
         text: `${item.sealProgression.completedTriumphCount || 0} / ${item.sealProgression.totalTriumphCount}`
       })
@@ -45,6 +50,7 @@ export const SEAL_DETAILS_VIEWER_METADATA = new Map<string, ViewerMetadata<SealC
     'progress',
     {
       label: 'Percent Completed',
+      plainText: (item: SealClanMember) => `${item.sealProgression.completionPercentage}%`,
       render: (item: SealClanMember) => ({
         text: `${item.sealProgression.completionPercentage}%`
       })

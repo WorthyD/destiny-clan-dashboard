@@ -127,6 +127,7 @@ export class TableViewComponent implements OnChanges {
     this.page.next({ index: event.pageIndex, size: event.pageSize });
   }
   export() {
-    this.exporter.exportData(this.header?.toLowerCase()?.replace(' ', '_'), this.dataSource.data);
+    const curatedData = this.dataSource.data.pipe(this.filterer.filter(), this.sorter.sort());
+    this.viewer.exportData(this.header?.toLowerCase()?.replace(' ', '_'), curatedData);
   }
 }

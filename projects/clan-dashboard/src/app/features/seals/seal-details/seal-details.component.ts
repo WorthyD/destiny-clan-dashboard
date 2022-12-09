@@ -39,7 +39,7 @@ export class SealDetailsComponent {
   sealDetailsViewer = new Viewer({
     metadata: SEAL_DETAILS_VIEWER_METADATA,
     contextProvider: this.createViewContextProvider()
-  });
+  }, '2Dashboard_Seals_Details_Viewer');
   sealDetailsFilterer = new Filterer({ metadata: SEAL_DETAILS_FILTERER_METADATA });
   sealDetailsSorter = new Sorter({ metadata: SEAL_DETAILS_SORTER_METADATA });
   sealDetailsExporter = new Exporter({

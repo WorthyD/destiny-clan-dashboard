@@ -4,6 +4,7 @@ import { BungieDatePipe, BungieDateTimePipe } from '@destiny/components/pipes/bu
 import { MemberTypeComponent } from '@destiny/components/icons';
 import { ClassCellComponent } from '../../components/class-cell/class-cell.component';
 import { ClanMemberProfile } from '../../data-access/clans-roster.service';
+import { MembershipTypes } from '@destiny/data/models';
 
 interface ViewContext {
   item: ClanMemberProfile;
@@ -16,6 +17,7 @@ export const CLAN_ROSTER_VIEWER_METADATA = new Map<string, ViewerMetadata<ClanMe
     'platform',
     {
       label: 'Platform',
+      plainText: (item: ClanMemberProfile) => `${getMembershipType(item.member.destinyUserInfo.membershipType)}`,
       render: (item: ClanMemberProfile) => ({
         //        styles: {},
         component: MemberTypeComponent,
@@ -29,6 +31,7 @@ export const CLAN_ROSTER_VIEWER_METADATA = new Map<string, ViewerMetadata<ClanMe
     {
       label: 'Destiny Display Name',
       isSticky: true,
+      plainText: (item: ClanMemberProfile) => `${item.member?.destinyUserInfo?.displayName || ''}`,
       render: (item: ClanMemberProfile) => ({ text: `${item.member?.destinyUserInfo?.displayName || ''}` })
     }
   ],
@@ -36,6 +39,7 @@ export const CLAN_ROSTER_VIEWER_METADATA = new Map<string, ViewerMetadata<ClanMe
     'bungieDisplayName',
     {
       label: 'Bungie Display Name',
+      plainText: (item: ClanMemberProfile) => `${item.member?.bungieNetUserInfo?.displayName || ''}`,
       render: (item: ClanMemberProfile) => ({ text: `${item.member?.bungieNetUserInfo?.displayName || ''}` })
     }
   ],
@@ -43,6 +47,7 @@ export const CLAN_ROSTER_VIEWER_METADATA = new Map<string, ViewerMetadata<ClanMe
     'characters',
     {
       label: 'Characters',
+      plainText: (item: ClanMemberProfile) => ``,
       render: (item: ClanMemberProfile) => {
         const characterIds = item.profile?.profile?.data?.characterIds;
         return {
@@ -65,6 +70,7 @@ export const CLAN_ROSTER_VIEWER_METADATA = new Map<string, ViewerMetadata<ClanMe
     'powerLevel',
     {
       label: '+',
+      plainText: (item: ClanMemberProfile) => `${item.profile?.profileProgression?.data?.seasonalArtifact?.powerBonus}`,
       render: (item: ClanMemberProfile) => ({
         classList: 'power-cell',
         text: `${item.profile?.profileProgression?.data?.seasonalArtifact?.powerBonus}`
@@ -75,6 +81,7 @@ export const CLAN_ROSTER_VIEWER_METADATA = new Map<string, ViewerMetadata<ClanMe
     'activeTriumph',
     {
       label: 'Active Triumph',
+      plainText: (item: ClanMemberProfile) => `${item.profile?.profileRecords?.data?.activeScore}`,
       render: (item: ClanMemberProfile) => ({
         text: `${item.profile?.profileRecords?.data?.activeScore}`
       })
@@ -84,6 +91,7 @@ export const CLAN_ROSTER_VIEWER_METADATA = new Map<string, ViewerMetadata<ClanMe
     'lifetimeTriumph',
     {
       label: 'Lifetime Triumph',
+      plainText: (item: ClanMemberProfile) => `${item.profile?.profileRecords?.data?.lifetimeScore}`,
       render: (item: ClanMemberProfile) => ({
         text: `${item.profile?.profileRecords?.data?.lifetimeScore}`
       })
@@ -93,6 +101,7 @@ export const CLAN_ROSTER_VIEWER_METADATA = new Map<string, ViewerMetadata<ClanMe
     'clan',
     {
       label: 'Clan',
+      plainText: (item: ClanMemberProfile) => `${item.clan.clanName}`,
       render: (item: ClanMemberProfile, context: ViewContext) => {
         return {
           text: `${item.clan.clanName}`
@@ -105,6 +114,8 @@ export const CLAN_ROSTER_VIEWER_METADATA = new Map<string, ViewerMetadata<ClanMe
     'clanJoinDate',
     {
       label: 'Clan Join Date',
+      plainText: (item: ClanMemberProfile, context: ViewContext) =>
+        `${context.datePipe.transform(item.member?.joinDate as unknown as Date)}`,
       render: (item: ClanMemberProfile, context: ViewContext) => {
         return {
           text: `${context.datePipe.transform(item.member?.joinDate as unknown as Date)}`
@@ -116,6 +127,7 @@ export const CLAN_ROSTER_VIEWER_METADATA = new Map<string, ViewerMetadata<ClanMe
     'dateLastPlayed',
     {
       label: 'Last Played',
+      plainText: (item: ClanMemberProfile, context: ViewContext) => `${context.dateTimePipe.transform(item.profile?.profile.data.dateLastPlayed as unknown as Date)}`,
       render: (item: ClanMemberProfile, context: ViewContext) => {
         return {
           text: `${context.dateTimePipe.transform(item.profile?.profile.data.dateLastPlayed as unknown as Date)}`
@@ -127,3 +139,18 @@ export const CLAN_ROSTER_VIEWER_METADATA = new Map<string, ViewerMetadata<ClanMe
   //['name', { label: 'Name', render: (item) => ({ text: `${item.name}` }) }],
   //['startDate', { label: 'Start Date', render: (item) => ({ text: `${new Date(item.startDate).toDateString()}` }) }]
 ]);
+
+function getMembershipType(value) {
+  switch (value) {
+    case MembershipTypes.Xbox:
+      return 'xbox';
+    case MembershipTypes.Psn:
+      return 'playstation';
+    case MembershipTypes.Steam:
+      return 'steam';
+    case MembershipTypes.Stadia:
+      return 'stadia';
+    default:
+      return ``;
+  }
+}
