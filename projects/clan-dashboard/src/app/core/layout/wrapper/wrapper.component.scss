@@ -1,11 +1,40 @@
-.main-wrapper {
-  nav {
-    max-width: 960px;
-    margin: 20px auto;
-    display: flex;
-    align-items: center;
-    a {
-      margin: 10px;
-    }
+.main-container {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  top: 0px;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+.clan-nav {
+  min-width: 150px;
+  display: flex;
+  flex-direction: column;
+  // height: 100%;
+  padding-top: 0;
+
+  .section-nav {
+    flex: 1;
   }
+}
+
+lib-navbar {
+  position: fixed;
+  // top: 0;
+  // left: 0;
+  // right: 0;
+  z-index: 2;
+}
+
+mat-sidenav-container {
+  //min-height: calc(100vh - 64px);
+  flex: 1;
+}
+
+mat-sidenav-content {
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
 }

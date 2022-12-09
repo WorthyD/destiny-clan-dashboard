@@ -41,9 +41,11 @@ advanced-search {
 table {
   width: 100%;
 
+  th,
   td {
- //   padding-top: 4px;
-//    padding-bottom: 4px;
+    //   padding-top: 4px;
+    //    padding-bottom: 4px;
+    white-space: nowrap;
   }
 }
 

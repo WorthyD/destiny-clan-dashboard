@@ -27,11 +27,13 @@ export type RenderedView = RenderedViewWithText | RenderedViewWithChildren | Ren
 
 export interface ViewerMetadata<T = any, C = any> {
   label: string;
+  isSticky?: boolean;
   render: (item: T, context: C) => RenderedView | null;
 }
 
 export interface ViewLabel {
   id: string;
+  isSticky: boolean;
   label: string;
 }
 
@@ -59,7 +61,7 @@ export class Viewer<T = any, C = any> {
 
   getViews(): ViewLabel[] {
     const views: ViewLabel[] = [];
-    this.metadata.forEach((value, key) => views.push({ id: key, label: value.label }));
+    this.metadata.forEach((value, key) => views.push({ id: key, label: value.label, isSticky: value.isSticky || false }));
     return views;
   }
 

@@ -12,3 +12,10 @@ export const parameters = {
   },
   docs: { inlineStories: true },
 }
+
+
+import { componentWrapperDecorator } from '@storybook/angular';
+
+export const decorators = [
+  componentWrapperDecorator((story) => `<div class="mat-typography content-wrapper"><h1>Stuff</h1>${story}</div>`),
+];

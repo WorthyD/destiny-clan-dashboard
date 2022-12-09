@@ -1,0 +1,12 @@
+@mixin set-dark-variables($theme) {
+  $bg2: map-get($theme, background);
+  $fg2: map-get($theme, foreground);
+
+  :root {
+    --app-text-color: #{mat.get-color-from-palette($fg2, text)};
+
+    --app-background-color: #{mat.get-color-from-palette($bg2, background)};
+    --app-card-color: #{mat.get-color-from-palette($bg2, card)};
+    --app-dialog-color: #{mat.get-color-from-palette($bg2, dialog)};
+  }
+}

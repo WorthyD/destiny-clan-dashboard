@@ -1,4 +1,4 @@
-  <div class="header theme-background-card">
+ <div class="header theme-background-card mat-card">
    <h3>{{header}}</h3>
    <!-- <advanced-search [filterer]="filterer" [dataSource]="dataSource">
    </advanced-search> -->
@@ -11,7 +11,7 @@
 
  <div class="table-container">
    <table mat-table [dataSource]="renderedData">
-     <ng-container *ngFor="let view of views" [matColumnDef]="view.id">
+     <ng-container *ngFor="let view of views" [matColumnDef]="view.id" [sticky]="view?.isSticky">
        <th mat-header-cell *matHeaderCellDef>
          {{view.label}}
        </th>

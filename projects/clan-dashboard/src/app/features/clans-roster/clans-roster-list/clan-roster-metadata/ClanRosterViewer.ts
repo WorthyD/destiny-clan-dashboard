@@ -19,7 +19,7 @@ export const CLAN_ROSTER_VIEWER_METADATA = new Map<string, ViewerMetadata<ClanMe
       render: (item: ClanMemberProfile) => ({
         //        styles: {},
         component: MemberTypeComponent,
-        data: { type: item.member?.destinyUserInfo?.membershipType || 0}
+        data: { type: item.member?.destinyUserInfo?.membershipType || 0 }
         //text: `${item.member.destinyUserInfo.membershipType}`
       })
     }
@@ -28,6 +28,7 @@ export const CLAN_ROSTER_VIEWER_METADATA = new Map<string, ViewerMetadata<ClanMe
     'destinyDisplayName',
     {
       label: 'Destiny Display Name',
+      isSticky: true,
       render: (item: ClanMemberProfile) => ({ text: `${item.member?.destinyUserInfo?.displayName || ''}` })
     }
   ],
