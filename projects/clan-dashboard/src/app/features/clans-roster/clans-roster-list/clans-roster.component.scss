@@ -1,7 +1,21 @@
+app-clans-roster {
+  flex: 1;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
 .clan-roster {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  .clan-roster-table {
+    flex: 1;
+    overflow: hidden;
+  }
   .characters-cell {
     display: flex;
-    height: 48px;
+    height: 51px;
   }
   .character-cell {
     display: flex;
@@ -22,6 +36,7 @@
       align-items: center;
       text-align: center;
       justify-content: center;
+      min-width: 60px;
     }
     .titan-cell {
       background: rgba(100, 47, 47, 0.8) !important;
@@ -44,14 +59,18 @@
   .power-cell {
     box-sizing: border-box;
     display: flex;
-    height: 48px;
+    height: 51px;
     justify-content: space-around;
     align-items: center;
     text-align: center;
     width: 100%;
     background-color: #b78c25b3;
     color: #fff;
-    padding: 0 8px;
+    padding: 0 16px;
+  }
+  .mat-column-characters,
+  .mat-column-powerLevel {
+    padding: 0;
   }
   .score-cell {
     display: flex;

@@ -14,6 +14,10 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+  h3 {
+    margin-left: 16px;
+    margin-bottom: 0;
+  }
   .header-actions {
     display: flex;
   }
@@ -41,9 +45,11 @@ advanced-search {
 table {
   width: 100%;
 
+  th,
   td {
- //   padding-top: 4px;
-//    padding-bottom: 4px;
+    //   padding-top: 4px;
+    //    padding-bottom: 4px;
+    white-space: nowrap;
   }
 }
 
