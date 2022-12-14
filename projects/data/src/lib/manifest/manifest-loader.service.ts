@@ -28,7 +28,7 @@ export class ManifestLoaderService {
     const jsonPathExp = window.localStorage.getItem(MANIFEST_PATH_EXP_KEY);
     if (jsonPathExp && jsonPath) {
       const jsonDate = new Date(jsonPathExp);
-      if (jsonDate < nowPlusMinutes(-60)) {
+      if (jsonDate > nowPlusMinutes(-60)) {
         return of(jsonPath);
       }
     }
