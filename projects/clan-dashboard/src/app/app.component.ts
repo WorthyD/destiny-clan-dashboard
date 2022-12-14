@@ -6,6 +6,7 @@ import { loadManifest, selectManifestState } from '@core/store/manifest';
 import { DomSanitizer } from '@angular/platform-browser';
 import { MatIconRegistry } from '@angular/material/icon';
 import { registerIcons } from '@destiny/components/icons';
+import { catchError, map, of } from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -16,7 +17,14 @@ export class AppComponent {
   title = 'clan-dashboard';
   test = ''; // environment.apiKey;
 
-  manifestState$ = this.store.select(selectManifestState);
+  manifestState$ = this.store.select(selectManifestState).pipe(
+    // eslint-disable-next-line @ngrx/avoid-mapping-selectors
+    map((x) => x),
+    catchError((err) => {
+      console.log('error');
+      return of(null);
+    })
+  );
 
   constructor(private store: Store, iconRegistry: MatIconRegistry, domSanitizer: DomSanitizer) {
     registerIcons(iconRegistry, domSanitizer);

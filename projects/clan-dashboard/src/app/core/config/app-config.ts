@@ -5,4 +5,5 @@ export class AppConfig {
   readonly constants: DeepPartial<typeof baseConstants>
   readonly apiKey: string;
   readonly appVersion: string;
+  readonly production: boolean
 }

@@ -1,3 +1,15 @@
 .loading {
   text-align: center;
 }
+
+.seals-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+
+  .seal {
+    width:100%;
+    max-width: 480px;
+    margin: 2rem;
+  }
+}

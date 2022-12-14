@@ -1,0 +1,47 @@
+app-lookup {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+.tab-stuff {
+  display: flex;
+  width: 100%;
+  flex: 1;
+  overflow: hidden;
+  .mat-mdc-tab-body-wrapper {
+    flex: 1;
+  }
+}
+.lookup-wrapper {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  flex: 1;
+  overflow: hidden;
+  .section {
+    padding: 1rem;
+    input {
+      display: block;
+    }
+    select {
+      display: block;
+    }
+  }
+  .info {
+    width: 75%;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    overflow: auto;
+    .info-content {
+      margin: 1rem;
+      flex: 1;
+    }
+    textarea {
+      display: block;
+      height: 100%;
+      width: 100%;
+    }
+  }
+}

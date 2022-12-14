@@ -13,8 +13,8 @@
     "test:components": "ng test --project=components",
     "test:components:coverage": "ng test --project=components --browsers=ChromeHeadless --code-coverage=true --watch=false",
     "docs:json": "compodoc -p ./tsconfig.json -e json -d .",
-    "storybook": "npm run docs:json && start-storybook -p 6006",
-    "storybook2":"ng run clan-dashboard:storybook",
+    "storybook3": "npm run docs:json && start-storybook -p 6006",
+    "storybook":"ng run clan-dashboard:storybook",
     "config": "ts-node set-env.ts",
     "lint": "ng lint"
   },

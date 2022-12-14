@@ -1,12 +1,25 @@
 @import './theme/material.scss';
 
-
 /* You can add global styles to this file, and also import other style files */
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
-
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, 'Helvetica Neue', sans-serif;
+}
+html {
+  box-sizing: border-box;
+}
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
+}
 @import './theme/components/components.scss';
+
 .mat-drawer::-webkit-scrollbar {
   height: 4px;
   width: 4px;
@@ -22,4 +35,8 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
 .mat-drawer-inner-container::-webkit-scrollbar-thumb {
   background: gray;
+}
+
+a:not(.mat-mdc-button-base) {
+  color: var(--app-primary-color);
 }

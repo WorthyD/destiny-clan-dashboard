@@ -1,6 +1,17 @@
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { mergeMap, map, catchError, toArray, switchMap, tap, take, filter, distinctUntilChanged } from 'rxjs/operators';
+import {
+  mergeMap,
+  map,
+  catchError,
+  toArray,
+  switchMap,
+  tap,
+  take,
+  filter,
+  distinctUntilChanged,
+  concatMap
+} from 'rxjs/operators';
 import { ClanConfig, selectEnabledClans, updateClan, updateClanProfileSync } from '../../store/clans';
 import { ClanMembersService } from '@destiny/data/clan/clan-members';
 import { from, Observable, of } from 'rxjs';
@@ -11,6 +22,8 @@ import { AppConfig } from '@core/config/app-config';
 import { ProfileUpdaterService } from './profile-updater.service';
 import { MemberActivityUpdaterService } from './member-activity-updater.service';
 import { ClanDetailsService } from '@destiny/data/clan/clan-details';
+import { MatDialog } from '@angular/material/dialog';
+import { AppOfflineDialogComponent } from '../../layout/app-offline-dialog/app-offline-dialog.component';
 
 export interface ClanConfigMembers {
   clanConfig: ClanConfig;
@@ -32,7 +45,8 @@ export class ClanUpdaterService {
     private appConfig: AppConfig,
     private clanDetailsService: ClanDetailsService,
     private profileUpdaterService: ProfileUpdaterService,
-    private memberActivityUpdaterService: MemberActivityUpdaterService
+    private memberActivityUpdaterService: MemberActivityUpdaterService,
+    public dialog: MatDialog
   ) {}
 
   update() {
@@ -52,8 +66,10 @@ export class ClanUpdaterService {
 
   clanUpdate(activeClans) {
     return from(activeClans).pipe(
+      // TODO: Double check concat map
       mergeMap((clanConfig: ClanConfig) => {
-        return this.clanDetailsService.getClanDetailsSerialized(clanConfig.clanId).pipe(
+        //concatMap((clanConfig: ClanConfig) => {
+        return this.clanDetailsService.getClanDetailsSerialized(clanConfig.clanId, false).pipe(
           map((result) => {
             const newConfig = {
               ...clanConfig,
@@ -66,7 +82,19 @@ export class ClanUpdaterService {
           })
         );
       }, 1),
-      toArray()
+
+      toArray(),
+      catchError((err) => {
+        if (err.message === 'System Offline') {
+          const acknowledgeOffline = window.sessionStorage.getItem(
+            this.appConfig.constants.D2DASHBOARD_ACKNOWLEDGE_OFFLINE
+          );
+          if (!acknowledgeOffline) {
+            this.dialog.open(AppOfflineDialogComponent);
+          }
+        }
+        throw err;
+      })
     );
   }
 
