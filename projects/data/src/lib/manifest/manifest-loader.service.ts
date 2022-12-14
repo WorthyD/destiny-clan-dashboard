@@ -11,7 +11,7 @@ export const STATUS_DONE = 'done';
 const MANIFEST_PATH_KEY = 'MANIFEST_PATH_KEY';
 const MANIFEST_PATH_EXP_KEY = 'MANIFEST_PATH_EXP_KEY';
 
-const VERSION = 'v1';
+const VERSION = 'v2';
 
 export interface CachedManifest {
   id: string;
