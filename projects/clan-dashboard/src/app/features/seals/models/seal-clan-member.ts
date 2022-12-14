@@ -14,14 +14,7 @@ export interface SealClanMember {
     totalTriumphCount:number;
     completionPercentage: number;
     isCompleted: boolean;
+    isGilded: boolean;
+    gildedCount: number;
   };
 }
-/*
-titleInfo:{} 4 keys
-hasTitle:true
-▶
-titlesByGender:{} 2 keys
-▶
-titlesByGenderHash:{} 2 keys
-gildingTrackingRecordHash:4141599814
-*/

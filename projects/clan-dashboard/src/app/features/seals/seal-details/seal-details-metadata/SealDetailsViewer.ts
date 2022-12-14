@@ -36,6 +36,26 @@ export const SEAL_DETAILS_VIEWER_METADATA = new Map<string, ViewerMetadata<SealC
     }
   ],
   [
+    'isGilded',
+    {
+      label: 'Is Gilded',
+      plainText: (item: SealClanMember) => (item.sealProgression.isGilded ? 'X' : ''),
+      render: (item: SealClanMember) => ({
+        text: item.sealProgression.isGilded ? 'X' : ''
+      })
+    }
+  ],
+  [
+    'gildedCount',
+    {
+      label: 'Gilded Count',
+      plainText: (item: SealClanMember) => `${item.sealProgression.gildedCount || ''}`,
+      render: (item: SealClanMember) => ({
+        text: `${item.sealProgression.gildedCount || ''}`
+      })
+    }
+  ],
+  [
     'completeCount',
     {
       label: 'Completed Count',
