@@ -13,9 +13,16 @@
             <mat-card-subtitle>{{sealDetails.seal.displayProperties.description}}</mat-card-subtitle>
           </mat-card-title-group>
         </mat-card-header>
-        <mat-card-content>
-          {{sealDetails.completedCount}} / {{sealDetails.totalMembers}}
-          <button mat-button routerLink="/seals/{{sealDetails.seal.hash}}">View</button>
+        <mat-card-content class="seal-info">
+          <div>
+            Complete: {{sealDetails.completedCount}} / {{sealDetails.totalMembers}}
+          </div>
+          <div *ngIf="sealDetails.isGilded">
+            Gilded: {{sealDetails.gildedCount}} / {{sealDetails.totalMembers}}
+          </div>
+          <div>
+            <button mat-button routerLink="/seals/{{sealDetails.seal.hash}}">View</button>
+          </div>
         </mat-card-content>
       </mat-card>
     </ng-container>

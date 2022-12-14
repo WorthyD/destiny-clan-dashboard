@@ -8,8 +8,14 @@
   justify-content: center;
 
   .seal {
-    width:100%;
+    width: 100%;
     max-width: 480px;
     margin: 2rem;
   }
+}
+.seal-info {
+  padding-top: 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
