@@ -42,6 +42,11 @@ const routes: Routes = [
       {
         path: 'config',
         loadChildren: () => import('./views/config/config.module').then((module) => module.ConfigModule)
+      },
+      {
+        path: 'sandbox',
+        loadChildren: () =>
+          import('./features/sandbox/sandbox-shell/sandbox-shell.module').then((module) => module.SandboxShellModule)
       }
     ]
   },

@@ -2,15 +2,23 @@
   <p *ngIf="!sealsList.length">
     No Seals Found
   </p>
-  <div *ngFor="let sealDetails of sealsList">
-    <h2>{{sealDetails.seal.displayProperties.name}}</h2>
-    <h3>{{sealDetails.seal.displayProperties.description}}</h3>
-    <div>
-      {{sealDetails.completedCount}} / {{sealDetails.totalMembers}}
-    </div>
-    <button mat-button routerLink="/seals/{{sealDetails.seal.hash}}">View</button>
-
-    <hr>
+  <div class="seals-container" *ngIf="sealsList">
+    <ng-container *ngFor="let sealDetails of sealsList">
+      <mat-card class="seal">
+        <mat-card-header>
+          <mat-card-title-group>
+            <img src="//bungie.net/{{sealDetails.seal?.displayProperties?.icon}}"
+              alt="{{sealDetails.seal?.displayProperties?.name}}">
+            <mat-card-title>{{sealDetails.seal.displayProperties.name}}</mat-card-title>
+            <mat-card-subtitle>{{sealDetails.seal.displayProperties.description}}</mat-card-subtitle>
+          </mat-card-title-group>
+        </mat-card-header>
+        <mat-card-content>
+          {{sealDetails.completedCount}} / {{sealDetails.totalMembers}}
+          <button mat-button routerLink="/seals/{{sealDetails.seal.hash}}">View</button>
+        </mat-card-content>
+      </mat-card>
+    </ng-container>
   </div>
 </div>
 

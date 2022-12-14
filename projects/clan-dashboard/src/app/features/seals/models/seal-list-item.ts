@@ -1,4 +1,4 @@
-import { DestinyDefinitionsPresentationDestinyPresentationNodeDefinition } from "bungie-api-angular";
+import { SealDefinition } from "@destiny/data/models";
 
 export interface SealListItem {
   seal: SealDefinition;
@@ -6,4 +6,3 @@ export interface SealListItem {
   completedCount: number;
 }
 
-export interface SealDefinition extends  DestinyDefinitionsPresentationDestinyPresentationNodeDefinition {}

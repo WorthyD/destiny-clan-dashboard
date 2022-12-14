@@ -21,7 +21,7 @@ export class ClanDetailsService extends BaseClanService {
     return this.groupService.groupV2GetGroup(clanId as unknown as number);
   }
 
-  private getClanDetails(clanId: string) {
+  private getClanDetails(clanId: string, ignoreOffline: boolean) {
     return from(this.getDataFromCache(clanId.toString(), this.rowId)).pipe(
       switchMap((cachedData) => {
         if (this.isCacheValid(cachedData, 10)) {
@@ -39,6 +39,10 @@ export class ClanDetailsService extends BaseClanService {
             throw Error('Clan Not found');
           }),
           catchError((error) => {
+            if (error?.error?.ErrorStatus === 'SystemDisabled' && !ignoreOffline) {
+              throw Error('System Offline');
+            }
+
             if (cachedData && cachedData.data) {
               return of(cachedData.data);
             }
@@ -49,7 +53,7 @@ export class ClanDetailsService extends BaseClanService {
     );
   }
 
-  getClanDetailsSerialized(clanId: string) {
-    return this.getClanDetails(clanId);
+  getClanDetailsSerialized(clanId: string, ignoreOffline: boolean) {
+    return this.getClanDetails(clanId, ignoreOffline);
   }
 }

@@ -14,6 +14,9 @@ import { LayoutModule } from './layout/layout.module';
 import { ClanMembersService } from '@destiny/data/clan/clan-members';
 import { ProfileService } from 'projects/data/src/lib/clan/profiles/profile.service';
 import { ClanDatabase } from 'projects/data/src/lib/clan/clan-database';
+import { locationProvider, LocationToken } from './injection-tokens/location-token';
+import { windowProvider, WindowToken } from './injection-tokens/window-token';
+import { MatDialogModule } from '@angular/material/dialog';
 
 @NgModule({
   declarations: [],
@@ -22,12 +25,15 @@ import { ClanDatabase } from 'projects/data/src/lib/clan/clan-database';
     HttpClientModule,
     ClanDbModule,
     LayoutModule,
+    MatDialogModule,
     StoreModule.forRoot(coreReducers, { metaReducers }),
     EffectsModule.forRoot(coreEffects),
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production })
   ],
   providers: [
     ClanMembersService,
+    { provide: LocationToken, useFactory: locationProvider },
+    { provide: WindowToken, useFactory: windowProvider },
     {
       provide: ProfileService,
       useFactory: (canDB) => {

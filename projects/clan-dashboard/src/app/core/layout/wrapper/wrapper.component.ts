@@ -3,6 +3,7 @@ import { getAllNotifications } from '@core/store/notifications';
 import { select, Store } from '@ngrx/store';
 import { take } from 'rxjs';
 import { ClanUpdaterService } from '../../services/updaters/clan-updater.service';
+import { AppConfig } from '../../config/app-config';
 
 @Component({
   selector: 'app-wrapper',
@@ -10,8 +11,9 @@ import { ClanUpdaterService } from '../../services/updaters/clan-updater.service
   styleUrls: ['./wrapper.component.scss']
 })
 export class WrapperComponent implements OnInit {
-  constructor(private clanUpdaterService: ClanUpdaterService, private store: Store) {}
+  constructor(private clanUpdaterService: ClanUpdaterService, private store: Store, private appConfig: AppConfig) {}
   loading: boolean = false;
+  showSandbox = !this.appConfig.production;
 
   notifications$ = this.store.select(getAllNotifications);
 

@@ -1,21 +1,23 @@
-import { setCompodocJson } from "@storybook/addon-docs/angular";
-import docJson from "../documentation.json";
+import { setCompodocJson } from '@storybook/addon-docs/angular';
+import docJson from '../documentation.json';
 setCompodocJson(docJson);
 
 export const parameters = {
-  actions: { argTypesRegex: "^on[A-Z].*" },
+  actions: { argTypesRegex: '^on[A-Z].*' },
   controls: {
     matchers: {
       color: /(background|color)$/i,
-      date: /Date$/,
-    },
+      date: /Date$/
+    }
   },
-  docs: { inlineStories: true },
-}
-
+  docs: { inlineStories: true }
+};
 
 import { componentWrapperDecorator } from '@storybook/angular';
 
 export const decorators = [
-  componentWrapperDecorator((story) => `<div class="mat-typography content-wrapper"><h1>Stuff</h1>${story}</div>`),
+  componentWrapperDecorator(
+    (story) =>
+      `<div class="mat-typography content-wrapper story-book-wrapper" style="padding:1rem; margin:-1rem;">${story}</div>`
+  )
 ];
