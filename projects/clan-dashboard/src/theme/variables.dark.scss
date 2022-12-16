@@ -11,6 +11,8 @@
     --app-card-color: #{mat.get-color-from-palette($bg2, card)};
     --app-dialog-color: #{mat.get-color-from-palette($bg2, dialog)};
 
+    --app-skeleton-bg: rgba(255, 255, 255, 0.13);
+
     --app-primary-color-text: #{mat.get-color-from-palette($primary, default-contrast)};
     --app-primary-color: #{mat.get-color-from-palette($primary)};
     --app-primary-color-darker: #{mat.get-color-from-palette($primary, darker)};

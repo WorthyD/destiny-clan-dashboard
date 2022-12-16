@@ -7,7 +7,7 @@
       <mat-card class="seal">
         <mat-card-header>
           <mat-card-title-group>
-            <img src="//bungie.net/{{sealDetails.seal?.displayProperties?.icon}}"
+            <img class="seal-image" src="//bungie.net/{{sealDetails.seal?.displayProperties?.icon}}"
               alt="{{sealDetails.seal?.displayProperties?.name}}">
             <mat-card-title>{{sealDetails.seal.displayProperties.name}}</mat-card-title>
             <mat-card-subtitle>{{sealDetails.seal.displayProperties.description}}</mat-card-subtitle>
@@ -30,7 +30,27 @@
 </div>
 
 <ng-template #loading>
-  <div class="loading">
-    Loading Seals
+  <div class="loading seals-container">
+    <ng-container *ngFor="let x of ['','','','','','','','','','','','','','']">
+      <mat-card class="seal">
+        <mat-card-header>
+          <mat-card-title-group>
+            <mat-card-title><span class="skeleton-item skeleton-title"></span></mat-card-title>
+            <mat-card-subtitle>
+              <span class="skeleton-item skeleton-sub-title"></span>
+              <span class="skeleton-item skeleton-sub-title"></span>
+              <span class="skeleton-item skeleton-sub-title"></span>
+            </mat-card-subtitle>
+            <span class="skeleton-item seal-image"></span>
+          </mat-card-title-group>
+        </mat-card-header>
+        <mat-card-content class="seal-info">
+          <span class="skeleton-item" style="width:100px"></span>
+          <span class="skeleton-item"></span>
+          <span class="skeleton-item"></span>
+        </mat-card-content>
+      </mat-card>
+
+    </ng-container>
   </div>
 </ng-template>

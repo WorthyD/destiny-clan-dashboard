@@ -5,14 +5,18 @@
     </div>
   </ng-container>
   <ng-container *ngIf="manifestState.error">
-    <h1>Error State</h1>
-    <p>Hey something went wrong</p>
+    <div class="loading-manifest-container">
+      <h1>Error State</h1>
+      <p>Hey something went wrong</p>
+    </div>
   </ng-container>
 
 
   <ng-template #loading>
-    <h1>Loading Manifest</h1>
-
+    <div class="loading-manifest-container">
+      <h2>Loading Manifest</h2>
+      <mat-spinner mode="indeterminate"></mat-spinner>
+    </div>
   </ng-template>
 
 </ng-container>
