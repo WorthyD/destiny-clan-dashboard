@@ -46,7 +46,6 @@ export class SealsService {
     switchMap((clansAndMembers) => {
       return from(clansAndMembers).pipe(
         mergeMap((clanAndMembers) => {
-          console.log;
           const hashes = this.sealNodes.filter((x) => x.completionRecordHash).map((x) => x.completionRecordHash);
           const gildedHashes = [];
           hashes.forEach((hash) => {

@@ -459,12 +459,12 @@
         },
         {
             "name": "CachedManifest",
-            "id": "interface-CachedManifest-9d8d1bee2a20baee7f950f0feea97fc96aaa34ea53965c8262d77f8bd9019d28f610cd3fd5a756714aaca78ae530d8e30203f2d2999dce5d3ee41e4f1a25ae2d",
+            "id": "interface-CachedManifest-a9e706bee60e02635b39679b5f52141fd6e4c1e1b4d916af3979d084d63d9fd83afb541608ef386bf302c575f219b2acf7450cf65e8077e969c6370b6864d199",
             "file": "projects/data/src/lib/manifest/manifest-loader.service.ts",
             "deprecated": false,
             "deprecationMessage": "",
             "type": "interface",
-            "sourceCode": "import { Injectable } from '@angular/core';\r\n\r\nimport { Destiny2Service } from 'bungie-api-angular';\r\nimport { map, Observable, of, switchMap, take } from 'rxjs';\r\nimport { nowPlusMinutes } from '../utility/date-utils';\r\nimport { ManifestDatabaseService } from './manifest-database.service';\r\n\r\nexport const STATUS_EXTRACTING_TABLES = 'extracting tables';\r\nexport const STATUS_UNZIPPING = 'unzipping';\r\nexport const STATUS_DONE = 'done';\r\nconst MANIFEST_PATH_KEY = 'MANIFEST_PATH_KEY';\r\nconst MANIFEST_PATH_EXP_KEY = 'MANIFEST_PATH_EXP_KEY';\r\n\r\nconst VERSION = 'v1';\r\n\r\nexport interface CachedManifest {\r\n  id: string;\r\n  data: any;\r\n}\r\n\r\n@Injectable({\r\n  providedIn: 'root'\r\n})\r\nexport class ManifestLoaderService {\r\n  constructor(private d2service: Destiny2Service, private db: ManifestDatabaseService) {}\r\n  private getManifestFromCache(language: string) {\r\n    const jsonPath = window.localStorage.getItem(MANIFEST_PATH_KEY);\r\n    const jsonPathExp = window.localStorage.getItem(MANIFEST_PATH_EXP_KEY);\r\n    if (jsonPathExp && jsonPath) {\r\n      const jsonDate = new Date(jsonPathExp);\r\n      if (jsonDate < nowPlusMinutes(-60)) {\r\n        return of(jsonPath);\r\n      }\r\n    }\r\n    return this.getManifest(language).pipe(\r\n      map((x) => {\r\n        window.localStorage.setItem(MANIFEST_PATH_KEY, x);\r\n        window.localStorage.setItem(MANIFEST_PATH_EXP_KEY, new Date().toString());\r\n        return x;\r\n      })\r\n    );\r\n  }\r\n\r\n  private getManifest(language: string) {\r\n    return this.d2service.destiny2GetDestinyManifest().pipe(\r\n      map((response) => {\r\n        return response.Response.jsonWorldContentPaths[language];\r\n      })\r\n    );\r\n  }\r\n\r\n  pruneTables(obj, keys) {\r\n    if (!keys.length) {\r\n      return obj;\r\n    }\r\n\r\n    return keys.reduce((acc, key) => {\r\n      return {\r\n        ...acc,\r\n        [key]: obj[key]\r\n      };\r\n    }, {});\r\n  }\r\n\r\n  requestDefinitionsArchive(dbPath, tableNames) {\r\n    // TODO This takes about a second and a half to execute\r\n    return this.db.getValues('manifest').then((cachedValue) => {\r\n      const versionKey = `${VERSION}:${dbPath}`;\r\n\r\n      if (cachedValue && cachedValue.length > 0 && cachedValue.find((x) => x.id === versionKey)) {\r\n        this.db.closeDatabase('manifest');\r\n        return cachedValue.find((x) => x.id === versionKey);\r\n      }\r\n\r\n      return fetch(`https://www.bungie.net${dbPath}`).then((x) => {\r\n        return x.json().then((y) => {\r\n          const prunedTables = this.pruneTables(y, tableNames);\r\n          const dbObject = { id: versionKey, data: prunedTables };\r\n          this.db.update('manifest', 'allData', [dbObject]).then((db) => {\r\n            this.db.closeDatabase('manifest');\r\n          });\r\n\r\n          return dbObject;\r\n        });\r\n      });\r\n    });\r\n  }\r\n\r\n  public loadManifestData(language: string = 'en', tableNames): Observable<CachedManifest> {\r\n    return this.getManifestFromCache(language).pipe(\r\n      take(1),\r\n      switchMap((path) => this.requestDefinitionsArchive(path, tableNames))\r\n    );\r\n  }\r\n}\r\n",
+            "sourceCode": "import { Injectable } from '@angular/core';\r\n\r\nimport { Destiny2Service } from 'bungie-api-angular';\r\nimport { map, Observable, of, switchMap, take } from 'rxjs';\r\nimport { nowPlusMinutes } from '../utility/date-utils';\r\nimport { ManifestDatabaseService } from './manifest-database.service';\r\n\r\nexport const STATUS_EXTRACTING_TABLES = 'extracting tables';\r\nexport const STATUS_UNZIPPING = 'unzipping';\r\nexport const STATUS_DONE = 'done';\r\nconst MANIFEST_PATH_KEY = 'MANIFEST_PATH_KEY';\r\nconst MANIFEST_PATH_EXP_KEY = 'MANIFEST_PATH_EXP_KEY';\r\n\r\nconst VERSION = 'v1';\r\n\r\nexport interface CachedManifest {\r\n  id: string;\r\n  data: any;\r\n}\r\n\r\n@Injectable({\r\n  providedIn: 'root'\r\n})\r\nexport class ManifestLoaderService {\r\n  constructor(private d2service: Destiny2Service, private db: ManifestDatabaseService) {}\r\n  private getManifestFromCache(language: string) {\r\n    const jsonPath = window.localStorage.getItem(MANIFEST_PATH_KEY);\r\n    const jsonPathExp = window.localStorage.getItem(MANIFEST_PATH_EXP_KEY);\r\n    if (jsonPathExp && jsonPath) {\r\n      const jsonDate = new Date(jsonPathExp);\r\n      if (jsonDate > nowPlusMinutes(-60)) {\r\n        return of(jsonPath);\r\n      }\r\n    }\r\n    return this.getManifest(language).pipe(\r\n      map((x) => {\r\n        window.localStorage.setItem(MANIFEST_PATH_KEY, x);\r\n        window.localStorage.setItem(MANIFEST_PATH_EXP_KEY, new Date().toString());\r\n        return x;\r\n      })\r\n    );\r\n  }\r\n\r\n  private getManifest(language: string) {\r\n    return this.d2service.destiny2GetDestinyManifest().pipe(\r\n      map((response) => {\r\n        return response.Response.jsonWorldContentPaths[language];\r\n      })\r\n    );\r\n  }\r\n\r\n  pruneTables(obj, keys) {\r\n    if (!keys.length) {\r\n      return obj;\r\n    }\r\n\r\n    return keys.reduce((acc, key) => {\r\n      return {\r\n        ...acc,\r\n        [key]: obj[key]\r\n      };\r\n    }, {});\r\n  }\r\n\r\n  requestDefinitionsArchive(dbPath, tableNames) {\r\n    // TODO This takes about a second and a half to execute\r\n    return this.db.getValues('manifest').then((cachedValue) => {\r\n      const versionKey = `${VERSION}:${dbPath}`;\r\n\r\n      if (cachedValue && cachedValue.length > 0 && cachedValue.find((x) => x.id === versionKey)) {\r\n        this.db.closeDatabase('manifest');\r\n        return cachedValue.find((x) => x.id === versionKey);\r\n      }\r\n\r\n      return fetch(`https://www.bungie.net${dbPath}`).then((x) => {\r\n        return x.json().then((y) => {\r\n          const prunedTables = this.pruneTables(y, tableNames);\r\n          const dbObject = { id: versionKey, data: prunedTables };\r\n          this.db.update('manifest', 'allData', [dbObject]).then((db) => {\r\n            this.db.closeDatabase('manifest');\r\n          });\r\n\r\n          return dbObject;\r\n        });\r\n      });\r\n    });\r\n  }\r\n\r\n  public loadManifestData(language: string = 'en', tableNames): Observable<CachedManifest> {\r\n    return this.getManifestFromCache(language).pipe(\r\n      take(1),\r\n      switchMap((path) => this.requestDefinitionsArchive(path, tableNames))\r\n    );\r\n  }\r\n}\r\n",
             "properties": [
                 {
                     "name": "data",
@@ -3278,12 +3278,12 @@
         },
         {
             "name": "SealClanMember",
-            "id": "interface-SealClanMember-653ead1452727f2a96371e9e8495b1f7f88a76cefee8188d1d32c7075fab9781da1f3b544baf30445732d9c31fe1c8f0ee7eed6b80830f9f202efef59a70e7e9",
+            "id": "interface-SealClanMember-3e242353690b4108dce1f69feece0288ab2fc31787da6c45984b26f858e929f798ab35ceec751fdf8fa409837552c2a75779386416c785b47b1614bf75471531",
             "file": "projects/clan-dashboard/src/app/features/seals/models/seal-clan-member.ts",
             "deprecated": false,
             "deprecationMessage": "",
             "type": "interface",
-            "sourceCode": "import { MemberProfile } from '@destiny/data/models';\r\nimport { GroupsV2GroupMember } from 'bungie-api-angular';\r\n\r\nexport interface SealClanMember {\r\n  clanMember: GroupsV2GroupMember;\r\n  profile: MemberProfile;\r\n  clan: {\r\n    clanId: string;\r\n    clanName: string;\r\n    clanTag: string;\r\n  };\r\n  sealProgression: {\r\n    completedTriumphCount: number;\r\n    totalTriumphCount:number;\r\n    completionPercentage: number;\r\n    isCompleted: boolean;\r\n  };\r\n}\r\n/*\r\ntitleInfo:{} 4 keys\r\nhasTitle:true\r\n▶\r\ntitlesByGender:{} 2 keys\r\n▶\r\ntitlesByGenderHash:{} 2 keys\r\ngildingTrackingRecordHash:4141599814\r\n*/\r\n",
+            "sourceCode": "import { MemberProfile } from '@destiny/data/models';\r\nimport { GroupsV2GroupMember } from 'bungie-api-angular';\r\n\r\nexport interface SealClanMember {\r\n  clanMember: GroupsV2GroupMember;\r\n  profile: MemberProfile;\r\n  clan: {\r\n    clanId: string;\r\n    clanName: string;\r\n    clanTag: string;\r\n  };\r\n  sealProgression: {\r\n    completedTriumphCount: number;\r\n    totalTriumphCount:number;\r\n    completionPercentage: number;\r\n    isCompleted: boolean;\r\n    isGilded: boolean;\r\n    gildedCount: number;\r\n  };\r\n}\r\n",
             "properties": [
                 {
                     "name": "clan",
@@ -3409,12 +3409,12 @@
         },
         {
             "name": "SealListItem",
-            "id": "interface-SealListItem-50702b1a0acee9adda49539da68f20cac614b4f4be6ef9f9b6d879625c440bb9b04cf782e2a0cde99659460f77bcfa2459306b2c39b05991c36a7179d34f3f6d",
+            "id": "interface-SealListItem-328cdec5a78e52f1f82efa1cba0b11bd818fe20b1c16ef879beece0856db8296d15d4f37d6e9b7a4f126e7b49f701d3d558fe04132b47668be6f2bcebba5add2",
             "file": "projects/clan-dashboard/src/app/features/seals/models/seal-list-item.ts",
             "deprecated": false,
             "deprecationMessage": "",
             "type": "interface",
-            "sourceCode": "import { SealDefinition } from \"@destiny/data/models\";\r\n\r\nexport interface SealListItem {\r\n  seal: SealDefinition;\r\n  totalMembers: number;\r\n  completedCount: number;\r\n}\r\n\r\n",
+            "sourceCode": "import { SealDefinition } from '@destiny/data/models';\r\n\r\nexport interface SealListItem {\r\n  seal: SealDefinition;\r\n  totalMembers: number;\r\n  completedCount: number;\r\n  gildedCount: number;\r\n  isGilded: boolean;\r\n}\r\n",
             "properties": [
                 {
                     "name": "completedCount",
@@ -3424,6 +3424,24 @@
                     "optional": false,
                     "description": "",
                     "line": 6
+                },
+                {
+                    "name": "gildedCount",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "number",
+                    "optional": false,
+                    "description": "",
+                    "line": 7
+                },
+                {
+                    "name": "isGilded",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "boolean",
+                    "optional": false,
+                    "description": "",
+                    "line": 8
                 },
                 {
                     "name": "seal",
@@ -3587,31 +3605,7 @@
         },
         {
             "name": "State",
-            "id": "interface-State-131b4100b676e6afdcb7a015551bb0f8564442648cedb162ded16187cb885b9911957e72609eee56f2d9b52c64d22f893a395f71f6a04a4fbb73b7d373464f0e",
-            "file": "projects/clan-dashboard/src/app/core/store/manifest/manifest.state.ts",
-            "deprecated": false,
-            "deprecationMessage": "",
-            "type": "interface",
-            "sourceCode": "import { AppState } from '@core/core.state';\r\n\r\nexport interface ManifestState {\r\n  loading: boolean;\r\n  loaded: boolean;\r\n  error: any;\r\n  isApiDown: boolean;\r\n}\r\n\r\nexport const initialManifestState: ManifestState = {\r\n  loading: false,\r\n  loaded: false,\r\n  error: null,\r\n  isApiDown: false\r\n};\r\n\r\nexport interface State extends AppState {\r\n  manifest: ManifestState;\r\n}\r\n",
-            "properties": [
-                {
-                    "name": "manifest",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "ManifestState",
-                    "optional": false,
-                    "description": "",
-                    "line": 18
-                }
-            ],
-            "indexSignatures": [],
-            "kind": 165,
-            "methods": [],
-            "extends": "AppState"
-        },
-        {
-            "name": "State",
-            "id": "interface-State-aa7507e715de91b10c94c1f6921c70cd2a252fdca6a4b483fb4bc308d5be8b696b4f3676194f46b9d735e607a66d518766a7c29b292b4901d8343ea2b359f13a-1",
+            "id": "interface-State-aa7507e715de91b10c94c1f6921c70cd2a252fdca6a4b483fb4bc308d5be8b696b4f3676194f46b9d735e607a66d518766a7c29b292b4901d8343ea2b359f13a",
             "file": "projects/clan-dashboard/src/app/core/store/clans/clans.state.ts",
             "deprecated": false,
             "deprecationMessage": "",
@@ -3626,6 +3620,30 @@
                     "optional": false,
                     "description": "",
                     "line": 24
+                }
+            ],
+            "indexSignatures": [],
+            "kind": 165,
+            "methods": [],
+            "extends": "AppState"
+        },
+        {
+            "name": "State",
+            "id": "interface-State-131b4100b676e6afdcb7a015551bb0f8564442648cedb162ded16187cb885b9911957e72609eee56f2d9b52c64d22f893a395f71f6a04a4fbb73b7d373464f0e-1",
+            "file": "projects/clan-dashboard/src/app/core/store/manifest/manifest.state.ts",
+            "deprecated": false,
+            "deprecationMessage": "",
+            "type": "interface",
+            "sourceCode": "import { AppState } from '@core/core.state';\r\n\r\nexport interface ManifestState {\r\n  loading: boolean;\r\n  loaded: boolean;\r\n  error: any;\r\n  isApiDown: boolean;\r\n}\r\n\r\nexport const initialManifestState: ManifestState = {\r\n  loading: false,\r\n  loaded: false,\r\n  error: null,\r\n  isApiDown: false\r\n};\r\n\r\nexport interface State extends AppState {\r\n  manifest: ManifestState;\r\n}\r\n",
+            "properties": [
+                {
+                    "name": "manifest",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "ManifestState",
+                    "optional": false,
+                    "description": "",
+                    "line": 18
                 }
             ],
             "indexSignatures": [],
@@ -4115,12 +4133,12 @@
         },
         {
             "name": "ViewContext",
-            "id": "interface-ViewContext-29bb30657131ca575d67bbcbbfb77c6cf75d968aabde2662310460cf7f9e6fb179e57e564b4207dd91b8dc1501f953fdf1fa8d026b9b8c0e6a3d51e195c55a02-3",
+            "id": "interface-ViewContext-b76cd7ef261706bd60868956369a362aed93e5e1074cd2088c4d44ee2f5bed5167e6bfaa7b6375083608fab5d3fd96ef139c61df4e5d2af79c48e09060248f52-3",
             "file": "projects/clan-dashboard/src/app/features/seals/seal-details/seal-details-metadata/SealDetailsViewer.ts",
             "deprecated": false,
             "deprecationMessage": "",
             "type": "interface",
-            "sourceCode": "import { ViewerMetadata } from '@destiny/components';\r\n\r\nimport { BungieDatePipe, BungieDateTimePipe } from '@destiny/components/pipes/bungie-date';\r\nimport { getMemberName } from '@destiny/data/utility';\r\nimport { SealClanMember } from '../../models/seal-clan-member';\r\n\r\ninterface ViewContext {\r\n  item: SealClanMember;\r\n}\r\n\r\nexport const SEAL_DETAILS_VIEWER_METADATA = new Map<string, ViewerMetadata<SealClanMember, ViewContext>>([\r\n  [\r\n    'destinyDisplayName',\r\n    {\r\n      label: 'Destiny Display Name',\r\n      plainText: (item: SealClanMember) => `${getMemberName(item.clanMember)}`,\r\n      render: (item: SealClanMember) => ({ text: `${getMemberName(item.clanMember)}` })\r\n    }\r\n  ],\r\n  [\r\n    'destinyClan',\r\n    {\r\n      label: 'Destiny Clan',\r\n      plainText: (item: SealClanMember) => `${item.clan.clanName}`,\r\n      render: (item: SealClanMember) => ({ text: `${item.clan.clanName}` })\r\n    }\r\n  ],\r\n  [\r\n    'isComplete',\r\n    {\r\n      label: 'Is Completed',\r\n      plainText: (item: SealClanMember) => (item.sealProgression.isCompleted ? 'X' : ''),\r\n      render: (item: SealClanMember) => ({\r\n        text: item.sealProgression.isCompleted ? 'X' : ''\r\n      })\r\n    }\r\n  ],\r\n  [\r\n    'completeCount',\r\n    {\r\n      label: 'Completed Count',\r\n      plainText: (item: SealClanMember) =>\r\n        `${item.sealProgression.completedTriumphCount || 0} / ${item.sealProgression.totalTriumphCount}`,\r\n      render: (item: SealClanMember) => ({\r\n        text: `${item.sealProgression.completedTriumphCount || 0} / ${item.sealProgression.totalTriumphCount}`\r\n      })\r\n    }\r\n  ],\r\n  [\r\n    'progress',\r\n    {\r\n      label: 'Percent Completed',\r\n      plainText: (item: SealClanMember) => `${item.sealProgression.completionPercentage}%`,\r\n      render: (item: SealClanMember) => ({\r\n        text: `${item.sealProgression.completionPercentage}%`\r\n      })\r\n    }\r\n  ]\r\n\r\n  //['name', { label: 'Name', render: (item) => ({ text: `${item.name}` }) }],\r\n  //['startDate', { label: 'Start Date', render: (item) => ({ text: `${new Date(item.startDate).toDateString()}` }) }]\r\n]);\r\n",
+            "sourceCode": "import { ViewerMetadata } from '@destiny/components';\r\n\r\nimport { BungieDatePipe, BungieDateTimePipe } from '@destiny/components/pipes/bungie-date';\r\nimport { getMemberName } from '@destiny/data/utility';\r\nimport { SealClanMember } from '../../models/seal-clan-member';\r\n\r\ninterface ViewContext {\r\n  item: SealClanMember;\r\n}\r\n\r\nexport const SEAL_DETAILS_VIEWER_METADATA = new Map<string, ViewerMetadata<SealClanMember, ViewContext>>([\r\n  [\r\n    'destinyDisplayName',\r\n    {\r\n      label: 'Destiny Display Name',\r\n      plainText: (item: SealClanMember) => `${getMemberName(item.clanMember)}`,\r\n      render: (item: SealClanMember) => ({ text: `${getMemberName(item.clanMember)}` })\r\n    }\r\n  ],\r\n  [\r\n    'destinyClan',\r\n    {\r\n      label: 'Destiny Clan',\r\n      plainText: (item: SealClanMember) => `${item.clan.clanName}`,\r\n      render: (item: SealClanMember) => ({ text: `${item.clan.clanName}` })\r\n    }\r\n  ],\r\n  [\r\n    'isComplete',\r\n    {\r\n      label: 'Is Completed',\r\n      plainText: (item: SealClanMember) => (item.sealProgression.isCompleted ? 'X' : ''),\r\n      render: (item: SealClanMember) => ({\r\n        text: item.sealProgression.isCompleted ? 'X' : ''\r\n      })\r\n    }\r\n  ],\r\n  [\r\n    'isGilded',\r\n    {\r\n      label: 'Is Gilded',\r\n      plainText: (item: SealClanMember) => (item.sealProgression.isGilded ? 'X' : ''),\r\n      render: (item: SealClanMember) => ({\r\n        text: item.sealProgression.isGilded ? 'X' : ''\r\n      })\r\n    }\r\n  ],\r\n  [\r\n    'gildedCount',\r\n    {\r\n      label: 'Gilded Count',\r\n      plainText: (item: SealClanMember) => `${item.sealProgression.gildedCount || ''}`,\r\n      render: (item: SealClanMember) => ({\r\n        text: `${item.sealProgression.gildedCount || ''}`\r\n      })\r\n    }\r\n  ],\r\n  [\r\n    'completeCount',\r\n    {\r\n      label: 'Completed Count',\r\n      plainText: (item: SealClanMember) =>\r\n        `${item.sealProgression.completedTriumphCount || 0} / ${item.sealProgression.totalTriumphCount}`,\r\n      render: (item: SealClanMember) => ({\r\n        text: `${item.sealProgression.completedTriumphCount || 0} / ${item.sealProgression.totalTriumphCount}`\r\n      })\r\n    }\r\n  ],\r\n  [\r\n    'progress',\r\n    {\r\n      label: 'Percent Completed',\r\n      plainText: (item: SealClanMember) => `${item.sealProgression.completionPercentage}%`,\r\n      render: (item: SealClanMember) => ({\r\n        text: `${item.sealProgression.completionPercentage}%`\r\n      })\r\n    }\r\n  ]\r\n\r\n  //['name', { label: 'Name', render: (item) => ({ text: `${item.name}` }) }],\r\n  //['startDate', { label: 'Start Date', render: (item) => ({ text: `${new Date(item.startDate).toDateString()}` }) }]\r\n]);\r\n",
             "properties": [
                 {
                     "name": "item",
@@ -6300,7 +6318,7 @@
         },
         {
             "name": "ManifestLoaderService",
-            "id": "injectable-ManifestLoaderService-9d8d1bee2a20baee7f950f0feea97fc96aaa34ea53965c8262d77f8bd9019d28f610cd3fd5a756714aaca78ae530d8e30203f2d2999dce5d3ee41e4f1a25ae2d",
+            "id": "injectable-ManifestLoaderService-a9e706bee60e02635b39679b5f52141fd6e4c1e1b4d916af3979d084d63d9fd83afb541608ef386bf302c575f219b2acf7450cf65e8077e969c6370b6864d199",
             "file": "projects/data/src/lib/manifest/manifest-loader.service.ts",
             "properties": [],
             "methods": [
@@ -6505,7 +6523,7 @@
             "deprecationMessage": "",
             "description": "",
             "rawdescription": "\n",
-            "sourceCode": "import { Injectable } from '@angular/core';\r\n\r\nimport { Destiny2Service } from 'bungie-api-angular';\r\nimport { map, Observable, of, switchMap, take } from 'rxjs';\r\nimport { nowPlusMinutes } from '../utility/date-utils';\r\nimport { ManifestDatabaseService } from './manifest-database.service';\r\n\r\nexport const STATUS_EXTRACTING_TABLES = 'extracting tables';\r\nexport const STATUS_UNZIPPING = 'unzipping';\r\nexport const STATUS_DONE = 'done';\r\nconst MANIFEST_PATH_KEY = 'MANIFEST_PATH_KEY';\r\nconst MANIFEST_PATH_EXP_KEY = 'MANIFEST_PATH_EXP_KEY';\r\n\r\nconst VERSION = 'v1';\r\n\r\nexport interface CachedManifest {\r\n  id: string;\r\n  data: any;\r\n}\r\n\r\n@Injectable({\r\n  providedIn: 'root'\r\n})\r\nexport class ManifestLoaderService {\r\n  constructor(private d2service: Destiny2Service, private db: ManifestDatabaseService) {}\r\n  private getManifestFromCache(language: string) {\r\n    const jsonPath = window.localStorage.getItem(MANIFEST_PATH_KEY);\r\n    const jsonPathExp = window.localStorage.getItem(MANIFEST_PATH_EXP_KEY);\r\n    if (jsonPathExp && jsonPath) {\r\n      const jsonDate = new Date(jsonPathExp);\r\n      if (jsonDate < nowPlusMinutes(-60)) {\r\n        return of(jsonPath);\r\n      }\r\n    }\r\n    return this.getManifest(language).pipe(\r\n      map((x) => {\r\n        window.localStorage.setItem(MANIFEST_PATH_KEY, x);\r\n        window.localStorage.setItem(MANIFEST_PATH_EXP_KEY, new Date().toString());\r\n        return x;\r\n      })\r\n    );\r\n  }\r\n\r\n  private getManifest(language: string) {\r\n    return this.d2service.destiny2GetDestinyManifest().pipe(\r\n      map((response) => {\r\n        return response.Response.jsonWorldContentPaths[language];\r\n      })\r\n    );\r\n  }\r\n\r\n  pruneTables(obj, keys) {\r\n    if (!keys.length) {\r\n      return obj;\r\n    }\r\n\r\n    return keys.reduce((acc, key) => {\r\n      return {\r\n        ...acc,\r\n        [key]: obj[key]\r\n      };\r\n    }, {});\r\n  }\r\n\r\n  requestDefinitionsArchive(dbPath, tableNames) {\r\n    // TODO This takes about a second and a half to execute\r\n    return this.db.getValues('manifest').then((cachedValue) => {\r\n      const versionKey = `${VERSION}:${dbPath}`;\r\n\r\n      if (cachedValue && cachedValue.length > 0 && cachedValue.find((x) => x.id === versionKey)) {\r\n        this.db.closeDatabase('manifest');\r\n        return cachedValue.find((x) => x.id === versionKey);\r\n      }\r\n\r\n      return fetch(`https://www.bungie.net${dbPath}`).then((x) => {\r\n        return x.json().then((y) => {\r\n          const prunedTables = this.pruneTables(y, tableNames);\r\n          const dbObject = { id: versionKey, data: prunedTables };\r\n          this.db.update('manifest', 'allData', [dbObject]).then((db) => {\r\n            this.db.closeDatabase('manifest');\r\n          });\r\n\r\n          return dbObject;\r\n        });\r\n      });\r\n    });\r\n  }\r\n\r\n  public loadManifestData(language: string = 'en', tableNames): Observable<CachedManifest> {\r\n    return this.getManifestFromCache(language).pipe(\r\n      take(1),\r\n      switchMap((path) => this.requestDefinitionsArchive(path, tableNames))\r\n    );\r\n  }\r\n}\r\n",
+            "sourceCode": "import { Injectable } from '@angular/core';\r\n\r\nimport { Destiny2Service } from 'bungie-api-angular';\r\nimport { map, Observable, of, switchMap, take } from 'rxjs';\r\nimport { nowPlusMinutes } from '../utility/date-utils';\r\nimport { ManifestDatabaseService } from './manifest-database.service';\r\n\r\nexport const STATUS_EXTRACTING_TABLES = 'extracting tables';\r\nexport const STATUS_UNZIPPING = 'unzipping';\r\nexport const STATUS_DONE = 'done';\r\nconst MANIFEST_PATH_KEY = 'MANIFEST_PATH_KEY';\r\nconst MANIFEST_PATH_EXP_KEY = 'MANIFEST_PATH_EXP_KEY';\r\n\r\nconst VERSION = 'v1';\r\n\r\nexport interface CachedManifest {\r\n  id: string;\r\n  data: any;\r\n}\r\n\r\n@Injectable({\r\n  providedIn: 'root'\r\n})\r\nexport class ManifestLoaderService {\r\n  constructor(private d2service: Destiny2Service, private db: ManifestDatabaseService) {}\r\n  private getManifestFromCache(language: string) {\r\n    const jsonPath = window.localStorage.getItem(MANIFEST_PATH_KEY);\r\n    const jsonPathExp = window.localStorage.getItem(MANIFEST_PATH_EXP_KEY);\r\n    if (jsonPathExp && jsonPath) {\r\n      const jsonDate = new Date(jsonPathExp);\r\n      if (jsonDate > nowPlusMinutes(-60)) {\r\n        return of(jsonPath);\r\n      }\r\n    }\r\n    return this.getManifest(language).pipe(\r\n      map((x) => {\r\n        window.localStorage.setItem(MANIFEST_PATH_KEY, x);\r\n        window.localStorage.setItem(MANIFEST_PATH_EXP_KEY, new Date().toString());\r\n        return x;\r\n      })\r\n    );\r\n  }\r\n\r\n  private getManifest(language: string) {\r\n    return this.d2service.destiny2GetDestinyManifest().pipe(\r\n      map((response) => {\r\n        return response.Response.jsonWorldContentPaths[language];\r\n      })\r\n    );\r\n  }\r\n\r\n  pruneTables(obj, keys) {\r\n    if (!keys.length) {\r\n      return obj;\r\n    }\r\n\r\n    return keys.reduce((acc, key) => {\r\n      return {\r\n        ...acc,\r\n        [key]: obj[key]\r\n      };\r\n    }, {});\r\n  }\r\n\r\n  requestDefinitionsArchive(dbPath, tableNames) {\r\n    // TODO This takes about a second and a half to execute\r\n    return this.db.getValues('manifest').then((cachedValue) => {\r\n      const versionKey = `${VERSION}:${dbPath}`;\r\n\r\n      if (cachedValue && cachedValue.length > 0 && cachedValue.find((x) => x.id === versionKey)) {\r\n        this.db.closeDatabase('manifest');\r\n        return cachedValue.find((x) => x.id === versionKey);\r\n      }\r\n\r\n      return fetch(`https://www.bungie.net${dbPath}`).then((x) => {\r\n        return x.json().then((y) => {\r\n          const prunedTables = this.pruneTables(y, tableNames);\r\n          const dbObject = { id: versionKey, data: prunedTables };\r\n          this.db.update('manifest', 'allData', [dbObject]).then((db) => {\r\n            this.db.closeDatabase('manifest');\r\n          });\r\n\r\n          return dbObject;\r\n        });\r\n      });\r\n    });\r\n  }\r\n\r\n  public loadManifestData(language: string = 'en', tableNames): Observable<CachedManifest> {\r\n    return this.getManifestFromCache(language).pipe(\r\n      take(1),\r\n      switchMap((path) => this.requestDefinitionsArchive(path, tableNames))\r\n    );\r\n  }\r\n}\r\n",
             "constructorObj": {
                 "name": "constructor",
                 "description": "",
@@ -7507,7 +7525,7 @@
         },
         {
             "name": "SealsService",
-            "id": "injectable-SealsService-f71a82bcf9ad101c3c8f202b057afa95df3bd8dde38a90ab5181a9d2992805cb188a867eb9df10ced249a6faa6b1fe9c91c7fafc16df9a6f923493e740060374",
+            "id": "injectable-SealsService-4dc3b810d5c885afcf7a0b8d730499ccfc92bb2d00c285954a1f10dbed290b04e4333353a8ecb5c35c091f27cf81e4002a4d382d4c43dc7bc8897021945d1481",
             "file": "projects/clan-dashboard/src/app/features/seals/data-access/seals.service.ts",
             "properties": [
                 {
@@ -7518,17 +7536,17 @@
                     "type": "",
                     "optional": false,
                     "description": "",
-                    "line": 29
+                    "line": 31
                 },
                 {
                     "name": "clanProfiles$",
-                    "defaultValue": "this.clansMembersService.clanMembers$.pipe(\r\n    switchMap((clansAndMembers) => {\r\n      return from(clansAndMembers).pipe(\r\n        mergeMap((clanAndMembers) => {\r\n          const hashes = this.sealNodes.map((x) => x.completionRecordHash);\r\n          return this.profileService\r\n            .getSerializedProfilesFromCache(clanAndMembers.clan.clanId, clanAndMembers.members, [], hashes)\r\n            .pipe(\r\n              switchMap((memberProfiles) => {\r\n                return clanAndMembers.members.map((member) => {\r\n                  return {\r\n                    clanMember: member,\r\n                    profile: memberProfiles.find(\r\n                      (m) => getMemberProfileId(m) === getClanMemberId(member)\r\n                    ) as MemberProfile,\r\n                    clan: {\r\n                      clanId: clanAndMembers.clan.clanId,\r\n                      clanName: clanAndMembers.clan.clanName,\r\n                      clanTag: clanAndMembers.clan.clanTag\r\n                    }\r\n                  };\r\n                });\r\n              })\r\n            );\r\n        }),\r\n        toArray(),\r\n        map((x) => x.flatMap((y) => y))\r\n      );\r\n    })\r\n  )",
+                    "defaultValue": "this.clansMembersService.clanMembers$.pipe(\r\n    switchMap((clansAndMembers) => {\r\n      return from(clansAndMembers).pipe(\r\n        mergeMap((clanAndMembers) => {\r\n          const hashes = this.sealNodes.filter((x) => x.completionRecordHash).map((x) => x.completionRecordHash);\r\n          const gildedHashes = [];\r\n          hashes.forEach((hash) => {\r\n            const record = this.recordNodeService.definitions[hash as number];\r\n            if (record.titleInfo && record.titleInfo.gildingTrackingRecordHash) {\r\n              gildedHashes.push(record.titleInfo.gildingTrackingRecordHash);\r\n            }\r\n          });\r\n\r\n          return this.profileService\r\n            .getSerializedProfilesFromCache(\r\n              clanAndMembers.clan.clanId,\r\n              clanAndMembers.members,\r\n              [],\r\n              [...hashes, ...gildedHashes]\r\n            )\r\n            .pipe(\r\n              switchMap((memberProfiles) => {\r\n                return clanAndMembers.members.map((member) => {\r\n                  return {\r\n                    clanMember: member,\r\n                    profile: memberProfiles.find(\r\n                      (m) => getMemberProfileId(m) === getClanMemberId(member)\r\n                    ) as MemberProfile,\r\n                    clan: {\r\n                      clanId: clanAndMembers.clan.clanId,\r\n                      clanName: clanAndMembers.clan.clanName,\r\n                      clanTag: clanAndMembers.clan.clanTag\r\n                    }\r\n                  };\r\n                });\r\n              })\r\n            );\r\n        }),\r\n        toArray(),\r\n        map((x) => x.flatMap((y) => y))\r\n      );\r\n    })\r\n  )",
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "",
                     "optional": false,
                     "description": "",
-                    "line": 43
+                    "line": 45
                 },
                 {
                     "name": "currentSealNodes",
@@ -7538,17 +7556,17 @@
                     "type": "",
                     "optional": false,
                     "description": "",
-                    "line": 27
+                    "line": 29
                 },
                 {
                     "name": "milestonesWithProfiles$",
-                    "defaultValue": "this.clanProfiles$.pipe(\r\n    map((cp) => {\r\n      return this.sealNodes.map((seal) => {\r\n        return {\r\n          seal: seal,\r\n          totalMembers: cp.length,\r\n          completedCount: this.getCompletionCount(cp, seal.completionRecordHash)\r\n        };\r\n      });\r\n    })\r\n  )",
+                    "defaultValue": "this.clanProfiles$.pipe(\r\n    map((cp) => {\r\n      return this.sealNodes\r\n        .filter((x) => x.redacted === false)\r\n        .map((seal) => {\r\n          const sealRecord = this.recordNodeService.definitions[seal.completionRecordHash as number];\r\n          const sealGildingRecord =\r\n            sealRecord && sealRecord.titleInfo && sealRecord.titleInfo.gildingTrackingRecordHash\r\n              ? sealRecord.titleInfo.gildingTrackingRecordHash\r\n              : 0;\r\n\r\n          return {\r\n            seal: seal,\r\n            totalMembers: cp.length,\r\n            completedCount: this.getCompletionCount(cp, seal.completionRecordHash),\r\n            gildedCount: this.getCompletionCount(cp, sealGildingRecord),\r\n            isGilded: sealGildingRecord > 0\r\n          };\r\n        });\r\n    })\r\n  )",
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "Observable<SealListItem[]>",
                     "optional": false,
                     "description": "",
-                    "line": 74
+                    "line": 89
                 },
                 {
                     "name": "sealNodes",
@@ -7558,7 +7576,7 @@
                     "type": "",
                     "optional": false,
                     "description": "",
-                    "line": 31
+                    "line": 33
                 }
             ],
             "methods": [
@@ -7581,7 +7599,7 @@
                     "optional": false,
                     "returnType": "any",
                     "typeParameters": [],
-                    "line": 112,
+                    "line": 147,
                     "deprecated": false,
                     "deprecationMessage": "",
                     "modifierKind": [
@@ -7621,7 +7639,7 @@
                     "optional": false,
                     "returnType": "any",
                     "typeParameters": [],
-                    "line": 37,
+                    "line": 39,
                     "deprecated": false,
                     "deprecationMessage": "",
                     "modifierKind": [
@@ -7652,7 +7670,7 @@
                     "optional": false,
                     "returnType": "any",
                     "typeParameters": [],
-                    "line": 33,
+                    "line": 35,
                     "deprecated": false,
                     "deprecationMessage": "",
                     "modifierKind": [
@@ -7683,7 +7701,7 @@
                     "optional": false,
                     "returnType": "Observable<SealClanMember[]>",
                     "typeParameters": [],
-                    "line": 86,
+                    "line": 111,
                     "deprecated": false,
                     "deprecationMessage": "",
                     "jsdoctags": [
@@ -7703,7 +7721,7 @@
             "deprecationMessage": "",
             "description": "",
             "rawdescription": "\n",
-            "sourceCode": "import { Injectable } from '@angular/core';\r\nimport { AppConfig } from '@core/config/app-config';\r\nimport { PresentationNodeDefinitionService } from '@core/definition-services/presentation-node-definition.service';\r\nimport { ClansMembersService } from '@core/services/clans-members.service';\r\nimport { MemberProfile } from '@destiny/data/models';\r\nimport { getClanMemberId, getMemberProfileId } from '@destiny/data/utility';\r\nimport { profileSerializer } from 'projects/data/src/lib/clan/profiles/profile.serializer';\r\nimport { ProfileService } from 'projects/data/src/lib/clan/profiles/profile.service';\r\nimport { from, map, mergeMap, Observable, of, switchMap, toArray } from 'rxjs';\r\nimport { SealClanMember } from '../models/seal-clan-member';\r\nimport { SealListItem } from '../models/seal-list-item';\r\nimport { SealsModule } from '../seals-shell/seals.module';\r\n\r\n@Injectable({\r\n  providedIn: 'root'\r\n})\r\nexport class SealsService {\r\n  constructor(\r\n    private presentationNodeService: PresentationNodeDefinitionService,\r\n    private clansMembersService: ClansMembersService,\r\n    private profileService: ProfileService,\r\n    private appConfig: AppConfig\r\n  ) {\r\n    // this.milestonesWithProfiles$.subscribe((x) => console.log('sub', x));\r\n  }\r\n  //legacySealNode = this.presentationNodeService.definitions[1881970629]; //.getDefinitionsByHash(1881970629);\r\n  currentSealNodes = this.presentationNodeService.definitions[this.appConfig.constants.CURRENT_SEALS_HASH];\r\n  //allNodes = this.getNodes(this.currentSealNodes).concat(this.getNodes(this.legacySealNode));\r\n  allNodes = this.getNodes(this.currentSealNodes);\r\n\r\n  sealNodes = this.getDefinitionsByHash(this.allNodes);\r\n\r\n  private getNodes(node) {\r\n    return node.children.presentationNodes.map((x) => x.presentationNodeHash);\r\n  }\r\n\r\n  private getDefinitionsByHash(allNodes: any[]) {\r\n    return allNodes.map((h) => {\r\n      return this.presentationNodeService.definitions[h];\r\n    });\r\n  }\r\n\r\n  clanProfiles$ = this.clansMembersService.clanMembers$.pipe(\r\n    switchMap((clansAndMembers) => {\r\n      return from(clansAndMembers).pipe(\r\n        mergeMap((clanAndMembers) => {\r\n          const hashes = this.sealNodes.map((x) => x.completionRecordHash);\r\n          return this.profileService\r\n            .getSerializedProfilesFromCache(clanAndMembers.clan.clanId, clanAndMembers.members, [], hashes)\r\n            .pipe(\r\n              switchMap((memberProfiles) => {\r\n                return clanAndMembers.members.map((member) => {\r\n                  return {\r\n                    clanMember: member,\r\n                    profile: memberProfiles.find(\r\n                      (m) => getMemberProfileId(m) === getClanMemberId(member)\r\n                    ) as MemberProfile,\r\n                    clan: {\r\n                      clanId: clanAndMembers.clan.clanId,\r\n                      clanName: clanAndMembers.clan.clanName,\r\n                      clanTag: clanAndMembers.clan.clanTag\r\n                    }\r\n                  };\r\n                });\r\n              })\r\n            );\r\n        }),\r\n        toArray(),\r\n        map((x) => x.flatMap((y) => y))\r\n      );\r\n    })\r\n  );\r\n\r\n  milestonesWithProfiles$: Observable<SealListItem[]> = this.clanProfiles$.pipe(\r\n    map((cp) => {\r\n      return this.sealNodes.map((seal) => {\r\n        return {\r\n          seal: seal,\r\n          totalMembers: cp.length,\r\n          completedCount: this.getCompletionCount(cp, seal.completionRecordHash)\r\n        };\r\n      });\r\n    })\r\n  );\r\n\r\n  getSealDetails$(sealHash): Observable<SealClanMember[]> {\r\n    const sealCompletionHash = this.sealNodes.find((h) => h.hash == sealHash)?.completionRecordHash;\r\n\r\n    return this.clanProfiles$.pipe(\r\n      map((clanProfiles) => {\r\n        return clanProfiles.map((clanProfile) => {\r\n          const profileProgression = clanProfile.profile.profileRecords.data.records[sealCompletionHash]?.objectives[0];\r\n          return {\r\n            clanMember: clanProfile.clanMember,\r\n            profile: profileSerializer(clanProfile.profile, [], [], []), // Strip records to minimize size of object\r\n            clan: clanProfile.clan,\r\n            sealProgression: {\r\n              isCompleted: profileProgression?.complete,\r\n              completedTriumphCount: profileProgression?.progress || 0,\r\n              totalTriumphCount: profileProgression?.completionValue || 0,\r\n              completionPercentage:\r\n                profileProgression?.progress > 0\r\n                  ? Math.floor((profileProgression?.progress / profileProgression?.completionValue) * 100)\r\n                  : 0\r\n            }\r\n          };\r\n        });\r\n      })\r\n    );\r\n  }\r\n\r\n  private getCompletionCount(memberProfiles, completionHash) {\r\n    return memberProfiles.filter((m) => {\r\n      const records = m.profile?.profileRecords?.data?.records[completionHash]?.objectives[0];\r\n\r\n      if (records) {\r\n        return records.complete;\r\n      }\r\n      return false;\r\n    }).length;\r\n  }\r\n}\r\n",
+            "sourceCode": "import { Injectable } from '@angular/core';\r\nimport { AppConfig } from '@core/config/app-config';\r\nimport { PresentationNodeDefinitionService } from '@core/definition-services/presentation-node-definition.service';\r\nimport { RecordDefinitionService } from '@core/definition-services/record-definition.service';\r\nimport { ClansMembersService } from '@core/services/clans-members.service';\r\nimport { MemberProfile } from '@destiny/data/models';\r\nimport { getClanMemberId, getMemberProfileId } from '@destiny/data/utility';\r\nimport { profileSerializer } from 'projects/data/src/lib/clan/profiles/profile.serializer';\r\nimport { ProfileService } from 'projects/data/src/lib/clan/profiles/profile.service';\r\nimport { from, map, mergeMap, Observable, of, switchMap, toArray } from 'rxjs';\r\nimport { SealClanMember } from '../models/seal-clan-member';\r\nimport { SealListItem } from '../models/seal-list-item';\r\nimport { SealsModule } from '../seals-shell/seals.module';\r\n\r\n@Injectable({\r\n  providedIn: 'root'\r\n})\r\nexport class SealsService {\r\n  constructor(\r\n    private presentationNodeService: PresentationNodeDefinitionService,\r\n    private recordNodeService: RecordDefinitionService,\r\n    private clansMembersService: ClansMembersService,\r\n    private profileService: ProfileService,\r\n    private appConfig: AppConfig\r\n  ) {\r\n    // this.milestonesWithProfiles$.subscribe((x) => console.log('sub', x));\r\n  }\r\n  //legacySealNode = this.presentationNodeService.definitions[1881970629]; //.getDefinitionsByHash(1881970629);\r\n  currentSealNodes = this.presentationNodeService.definitions[this.appConfig.constants.CURRENT_SEALS_HASH];\r\n  //allNodes = this.getNodes(this.currentSealNodes).concat(this.getNodes(this.legacySealNode));\r\n  allNodes = this.getNodes(this.currentSealNodes);\r\n\r\n  sealNodes = this.getDefinitionsByHash(this.allNodes);\r\n\r\n  private getNodes(node) {\r\n    return node.children.presentationNodes.map((x) => x.presentationNodeHash);\r\n  }\r\n\r\n  private getDefinitionsByHash(allNodes: any[]) {\r\n    return allNodes.map((h) => {\r\n      return this.presentationNodeService.definitions[h];\r\n    });\r\n  }\r\n\r\n  clanProfiles$ = this.clansMembersService.clanMembers$.pipe(\r\n    switchMap((clansAndMembers) => {\r\n      return from(clansAndMembers).pipe(\r\n        mergeMap((clanAndMembers) => {\r\n          const hashes = this.sealNodes.filter((x) => x.completionRecordHash).map((x) => x.completionRecordHash);\r\n          const gildedHashes = [];\r\n          hashes.forEach((hash) => {\r\n            const record = this.recordNodeService.definitions[hash as number];\r\n            if (record.titleInfo && record.titleInfo.gildingTrackingRecordHash) {\r\n              gildedHashes.push(record.titleInfo.gildingTrackingRecordHash);\r\n            }\r\n          });\r\n\r\n          return this.profileService\r\n            .getSerializedProfilesFromCache(\r\n              clanAndMembers.clan.clanId,\r\n              clanAndMembers.members,\r\n              [],\r\n              [...hashes, ...gildedHashes]\r\n            )\r\n            .pipe(\r\n              switchMap((memberProfiles) => {\r\n                return clanAndMembers.members.map((member) => {\r\n                  return {\r\n                    clanMember: member,\r\n                    profile: memberProfiles.find(\r\n                      (m) => getMemberProfileId(m) === getClanMemberId(member)\r\n                    ) as MemberProfile,\r\n                    clan: {\r\n                      clanId: clanAndMembers.clan.clanId,\r\n                      clanName: clanAndMembers.clan.clanName,\r\n                      clanTag: clanAndMembers.clan.clanTag\r\n                    }\r\n                  };\r\n                });\r\n              })\r\n            );\r\n        }),\r\n        toArray(),\r\n        map((x) => x.flatMap((y) => y))\r\n      );\r\n    })\r\n  );\r\n\r\n  milestonesWithProfiles$: Observable<SealListItem[]> = this.clanProfiles$.pipe(\r\n    map((cp) => {\r\n      return this.sealNodes\r\n        .filter((x) => x.redacted === false)\r\n        .map((seal) => {\r\n          const sealRecord = this.recordNodeService.definitions[seal.completionRecordHash as number];\r\n          const sealGildingRecord =\r\n            sealRecord && sealRecord.titleInfo && sealRecord.titleInfo.gildingTrackingRecordHash\r\n              ? sealRecord.titleInfo.gildingTrackingRecordHash\r\n              : 0;\r\n\r\n          return {\r\n            seal: seal,\r\n            totalMembers: cp.length,\r\n            completedCount: this.getCompletionCount(cp, seal.completionRecordHash),\r\n            gildedCount: this.getCompletionCount(cp, sealGildingRecord),\r\n            isGilded: sealGildingRecord > 0\r\n          };\r\n        });\r\n    })\r\n  );\r\n\r\n  getSealDetails$(sealHash): Observable<SealClanMember[]> {\r\n    const sealCompletionHash = this.sealNodes.find((h) => h.hash == sealHash)?.completionRecordHash;\r\n    const sealRecord = this.recordNodeService.definitions[sealCompletionHash as number];\r\n    const sealGildingRecord =\r\n      sealRecord && sealRecord.titleInfo && sealRecord.titleInfo.gildingTrackingRecordHash\r\n        ? sealRecord.titleInfo.gildingTrackingRecordHash\r\n        : 0;\r\n\r\n    return this.clanProfiles$.pipe(\r\n      map((clanProfiles) => {\r\n        return clanProfiles.map((clanProfile) => {\r\n          const profileProgression = clanProfile.profile.profileRecords.data.records[sealCompletionHash]?.objectives[0];\r\n          const gildedProgression =\r\n            sealGildingRecord > 0 ? clanProfile.profile.profileRecords.data.records[sealGildingRecord] : undefined;\r\n\r\n          return {\r\n            clanMember: clanProfile.clanMember,\r\n            profile: profileSerializer(clanProfile.profile, [], [], []), // Strip records to minimize size of object\r\n            clan: clanProfile.clan,\r\n            sealProgression: {\r\n              isGilded: gildedProgression ? gildedProgression.objectives[0].complete : undefined,\r\n              gildedCount: gildedProgression ? gildedProgression.completedCount : undefined,\r\n              isCompleted: profileProgression?.complete,\r\n              completedTriumphCount: profileProgression?.progress || 0,\r\n              totalTriumphCount: profileProgression?.completionValue || 0,\r\n              completionPercentage:\r\n                profileProgression?.progress > 0\r\n                  ? Math.floor((profileProgression?.progress / profileProgression?.completionValue) * 100)\r\n                  : 0\r\n            }\r\n          };\r\n        });\r\n      })\r\n    );\r\n  }\r\n\r\n  private getCompletionCount(memberProfiles, completionHash) {\r\n    return memberProfiles.filter((m) => {\r\n      const records = m.profile?.profileRecords?.data?.records[completionHash]?.objectives[0];\r\n\r\n      if (records) {\r\n        return records.complete;\r\n      }\r\n      return false;\r\n    }).length;\r\n  }\r\n  //   private getGildedCount(memberProfiles, gildedHash){\r\n  // return memberProfiles.filter((m) => {\r\n  //       const records = m.profile?.profileRecords?.data?.records[gildedHash]?.objectives[0];\r\n\r\n  //       if (records) {\r\n  //         return records.complete;\r\n  //       }\r\n  //       return false;\r\n  //     }).length;\r\n\r\n  //   }\r\n}\r\n",
             "constructorObj": {
                 "name": "constructor",
                 "description": "",
@@ -7713,6 +7731,12 @@
                     {
                         "name": "presentationNodeService",
                         "type": "PresentationNodeDefinitionService",
+                        "deprecated": false,
+                        "deprecationMessage": ""
+                    },
+                    {
+                        "name": "recordNodeService",
+                        "type": "RecordDefinitionService",
                         "deprecated": false,
                         "deprecationMessage": ""
                     },
@@ -7735,11 +7759,20 @@
                         "deprecationMessage": ""
                     }
                 ],
-                "line": 17,
+                "line": 18,
                 "jsdoctags": [
                     {
                         "name": "presentationNodeService",
                         "type": "PresentationNodeDefinitionService",
+                        "deprecated": false,
+                        "deprecationMessage": "",
+                        "tagName": {
+                            "text": "param"
+                        }
+                    },
+                    {
+                        "name": "recordNodeService",
+                        "type": "RecordDefinitionService",
                         "deprecated": false,
                         "deprecationMessage": "",
                         "tagName": {
@@ -15809,7 +15842,7 @@
     "components": [
         {
             "name": "AppComponent",
-            "id": "component-AppComponent-bdc584e5c5983b99ed53563c20bd901e1edd043319fda066e2a8fd5066e076032cc08f965370bdaed53ff5c4285b0623d7da53249f948668ef0b45fe040a4827",
+            "id": "component-AppComponent-92c6c5f02edc03583fa531b24cda7bf764ee470833b27dbd82dd435954ccde1b7ef126ba1022c684e1703312aa72809d6c3da467a3753341ac4a1dba7a4996cb",
             "file": "projects/clan-dashboard/src/app/app.component.ts",
             "encapsulation": [],
             "entryComponents": [],
@@ -15836,27 +15869,7 @@
                     "type": "",
                     "optional": false,
                     "description": "",
-                    "line": 20
-                },
-                {
-                    "name": "test",
-                    "defaultValue": "''",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "string",
-                    "optional": false,
-                    "description": "",
-                    "line": 18
-                },
-                {
-                    "name": "title",
-                    "defaultValue": "'clan-dashboard'",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "string",
-                    "optional": false,
-                    "description": "",
-                    "line": 17
+                    "line": 15
                 }
             ],
             "methodsClass": [],
@@ -15867,11 +15880,11 @@
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { Component } from '@angular/core';\r\nimport { select, Store } from '@ngrx/store';\r\nimport { environment } from '../environments/environment';\r\nimport { AppState } from '@core/core.state';\r\nimport { loadManifest, selectManifestState } from '@core/store/manifest';\r\nimport { DomSanitizer } from '@angular/platform-browser';\r\nimport { MatIconRegistry } from '@angular/material/icon';\r\nimport { registerIcons } from '@destiny/components/icons';\r\nimport { catchError, map, of } from 'rxjs';\r\n\r\n@Component({\r\n  selector: 'app-root',\r\n  templateUrl: './app.component.html',\r\n  styleUrls: ['./app.component.scss']\r\n})\r\nexport class AppComponent {\r\n  title = 'clan-dashboard';\r\n  test = ''; // environment.apiKey;\r\n\r\n  manifestState$ = this.store.select(selectManifestState).pipe(\r\n    // eslint-disable-next-line @ngrx/avoid-mapping-selectors\r\n    map((x) => x),\r\n    catchError((err) => {\r\n      console.log('error');\r\n      return of(null);\r\n    })\r\n  );\r\n\r\n  constructor(private store: Store, iconRegistry: MatIconRegistry, domSanitizer: DomSanitizer) {\r\n    registerIcons(iconRegistry, domSanitizer);\r\n\r\n    this.store.dispatch(loadManifest());\r\n  }\r\n}\r\n",
+            "sourceCode": "import { Component } from '@angular/core';\r\nimport { Store } from '@ngrx/store';\r\nimport { loadManifest, selectManifestState } from '@core/store/manifest';\r\nimport { DomSanitizer } from '@angular/platform-browser';\r\nimport { MatIconRegistry } from '@angular/material/icon';\r\nimport { registerIcons } from '@destiny/components/icons';\r\nimport { catchError, map, of } from 'rxjs';\r\n\r\n@Component({\r\n  selector: 'app-root',\r\n  templateUrl: './app.component.html',\r\n  styleUrls: ['./app.component.scss']\r\n})\r\nexport class AppComponent {\r\n  manifestState$ = this.store.select(selectManifestState).pipe(\r\n    // eslint-disable-next-line @ngrx/avoid-mapping-selectors\r\n    map((x) => x),\r\n    catchError((err) => {\r\n      console.log('error');\r\n      return of(null);\r\n    })\r\n  );\r\n\r\n  constructor(private store: Store, iconRegistry: MatIconRegistry, domSanitizer: DomSanitizer) {\r\n    registerIcons(iconRegistry, domSanitizer);\r\n\r\n    this.store.dispatch(loadManifest());\r\n  }\r\n}\r\n",
             "assetsDirs": [],
             "styleUrlsData": [
                 {
-                    "data": "",
+                    "data": ".loading-manifest-container {\r\n  display: flex;\r\n  align-items: center;\r\n  flex-direction: column;\r\n  justify-content: center;\r\n  height: 100%;\r\n}\r\n",
                     "styleUrl": "./app.component.scss"
                 }
             ],
@@ -15901,7 +15914,7 @@
                         "deprecationMessage": ""
                     }
                 ],
-                "line": 27,
+                "line": 22,
                 "jsdoctags": [
                     {
                         "name": "store",
@@ -15932,11 +15945,11 @@
                     }
                 ]
             },
-            "templateData": "<ng-container *ngIf=\"manifestState$ | async as manifestState\">\r\n  <ng-container *ngIf=\"manifestState.loading === false && manifestState.loaded === true else loading\">\r\n    <div class=\"content-wrapper\">\r\n      <router-outlet #o=\"outlet\"></router-outlet>\r\n    </div>\r\n  </ng-container>\r\n  <ng-container *ngIf=\"manifestState.error\">\r\n    <h1>Error State</h1>\r\n    <p>Hey something went wrong</p>\r\n  </ng-container>\r\n\r\n\r\n  <ng-template #loading>\r\n    <h1>Loading Manifest</h1>\r\n\r\n  </ng-template>\r\n\r\n</ng-container>\r\n"
+            "templateData": "<ng-container *ngIf=\"manifestState$ | async as manifestState\">\r\n  <ng-container *ngIf=\"manifestState.loading === false && manifestState.loaded === true else loading\">\r\n    <div class=\"content-wrapper\">\r\n      <router-outlet #o=\"outlet\"></router-outlet>\r\n    </div>\r\n  </ng-container>\r\n  <ng-container *ngIf=\"manifestState.error\">\r\n    <div class=\"loading-manifest-container\">\r\n      <h1>Error State</h1>\r\n      <p>Hey something went wrong</p>\r\n    </div>\r\n  </ng-container>\r\n\r\n\r\n  <ng-template #loading>\r\n    <div class=\"loading-manifest-container\">\r\n      <h2>Loading Manifest</h2>\r\n      <mat-spinner mode=\"indeterminate\"></mat-spinner>\r\n    </div>\r\n  </ng-template>\r\n\r\n</ng-container>\r\n"
         },
         {
             "name": "AppOfflineDialogComponent",
-            "id": "component-AppOfflineDialogComponent-726a398a80fd2e64a3f58a1aed198bef352dc881b82415623b1daaafc0e14510b6d970ff3094b90fbe82295409160b39db458f5d01090ed6d28d7e461c67312a",
+            "id": "component-AppOfflineDialogComponent-cd91dc571f5c4b20e314b5bd32232d275372c141adc5f66e728912e53c63f1dafd334ccc8eab6d5f63688ef3c5c0f9a18e12182cde839987f64faa2ed6929bbd",
             "file": "projects/clan-dashboard/src/app/core/layout/app-offline-dialog/app-offline-dialog.component.ts",
             "encapsulation": [],
             "entryComponents": [],
@@ -15987,7 +16000,7 @@
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { Component } from '@angular/core';\nimport { CommonModule } from '@angular/common';\nimport { MatDialogRef, MatDialogModule } from '@angular/material/dialog';\nimport { MatButtonModule } from '@angular/material/button';\nimport { AppConfig } from '../../config/app-config';\n@Component({\n  selector: 'app-app-offline-dialog',\n  standalone: true,\n  imports: [MatDialogModule, MatButtonModule],\n  templateUrl: './app-offline-dialog.component.html',\n  styleUrls: ['./app-offline-dialog.component.scss']\n})\nexport class AppOfflineDialogComponent {\n  constructor(public dialogRef: MatDialogRef<AppOfflineDialogComponent>, private appConfig: AppConfig) {}\n  onNoClick(): void {\n    window.sessionStorage.setItem(this.appConfig.constants.D2DASHBOARD_ACKNOWLEDGE_OFFLINE, 'true');\n    this.dialogRef.close();\n  }\n}\n",
+            "sourceCode": "import { Component } from '@angular/core';\r\nimport { CommonModule } from '@angular/common';\r\nimport { MatDialogRef, MatDialogModule } from '@angular/material/dialog';\r\nimport { MatButtonModule } from '@angular/material/button';\r\nimport { AppConfig } from '../../config/app-config';\r\n@Component({\r\n  selector: 'app-app-offline-dialog',\r\n  standalone: true,\r\n  imports: [MatDialogModule, MatButtonModule],\r\n  templateUrl: './app-offline-dialog.component.html',\r\n  styleUrls: ['./app-offline-dialog.component.scss']\r\n})\r\nexport class AppOfflineDialogComponent {\r\n  constructor(public dialogRef: MatDialogRef<AppOfflineDialogComponent>, private appConfig: AppConfig) {}\r\n  onNoClick(): void {\r\n    window.sessionStorage.setItem(this.appConfig.constants.D2DASHBOARD_ACKNOWLEDGE_OFFLINE, 'true');\r\n    this.dialogRef.close();\r\n  }\r\n}\r\n",
             "assetsDirs": [],
             "styleUrlsData": [
                 {
@@ -16037,7 +16050,7 @@
                     }
                 ]
             },
-            "templateData": "<h1 mat-dialog-title>API Offline</h1>\n<div mat-dialog-content>\n  <p>The Bungie API is currently down for maintenance. Look at <a href=\"https://twitter.com/bungiehelp\"\n      targe=\"_blank\">@BungieHelp</a> for more information.</p>\n  <p>You can continue to view the app based off cached data, but it is not up to date.</p>\n</div>\n<div mat-dialog-actions>\n  <button mat-button (click)=\"onNoClick()\">Ok</button>\n</div>\n"
+            "templateData": "<h1 mat-dialog-title>API Offline</h1>\r\n<div mat-dialog-content>\r\n  <p>The Bungie API is currently down for maintenance. Look at <a href=\"https://twitter.com/bungiehelp\"\r\n      targe=\"_blank\">@BungieHelp</a> for more information.</p>\r\n  <p>You can continue to view the app based off cached data, but it is not up to date.</p>\r\n</div>\r\n<div mat-dialog-actions>\r\n  <button mat-button (click)=\"onNoClick()\">Ok</button>\r\n</div>\r\n"
         },
         {
             "name": "ButtonComponent",
@@ -17226,7 +17239,7 @@
         },
         {
             "name": "LookupComponent",
-            "id": "component-LookupComponent-933eac2400e47dd3f2b1a924eb3b4022b857d315f768a9036f07ac31c08f08a9a2874e937a21875d88a4c8137801715e3db860cda5a85c73cd808ad91c25ab64",
+            "id": "component-LookupComponent-e48d7c2c055e36aab138345ebaead07b74f716ecf4d48b912049bbeb55450f6f3d6d9057f21c55ded4a0203affc6e3195534da7ce717a9cc3bf64dd3a25d5078",
             "file": "projects/clan-dashboard/src/app/features/sandbox/lookup/lookup.component.ts",
             "encapsulation": [
                 "ViewEncapsulation.None"
@@ -17395,7 +17408,7 @@
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { Component, ViewEncapsulation } from '@angular/core';\nimport { CommonModule } from '@angular/common';\nimport { PresentationNodeDefinitionService } from '@core/definition-services/presentation-node-definition.service';\nimport { MilestoneDefinitionService } from '@core/definition-services/milestone-definition.service';\nimport { FormControl, ReactiveFormsModule } from '@angular/forms';\nimport { RecordDefinitionService } from '@core/definition-services/record-definition.service';\nimport { MatTabsModule } from '@angular/material/tabs';\n\n@Component({\n  selector: 'app-lookup',\n  standalone: true,\n  imports: [CommonModule, ReactiveFormsModule, MatTabsModule],\n  templateUrl: './lookup.component.html',\n  encapsulation: ViewEncapsulation.None,\n  styleUrls: ['./lookup.component.scss']\n})\nexport class LookupComponent {\n  constructor(\n    private presentationNodeService: PresentationNodeDefinitionService,\n    private milestoneDefinitionService: MilestoneDefinitionService,\n    private recordDefinitionService: RecordDefinitionService\n  ) {}\n\n  displayObject: any = {};\n  displayHash = new FormControl('');\n  milestoneHash = new FormControl('');\n  recordHash = new FormControl('');\n  output = new FormControl('');\n  imageUrl = new FormControl('');\n  imgUrls = [];\n\n  lookupPresentation() {\n    this.updateDisplay(this.presentationNodeService.definitions[this.displayHash.value as unknown as number]);\n  }\n  lookupMilestone() {\n    this.updateDisplay(this.milestoneDefinitionService.definitions[this.milestoneHash.value as unknown as number]);\n  }\n  lookupRecord() {\n    this.updateDisplay(this.recordDefinitionService.definitions[this.recordHash.value as unknown as number]);\n  }\n\n  updateDisplay(thing: any) {\n    this.output.patchValue(JSON.stringify(thing, undefined, 4));\n  }\n  loadImage() {\n    this.imgUrls.push(`//bungie.net/${this.imageUrl.value}`);\n  }\n}\n",
+            "sourceCode": "import { Component, ViewEncapsulation } from '@angular/core';\r\nimport { CommonModule } from '@angular/common';\r\nimport { PresentationNodeDefinitionService } from '@core/definition-services/presentation-node-definition.service';\r\nimport { MilestoneDefinitionService } from '@core/definition-services/milestone-definition.service';\r\nimport { FormControl, ReactiveFormsModule } from '@angular/forms';\r\nimport { RecordDefinitionService } from '@core/definition-services/record-definition.service';\r\nimport { MatTabsModule } from '@angular/material/tabs';\r\n\r\n@Component({\r\n  selector: 'app-lookup',\r\n  standalone: true,\r\n  imports: [CommonModule, ReactiveFormsModule, MatTabsModule],\r\n  templateUrl: './lookup.component.html',\r\n  encapsulation: ViewEncapsulation.None,\r\n  styleUrls: ['./lookup.component.scss']\r\n})\r\nexport class LookupComponent {\r\n  constructor(\r\n    private presentationNodeService: PresentationNodeDefinitionService,\r\n    private milestoneDefinitionService: MilestoneDefinitionService,\r\n    private recordDefinitionService: RecordDefinitionService\r\n  ) {}\r\n\r\n  displayObject: any = {};\r\n  displayHash = new FormControl('');\r\n  milestoneHash = new FormControl('');\r\n  recordHash = new FormControl('');\r\n  output = new FormControl('');\r\n  imageUrl = new FormControl('');\r\n  imgUrls = [];\r\n\r\n  lookupPresentation() {\r\n    this.updateDisplay(this.presentationNodeService.definitions[this.displayHash.value as unknown as number]);\r\n  }\r\n  lookupMilestone() {\r\n    this.updateDisplay(this.milestoneDefinitionService.definitions[this.milestoneHash.value as unknown as number]);\r\n  }\r\n  lookupRecord() {\r\n    this.updateDisplay(this.recordDefinitionService.definitions[this.recordHash.value as unknown as number]);\r\n  }\r\n\r\n  updateDisplay(thing: any) {\r\n    this.output.patchValue(JSON.stringify(thing, undefined, 4));\r\n  }\r\n  loadImage() {\r\n    this.imgUrls.push(`//bungie.net/${this.imageUrl.value}`);\r\n  }\r\n}\r\n",
             "assetsDirs": [],
             "styleUrlsData": [
                 {
@@ -17460,7 +17473,7 @@
                     }
                 ]
             },
-            "templateData": "  <mat-tab-group class=\"tab-stuff\">\n    <mat-tab label=\"Definition Lookups\">\n      <div class=\"lookup-wrapper\">\n        <div>\n          <div class=\"section\">\n            <h3>Presentation</h3>\n            <input id=\"name\" type=\"text\" [formControl]=\"displayHash\">\n            <br>\n            <select [formControl]=\"displayHash\">\n              <option value=\"2592822840\">\n                Ghost Writer\n              </option>\n            </select>\n            <button (click)=\"lookupPresentation()\">Lookup Presentation</button>\n            <hr>\n          </div>\n          <div class=\"section\">\n            <h3>Milestones Hashes</h3>\n            <input id=\"name\" type=\"text\" [formControl]=\"milestoneHash\">\n            <br>\n            <select [formControl]=\"milestoneHash\">\n\n            </select>\n            <button (click)=\"lookupMilestone()\">Lookup Presentation</button>\n            <hr>\n          </div>\n          <div class=\"section\">\n            <h3>Record Hashes</h3>\n            <input id=\"name\" type=\"text\" [formControl]=\"recordHash\">\n            <br>\n            <select [formControl]=\"recordHash\">\n              <option value=\"1089543274\">\n                Ghost Writer\n              </option>\n            </select>\n            <button (click)=\"lookupRecord()\">Lookup Presentation</button>\n            <hr>\n          </div>\n        </div>\n        <div class=\"info\">\n          <div class=\"info-content\">\n            <textarea [formControl]=\"output\"></textarea>\n          </div>\n        </div>\n\n      </div>\n    </mat-tab>\n    <mat-tab label=\"Image Lookup\">\n      <div class=\"lookup-wrapper\">\n        <div>\n          <div class=\"section\">\n            <h3>Presentation</h3>\n            <input id=\"name\" type=\"text\" [formControl]=\"imageUrl\">\n            <br>\n            <button (click)=\"loadImage()\">Load Image</button>\n          </div>\n        </div>\n        <div class=\"info\">\n          <div class=\"info-content\">\n            <ng-container *ngFor=\"let imgUrl of imgUrls\">\n              <img src=\"{{imgUrl}}\" alt=\"none\" />\n            </ng-container>\n          </div>\n        </div>\n\n      </div>\n    </mat-tab>\n  </mat-tab-group>\n"
+            "templateData": "  <mat-tab-group class=\"tab-stuff\">\r\n    <mat-tab label=\"Definition Lookups\">\r\n      <div class=\"lookup-wrapper\">\r\n        <div>\r\n          <div class=\"section\">\r\n            <h3>Presentation</h3>\r\n            <input id=\"name\" type=\"text\" [formControl]=\"displayHash\">\r\n            <br>\r\n            <select [formControl]=\"displayHash\">\r\n              <option value=\"2592822840\">\r\n                Ghost Writer\r\n              </option>\r\n            </select>\r\n            <button (click)=\"lookupPresentation()\">Lookup Presentation</button>\r\n            <hr>\r\n          </div>\r\n          <div class=\"section\">\r\n            <h3>Milestones Hashes</h3>\r\n            <input id=\"name\" type=\"text\" [formControl]=\"milestoneHash\">\r\n            <br>\r\n            <select [formControl]=\"milestoneHash\">\r\n\r\n            </select>\r\n            <button (click)=\"lookupMilestone()\">Lookup Presentation</button>\r\n            <hr>\r\n          </div>\r\n          <div class=\"section\">\r\n            <h3>Record Hashes</h3>\r\n            <input id=\"name\" type=\"text\" [formControl]=\"recordHash\">\r\n            <br>\r\n            <select [formControl]=\"recordHash\">\r\n              <option value=\"1089543274\">\r\n                Ghost Writer\r\n              </option>\r\n            </select>\r\n            <button (click)=\"lookupRecord()\">Lookup Presentation</button>\r\n            <hr>\r\n          </div>\r\n        </div>\r\n        <div class=\"info\">\r\n          <div class=\"info-content\">\r\n            <textarea [formControl]=\"output\"></textarea>\r\n          </div>\r\n        </div>\r\n\r\n      </div>\r\n    </mat-tab>\r\n    <mat-tab label=\"Image Lookup\">\r\n      <div class=\"lookup-wrapper\">\r\n        <div>\r\n          <div class=\"section\">\r\n            <h3>Presentation</h3>\r\n            <input id=\"name\" type=\"text\" [formControl]=\"imageUrl\">\r\n            <br>\r\n            <button (click)=\"loadImage()\">Load Image</button>\r\n          </div>\r\n        </div>\r\n        <div class=\"info\">\r\n          <div class=\"info-content\">\r\n            <ng-container *ngFor=\"let imgUrl of imgUrls\">\r\n              <img src=\"{{imgUrl}}\" alt=\"none\" />\r\n            </ng-container>\r\n          </div>\r\n        </div>\r\n\r\n      </div>\r\n    </mat-tab>\r\n  </mat-tab-group>\r\n"
         },
         {
             "name": "MemberTypeComponent",
@@ -18168,7 +18181,7 @@
             "assetsDirs": [],
             "styleUrlsData": [
                 {
-                    "data": ":host {\r\n  flex: 1;\r\n  overflow: auto;\r\n}\r\n.seals-wrapper {\r\n  max-width: 960px;\r\n  margin: 0 auto;\r\n  padding: 20px;\r\n}\r\n",
+                    "data": ":host {\r\n  flex: 1;\r\n  overflow: auto;\r\n}\r\n.seals-wrapper {\r\n  margin: 0 auto;\r\n  padding: 20px;\r\n}\r\n",
                     "styleUrl": "./seals-dashboard.component.scss"
                 }
             ],
@@ -18288,12 +18301,90 @@
             "assetsDirs": [],
             "styleUrlsData": [
                 {
-                    "data": ".loading {\r\n  text-align: center;\r\n}\r\n\r\n.seals-container {\r\n  display: flex;\r\n  flex-wrap: wrap;\r\n  justify-content: center;\r\n\r\n  .seal {\r\n    width: 320px;\r\n    margin: 2rem;\r\n  }\r\n}\r\n",
+                    "data": ".loading {\r\n  text-align: center;\r\n}\r\n\r\n.seals-container {\r\n  display: flex;\r\n  flex-wrap: wrap;\r\n  justify-content: center;\r\n\r\n  .seal {\r\n    width: 100%;\r\n    max-width: 480px;\r\n    margin: 2rem;\r\n  }\r\n}\r\n.seal-info {\r\n  padding-top: 1rem;\r\n  display: flex;\r\n  justify-content: space-between;\r\n  align-items: center;\r\n}\r\n",
                     "styleUrl": "./seals-list.component.scss"
                 }
             ],
             "stylesData": "",
-            "templateData": "<div *ngIf=\"sealsList; else loading\">\r\n  <p *ngIf=\"!sealsList.length\">\r\n    No Seals Found\r\n  </p>\r\n  <div class=\"seal-container\" *ngIf=\"sealsList\">\r\n    <ng-container *ngFor=\"let sealDetails of sealsList\">\r\n      <mat-card class=\"seal\">\r\n        <mat-card-header>\r\n          <mat-card-title-group>\r\n            <img src=\"//bungie.net/{{sealDetails.seal?.displayProperties?.icon}}\"\r\n              alt=\"{{sealDetails.seal?.displayProperties?.name}}\">\r\n            <mat-card-title>{{sealDetails.seal.displayProperties.name}}</mat-card-title>\r\n            <mat-card-subtitle>{{sealDetails.seal.displayProperties.description}}</mat-card-subtitle>\r\n          </mat-card-title-group>\r\n        </mat-card-header>\r\n        <mat-card-content>\r\n          {{sealDetails.completedCount}} / {{sealDetails.totalMembers}}\r\n          <button mat-button routerLink=\"/seals/{{sealDetails.seal.hash}}\">View</button>\r\n        </mat-card-content>\r\n      </mat-card>\r\n    </ng-container>\r\n  </div>\r\n</div>\r\n\r\n<ng-template #loading>\r\n  <div class=\"loading\">\r\n    Loading Seals\r\n  </div>\r\n</ng-template>\r\n"
+            "templateData": "<div *ngIf=\"sealsList; else loading\">\r\n  <p *ngIf=\"!sealsList.length\">\r\n    No Seals Found\r\n  </p>\r\n  <div class=\"seals-container\" *ngIf=\"sealsList\">\r\n    <ng-container *ngFor=\"let sealDetails of sealsList\">\r\n      <mat-card class=\"seal\">\r\n        <mat-card-header>\r\n          <mat-card-title-group>\r\n            <img src=\"//bungie.net/{{sealDetails.seal?.displayProperties?.icon}}\"\r\n              alt=\"{{sealDetails.seal?.displayProperties?.name}}\">\r\n            <mat-card-title>{{sealDetails.seal.displayProperties.name}}</mat-card-title>\r\n            <mat-card-subtitle>{{sealDetails.seal.displayProperties.description}}</mat-card-subtitle>\r\n          </mat-card-title-group>\r\n        </mat-card-header>\r\n        <mat-card-content class=\"seal-info\">\r\n          <div>\r\n            Complete: {{sealDetails.completedCount}} / {{sealDetails.totalMembers}}\r\n          </div>\r\n          <div *ngIf=\"sealDetails.isGilded\">\r\n            Gilded: {{sealDetails.gildedCount}} / {{sealDetails.totalMembers}}\r\n          </div>\r\n          <div>\r\n            <button mat-button routerLink=\"/seals/{{sealDetails.seal.hash}}\">View</button>\r\n          </div>\r\n        </mat-card-content>\r\n      </mat-card>\r\n    </ng-container>\r\n  </div>\r\n</div>\r\n\r\n<ng-template #loading>\r\n  <div class=\"loading\">\r\n    Loading Seals\r\n  </div>\r\n</ng-template>\r\n"
+        },
+        {
+            "name": "SettingsMenuComponent",
+            "id": "component-SettingsMenuComponent-19dcd1581c34048ee61e794aea5ae591b99aa29df53859cd1d89a755eb81d5a4a2d153d72a095ca1403198c90d4f320766e4a3e5584b06fda13924ae1c22fad2",
+            "file": "projects/clan-dashboard/src/app/core/layout/settings-menu/settings-menu.component.ts",
+            "changeDetection": "ChangeDetectionStrategy.OnPush",
+            "encapsulation": [],
+            "entryComponents": [],
+            "inputs": [],
+            "outputs": [],
+            "providers": [],
+            "selector": "app-settings-menu",
+            "styleUrls": [
+                "./settings-menu.component.scss"
+            ],
+            "styles": [],
+            "templateUrl": [
+                "./settings-menu.component.html"
+            ],
+            "viewProviders": [],
+            "inputsClass": [],
+            "outputsClass": [],
+            "propertiesClass": [
+                {
+                    "name": "versionNumber",
+                    "defaultValue": "this.appConfig.appVersion",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "optional": false,
+                    "description": "",
+                    "line": 18
+                }
+            ],
+            "methodsClass": [],
+            "deprecated": false,
+            "deprecationMessage": "",
+            "hostBindings": [],
+            "hostListeners": [],
+            "description": "",
+            "rawdescription": "\n",
+            "type": "component",
+            "sourceCode": "import { ChangeDetectionStrategy, Component } from '@angular/core';\nimport { CommonModule } from '@angular/common';\nimport { MatMenuModule } from '@angular/material/menu';\nimport { MatIconModule } from '@angular/material/icon';\nimport { AppConfig } from '@core/config/app-config';\nimport { MatButtonModule } from '@angular/material/button';\nimport { RouterModule } from '@angular/router';\n@Component({\n  selector: 'app-settings-menu',\n  standalone: true,\n  imports: [CommonModule, MatMenuModule, MatIconModule, MatButtonModule, RouterModule],\n  templateUrl: './settings-menu.component.html',\n  styleUrls: ['./settings-menu.component.scss'],\n  changeDetection: ChangeDetectionStrategy.OnPush\n})\nexport class SettingsMenuComponent {\n  constructor(private appConfig: AppConfig) {}\n  versionNumber = this.appConfig.appVersion;\n}\n",
+            "assetsDirs": [],
+            "styleUrlsData": [
+                {
+                    "data": "",
+                    "styleUrl": "./settings-menu.component.scss"
+                }
+            ],
+            "stylesData": "",
+            "constructorObj": {
+                "name": "constructor",
+                "description": "",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "args": [
+                    {
+                        "name": "appConfig",
+                        "type": "AppConfig",
+                        "deprecated": false,
+                        "deprecationMessage": ""
+                    }
+                ],
+                "line": 16,
+                "jsdoctags": [
+                    {
+                        "name": "appConfig",
+                        "type": "AppConfig",
+                        "deprecated": false,
+                        "deprecationMessage": "",
+                        "tagName": {
+                            "text": "param"
+                        }
+                    }
+                ]
+            },
+            "templateData": "<button mat-icon-button [matMenuTriggerFor]=\"settingsMenu\">\n  <mat-icon>\n    settings\n  </mat-icon>\n</button>\n<mat-menu #settingsMenu=\"matMenu\">\n  <a href=\"https://github.com/WorthyD/destiny-clan-dashboard/issues\" target=\"_blank\" mat-menu-item>\n    <mat-icon>\n      bug_report\n    </mat-icon>\n    <span> Report a Bug</span>\n  </a>\n  <a href=\"https://github.com/WorthyD/destiny-clan-dashboard\" target=\"_blank\" mat-menu-item>\n    <mat-icon>\n      code\n    </mat-icon>\n    <span> Source Code</span>\n  </a>\n  <a href=\"https://twitter.com/WorthyD\" target=\"_blank\" mat-menu-item>\n    <mat-icon>\n      keyboard\n    </mat-icon>\n    <span> Developer</span>\n  </a>\n  <!-- <button mat-menu-item>\n    <mat-icon>\n      help\n    </mat-icon>\n    <span> About App</span>\n  </button> -->\n  <a mat-menu-item routerLink=\"config\">\n    <mat-icon>\n      settings\n    </mat-icon>\n    <span> Config</span>\n  </a>\n\n  <button mat-menu-item>\n    <mat-icon>\n      info\n    </mat-icon>\n    <span>\n      v {{versionNumber}}\n    </span>\n  </button>\n</mat-menu>\n"
         },
         {
             "name": "TableViewComponent",
@@ -18746,19 +18837,19 @@
             "implements": [
                 "OnInit"
             ],
-            "templateData": "<div class=\"main-container\">\r\n  <!-- <nav>\r\n    <a routerLink=\"/\">Dashboard</a>\r\n    <a routerLink=\"/roster\">Roster View</a>\r\n    <a routerLink=\"/recent-activity\">Recent Activity</a>\r\n    <a routerLink=\"/seals\">Seals</a>\r\n    <a routerLink=\"/config\">Config</a>\r\n    <app-notifications [notifications]=\"notifications$ | async\"></app-notifications>\r\n  </nav> -->\r\n  <mat-toolbar color=\"primary\">\r\n    <mat-toolbar-row>\r\n      <button mat-icon-button (click)=\"sidenav.toggle()\">\r\n        <mat-icon>menu</mat-icon>\r\n      </button>\r\n      <div class=\"clan-name\">\r\n        Destiny Clan Dashboard\r\n      </div>\r\n      <app-notifications [notifications]=\"notifications$ | async\"></app-notifications>\r\n      <div>\r\n        <button mat-icon-button routerLink=\"config\">\r\n          <mat-icon>\r\n            settings\r\n          </mat-icon>\r\n        </button>\r\n      </div>\r\n    </mat-toolbar-row>\r\n  </mat-toolbar>\r\n  <mat-sidenav-container hasBackdrop=\"false\">\r\n    <mat-sidenav [libResponsiveSidebar]=\"960\" #sidenav mode=\"side\" opened>\r\n      <mat-nav-list class=\"clan-nav\">\r\n        <div class=\"section-nav\">\r\n          <a mat-list-item routerLink=\"./\" routerLinkActive=\"active-link\" [routerLinkActiveOptions]=\"{exact: true}\">\r\n            Dashboard </a>\r\n          <a mat-list-item routerLink=\"roster\" routerLinkActive=\"active-link\"> Roster </a>\r\n          <a mat-list-item routerLink=\"recent-activity\" routerLinkActive=\"active-link\"> Member Activity </a>\r\n          <a mat-list-item routerLink=\"seals\" routerLinkActive=\"active-link\"> Seals </a>\r\n          <ng-container *ngIf=\"showSandbox\">\r\n            <a mat-list-item routerLink=\"sandbox\" routerLinkActive=\"active-link\"> Sandbox </a>\r\n          </ng-container>\r\n\r\n\r\n\r\n          <!-- <a mat-list-item routerLink=\"crucible\" routerLinkActive=\"active-link\"> Crucible </a> -->\r\n          <!-- <a mat-list-item routerLink=\"gambit\" routerLinkActive=\"active-link\"> Gambit </a> -->\r\n          <!-- <a mat-list-item routerLink=\"seals\" routerLinkActive=\"active-link\"> Seals </a> -->\r\n          <!-- <a mat-list-item routerLink=\"raids\" routerLinkActive=\"active-link\"> Raids </a> -->\r\n          <!-- <a mat-list-item routerLink=\"dungeons\" routerLinkActive=\"active-link\"> Dungeons </a> -->\r\n          <!-- <a mat-list-item (click)=\"openPlayerSearch()\">Player Search</a> -->\r\n          <!-- <a mat-list-item (click)=\"goHome()\">Home</a> -->\r\n        </div>\r\n      </mat-nav-list>\r\n    </mat-sidenav>\r\n    <mat-sidenav-content>\r\n      <router-outlet></router-outlet>\r\n    </mat-sidenav-content>\r\n  </mat-sidenav-container>\r\n\r\n</div>\r\n"
+            "templateData": "<div class=\"main-container\">\r\n  <!-- <nav>\r\n    <a routerLink=\"/\">Dashboard</a>\r\n    <a routerLink=\"/roster\">Roster View</a>\r\n    <a routerLink=\"/recent-activity\">Recent Activity</a>\r\n    <a routerLink=\"/seals\">Seals</a>\r\n    <a routerLink=\"/config\">Config</a>\r\n    <app-notifications [notifications]=\"notifications$ | async\"></app-notifications>\r\n  </nav> -->\r\n  <mat-toolbar color=\"primary\">\r\n    <mat-toolbar-row>\r\n      <button mat-icon-button (click)=\"sidenav.toggle()\">\r\n        <mat-icon>menu</mat-icon>\r\n      </button>\r\n      <div class=\"clan-name\">\r\n        Destiny Clan Dashboard\r\n      </div>\r\n      <app-notifications [notifications]=\"notifications$ | async\"></app-notifications>\r\n      <div>\r\n        <!-- <button mat-icon-button routerLink=\"config\">\r\n          <mat-icon>\r\n            settings\r\n          </mat-icon>\r\n        </button> -->\r\n        <app-settings-menu></app-settings-menu>\r\n\r\n      </div>\r\n    </mat-toolbar-row>\r\n  </mat-toolbar>\r\n  <mat-sidenav-container hasBackdrop=\"false\">\r\n    <mat-sidenav [libResponsiveSidebar]=\"960\" #sidenav mode=\"side\" opened>\r\n      <mat-nav-list class=\"clan-nav\">\r\n        <div class=\"section-nav\">\r\n          <a mat-list-item routerLink=\"./\" routerLinkActive=\"active-link\" [routerLinkActiveOptions]=\"{exact: true}\">\r\n            Dashboard </a>\r\n          <a mat-list-item routerLink=\"roster\" routerLinkActive=\"active-link\"> Roster </a>\r\n          <a mat-list-item routerLink=\"recent-activity\" routerLinkActive=\"active-link\"> Member Activity </a>\r\n          <a mat-list-item routerLink=\"seals\" routerLinkActive=\"active-link\"> Seals </a>\r\n          <ng-container *ngIf=\"showSandbox\">\r\n            <a mat-list-item routerLink=\"sandbox\" routerLinkActive=\"active-link\"> Sandbox </a>\r\n          </ng-container>\r\n\r\n\r\n\r\n          <!-- <a mat-list-item routerLink=\"crucible\" routerLinkActive=\"active-link\"> Crucible </a> -->\r\n          <!-- <a mat-list-item routerLink=\"gambit\" routerLinkActive=\"active-link\"> Gambit </a> -->\r\n          <!-- <a mat-list-item routerLink=\"seals\" routerLinkActive=\"active-link\"> Seals </a> -->\r\n          <!-- <a mat-list-item routerLink=\"raids\" routerLinkActive=\"active-link\"> Raids </a> -->\r\n          <!-- <a mat-list-item routerLink=\"dungeons\" routerLinkActive=\"active-link\"> Dungeons </a> -->\r\n          <!-- <a mat-list-item (click)=\"openPlayerSearch()\">Player Search</a> -->\r\n          <!-- <a mat-list-item (click)=\"goHome()\">Home</a> -->\r\n        </div>\r\n      </mat-nav-list>\r\n    </mat-sidenav>\r\n    <mat-sidenav-content>\r\n      <router-outlet></router-outlet>\r\n    </mat-sidenav-content>\r\n  </mat-sidenav-container>\r\n\r\n</div>\r\n"
         }
     ],
     "modules": [
         {
             "name": "AppModule",
-            "id": "module-AppModule-61a5b95b0210391b3d98cbcd21b01f2dc04c92f0d4bd05a7628e65956a0612300031f39474cfd853f659381fa3d20c339230425be9d17d641c47e3d5560a2ac2",
+            "id": "module-AppModule-ebdf575326338805f945235d9ac98f1168681fc8824ac197eec1b038c558100b4819c75e058af7855a792eddab42dc81040bc0a69a7d25d15770949751f7f98a",
             "description": "",
             "deprecationMessage": "",
             "deprecated": false,
             "file": "projects/clan-dashboard/src/app/app.module.ts",
             "methods": [],
-            "sourceCode": "import { NgModule } from '@angular/core';\r\nimport { BrowserModule } from '@angular/platform-browser';\r\n\r\nimport { AppRoutingModule } from './app-routing.module';\r\nimport { AppComponent } from './app.component';\r\nimport { CoreModule } from '@core/core.module';\r\nimport { BrowserAnimationsModule } from '@angular/platform-browser/animations';\r\n\r\n\r\n@NgModule({\r\n  declarations: [AppComponent],\r\n  imports: [BrowserModule, AppRoutingModule, CoreModule, BrowserAnimationsModule],\r\n  providers: [],\r\n  bootstrap: [AppComponent]\r\n})\r\nexport class AppModule {}\r\n",
+            "sourceCode": "import { NgModule } from '@angular/core';\r\nimport { BrowserModule } from '@angular/platform-browser';\r\n\r\nimport { AppRoutingModule } from './app-routing.module';\r\nimport { AppComponent } from './app.component';\r\nimport { CoreModule } from '@core/core.module';\r\nimport { BrowserAnimationsModule } from '@angular/platform-browser/animations';\r\nimport { MatProgressSpinnerModule } from '@angular/material/progress-spinner';\r\n\r\n@NgModule({\r\n  declarations: [AppComponent],\r\n  imports: [BrowserModule, AppRoutingModule, CoreModule, BrowserAnimationsModule, MatProgressSpinnerModule],\r\n  providers: [],\r\n  bootstrap: [AppComponent]\r\n})\r\nexport class AppModule {}\r\n",
             "children": [
                 {
                     "type": "providers",
@@ -19612,13 +19703,13 @@
         },
         {
             "name": "LayoutModule",
-            "id": "module-LayoutModule-fb5c7626e6254d8569b0451c960a59039d7c516541aafc62884b3c3139d5d34d3d1196aaa8dd78dffec827698c882363bd98c346081ff7237ae10de405ce0f54",
+            "id": "module-LayoutModule-b4277957e853989976b3d7e083b93924af71181126f2afa71f2068835c19211100dc90ea32d739bf90a5b12bddef17b8a28045cc605c5ca1d29d1b7692e925d2",
             "description": "",
             "deprecationMessage": "",
             "deprecated": false,
             "file": "projects/clan-dashboard/src/app/core/layout/layout.module.ts",
             "methods": [],
-            "sourceCode": "import { NgModule } from '@angular/core';\r\nimport { CommonModule } from '@angular/common';\r\nimport { WrapperComponent } from './wrapper/wrapper.component';\r\nimport { RouterModule } from '@angular/router';\r\nimport { NotificationsComponent } from './notifications/notifications.component';\r\nimport { MatListModule } from '@angular/material/list';\r\nimport { MatSidenavModule } from '@angular/material/sidenav';\r\nimport { DirectivesModule } from '@destiny/components/shared/directives';\r\nimport { MatToolbarModule } from '@angular/material/toolbar';\r\nimport { MatIconModule } from '@angular/material/icon';\r\nimport { MatButtonModule } from '@angular/material/button';\r\n@NgModule({\r\n  declarations: [WrapperComponent],\r\n  imports: [\r\n    CommonModule,\r\n    RouterModule,\r\n    NotificationsComponent,\r\n    MatSidenavModule,\r\n    MatListModule,\r\n    DirectivesModule,\r\n    MatToolbarModule,\r\n    MatIconModule,\r\n    MatButtonModule\r\n  ]\r\n})\r\nexport class LayoutModule {}\r\n",
+            "sourceCode": "import { NgModule } from '@angular/core';\r\nimport { CommonModule } from '@angular/common';\r\nimport { WrapperComponent } from './wrapper/wrapper.component';\r\nimport { RouterModule } from '@angular/router';\r\nimport { NotificationsComponent } from './notifications/notifications.component';\r\nimport { MatListModule } from '@angular/material/list';\r\nimport { MatSidenavModule } from '@angular/material/sidenav';\r\nimport { DirectivesModule } from '@destiny/components/shared/directives';\r\nimport { MatToolbarModule } from '@angular/material/toolbar';\r\nimport { MatIconModule } from '@angular/material/icon';\r\nimport { MatButtonModule } from '@angular/material/button';\r\nimport { SettingsMenuComponent } from './settings-menu/settings-menu.component';\r\n@NgModule({\r\n  declarations: [WrapperComponent],\r\n  imports: [\r\n    CommonModule,\r\n    RouterModule,\r\n    NotificationsComponent,\r\n    MatSidenavModule,\r\n    MatListModule,\r\n    DirectivesModule,\r\n    MatToolbarModule,\r\n    MatIconModule,\r\n    MatButtonModule,\r\n    SettingsMenuComponent\r\n  ]\r\n})\r\nexport class LayoutModule {}\r\n",
             "children": [
                 {
                     "type": "providers",
@@ -19640,6 +19731,9 @@
                         },
                         {
                             "name": "NotificationsComponent"
+                        },
+                        {
+                            "name": "SettingsMenuComponent"
                         }
                     ]
                 },
@@ -19973,13 +20067,13 @@
         },
         {
             "name": "SandboxShellModule",
-            "id": "module-SandboxShellModule-33740acd133d925fffbfc61f438e87407bcd54b92f9013681aae954f36383bac9ca8f2f319cbdd71fec1a9f6f09b406f1041a97626d6bf4f890f9f39bace0a87",
+            "id": "module-SandboxShellModule-4b72fb3634e6b71eebda630a8ba6bda0d53e9391f7758b8b8d4a51ca4761f81f841168dc8f4208aec0be68ece93a7a2c81e0440b98afac4b4b41c1c4e8294a0d",
             "description": "",
             "deprecationMessage": "",
             "deprecated": false,
             "file": "projects/clan-dashboard/src/app/features/sandbox/sandbox-shell/sandbox-shell.module.ts",
             "methods": [],
-            "sourceCode": "import { NgModule } from '@angular/core';\nimport { CommonModule } from '@angular/common';\nimport { SandboxRoutingModule } from './sandbox-shell-routing.module';\n\n@NgModule({\n  declarations: [],\n  imports: [CommonModule, SandboxRoutingModule]\n})\nexport class SandboxShellModule {}\n",
+            "sourceCode": "import { NgModule } from '@angular/core';\r\nimport { CommonModule } from '@angular/common';\r\nimport { SandboxRoutingModule } from './sandbox-shell-routing.module';\r\n\r\n@NgModule({\r\n  declarations: [],\r\n  imports: [CommonModule, SandboxRoutingModule]\r\n})\r\nexport class SandboxShellModule {}\r\n",
             "children": [
                 {
                     "type": "providers",
@@ -20382,21 +20476,21 @@
                 "name": "base",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "projects/clan-dashboard/src/app/core/store/manifest/manifest.actions.ts",
-                "deprecated": false,
-                "deprecationMessage": "",
-                "type": "string",
-                "defaultValue": "'[Manifest] - '"
-            },
-            {
-                "name": "base",
-                "ctype": "miscellaneous",
-                "subtype": "variable",
                 "file": "projects/clan-dashboard/src/app/core/store/clans/clans.actions.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "string",
                 "defaultValue": "'Clans] - '"
+            },
+            {
+                "name": "base",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/clan-dashboard/src/app/core/store/manifest/manifest.actions.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "string",
+                "defaultValue": "'[Manifest] - '"
             },
             {
                 "name": "base",
@@ -20758,7 +20852,7 @@
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "SealListItem[]",
-                "defaultValue": "new Array(10).fill('').map((x) => {\r\n  console.log(getRandomSLI());\r\n  return getRandomSLI();\r\n})"
+                "defaultValue": "new Array(10).fill('').map((x) => {\r\n  return getRandomSLI();\r\n})"
             },
             {
                 "name": "loadManifest",
@@ -20914,7 +21008,7 @@
                 "name": "name",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "projects/clan-dashboard/src/app/core/store/manifest/manifest.actions.ts",
+                "file": "projects/clan-dashboard/src/app/core/store/clans/clans.actions.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "",
@@ -20924,7 +21018,7 @@
                 "name": "name",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "projects/clan-dashboard/src/app/core/store/clans/clans.actions.ts",
+                "file": "projects/clan-dashboard/src/app/core/store/manifest/manifest.actions.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "",
@@ -21158,7 +21252,7 @@
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "",
-                "defaultValue": "new Map<string, ViewerMetadata<SealClanMember, ViewContext>>([\r\n  [\r\n    'destinyDisplayName',\r\n    {\r\n      label: 'Destiny Display Name',\r\n      plainText: (item: SealClanMember) => `${getMemberName(item.clanMember)}`,\r\n      render: (item: SealClanMember) => ({ text: `${getMemberName(item.clanMember)}` })\r\n    }\r\n  ],\r\n  [\r\n    'destinyClan',\r\n    {\r\n      label: 'Destiny Clan',\r\n      plainText: (item: SealClanMember) => `${item.clan.clanName}`,\r\n      render: (item: SealClanMember) => ({ text: `${item.clan.clanName}` })\r\n    }\r\n  ],\r\n  [\r\n    'isComplete',\r\n    {\r\n      label: 'Is Completed',\r\n      plainText: (item: SealClanMember) => (item.sealProgression.isCompleted ? 'X' : ''),\r\n      render: (item: SealClanMember) => ({\r\n        text: item.sealProgression.isCompleted ? 'X' : ''\r\n      })\r\n    }\r\n  ],\r\n  [\r\n    'completeCount',\r\n    {\r\n      label: 'Completed Count',\r\n      plainText: (item: SealClanMember) =>\r\n        `${item.sealProgression.completedTriumphCount || 0} / ${item.sealProgression.totalTriumphCount}`,\r\n      render: (item: SealClanMember) => ({\r\n        text: `${item.sealProgression.completedTriumphCount || 0} / ${item.sealProgression.totalTriumphCount}`\r\n      })\r\n    }\r\n  ],\r\n  [\r\n    'progress',\r\n    {\r\n      label: 'Percent Completed',\r\n      plainText: (item: SealClanMember) => `${item.sealProgression.completionPercentage}%`,\r\n      render: (item: SealClanMember) => ({\r\n        text: `${item.sealProgression.completionPercentage}%`\r\n      })\r\n    }\r\n  ]\r\n\r\n  //['name', { label: 'Name', render: (item) => ({ text: `${item.name}` }) }],\r\n  //['startDate', { label: 'Start Date', render: (item) => ({ text: `${new Date(item.startDate).toDateString()}` }) }]\r\n])"
+                "defaultValue": "new Map<string, ViewerMetadata<SealClanMember, ViewContext>>([\r\n  [\r\n    'destinyDisplayName',\r\n    {\r\n      label: 'Destiny Display Name',\r\n      plainText: (item: SealClanMember) => `${getMemberName(item.clanMember)}`,\r\n      render: (item: SealClanMember) => ({ text: `${getMemberName(item.clanMember)}` })\r\n    }\r\n  ],\r\n  [\r\n    'destinyClan',\r\n    {\r\n      label: 'Destiny Clan',\r\n      plainText: (item: SealClanMember) => `${item.clan.clanName}`,\r\n      render: (item: SealClanMember) => ({ text: `${item.clan.clanName}` })\r\n    }\r\n  ],\r\n  [\r\n    'isComplete',\r\n    {\r\n      label: 'Is Completed',\r\n      plainText: (item: SealClanMember) => (item.sealProgression.isCompleted ? 'X' : ''),\r\n      render: (item: SealClanMember) => ({\r\n        text: item.sealProgression.isCompleted ? 'X' : ''\r\n      })\r\n    }\r\n  ],\r\n  [\r\n    'isGilded',\r\n    {\r\n      label: 'Is Gilded',\r\n      plainText: (item: SealClanMember) => (item.sealProgression.isGilded ? 'X' : ''),\r\n      render: (item: SealClanMember) => ({\r\n        text: item.sealProgression.isGilded ? 'X' : ''\r\n      })\r\n    }\r\n  ],\r\n  [\r\n    'gildedCount',\r\n    {\r\n      label: 'Gilded Count',\r\n      plainText: (item: SealClanMember) => `${item.sealProgression.gildedCount || ''}`,\r\n      render: (item: SealClanMember) => ({\r\n        text: `${item.sealProgression.gildedCount || ''}`\r\n      })\r\n    }\r\n  ],\r\n  [\r\n    'completeCount',\r\n    {\r\n      label: 'Completed Count',\r\n      plainText: (item: SealClanMember) =>\r\n        `${item.sealProgression.completedTriumphCount || 0} / ${item.sealProgression.totalTriumphCount}`,\r\n      render: (item: SealClanMember) => ({\r\n        text: `${item.sealProgression.completedTriumphCount || 0} / ${item.sealProgression.totalTriumphCount}`\r\n      })\r\n    }\r\n  ],\r\n  [\r\n    'progress',\r\n    {\r\n      label: 'Percent Completed',\r\n      plainText: (item: SealClanMember) => `${item.sealProgression.completionPercentage}%`,\r\n      render: (item: SealClanMember) => ({\r\n        text: `${item.sealProgression.completionPercentage}%`\r\n      })\r\n    }\r\n  ]\r\n\r\n  //['name', { label: 'Name', render: (item) => ({ text: `${item.name}` }) }],\r\n  //['startDate', { label: 'Start Date', render: (item) => ({ text: `${new Date(item.startDate).toDateString()}` }) }]\r\n])"
             },
             {
                 "name": "Secondary",
@@ -24535,7 +24629,7 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "SealListItem[]",
-                    "defaultValue": "new Array(10).fill('').map((x) => {\r\n  console.log(getRandomSLI());\r\n  return getRandomSLI();\r\n})"
+                    "defaultValue": "new Array(10).fill('').map((x) => {\r\n  return getRandomSLI();\r\n})"
                 },
                 {
                     "name": "Primary",
@@ -25139,7 +25233,7 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "",
-                    "defaultValue": "new Map<string, ViewerMetadata<SealClanMember, ViewContext>>([\r\n  [\r\n    'destinyDisplayName',\r\n    {\r\n      label: 'Destiny Display Name',\r\n      plainText: (item: SealClanMember) => `${getMemberName(item.clanMember)}`,\r\n      render: (item: SealClanMember) => ({ text: `${getMemberName(item.clanMember)}` })\r\n    }\r\n  ],\r\n  [\r\n    'destinyClan',\r\n    {\r\n      label: 'Destiny Clan',\r\n      plainText: (item: SealClanMember) => `${item.clan.clanName}`,\r\n      render: (item: SealClanMember) => ({ text: `${item.clan.clanName}` })\r\n    }\r\n  ],\r\n  [\r\n    'isComplete',\r\n    {\r\n      label: 'Is Completed',\r\n      plainText: (item: SealClanMember) => (item.sealProgression.isCompleted ? 'X' : ''),\r\n      render: (item: SealClanMember) => ({\r\n        text: item.sealProgression.isCompleted ? 'X' : ''\r\n      })\r\n    }\r\n  ],\r\n  [\r\n    'completeCount',\r\n    {\r\n      label: 'Completed Count',\r\n      plainText: (item: SealClanMember) =>\r\n        `${item.sealProgression.completedTriumphCount || 0} / ${item.sealProgression.totalTriumphCount}`,\r\n      render: (item: SealClanMember) => ({\r\n        text: `${item.sealProgression.completedTriumphCount || 0} / ${item.sealProgression.totalTriumphCount}`\r\n      })\r\n    }\r\n  ],\r\n  [\r\n    'progress',\r\n    {\r\n      label: 'Percent Completed',\r\n      plainText: (item: SealClanMember) => `${item.sealProgression.completionPercentage}%`,\r\n      render: (item: SealClanMember) => ({\r\n        text: `${item.sealProgression.completionPercentage}%`\r\n      })\r\n    }\r\n  ]\r\n\r\n  //['name', { label: 'Name', render: (item) => ({ text: `${item.name}` }) }],\r\n  //['startDate', { label: 'Start Date', render: (item) => ({ text: `${new Date(item.startDate).toDateString()}` }) }]\r\n])"
+                    "defaultValue": "new Map<string, ViewerMetadata<SealClanMember, ViewContext>>([\r\n  [\r\n    'destinyDisplayName',\r\n    {\r\n      label: 'Destiny Display Name',\r\n      plainText: (item: SealClanMember) => `${getMemberName(item.clanMember)}`,\r\n      render: (item: SealClanMember) => ({ text: `${getMemberName(item.clanMember)}` })\r\n    }\r\n  ],\r\n  [\r\n    'destinyClan',\r\n    {\r\n      label: 'Destiny Clan',\r\n      plainText: (item: SealClanMember) => `${item.clan.clanName}`,\r\n      render: (item: SealClanMember) => ({ text: `${item.clan.clanName}` })\r\n    }\r\n  ],\r\n  [\r\n    'isComplete',\r\n    {\r\n      label: 'Is Completed',\r\n      plainText: (item: SealClanMember) => (item.sealProgression.isCompleted ? 'X' : ''),\r\n      render: (item: SealClanMember) => ({\r\n        text: item.sealProgression.isCompleted ? 'X' : ''\r\n      })\r\n    }\r\n  ],\r\n  [\r\n    'isGilded',\r\n    {\r\n      label: 'Is Gilded',\r\n      plainText: (item: SealClanMember) => (item.sealProgression.isGilded ? 'X' : ''),\r\n      render: (item: SealClanMember) => ({\r\n        text: item.sealProgression.isGilded ? 'X' : ''\r\n      })\r\n    }\r\n  ],\r\n  [\r\n    'gildedCount',\r\n    {\r\n      label: 'Gilded Count',\r\n      plainText: (item: SealClanMember) => `${item.sealProgression.gildedCount || ''}`,\r\n      render: (item: SealClanMember) => ({\r\n        text: `${item.sealProgression.gildedCount || ''}`\r\n      })\r\n    }\r\n  ],\r\n  [\r\n    'completeCount',\r\n    {\r\n      label: 'Completed Count',\r\n      plainText: (item: SealClanMember) =>\r\n        `${item.sealProgression.completedTriumphCount || 0} / ${item.sealProgression.totalTriumphCount}`,\r\n      render: (item: SealClanMember) => ({\r\n        text: `${item.sealProgression.completedTriumphCount || 0} / ${item.sealProgression.totalTriumphCount}`\r\n      })\r\n    }\r\n  ],\r\n  [\r\n    'progress',\r\n    {\r\n      label: 'Percent Completed',\r\n      plainText: (item: SealClanMember) => `${item.sealProgression.completionPercentage}%`,\r\n      render: (item: SealClanMember) => ({\r\n        text: `${item.sealProgression.completionPercentage}%`\r\n      })\r\n    }\r\n  ]\r\n\r\n  //['name', { label: 'Name', render: (item) => ({ text: `${item.name}` }) }],\r\n  //['startDate', { label: 'Start Date', render: (item) => ({ text: `${new Date(item.startDate).toDateString()}` }) }]\r\n])"
                 }
             ],
             "projects/clan-dashboard/src/environments/secrets.ts": [
@@ -27978,7 +28072,7 @@
                 "linktype": "component",
                 "name": "AppComponent",
                 "coveragePercent": 0,
-                "coverageCount": "0/5",
+                "coverageCount": "0/3",
                 "status": "low"
             },
             {
@@ -28174,6 +28268,15 @@
                 "type": "interface",
                 "linktype": "interface",
                 "name": "Notification",
+                "coveragePercent": 0,
+                "coverageCount": "0/3",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/clan-dashboard/src/app/core/layout/settings-menu/settings-menu.component.ts",
+                "type": "component",
+                "linktype": "component",
+                "name": "SettingsMenuComponent",
                 "coveragePercent": 0,
                 "coverageCount": "0/3",
                 "status": "low"
@@ -29141,7 +29244,7 @@
                 "linktype": "interface",
                 "name": "SealListItem",
                 "coveragePercent": 0,
-                "coverageCount": "0/4",
+                "coverageCount": "0/6",
                 "status": "low"
             },
             {

@@ -1,7 +1,5 @@
 import { Component } from '@angular/core';
-import { select, Store } from '@ngrx/store';
-import { environment } from '../environments/environment';
-import { AppState } from '@core/core.state';
+import { Store } from '@ngrx/store';
 import { loadManifest, selectManifestState } from '@core/store/manifest';
 import { DomSanitizer } from '@angular/platform-browser';
 import { MatIconRegistry } from '@angular/material/icon';
@@ -14,9 +12,6 @@ import { catchError, map, of } from 'rxjs';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'clan-dashboard';
-  test = ''; // environment.apiKey;
-
   manifestState$ = this.store.select(selectManifestState).pipe(
     // eslint-disable-next-line @ngrx/avoid-mapping-selectors
     map((x) => x),

@@ -19,3 +19,24 @@
   justify-content: space-between;
   align-items: center;
 }
+.seal-image {
+  height: 126px;
+  width: 126px;
+}
+
+/// Loading Styles
+.loading {
+  .skeleton-title {
+    width: 250px;
+    margin-bottom: 0.75rem;
+  }
+  .skeleton-sub-title {
+    width: 250px;
+    margin-bottom: 0.75rem;
+  }
+  .seal-info {
+    .skeleton-item {
+      width: 100px;
+    }
+  }
+}

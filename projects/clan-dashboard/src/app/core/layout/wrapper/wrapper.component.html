@@ -17,11 +17,13 @@
       </div>
       <app-notifications [notifications]="notifications$ | async"></app-notifications>
       <div>
-        <button mat-icon-button routerLink="config">
+        <!-- <button mat-icon-button routerLink="config">
           <mat-icon>
             settings
           </mat-icon>
-        </button>
+        </button> -->
+        <app-settings-menu></app-settings-menu>
+
       </div>
     </mat-toolbar-row>
   </mat-toolbar>

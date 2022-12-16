@@ -9,6 +9,7 @@ import { DirectivesModule } from '@destiny/components/shared/directives';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
+import { SettingsMenuComponent } from './settings-menu/settings-menu.component';
 @NgModule({
   declarations: [WrapperComponent],
   imports: [
@@ -20,7 +21,8 @@ import { MatButtonModule } from '@angular/material/button';
     DirectivesModule,
     MatToolbarModule,
     MatIconModule,
-    MatButtonModule
+    MatButtonModule,
+    SettingsMenuComponent
   ]
 })
 export class LayoutModule {}

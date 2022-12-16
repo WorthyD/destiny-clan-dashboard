@@ -12,7 +12,7 @@
     --app-card-color: #{mat.get-color-from-palette($bg2, card)};
     --app-dialog-color: #{mat.get-color-from-palette($bg2, dialog)};
 
-
+    --app-skeleton-bg: rgba(0, 0, 0, 0.11);
 
     --app-primary-color-text: #{mat.get-color-from-palette($primary, default-contrast)};
     --app-primary-color: #{mat.get-color-from-palette($primary)};

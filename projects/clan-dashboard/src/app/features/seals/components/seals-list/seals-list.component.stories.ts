@@ -30,7 +30,11 @@ export const Primary = Template.bind({});
 Primary.args = {
   sealsList: list
 };
-
+export const Loading = Template.bind({});
+// More on args: https://storybook.js.org/docs/angular/writing-stories/args
+Loading.args = {
+  sealsList: undefined
+};
 export const Empty = Template.bind({});
 // More on args: https://storybook.js.org/docs/angular/writing-stories/args
 Empty.args = {
