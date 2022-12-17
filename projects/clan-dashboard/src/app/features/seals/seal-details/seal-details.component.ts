@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { DataSource, Exporter, Filterer, Sorter, Viewer } from '@destiny/components';
-import { combineLatest, filter, map, Observable, of, switchMap } from 'rxjs';
+import { combineLatest, filter, map, Observable, of, switchMap, tap } from 'rxjs';
 import { SealsService } from '../data-access/seals.service';
 import { SealClanMember } from '../models/seal-clan-member';
 import {
@@ -35,7 +35,7 @@ export class SealDetailsComponent {
       return this.sealsService.getSealDetails$(params.get('hash'));
     })
   );
-
+  isLoading = true;
   sealDetailsViewer = new Viewer({
     metadata: SEAL_DETAILS_VIEWER_METADATA,
     contextProvider: this.createViewContextProvider()
@@ -66,6 +66,7 @@ export class SealDetailsComponent {
         sorter: this.sealDetailsSorter
       };
     }),
-    filter((ds) => !!ds)
+    tap((x) => (this.isLoading = false))
+    //filter((ds) => !!ds)
   );
 }

@@ -1,8 +1,8 @@
 <div class="clan-roster">
-  <lib-table-view class="clan-roster-table" *ngIf="rosterRecentActivityInfo$ | async as rosterRecentActivityInfo; else loading"
-    [dataSource]="rosterRecentActivityInfo.dataSource" [header]="'Recent Activity'"
-    [viewer]="rosterRecentActivityInfo.viewer" [filterer]="rosterRecentActivityInfo.filterer"
-    [sorter]="rosterRecentActivityInfo.sorter" [exporter]="rosterRecentActivityInfo.exporter">
+  <lib-table-view class="clan-roster-table" [isLoading]="isLoading"
+    [dataSource]="(rosterRecentActivityInfo$ | async)?.dataSource" [header]="'Recent Activity'"
+    [viewer]="activityViewer" [filterer]="activityFilterer"
+    [sorter]="activitySorter" [exporter]="activityExporter">
   </lib-table-view>
 
   <ng-template #loading>
