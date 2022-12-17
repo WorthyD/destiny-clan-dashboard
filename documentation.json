@@ -3210,12 +3210,12 @@
         },
         {
             "name": "RosterResources",
-            "id": "interface-RosterResources-449c3768ee1253e8f3ae56b00bfe9e62e9b06ce8b81a415dda25c839883eded866c51973a67b986e8ac6e6a8ff868481ed7533872a2f945b10afd9136faf898b",
+            "id": "interface-RosterResources-f6d1d404eb85d3a003cdf3d9a7b0c8d47f909f8856f58db35a15d5b61fc542d27908fbd6f1e2469f4c54caa5a1fef4c433430b35993057a51a94abdf1e553586",
             "file": "projects/clan-dashboard/src/app/features/clans-roster/clans-roster-list/clans-roster.component.ts",
             "deprecated": false,
             "deprecationMessage": "",
             "type": "interface",
-            "sourceCode": "import { Component, OnInit, ViewRef, ViewEncapsulation, ChangeDetectionStrategy } from '@angular/core';\r\nimport { DataSource, Exporter, Filterer, Grouper, Sorter, Viewer } from '@destiny/components';\r\nimport { combineLatest, filter, map, Observable, of, tap } from 'rxjs';\r\n\r\nimport { BungieDatePipe, BungieDateTimePipe } from '@destiny/components/pipes/bungie-date';\r\nimport { ClanMemberProfile, ClansRosterService } from '../data-access/clans-roster.service';\r\nimport { CLAN_ROSTER_VIEWER_METADATA } from './clan-roster-metadata';\r\nimport { CLAN_ROSTER_FILTERER_METADATA } from './clan-roster-metadata/ClanRosterFilterer';\r\nimport { CLAN_ROSTER_SORTER_METADATA } from './clan-roster-metadata/ClanRosterSorter';\r\nimport { CLAN_ROSTER_EXPORTER_METADATA } from './clan-roster-metadata/ClanRosterExporter';\r\ninterface RosterResources {\r\n  loading: Observable<boolean>;\r\n  viewer: Viewer;\r\n  filterer: Filterer;\r\n  //grouper: Grouper;\r\n  exporter: Exporter;\r\n  sorter: Sorter;\r\n  dataSource: DataSource;\r\n}\r\n\r\n@Component({\r\n  selector: 'app-clans-roster',\r\n  templateUrl: './clans-roster.component.html',\r\n  styleUrls: ['./clans-roster.component.scss'],\r\n  encapsulation: ViewEncapsulation.None,\r\n  changeDetection: ChangeDetectionStrategy.OnPush\r\n})\r\nexport class ClansRosterComponent implements OnInit {\r\n  constructor(\r\n    private clansRosterService: ClansRosterService,\r\n    private bungieDatePage: BungieDatePipe,\r\n    private bungieDateTimePipe: BungieDateTimePipe\r\n  ) {}\r\n  // stuff2$ = this.clansRosterService.activeClanPeople$;\r\n  //members$ = this.clansRosterService.clanMembers$;\r\n  //profiles$ = this.clansRosterService.clanProfiles$;\r\n\r\n  rosterViewer = new Viewer({\r\n    metadata: CLAN_ROSTER_VIEWER_METADATA,\r\n    contextProvider: this.createViewContextProvider()\r\n  }, 'D2Dashboard_Roster_Table_Viewer');\r\n  rosterFilter = new Filterer({ metadata: CLAN_ROSTER_FILTERER_METADATA });\r\n  rosterSorter = new Sorter({ metadata: CLAN_ROSTER_SORTER_METADATA });\r\n  rosterExporter = new Exporter({ metadata: CLAN_ROSTER_EXPORTER_METADATA });\r\n\r\n  rosterInfo$: Observable<RosterResources> = combineLatest([this.clansRosterService.activeClanPeople$]).pipe(\r\n    map(([clanProfiles]) => {\r\n      return {\r\n        loading: of(false),\r\n        dataSource: new DataSource<ClanMemberProfile>({ data: clanProfiles }),\r\n        viewer: this.rosterViewer,\r\n        filterer: this.rosterFilter,\r\n        exporter: this.rosterExporter,\r\n        sorter: this.rosterSorter\r\n      };\r\n    }),\r\n    filter((ds) => !!ds)\r\n  );\r\n\r\n  createViewContextProvider() {\r\n    return of((item: ClanMemberProfile) => ({\r\n      item,\r\n      datePipe: this.bungieDatePage,\r\n      dateTimePipe: this.bungieDateTimePipe\r\n    }));\r\n  }\r\n\r\n  ngOnInit(): void {}\r\n}\r\n",
+            "sourceCode": "import { Component, OnInit, ViewRef, ViewEncapsulation, ChangeDetectionStrategy } from '@angular/core';\r\nimport { DataSource, Exporter, Filterer, Grouper, Sorter, Viewer } from '@destiny/components';\r\nimport { combineLatest, filter, map, Observable, of, tap } from 'rxjs';\r\n\r\nimport { BungieDatePipe, BungieDateTimePipe } from '@destiny/components/pipes/bungie-date';\r\nimport { ClanMemberProfile, ClansRosterService } from '../data-access/clans-roster.service';\r\nimport { CLAN_ROSTER_VIEWER_METADATA } from './clan-roster-metadata';\r\nimport { CLAN_ROSTER_FILTERER_METADATA } from './clan-roster-metadata/ClanRosterFilterer';\r\nimport { CLAN_ROSTER_SORTER_METADATA } from './clan-roster-metadata/ClanRosterSorter';\r\nimport { CLAN_ROSTER_EXPORTER_METADATA } from './clan-roster-metadata/ClanRosterExporter';\r\n\r\ninterface RosterResources {\r\n  loading: Observable<boolean>;\r\n  viewer: Viewer;\r\n  filterer: Filterer;\r\n  //grouper: Grouper;\r\n  exporter: Exporter;\r\n  sorter: Sorter;\r\n  dataSource: DataSource;\r\n}\r\n\r\n@Component({\r\n  selector: 'app-clans-roster',\r\n  templateUrl: './clans-roster.component.html',\r\n  styleUrls: ['./clans-roster.component.scss'],\r\n  encapsulation: ViewEncapsulation.None,\r\n  changeDetection: ChangeDetectionStrategy.OnPush\r\n})\r\nexport class ClansRosterComponent {\r\n  constructor(\r\n    private clansRosterService: ClansRosterService,\r\n    private bungieDatePage: BungieDatePipe,\r\n    private bungieDateTimePipe: BungieDateTimePipe\r\n  ) {}\r\n  // stuff2$ = this.clansRosterService.activeClanPeople$;\r\n  //members$ = this.clansRosterService.clanMembers$;\r\n  //profiles$ = this.clansRosterService.clanProfiles$;\r\n\r\n  rosterViewer = new Viewer(\r\n    {\r\n      metadata: CLAN_ROSTER_VIEWER_METADATA,\r\n      contextProvider: this.createViewContextProvider()\r\n    },\r\n    'D2Dashboard_Roster_Table_Viewer'\r\n  );\r\n  rosterFilter = new Filterer({ metadata: CLAN_ROSTER_FILTERER_METADATA });\r\n  rosterSorter = new Sorter({ metadata: CLAN_ROSTER_SORTER_METADATA });\r\n  rosterExporter = new Exporter({ metadata: CLAN_ROSTER_EXPORTER_METADATA });\r\n\r\n  rosterInfo$: Observable<RosterResources> = combineLatest([this.clansRosterService.activeClanPeople$]).pipe(\r\n    map(([clanProfiles]) => {\r\n      return {\r\n        loading: of(false),\r\n        dataSource: new DataSource<ClanMemberProfile>({ data: clanProfiles }),\r\n        viewer: this.rosterViewer,\r\n        filterer: this.rosterFilter,\r\n        exporter: this.rosterExporter,\r\n        sorter: this.rosterSorter\r\n      };\r\n    }),\r\n    filter((ds) => !!ds)\r\n  );\r\n\r\n  createViewContextProvider() {\r\n    return of((item: ClanMemberProfile) => ({\r\n      item,\r\n      datePipe: this.bungieDatePage,\r\n      dateTimePipe: this.bungieDateTimePipe\r\n    }));\r\n  }\r\n}\r\n",
             "properties": [
                 {
                     "name": "dataSource",
@@ -3224,7 +3224,7 @@
                     "type": "DataSource",
                     "optional": false,
                     "description": "",
-                    "line": 18
+                    "line": 19
                 },
                 {
                     "name": "exporter",
@@ -3233,7 +3233,7 @@
                     "type": "Exporter",
                     "optional": false,
                     "description": "",
-                    "line": 16
+                    "line": 17
                 },
                 {
                     "name": "filterer",
@@ -3242,7 +3242,7 @@
                     "type": "Filterer",
                     "optional": false,
                     "description": "",
-                    "line": 14
+                    "line": 15
                 },
                 {
                     "name": "loading",
@@ -3251,7 +3251,7 @@
                     "type": "Observable<boolean>",
                     "optional": false,
                     "description": "",
-                    "line": 12
+                    "line": 13
                 },
                 {
                     "name": "sorter",
@@ -3260,7 +3260,7 @@
                     "type": "Sorter",
                     "optional": false,
                     "description": "",
-                    "line": 17
+                    "line": 18
                 },
                 {
                     "name": "viewer",
@@ -3269,7 +3269,7 @@
                     "type": "Viewer",
                     "optional": false,
                     "description": "",
-                    "line": 13
+                    "line": 14
                 }
             ],
             "indexSignatures": [],
@@ -16492,7 +16492,7 @@
         },
         {
             "name": "ClansRosterComponent",
-            "id": "component-ClansRosterComponent-449c3768ee1253e8f3ae56b00bfe9e62e9b06ce8b81a415dda25c839883eded866c51973a67b986e8ac6e6a8ff868481ed7533872a2f945b10afd9136faf898b",
+            "id": "component-ClansRosterComponent-f6d1d404eb85d3a003cdf3d9a7b0c8d47f909f8856f58db35a15d5b61fc542d27908fbd6f1e2469f4c54caa5a1fef4c433430b35993057a51a94abdf1e553586",
             "file": "projects/clan-dashboard/src/app/features/clans-roster/clans-roster-list/clans-roster.component.ts",
             "changeDetection": "ChangeDetectionStrategy.OnPush",
             "encapsulation": [
@@ -16522,7 +16522,7 @@
                     "type": "",
                     "optional": false,
                     "description": "",
-                    "line": 44
+                    "line": 48
                 },
                 {
                     "name": "rosterFilter",
@@ -16532,7 +16532,7 @@
                     "type": "",
                     "optional": false,
                     "description": "",
-                    "line": 42
+                    "line": 46
                 },
                 {
                     "name": "rosterInfo$",
@@ -16542,7 +16542,7 @@
                     "type": "Observable<RosterResources>",
                     "optional": false,
                     "description": "",
-                    "line": 46
+                    "line": 50
                 },
                 {
                     "name": "rosterSorter",
@@ -16552,17 +16552,17 @@
                     "type": "",
                     "optional": false,
                     "description": "",
-                    "line": 43
+                    "line": 47
                 },
                 {
                     "name": "rosterViewer",
-                    "defaultValue": "new Viewer({\r\n    metadata: CLAN_ROSTER_VIEWER_METADATA,\r\n    contextProvider: this.createViewContextProvider()\r\n  }, 'D2Dashboard_Roster_Table_Viewer')",
+                    "defaultValue": "new Viewer(\r\n    {\r\n      metadata: CLAN_ROSTER_VIEWER_METADATA,\r\n      contextProvider: this.createViewContextProvider()\r\n    },\r\n    'D2Dashboard_Roster_Table_Viewer'\r\n  )",
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "",
                     "optional": false,
                     "description": "",
-                    "line": 38
+                    "line": 39
                 }
             ],
             "methodsClass": [
@@ -16572,17 +16572,7 @@
                     "optional": false,
                     "returnType": "any",
                     "typeParameters": [],
-                    "line": 60,
-                    "deprecated": false,
-                    "deprecationMessage": ""
-                },
-                {
-                    "name": "ngOnInit",
-                    "args": [],
-                    "optional": false,
-                    "returnType": "void",
-                    "typeParameters": [],
-                    "line": 68,
+                    "line": 64,
                     "deprecated": false,
                     "deprecationMessage": ""
                 }
@@ -16594,7 +16584,7 @@
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { Component, OnInit, ViewRef, ViewEncapsulation, ChangeDetectionStrategy } from '@angular/core';\r\nimport { DataSource, Exporter, Filterer, Grouper, Sorter, Viewer } from '@destiny/components';\r\nimport { combineLatest, filter, map, Observable, of, tap } from 'rxjs';\r\n\r\nimport { BungieDatePipe, BungieDateTimePipe } from '@destiny/components/pipes/bungie-date';\r\nimport { ClanMemberProfile, ClansRosterService } from '../data-access/clans-roster.service';\r\nimport { CLAN_ROSTER_VIEWER_METADATA } from './clan-roster-metadata';\r\nimport { CLAN_ROSTER_FILTERER_METADATA } from './clan-roster-metadata/ClanRosterFilterer';\r\nimport { CLAN_ROSTER_SORTER_METADATA } from './clan-roster-metadata/ClanRosterSorter';\r\nimport { CLAN_ROSTER_EXPORTER_METADATA } from './clan-roster-metadata/ClanRosterExporter';\r\ninterface RosterResources {\r\n  loading: Observable<boolean>;\r\n  viewer: Viewer;\r\n  filterer: Filterer;\r\n  //grouper: Grouper;\r\n  exporter: Exporter;\r\n  sorter: Sorter;\r\n  dataSource: DataSource;\r\n}\r\n\r\n@Component({\r\n  selector: 'app-clans-roster',\r\n  templateUrl: './clans-roster.component.html',\r\n  styleUrls: ['./clans-roster.component.scss'],\r\n  encapsulation: ViewEncapsulation.None,\r\n  changeDetection: ChangeDetectionStrategy.OnPush\r\n})\r\nexport class ClansRosterComponent implements OnInit {\r\n  constructor(\r\n    private clansRosterService: ClansRosterService,\r\n    private bungieDatePage: BungieDatePipe,\r\n    private bungieDateTimePipe: BungieDateTimePipe\r\n  ) {}\r\n  // stuff2$ = this.clansRosterService.activeClanPeople$;\r\n  //members$ = this.clansRosterService.clanMembers$;\r\n  //profiles$ = this.clansRosterService.clanProfiles$;\r\n\r\n  rosterViewer = new Viewer({\r\n    metadata: CLAN_ROSTER_VIEWER_METADATA,\r\n    contextProvider: this.createViewContextProvider()\r\n  }, 'D2Dashboard_Roster_Table_Viewer');\r\n  rosterFilter = new Filterer({ metadata: CLAN_ROSTER_FILTERER_METADATA });\r\n  rosterSorter = new Sorter({ metadata: CLAN_ROSTER_SORTER_METADATA });\r\n  rosterExporter = new Exporter({ metadata: CLAN_ROSTER_EXPORTER_METADATA });\r\n\r\n  rosterInfo$: Observable<RosterResources> = combineLatest([this.clansRosterService.activeClanPeople$]).pipe(\r\n    map(([clanProfiles]) => {\r\n      return {\r\n        loading: of(false),\r\n        dataSource: new DataSource<ClanMemberProfile>({ data: clanProfiles }),\r\n        viewer: this.rosterViewer,\r\n        filterer: this.rosterFilter,\r\n        exporter: this.rosterExporter,\r\n        sorter: this.rosterSorter\r\n      };\r\n    }),\r\n    filter((ds) => !!ds)\r\n  );\r\n\r\n  createViewContextProvider() {\r\n    return of((item: ClanMemberProfile) => ({\r\n      item,\r\n      datePipe: this.bungieDatePage,\r\n      dateTimePipe: this.bungieDateTimePipe\r\n    }));\r\n  }\r\n\r\n  ngOnInit(): void {}\r\n}\r\n",
+            "sourceCode": "import { Component, OnInit, ViewRef, ViewEncapsulation, ChangeDetectionStrategy } from '@angular/core';\r\nimport { DataSource, Exporter, Filterer, Grouper, Sorter, Viewer } from '@destiny/components';\r\nimport { combineLatest, filter, map, Observable, of, tap } from 'rxjs';\r\n\r\nimport { BungieDatePipe, BungieDateTimePipe } from '@destiny/components/pipes/bungie-date';\r\nimport { ClanMemberProfile, ClansRosterService } from '../data-access/clans-roster.service';\r\nimport { CLAN_ROSTER_VIEWER_METADATA } from './clan-roster-metadata';\r\nimport { CLAN_ROSTER_FILTERER_METADATA } from './clan-roster-metadata/ClanRosterFilterer';\r\nimport { CLAN_ROSTER_SORTER_METADATA } from './clan-roster-metadata/ClanRosterSorter';\r\nimport { CLAN_ROSTER_EXPORTER_METADATA } from './clan-roster-metadata/ClanRosterExporter';\r\n\r\ninterface RosterResources {\r\n  loading: Observable<boolean>;\r\n  viewer: Viewer;\r\n  filterer: Filterer;\r\n  //grouper: Grouper;\r\n  exporter: Exporter;\r\n  sorter: Sorter;\r\n  dataSource: DataSource;\r\n}\r\n\r\n@Component({\r\n  selector: 'app-clans-roster',\r\n  templateUrl: './clans-roster.component.html',\r\n  styleUrls: ['./clans-roster.component.scss'],\r\n  encapsulation: ViewEncapsulation.None,\r\n  changeDetection: ChangeDetectionStrategy.OnPush\r\n})\r\nexport class ClansRosterComponent {\r\n  constructor(\r\n    private clansRosterService: ClansRosterService,\r\n    private bungieDatePage: BungieDatePipe,\r\n    private bungieDateTimePipe: BungieDateTimePipe\r\n  ) {}\r\n  // stuff2$ = this.clansRosterService.activeClanPeople$;\r\n  //members$ = this.clansRosterService.clanMembers$;\r\n  //profiles$ = this.clansRosterService.clanProfiles$;\r\n\r\n  rosterViewer = new Viewer(\r\n    {\r\n      metadata: CLAN_ROSTER_VIEWER_METADATA,\r\n      contextProvider: this.createViewContextProvider()\r\n    },\r\n    'D2Dashboard_Roster_Table_Viewer'\r\n  );\r\n  rosterFilter = new Filterer({ metadata: CLAN_ROSTER_FILTERER_METADATA });\r\n  rosterSorter = new Sorter({ metadata: CLAN_ROSTER_SORTER_METADATA });\r\n  rosterExporter = new Exporter({ metadata: CLAN_ROSTER_EXPORTER_METADATA });\r\n\r\n  rosterInfo$: Observable<RosterResources> = combineLatest([this.clansRosterService.activeClanPeople$]).pipe(\r\n    map(([clanProfiles]) => {\r\n      return {\r\n        loading: of(false),\r\n        dataSource: new DataSource<ClanMemberProfile>({ data: clanProfiles }),\r\n        viewer: this.rosterViewer,\r\n        filterer: this.rosterFilter,\r\n        exporter: this.rosterExporter,\r\n        sorter: this.rosterSorter\r\n      };\r\n    }),\r\n    filter((ds) => !!ds)\r\n  );\r\n\r\n  createViewContextProvider() {\r\n    return of((item: ClanMemberProfile) => ({\r\n      item,\r\n      datePipe: this.bungieDatePage,\r\n      dateTimePipe: this.bungieDateTimePipe\r\n    }));\r\n  }\r\n}\r\n",
             "assetsDirs": [],
             "styleUrlsData": [
                 {
@@ -16628,7 +16618,7 @@
                         "deprecationMessage": ""
                     }
                 ],
-                "line": 28,
+                "line": 29,
                 "jsdoctags": [
                     {
                         "name": "clansRosterService",
@@ -16659,10 +16649,7 @@
                     }
                 ]
             },
-            "implements": [
-                "OnInit"
-            ],
-            "templateData": "<!-- {{(stuff$ | async) | json}} -->\r\n<!-- <hr>\r\nstuff2:\r\n{{(stuff2$ | async) | json}}\r\n<hr>\r\n<div style=\"height:100px; overflow:scroll\">\r\n  <pre>\r\n  {{(members$ | async) | json}}}\r\n</pre>\r\n</div> -->\r\n<!-- <div style=\"height:600px; overflow:scroll\">\r\n\r\n  <pre>\r\n  {{(profiles$ | async) | json}}}\r\n  </pre>\r\n</div> -->\r\n<div class=\"clan-roster\">\r\n  <lib-table-view class=\"clan-roster-table\" *ngIf=\"rosterInfo$ | async as rosterInfo; else loading\" [dataSource]=\"rosterInfo.dataSource\"\r\n    [header]=\"'Clan Roster'\"\r\n    [viewer]=\"rosterInfo.viewer\"\r\n    [filterer]=\"rosterInfo.filterer\" [sorter]=\"rosterInfo.sorter\"\r\n    [exporter]=\"rosterInfo.exporter\">\r\n\r\n  </lib-table-view>\r\n\r\n  <ng-template #loading>\r\n    <div class=\"loading\">\r\n      Loading Roster\r\n    </div>\r\n  </ng-template>\r\n\r\n</div>\r\n"
+            "templateData": "<div class=\"clan-roster\">\r\n  <lib-table-view class=\"clan-roster-table\" *ngIf=\"rosterInfo$ | async as rosterInfo; else loading\" [dataSource]=\"rosterInfo.dataSource\"\r\n    [header]=\"'Clan Roster'\"\r\n    [viewer]=\"rosterInfo.viewer\"\r\n    [filterer]=\"rosterInfo.filterer\" [sorter]=\"rosterInfo.sorter\"\r\n    [exporter]=\"rosterInfo.exporter\">\r\n\r\n  </lib-table-view>\r\n\r\n  <ng-template #loading>\r\n    <div class=\"loading\">\r\n      Loading Roster\r\n    </div>\r\n  </ng-template>\r\n\r\n</div>\r\n"
         },
         {
             "name": "ClassCellComponent",
@@ -16734,7 +16721,69 @@
         },
         {
             "name": "ConfigComponent",
-            "id": "component-ConfigComponent-e5422cd0b22b7c6d46bf72f861665a652bf4a6d0834011552481be56f11b795f535c3a7357526ef07df0baef9bad2f84bc6a54d4cd86839c34bae726a1ece9e3",
+            "id": "component-ConfigComponent-c551d7c0fcaefb292b78b315bdce5757d4fb889a056d15226ff7f05b825b3e9dbc3f660473d7b081ea27139339a8935c8cd7a80aedca3806ad973cfb2c7f3d06",
+            "file": "projects/clan-dashboard/src/app/views/config/config.component.ts",
+            "encapsulation": [],
+            "entryComponents": [],
+            "inputs": [],
+            "outputs": [],
+            "providers": [],
+            "selector": "app-config-view",
+            "styleUrls": [
+                "./config.component.scss"
+            ],
+            "styles": [],
+            "templateUrl": [
+                "./config.component.html"
+            ],
+            "viewProviders": [],
+            "inputsClass": [],
+            "outputsClass": [],
+            "propertiesClass": [],
+            "methodsClass": [
+                {
+                    "name": "ngOnInit",
+                    "args": [],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 12,
+                    "deprecated": false,
+                    "deprecationMessage": ""
+                }
+            ],
+            "deprecated": false,
+            "deprecationMessage": "",
+            "hostBindings": [],
+            "hostListeners": [],
+            "description": "",
+            "rawdescription": "\n",
+            "type": "component",
+            "sourceCode": "import { Component, OnInit } from '@angular/core';\r\n\r\n@Component({\r\n  selector: 'app-config-view',\r\n  templateUrl: './config.component.html',\r\n  styleUrls: ['./config.component.scss']\r\n})\r\nexport class ConfigComponent implements OnInit {\r\n\r\n  constructor() { }\r\n\r\n  ngOnInit(): void {\r\n  }\r\n\r\n}\r\n",
+            "assetsDirs": [],
+            "styleUrlsData": [
+                {
+                    "data": "",
+                    "styleUrl": "./config.component.scss"
+                }
+            ],
+            "stylesData": "",
+            "constructorObj": {
+                "name": "constructor",
+                "description": "",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "args": [],
+                "line": 8
+            },
+            "implements": [
+                "OnInit"
+            ],
+            "templateData": "<app-config></app-config>\r\n"
+        },
+        {
+            "name": "ConfigComponent",
+            "id": "component-ConfigComponent-e5422cd0b22b7c6d46bf72f861665a652bf4a6d0834011552481be56f11b795f535c3a7357526ef07df0baef9bad2f84bc6a54d4cd86839c34bae726a1ece9e3-1",
             "file": "projects/clan-dashboard/src/app/features/config/config.component.ts",
             "encapsulation": [],
             "entryComponents": [],
@@ -16807,72 +16856,10 @@
                     }
                 ]
             },
-            "templateData": "<div class=\"config-wrapper\">\r\n  <ng-container *ngFor=\"let clanConfig of clanConfigs$ | async \">\r\n    <app-clan-config [clanConfig]=\"clanConfig\">\r\n\r\n    </app-clan-config>\r\n  </ng-container>\r\n</div>\r\n"
-        },
-        {
-            "name": "ConfigComponent",
-            "id": "component-ConfigComponent-c551d7c0fcaefb292b78b315bdce5757d4fb889a056d15226ff7f05b825b3e9dbc3f660473d7b081ea27139339a8935c8cd7a80aedca3806ad973cfb2c7f3d06-1",
-            "file": "projects/clan-dashboard/src/app/views/config/config.component.ts",
-            "encapsulation": [],
-            "entryComponents": [],
-            "inputs": [],
-            "outputs": [],
-            "providers": [],
-            "selector": "app-config-view",
-            "styleUrls": [
-                "./config.component.scss"
-            ],
-            "styles": [],
-            "templateUrl": [
-                "./config.component.html"
-            ],
-            "viewProviders": [],
-            "inputsClass": [],
-            "outputsClass": [],
-            "propertiesClass": [],
-            "methodsClass": [
-                {
-                    "name": "ngOnInit",
-                    "args": [],
-                    "optional": false,
-                    "returnType": "void",
-                    "typeParameters": [],
-                    "line": 12,
-                    "deprecated": false,
-                    "deprecationMessage": ""
-                }
-            ],
-            "deprecated": false,
-            "deprecationMessage": "",
-            "hostBindings": [],
-            "hostListeners": [],
-            "description": "",
-            "rawdescription": "\n",
-            "type": "component",
-            "sourceCode": "import { Component, OnInit } from '@angular/core';\r\n\r\n@Component({\r\n  selector: 'app-config-view',\r\n  templateUrl: './config.component.html',\r\n  styleUrls: ['./config.component.scss']\r\n})\r\nexport class ConfigComponent implements OnInit {\r\n\r\n  constructor() { }\r\n\r\n  ngOnInit(): void {\r\n  }\r\n\r\n}\r\n",
-            "assetsDirs": [],
-            "styleUrlsData": [
-                {
-                    "data": "",
-                    "styleUrl": "./config.component.scss"
-                }
-            ],
-            "stylesData": "",
-            "constructorObj": {
-                "name": "constructor",
-                "description": "",
-                "deprecated": false,
-                "deprecationMessage": "",
-                "args": [],
-                "line": 8
-            },
-            "implements": [
-                "OnInit"
-            ],
             "isDuplicate": true,
             "duplicateId": 1,
             "duplicateName": "ConfigComponent-1",
-            "templateData": "<app-config></app-config>\r\n"
+            "templateData": "<div class=\"config-wrapper\">\r\n  <ng-container *ngFor=\"let clanConfig of clanConfigs$ | async \">\r\n    <app-clan-config [clanConfig]=\"clanConfig\">\r\n\r\n    </app-clan-config>\r\n  </ng-container>\r\n</div>\r\n"
         },
         {
             "name": "DisplayOptionsComponent",
@@ -18301,16 +18288,16 @@
             "assetsDirs": [],
             "styleUrlsData": [
                 {
-                    "data": ".loading {\r\n  text-align: center;\r\n}\r\n\r\n.seals-container {\r\n  display: flex;\r\n  flex-wrap: wrap;\r\n  justify-content: center;\r\n\r\n  .seal {\r\n    width: 100%;\r\n    max-width: 480px;\r\n    margin: 2rem;\r\n  }\r\n}\r\n.seal-info {\r\n  padding-top: 1rem;\r\n  display: flex;\r\n  justify-content: space-between;\r\n  align-items: center;\r\n}\r\n",
+                    "data": ".loading {\r\n  text-align: center;\r\n}\r\n\r\n.seals-container {\r\n  display: flex;\r\n  flex-wrap: wrap;\r\n  justify-content: center;\r\n\r\n  .seal {\r\n    width: 100%;\r\n    max-width: 480px;\r\n    margin: 2rem;\r\n  }\r\n}\r\n.seal-info {\r\n  padding-top: 1rem;\r\n  display: flex;\r\n  justify-content: space-between;\r\n  align-items: center;\r\n}\r\n.seal-image {\r\n  height: 126px;\r\n  width: 126px;\r\n}\r\n\r\n/// Loading Styles\r\n.loading {\r\n  .skeleton-title {\r\n    width: 250px;\r\n    margin-bottom: 0.75rem;\r\n  }\r\n  .skeleton-sub-title {\r\n    width: 250px;\r\n    margin-bottom: 0.75rem;\r\n  }\r\n  .seal-info {\r\n    .skeleton-item {\r\n      width: 100px;\r\n    }\r\n  }\r\n}\r\n",
                     "styleUrl": "./seals-list.component.scss"
                 }
             ],
             "stylesData": "",
-            "templateData": "<div *ngIf=\"sealsList; else loading\">\r\n  <p *ngIf=\"!sealsList.length\">\r\n    No Seals Found\r\n  </p>\r\n  <div class=\"seals-container\" *ngIf=\"sealsList\">\r\n    <ng-container *ngFor=\"let sealDetails of sealsList\">\r\n      <mat-card class=\"seal\">\r\n        <mat-card-header>\r\n          <mat-card-title-group>\r\n            <img src=\"//bungie.net/{{sealDetails.seal?.displayProperties?.icon}}\"\r\n              alt=\"{{sealDetails.seal?.displayProperties?.name}}\">\r\n            <mat-card-title>{{sealDetails.seal.displayProperties.name}}</mat-card-title>\r\n            <mat-card-subtitle>{{sealDetails.seal.displayProperties.description}}</mat-card-subtitle>\r\n          </mat-card-title-group>\r\n        </mat-card-header>\r\n        <mat-card-content class=\"seal-info\">\r\n          <div>\r\n            Complete: {{sealDetails.completedCount}} / {{sealDetails.totalMembers}}\r\n          </div>\r\n          <div *ngIf=\"sealDetails.isGilded\">\r\n            Gilded: {{sealDetails.gildedCount}} / {{sealDetails.totalMembers}}\r\n          </div>\r\n          <div>\r\n            <button mat-button routerLink=\"/seals/{{sealDetails.seal.hash}}\">View</button>\r\n          </div>\r\n        </mat-card-content>\r\n      </mat-card>\r\n    </ng-container>\r\n  </div>\r\n</div>\r\n\r\n<ng-template #loading>\r\n  <div class=\"loading\">\r\n    Loading Seals\r\n  </div>\r\n</ng-template>\r\n"
+            "templateData": "<div *ngIf=\"sealsList; else loading\">\r\n  <p *ngIf=\"!sealsList.length\">\r\n    No Seals Found\r\n  </p>\r\n  <div class=\"seals-container\" *ngIf=\"sealsList\">\r\n    <ng-container *ngFor=\"let sealDetails of sealsList\">\r\n      <mat-card class=\"seal\">\r\n        <mat-card-header>\r\n          <mat-card-title-group>\r\n            <img class=\"seal-image\" src=\"//bungie.net/{{sealDetails.seal?.displayProperties?.icon}}\"\r\n              alt=\"{{sealDetails.seal?.displayProperties?.name}}\">\r\n            <mat-card-title>{{sealDetails.seal.displayProperties.name}}</mat-card-title>\r\n            <mat-card-subtitle>{{sealDetails.seal.displayProperties.description}}</mat-card-subtitle>\r\n          </mat-card-title-group>\r\n        </mat-card-header>\r\n        <mat-card-content class=\"seal-info\">\r\n          <div>\r\n            Complete: {{sealDetails.completedCount}} / {{sealDetails.totalMembers}}\r\n          </div>\r\n          <div *ngIf=\"sealDetails.isGilded\">\r\n            Gilded: {{sealDetails.gildedCount}} / {{sealDetails.totalMembers}}\r\n          </div>\r\n          <div>\r\n            <button mat-button routerLink=\"/seals/{{sealDetails.seal.hash}}\">View</button>\r\n          </div>\r\n        </mat-card-content>\r\n      </mat-card>\r\n    </ng-container>\r\n  </div>\r\n</div>\r\n\r\n<ng-template #loading>\r\n  <div class=\"loading seals-container\">\r\n    <ng-container *ngFor=\"let x of ['','','','','','','','','','','','','','']\">\r\n      <mat-card class=\"seal\">\r\n        <mat-card-header>\r\n          <mat-card-title-group>\r\n            <mat-card-title><span class=\"skeleton-item skeleton-title\"></span></mat-card-title>\r\n            <mat-card-subtitle>\r\n              <span class=\"skeleton-item skeleton-sub-title\"></span>\r\n              <span class=\"skeleton-item skeleton-sub-title\"></span>\r\n              <span class=\"skeleton-item skeleton-sub-title\"></span>\r\n            </mat-card-subtitle>\r\n            <span class=\"skeleton-item seal-image\"></span>\r\n          </mat-card-title-group>\r\n        </mat-card-header>\r\n        <mat-card-content class=\"seal-info\">\r\n          <span class=\"skeleton-item\" style=\"width:100px\"></span>\r\n          <span class=\"skeleton-item\"></span>\r\n          <span class=\"skeleton-item\"></span>\r\n        </mat-card-content>\r\n      </mat-card>\r\n\r\n    </ng-container>\r\n  </div>\r\n</ng-template>\r\n"
         },
         {
             "name": "SettingsMenuComponent",
-            "id": "component-SettingsMenuComponent-19dcd1581c34048ee61e794aea5ae591b99aa29df53859cd1d89a755eb81d5a4a2d153d72a095ca1403198c90d4f320766e4a3e5584b06fda13924ae1c22fad2",
+            "id": "component-SettingsMenuComponent-6c01b02c034c924ab479b010779e5b50dc816cc404b4ff2b850fc88f9140e917977ce4fed6151428bb22507b553ef202868acabe52c41e67924f3075eb8125ae",
             "file": "projects/clan-dashboard/src/app/core/layout/settings-menu/settings-menu.component.ts",
             "changeDetection": "ChangeDetectionStrategy.OnPush",
             "encapsulation": [],
@@ -18349,7 +18336,7 @@
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { ChangeDetectionStrategy, Component } from '@angular/core';\nimport { CommonModule } from '@angular/common';\nimport { MatMenuModule } from '@angular/material/menu';\nimport { MatIconModule } from '@angular/material/icon';\nimport { AppConfig } from '@core/config/app-config';\nimport { MatButtonModule } from '@angular/material/button';\nimport { RouterModule } from '@angular/router';\n@Component({\n  selector: 'app-settings-menu',\n  standalone: true,\n  imports: [CommonModule, MatMenuModule, MatIconModule, MatButtonModule, RouterModule],\n  templateUrl: './settings-menu.component.html',\n  styleUrls: ['./settings-menu.component.scss'],\n  changeDetection: ChangeDetectionStrategy.OnPush\n})\nexport class SettingsMenuComponent {\n  constructor(private appConfig: AppConfig) {}\n  versionNumber = this.appConfig.appVersion;\n}\n",
+            "sourceCode": "import { ChangeDetectionStrategy, Component } from '@angular/core';\r\nimport { CommonModule } from '@angular/common';\r\nimport { MatMenuModule } from '@angular/material/menu';\r\nimport { MatIconModule } from '@angular/material/icon';\r\nimport { AppConfig } from '@core/config/app-config';\r\nimport { MatButtonModule } from '@angular/material/button';\r\nimport { RouterModule } from '@angular/router';\r\n@Component({\r\n  selector: 'app-settings-menu',\r\n  standalone: true,\r\n  imports: [CommonModule, MatMenuModule, MatIconModule, MatButtonModule, RouterModule],\r\n  templateUrl: './settings-menu.component.html',\r\n  styleUrls: ['./settings-menu.component.scss'],\r\n  changeDetection: ChangeDetectionStrategy.OnPush\r\n})\r\nexport class SettingsMenuComponent {\r\n  constructor(private appConfig: AppConfig) {}\r\n  versionNumber = this.appConfig.appVersion;\r\n}\r\n",
             "assetsDirs": [],
             "styleUrlsData": [
                 {
@@ -18384,7 +18371,7 @@
                     }
                 ]
             },
-            "templateData": "<button mat-icon-button [matMenuTriggerFor]=\"settingsMenu\">\n  <mat-icon>\n    settings\n  </mat-icon>\n</button>\n<mat-menu #settingsMenu=\"matMenu\">\n  <a href=\"https://github.com/WorthyD/destiny-clan-dashboard/issues\" target=\"_blank\" mat-menu-item>\n    <mat-icon>\n      bug_report\n    </mat-icon>\n    <span> Report a Bug</span>\n  </a>\n  <a href=\"https://github.com/WorthyD/destiny-clan-dashboard\" target=\"_blank\" mat-menu-item>\n    <mat-icon>\n      code\n    </mat-icon>\n    <span> Source Code</span>\n  </a>\n  <a href=\"https://twitter.com/WorthyD\" target=\"_blank\" mat-menu-item>\n    <mat-icon>\n      keyboard\n    </mat-icon>\n    <span> Developer</span>\n  </a>\n  <!-- <button mat-menu-item>\n    <mat-icon>\n      help\n    </mat-icon>\n    <span> About App</span>\n  </button> -->\n  <a mat-menu-item routerLink=\"config\">\n    <mat-icon>\n      settings\n    </mat-icon>\n    <span> Config</span>\n  </a>\n\n  <button mat-menu-item>\n    <mat-icon>\n      info\n    </mat-icon>\n    <span>\n      v {{versionNumber}}\n    </span>\n  </button>\n</mat-menu>\n"
+            "templateData": "<button mat-icon-button [matMenuTriggerFor]=\"settingsMenu\">\r\n  <mat-icon>\r\n    settings\r\n  </mat-icon>\r\n</button>\r\n<mat-menu #settingsMenu=\"matMenu\">\r\n  <a href=\"https://github.com/WorthyD/destiny-clan-dashboard/issues\" target=\"_blank\" mat-menu-item>\r\n    <mat-icon>\r\n      bug_report\r\n    </mat-icon>\r\n    <span> Report a Bug</span>\r\n  </a>\r\n  <a href=\"https://github.com/WorthyD/destiny-clan-dashboard\" target=\"_blank\" mat-menu-item>\r\n    <mat-icon>\r\n      code\r\n    </mat-icon>\r\n    <span> Source Code</span>\r\n  </a>\r\n  <a href=\"https://twitter.com/WorthyD\" target=\"_blank\" mat-menu-item>\r\n    <mat-icon>\r\n      keyboard\r\n    </mat-icon>\r\n    <span> Developer</span>\r\n  </a>\r\n  <!-- <button mat-menu-item>\r\n    <mat-icon>\r\n      help\r\n    </mat-icon>\r\n    <span> About App</span>\r\n  </button> -->\r\n  <a mat-menu-item routerLink=\"config\">\r\n    <mat-icon>\r\n      settings\r\n    </mat-icon>\r\n    <span> Config</span>\r\n  </a>\r\n\r\n  <button mat-menu-item>\r\n    <mat-icon>\r\n      info\r\n    </mat-icon>\r\n    <span>\r\n      v {{versionNumber}}\r\n    </span>\r\n  </button>\r\n</mat-menu>\r\n"
         },
         {
             "name": "TableViewComponent",
@@ -19390,54 +19377,7 @@
         },
         {
             "name": "ConfigModule",
-            "id": "module-ConfigModule-455cfc031bc4cb84fcc55e3def912fd74c27d27b3ba49f29f226e33fd4b251f157b36152fb19c101b3302f0f2cd46070736de52142eaf8ddbf7914b497414767",
-            "description": "",
-            "deprecationMessage": "",
-            "deprecated": false,
-            "file": "projects/clan-dashboard/src/app/features/config/config.module.ts",
-            "methods": [],
-            "sourceCode": "import { NgModule } from '@angular/core';\r\nimport { CommonModule } from '@angular/common';\r\nimport { ConfigComponent } from './config.component';\r\nimport { ClanConfigComponent } from './clan-config/clan-config.component';\r\n\r\n@NgModule({\r\n  declarations: [ConfigComponent, ClanConfigComponent],\r\n  exports: [ConfigComponent],\r\n  imports: [CommonModule]\r\n})\r\nexport class ConfigModule {}\r\n",
-            "children": [
-                {
-                    "type": "providers",
-                    "elements": []
-                },
-                {
-                    "type": "declarations",
-                    "elements": [
-                        {
-                            "name": "ClanConfigComponent"
-                        },
-                        {
-                            "name": "ConfigComponent"
-                        }
-                    ]
-                },
-                {
-                    "type": "imports",
-                    "elements": []
-                },
-                {
-                    "type": "exports",
-                    "elements": [
-                        {
-                            "name": "ConfigComponent"
-                        }
-                    ]
-                },
-                {
-                    "type": "bootstrap",
-                    "elements": []
-                },
-                {
-                    "type": "classes",
-                    "elements": []
-                }
-            ]
-        },
-        {
-            "name": "ConfigModule",
-            "id": "module-ConfigModule-59a3aa6cc5dbd416340be8bf73c8e80e8109a0708433f8f2dfa86c85136d78ba457fc62295f580f73d2dc2a3993be66ca870c5b80a8b1c858f5d093c8c2c1ca5-1",
+            "id": "module-ConfigModule-59a3aa6cc5dbd416340be8bf73c8e80e8109a0708433f8f2dfa86c85136d78ba457fc62295f580f73d2dc2a3993be66ca870c5b80a8b1c858f5d093c8c2c1ca5",
             "description": "",
             "deprecationMessage": "",
             "deprecated": false,
@@ -19464,6 +19404,49 @@
                             "name": "ConfigRoutingModule"
                         }
                     ]
+                },
+                {
+                    "type": "exports",
+                    "elements": []
+                },
+                {
+                    "type": "bootstrap",
+                    "elements": []
+                },
+                {
+                    "type": "classes",
+                    "elements": []
+                }
+            ]
+        },
+        {
+            "name": "ConfigModule",
+            "id": "module-ConfigModule-455cfc031bc4cb84fcc55e3def912fd74c27d27b3ba49f29f226e33fd4b251f157b36152fb19c101b3302f0f2cd46070736de52142eaf8ddbf7914b497414767-1",
+            "description": "",
+            "deprecationMessage": "",
+            "deprecated": false,
+            "file": "projects/clan-dashboard/src/app/features/config/config.module.ts",
+            "methods": [],
+            "sourceCode": "import { NgModule } from '@angular/core';\r\nimport { CommonModule } from '@angular/common';\r\nimport { ConfigComponent } from './config.component';\r\nimport { ClanConfigComponent } from './clan-config/clan-config.component';\r\n\r\n@NgModule({\r\n  declarations: [ConfigComponent, ClanConfigComponent],\r\n  exports: [ConfigComponent],\r\n  imports: [CommonModule]\r\n})\r\nexport class ConfigModule {}\r\n",
+            "children": [
+                {
+                    "type": "providers",
+                    "elements": []
+                },
+                {
+                    "type": "declarations",
+                    "elements": [
+                        {
+                            "name": "ClanConfigComponent"
+                        },
+                        {
+                            "name": "ConfigComponent"
+                        }
+                    ]
+                },
+                {
+                    "type": "imports",
+                    "elements": []
                 },
                 {
                     "type": "exports",
@@ -19821,7 +19804,47 @@
         },
         {
             "name": "RecentActivityModule",
-            "id": "module-RecentActivityModule-cff434130beed1a018851793ca342c2dcb9c2556030a751a3225e3f623c40a9f1758359eac8296bbab12d6eeb78a7e0c820d7beb13be9b74d69055f4b6609dcf",
+            "id": "module-RecentActivityModule-85de2887800c4049af04118f290bdb58c912e2562dd273278e0260e1a37d1cdfd24b6763974064b6953279c2ab7eff230a97a74b9bb6aec1ea8975e23d1e69fc",
+            "description": "",
+            "deprecationMessage": "",
+            "deprecated": false,
+            "file": "projects/clan-dashboard/src/app/features/recent-activity/recent-activity-shell/recent-activity.module.ts",
+            "methods": [],
+            "sourceCode": "import { NgModule } from '@angular/core';\r\nimport { RecentActivityRoutingModule } from './recent-activity-routing.module';\r\n\r\n@NgModule({\r\n  imports: [RecentActivityRoutingModule]\r\n})\r\nexport class RecentActivityModule {}\r\n",
+            "children": [
+                {
+                    "type": "providers",
+                    "elements": []
+                },
+                {
+                    "type": "declarations",
+                    "elements": []
+                },
+                {
+                    "type": "imports",
+                    "elements": [
+                        {
+                            "name": "RecentActivityRoutingModule"
+                        }
+                    ]
+                },
+                {
+                    "type": "exports",
+                    "elements": []
+                },
+                {
+                    "type": "bootstrap",
+                    "elements": []
+                },
+                {
+                    "type": "classes",
+                    "elements": []
+                }
+            ]
+        },
+        {
+            "name": "RecentActivityModule",
+            "id": "module-RecentActivityModule-cff434130beed1a018851793ca342c2dcb9c2556030a751a3225e3f623c40a9f1758359eac8296bbab12d6eeb78a7e0c820d7beb13be9b74d69055f4b6609dcf-1",
             "description": "",
             "deprecationMessage": "",
             "deprecated": false,
@@ -19871,90 +19894,50 @@
             ]
         },
         {
-            "name": "RecentActivityModule",
-            "id": "module-RecentActivityModule-85de2887800c4049af04118f290bdb58c912e2562dd273278e0260e1a37d1cdfd24b6763974064b6953279c2ab7eff230a97a74b9bb6aec1ea8975e23d1e69fc-1",
-            "description": "",
-            "deprecationMessage": "",
-            "deprecated": false,
-            "file": "projects/clan-dashboard/src/app/features/recent-activity/recent-activity-shell/recent-activity.module.ts",
-            "methods": [],
-            "sourceCode": "import { NgModule } from '@angular/core';\r\nimport { RecentActivityRoutingModule } from './recent-activity-routing.module';\r\n\r\n@NgModule({\r\n  imports: [RecentActivityRoutingModule]\r\n})\r\nexport class RecentActivityModule {}\r\n",
-            "children": [
-                {
-                    "type": "providers",
-                    "elements": []
-                },
-                {
-                    "type": "declarations",
-                    "elements": []
-                },
-                {
-                    "type": "imports",
-                    "elements": [
-                        {
-                            "name": "RecentActivityRoutingModule"
-                        }
-                    ]
-                },
-                {
-                    "type": "exports",
-                    "elements": []
-                },
-                {
-                    "type": "bootstrap",
-                    "elements": []
-                },
-                {
-                    "type": "classes",
-                    "elements": []
-                }
-            ]
-        },
-        {
             "name": "RecentActivityRoutingModule",
-            "id": "module-RecentActivityRoutingModule-320a8fc4050cc00c23f08cd755b01016c093774df27364d75f26feae506dea8de323c3b7b465545b64eda3161f4ccea7e09e0cda8f4dc13c7dbf36e7769a1931",
-            "description": "",
-            "deprecationMessage": "",
-            "deprecated": false,
-            "file": "projects/clan-dashboard/src/app/features/recent-activity/recent-activity-dashboard/clan-roster-routing.module.ts.ts",
-            "methods": [],
-            "sourceCode": "import { NgModule } from '@angular/core';\r\nimport { Routes, RouterModule } from '@angular/router';\r\nimport { RecentActivityComponent } from './recent-activity.component';\r\n\r\nconst routes: Routes = [\r\n  {\r\n    path: '',\r\n    component: RecentActivityComponent\r\n  }\r\n];\r\n\r\n@NgModule({\r\n  imports: [RouterModule.forChild(routes)],\r\n  exports: [RouterModule]\r\n})\r\nexport class RecentActivityRoutingModule {}\r\n",
-            "children": [
-                {
-                    "type": "providers",
-                    "elements": []
-                },
-                {
-                    "type": "declarations",
-                    "elements": []
-                },
-                {
-                    "type": "imports",
-                    "elements": []
-                },
-                {
-                    "type": "exports",
-                    "elements": []
-                },
-                {
-                    "type": "bootstrap",
-                    "elements": []
-                },
-                {
-                    "type": "classes",
-                    "elements": []
-                }
-            ]
-        },
-        {
-            "name": "RecentActivityRoutingModule",
-            "id": "module-RecentActivityRoutingModule-b3e375eeadf45fe77676b87e9ee9f15fe7e9d391071cd8f7e996770057c10c10a282a3e3ddeed674816d2c3209d7569eb36566874bf410a6f371e5f5c9e6ead2-1",
+            "id": "module-RecentActivityRoutingModule-b3e375eeadf45fe77676b87e9ee9f15fe7e9d391071cd8f7e996770057c10c10a282a3e3ddeed674816d2c3209d7569eb36566874bf410a6f371e5f5c9e6ead2",
             "description": "",
             "deprecationMessage": "",
             "deprecated": false,
             "file": "projects/clan-dashboard/src/app/features/recent-activity/recent-activity-shell/recent-activity-routing.module.ts",
             "methods": [],
             "sourceCode": "import { NgModule } from '@angular/core';\r\nimport { RouterModule, Routes } from '@angular/router';\r\n\r\nconst routes: Routes = [\r\n  {\r\n    path: '',\r\n    loadChildren: () => \"import('../recent-activity-dashboard/recent-activity.module').then((module) => module.RecentActivityModule)\"\r\n  }\r\n];\r\n\r\n@NgModule({ imports: [RouterModule.forChild(routes)], exports: [RouterModule] })\r\nexport class RecentActivityRoutingModule {}\r\n",
+            "children": [
+                {
+                    "type": "providers",
+                    "elements": []
+                },
+                {
+                    "type": "declarations",
+                    "elements": []
+                },
+                {
+                    "type": "imports",
+                    "elements": []
+                },
+                {
+                    "type": "exports",
+                    "elements": []
+                },
+                {
+                    "type": "bootstrap",
+                    "elements": []
+                },
+                {
+                    "type": "classes",
+                    "elements": []
+                }
+            ]
+        },
+        {
+            "name": "RecentActivityRoutingModule",
+            "id": "module-RecentActivityRoutingModule-320a8fc4050cc00c23f08cd755b01016c093774df27364d75f26feae506dea8de323c3b7b465545b64eda3161f4ccea7e09e0cda8f4dc13c7dbf36e7769a1931-1",
+            "description": "",
+            "deprecationMessage": "",
+            "deprecated": false,
+            "file": "projects/clan-dashboard/src/app/features/recent-activity/recent-activity-dashboard/clan-roster-routing.module.ts.ts",
+            "methods": [],
+            "sourceCode": "import { NgModule } from '@angular/core';\r\nimport { Routes, RouterModule } from '@angular/router';\r\nimport { RecentActivityComponent } from './recent-activity.component';\r\n\r\nconst routes: Routes = [\r\n  {\r\n    path: '',\r\n    component: RecentActivityComponent\r\n  }\r\n];\r\n\r\n@NgModule({\r\n  imports: [RouterModule.forChild(routes)],\r\n  exports: [RouterModule]\r\n})\r\nexport class RecentActivityRoutingModule {}\r\n",
             "children": [
                 {
                     "type": "providers",
@@ -20728,21 +20711,21 @@
                 "name": "environment",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "projects/clan-dashboard/src/environments/environment.prod.ts",
-                "deprecated": false,
-                "deprecationMessage": "",
-                "type": "object",
-                "defaultValue": "{\r\n  constants: { ...baseConstants },\r\n  production: true,\r\n  apiKey: secretKeys.apiKey,\r\n  appVersion: packageJson.version\r\n}"
-            },
-            {
-                "name": "environment",
-                "ctype": "miscellaneous",
-                "subtype": "variable",
                 "file": "projects/clan-dashboard/src/environments/environment.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "object",
                 "defaultValue": "{\r\n  constants: {...baseConstants},\r\n  production: false,\r\n  apiKey: secretKeys.apiKey,\r\n  appVersion: packageJson.version\r\n}"
+            },
+            {
+                "name": "environment",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/clan-dashboard/src/environments/environment.prod.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "object",
+                "defaultValue": "{\r\n  constants: { ...baseConstants },\r\n  production: true,\r\n  apiKey: secretKeys.apiKey,\r\n  appVersion: packageJson.version\r\n}"
             },
             {
                 "name": "EXAMPLE_EXPORTER_METADATA",
@@ -20853,6 +20836,16 @@
                 "deprecationMessage": "",
                 "type": "SealListItem[]",
                 "defaultValue": "new Array(10).fill('').map((x) => {\r\n  return getRandomSLI();\r\n})"
+            },
+            {
+                "name": "Loading",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/clan-dashboard/src/app/features/seals/components/seals-list/seals-list.component.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "",
+                "defaultValue": "Template.bind({})"
             },
             {
                 "name": "loadManifest",
@@ -21078,7 +21071,7 @@
                 "name": "packageJson",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "projects/clan-dashboard/src/environments/environment.prod.ts",
+                "file": "projects/clan-dashboard/src/environments/environment.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "",
@@ -21088,7 +21081,7 @@
                 "name": "packageJson",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "projects/clan-dashboard/src/environments/environment.ts",
+                "file": "projects/clan-dashboard/src/environments/environment.prod.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "",
@@ -24632,6 +24625,16 @@
                     "defaultValue": "new Array(10).fill('').map((x) => {\r\n  return getRandomSLI();\r\n})"
                 },
                 {
+                    "name": "Loading",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/clan-dashboard/src/app/features/seals/components/seals-list/seals-list.component.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "defaultValue": "Template.bind({})"
+                },
+                {
                     "name": "Primary",
                     "ctype": "miscellaneous",
                     "subtype": "variable",
@@ -24652,28 +24655,6 @@
                     "defaultValue": "(args: SealsListComponent) => ({\r\n  props: args\r\n})"
                 }
             ],
-            "projects/clan-dashboard/src/environments/environment.prod.ts": [
-                {
-                    "name": "environment",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "projects/clan-dashboard/src/environments/environment.prod.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "object",
-                    "defaultValue": "{\r\n  constants: { ...baseConstants },\r\n  production: true,\r\n  apiKey: secretKeys.apiKey,\r\n  appVersion: packageJson.version\r\n}"
-                },
-                {
-                    "name": "packageJson",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "projects/clan-dashboard/src/environments/environment.prod.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "",
-                    "defaultValue": "require('../../../../package.json')"
-                }
-            ],
             "projects/clan-dashboard/src/environments/environment.ts": [
                 {
                     "name": "environment",
@@ -24690,6 +24671,28 @@
                     "ctype": "miscellaneous",
                     "subtype": "variable",
                     "file": "projects/clan-dashboard/src/environments/environment.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "defaultValue": "require('../../../../package.json')"
+                }
+            ],
+            "projects/clan-dashboard/src/environments/environment.prod.ts": [
+                {
+                    "name": "environment",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/clan-dashboard/src/environments/environment.prod.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "object",
+                    "defaultValue": "{\r\n  constants: { ...baseConstants },\r\n  production: true,\r\n  apiKey: secretKeys.apiKey,\r\n  appVersion: packageJson.version\r\n}"
+                },
+                {
+                    "name": "packageJson",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/clan-dashboard/src/environments/environment.prod.ts",
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "",
@@ -27964,12 +27967,19 @@
                                         "children": [
                                             {
                                                 "name": "routes",
-                                                "filename": "projects/clan-dashboard/src/app/features/recent-activity/recent-activity-dashboard/clan-roster-routing.module.ts.ts",
+                                                "filename": "projects/clan-dashboard/src/app/features/recent-activity/recent-activity-shell/recent-activity-routing.module.ts",
                                                 "module": "RecentActivityRoutingModule",
                                                 "children": [
                                                     {
                                                         "path": "",
-                                                        "component": "RecentActivityComponent"
+                                                        "loadChildren": "../recent-activity-dashboard/recent-activity.module#RecentActivityModule",
+                                                        "children": [
+                                                            {
+                                                                "kind": "module",
+                                                                "children": [],
+                                                                "module": "RecentActivityModule"
+                                                            }
+                                                        ]
                                                     }
                                                 ],
                                                 "kind": "module"
@@ -28973,7 +28983,7 @@
                 "linktype": "component",
                 "name": "ClansRosterComponent",
                 "coveragePercent": 0,
-                "coverageCount": "0/9",
+                "coverageCount": "0/8",
                 "status": "low"
             },
             {
@@ -29177,6 +29187,16 @@
                 "linktype": "miscellaneous",
                 "linksubtype": "variable",
                 "name": "list",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/clan-dashboard/src/app/features/seals/components/seals-list/seals-list.component.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Loading",
                 "coveragePercent": 0,
                 "coverageCount": "0/1",
                 "status": "low"

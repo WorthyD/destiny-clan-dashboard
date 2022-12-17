@@ -68,6 +68,7 @@ export class TableViewComponent implements OnChanges {
   renderedHtml: Observable<Map<Item, Map<string, Observable<RenderedView>>>>;
 
   @Input() header: string;
+  @Input() isLoading: boolean = undefined;
 
   @Input() filterer: Filterer;
 
@@ -81,9 +82,8 @@ export class TableViewComponent implements OnChanges {
 
   @Input() exporter: Exporter;
 
-  @Input() loading: boolean;
-
   itemCount: Observable<number>;
+  loadingSize = new Array(25).fill('_').map((x) => x);
 
   page: BehaviorSubject<TablePage> = new BehaviorSubject({ size: 25, index: 0 });
 
@@ -91,36 +91,54 @@ export class TableViewComponent implements OnChanges {
   constructor() {}
 
   ngOnChanges(changes: SimpleChanges): void {
-    // TODO: Make this better
-    if (changes['dataSource'] || changes['filterer'] || changes['sorter'] || changes['viewer']) {
-      if (this.dataSource && this.filterer && this.sorter && this.viewer) {
-        const curatedData = this.dataSource.data.pipe(this.filterer.filter(), this.sorter.sort());
-        this.renderedData = combineLatest([curatedData, this.page]).pipe(
-          map(([data, page]) => data.slice(page.index * page.size, page.index * page.size + page.size))
-        );
-        this.itemCount = curatedData.pipe(map((d) => d.length));
-
-        this.views = this.viewer.getViews();
-        this.displayedColumns = this.viewer.state.pipe(
-          map((state) => {
-            return this.views.map((v) => v.id).filter((v) => state.views.indexOf(v) !== -1);
-          })
-        );
-
-        this.renderedHtml = this.renderedData.pipe(
-          map((items) => {
-            const renderedHtml = new Map<Item, Map<string, Observable<RenderedView>>>();
-            items.forEach((item) => {
-              const itemRenderedViews = new Map<string, Observable<RenderedView>>();
-              this.views.forEach((view) => itemRenderedViews.set(view.id, this.viewer.getRenderedView(item, view.id)));
-              renderedHtml.set(item, itemRenderedViews);
-            });
-            return renderedHtml;
-          }),
-          shareReplay(1)
-        );
+    if (changes['dataSource'] || changes['filterer'] || changes['sorter'] || changes['viewer'] || changes['loading']) {
+      if (this.filterer && this.sorter && this.viewer) {
+        if (this.isLoading === true) {
+          this.showLoading();
+        } else {
+          this.loadData();
+        }
       }
     }
+  }
+
+  private loadData() {
+    if (this.dataSource && this.filterer && this.sorter && this.viewer) {
+      const curatedData = this.dataSource.data.pipe(this.filterer.filter(), this.sorter.sort());
+      this.renderedData = combineLatest([curatedData, this.page]).pipe(
+        map(([data, page]) => data.slice(page.index * page.size, page.index * page.size + page.size))
+      );
+      this.itemCount = curatedData.pipe(map((d) => d.length));
+
+      this.views = this.viewer.getViews();
+      this.displayedColumns = this.viewer.state.pipe(
+        map((state) => {
+          return this.views.map((v) => v.id).filter((v) => state.views.indexOf(v) !== -1);
+        })
+      );
+
+      this.renderedHtml = this.renderedData.pipe(
+        map((items) => {
+          const renderedHtml = new Map<Item, Map<string, Observable<RenderedView>>>();
+          items.forEach((item) => {
+            const itemRenderedViews = new Map<string, Observable<RenderedView>>();
+            this.views.forEach((view) => itemRenderedViews.set(view.id, this.viewer.getRenderedView(item, view.id)));
+            renderedHtml.set(item, itemRenderedViews);
+          });
+          return renderedHtml;
+        }),
+        shareReplay(1)
+      );
+    }
+  }
+
+  private showLoading() {
+    this.views = this.viewer.getViews();
+    this.displayedColumns = this.viewer.state.pipe(
+      map((state) => {
+        return this.views.map((v) => v.id).filter((v) => state.views.indexOf(v) !== -1);
+      })
+    );
   }
 
   setPage(event: PageEvent) {

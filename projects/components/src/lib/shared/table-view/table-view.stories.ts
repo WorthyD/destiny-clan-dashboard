@@ -36,5 +36,15 @@ Primary.args = {
   sorter: new Sorter({ metadata: EXAMPLE_SORTER_METADATA }),
   dataSource: new DataSource<MockListItem>({ data: MOCK_LIST_ITEMS }),
   exporter: new Exporter({ metadata: EXAMPLE_EXPORTER_METADATA }),
-  loading: false
+  isLoading: false
+};
+export const Loading = Template.bind({});
+Loading.args = {
+  filterer: new Filterer({ metadata: EXAMPLE_FILTERER_METADATA }),
+  viewer: new Viewer({ metadata: EXAMPLE_VIEWER_METADATA }),
+  grouper: null,
+  sorter: new Sorter({ metadata: EXAMPLE_SORTER_METADATA }),
+  dataSource: new DataSource<MockListItem>({ data: MOCK_LIST_ITEMS }),
+  exporter: new Exporter({ metadata: EXAMPLE_EXPORTER_METADATA }),
+  isLoading: true
 };

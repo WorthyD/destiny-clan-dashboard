@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { DataSource, Exporter, Filterer, Sorter, Viewer } from '@destiny/components';
 import { BungieDatePipe, BungieDateTimePipe, PlaytimePipe } from '@destiny/components/pipes';
-import { combineLatest, filter, map, Observable, of } from 'rxjs';
+import { combineLatest, filter, map, Observable, of, tap } from 'rxjs';
 import { RecentActivityService } from '../data-access/recent-activity.service';
 import { ProfileRecentActivity } from '../models/profile-recent-activity';
 import {
@@ -12,7 +12,6 @@ import {
 } from './recent-activity-metadata';
 
 interface RosterActivityResources {
-  loading: Observable<boolean>;
   viewer: Viewer;
   filterer: Filterer;
   //grouper: Grouper;
@@ -45,11 +44,11 @@ export class RecentActivityComponent implements OnInit {
     metadata: CLAN_ROSTER_EXPORTER_METADATA,
     contextProvider: this.createViewContextProvider()
   });
+  isLoading = true;
 
   rosterRecentActivityInfo$: Observable<RosterActivityResources> = combineLatest([this.clanProfileActivity$]).pipe(
     map(([clanProfiles]) => {
       return {
-        loading: of(false),
         dataSource: new DataSource<ProfileRecentActivity>({ data: clanProfiles }),
         viewer: this.activityViewer,
         filterer: this.activityFilterer,
@@ -57,7 +56,7 @@ export class RecentActivityComponent implements OnInit {
         sorter: this.activitySorter
       };
     }),
-    filter((ds) => !!ds)
+    tap((x) => (this.isLoading = false))
   );
   createViewContextProvider() {
     return of((item: ProfileRecentActivity) => ({

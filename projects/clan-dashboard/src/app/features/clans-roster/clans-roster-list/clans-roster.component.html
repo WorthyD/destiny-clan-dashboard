@@ -1,16 +1,11 @@
 <div class="clan-roster">
-  <lib-table-view class="clan-roster-table" *ngIf="rosterInfo$ | async as rosterInfo; else loading" [dataSource]="rosterInfo.dataSource"
+  <lib-table-view class="clan-roster-table"
+    [isLoading]="isLoading"
+    [dataSource]="(rosterInfo$ | async)?.dataSource"
     [header]="'Clan Roster'"
-    [viewer]="rosterInfo.viewer"
-    [filterer]="rosterInfo.filterer" [sorter]="rosterInfo.sorter"
-    [exporter]="rosterInfo.exporter">
+    [viewer]="rosterViewer"
+    [filterer]="rosterFilter" [sorter]="rosterSorter"
+    [exporter]="rosterExporter">
 
   </lib-table-view>
-
-  <ng-template #loading>
-    <div class="loading">
-      Loading Roster
-    </div>
-  </ng-template>
-
 </div>
