@@ -1,0 +1,46 @@
+<div class="clan-search-wrapper">
+  <div class="home-info bg {{bgClass}}">
+    <div class="info">
+      <h1>
+        Destiny Clan Dashboard
+      </h1>
+      <h2>View your clan's activity with ease.</h2>
+      <p>
+        This app is a passion project and I should probably put a bunch of marketing nonsense here. <br> <br> I hope you
+        find this thing useful. <a href="https://twitter.com/worthyd">Send me your feedback</a>
+      </p>
+    </div>
+  </div>
+
+  <div class="clan-search">
+    <h2>Find Your Clan<i class="material-icons"
+        matTooltip="Search by Clan Name, Clan Id, or Clan URL. Clan Name must search for full clan name. Bungie doesn't support a 'fuzzy' search.">
+        help
+      </i></h2>
+    <app-clan-search-autocomplete class="clan-search-autocomplete" [autoCompleteResults]="autoCompleteResults$ | async"
+      [loading]="loading" (searchClans)="searchClans($event)" (addClan)="addClan($event)"
+      (addMembersClan)="addMembersClan($event)"></app-clan-search-autocomplete>
+  </div>
+  <ng-container *ngIf="clans$ | async as clans">
+    <div *ngIf="clans.length > 4">
+      <div class="alert-card">
+        <mat-icon>warning</mat-icon>
+        <h2>Adding too many clans will impact the performance of the application</h2>
+      </div>
+
+    </div>
+
+    <div *ngIf="clans.length > 0" class="lets-go-btn">
+      <button color="accent" mat-raised-button routerLink="/">Let's Go</button>
+    </div>
+    <!-- TODO: Add Let's go -->
+
+    <div class="found-clans">
+      <ng-container *ngFor="let clan of clans">
+        <app-clan-detail [clanConfig]="clan" class="clan"></app-clan-detail>
+      </ng-container>
+
+    </div>
+  </ng-container>
+
+</div>

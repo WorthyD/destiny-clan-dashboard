@@ -1,0 +1,13 @@
+.loading-spinner,
+.clan-result {
+  display: inline-flex;
+  align-items: center;
+  mat-spinner,
+  mat-icon {
+    margin-right: 1rem;
+  }
+}
+.search {
+  display: block;
+  width: 100%;
+}
