@@ -6,6 +6,8 @@
     "start": "ng serve --port 4321 --open",
     "build": "ng build --project=clan-dashboard",
     "watch": "ng build --watch --configuration development",
+    "build:stats": "ng build --project=clan-dashboard --configuration production --stats-json",
+    "analyze": "npx webpack-bundle-analyzer dist/clan-dashboard/stats.json",
     "test": "ng test --watch false --browsers=ChromeHeadless",
     "test:ui": "ng test --project=clan-dashboard",
     "test:data": "ng test --project=data --browsers=ChromeHeadless ",
