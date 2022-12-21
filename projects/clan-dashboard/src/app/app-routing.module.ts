@@ -54,7 +54,8 @@ const routes: Routes = [
     path: 'clan-search',
     // TODO: Clan Guard
     //canActivate: [ClanResolveGuard],
-    loadChildren: () => import('./views/clan-search/clan-search.module').then((module) => module.ClanSearchModule)
+    // loadChildren: () => import('./views/clan-search/clan-search.module').then((module) => module.ClanSearchModule)
+    loadChildren: () => import('./features/clan-search/clan-search-shell/clan-search-shell.module').then((module) => module.ClanSearchModule)
   }
 ];
 

@@ -1,0 +1,25 @@
+:host {
+  display: block;
+}
+.clan-detail {
+  width: 100%;
+
+
+  &__loading {
+    .skeleton-title {
+      width: 250px;
+      margin-bottom: 0.75rem;
+    }
+    .skeleton-sub-title {
+      width: 250px;
+      margin-bottom: 0.75rem;
+    }
+
+    .skeleton-list {
+      width: 200px;
+    }
+    .skeleton-button {
+      width: 75px;
+    }
+  }
+}
