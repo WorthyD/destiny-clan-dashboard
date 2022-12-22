@@ -83,6 +83,12 @@
       margin-left: 1rem;
     }
   }
+  h4 {
+    text-align: center;
+    button {
+      font-size: inherit;
+    }
+  }
   .clan-search-autocomplete {
     display: block;
     max-width: 500px;
@@ -101,4 +107,29 @@
     max-width: 480px;
     margin: 2rem;
   }
+}
+.app-info {
+  width: 100%;
+  max-width: 1020px;
+  margin: 1rem auto;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  .info-card {
+    flex: 0 0 25%;
+    max-width: 250px;
+    display: flex;
+    .icon {
+      flex: 0 0 16.6666666667%;
+      max-width: 16.6666666667%;
+    }
+    .info-card-content {
+      flex: 0 0 83.3333333333%;
+      max-width: 83.3333333333%;
+    }
+  }
+}
+
+footer {
+  text-align: center;
 }

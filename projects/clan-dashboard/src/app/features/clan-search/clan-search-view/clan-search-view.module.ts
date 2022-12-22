@@ -7,6 +7,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { ClanDetailsModule } from '../../clan-details/clan-details.module';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
 
 @NgModule({
   declarations: [ClanSearchViewComponent],
@@ -15,6 +16,7 @@ import { MatButtonModule } from '@angular/material/button';
     ClanSearchRoutingModule,
     ClanSearchAutocompleteComponent,
     MatTooltipModule,
+    MatCardModule,
     ClanDetailsModule,
     MatIconModule,
     MatButtonModule
