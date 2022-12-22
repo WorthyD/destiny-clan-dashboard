@@ -11,7 +11,7 @@ import { ClanSearchService } from '../data-access/clan-search.service';
 })
 export class ClanSearchViewComponent {
   constructor(private clanSearchService: ClanSearchService) {}
-
+  year = new Date().getFullYear();
   clans$ = this.clanSearchService.clans$;
 
   bgClass = `bg-${Math.floor(Math.random() * 3) + 1}`;
@@ -47,6 +47,9 @@ export class ClanSearchViewComponent {
 
   addClan(clan: GroupsV2GroupV2Card) {
     this.clanSearchService.addClan(clan);
+  }
+  demoClan() {
+    this.clanSearchService.addClan({ groupId: 2073131, name: 'DoD Paternal Chums', clanInfo: { clanCallsign: 'DoD' } });
   }
 
   addMembersClan(member: any) {

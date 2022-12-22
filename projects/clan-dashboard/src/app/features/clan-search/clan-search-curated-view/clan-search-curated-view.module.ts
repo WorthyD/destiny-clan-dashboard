@@ -3,9 +3,10 @@ import { CommonModule } from '@angular/common';
 import { ClanSearchCuratedViewComponent } from './clan-search-curated-view.component';
 import { ClanDetailsModule } from '@features/clan-details/clan-details.module';
 import { ClanSearchRoutingModule } from './clan-search-curated-view-routing.module';
+import { MatButtonModule } from '@angular/material/button';
 
 @NgModule({
   declarations: [ClanSearchCuratedViewComponent],
-  imports: [CommonModule, ClanDetailsModule, ClanSearchRoutingModule]
+  imports: [CommonModule, ClanDetailsModule, ClanSearchRoutingModule, MatButtonModule]
 })
 export class ClanSearchCuratedViewModule {}

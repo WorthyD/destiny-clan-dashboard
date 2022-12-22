@@ -17,6 +17,10 @@
         matTooltip="Search by Clan Name, Clan Id, or Clan URL. Clan Name must search for full clan name. Bungie doesn't support a 'fuzzy' search.">
         help
       </i></h2>
+    <h4>Find your clan and any additional clans you wish to track. Don't have clan? <br>Try <button mat-raised-button
+        (click)="demoClan()">this
+        one</button> and have a look around.
+    </h4>
     <app-clan-search-autocomplete class="clan-search-autocomplete" [autoCompleteResults]="autoCompleteResults$ | async"
       [loading]="loading" (searchClans)="searchClans($event)" (addClan)="addClan($event)"
       (addMembersClan)="addMembersClan($event)"></app-clan-search-autocomplete>
@@ -41,6 +45,75 @@
       </ng-container>
 
     </div>
+
+
+    <section class="app-info" *ngIf="clans.length === 0">
+      <div class="info-card">
+        <div class="icon">
+          <i class="material-icons">
+            date_range
+          </i>
+        </div>
+        <div class="info-card-content">
+          <h3>Seasonal Progress</h3>
+          <p>
+            View seasonal progress on both a clan and player level.
+          </p>
+        </div>
+      </div>
+      <div class="info-card">
+        <div class="icon">
+          <i class="material-icons">
+            group
+          </i>
+        </div>
+        <div class="info-card-content">
+          <h3>Roster Activity</h3>
+          <p>
+            Find out who has been the most active over the last year by viewing interactive heatmaps.
+          </p>
+        </div>
+      </div>
+      <div class="info-card">
+        <div class="icon">
+          <i class="material-icons">
+            reduce_capacity
+          </i>
+        </div>
+        <div class="info-card-content">
+          <h3>Activity Stats</h3>
+          <p>
+            Track who has cleared what, who has gotten the rare drops and completed the hardest challenges.
+          </p>
+        </div>
+      </div>
+      <div class="info-card">
+        <div class="icon">
+          <i class="material-icons">
+            verified_user
+          </i>
+        </div>
+        <div class="info-card-content">
+          <h3>Seal Completion</h3>
+          <p>
+            Celebrate the accomplishment of completing seals with your clan. Easily view who's finished seals and
+            find
+            out who needs help.
+          </p>
+        </div>
+      </div>
+
+
+
+    </section>
+
   </ng-container>
+
+
+  <footer>
+    © {{year}} - <a href="https://twitter.com/worthyd" target="_blank">@WorthyD</a> - <a
+      href="https://github.com/WorthyD/d2-clandashboard" target="_blank">Source Code</a> - Not Affiliated with Bungie
+  </footer>
+
 
 </div>
