@@ -25,18 +25,20 @@ html {
   width: 4px;
 }
 
-.mat-drawer-inner-container::-webkit-scrollbar {
-  height: 5px;
-  width: 5px;
-}
-.mat-drawer-inner-container::-webkit-scrollbar-track {
-  background: white;
+.mat-drawer-inner-container,
+.slim-scroll {
+  &::-webkit-scrollbar {
+    height: 5px;
+    width: 5px;
+  }
+  &::-webkit-scrollbar-track {
+    background: white;
+  }
+  &::-webkit-scrollbar-thumb {
+    background: gray;
+  }
 }
 
-.mat-drawer-inner-container::-webkit-scrollbar-thumb {
-  background: gray;
-}
-
-a:not(.mat-mdc-button-base) {
+.mat-drawer-inner-container a:not(.mat-mdc-button-base) {
   color: var(--app-primary-color);
 }

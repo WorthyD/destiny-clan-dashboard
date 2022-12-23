@@ -25,6 +25,7 @@ export interface ClanMemberProfile {
 @Injectable()
 export class ClansRosterService {
 
+  // TODO: may need to globalize this
   clanProfiles$: Observable<ClanMemberProfile[]> = this.memberService.clanMembers$.pipe(
     switchMap((clansAndMembers) => {
       return from(clansAndMembers).pipe(

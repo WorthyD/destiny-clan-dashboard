@@ -1,10 +1,45 @@
-.clans-wrapper {
-  max-width: 960px;
-  margin: 0 auto;
-  padding: 20px;
+:host {
+  flex: 1;
+  overflow: auto;
 }
 .clans-details {
-  .clan {
-    margin: 1rem;
+  &__wrapper {
+    padding: 20px;
+    //display: flex;
+  }
+  &__clans {
+    //flex: 1;
+    //margin-right: 1rem;
+    .clan {
+      display: block;
+      // margin-bottom: 1rem;
+
+      margin-bottom: 1rem;
+    }
+  }
+
+  &__info-cards {
+    //   min-width: 350px;
+    //  max-height: 500px;
+  }
+}
+@media (min-width: 48em) {
+  .clans-details {
+    &__wrapper {
+      // padding: 20px;
+      display: flex;
+    }
+    &__clans {
+      flex: 1;
+      margin-right: 1rem;
+      .clan {
+        display: block;
+      }
+    }
+
+    &__info-cards {
+      min-width: 350px;
+      max-height: 500px;
+    }
   }
 }
