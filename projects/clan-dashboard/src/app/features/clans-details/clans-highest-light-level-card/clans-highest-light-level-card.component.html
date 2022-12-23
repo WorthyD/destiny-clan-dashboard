@@ -1,0 +1,10 @@
+<ng-container *ngIf="vm$ | async as vm">
+  <app-clan-member-card [cardTitle]="'Highest Power Bonus'" [itemTemplate]="itemTemplate" [isLoading]="vm.isLoading"
+    [members]="vm.highestPowerMembers">
+    <ng-template let-member #itemTemplate>
+      <div>
+        {{member.profile?.profileProgression?.data?.seasonalArtifact?.powerBonus}}
+      </div>
+    </ng-template>
+  </app-clan-member-card>
+</ng-container>

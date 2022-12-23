@@ -22,7 +22,6 @@ export class ClanInfoComponent implements OnChanges {
   seasonProgress;
 
   ngOnChanges(simpleChanges: SimpleChanges) {
-    console.log(this.clanDetail);
     if (simpleChanges['clanDetail'] && this.clanDetail?.clanInfo) {
       // TODO Constant this
 

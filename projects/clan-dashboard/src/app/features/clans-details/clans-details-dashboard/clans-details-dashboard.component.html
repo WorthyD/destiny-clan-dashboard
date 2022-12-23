@@ -1,7 +1,10 @@
-<div class="clans-wrapper">
-  <div class="clans-details">
+<div class="clans-details__wrapper">
+  <div class="clans-details__clans">
     <ng-container *ngFor="let clan of clans$ | async">
       <app-clans-details [clanConfig]="clan" class="clan"></app-clans-details>
     </ng-container>
+  </div>
+  <div class="clans-details__info-cards">
+    <app-clans-highest-light-level-card></app-clans-highest-light-level-card>
   </div>
 </div>

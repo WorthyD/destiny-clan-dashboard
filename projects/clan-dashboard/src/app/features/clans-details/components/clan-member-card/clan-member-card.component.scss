@@ -1,0 +1,16 @@
+.clan-member-card {
+  overflow: hidden;
+  height: 100%;
+  &__card-content {
+    overflow-y: auto;
+  }
+}
+.member-info {
+  display: flex;
+  align-content: space-between;
+  width: 100%;
+
+  .member-name {
+    flex: 1;
+  }
+}
