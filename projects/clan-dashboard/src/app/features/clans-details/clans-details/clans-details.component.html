@@ -1,4 +1,4 @@
-<div class="clans-wrapper">
+<!-- <div class="clans-wrapper">
   <ng-container *ngIf="clansInfo$ | async as clansInfo">
     <ng-container *ngFor="let clanInfo of clansInfo">
       <h1>{{clanInfo.name}} - {{clanInfo.clanInfo.clanCallsign}}</h1>
@@ -9,4 +9,8 @@
 
     </ng-container>
   </ng-container>
-</div>
+
+
+
+</div> -->
+<app-clan-info [clanDetail]="clanDetails$ | async" [loading]="loading"></app-clan-info>

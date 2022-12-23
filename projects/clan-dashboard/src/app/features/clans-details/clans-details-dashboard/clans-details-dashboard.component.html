@@ -1,0 +1,7 @@
+<div class="clans-wrapper">
+  <div class="clans-details">
+    <ng-container *ngFor="let clan of clans$ | async">
+      <app-clans-details [clanConfig]="clan" class="clan"></app-clans-details>
+    </ng-container>
+  </div>
+</div>

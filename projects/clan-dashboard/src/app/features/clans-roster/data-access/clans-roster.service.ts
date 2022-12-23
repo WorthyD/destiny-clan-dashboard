@@ -1,16 +1,9 @@
 import { Injectable } from '@angular/core';
-import { Store } from '@ngrx/store';
-import { selectEnabledClanIds, selectEnabledClans, selectLastProfileUpdate } from '@core/store/clans';
 import {
-  forkJoin,
   from,
-  map,
   mergeMap,
   switchMap,
-  tap,
   toArray,
-  combineLatest,
-  distinctUntilChanged,
   Observable
 } from 'rxjs';
 import { ProfileService } from 'projects/data/src/lib/clan/profiles/profile.service';

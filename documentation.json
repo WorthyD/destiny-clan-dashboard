@@ -2,7 +2,7 @@
     "pipes": [
         {
             "name": "BungieDatePipe",
-            "id": "pipe-BungieDatePipe-e123588f0d85899fbdfeecd50b2af84499dfcd1253234a3d1593631fb5189c574272cb837095c382c2b8f240a05d31c21830777dcd720ed7dca5d4eb8a18fc84",
+            "id": "pipe-BungieDatePipe-d73a3eacb4db1fadf1cb0069280e9f9b7d488afa6981b423003121bc859ca2a112ea2be326c41c2cfe4266b8fe665409c85be608095a086e38b7221c901fa547",
             "file": "projects/components/src/lib/pipes/bungie-date/bungie-date.pipe.ts",
             "type": "pipe",
             "deprecated": false,
@@ -16,7 +16,7 @@
                     "args": [
                         {
                             "name": "date",
-                            "type": "Date",
+                            "type": "Date | string",
                             "deprecated": false,
                             "deprecationMessage": ""
                         }
@@ -33,7 +33,7 @@
                     "jsdoctags": [
                         {
                             "name": "date",
-                            "type": "Date",
+                            "type": "Date | string",
                             "deprecated": false,
                             "deprecationMessage": "",
                             "tagName": {
@@ -44,7 +44,7 @@
                 }
             ],
             "ngname": "bungieDate",
-            "sourceCode": "import { DatePipe } from '@angular/common';\r\nimport { Inject, LOCALE_ID, Pipe, PipeTransform } from '@angular/core';\r\n\r\n@Pipe({\r\n  name: 'bungieDate'\r\n})\r\nexport class BungieDatePipe extends DatePipe implements PipeTransform {\r\n\r\n  constructor(@Inject(LOCALE_ID) locale: string) {\r\n    super(locale);\r\n  }\r\n\r\n  override transform(date: Date): any {\r\n    return super.transform(date, 'yyyy-MM-dd');\r\n  }\r\n}\r\n"
+            "sourceCode": "import { DatePipe } from '@angular/common';\r\nimport { Inject, LOCALE_ID, Pipe, PipeTransform } from '@angular/core';\r\n\r\n@Pipe({\r\n  name: 'bungieDate'\r\n})\r\nexport class BungieDatePipe extends DatePipe implements PipeTransform {\r\n\r\n  constructor(@Inject(LOCALE_ID) locale: string) {\r\n    super(locale);\r\n  }\r\n\r\n  override transform(date: Date | string): any {\r\n    const d2 = new Date(date)\r\n    return super.transform(d2, 'yyyy-MM-dd');\r\n  }\r\n}\r\n"
         },
         {
             "name": "BungieDateTimePipe",
@@ -1085,6 +1085,56 @@
             "indexSignatures": [],
             "methods": [],
             "extends": "EntityState"
+        },
+        {
+            "name": "CuratedClan",
+            "id": "interface-CuratedClan-a9f369074b333fd647cf8b6eb04fce32381d4e271353307200593c3eb5c51c84f01a1d988d788e4507dcf483ae73883bf210e5c3581323d869a3d8ef039a7307",
+            "file": "projects/clan-dashboard/src/app/features/clan-search/clan-search-curated-view/curated_clans.ts",
+            "deprecated": false,
+            "deprecationMessage": "",
+            "type": "interface",
+            "sourceCode": "import { ClanConfig } from '@core/store/clans';\r\nconst dod_clans_pc = [\r\n  2073131, // Chums\r\n  4322250, // DoD Dad Guard\r\n  2866236, // GMT\r\n  4430645, //Family Pride\r\n  4473297, // Guiding light\r\n  4767446 // Lucid Loops\r\n];\r\nconst dod_clans_all = [\r\n  4803739, //DoD Still Vexier Than You\r\n  4523816, //DoD Lightforged\r\n  223562, //DoD Westside\r\n  523657, //DoD Battleborn\r\n  3872451, //DoD Battleborn Ascendant\r\n  1726332 //DoD California\r\n];\r\nconst dod_clans_ps = [2942177, 1288185, 2071608, 1771725, 1161209, 2180975, 3136336, 1186355, 1375802];\r\n\r\nconst dod_clans_xbox = [\r\n  910604, //DOD Chattawhyte Krew\r\n  849654, //DoD Empire/Orbit/Rebellion/United\r\n  1179713, //DoD Iron Warlords\r\n  4271754, //DoD Shenanigans,\r\n  3219957, //DoD Storm ,\r\n  4748154, // DoD West Coast Blueberries\r\n  806412, // DoD X1 Foxtrot,\r\n  167225 //Dads of Destiny X1 Ghost\r\n];\r\ninterface CuratedClan {\r\n  key: string;\r\n  title: string;\r\n  clans?: ClanConfig[];\r\n  subGroups?: {\r\n    title: string;\r\n    clans: ClanConfig[];\r\n  }[];\r\n}\r\n\r\nfunction m(c) {\r\n  return c.map((x) => {\r\n    return {\r\n      clanId: x.toString(),\r\n      clanName: '',\r\n      clanTag: '',\r\n      enabled: false,\r\n      memberUpdate: '',\r\n      profileUpdate: '',\r\n      memberRecentActivityUpdate: ''\r\n    };\r\n  });\r\n}\r\n\r\nexport const DOD: CuratedClan = {\r\n  key: 'dod',\r\n  title: \"Dad's of Destiny\",\r\n  subGroups: [\r\n    {\r\n      title: 'All Platforms',\r\n      clans: m(dod_clans_all)\r\n    },\r\n    {\r\n      title: 'PC',\r\n      clans: m(dod_clans_pc)\r\n    },\r\n    {\r\n      title: 'Playstation',\r\n      clans: m(dod_clans_ps)\r\n    },\r\n    {\r\n      title: 'Play Station',\r\n      clans: m(dod_clans_xbox)\r\n    }\r\n  ]\r\n};\r\n\r\nexport const ALL_CLANS = [DOD];\r\n",
+            "properties": [
+                {
+                    "name": "clans",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "ClanConfig[]",
+                    "optional": true,
+                    "description": "",
+                    "line": 33
+                },
+                {
+                    "name": "key",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "string",
+                    "optional": false,
+                    "description": "",
+                    "line": 31
+                },
+                {
+                    "name": "subGroups",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "literal type[]",
+                    "optional": true,
+                    "description": "",
+                    "line": 34
+                },
+                {
+                    "name": "title",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "string",
+                    "optional": false,
+                    "description": "",
+                    "line": 32
+                }
+            ],
+            "indexSignatures": [],
+            "kind": 165,
+            "methods": []
         },
         {
             "name": "DataLabel",
@@ -2757,7 +2807,22 @@
         },
         {
             "name": "MemberProfile",
-            "id": "interface-MemberProfile-460c3f90c5c8c013459de1380d72fafab2f5f3649e442868653ec22e854dfba2ba1ea0dac97628d6a02300c095fc41553aa3901c08102cbb728c6fad88686af6-2",
+            "id": "interface-MemberProfile-ce62e7b64544c29cd482e6c80ef9b9db6c6ce1064dfbab5fdf486270f4139c3fa45835f0796e784cde66190725807c2f3bf7cf30e2eddf819d56c45d80e55060-2",
+            "file": "projects/data/src/lib/clan/profiles/profile.service.ts",
+            "deprecated": false,
+            "deprecationMessage": "",
+            "type": "interface",
+            "sourceCode": "import { map, catchError, mergeMap, bufferTime, toArray } from 'rxjs/operators';\r\nimport { Observable, from, of, throwError } from 'rxjs';\r\n\r\n//import { StoreId } from '../app-indexed-db';\r\n\r\nimport { profileSerializer } from './profile.serializer';\r\nimport { nowPlusDays, unixTimeStampToDate } from '../../utility/date-utils';\r\nimport { StoreId } from '../../db/clan-indexed-db';\r\nimport { ClanDatabase } from '../clan-database';\r\nimport { ClanMember } from '../../models/ClanMember';\r\n//import { MemberProfile } from '../../models/MemberProfile';\r\n// import { ClanMember } from 'projects/bungie-models/src/lib/models/ClanMember';\r\n// import { latestSeason } from 'projects/bungie-models/src/lib/entities/seasons/season-latest';\r\ninterface MemberProfile {}\r\n\r\nexport class ProfileService {\r\n  private tableName: StoreId = StoreId.MemberProfiles;\r\n  private concurrentRequests = 20;\r\n  // 100 Profiles\r\n  // 104 Profile Progression\r\n  // 200 Characters\r\n  // 202 Character progression\r\n  // 800 Collections\r\n  // 900 Milestones\r\n  private profileComponents = [100, 104, 200, 202, 800, 900];\r\n\r\n  // TODO: Pull this from somewhere else.\r\n  private TRACKED_HASHES = [3902035969, 2770852111];\r\n\r\n  constructor(private clanDb: ClanDatabase, private apiKey: string) {}\r\n\r\n  private getProfileId(member: ClanMember) {\r\n    return `${member.destinyUserInfo.membershipType}-${member.destinyUserInfo.membershipId}`;\r\n  }\r\n\r\n  private getProfileFromCache(clanId: string, member: ClanMember) {\r\n    return this.clanDb.getById(clanId, this.tableName, this.getProfileId(member));\r\n  }\r\n\r\n  private getProfileFromAPI(member: ClanMember) {\r\n    const url = `https://www.bungie.net/Platform/Destiny2/${member.destinyUserInfo.membershipType}/Profile/${\r\n      member.destinyUserInfo.membershipId\r\n    }/?components=${this.profileComponents.join(',')}`;\r\n\r\n    return new Observable((observer) => {\r\n      fetch(url, { headers: { 'X-API-Key': this.apiKey } })\r\n        .then((response) => response.json())\r\n        .then((data) => {\r\n          if (!data.Response) {\r\n            throw data;\r\n          }\r\n          observer.next(data);\r\n          observer.complete();\r\n        })\r\n        .catch((err) => {\r\n          console.log('error', err);\r\n          observer.error(err);\r\n        });\r\n    });\r\n  }\r\n\r\n  getProfile(clanId: string, member: ClanMember): Observable<any> {\r\n    return from(this.getProfileFromCache(clanId, member)).pipe(\r\n      mergeMap((cachedData) => {\r\n        if (cachedData && cachedData.createDate) {\r\n          const cacheDate = cachedData.createDate;\r\n          const lastStatusChange = unixTimeStampToDate(member.lastOnlineStatusChange);\r\n          const staleXP = nowPlusDays(-1);\r\n          // Make sure we recapture new data after season change\r\n          const expireDate = staleXP > lastStatusChange ? staleXP : lastStatusChange;\r\n\r\n          if (cacheDate > expireDate) {\r\n            return of(cachedData?.data);\r\n          }\r\n        }\r\n        return this.getProfileFromAPI(member).pipe(\r\n          map((memberProfileResponse: any) => {\r\n            if (memberProfileResponse.Response) {\r\n              this.clanDb.update(clanId, this.tableName, [\r\n                {\r\n                  id: this.getProfileId(member),\r\n                  createDate: new Date(),\r\n                  data: memberProfileResponse.Response\r\n                }\r\n              ]);\r\n\r\n              return memberProfileResponse.Response;\r\n            }\r\n          }),\r\n          catchError((error) => {\r\n            if (cachedData && cachedData.data) {\r\n              return of(cachedData.data);\r\n            }\r\n            if (error?.ErrorStatus === 'DestinyAccountNotFound') {\r\n              console.error(`Error retrieving profile, not found`, member);\r\n              return of();\r\n            }\r\n            if (error?.ErrorStatus === 'DestinyUnexpectedError') {\r\n              console.error(`Error retrieving profile`, member);\r\n              return of();\r\n            }\r\n\r\n            throw error;\r\n          })\r\n        );\r\n      })\r\n    );\r\n  }\r\n\r\n  getSerializedProfiles<T>(\r\n    clanId: string,\r\n    members: ClanMember[],\r\n    collectionHashes: any[],\r\n    profileRecords: any[]\r\n  ): Observable<T> {\r\n    return from(members).pipe(\r\n      mergeMap((member) => this.getSerializedProfile(clanId, member, collectionHashes, profileRecords), 100)\r\n    ) as Observable<T>;\r\n  }\r\n\r\n  getSerializedProfilesFromCache(\r\n    clanId: string,\r\n    members: ClanMember[],\r\n    collectionHashes: any[],\r\n    profileRecords: any[]\r\n  ): Observable<MemberProfile[]> {\r\n    return from(members).pipe(\r\n      mergeMap((member) => this.getSerializedProfileFromCache(clanId, member, collectionHashes, profileRecords), 100),\r\n      toArray()\r\n    );\r\n  }\r\n\r\n  getSerializedProfilesWithProgress(\r\n    clanId: string,\r\n    members: ClanMember[],\r\n    progress?: (done) => any\r\n  ): Observable<MemberProfile[]> {\r\n    let complete = 0;\r\n    return from(members)\r\n      .pipe(mergeMap((member) => this.getSerializedProfile(clanId, member, [], []), this.concurrentRequests))\r\n      .pipe(\r\n        bufferTime(1000, undefined, 100),\r\n        /**\r\n         * Don't continue processing if the timer in `bufferTime` was reached and\r\n         *   there are no buffered companies.\r\n         */\r\n        mergeMap((memberResp) => {\r\n          complete += memberResp.length;\r\n          if (progress) {\r\n            progress(complete);\r\n          }\r\n          return memberResp;\r\n        }),\r\n        toArray()\r\n      );\r\n  }\r\n\r\n  getSerializedProfile(\r\n    clanId: string,\r\n    member: ClanMember,\r\n    collectionHashes: any[],\r\n    profileRecords: any[]\r\n  ): Observable<MemberProfile> {\r\n    return this.getProfile(clanId, member).pipe(\r\n      map((profile) => {\r\n        return profileSerializer(profile, this.TRACKED_HASHES, collectionHashes, profileRecords) as MemberProfile;\r\n      })\r\n    );\r\n  }\r\n  getSerializedProfileFromCache(\r\n    clanId: string,\r\n    member: ClanMember,\r\n    collectionHashes: any[],\r\n    profileRecords: any[]\r\n  ): Observable<MemberProfile> {\r\n    return from(this.getProfileFromCache(clanId, member)).pipe(\r\n      map((profile) => {\r\n        return profileSerializer(\r\n          profile?.data || [],\r\n          this.TRACKED_HASHES,\r\n          collectionHashes,\r\n          profileRecords\r\n        ) as MemberProfile;\r\n      })\r\n    );\r\n  }\r\n}\r\n",
+            "properties": [],
+            "indexSignatures": [],
+            "methods": [],
+            "isDuplicate": true,
+            "duplicateId": 2,
+            "duplicateName": "MemberProfile-2"
+        },
+        {
+            "name": "MemberProfile",
+            "id": "interface-MemberProfile-460c3f90c5c8c013459de1380d72fafab2f5f3649e442868653ec22e854dfba2ba1ea0dac97628d6a02300c095fc41553aa3901c08102cbb728c6fad88686af6-3",
             "file": "projects/data/src/lib/clan/clan-member-recent-activity/clan-member-recent-activity.service.ts",
             "deprecated": false,
             "deprecationMessage": "",
@@ -2776,21 +2841,6 @@
             ],
             "indexSignatures": [],
             "kind": 165,
-            "methods": [],
-            "isDuplicate": true,
-            "duplicateId": 2,
-            "duplicateName": "MemberProfile-2"
-        },
-        {
-            "name": "MemberProfile",
-            "id": "interface-MemberProfile-ce62e7b64544c29cd482e6c80ef9b9db6c6ce1064dfbab5fdf486270f4139c3fa45835f0796e784cde66190725807c2f3bf7cf30e2eddf819d56c45d80e55060-3",
-            "file": "projects/data/src/lib/clan/profiles/profile.service.ts",
-            "deprecated": false,
-            "deprecationMessage": "",
-            "type": "interface",
-            "sourceCode": "import { map, catchError, mergeMap, bufferTime, toArray } from 'rxjs/operators';\r\nimport { Observable, from, of, throwError } from 'rxjs';\r\n\r\n//import { StoreId } from '../app-indexed-db';\r\n\r\nimport { profileSerializer } from './profile.serializer';\r\nimport { nowPlusDays, unixTimeStampToDate } from '../../utility/date-utils';\r\nimport { StoreId } from '../../db/clan-indexed-db';\r\nimport { ClanDatabase } from '../clan-database';\r\nimport { ClanMember } from '../../models/ClanMember';\r\n//import { MemberProfile } from '../../models/MemberProfile';\r\n// import { ClanMember } from 'projects/bungie-models/src/lib/models/ClanMember';\r\n// import { latestSeason } from 'projects/bungie-models/src/lib/entities/seasons/season-latest';\r\ninterface MemberProfile {}\r\n\r\nexport class ProfileService {\r\n  private tableName: StoreId = StoreId.MemberProfiles;\r\n  private concurrentRequests = 20;\r\n  // 100 Profiles\r\n  // 104 Profile Progression\r\n  // 200 Characters\r\n  // 202 Character progression\r\n  // 800 Collections\r\n  // 900 Milestones\r\n  private profileComponents = [100, 104, 200, 202, 800, 900];\r\n\r\n  // TODO: Pull this from somewhere else.\r\n  private TRACKED_HASHES = [3902035969, 2770852111];\r\n\r\n  constructor(private clanDb: ClanDatabase, private apiKey: string) {}\r\n\r\n  private getProfileId(member: ClanMember) {\r\n    return `${member.destinyUserInfo.membershipType}-${member.destinyUserInfo.membershipId}`;\r\n  }\r\n\r\n  private getProfileFromCache(clanId: string, member: ClanMember) {\r\n    return this.clanDb.getById(clanId, this.tableName, this.getProfileId(member));\r\n  }\r\n\r\n  private getProfileFromAPI(member: ClanMember) {\r\n    const url = `https://www.bungie.net/Platform/Destiny2/${member.destinyUserInfo.membershipType}/Profile/${\r\n      member.destinyUserInfo.membershipId\r\n    }/?components=${this.profileComponents.join(',')}`;\r\n\r\n    return new Observable((observer) => {\r\n      fetch(url, { headers: { 'X-API-Key': this.apiKey } })\r\n        .then((response) => response.json())\r\n        .then((data) => {\r\n          if (!data.Response) {\r\n            throw data;\r\n          }\r\n          observer.next(data);\r\n          observer.complete();\r\n        })\r\n        .catch((err) => {\r\n          console.log('error', err);\r\n          observer.error(err);\r\n        });\r\n    });\r\n  }\r\n\r\n  getProfile(clanId: string, member: ClanMember): Observable<any> {\r\n    return from(this.getProfileFromCache(clanId, member)).pipe(\r\n      mergeMap((cachedData) => {\r\n        if (cachedData && cachedData.createDate) {\r\n          const cacheDate = cachedData.createDate;\r\n          const lastStatusChange = unixTimeStampToDate(member.lastOnlineStatusChange);\r\n          const staleXP = nowPlusDays(-1);\r\n          // Make sure we recapture new data after season change\r\n          const expireDate = staleXP > lastStatusChange ? staleXP : lastStatusChange;\r\n\r\n          if (cacheDate > expireDate) {\r\n            return of(cachedData?.data);\r\n          }\r\n        }\r\n        return this.getProfileFromAPI(member).pipe(\r\n          map((memberProfileResponse: any) => {\r\n            if (memberProfileResponse.Response) {\r\n              this.clanDb.update(clanId, this.tableName, [\r\n                {\r\n                  id: this.getProfileId(member),\r\n                  createDate: new Date(),\r\n                  data: memberProfileResponse.Response\r\n                }\r\n              ]);\r\n\r\n              return memberProfileResponse.Response;\r\n            }\r\n          }),\r\n          catchError((error) => {\r\n            if (cachedData && cachedData.data) {\r\n              return of(cachedData.data);\r\n            }\r\n            if (error?.ErrorStatus === 'DestinyAccountNotFound') {\r\n              console.error(`Error retrieving profile, not found`, member);\r\n              return of();\r\n            }\r\n            if (error?.ErrorStatus === 'DestinyUnexpectedError') {\r\n              console.error(`Error retrieving profile`, member);\r\n              return of();\r\n            }\r\n\r\n            throw error;\r\n          })\r\n        );\r\n      })\r\n    );\r\n  }\r\n\r\n  getSerializedProfiles<T>(\r\n    clanId: string,\r\n    members: ClanMember[],\r\n    collectionHashes: any[],\r\n    profileRecords: any[]\r\n  ): Observable<T> {\r\n    return from(members).pipe(\r\n      mergeMap((member) => this.getSerializedProfile(clanId, member, collectionHashes, profileRecords), 100)\r\n    ) as Observable<T>;\r\n  }\r\n\r\n  getSerializedProfilesFromCache(\r\n    clanId: string,\r\n    members: ClanMember[],\r\n    collectionHashes: any[],\r\n    profileRecords: any[]\r\n  ): Observable<MemberProfile[]> {\r\n    return from(members).pipe(\r\n      mergeMap((member) => this.getSerializedProfileFromCache(clanId, member, collectionHashes, profileRecords), 100),\r\n      toArray()\r\n    );\r\n  }\r\n\r\n  getSerializedProfilesWithProgress(\r\n    clanId: string,\r\n    members: ClanMember[],\r\n    progress?: (done) => any\r\n  ): Observable<MemberProfile[]> {\r\n    let complete = 0;\r\n    return from(members)\r\n      .pipe(mergeMap((member) => this.getSerializedProfile(clanId, member, [], []), this.concurrentRequests))\r\n      .pipe(\r\n        bufferTime(1000, undefined, 100),\r\n        /**\r\n         * Don't continue processing if the timer in `bufferTime` was reached and\r\n         *   there are no buffered companies.\r\n         */\r\n        mergeMap((memberResp) => {\r\n          complete += memberResp.length;\r\n          if (progress) {\r\n            progress(complete);\r\n          }\r\n          return memberResp;\r\n        }),\r\n        toArray()\r\n      );\r\n  }\r\n\r\n  getSerializedProfile(\r\n    clanId: string,\r\n    member: ClanMember,\r\n    collectionHashes: any[],\r\n    profileRecords: any[]\r\n  ): Observable<MemberProfile> {\r\n    return this.getProfile(clanId, member).pipe(\r\n      map((profile) => {\r\n        return profileSerializer(profile, this.TRACKED_HASHES, collectionHashes, profileRecords) as MemberProfile;\r\n      })\r\n    );\r\n  }\r\n  getSerializedProfileFromCache(\r\n    clanId: string,\r\n    member: ClanMember,\r\n    collectionHashes: any[],\r\n    profileRecords: any[]\r\n  ): Observable<MemberProfile> {\r\n    return from(this.getProfileFromCache(clanId, member)).pipe(\r\n      map((profile) => {\r\n        return profileSerializer(\r\n          profile?.data || [],\r\n          this.TRACKED_HASHES,\r\n          collectionHashes,\r\n          profileRecords\r\n        ) as MemberProfile;\r\n      })\r\n    );\r\n  }\r\n}\r\n",
-            "properties": [],
-            "indexSignatures": [],
             "methods": [],
             "isDuplicate": true,
             "duplicateId": 3,
@@ -3655,31 +3705,7 @@
         },
         {
             "name": "State",
-            "id": "interface-State-131b4100b676e6afdcb7a015551bb0f8564442648cedb162ded16187cb885b9911957e72609eee56f2d9b52c64d22f893a395f71f6a04a4fbb73b7d373464f0e",
-            "file": "projects/clan-dashboard/src/app/core/store/manifest/manifest.state.ts",
-            "deprecated": false,
-            "deprecationMessage": "",
-            "type": "interface",
-            "sourceCode": "import { AppState } from '@core/core.state';\r\n\r\nexport interface ManifestState {\r\n  loading: boolean;\r\n  loaded: boolean;\r\n  error: any;\r\n  isApiDown: boolean;\r\n}\r\n\r\nexport const initialManifestState: ManifestState = {\r\n  loading: false,\r\n  loaded: false,\r\n  error: null,\r\n  isApiDown: false\r\n};\r\n\r\nexport interface State extends AppState {\r\n  manifest: ManifestState;\r\n}\r\n",
-            "properties": [
-                {
-                    "name": "manifest",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "ManifestState",
-                    "optional": false,
-                    "description": "",
-                    "line": 18
-                }
-            ],
-            "indexSignatures": [],
-            "kind": 165,
-            "methods": [],
-            "extends": "AppState"
-        },
-        {
-            "name": "State",
-            "id": "interface-State-aa7507e715de91b10c94c1f6921c70cd2a252fdca6a4b483fb4bc308d5be8b696b4f3676194f46b9d735e607a66d518766a7c29b292b4901d8343ea2b359f13a-1",
+            "id": "interface-State-aa7507e715de91b10c94c1f6921c70cd2a252fdca6a4b483fb4bc308d5be8b696b4f3676194f46b9d735e607a66d518766a7c29b292b4901d8343ea2b359f13a",
             "file": "projects/clan-dashboard/src/app/core/store/clans/clans.state.ts",
             "deprecated": false,
             "deprecationMessage": "",
@@ -3694,6 +3720,30 @@
                     "optional": false,
                     "description": "",
                     "line": 24
+                }
+            ],
+            "indexSignatures": [],
+            "kind": 165,
+            "methods": [],
+            "extends": "AppState"
+        },
+        {
+            "name": "State",
+            "id": "interface-State-131b4100b676e6afdcb7a015551bb0f8564442648cedb162ded16187cb885b9911957e72609eee56f2d9b52c64d22f893a395f71f6a04a4fbb73b7d373464f0e-1",
+            "file": "projects/clan-dashboard/src/app/core/store/manifest/manifest.state.ts",
+            "deprecated": false,
+            "deprecationMessage": "",
+            "type": "interface",
+            "sourceCode": "import { AppState } from '@core/core.state';\r\n\r\nexport interface ManifestState {\r\n  loading: boolean;\r\n  loaded: boolean;\r\n  error: any;\r\n  isApiDown: boolean;\r\n}\r\n\r\nexport const initialManifestState: ManifestState = {\r\n  loading: false,\r\n  loaded: false,\r\n  error: null,\r\n  isApiDown: false\r\n};\r\n\r\nexport interface State extends AppState {\r\n  manifest: ManifestState;\r\n}\r\n",
+            "properties": [
+                {
+                    "name": "manifest",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "ManifestState",
+                    "optional": false,
+                    "description": "",
+                    "line": 18
                 }
             ],
             "indexSignatures": [],
@@ -4484,10 +4534,38 @@
         },
         {
             "name": "ClanDetailService",
-            "id": "injectable-ClanDetailService-5c8e6993ef08de63d0c9fc14c3ffdc1ed914ca0868e6a1cf0813b9252d85f98393505f7be54eab44a7f4b498c6c487754a169e2172206c6070e8409461793387",
+            "id": "injectable-ClanDetailService-c6f1681573ffe3a34bc00026d92f50c406c3e082a52f7ea8d6080029d2ea5efdbe91df7d6e1205346dca45031eb9bbdde7fa56896163b34a45c8b880eced3916",
             "file": "projects/clan-dashboard/src/app/features/clan-details/data-access/clan-detail.service.ts",
             "properties": [],
             "methods": [
+                {
+                    "name": "addClan",
+                    "args": [
+                        {
+                            "name": "clan",
+                            "type": "GroupsV2GroupV2Card",
+                            "deprecated": false,
+                            "deprecationMessage": ""
+                        }
+                    ],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 37,
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "jsdoctags": [
+                        {
+                            "name": "clan",
+                            "type": "GroupsV2GroupV2Card",
+                            "deprecated": false,
+                            "deprecationMessage": "",
+                            "tagName": {
+                                "text": "param"
+                            }
+                        }
+                    ]
+                },
                 {
                     "name": "getClan",
                     "args": [
@@ -4501,7 +4579,7 @@
                     "optional": false,
                     "returnType": "any",
                     "typeParameters": [],
-                    "line": 16,
+                    "line": 24,
                     "deprecated": false,
                     "deprecationMessage": "",
                     "jsdoctags": [
@@ -4515,13 +4593,41 @@
                             }
                         }
                     ]
+                },
+                {
+                    "name": "removeClan",
+                    "args": [
+                        {
+                            "name": "clanId",
+                            "type": "string",
+                            "deprecated": false,
+                            "deprecationMessage": ""
+                        }
+                    ],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 32,
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "jsdoctags": [
+                        {
+                            "name": "clanId",
+                            "type": "string",
+                            "deprecated": false,
+                            "deprecationMessage": "",
+                            "tagName": {
+                                "text": "param"
+                            }
+                        }
+                    ]
                 }
             ],
             "deprecated": false,
             "deprecationMessage": "",
             "description": "",
             "rawdescription": "\n",
-            "sourceCode": "import { HttpClient } from '@angular/common/http';\nimport { Injectable } from '@angular/core';\nimport { MatDialog } from '@angular/material/dialog';\nimport { Store } from '@ngrx/store';\nimport { GroupsV2GroupV2Card, GroupV2Service } from 'bungie-api-angular';\nimport { forkJoin, map, Observable, take } from 'rxjs';\nimport { ClanDetailsModule } from '../clan-details.module';\n\n@Injectable({\n  //Note can't figure out how to provide in the module I want.\n  providedIn: 'root'\n})\nexport class ClanDetailService {\n  constructor(private groupService: GroupV2Service, private httpClient: HttpClient, private store: Store) {}\n\n  getClan(clanId) {\n    return this.groupService.groupV2GetGroup(clanId).pipe(\n      map((clanResult) => {\n        return clanResult.Response.detail;\n      })\n    );\n  }\n\n  // addClan(clan: GroupsV2GroupV2Card) {\n  //   this.store.dispatch(\n  //     addClan({ clanId: clan.groupId.toString(), clanName: clan.name, clanTag: clan.clanInfo.clanCallsign || '' })\n  //   );\n  // }\n}\n",
+            "sourceCode": "import { HttpClient } from '@angular/common/http';\r\nimport { Injectable } from '@angular/core';\r\nimport { MatDialog } from '@angular/material/dialog';\r\nimport { Store } from '@ngrx/store';\r\nimport { GroupsV2GroupV2Card, GroupV2Service } from 'bungie-api-angular';\r\nimport { forkJoin, map, Observable, take } from 'rxjs';\r\nimport { ClanDetailsModule } from '../clan-details.module';\r\n\r\nimport { ClanDatabase } from 'projects/data/src/lib/clan/clan-database';\r\nimport { addClan, removeClan } from '@core/store/clans/clans.actions';\r\n\r\n@Injectable({\r\n  //Note can't figure out how to provide in the module I want.\r\n  providedIn: 'root'\r\n})\r\nexport class ClanDetailService {\r\n  constructor(\r\n    private groupService: GroupV2Service,\r\n    private httpClient: HttpClient,\r\n    private store: Store,\r\n    private db: ClanDatabase\r\n  ) {}\r\n\r\n  getClan(clanId) {\r\n    return this.groupService.groupV2GetGroup(clanId).pipe(\r\n      map((clanResult) => {\r\n        return clanResult.Response.detail;\r\n      })\r\n    );\r\n  }\r\n\r\n  removeClan(clanId: string) {\r\n    this.store.dispatch(removeClan({ clanId }));\r\n    this.db.purgeDatabase(clanId);\r\n  }\r\n\r\n  addClan(clan: GroupsV2GroupV2Card) {\r\n    this.store.dispatch(\r\n      addClan({ clanId: clan.groupId.toString(), clanName: clan.name, clanTag: clan.clanInfo.clanCallsign || '' })\r\n    );\r\n  }\r\n}\r\n",
             "constructorObj": {
                 "name": "constructor",
                 "description": "",
@@ -4545,9 +4651,15 @@
                         "type": "Store",
                         "deprecated": false,
                         "deprecationMessage": ""
+                    },
+                    {
+                        "name": "db",
+                        "type": "ClanDatabase",
+                        "deprecated": false,
+                        "deprecationMessage": ""
                     }
                 ],
-                "line": 13,
+                "line": 16,
                 "jsdoctags": [
                     {
                         "name": "groupService",
@@ -4570,6 +4682,15 @@
                     {
                         "name": "store",
                         "type": "Store",
+                        "deprecated": false,
+                        "deprecationMessage": "",
+                        "tagName": {
+                            "text": "param"
+                        }
+                    },
+                    {
+                        "name": "db",
+                        "type": "ClanDatabase",
                         "deprecated": false,
                         "deprecationMessage": "",
                         "tagName": {
@@ -5433,7 +5554,7 @@
         },
         {
             "name": "ClanSearchService",
-            "id": "injectable-ClanSearchService-7594309f6713f34a8d0cafb91738e2b621625230bd1e2696fb61d5abcdab620b1cceb405f25a765746b1e46bf50694968c35ae15f61cdfed6ec77cafa8a22819",
+            "id": "injectable-ClanSearchService-1fe5e08a32207792d5edcd9d0ec0160d61f57f2c130ca71dc760af9f211a2db0c3bbf03df2882d5b345221dc648d7e4c942adb670a9c0ff36bddc67997533834",
             "file": "projects/clan-dashboard/src/app/features/clan-search/data-access/clan-search.service.ts",
             "properties": [
                 {
@@ -5661,7 +5782,7 @@
             "deprecationMessage": "",
             "description": "",
             "rawdescription": "\n",
-            "sourceCode": "import { HttpClient } from '@angular/common/http';\nimport { Injectable } from '@angular/core';\nimport { MatDialog } from '@angular/material/dialog';\nimport { addClan } from '@core/store/clans';\nimport { selectAllClans } from '@core/store/clans/clans.selectors';\nimport { Store } from '@ngrx/store';\nimport { GroupsV2GroupV2Card, GroupV2Service } from 'bungie-api-angular';\nimport { forkJoin, map, Observable, take } from 'rxjs';\nimport { ClanSearchModule } from '../clan-search-shell/clan-search-shell.module';\nimport { SearchErrorDialogComponent } from '../components/search-error-dialog/search-error-dialog.component';\nimport { ClanSearchResultItem } from '../models/ClanSearchResultItem';\n\n@Injectable({\n  providedIn: ClanSearchModule\n})\nexport class ClanSearchService {\n  constructor(\n    private groupService: GroupV2Service,\n    private httpClient: HttpClient,\n    private store: Store,\n    public dialog: MatDialog\n  ) {}\n\n  clans$ = this.store.select(selectAllClans);\n\n  numericClanSearch(clanId) {\n    return this.groupService.groupV2GetGroup(clanId).pipe(\n      map((clanResult) => {\n        const c = clanResult.Response.detail;\n        return [\n          {\n            iconName: this.getIcon(-1),\n            type: 'clan',\n            name: c.name,\n            id: c.groupId.toString(),\n            clanInfo: c\n          }\n        ];\n      })\n    );\n  }\n  textClanSearch(currentQuery): Observable<ClanSearchResultItem[]> {\n    return this.groupService\n      .groupV2GroupSearch({\n        name: currentQuery,\n        groupType: 1,\n        groupMemberCountFilter: null,\n        tagText: null,\n        localeFilter: null\n      })\n      .pipe(\n        map((clanListResults) => {\n          const clanList = clanListResults.Response.results;\n\n          return clanList.slice(0, 10).map((c) => {\n            return {\n              iconName: this.getIcon(-1),\n              type: 'clan',\n              name: c.name,\n              id: c.groupId.toString(),\n              clanInfo: c\n            };\n          });\n        })\n      );\n  }\n  combinedSearch(currentQuery) {\n    const clanSearch = this.textClanSearch(currentQuery);\n    const playerSearch = this.textPlayerSearch(currentQuery);\n\n    return forkJoin([clanSearch, playerSearch]).pipe(\n      map(([clanSearchResults, playerSearchResults]) => {\n        return [...clanSearchResults, ...playerSearchResults];\n      })\n    );\n  }\n  textPlayerSearch(currentQuery): Observable<ClanSearchResultItem[]> {\n    const url = `https://www.bungie.net/Platform/User/Search/Prefix/${currentQuery}/0`;\n    return this.httpClient.get(url).pipe(\n      map((searchResults: any) => {\n        return searchResults.Response.searchResults.slice(0, 10).map((profile) => {\n          const displayName = `${profile.bungieGlobalDisplayName}#${profile.bungieGlobalDisplayNameCode}`;\n          const memberships = profile.destinyMemberships;\n          const crossSaveOverride = memberships.find((x) => x.crossSaveOverride !== 0);\n          let membership;\n          if (crossSaveOverride) {\n            membership = memberships.find((x) => x.membershipType === crossSaveOverride.crossSaveOverride);\n          } else {\n            membership = memberships[0];\n          }\n\n          return {\n            iconName: this.getIcon(membership.membershipType),\n            name: displayName,\n            memberInfo: membership,\n            type: 'player'\n          };\n        });\n      })\n    );\n  }\n\n  findPlayerClan(selectedItem) {\n    return this.groupService\n      .groupV2GetGroupsForMember(0, 1, selectedItem.membershipId, selectedItem.membershipType)\n      .pipe(take(1))\n      .subscribe(({ Response }) => {\n        if (Response.totalResults > 0) {\n          //this.persistSelection(Response.results[0]?.group);\n          //this.open(Response.results[0]?.group);\n          this.addClan(Response.results[0]?.group);\n        } else {\n          this.dialog.open(SearchErrorDialogComponent, { data: 'No clan found for the user.' });\n        }\n      });\n  }\n\n  addClan(clan: GroupsV2GroupV2Card) {\n    this.store.dispatch(\n      addClan({ clanId: clan.groupId.toString(), clanName: clan.name, clanTag: clan.clanInfo.clanCallsign || '' })\n    );\n  }\n\n  getIcon(type: number) {\n    switch (type) {\n      case -1:\n        return 'people';\n      case 1:\n        return 'xbox';\n      case 2:\n        return 'playstation';\n      case 3:\n        return 'steam';\n      default:\n        return 'sports_esports';\n    }\n  }\n}\n",
+            "sourceCode": "import { HttpClient } from '@angular/common/http';\r\nimport { Injectable } from '@angular/core';\r\nimport { MatDialog } from '@angular/material/dialog';\r\nimport { addClan } from '@core/store/clans';\r\nimport { selectAllClans } from '@core/store/clans/clans.selectors';\r\nimport { Store } from '@ngrx/store';\r\nimport { GroupsV2GroupV2Card, GroupV2Service } from 'bungie-api-angular';\r\nimport { forkJoin, map, Observable, take } from 'rxjs';\r\nimport { ClanSearchModule } from '../clan-search-shell/clan-search-shell.module';\r\nimport { SearchErrorDialogComponent } from '../components/search-error-dialog/search-error-dialog.component';\r\nimport { ClanSearchResultItem } from '../models/ClanSearchResultItem';\r\n\r\n@Injectable({\r\n  providedIn: ClanSearchModule\r\n})\r\nexport class ClanSearchService {\r\n  constructor(\r\n    private groupService: GroupV2Service,\r\n    private httpClient: HttpClient,\r\n    private store: Store,\r\n    public dialog: MatDialog\r\n  ) {}\r\n\r\n  clans$ = this.store.select(selectAllClans);\r\n\r\n  numericClanSearch(clanId) {\r\n    return this.groupService.groupV2GetGroup(clanId).pipe(\r\n      map((clanResult) => {\r\n        const c = clanResult.Response.detail;\r\n        return [\r\n          {\r\n            iconName: this.getIcon(-1),\r\n            type: 'clan',\r\n            name: c.name,\r\n            id: c.groupId.toString(),\r\n            clanInfo: c\r\n          }\r\n        ];\r\n      })\r\n    );\r\n  }\r\n  textClanSearch(currentQuery): Observable<ClanSearchResultItem[]> {\r\n    return this.groupService\r\n      .groupV2GroupSearch({\r\n        name: currentQuery,\r\n        groupType: 1,\r\n        groupMemberCountFilter: null,\r\n        tagText: null,\r\n        localeFilter: null\r\n      })\r\n      .pipe(\r\n        map((clanListResults) => {\r\n          const clanList = clanListResults.Response.results;\r\n\r\n          return clanList.slice(0, 10).map((c) => {\r\n            return {\r\n              iconName: this.getIcon(-1),\r\n              type: 'clan',\r\n              name: c.name,\r\n              id: c.groupId.toString(),\r\n              clanInfo: c\r\n            };\r\n          });\r\n        })\r\n      );\r\n  }\r\n  combinedSearch(currentQuery) {\r\n    const clanSearch = this.textClanSearch(currentQuery);\r\n    const playerSearch = this.textPlayerSearch(currentQuery);\r\n\r\n    return forkJoin([clanSearch, playerSearch]).pipe(\r\n      map(([clanSearchResults, playerSearchResults]) => {\r\n        return [...clanSearchResults, ...playerSearchResults];\r\n      })\r\n    );\r\n  }\r\n  textPlayerSearch(currentQuery): Observable<ClanSearchResultItem[]> {\r\n    const url = `https://www.bungie.net/Platform/User/Search/Prefix/${currentQuery}/0`;\r\n    return this.httpClient.get(url).pipe(\r\n      map((searchResults: any) => {\r\n        return searchResults.Response.searchResults.slice(0, 10).map((profile) => {\r\n          const displayName = `${profile.bungieGlobalDisplayName}#${profile.bungieGlobalDisplayNameCode}`;\r\n          const memberships = profile.destinyMemberships;\r\n          const crossSaveOverride = memberships.find((x) => x.crossSaveOverride !== 0);\r\n          let membership;\r\n          if (crossSaveOverride) {\r\n            membership = memberships.find((x) => x.membershipType === crossSaveOverride.crossSaveOverride);\r\n          } else {\r\n            membership = memberships[0];\r\n          }\r\n\r\n          return {\r\n            iconName: this.getIcon(membership.membershipType),\r\n            name: displayName,\r\n            memberInfo: membership,\r\n            type: 'player'\r\n          };\r\n        });\r\n      })\r\n    );\r\n  }\r\n\r\n  findPlayerClan(selectedItem) {\r\n    return this.groupService\r\n      .groupV2GetGroupsForMember(0, 1, selectedItem.membershipId, selectedItem.membershipType)\r\n      .pipe(take(1))\r\n      .subscribe(({ Response }) => {\r\n        if (Response.totalResults > 0) {\r\n          //this.persistSelection(Response.results[0]?.group);\r\n          //this.open(Response.results[0]?.group);\r\n          this.addClan(Response.results[0]?.group);\r\n        } else {\r\n          this.dialog.open(SearchErrorDialogComponent, { data: 'No clan found for the user.' });\r\n        }\r\n      });\r\n  }\r\n\r\n  addClan(clan: GroupsV2GroupV2Card) {\r\n    this.store.dispatch(\r\n      addClan({ clanId: clan.groupId.toString(), clanName: clan.name, clanTag: clan.clanInfo.clanCallsign || '' })\r\n    );\r\n  }\r\n\r\n  getIcon(type: number) {\r\n    switch (type) {\r\n      case -1:\r\n        return 'people';\r\n      case 1:\r\n        return 'xbox';\r\n      case 2:\r\n        return 'playstation';\r\n      case 3:\r\n        return 'steam';\r\n      default:\r\n        return 'sports_esports';\r\n    }\r\n  }\r\n}\r\n",
             "constructorObj": {
                 "name": "constructor",
                 "description": "",
@@ -16731,8 +16852,9 @@
         },
         {
             "name": "ClanDetailCellComponent",
-            "id": "component-ClanDetailCellComponent-32948b860f1eeaac2deb150bb293b9ab493c9c3164f7788bf6bf5809abde6eed93352ca1c6dcf585261d50c9fafde36a0ffb0069a3b4a9e7e5c28dacb6a7fe48",
+            "id": "component-ClanDetailCellComponent-ac34576172ea8eec8fd87c8d49db844007482273da121ec452715f0e89673ba67cc60b7a5d6a67da7b524b7b1e090b9ef97c598a8de050982fe4e3ac1687f18e",
             "file": "projects/clan-dashboard/src/app/features/clan-details/components/clan-detail-cell/clan-detail-cell.component.ts",
+            "changeDetection": "ChangeDetectionStrategy.OnPush",
             "encapsulation": [],
             "entryComponents": [],
             "inputs": [],
@@ -16752,7 +16874,7 @@
                     "name": "clanDetail",
                     "deprecated": false,
                     "deprecationMessage": "",
-                    "line": 13,
+                    "line": 19,
                     "type": "GroupsV2GroupV2",
                     "decorators": []
                 },
@@ -16760,12 +16882,37 @@
                     "name": "loading",
                     "deprecated": false,
                     "deprecationMessage": "",
-                    "line": 14,
+                    "line": 20,
+                    "type": "boolean",
+                    "decorators": []
+                },
+                {
+                    "name": "showAdd",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "line": 21,
                     "type": "boolean",
                     "decorators": []
                 }
             ],
-            "outputsClass": [],
+            "outputsClass": [
+                {
+                    "name": "addClan",
+                    "defaultValue": "new EventEmitter<GroupsV2GroupV2>()",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "line": 23,
+                    "type": "EventEmitter"
+                },
+                {
+                    "name": "removeClan",
+                    "defaultValue": "new EventEmitter<string>()",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "line": 22,
+                    "type": "EventEmitter"
+                }
+            ],
             "propertiesClass": [],
             "methodsClass": [],
             "deprecated": false,
@@ -16775,20 +16922,20 @@
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { Component, Input } from '@angular/core';\nimport { CommonModule } from '@angular/common';\nimport { GroupsV2GroupV2 } from 'bungie-api-angular';\n\n@Component({\n  selector: 'app-clan-detail-cell',\n  standalone: true,\n  imports: [CommonModule],\n  templateUrl: './clan-detail-cell.component.html',\n  styleUrls: ['./clan-detail-cell.component.scss']\n})\nexport class ClanDetailCellComponent {\n  @Input() clanDetail: GroupsV2GroupV2;\n  @Input() loading: boolean;\n}\n",
+            "sourceCode": "import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';\r\nimport { CommonModule } from '@angular/common';\r\nimport { GroupsV2GroupV2 } from 'bungie-api-angular';\r\nimport { MatCardModule } from '@angular/material/card';\r\nimport { MatButtonModule } from '@angular/material/button';\r\nimport { MatListModule } from '@angular/material/list';\r\nimport { PipesModule } from '@destiny/components/pipes';\r\nimport { MatIconModule } from '@angular/material/icon';\r\nimport { MatTooltipModule } from '@angular/material/tooltip';\r\n@Component({\r\n  selector: 'app-clan-detail-cell',\r\n  standalone: true,\r\n  imports: [CommonModule, MatCardModule, MatButtonModule, MatListModule, PipesModule, MatIconModule, MatTooltipModule],\r\n  changeDetection: ChangeDetectionStrategy.OnPush,\r\n  templateUrl: './clan-detail-cell.component.html',\r\n  styleUrls: ['./clan-detail-cell.component.scss']\r\n})\r\nexport class ClanDetailCellComponent {\r\n  @Input() clanDetail: GroupsV2GroupV2;\r\n  @Input() loading: boolean;\r\n  @Input() showAdd: boolean;\r\n  @Output() removeClan = new EventEmitter<string>();\r\n  @Output() addClan = new EventEmitter<GroupsV2GroupV2>();\r\n}\r\n",
             "assetsDirs": [],
             "styleUrlsData": [
                 {
-                    "data": "",
+                    "data": ":host {\r\n  display: block;\r\n}\r\n.clan-detail {\r\n  width: 100%;\r\n  .mat-mdc-card-title-group {\r\n    display: block;\r\n  }\r\n  .mat-mdc-card-title {\r\n    display: flex;\r\n    align-items: center;\r\n\r\n    .title-spacer {\r\n      flex: 1 1 auto;\r\n    }\r\n  }\r\n\r\n  &__loading {\r\n    .skeleton-title {\r\n      width: 250px;\r\n      margin-bottom: 0.75rem;\r\n    }\r\n    .skeleton-sub-title {\r\n      width: 250px;\r\n      margin-bottom: 0.75rem;\r\n    }\r\n\r\n    .skeleton-list {\r\n      width: 200px;\r\n    }\r\n    .skeleton-button {\r\n      width: 75px;\r\n    }\r\n  }\r\n}\r\n",
                     "styleUrl": "./clan-detail-cell.component.scss"
                 }
             ],
             "stylesData": "",
-            "templateData": "<div *ngIf=\"loading\">loading</div>\n{{loading}}\n<h3>\n  {{clanDetail.name}}\n</h3>\n"
+            "templateData": "<ng-container *ngIf=\"!loading; else loadingTemplate\">\r\n  <mat-card class=\"clan-detail\">\r\n    <mat-card-header>\r\n      <mat-card-title-group>\r\n        <!-- TODO: Clan Banner -->\r\n        <mat-card-title>\r\n          <div class=\"title-spacer\">{{clanDetail.name}} <ng-container *ngIf=\"clanDetail.clanInfo.clanCallsign\">\r\n              [{{clanDetail.clanInfo.clanCallsign}}]</ng-container>\r\n          </div>\r\n          <a mat-icon-button href=\"https://www.bungie.net/en/ClanV2?groupid={{clanDetail.groupId}}\" target=\"_blank\"\r\n            matTooltip=\"Bungie Group Page\">\r\n            <mat-icon>open_in_new</mat-icon>\r\n          </a>\r\n        </mat-card-title>\r\n        <mat-card-subtitle>\r\n          {{clanDetail.motto}}\r\n        </mat-card-subtitle>\r\n      </mat-card-title-group>\r\n    </mat-card-header>\r\n    <mat-card-content>\r\n      <mat-list>\r\n        <mat-list-item>\r\n          <mat-icon matListItemIcon>groups</mat-icon>{{clanDetail.memberCount}} Members\r\n        </mat-list-item>\r\n        <mat-list-item>\r\n          <mat-icon matListItemIcon>calendar_month</mat-icon> Created\r\n          {{clanDetail.creationDate | bungieDate}}\r\n        </mat-list-item>\r\n        <!-- TODO: OPEN INVITE ONLY -->\r\n      </mat-list>\r\n\r\n    </mat-card-content>\r\n    <mat-card-actions align=\"end\">\r\n      <button *ngIf=\"showAdd\" mat-button (click)=\"addClan.emit(clanDetail)\">Add</button>\r\n      <button *ngIf=\"!showAdd\" mat-button (click)=\"removeClan.emit(clanDetail.groupId.toString())\">Remove</button>\r\n    </mat-card-actions>\r\n  </mat-card>\r\n</ng-container>\r\n<ng-template #loadingTemplate>\r\n  <mat-card class=\"clan-detail clan-detail__loading\">\r\n    <mat-card-header>\r\n      <mat-card-title-group>\r\n        <mat-card-title>\r\n          <span class=\"skeleton-item skeleton-title\"></span>\r\n        </mat-card-title>\r\n        <mat-card-subtitle>\r\n          <span class=\"skeleton-item skeleton-sub-title\"></span>\r\n        </mat-card-subtitle>\r\n      </mat-card-title-group>\r\n    </mat-card-header>\r\n    <mat-card-content>\r\n      <mat-list>\r\n        <mat-list-item>\r\n          <span class=\"skeleton-item skeleton-list\"></span>\r\n        </mat-list-item>\r\n        <mat-list-item>\r\n          <span class=\"skeleton-item skeleton-list\"></span>\r\n        </mat-list-item>\r\n        <!-- TODO: OPEN INVITE ONLY -->\r\n      </mat-list>\r\n\r\n    </mat-card-content>\r\n    <mat-card-actions align=\"end\">\r\n      <span class=\"skeleton-item skeleton-button\"></span>\r\n    </mat-card-actions>\r\n  </mat-card>\r\n</ng-template>\r\n"
         },
         {
             "name": "ClanDetailComponent",
-            "id": "component-ClanDetailComponent-fb5404db2e430c513f13bfbc3db71d9b5c53d585415c54c2f4c80674d2d3866423617e429102f9f2107f87419965021e52a5e80596f45e548db7225ef74a5a8f",
+            "id": "component-ClanDetailComponent-d9f49de037976d57b6c9091a2a169377e9406dec1156ecdb371fac754892101183d02cfed79c5b045d6f188e8893f39ac37e78666ccc124e09f2a60424c1b638",
             "file": "projects/clan-dashboard/src/app/features/clan-details/clan-detail/clan-detail.component.ts",
             "encapsulation": [],
             "entryComponents": [],
@@ -16812,6 +16959,15 @@
                     "line": 14,
                     "type": "ClanConfig",
                     "decorators": []
+                },
+                {
+                    "name": "showAdd",
+                    "defaultValue": "false",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "line": 15,
+                    "type": "boolean",
+                    "decorators": []
                 }
             ],
             "outputsClass": [],
@@ -16823,7 +16979,7 @@
                     "type": "Observable<GroupsV2GroupV2>",
                     "optional": false,
                     "description": "",
-                    "line": 18
+                    "line": 19
                 },
                 {
                     "name": "loading",
@@ -16833,10 +16989,38 @@
                     "type": "",
                     "optional": false,
                     "description": "",
-                    "line": 19
+                    "line": 20
                 }
             ],
             "methodsClass": [
+                {
+                    "name": "addClan",
+                    "args": [
+                        {
+                            "name": "clanDetail",
+                            "type": "GroupsV2GroupV2",
+                            "deprecated": false,
+                            "deprecationMessage": ""
+                        }
+                    ],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 35,
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "jsdoctags": [
+                        {
+                            "name": "clanDetail",
+                            "type": "GroupsV2GroupV2",
+                            "deprecated": false,
+                            "deprecationMessage": "",
+                            "tagName": {
+                                "text": "param"
+                            }
+                        }
+                    ]
+                },
                 {
                     "name": "ngOnChanges",
                     "args": [
@@ -16850,13 +17034,41 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 20,
+                    "line": 21,
                     "deprecated": false,
                     "deprecationMessage": "",
                     "jsdoctags": [
                         {
                             "name": "changes",
                             "type": "SimpleChanges",
+                            "deprecated": false,
+                            "deprecationMessage": "",
+                            "tagName": {
+                                "text": "param"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "removeClan",
+                    "args": [
+                        {
+                            "name": "clanId",
+                            "type": "string",
+                            "deprecated": false,
+                            "deprecationMessage": ""
+                        }
+                    ],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 32,
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "jsdoctags": [
+                        {
+                            "name": "clanId",
+                            "type": "string",
                             "deprecated": false,
                             "deprecationMessage": "",
                             "tagName": {
@@ -16873,7 +17085,7 @@
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';\nimport { ClanConfig } from '@core/store/clans';\nimport { ClanDetailService } from '../data-access/clan-detail.service';\nimport { Observable, tap } from 'rxjs';\nimport { GroupsV2GroupV2 } from 'bungie-api-angular';\n\n@Component({\n  selector: 'app-clan-detail',\n  templateUrl: './clan-detail.component.html',\n  styleUrls: ['./clan-detail.component.scss']\n})\nexport class ClanDetailComponent implements OnChanges {\n  // export class ClanDetailComponent {\n  @Input() clanConfig: ClanConfig;\n\n  constructor(private clanDetailService: ClanDetailService) {}\n\n  clanDetails$: Observable<GroupsV2GroupV2>;\n  loading = false;\n  ngOnChanges(changes: SimpleChanges): void {\n    if (changes['clanConfig']) {\n      this.loading = true;\n      if (this.clanConfig.clanId) {\n        this.clanDetails$ = this.clanDetailService\n          .getClan(this.clanConfig.clanId)\n          .pipe(tap(() => this.loading = false));\n      }\n    }\n  }\n}\n",
+            "sourceCode": "import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';\r\nimport { ClanConfig } from '@core/store/clans';\r\nimport { ClanDetailService } from '../data-access/clan-detail.service';\r\nimport { Observable, tap } from 'rxjs';\r\nimport { GroupsV2GroupV2 } from 'bungie-api-angular';\r\n\r\n@Component({\r\n  selector: 'app-clan-detail',\r\n  templateUrl: './clan-detail.component.html',\r\n  styleUrls: ['./clan-detail.component.scss']\r\n})\r\nexport class ClanDetailComponent implements OnChanges {\r\n  // export class ClanDetailComponent {\r\n  @Input() clanConfig: ClanConfig;\r\n  @Input() showAdd: boolean = false;\r\n\r\n  constructor(private clanDetailService: ClanDetailService) {}\r\n\r\n  clanDetails$: Observable<GroupsV2GroupV2>;\r\n  loading = false;\r\n  ngOnChanges(changes: SimpleChanges): void {\r\n    if (changes['clanConfig']) {\r\n      this.loading = true;\r\n      if (this.clanConfig.clanId) {\r\n        this.clanDetails$ = this.clanDetailService\r\n          .getClan(this.clanConfig.clanId)\r\n          .pipe(tap(() => (this.loading = false)));\r\n      }\r\n    }\r\n  }\r\n\r\n  removeClan(clanId: string) {\r\n    this.clanDetailService.removeClan(clanId);\r\n  }\r\n  addClan(clanDetail: GroupsV2GroupV2) {\r\n    this.clanDetailService.addClan(clanDetail);\r\n  }\r\n}\r\n",
             "assetsDirs": [],
             "styleUrlsData": [
                 {
@@ -16895,7 +17107,7 @@
                         "deprecationMessage": ""
                     }
                 ],
-                "line": 14,
+                "line": 15,
                 "jsdoctags": [
                     {
                         "name": "clanDetailService",
@@ -16911,7 +17123,47 @@
             "implements": [
                 "OnChanges"
             ],
-            "templateData": "<app-clan-detail-cell [clanDetail]=\"clanDetails$ | async\" [loading]=\"loading\"></app-clan-detail-cell>\n"
+            "templateData": "<app-clan-detail-cell [clanDetail]=\"clanDetails$ | async\" [loading]=\"loading\" (removeClan)=\"removeClan($event)\"\r\n  [showAdd]=\"showAdd\" (addClan)=\"addClan($event)\"></app-clan-detail-cell>\r\n"
+        },
+        {
+            "name": "ClanInfoComponent",
+            "id": "component-ClanInfoComponent-094890e4bed995bacfb73905f9c7d8c4dd408c3f65b83f24d4b4a48b7b884e7913a69091372a84e5bb92b21b8b8493a34b47c69899839e386b791217f04ca544",
+            "file": "projects/clan-dashboard/src/app/features/clans-details/components/clan-info/clan-info.component.ts",
+            "encapsulation": [],
+            "entryComponents": [],
+            "inputs": [],
+            "outputs": [],
+            "providers": [],
+            "selector": "app-clan-info",
+            "styleUrls": [
+                "./clan-info.component.scss"
+            ],
+            "styles": [],
+            "templateUrl": [
+                "./clan-info.component.html"
+            ],
+            "viewProviders": [],
+            "inputsClass": [],
+            "outputsClass": [],
+            "propertiesClass": [],
+            "methodsClass": [],
+            "deprecated": false,
+            "deprecationMessage": "",
+            "hostBindings": [],
+            "hostListeners": [],
+            "description": "",
+            "rawdescription": "\n",
+            "type": "component",
+            "sourceCode": "import { Component } from '@angular/core';\nimport { CommonModule } from '@angular/common';\n\n@Component({\n  selector: 'app-clan-info',\n  standalone: true,\n  imports: [CommonModule],\n  templateUrl: './clan-info.component.html',\n  styleUrls: ['./clan-info.component.scss']\n})\nexport class ClanInfoComponent {\n\n}\n",
+            "assetsDirs": [],
+            "styleUrlsData": [
+                {
+                    "data": "",
+                    "styleUrl": "./clan-info.component.scss"
+                }
+            ],
+            "stylesData": "",
+            "templateData": "<p>clan-info works!</p>\n"
         },
         {
             "name": "ClansDetailsComponent",
@@ -16992,7 +17244,7 @@
         },
         {
             "name": "ClanSearchAutocompleteComponent",
-            "id": "component-ClanSearchAutocompleteComponent-9090f65bcc6e754e28c8db8fbb0976a10e885d806e0e5b6e9d2bced13dfe12e3b7342a78297d38e4b0981fc840f12401f814ced4081faacec54d13774fd3f1e5",
+            "id": "component-ClanSearchAutocompleteComponent-892c724f2ac6ab3656b33d5575996b6a1ac8dc06b70daa48e4130bfd57a445c8784ec500ea22a363608f4a5167ab53f90d8a2582f5a0fdf0492fa109518930fd",
             "file": "projects/clan-dashboard/src/app/features/clan-search/components/clan-search-autocomplete/clan-search-autocomplete.component.ts",
             "changeDetection": "ChangeDetectionStrategy.OnPush",
             "encapsulation": [],
@@ -17127,7 +17379,7 @@
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';\nimport { CommonModule } from '@angular/common';\nimport { MatFormFieldModule } from '@angular/material/form-field';\nimport { MatAutocompleteModule, MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';\nimport { FormControl, ReactiveFormsModule } from '@angular/forms';\nimport { MatIconModule } from '@angular/material/icon';\nimport { MatInputModule } from '@angular/material/input';\nimport { sampleTime } from 'rxjs';\nimport { ClanSearchResultItem } from '../../models/ClanSearchResultItem';\nimport { MatProgressSpinnerModule } from '@angular/material/progress-spinner';\n@Component({\n  selector: 'app-clan-search-autocomplete',\n  standalone: true,\n  imports: [\n    CommonModule,\n    MatFormFieldModule,\n    MatInputModule,\n    MatAutocompleteModule,\n    ReactiveFormsModule,\n    MatProgressSpinnerModule,\n    MatIconModule\n  ],\n  changeDetection: ChangeDetectionStrategy.OnPush,\n  templateUrl: './clan-search-autocomplete.component.html',\n  styleUrls: ['./clan-search-autocomplete.component.scss']\n})\nexport class ClanSearchAutocompleteComponent implements OnInit {\n  @Input() autoCompleteResults: ClanSearchResultItem[];\n  @Input() loading: boolean;\n\n  @Output() addClan = new EventEmitter<any>();\n  @Output() addMembersClan = new EventEmitter<any>();\n  @Output() searchClans = new EventEmitter<string>();\n\n  autocompleteControl = new FormControl('');\n\n  ngOnInit() {\n    this.autocompleteControl.valueChanges.pipe(sampleTime(1000)).subscribe((result) => {\n      if (typeof result === 'string') {\n        this.searchClans.emit(result);\n      }\n    });\n  }\n\n  autocompleteSelected(event: MatAutocompleteSelectedEvent, input: HTMLInputElement) {\n    const selectedItem = event.option.value as ClanSearchResultItem;\n    input.value = '';\n    input.blur();\n    if (selectedItem.type === 'clan') {\n      this.addClan.emit(selectedItem.clanInfo);\n    } else if (selectedItem.type === 'player') {\n      this.addMembersClan.emit(selectedItem);\n    }\n  }\n}\n",
+            "sourceCode": "import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';\r\nimport { CommonModule } from '@angular/common';\r\nimport { MatFormFieldModule } from '@angular/material/form-field';\r\nimport { MatAutocompleteModule, MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';\r\nimport { FormControl, ReactiveFormsModule } from '@angular/forms';\r\nimport { MatIconModule } from '@angular/material/icon';\r\nimport { MatInputModule } from '@angular/material/input';\r\nimport { sampleTime } from 'rxjs';\r\nimport { ClanSearchResultItem } from '../../models/ClanSearchResultItem';\r\nimport { MatProgressSpinnerModule } from '@angular/material/progress-spinner';\r\n@Component({\r\n  selector: 'app-clan-search-autocomplete',\r\n  standalone: true,\r\n  imports: [\r\n    CommonModule,\r\n    MatFormFieldModule,\r\n    MatInputModule,\r\n    MatAutocompleteModule,\r\n    ReactiveFormsModule,\r\n    MatProgressSpinnerModule,\r\n    MatIconModule\r\n  ],\r\n  changeDetection: ChangeDetectionStrategy.OnPush,\r\n  templateUrl: './clan-search-autocomplete.component.html',\r\n  styleUrls: ['./clan-search-autocomplete.component.scss']\r\n})\r\nexport class ClanSearchAutocompleteComponent implements OnInit {\r\n  @Input() autoCompleteResults: ClanSearchResultItem[];\r\n  @Input() loading: boolean;\r\n\r\n  @Output() addClan = new EventEmitter<any>();\r\n  @Output() addMembersClan = new EventEmitter<any>();\r\n  @Output() searchClans = new EventEmitter<string>();\r\n\r\n  autocompleteControl = new FormControl('');\r\n\r\n  ngOnInit() {\r\n    this.autocompleteControl.valueChanges.pipe(sampleTime(1000)).subscribe((result) => {\r\n      if (typeof result === 'string') {\r\n        this.searchClans.emit(result);\r\n      }\r\n    });\r\n  }\r\n\r\n  autocompleteSelected(event: MatAutocompleteSelectedEvent, input: HTMLInputElement) {\r\n    const selectedItem = event.option.value as ClanSearchResultItem;\r\n    input.value = '';\r\n    input.blur();\r\n    if (selectedItem.type === 'clan') {\r\n      this.addClan.emit(selectedItem.clanInfo);\r\n    } else if (selectedItem.type === 'player') {\r\n      this.addMembersClan.emit(selectedItem);\r\n    }\r\n  }\r\n}\r\n",
             "assetsDirs": [],
             "styleUrlsData": [
                 {
@@ -17139,7 +17391,7 @@
             "implements": [
                 "OnInit"
             ],
-            "templateData": "<mat-form-field appearance=\"outline\" class=\"search\">\n  <input matInput #clanInput  [matAutocomplete]=\"auto\"\n    [formControl]=\"autocompleteControl\" placeholder=\"Search by Player Name, Clan Name, Clan Id, or Bungie Clan URL\">\n  <!-- <i matSuffix class=\"material-icons\">mode_edit</i> -->\n  <mat-autocomplete #auto=\"matAutocomplete\" autoActiveFirstOption=\"true\"\n    (optionSelected)=\"autocompleteSelected($event, clanInput)\">\n    <ng-container *ngIf=\"autoCompleteResults || loading\">\n      <mat-option disabled class=\"loading\" *ngIf=\"loading\">\n        <span class=\"loading-spinner\">\n          <mat-spinner matSuffix diameter='35' mode=\"indeterminate\"></mat-spinner>\n          Loading\n        </span>\n      </mat-option>\n      <mat-option *ngFor=\"let clan of autoCompleteResults\" [value]=\"clan\">\n        <span class=\"clan-result\">\n          <ng-container *ngIf=\"clan.type === 'player'; else group\">\n            <mat-icon [svgIcon]=\"clan.iconName\"></mat-icon>\n          </ng-container>\n          {{clan.name}}\n        </span>\n      </mat-option>\n      <mat-option disabled *ngIf=\"autoCompleteResults?.length === 0 && !loading\">\n        Clan Not Found\n      </mat-option>\n    </ng-container>\n  </mat-autocomplete>\n</mat-form-field>\n\n<ng-template #group>\n  <mat-icon>people</mat-icon>\n</ng-template>\n"
+            "templateData": "<mat-form-field appearance=\"outline\" class=\"search\">\r\n  <input matInput #clanInput  [matAutocomplete]=\"auto\"\r\n    [formControl]=\"autocompleteControl\" placeholder=\"Search by Player Name, Clan Name, Clan Id, or Bungie Clan URL\">\r\n  <!-- <i matSuffix class=\"material-icons\">mode_edit</i> -->\r\n  <mat-autocomplete #auto=\"matAutocomplete\" autoActiveFirstOption=\"true\"\r\n    (optionSelected)=\"autocompleteSelected($event, clanInput)\">\r\n    <ng-container *ngIf=\"autoCompleteResults || loading\">\r\n      <mat-option disabled class=\"loading\" *ngIf=\"loading\">\r\n        <span class=\"loading-spinner\">\r\n          <mat-spinner matSuffix diameter='35' mode=\"indeterminate\"></mat-spinner>\r\n          Loading\r\n        </span>\r\n      </mat-option>\r\n      <mat-option *ngFor=\"let clan of autoCompleteResults\" [value]=\"clan\">\r\n        <span class=\"clan-result\">\r\n          <ng-container *ngIf=\"clan.type === 'player'; else group\">\r\n            <mat-icon [svgIcon]=\"clan.iconName\"></mat-icon>\r\n          </ng-container>\r\n          {{clan.name}}\r\n        </span>\r\n      </mat-option>\r\n      <mat-option disabled *ngIf=\"autoCompleteResults?.length === 0 && !loading\">\r\n        Clan Not Found\r\n      </mat-option>\r\n    </ng-container>\r\n  </mat-autocomplete>\r\n</mat-form-field>\r\n\r\n<ng-template #group>\r\n  <mat-icon>people</mat-icon>\r\n</ng-template>\r\n"
         },
         {
             "name": "ClanSearchComponent",
@@ -17278,8 +17530,165 @@
             "templateData": "<div class=\"wrapper\">\r\n  <h1>DOD - Quick Start</h1>\r\n  <p>\r\n    Click these two buttons and then let's go.\r\n  </p>\r\n  <button (click)=\"addClan('2073131', 'DoD - Paternal Chums', 'DOD')\">DoD-PC - Chums</button><br>\r\n  <button (click)=\"addClan('4859164', 'DoD - Paternal Champs', 'DOD')\">DoD-PC - Champs</button><br>\r\n  <a routerLink=\"/\">Let's Go</a>\r\n</div>\r\n"
         },
         {
+            "name": "ClanSearchCuratedViewComponent",
+            "id": "component-ClanSearchCuratedViewComponent-287181c02583a4da025a458881a811aef69c68d0e1c1ec28e4d8368ff6e8e61aaa2324568db58f203cadffac291e38a3654b2a5040c4853c7d327ad370aa14e6",
+            "file": "projects/clan-dashboard/src/app/features/clan-search/clan-search-curated-view/clan-search-curated-view.component.ts",
+            "changeDetection": "ChangeDetectionStrategy.OnPush",
+            "encapsulation": [],
+            "entryComponents": [],
+            "inputs": [],
+            "outputs": [],
+            "providers": [],
+            "selector": "app-clan-search-curated-view",
+            "styleUrls": [
+                "./clan-search-curated-view.component.scss"
+            ],
+            "styles": [],
+            "templateUrl": [
+                "./clan-search-curated-view.component.html"
+            ],
+            "viewProviders": [],
+            "inputsClass": [],
+            "outputsClass": [],
+            "propertiesClass": [
+                {
+                    "name": "activeClans$",
+                    "defaultValue": "this.clanSearchService.clans$",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "optional": false,
+                    "description": "",
+                    "line": 17
+                },
+                {
+                    "name": "clans$",
+                    "defaultValue": "this.route.paramMap.pipe(\r\n    map((params) => {\r\n      return ALL_CLANS.find((x) => x.key === params.get('key'));\r\n    })\r\n  )",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "optional": false,
+                    "description": "",
+                    "line": 19
+                },
+                {
+                    "name": "vm$",
+                    "defaultValue": "combineLatest([this.activeClans$, this.clans$]).pipe(\r\n    map(([ac, c]) => {\r\n      return {\r\n        activeClans: ac,\r\n        clans: c\r\n      };\r\n    })\r\n  )",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "optional": false,
+                    "description": "",
+                    "line": 24
+                }
+            ],
+            "methodsClass": [
+                {
+                    "name": "clanIsActive",
+                    "args": [
+                        {
+                            "name": "clan",
+                            "type": "ClanConfig",
+                            "deprecated": false,
+                            "deprecationMessage": ""
+                        },
+                        {
+                            "name": "activeClans",
+                            "type": "ClanConfig[]",
+                            "deprecated": false,
+                            "deprecationMessage": ""
+                        }
+                    ],
+                    "optional": false,
+                    "returnType": "boolean",
+                    "typeParameters": [],
+                    "line": 36,
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "jsdoctags": [
+                        {
+                            "name": "clan",
+                            "type": "ClanConfig",
+                            "deprecated": false,
+                            "deprecationMessage": "",
+                            "tagName": {
+                                "text": "param"
+                            }
+                        },
+                        {
+                            "name": "activeClans",
+                            "type": "ClanConfig[]",
+                            "deprecated": false,
+                            "deprecationMessage": "",
+                            "tagName": {
+                                "text": "param"
+                            }
+                        }
+                    ]
+                }
+            ],
+            "deprecated": false,
+            "deprecationMessage": "",
+            "hostBindings": [],
+            "hostListeners": [],
+            "description": "",
+            "rawdescription": "\n",
+            "type": "component",
+            "sourceCode": "import { ChangeDetectionStrategy, Component } from '@angular/core';\r\nimport { ActivatedRoute } from '@angular/router';\r\nimport { ClanConfig } from '@core/store/clans';\r\nimport { combineLatest, map } from 'rxjs';\r\nimport { ClanSearchService } from '../data-access/clan-search.service';\r\nimport { ALL_CLANS } from './curated_clans';\r\n\r\n@Component({\r\n  selector: 'app-clan-search-curated-view',\r\n  templateUrl: './clan-search-curated-view.component.html',\r\n  styleUrls: ['./clan-search-curated-view.component.scss'],\r\n  changeDetection: ChangeDetectionStrategy.OnPush\r\n})\r\nexport class ClanSearchCuratedViewComponent {\r\n  constructor(private route: ActivatedRoute, private clanSearchService: ClanSearchService) {}\r\n\r\n  activeClans$ = this.clanSearchService.clans$;\r\n\r\n  clans$ = this.route.paramMap.pipe(\r\n    map((params) => {\r\n      return ALL_CLANS.find((x) => x.key === params.get('key'));\r\n    })\r\n  );\r\n  vm$ = combineLatest([this.activeClans$, this.clans$]).pipe(\r\n    map(([ac, c]) => {\r\n      return {\r\n        activeClans: ac,\r\n        clans: c\r\n      };\r\n    })\r\n  );\r\n\r\n  // Don't ever do this on a big app.\r\n  // I'm donig this in a controlled state and I'm\r\n  // feeling too lazy to make a pipe\r\n  clanIsActive(clan: ClanConfig, activeClans: ClanConfig[]) {\r\n    return !activeClans.find((x) => x.clanId === clan.clanId);\r\n  }\r\n}\r\n",
+            "assetsDirs": [],
+            "styleUrlsData": [
+                {
+                    "data": "header {\r\n  margin: 1rem;\r\n  text-align: center;\r\n}\r\n.found-clans {\r\n  display: flex;\r\n  flex-wrap: wrap;\r\n  justify-content: center;\r\n  width: 100%;\r\n  margin: 0 auto;\r\n  .clan {\r\n    width: 100%;\r\n    max-width: 480px;\r\n    margin: 1rem;\r\n  }\r\n}\r\n.clan-groups {\r\n  h2 {\r\n    text-align: center;\r\n  }\r\n  hr {\r\n    width: 98%;\r\n  }\r\n  margin-bottom: 4rem;\r\n}\r\n",
+                    "styleUrl": "./clan-search-curated-view.component.scss"
+                }
+            ],
+            "stylesData": "",
+            "constructorObj": {
+                "name": "constructor",
+                "description": "",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "args": [
+                    {
+                        "name": "route",
+                        "type": "ActivatedRoute",
+                        "deprecated": false,
+                        "deprecationMessage": ""
+                    },
+                    {
+                        "name": "clanSearchService",
+                        "type": "ClanSearchService",
+                        "deprecated": false,
+                        "deprecationMessage": ""
+                    }
+                ],
+                "line": 14,
+                "jsdoctags": [
+                    {
+                        "name": "route",
+                        "type": "ActivatedRoute",
+                        "deprecated": false,
+                        "deprecationMessage": "",
+                        "tagName": {
+                            "text": "param"
+                        }
+                    },
+                    {
+                        "name": "clanSearchService",
+                        "type": "ClanSearchService",
+                        "deprecated": false,
+                        "deprecationMessage": "",
+                        "tagName": {
+                            "text": "param"
+                        }
+                    }
+                ]
+            },
+            "templateData": "<ng-container *ngIf=\"vm$|async as vm\">\r\n  <header>\r\n    <h1>{{vm.clans.title}}</h1>\r\n    <p>\r\n      Please reach out to <a href=\"https://twitter.com/WorthyD\" target=\"_blank\">WorthyD</a> to update\r\n    </p>\r\n    <button color=\"accent\" mat-raised-button routerLink=\"/\">Let's Go</button>\r\n  </header>\r\n  <div class=\"found-clans\">\r\n    <ng-container *ngFor=\"let clan of vm.clans.clans\">\r\n      <app-clan-detail [clanConfig]=\"clan\" [showAdd]=\"clanIsActive(clan, vm.activeClans)\" class=\"clan\">\r\n      </app-clan-detail>\r\n    </ng-container>\r\n\r\n  </div>\r\n  <ng-container *ngFor=\"let clanGroup of vm.clans.subGroups\">\r\n    <div class=\"clan-groups\">\r\n      <h2>{{clanGroup.title}}</h2>\r\n      <div class=\"found-clans\">\r\n        <ng-container *ngFor=\"let clan of clanGroup.clans\">\r\n          <app-clan-detail [clanConfig]=\"clan\" [showAdd]=\"clanIsActive(clan, vm.activeClans)\" class=\"clan\">\r\n          </app-clan-detail>\r\n        </ng-container>\r\n      </div>\r\n      <hr>\r\n    </div>\r\n  </ng-container>\r\n\r\n</ng-container>\r\n"
+        },
+        {
             "name": "ClanSearchViewComponent",
-            "id": "component-ClanSearchViewComponent-5b6fb5f5739e9a70dd7112471211e3172eb7ae58b1d401095e0455e299f261f47c0a82126e7a4b5dd8fc044c49485e2e91656d88c9d710c3784bb188cc45ae63",
+            "id": "component-ClanSearchViewComponent-c9e2fa9a83c8b3e6a5f0cfcb9a944278939546dc686faa0f104aa7a824e27a15661772ed0177b2ec9ad1e87b9a6a364f787ad969aa1295dbf3fa12aa39af4ea9",
             "file": "projects/clan-dashboard/src/app/features/clan-search/clan-search-view/clan-search-view.component.ts",
             "encapsulation": [],
             "entryComponents": [],
@@ -17336,6 +17745,16 @@
                     "optional": false,
                     "description": "",
                     "line": 18
+                },
+                {
+                    "name": "year",
+                    "defaultValue": "new Date().getFullYear()",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "optional": false,
+                    "description": "",
+                    "line": 14
                 }
             ],
             "methodsClass": [
@@ -17380,7 +17799,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 52,
+                    "line": 55,
                     "deprecated": false,
                     "deprecationMessage": "",
                     "jsdoctags": [
@@ -17394,6 +17813,16 @@
                             }
                         }
                     ]
+                },
+                {
+                    "name": "demoClan",
+                    "args": [],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 51,
+                    "deprecated": false,
+                    "deprecationMessage": ""
                 },
                 {
                     "name": "searchClans",
@@ -17431,11 +17860,11 @@
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { Component } from '@angular/core';\nimport { Store } from '@ngrx/store';\nimport { GroupsV2GroupV2Card } from 'bungie-api-angular/lib/model/groupsV2GroupV2Card';\nimport { catchError, Observable, of, switchMap, tap } from 'rxjs';\nimport { ClanSearchService } from '../data-access/clan-search.service';\n\n@Component({\n  selector: 'app-clan-search-view',\n  templateUrl: './clan-search-view.component.html',\n  styleUrls: ['./clan-search-view.component.scss']\n})\nexport class ClanSearchViewComponent {\n  constructor(private clanSearchService: ClanSearchService) {}\n\n  clans$ = this.clanSearchService.clans$;\n\n  bgClass = `bg-${Math.floor(Math.random() * 3) + 1}`;\n  loading = false;\n  autoCompleteResults$: Observable<any>;\n\n  searchClans(search: any) {\n    this.autoCompleteResults$ = of(search).pipe(\n      tap(() => (this.loading = true)),\n      switchMap((search) => {\n        if (!search || search.name) {\n          this.loading = false;\n          return of([]);\n        } else if (!isNaN(search)) {\n          return this.clanSearchService.numericClanSearch(search);\n        } else if (search.indexOf && search.indexOf('https://www.bungie.net/') > -1) {\n          const clanId = search.split('=')[1];\n          return this.clanSearchService.numericClanSearch(clanId);\n        } else {\n          //return this.textClanSearch(currentQuery);\n          return this.clanSearchService.combinedSearch(search);\n        }\n      }),\n      tap(() => (this.loading = false)),\n      catchError((err) => {\n        this.loading = false;\n        // Just remapping the data to show the error\n        // There are better ways of doing this\n        return of([]);\n      })\n    );\n  }\n\n  addClan(clan: GroupsV2GroupV2Card) {\n    this.clanSearchService.addClan(clan);\n  }\n\n  addMembersClan(member: any) {\n    console.log('adding member', member);\n    this.clanSearchService.findPlayerClan(member);\n  }\n}\n",
+            "sourceCode": "import { Component } from '@angular/core';\r\nimport { Store } from '@ngrx/store';\r\nimport { GroupsV2GroupV2Card } from 'bungie-api-angular/lib/model/groupsV2GroupV2Card';\r\nimport { catchError, Observable, of, switchMap, tap } from 'rxjs';\r\nimport { ClanSearchService } from '../data-access/clan-search.service';\r\n\r\n@Component({\r\n  selector: 'app-clan-search-view',\r\n  templateUrl: './clan-search-view.component.html',\r\n  styleUrls: ['./clan-search-view.component.scss']\r\n})\r\nexport class ClanSearchViewComponent {\r\n  constructor(private clanSearchService: ClanSearchService) {}\r\n  year = new Date().getFullYear();\r\n  clans$ = this.clanSearchService.clans$;\r\n\r\n  bgClass = `bg-${Math.floor(Math.random() * 3) + 1}`;\r\n  loading = false;\r\n  autoCompleteResults$: Observable<any>;\r\n\r\n  searchClans(search: any) {\r\n    this.autoCompleteResults$ = of(search).pipe(\r\n      tap(() => (this.loading = true)),\r\n      switchMap((search) => {\r\n        if (!search || search.name) {\r\n          this.loading = false;\r\n          return of([]);\r\n        } else if (!isNaN(search)) {\r\n          return this.clanSearchService.numericClanSearch(search);\r\n        } else if (search.indexOf && search.indexOf('https://www.bungie.net/') > -1) {\r\n          const clanId = search.split('=')[1];\r\n          return this.clanSearchService.numericClanSearch(clanId);\r\n        } else {\r\n          //return this.textClanSearch(currentQuery);\r\n          return this.clanSearchService.combinedSearch(search);\r\n        }\r\n      }),\r\n      tap(() => (this.loading = false)),\r\n      catchError((err) => {\r\n        this.loading = false;\r\n        // Just remapping the data to show the error\r\n        // There are better ways of doing this\r\n        return of([]);\r\n      })\r\n    );\r\n  }\r\n\r\n  addClan(clan: GroupsV2GroupV2Card) {\r\n    this.clanSearchService.addClan(clan);\r\n  }\r\n  demoClan() {\r\n    this.clanSearchService.addClan({ groupId: 2073131, name: 'DoD Paternal Chums', clanInfo: { clanCallsign: 'DoD' } });\r\n  }\r\n\r\n  addMembersClan(member: any) {\r\n    this.clanSearchService.findPlayerClan(member);\r\n  }\r\n}\r\n",
             "assetsDirs": [],
             "styleUrlsData": [
                 {
-                    "data": ".home-info {\r\n  position: relative;\r\n  display: flex;\r\n  flex-direction: column;\r\n  justify-content: center;\r\n  @media (min-width: 48em) {\r\n    height: 200px;\r\n  }\r\n  @media (min-width: 96em) {\r\n    height: 400px;\r\n  }\r\n  &::before {\r\n    content: ' ';\r\n    background: #000;\r\n    display: block;\r\n    height: 100%;\r\n    opacity: 0.8;\r\n    position: absolute;\r\n    width: 100%;\r\n    z-index: 1;\r\n  }\r\n\r\n  .info {\r\n    position: relative;\r\n    z-index: 10;\r\n    max-width: 960px;\r\n    margin: 0 auto;\r\n    text-align: center;\r\n    color: #fff;\r\n  }\r\n}\r\n.bg {\r\n  background-position: center center;\r\n  background-repeat: no-repeat;\r\n  background-size: cover;\r\n}\r\n.bg-1 {\r\n  background-image: url('/assets/backgrounds/1.jpg');\r\n}\r\n.bg-2 {\r\n  background-image: url('/assets/backgrounds/2.jpg');\r\n}\r\n.bg-3 {\r\n  background-image: url('/assets/backgrounds/3.jpg');\r\n}\r\n\r\n.clan-search {\r\n  margin: 3rem auto;\r\n  max-width: 500px;\r\n  h2 {\r\n    text-align: center;\r\n    display: flex;\r\n    align-items: center;\r\n    //margin: 0 auto;\r\n    justify-content: center;\r\n    i {\r\n      margin-left: 1rem;\r\n    }\r\n  }\r\n  .clan-search-autocomplete {\r\n    display: block;\r\n    max-width: 500px;\r\n  }\r\n}\r\n",
+                    "data": ".home-info {\r\n  position: relative;\r\n  display: flex;\r\n  flex-direction: column;\r\n  justify-content: center;\r\n  @media (min-width: 48em) {\r\n    height: 200px;\r\n  }\r\n  @media (min-width: 96em) {\r\n    height: 400px;\r\n  }\r\n  &::before {\r\n    content: ' ';\r\n    background: #000;\r\n    display: block;\r\n    height: 100%;\r\n    opacity: 0.8;\r\n    position: absolute;\r\n    width: 100%;\r\n    z-index: 1;\r\n  }\r\n\r\n  .info {\r\n    position: relative;\r\n    z-index: 10;\r\n    max-width: 960px;\r\n    margin: 0 auto;\r\n    text-align: center;\r\n    color: #fff;\r\n  }\r\n}\r\n.bg {\r\n  background-position: center center;\r\n  background-repeat: no-repeat;\r\n  background-size: cover;\r\n}\r\n.bg-1 {\r\n  background-image: url('/assets/backgrounds/1.jpg');\r\n}\r\n.bg-2 {\r\n  background-image: url('/assets/backgrounds/2.jpg');\r\n}\r\n.bg-3 {\r\n  background-image: url('/assets/backgrounds/3.jpg');\r\n}\r\n\r\n.alert-card {\r\n  align-items: center;\r\n  background-color: var(--app-warning-background);\r\n  display: inline-flex;\r\n  color: var(--app-warning-text);\r\n  justify-content: center;\r\n  padding: 1rem;\r\n  border-radius: 0.5rem;\r\n  margin: 0 auto;\r\n\r\n  .mat-icon {\r\n    margin-right: 1rem;\r\n  }\r\n  h2 {\r\n    flex: 1;\r\n    margin: 0;\r\n  }\r\n}\r\n.lets-go-btn {\r\n  text-align: center;\r\n  button {\r\n    padding: 2rem 4rem;\r\n    font-size: 1.25rem;\r\n  }\r\n}\r\n\r\n.clan-search {\r\n  margin: 3rem auto;\r\n  max-width: 500px;\r\n  h2 {\r\n    text-align: center;\r\n    display: flex;\r\n    align-items: center;\r\n    //margin: 0 auto;\r\n    justify-content: center;\r\n    i {\r\n      margin-left: 1rem;\r\n    }\r\n  }\r\n  h4 {\r\n    text-align: center;\r\n    button {\r\n      font-size: inherit;\r\n    }\r\n  }\r\n  .clan-search-autocomplete {\r\n    display: block;\r\n    max-width: 500px;\r\n  }\r\n}\r\n\r\n.found-clans {\r\n  display: flex;\r\n  flex-wrap: wrap;\r\n  justify-content: center;\r\n  width: 100%;\r\n  max-width: 1920px;\r\n  margin: 0 auto;\r\n  .clan {\r\n    width: 100%;\r\n    max-width: 480px;\r\n    margin: 2rem;\r\n  }\r\n}\r\n.app-info {\r\n  width: 100%;\r\n  max-width: 1020px;\r\n  margin: 1rem auto;\r\n  display: flex;\r\n  flex-wrap: wrap;\r\n  justify-content: space-around;\r\n  .info-card {\r\n    flex: 0 0 25%;\r\n    max-width: 250px;\r\n    display: flex;\r\n    .icon {\r\n      flex: 0 0 16.6666666667%;\r\n      max-width: 16.6666666667%;\r\n    }\r\n    .info-card-content {\r\n      flex: 0 0 83.3333333333%;\r\n      max-width: 83.3333333333%;\r\n    }\r\n  }\r\n}\r\n\r\nfooter {\r\n  text-align: center;\r\n}\r\n",
                     "styleUrl": "./clan-search-view.component.scss"
                 }
             ],
@@ -17466,7 +17895,7 @@
                     }
                 ]
             },
-            "templateData": "<div class=\"clan-search-wrapper\">\n  <div class=\"home-info bg {{bgClass}}\">\n    <div class=\"info\">\n      <h1>\n        Destiny Clan Dashboard\n      </h1>\n      <h2>View your clan's health quickly and easily.</h2>\n      <p>\n        Pardon the dust. This app is still in a very Alpha stage. Peak around knowing there will be bugs. <a\n          href=\"https://twitter.com/worthyd\">Send me your feedback</a>\n      </p>\n    </div>\n  </div>\n\n  <div class=\"clan-search\">\n    <h2>Find Your Clan<i class=\"material-icons\"\n        matTooltip=\"Search by Clan Name, Clan Id, or Clan URL. Clan Name must search for full clan name. Bungie doesn't support a 'fuzzy' search.\">\n        help\n      </i></h2>\n    <app-clan-search-autocomplete class=\"clan-search-autocomplete\" [autoCompleteResults]=\"autoCompleteResults$ | async\"\n      [loading]=\"loading\" (searchClans)=\"searchClans($event)\" (addClan)=\"addClan($event)\"\n      (addMembersClan)=\"addMembersClan($event)\"></app-clan-search-autocomplete>\n  </div>\n\n  <div class=\"found-clans\">\n    <ng-container *ngFor=\"let clan of clans$ | async\">\n      <app-clan-detail [clanConfig]=\"clan\"></app-clan-detail>\n    </ng-container>\n\n  </div>\n\n</div>\n"
+            "templateData": "<div class=\"clan-search-wrapper\">\r\n  <div class=\"home-info bg {{bgClass}}\">\r\n    <div class=\"info\">\r\n      <h1>\r\n        Destiny Clan Dashboard\r\n      </h1>\r\n      <h2>View your clan's activity with ease.</h2>\r\n      <p>\r\n        This app is a passion project and I should probably put a bunch of marketing nonsense here. <br> <br> I hope you\r\n        find this thing useful. <a href=\"https://twitter.com/worthyd\">Send me your feedback</a>\r\n      </p>\r\n    </div>\r\n  </div>\r\n\r\n  <div class=\"clan-search\">\r\n    <h2>Find Your Clan<i class=\"material-icons\"\r\n        matTooltip=\"Search by Clan Name, Clan Id, or Clan URL. Clan Name must search for full clan name. Bungie doesn't support a 'fuzzy' search.\">\r\n        help\r\n      </i></h2>\r\n    <h4>Find your clan and any additional clans you wish to track. Don't have clan? <br>Try <button mat-raised-button\r\n        (click)=\"demoClan()\">this\r\n        one</button> and have a look around.\r\n    </h4>\r\n    <app-clan-search-autocomplete class=\"clan-search-autocomplete\" [autoCompleteResults]=\"autoCompleteResults$ | async\"\r\n      [loading]=\"loading\" (searchClans)=\"searchClans($event)\" (addClan)=\"addClan($event)\"\r\n      (addMembersClan)=\"addMembersClan($event)\"></app-clan-search-autocomplete>\r\n  </div>\r\n  <ng-container *ngIf=\"clans$ | async as clans\">\r\n    <div *ngIf=\"clans.length > 4\">\r\n      <div class=\"alert-card\">\r\n        <mat-icon>warning</mat-icon>\r\n        <h2>Adding too many clans will impact the performance of the application</h2>\r\n      </div>\r\n\r\n    </div>\r\n\r\n    <div *ngIf=\"clans.length > 0\" class=\"lets-go-btn\">\r\n      <button color=\"accent\" mat-raised-button routerLink=\"/\">Let's Go</button>\r\n    </div>\r\n    <!-- TODO: Add Let's go -->\r\n\r\n    <div class=\"found-clans\">\r\n      <ng-container *ngFor=\"let clan of clans\">\r\n        <app-clan-detail [clanConfig]=\"clan\" class=\"clan\"></app-clan-detail>\r\n      </ng-container>\r\n\r\n    </div>\r\n\r\n\r\n    <section class=\"app-info\" *ngIf=\"clans.length === 0\">\r\n      <div class=\"info-card\">\r\n        <div class=\"icon\">\r\n          <i class=\"material-icons\">\r\n            date_range\r\n          </i>\r\n        </div>\r\n        <div class=\"info-card-content\">\r\n          <h3>Seasonal Progress</h3>\r\n          <p>\r\n            View seasonal progress on both a clan and player level.\r\n          </p>\r\n        </div>\r\n      </div>\r\n      <div class=\"info-card\">\r\n        <div class=\"icon\">\r\n          <i class=\"material-icons\">\r\n            group\r\n          </i>\r\n        </div>\r\n        <div class=\"info-card-content\">\r\n          <h3>Roster Activity</h3>\r\n          <p>\r\n            Find out who has been the most active over the last year by viewing interactive heatmaps.\r\n          </p>\r\n        </div>\r\n      </div>\r\n      <div class=\"info-card\">\r\n        <div class=\"icon\">\r\n          <i class=\"material-icons\">\r\n            reduce_capacity\r\n          </i>\r\n        </div>\r\n        <div class=\"info-card-content\">\r\n          <h3>Activity Stats</h3>\r\n          <p>\r\n            Track who has cleared what, who has gotten the rare drops and completed the hardest challenges.\r\n          </p>\r\n        </div>\r\n      </div>\r\n      <div class=\"info-card\">\r\n        <div class=\"icon\">\r\n          <i class=\"material-icons\">\r\n            verified_user\r\n          </i>\r\n        </div>\r\n        <div class=\"info-card-content\">\r\n          <h3>Seal Completion</h3>\r\n          <p>\r\n            Celebrate the accomplishment of completing seals with your clan. Easily view who's finished seals and\r\n            find\r\n            out who needs help.\r\n          </p>\r\n        </div>\r\n      </div>\r\n\r\n\r\n\r\n    </section>\r\n\r\n  </ng-container>\r\n\r\n\r\n  <footer>\r\n    © {{year}} - <a href=\"https://twitter.com/worthyd\" target=\"_blank\">@WorthyD</a> - <a\r\n      href=\"https://github.com/WorthyD/d2-clandashboard\" target=\"_blank\">Source Code</a> - Not Affiliated with Bungie\r\n  </footer>\r\n\r\n\r\n</div>\r\n"
         },
         {
             "name": "ClansRosterComponent",
@@ -19094,8 +19523,9 @@
         },
         {
             "name": "SealMemberProgressTableComponent",
-            "id": "component-SealMemberProgressTableComponent-321218d508fd3ca7433d8fd670215c44197fa0940d23040fffbdfb3983ead92d662a116612ad685b2cb5271f76820bdfb5750a4950e44d6be398ee399cd4df8a",
+            "id": "component-SealMemberProgressTableComponent-953b088dc7a4886582712b8a465c1505fa33db14f668d48a6bdb123feec22fd44237df6091c4bbfd0780d272b66ede6364f4aab19f32e5f2cf9ab0cdc312147f",
             "file": "projects/clan-dashboard/src/app/features/seals/components/seal-member-progress-table/seal-member-progress-table.component.ts",
+            "changeDetection": "ChangeDetectionStrategy.OnPush",
             "encapsulation": [],
             "entryComponents": [],
             "inputs": [],
@@ -19121,7 +19551,7 @@
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { Component } from '@angular/core';\r\nimport { CommonModule } from '@angular/common';\r\n\r\n@Component({\r\n  selector: 'app-seal-member-progress-table',\r\n  standalone: true,\r\n  imports: [CommonModule],\r\n  templateUrl: './seal-member-progress-table.component.html',\r\n  styleUrls: ['./seal-member-progress-table.component.scss']\r\n})\r\nexport class SealMemberProgressTableComponent {\r\n\r\n}\r\n",
+            "sourceCode": "import { ChangeDetectionStrategy, Component } from '@angular/core';\r\nimport { CommonModule } from '@angular/common';\r\n\r\n@Component({\r\n  selector: 'app-seal-member-progress-table',\r\n  standalone: true,\r\n  imports: [CommonModule],\r\n  changeDetection: ChangeDetectionStrategy.OnPush,\r\n  templateUrl: './seal-member-progress-table.component.html',\r\n  styleUrls: ['./seal-member-progress-table.component.scss']\r\n})\r\nexport class SealMemberProgressTableComponent {\r\n\r\n}\r\n",
             "assetsDirs": [],
             "styleUrlsData": [
                 {
@@ -20079,13 +20509,13 @@
         },
         {
             "name": "ClanDetailsModule",
-            "id": "module-ClanDetailsModule-882f3ce329e8b6c82bf7e7d710bba9031ce5ffc7f2a4d397547ee55f81c102f39f4ed35b3fb3e74455ee1f18c860af8728d3ad8ad7df43a4f9cc206e2552eafe",
+            "id": "module-ClanDetailsModule-cacb10b35eed0917cb4a3ab1cd76b50b54407e01b54d8c7502914dfb3255c5b917657ad3c1e7bd03f19b7bac3e3b3728d30d144c0177b6d75c57f84a85b168ac",
             "description": "",
             "deprecationMessage": "",
             "deprecated": false,
             "file": "projects/clan-dashboard/src/app/features/clan-details/clan-details.module.ts",
             "methods": [],
-            "sourceCode": "import { NgModule } from '@angular/core';\nimport { CommonModule } from '@angular/common';\nimport { ClanDetailCellComponent } from './components/clan-detail-cell/clan-detail-cell.component';\nimport { ClanDetailComponent } from './clan-detail/clan-detail.component';\n\n@NgModule({\n  declarations: [ClanDetailComponent],\n  exports: [ClanDetailComponent],\n  imports: [CommonModule, ClanDetailCellComponent]\n})\nexport class ClanDetailsModule {}\n",
+            "sourceCode": "import { NgModule } from '@angular/core';\r\nimport { CommonModule } from '@angular/common';\r\nimport { ClanDetailCellComponent } from './components/clan-detail-cell/clan-detail-cell.component';\r\nimport { ClanDetailComponent } from './clan-detail/clan-detail.component';\r\n\r\n@NgModule({\r\n  declarations: [ClanDetailComponent],\r\n  exports: [ClanDetailComponent],\r\n  imports: [CommonModule, ClanDetailCellComponent]\r\n})\r\nexport class ClanDetailsModule {}\r\n",
             "children": [
                 {
                     "type": "providers",
@@ -20293,6 +20723,53 @@
             ]
         },
         {
+            "name": "ClanSearchCuratedViewModule",
+            "id": "module-ClanSearchCuratedViewModule-ea20091f8da45e04e5c817be28ff533d093c265b2fd492dc03ed397eaf3f7a75618f64cde8c4ee23d502118abc7e70f591fef51cf99eb86acd2e0e84e9f12af0",
+            "description": "",
+            "deprecationMessage": "",
+            "deprecated": false,
+            "file": "projects/clan-dashboard/src/app/features/clan-search/clan-search-curated-view/clan-search-curated-view.module.ts",
+            "methods": [],
+            "sourceCode": "import { NgModule } from '@angular/core';\r\nimport { CommonModule } from '@angular/common';\r\nimport { ClanSearchCuratedViewComponent } from './clan-search-curated-view.component';\r\nimport { ClanDetailsModule } from '@features/clan-details/clan-details.module';\r\nimport { ClanSearchRoutingModule } from './clan-search-curated-view-routing.module';\r\nimport { MatButtonModule } from '@angular/material/button';\r\n\r\n@NgModule({\r\n  declarations: [ClanSearchCuratedViewComponent],\r\n  imports: [CommonModule, ClanDetailsModule, ClanSearchRoutingModule, MatButtonModule]\r\n})\r\nexport class ClanSearchCuratedViewModule {}\r\n",
+            "children": [
+                {
+                    "type": "providers",
+                    "elements": []
+                },
+                {
+                    "type": "declarations",
+                    "elements": [
+                        {
+                            "name": "ClanSearchCuratedViewComponent"
+                        }
+                    ]
+                },
+                {
+                    "type": "imports",
+                    "elements": [
+                        {
+                            "name": "ClanDetailsModule"
+                        },
+                        {
+                            "name": "ClanSearchRoutingModule"
+                        }
+                    ]
+                },
+                {
+                    "type": "exports",
+                    "elements": []
+                },
+                {
+                    "type": "bootstrap",
+                    "elements": []
+                },
+                {
+                    "type": "classes",
+                    "elements": []
+                }
+            ]
+        },
+        {
             "name": "ClanSearchModule",
             "id": "module-ClanSearchModule-9186d01fa88e50d0267f776cb6cfa302a3df57ed4da77aa66802566b188005787d8b9f2534acaa031b36fdcbc287840fcec1702c48e74a7b2bb60fa449c60959",
             "description": "",
@@ -20414,13 +20891,13 @@
         },
         {
             "name": "ClanSearchRoutingModule",
-            "id": "module-ClanSearchRoutingModule-c187964a8dfc57d4de9ab18200474300c3f262661a326ebe054f8fd10c207ff7c29471690109ba8c7733d65ccef3b11788adf4971105c82623e2051272f5efb2-1",
+            "id": "module-ClanSearchRoutingModule-d870dcd5a65049a349deec15f2a64b5bb79cb344d9b7104455feb32ea638f31a264712264024177e015e1ed351930a397aab8d5ed19d0c3aa7fb629afd77630c-1",
             "description": "",
             "deprecationMessage": "",
             "deprecated": false,
             "file": "projects/clan-dashboard/src/app/features/clan-search/clan-search-shell/clan-search-shell-routing.module.ts",
             "methods": [],
-            "sourceCode": "import { NgModule } from '@angular/core';\r\nimport { RouterModule, Routes } from '@angular/router';\r\n\r\nconst routes: Routes = [\r\n  {\r\n    path: '',\r\n    loadChildren: () =>\r\n      \"import('../clan-search-view/clan-search-view.module').then((module) => module.ClanSearchViewModule)\"\r\n  }\r\n];\r\n\r\n@NgModule({ imports: [RouterModule.forChild(routes)], exports: [RouterModule] })\r\nexport class ClanSearchRoutingModule {}\r\n",
+            "sourceCode": "import { NgModule } from '@angular/core';\r\nimport { RouterModule, Routes } from '@angular/router';\r\n\r\nconst routes: Routes = [\r\n  {\r\n    path: '',\r\n    loadChildren: () =>\r\n      \"import('../clan-search-view/clan-search-view.module').then((module) => module.ClanSearchViewModule)\"\r\n  },\r\n  {\r\n    path: ':key',\r\n    loadChildren: () =>\r\n      \"import('../clan-search-curated-view/clan-search-curated-view.module').then(\\\n        (module) => module.ClanSearchCuratedViewModule\\\n      )\"\r\n  }\r\n];\r\n\r\n@NgModule({ imports: [RouterModule.forChild(routes)], exports: [RouterModule] })\r\nexport class ClanSearchRoutingModule {}\r\n",
             "children": [
                 {
                     "type": "providers",
@@ -20450,7 +20927,43 @@
         },
         {
             "name": "ClanSearchRoutingModule",
-            "id": "module-ClanSearchRoutingModule-e09b35ec65798fc1093149615aa545fae564ee58accbc55dfbf8c0227ab975ded33f450aef9771c5454ee2f8440029f39d8ff3a8390c866e353eb675a3067928-2",
+            "id": "module-ClanSearchRoutingModule-67d259252480c9078b4e2ca5d71e681d824d903b88c0110960d2ce7c22083fb4ff4c62c6460f464b3be5fda7ffc543c4534095842de5ab1e956b7b20fa9ad4f4-2",
+            "description": "",
+            "deprecationMessage": "",
+            "deprecated": false,
+            "file": "projects/clan-dashboard/src/app/features/clan-search/clan-search-curated-view/clan-search-curated-view-routing.module.ts",
+            "methods": [],
+            "sourceCode": "import { NgModule } from '@angular/core';\r\nimport { Routes, RouterModule } from '@angular/router';\r\n//import { ClanSearchViewComponent } from './clan-search-view.component';\r\nimport { ClanSearchCuratedViewComponent } from './clan-search-curated-view.component';\r\n\r\nconst routes: Routes = [\r\n  {\r\n    path: '',\r\n    component: ClanSearchCuratedViewComponent\r\n  }\r\n];\r\n\r\n@NgModule({\r\n  imports: [RouterModule.forChild(routes)],\r\n  exports: [RouterModule]\r\n})\r\nexport class ClanSearchRoutingModule {}\r\n",
+            "children": [
+                {
+                    "type": "providers",
+                    "elements": []
+                },
+                {
+                    "type": "declarations",
+                    "elements": []
+                },
+                {
+                    "type": "imports",
+                    "elements": []
+                },
+                {
+                    "type": "exports",
+                    "elements": []
+                },
+                {
+                    "type": "bootstrap",
+                    "elements": []
+                },
+                {
+                    "type": "classes",
+                    "elements": []
+                }
+            ]
+        },
+        {
+            "name": "ClanSearchRoutingModule",
+            "id": "module-ClanSearchRoutingModule-e09b35ec65798fc1093149615aa545fae564ee58accbc55dfbf8c0227ab975ded33f450aef9771c5454ee2f8440029f39d8ff3a8390c866e353eb675a3067928-3",
             "description": "",
             "deprecationMessage": "",
             "deprecated": false,
@@ -20486,13 +20999,13 @@
         },
         {
             "name": "ClanSearchViewModule",
-            "id": "module-ClanSearchViewModule-01250951365c4de6caf99799aef8e9b7e8615cd206f26e0b1a603b175d18f2d9632d4fdf0c24473e08cb3812dd5bc1f6c724ab375daa2301b4bf411b6b1bbaf0",
+            "id": "module-ClanSearchViewModule-a76b2b5015ce3594a7df0ae6fef132aa0068785386fd7938a13db01d49c797a1ae87bac32f8e000dc29a0864aa3a870eecf1979dfcf8f370487746bd91435a54",
             "description": "",
             "deprecationMessage": "",
             "deprecated": false,
             "file": "projects/clan-dashboard/src/app/features/clan-search/clan-search-view/clan-search-view.module.ts",
             "methods": [],
-            "sourceCode": "import { NgModule } from '@angular/core';\nimport { CommonModule } from '@angular/common';\nimport { ClanSearchViewComponent } from './clan-search-view.component';\nimport { ClanSearchRoutingModule } from './clan-search-view-routing.module';\nimport { ClanSearchAutocompleteComponent } from '../components/clan-search-autocomplete/clan-search-autocomplete.component';\nimport { MatTooltipModule } from '@angular/material/tooltip';\nimport { ClanDetailsModule } from '../../clan-details/clan-details.module';\n\n@NgModule({\n  declarations: [ClanSearchViewComponent],\n  imports: [CommonModule, ClanSearchRoutingModule, ClanSearchAutocompleteComponent, MatTooltipModule, ClanDetailsModule]\n})\nexport class ClanSearchViewModule {}\n",
+            "sourceCode": "import { NgModule } from '@angular/core';\r\nimport { CommonModule } from '@angular/common';\r\nimport { ClanSearchViewComponent } from './clan-search-view.component';\r\nimport { ClanSearchRoutingModule } from './clan-search-view-routing.module';\r\nimport { ClanSearchAutocompleteComponent } from '../components/clan-search-autocomplete/clan-search-autocomplete.component';\r\nimport { MatTooltipModule } from '@angular/material/tooltip';\r\nimport { ClanDetailsModule } from '../../clan-details/clan-details.module';\r\nimport { MatIconModule } from '@angular/material/icon';\r\nimport { MatButtonModule } from '@angular/material/button';\r\nimport { MatCardModule } from '@angular/material/card';\r\n\r\n@NgModule({\r\n  declarations: [ClanSearchViewComponent],\r\n  imports: [\r\n    CommonModule,\r\n    ClanSearchRoutingModule,\r\n    ClanSearchAutocompleteComponent,\r\n    MatTooltipModule,\r\n    MatCardModule,\r\n    ClanDetailsModule,\r\n    MatIconModule,\r\n    MatButtonModule\r\n  ]\r\n})\r\nexport class ClanSearchViewModule {}\r\n",
             "children": [
                 {
                     "type": "providers",
@@ -20536,7 +21049,47 @@
         },
         {
             "name": "ClansRosterModule",
-            "id": "module-ClansRosterModule-90abba2b11135f5566b8704f5947b88fe3d19c1c4d7a86f9eb9ac9d2f4f3d24bb3ed413258c827301d111ab4c8c769357cd75a5c526393f274b312df5405e277",
+            "id": "module-ClansRosterModule-de6c5e03e0e585b2052b9fea4d6525c851f4f44ab3eff930cac8d90b82184d3042efecbf91937c3746313f9a4429a0eafdc6bb6426237848fb219b50db1b5569",
+            "description": "",
+            "deprecationMessage": "",
+            "deprecated": false,
+            "file": "projects/clan-dashboard/src/app/features/clans-roster/clans-roster-shell/clans-roster.module.ts",
+            "methods": [],
+            "sourceCode": "import { NgModule } from '@angular/core';\r\nimport { ClansRosterRoutingModule } from './clans-roster-routing.module';\r\n\r\n@NgModule({\r\n  imports: [ClansRosterRoutingModule]\r\n})\r\nexport class ClansRosterModule {}\r\n",
+            "children": [
+                {
+                    "type": "providers",
+                    "elements": []
+                },
+                {
+                    "type": "declarations",
+                    "elements": []
+                },
+                {
+                    "type": "imports",
+                    "elements": [
+                        {
+                            "name": "ClansRosterRoutingModule"
+                        }
+                    ]
+                },
+                {
+                    "type": "exports",
+                    "elements": []
+                },
+                {
+                    "type": "bootstrap",
+                    "elements": []
+                },
+                {
+                    "type": "classes",
+                    "elements": []
+                }
+            ]
+        },
+        {
+            "name": "ClansRosterModule",
+            "id": "module-ClansRosterModule-90abba2b11135f5566b8704f5947b88fe3d19c1c4d7a86f9eb9ac9d2f4f3d24bb3ed413258c827301d111ab4c8c769357cd75a5c526393f274b312df5405e277-1",
             "description": "",
             "deprecationMessage": "",
             "deprecated": false,
@@ -20584,46 +21137,6 @@
                             "name": "ClansRosterComponent"
                         }
                     ]
-                },
-                {
-                    "type": "bootstrap",
-                    "elements": []
-                },
-                {
-                    "type": "classes",
-                    "elements": []
-                }
-            ]
-        },
-        {
-            "name": "ClansRosterModule",
-            "id": "module-ClansRosterModule-de6c5e03e0e585b2052b9fea4d6525c851f4f44ab3eff930cac8d90b82184d3042efecbf91937c3746313f9a4429a0eafdc6bb6426237848fb219b50db1b5569-1",
-            "description": "",
-            "deprecationMessage": "",
-            "deprecated": false,
-            "file": "projects/clan-dashboard/src/app/features/clans-roster/clans-roster-shell/clans-roster.module.ts",
-            "methods": [],
-            "sourceCode": "import { NgModule } from '@angular/core';\r\nimport { ClansRosterRoutingModule } from './clans-roster-routing.module';\r\n\r\n@NgModule({\r\n  imports: [ClansRosterRoutingModule]\r\n})\r\nexport class ClansRosterModule {}\r\n",
-            "children": [
-                {
-                    "type": "providers",
-                    "elements": []
-                },
-                {
-                    "type": "declarations",
-                    "elements": []
-                },
-                {
-                    "type": "imports",
-                    "elements": [
-                        {
-                            "name": "ClansRosterRoutingModule"
-                        }
-                    ]
-                },
-                {
-                    "type": "exports",
-                    "elements": []
                 },
                 {
                     "type": "bootstrap",
@@ -21140,7 +21653,47 @@
         },
         {
             "name": "RecentActivityModule",
-            "id": "module-RecentActivityModule-cff434130beed1a018851793ca342c2dcb9c2556030a751a3225e3f623c40a9f1758359eac8296bbab12d6eeb78a7e0c820d7beb13be9b74d69055f4b6609dcf",
+            "id": "module-RecentActivityModule-85de2887800c4049af04118f290bdb58c912e2562dd273278e0260e1a37d1cdfd24b6763974064b6953279c2ab7eff230a97a74b9bb6aec1ea8975e23d1e69fc",
+            "description": "",
+            "deprecationMessage": "",
+            "deprecated": false,
+            "file": "projects/clan-dashboard/src/app/features/recent-activity/recent-activity-shell/recent-activity.module.ts",
+            "methods": [],
+            "sourceCode": "import { NgModule } from '@angular/core';\r\nimport { RecentActivityRoutingModule } from './recent-activity-routing.module';\r\n\r\n@NgModule({\r\n  imports: [RecentActivityRoutingModule]\r\n})\r\nexport class RecentActivityModule {}\r\n",
+            "children": [
+                {
+                    "type": "providers",
+                    "elements": []
+                },
+                {
+                    "type": "declarations",
+                    "elements": []
+                },
+                {
+                    "type": "imports",
+                    "elements": [
+                        {
+                            "name": "RecentActivityRoutingModule"
+                        }
+                    ]
+                },
+                {
+                    "type": "exports",
+                    "elements": []
+                },
+                {
+                    "type": "bootstrap",
+                    "elements": []
+                },
+                {
+                    "type": "classes",
+                    "elements": []
+                }
+            ]
+        },
+        {
+            "name": "RecentActivityModule",
+            "id": "module-RecentActivityModule-cff434130beed1a018851793ca342c2dcb9c2556030a751a3225e3f623c40a9f1758359eac8296bbab12d6eeb78a7e0c820d7beb13be9b74d69055f4b6609dcf-1",
             "description": "",
             "deprecationMessage": "",
             "deprecated": false,
@@ -21190,90 +21743,50 @@
             ]
         },
         {
-            "name": "RecentActivityModule",
-            "id": "module-RecentActivityModule-85de2887800c4049af04118f290bdb58c912e2562dd273278e0260e1a37d1cdfd24b6763974064b6953279c2ab7eff230a97a74b9bb6aec1ea8975e23d1e69fc-1",
-            "description": "",
-            "deprecationMessage": "",
-            "deprecated": false,
-            "file": "projects/clan-dashboard/src/app/features/recent-activity/recent-activity-shell/recent-activity.module.ts",
-            "methods": [],
-            "sourceCode": "import { NgModule } from '@angular/core';\r\nimport { RecentActivityRoutingModule } from './recent-activity-routing.module';\r\n\r\n@NgModule({\r\n  imports: [RecentActivityRoutingModule]\r\n})\r\nexport class RecentActivityModule {}\r\n",
-            "children": [
-                {
-                    "type": "providers",
-                    "elements": []
-                },
-                {
-                    "type": "declarations",
-                    "elements": []
-                },
-                {
-                    "type": "imports",
-                    "elements": [
-                        {
-                            "name": "RecentActivityRoutingModule"
-                        }
-                    ]
-                },
-                {
-                    "type": "exports",
-                    "elements": []
-                },
-                {
-                    "type": "bootstrap",
-                    "elements": []
-                },
-                {
-                    "type": "classes",
-                    "elements": []
-                }
-            ]
-        },
-        {
             "name": "RecentActivityRoutingModule",
-            "id": "module-RecentActivityRoutingModule-320a8fc4050cc00c23f08cd755b01016c093774df27364d75f26feae506dea8de323c3b7b465545b64eda3161f4ccea7e09e0cda8f4dc13c7dbf36e7769a1931",
-            "description": "",
-            "deprecationMessage": "",
-            "deprecated": false,
-            "file": "projects/clan-dashboard/src/app/features/recent-activity/recent-activity-dashboard/clan-roster-routing.module.ts.ts",
-            "methods": [],
-            "sourceCode": "import { NgModule } from '@angular/core';\r\nimport { Routes, RouterModule } from '@angular/router';\r\nimport { RecentActivityComponent } from './recent-activity.component';\r\n\r\nconst routes: Routes = [\r\n  {\r\n    path: '',\r\n    component: RecentActivityComponent\r\n  }\r\n];\r\n\r\n@NgModule({\r\n  imports: [RouterModule.forChild(routes)],\r\n  exports: [RouterModule]\r\n})\r\nexport class RecentActivityRoutingModule {}\r\n",
-            "children": [
-                {
-                    "type": "providers",
-                    "elements": []
-                },
-                {
-                    "type": "declarations",
-                    "elements": []
-                },
-                {
-                    "type": "imports",
-                    "elements": []
-                },
-                {
-                    "type": "exports",
-                    "elements": []
-                },
-                {
-                    "type": "bootstrap",
-                    "elements": []
-                },
-                {
-                    "type": "classes",
-                    "elements": []
-                }
-            ]
-        },
-        {
-            "name": "RecentActivityRoutingModule",
-            "id": "module-RecentActivityRoutingModule-b3e375eeadf45fe77676b87e9ee9f15fe7e9d391071cd8f7e996770057c10c10a282a3e3ddeed674816d2c3209d7569eb36566874bf410a6f371e5f5c9e6ead2-1",
+            "id": "module-RecentActivityRoutingModule-b3e375eeadf45fe77676b87e9ee9f15fe7e9d391071cd8f7e996770057c10c10a282a3e3ddeed674816d2c3209d7569eb36566874bf410a6f371e5f5c9e6ead2",
             "description": "",
             "deprecationMessage": "",
             "deprecated": false,
             "file": "projects/clan-dashboard/src/app/features/recent-activity/recent-activity-shell/recent-activity-routing.module.ts",
             "methods": [],
             "sourceCode": "import { NgModule } from '@angular/core';\r\nimport { RouterModule, Routes } from '@angular/router';\r\n\r\nconst routes: Routes = [\r\n  {\r\n    path: '',\r\n    loadChildren: () => \"import('../recent-activity-dashboard/recent-activity.module').then((module) => module.RecentActivityModule)\"\r\n  }\r\n];\r\n\r\n@NgModule({ imports: [RouterModule.forChild(routes)], exports: [RouterModule] })\r\nexport class RecentActivityRoutingModule {}\r\n",
+            "children": [
+                {
+                    "type": "providers",
+                    "elements": []
+                },
+                {
+                    "type": "declarations",
+                    "elements": []
+                },
+                {
+                    "type": "imports",
+                    "elements": []
+                },
+                {
+                    "type": "exports",
+                    "elements": []
+                },
+                {
+                    "type": "bootstrap",
+                    "elements": []
+                },
+                {
+                    "type": "classes",
+                    "elements": []
+                }
+            ]
+        },
+        {
+            "name": "RecentActivityRoutingModule",
+            "id": "module-RecentActivityRoutingModule-320a8fc4050cc00c23f08cd755b01016c093774df27364d75f26feae506dea8de323c3b7b465545b64eda3161f4ccea7e09e0cda8f4dc13c7dbf36e7769a1931-1",
+            "description": "",
+            "deprecationMessage": "",
+            "deprecated": false,
+            "file": "projects/clan-dashboard/src/app/features/recent-activity/recent-activity-dashboard/clan-roster-routing.module.ts.ts",
+            "methods": [],
+            "sourceCode": "import { NgModule } from '@angular/core';\r\nimport { Routes, RouterModule } from '@angular/router';\r\nimport { RecentActivityComponent } from './recent-activity.component';\r\n\r\nconst routes: Routes = [\r\n  {\r\n    path: '',\r\n    component: RecentActivityComponent\r\n  }\r\n];\r\n\r\n@NgModule({\r\n  imports: [RouterModule.forChild(routes)],\r\n  exports: [RouterModule]\r\n})\r\nexport class RecentActivityRoutingModule {}\r\n",
             "children": [
                 {
                     "type": "providers",
@@ -21520,13 +22033,13 @@
         },
         {
             "name": "SealsDashboardRoutingModule",
-            "id": "module-SealsDashboardRoutingModule-b4346c4b8742c9c9fcf14793ee080ae7267031cf8b472401534db7fdc9d9ea1a0100f4b31873a9d0abd947c196c7662abf64970a301cb23bb9a80a09fdc72ee6",
+            "id": "module-SealsDashboardRoutingModule-f797166f24891cab1959b9773b9aee6fff1b81d3aba7a455037920bb8feb54e49201b1b0efb676f17a34961d16fabaea6ea67398afea44804bc7965e7b1f7650",
             "description": "",
             "deprecationMessage": "",
             "deprecated": false,
-            "file": "projects/clan-dashboard/src/app/features/seals/seal-details/seal-detail-routing.module.ts",
+            "file": "projects/clan-dashboard/src/app/features/seals/seals-dashboard/seals-dashboard-routing.module.ts",
             "methods": [],
-            "sourceCode": "import { NgModule } from '@angular/core';\r\nimport { Routes, RouterModule } from '@angular/router';\r\nimport { SealDetailsComponent } from './seal-details.component';\r\n\r\nconst routes: Routes = [\r\n  {\r\n    path: '',\r\n    component: SealDetailsComponent\r\n  }\r\n];\r\n\r\n@NgModule({\r\n  imports: [RouterModule.forChild(routes)],\r\n  exports: [RouterModule]\r\n})\r\nexport class SealsDashboardRoutingModule {}\r\n",
+            "sourceCode": "import { NgModule } from '@angular/core';\r\nimport { Routes, RouterModule } from '@angular/router';\r\nimport { SealsDashboardComponent } from './seals-dashboard.component';\r\n\r\nconst routes: Routes = [\r\n  {\r\n    path: '',\r\n    component: SealsDashboardComponent\r\n  }\r\n];\r\n\r\n@NgModule({\r\n  imports: [RouterModule.forChild(routes)],\r\n  exports: [RouterModule]\r\n})\r\nexport class SealsDashboardRoutingModule {}\r\n",
             "children": [
                 {
                     "type": "providers",
@@ -21556,13 +22069,13 @@
         },
         {
             "name": "SealsDashboardRoutingModule",
-            "id": "module-SealsDashboardRoutingModule-f797166f24891cab1959b9773b9aee6fff1b81d3aba7a455037920bb8feb54e49201b1b0efb676f17a34961d16fabaea6ea67398afea44804bc7965e7b1f7650-1",
+            "id": "module-SealsDashboardRoutingModule-b4346c4b8742c9c9fcf14793ee080ae7267031cf8b472401534db7fdc9d9ea1a0100f4b31873a9d0abd947c196c7662abf64970a301cb23bb9a80a09fdc72ee6-1",
             "description": "",
             "deprecationMessage": "",
             "deprecated": false,
-            "file": "projects/clan-dashboard/src/app/features/seals/seals-dashboard/seals-dashboard-routing.module.ts",
+            "file": "projects/clan-dashboard/src/app/features/seals/seal-details/seal-detail-routing.module.ts",
             "methods": [],
-            "sourceCode": "import { NgModule } from '@angular/core';\r\nimport { Routes, RouterModule } from '@angular/router';\r\nimport { SealsDashboardComponent } from './seals-dashboard.component';\r\n\r\nconst routes: Routes = [\r\n  {\r\n    path: '',\r\n    component: SealsDashboardComponent\r\n  }\r\n];\r\n\r\n@NgModule({\r\n  imports: [RouterModule.forChild(routes)],\r\n  exports: [RouterModule]\r\n})\r\nexport class SealsDashboardRoutingModule {}\r\n",
+            "sourceCode": "import { NgModule } from '@angular/core';\r\nimport { Routes, RouterModule } from '@angular/router';\r\nimport { SealDetailsComponent } from './seal-details.component';\r\n\r\nconst routes: Routes = [\r\n  {\r\n    path: '',\r\n    component: SealDetailsComponent\r\n  }\r\n];\r\n\r\n@NgModule({\r\n  imports: [RouterModule.forChild(routes)],\r\n  exports: [RouterModule]\r\n})\r\nexport class SealsDashboardRoutingModule {}\r\n",
             "children": [
                 {
                     "type": "providers",
@@ -21762,6 +22275,16 @@
                 "defaultValue": "createAction(`${base} Add Notification`, props<{ notification: Notification }>())"
             },
             {
+                "name": "ALL_CLANS",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/clan-dashboard/src/app/features/clan-search/clan-search-curated-view/curated_clans.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "[]",
+                "defaultValue": "[DOD]"
+            },
+            {
                 "name": "AND",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
@@ -21795,6 +22318,16 @@
                 "name": "base",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
+                "file": "projects/clan-dashboard/src/app/core/store/clans/clans.actions.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "string",
+                "defaultValue": "'Clans] - '"
+            },
+            {
+                "name": "base",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
                 "file": "projects/clan-dashboard/src/app/core/store/manifest/manifest.actions.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
@@ -21810,16 +22343,6 @@
                 "deprecationMessage": "",
                 "type": "string",
                 "defaultValue": "'[Notifications] - '"
-            },
-            {
-                "name": "base",
-                "ctype": "miscellaneous",
-                "subtype": "variable",
-                "file": "projects/clan-dashboard/src/app/core/store/clans/clans.actions.ts",
-                "deprecated": false,
-                "deprecationMessage": "",
-                "type": "string",
-                "defaultValue": "'Clans] - '"
             },
             {
                 "name": "baseConstants",
@@ -22034,6 +22557,56 @@
                 "defaultValue": "{\r\n  enabled: true\r\n} as ClanConfig"
             },
             {
+                "name": "DOD",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/clan-dashboard/src/app/features/clan-search/clan-search-curated-view/curated_clans.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "CuratedClan",
+                "defaultValue": "{\r\n  key: 'dod',\r\n  title: \"Dad's of Destiny\",\r\n  subGroups: [\r\n    {\r\n      title: 'All Platforms',\r\n      clans: m(dod_clans_all)\r\n    },\r\n    {\r\n      title: 'PC',\r\n      clans: m(dod_clans_pc)\r\n    },\r\n    {\r\n      title: 'Playstation',\r\n      clans: m(dod_clans_ps)\r\n    },\r\n    {\r\n      title: 'Play Station',\r\n      clans: m(dod_clans_xbox)\r\n    }\r\n  ]\r\n}"
+            },
+            {
+                "name": "dod_clans_all",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/clan-dashboard/src/app/features/clan-search/clan-search-curated-view/curated_clans.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "[]",
+                "defaultValue": "[\r\n  4803739, //DoD Still Vexier Than You\r\n  4523816, //DoD Lightforged\r\n  223562, //DoD Westside\r\n  523657, //DoD Battleborn\r\n  3872451, //DoD Battleborn Ascendant\r\n  1726332 //DoD California\r\n]"
+            },
+            {
+                "name": "dod_clans_pc",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/clan-dashboard/src/app/features/clan-search/clan-search-curated-view/curated_clans.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "[]",
+                "defaultValue": "[\r\n  2073131, // Chums\r\n  4322250, // DoD Dad Guard\r\n  2866236, // GMT\r\n  4430645, //Family Pride\r\n  4473297, // Guiding light\r\n  4767446 // Lucid Loops\r\n]"
+            },
+            {
+                "name": "dod_clans_ps",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/clan-dashboard/src/app/features/clan-search/clan-search-curated-view/curated_clans.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "[]",
+                "defaultValue": "[2942177, 1288185, 2071608, 1771725, 1161209, 2180975, 3136336, 1186355, 1375802]"
+            },
+            {
+                "name": "dod_clans_xbox",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/clan-dashboard/src/app/features/clan-search/clan-search-curated-view/curated_clans.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "[]",
+                "defaultValue": "[\r\n  910604, //DOD Chattawhyte Krew\r\n  849654, //DoD Empire/Orbit/Rebellion/United\r\n  1179713, //DoD Iron Warlords\r\n  4271754, //DoD Shenanigans,\r\n  3219957, //DoD Storm ,\r\n  4748154, // DoD West Coast Blueberries\r\n  806412, // DoD X1 Foxtrot,\r\n  167225 //Dads of Destiny X1 Ghost\r\n]"
+            },
+            {
                 "name": "Empty",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
@@ -22180,7 +22753,7 @@
                 "file": "projects/clan-dashboard/src/app/features/clan-search/components/clan-search-autocomplete/clan-search-autocomplete.component.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
-                "type": "ClanSearchResultItem[]",
+                "type": "",
                 "defaultValue": "new Array(10).fill('').map((x) => {\r\n  return {\r\n    id: '1',\r\n    name: 'Item 1',\r\n    iconName: 'people',\r\n    type: 'clan'\r\n  };\r\n})"
             },
             {
@@ -22218,6 +22791,16 @@
                 "ctype": "miscellaneous",
                 "subtype": "variable",
                 "file": "projects/clan-dashboard/src/app/features/clan-search/components/clan-search-autocomplete/clan-search-autocomplete.component.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "",
+                "defaultValue": "Template.bind({})"
+            },
+            {
+                "name": "Loading",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/clan-dashboard/src/app/features/clans-details/components/clan-info/clan-info.component.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "",
@@ -22397,7 +22980,7 @@
                 "name": "name",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "projects/clan-dashboard/src/app/core/store/manifest/manifest.actions.ts",
+                "file": "projects/clan-dashboard/src/app/core/store/clans/clans.actions.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "",
@@ -22407,7 +22990,7 @@
                 "name": "name",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "projects/clan-dashboard/src/app/core/store/clans/clans.actions.ts",
+                "file": "projects/clan-dashboard/src/app/core/store/manifest/manifest.actions.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "",
@@ -22517,7 +23100,7 @@
                 "name": "Primary",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "projects/components/src/lib/shared/table-view/table-view.stories.ts",
+                "file": "projects/components/src/lib/shared/rendered-view/rendered-view.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "",
@@ -22527,7 +23110,7 @@
                 "name": "Primary",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "projects/components/src/lib/shared/rendered-view/rendered-view.stories.ts",
+                "file": "projects/components/src/lib/shared/table-view/table-view.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "",
@@ -22548,6 +23131,16 @@
                 "ctype": "miscellaneous",
                 "subtype": "variable",
                 "file": "projects/clan-dashboard/src/app/features/clan-search/components/clan-search-autocomplete/clan-search-autocomplete.component.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "",
+                "defaultValue": "Template.bind({})"
+            },
+            {
+                "name": "Primary",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/clan-dashboard/src/app/features/clans-details/components/clan-info/clan-info.component.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "",
@@ -22937,21 +23530,21 @@
                 "name": "Template",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "projects/components/src/lib/shared/table-view/table-view.stories.ts",
-                "deprecated": false,
-                "deprecationMessage": "",
-                "type": "Story<TableViewComponent>",
-                "defaultValue": "(args: TableViewComponent) => ({\r\n  props: args\r\n})"
-            },
-            {
-                "name": "Template",
-                "ctype": "miscellaneous",
-                "subtype": "variable",
                 "file": "projects/components/src/lib/shared/rendered-view/rendered-view.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "Story<RenderedViewComponent>",
                 "defaultValue": "(args: RenderedViewComponent) => ({\r\n  props: args\r\n})"
+            },
+            {
+                "name": "Template",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/components/src/lib/shared/table-view/table-view.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Story<TableViewComponent>",
+                "defaultValue": "(args: TableViewComponent) => ({\r\n  props: args\r\n})"
             },
             {
                 "name": "Template",
@@ -22977,11 +23570,31 @@
                 "name": "Template",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
+                "file": "projects/clan-dashboard/src/app/features/clans-details/components/clan-info/clan-info.component.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Story<ClanInfoComponent>",
+                "defaultValue": "(args: ClanInfoComponent) => ({\r\n  props: args\r\n})"
+            },
+            {
+                "name": "Template",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
                 "file": "projects/clan-dashboard/src/app/features/seals/components/seals-list/seals-list.component.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "Story<SealsListComponent>",
                 "defaultValue": "(args: SealsListComponent) => ({\r\n  props: args\r\n})"
+            },
+            {
+                "name": "updateClan",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/clan-dashboard/src/app/core/store/clans/clans.actions.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "",
+                "defaultValue": "createAction(name('Update Clan'), props<{ clan: ClanConfig }>())"
             },
             {
                 "name": "updateClanMemberActivitySync",
@@ -23004,6 +23617,15 @@
                 "defaultValue": "createAction(name('Update Clan Sync'), props<{ clanId: string }>())"
             },
             {
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/clan-dashboard/src/app/core/store/clans/clans.selectors.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "",
+                "defaultValue": "ClanConfigAdapter.getSelectors(selectClansState)"
+            },
+            {
                 "name": "updateNotification",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
@@ -23012,25 +23634,6 @@
                 "deprecationMessage": "",
                 "type": "",
                 "defaultValue": "createAction(`${base} Update Notification`, props<{ notification: Notification }>())"
-            },
-            {
-                "ctype": "miscellaneous",
-                "subtype": "variable",
-                "file": "projects/clan-dashboard/src/app/core/store/notifications/notifications.selectors.ts",
-                "deprecated": false,
-                "deprecationMessage": "",
-                "type": "",
-                "defaultValue": "NotificationAdapter.getSelectors(selectNotificationsState)"
-            },
-            {
-                "name": "updateClan",
-                "ctype": "miscellaneous",
-                "subtype": "variable",
-                "file": "projects/clan-dashboard/src/app/core/store/clans/clans.actions.ts",
-                "deprecated": false,
-                "deprecationMessage": "",
-                "type": "",
-                "defaultValue": "createAction(name('Update Clan'), props<{ clan: ClanConfig }>())"
             },
             {
                 "name": "VERSION",
@@ -23055,11 +23658,11 @@
             {
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "projects/clan-dashboard/src/app/core/store/clans/clans.selectors.ts",
+                "file": "projects/clan-dashboard/src/app/core/store/notifications/notifications.selectors.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "",
-                "defaultValue": "ClanConfigAdapter.getSelectors(selectClansState)"
+                "defaultValue": "NotificationAdapter.getSelectors(selectNotificationsState)"
             }
         ],
         "functions": [
@@ -24527,6 +25130,34 @@
                 "args": []
             },
             {
+                "name": "m",
+                "file": "projects/clan-dashboard/src/app/features/clan-search/clan-search-curated-view/curated_clans.ts",
+                "ctype": "miscellaneous",
+                "subtype": "function",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "description": "",
+                "args": [
+                    {
+                        "name": "c",
+                        "type": "",
+                        "deprecated": false,
+                        "deprecationMessage": ""
+                    }
+                ],
+                "jsdoctags": [
+                    {
+                        "name": "c",
+                        "type": "",
+                        "deprecated": false,
+                        "deprecationMessage": "",
+                        "tagName": {
+                            "text": "param"
+                        }
+                    }
+                ]
+            },
+            {
                 "name": "nowPlusDays",
                 "file": "projects/data/src/lib/utility/date-utils.ts",
                 "ctype": "miscellaneous",
@@ -25554,6 +26185,16 @@
                     "defaultValue": "createAction(name('Set Clans'), props<{ clanIds: ClanConfig[] }>())"
                 },
                 {
+                    "name": "updateClan",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/clan-dashboard/src/app/core/store/clans/clans.actions.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "defaultValue": "createAction(name('Update Clan'), props<{ clan: ClanConfig }>())"
+                },
+                {
                     "name": "updateClanMemberActivitySync",
                     "ctype": "miscellaneous",
                     "subtype": "variable",
@@ -25572,16 +26213,6 @@
                     "deprecationMessage": "",
                     "type": "",
                     "defaultValue": "createAction(name('Update Clan Sync'), props<{ clanId: string }>())"
-                },
-                {
-                    "name": "updateClan",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "projects/clan-dashboard/src/app/core/store/clans/clans.actions.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "",
-                    "defaultValue": "createAction(name('Update Clan'), props<{ clan: ClanConfig }>())"
                 }
             ],
             "projects/clan-dashboard/src/app/core/store/notifications/notifications.actions.ts": [
@@ -25624,6 +26255,68 @@
                     "deprecationMessage": "",
                     "type": "",
                     "defaultValue": "createAction(`${base} Update Notification`, props<{ notification: Notification }>())"
+                }
+            ],
+            "projects/clan-dashboard/src/app/features/clan-search/clan-search-curated-view/curated_clans.ts": [
+                {
+                    "name": "ALL_CLANS",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/clan-dashboard/src/app/features/clan-search/clan-search-curated-view/curated_clans.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "[]",
+                    "defaultValue": "[DOD]"
+                },
+                {
+                    "name": "DOD",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/clan-dashboard/src/app/features/clan-search/clan-search-curated-view/curated_clans.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "CuratedClan",
+                    "defaultValue": "{\r\n  key: 'dod',\r\n  title: \"Dad's of Destiny\",\r\n  subGroups: [\r\n    {\r\n      title: 'All Platforms',\r\n      clans: m(dod_clans_all)\r\n    },\r\n    {\r\n      title: 'PC',\r\n      clans: m(dod_clans_pc)\r\n    },\r\n    {\r\n      title: 'Playstation',\r\n      clans: m(dod_clans_ps)\r\n    },\r\n    {\r\n      title: 'Play Station',\r\n      clans: m(dod_clans_xbox)\r\n    }\r\n  ]\r\n}"
+                },
+                {
+                    "name": "dod_clans_all",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/clan-dashboard/src/app/features/clan-search/clan-search-curated-view/curated_clans.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "[]",
+                    "defaultValue": "[\r\n  4803739, //DoD Still Vexier Than You\r\n  4523816, //DoD Lightforged\r\n  223562, //DoD Westside\r\n  523657, //DoD Battleborn\r\n  3872451, //DoD Battleborn Ascendant\r\n  1726332 //DoD California\r\n]"
+                },
+                {
+                    "name": "dod_clans_pc",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/clan-dashboard/src/app/features/clan-search/clan-search-curated-view/curated_clans.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "[]",
+                    "defaultValue": "[\r\n  2073131, // Chums\r\n  4322250, // DoD Dad Guard\r\n  2866236, // GMT\r\n  4430645, //Family Pride\r\n  4473297, // Guiding light\r\n  4767446 // Lucid Loops\r\n]"
+                },
+                {
+                    "name": "dod_clans_ps",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/clan-dashboard/src/app/features/clan-search/clan-search-curated-view/curated_clans.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "[]",
+                    "defaultValue": "[2942177, 1288185, 2071608, 1771725, 1161209, 2180975, 3136336, 1186355, 1375802]"
+                },
+                {
+                    "name": "dod_clans_xbox",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/clan-dashboard/src/app/features/clan-search/clan-search-curated-view/curated_clans.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "[]",
+                    "defaultValue": "[\r\n  910604, //DOD Chattawhyte Krew\r\n  849654, //DoD Empire/Orbit/Rebellion/United\r\n  1179713, //DoD Iron Warlords\r\n  4271754, //DoD Shenanigans,\r\n  3219957, //DoD Storm ,\r\n  4748154, // DoD West Coast Blueberries\r\n  806412, // DoD X1 Foxtrot,\r\n  167225 //Dads of Destiny X1 Ghost\r\n]"
                 }
             ],
             "projects/components/src/lib/data/utility/filter-matcher.ts": [
@@ -26068,7 +26761,7 @@
                     "file": "projects/clan-dashboard/src/app/features/clan-search/components/clan-search-autocomplete/clan-search-autocomplete.component.stories.ts",
                     "deprecated": false,
                     "deprecationMessage": "",
-                    "type": "ClanSearchResultItem[]",
+                    "type": "",
                     "defaultValue": "new Array(10).fill('').map((x) => {\r\n  return {\r\n    id: '1',\r\n    name: 'Item 1',\r\n    iconName: 'people',\r\n    type: 'clan'\r\n  };\r\n})"
                 },
                 {
@@ -26408,6 +27101,38 @@
                     "deprecationMessage": "",
                     "type": "Story<ClanDetailCellComponent>",
                     "defaultValue": "(args: ClanDetailCellComponent) => ({\r\n  props: args\r\n})"
+                }
+            ],
+            "projects/clan-dashboard/src/app/features/clans-details/components/clan-info/clan-info.component.stories.ts": [
+                {
+                    "name": "Loading",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/clan-dashboard/src/app/features/clans-details/components/clan-info/clan-info.component.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "defaultValue": "Template.bind({})"
+                },
+                {
+                    "name": "Primary",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/clan-dashboard/src/app/features/clans-details/components/clan-info/clan-info.component.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "defaultValue": "Template.bind({})"
+                },
+                {
+                    "name": "Template",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/clan-dashboard/src/app/features/clans-details/components/clan-info/clan-info.component.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Story<ClanInfoComponent>",
+                    "defaultValue": "(args: ClanInfoComponent) => ({\r\n  props: args\r\n})"
                 }
             ],
             "projects/clan-dashboard/src/app/core/injection-tokens/location-token.ts": [
@@ -29012,6 +29737,36 @@
                     "args": []
                 }
             ],
+            "projects/clan-dashboard/src/app/features/clan-search/clan-search-curated-view/curated_clans.ts": [
+                {
+                    "name": "m",
+                    "file": "projects/clan-dashboard/src/app/features/clan-search/clan-search-curated-view/curated_clans.ts",
+                    "ctype": "miscellaneous",
+                    "subtype": "function",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "description": "",
+                    "args": [
+                        {
+                            "name": "c",
+                            "type": "",
+                            "deprecated": false,
+                            "deprecationMessage": ""
+                        }
+                    ],
+                    "jsdoctags": [
+                        {
+                            "name": "c",
+                            "type": "",
+                            "deprecated": false,
+                            "deprecationMessage": "",
+                            "tagName": {
+                                "text": "param"
+                            }
+                        }
+                    ]
+                }
+            ],
             "projects/components/src/lib/data/sorter.ts": [
                 {
                     "name": "sortItems",
@@ -29533,12 +30288,19 @@
                                         "children": [
                                             {
                                                 "name": "routes",
-                                                "filename": "projects/clan-dashboard/src/app/features/recent-activity/recent-activity-dashboard/clan-roster-routing.module.ts.ts",
+                                                "filename": "projects/clan-dashboard/src/app/features/recent-activity/recent-activity-shell/recent-activity-routing.module.ts",
                                                 "module": "RecentActivityRoutingModule",
                                                 "children": [
                                                     {
                                                         "path": "",
-                                                        "component": "RecentActivityComponent"
+                                                        "loadChildren": "../recent-activity-dashboard/recent-activity.module#RecentActivityModule",
+                                                        "children": [
+                                                            {
+                                                                "kind": "module",
+                                                                "children": [],
+                                                                "module": "RecentActivityModule"
+                                                            }
+                                                        ]
                                                     }
                                                 ],
                                                 "kind": "module"
@@ -29983,6 +30745,16 @@
                 "type": "variable",
                 "linktype": "miscellaneous",
                 "linksubtype": "variable",
+                "name": "updateClan",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/clan-dashboard/src/app/core/store/clans/clans.actions.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
                 "name": "updateClanMemberActivitySync",
                 "coveragePercent": 0,
                 "coverageCount": "0/1",
@@ -29994,16 +30766,6 @@
                 "linktype": "miscellaneous",
                 "linksubtype": "variable",
                 "name": "updateClanProfileSync",
-                "coveragePercent": 0,
-                "coverageCount": "0/1",
-                "status": "low"
-            },
-            {
-                "filePath": "projects/clan-dashboard/src/app/core/store/clans/clans.actions.ts",
-                "type": "variable",
-                "linktype": "miscellaneous",
-                "linksubtype": "variable",
-                "name": "updateClan",
                 "coveragePercent": 0,
                 "coverageCount": "0/1",
                 "status": "low"
@@ -30423,7 +31185,7 @@
                 "linktype": "component",
                 "name": "ClanDetailComponent",
                 "coveragePercent": 0,
-                "coverageCount": "0/6",
+                "coverageCount": "0/9",
                 "status": "low"
             },
             {
@@ -30462,7 +31224,7 @@
                 "linktype": "component",
                 "name": "ClanDetailCellComponent",
                 "coveragePercent": 0,
-                "coverageCount": "0/3",
+                "coverageCount": "0/6",
                 "status": "low"
             },
             {
@@ -30471,7 +31233,95 @@
                 "linktype": "injectable",
                 "name": "ClanDetailService",
                 "coveragePercent": 0,
-                "coverageCount": "0/3",
+                "coverageCount": "0/5",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/clan-dashboard/src/app/features/clan-search/clan-search-curated-view/clan-search-curated-view.component.ts",
+                "type": "component",
+                "linktype": "component",
+                "name": "ClanSearchCuratedViewComponent",
+                "coveragePercent": 0,
+                "coverageCount": "0/6",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/clan-dashboard/src/app/features/clan-search/clan-search-curated-view/curated_clans.ts",
+                "type": "interface",
+                "linktype": "interface",
+                "name": "CuratedClan",
+                "coveragePercent": 0,
+                "coverageCount": "0/5",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/clan-dashboard/src/app/features/clan-search/clan-search-curated-view/curated_clans.ts",
+                "type": "function",
+                "linktype": "miscellaneous",
+                "linksubtype": "function",
+                "name": "m",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/clan-dashboard/src/app/features/clan-search/clan-search-curated-view/curated_clans.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "ALL_CLANS",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/clan-dashboard/src/app/features/clan-search/clan-search-curated-view/curated_clans.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "DOD",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/clan-dashboard/src/app/features/clan-search/clan-search-curated-view/curated_clans.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "dod_clans_all",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/clan-dashboard/src/app/features/clan-search/clan-search-curated-view/curated_clans.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "dod_clans_pc",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/clan-dashboard/src/app/features/clan-search/clan-search-curated-view/curated_clans.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "dod_clans_ps",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/clan-dashboard/src/app/features/clan-search/clan-search-curated-view/curated_clans.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "dod_clans_xbox",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
                 "status": "low"
             },
             {
@@ -30480,7 +31330,7 @@
                 "linktype": "component",
                 "name": "ClanSearchViewComponent",
                 "coveragePercent": 0,
-                "coverageCount": "0/9",
+                "coverageCount": "0/11",
                 "status": "low"
             },
             {
@@ -30576,6 +31426,45 @@
                 "name": "ClansDetailsComponent",
                 "coveragePercent": 0,
                 "coverageCount": "0/3",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/clan-dashboard/src/app/features/clans-details/components/clan-info/clan-info.component.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Loading",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/clan-dashboard/src/app/features/clans-details/components/clan-info/clan-info.component.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Primary",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/clan-dashboard/src/app/features/clans-details/components/clan-info/clan-info.component.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Template",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/clan-dashboard/src/app/features/clans-details/components/clan-info/clan-info.component.ts",
+                "type": "component",
+                "linktype": "component",
+                "name": "ClanInfoComponent",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
                 "status": "low"
             },
             {

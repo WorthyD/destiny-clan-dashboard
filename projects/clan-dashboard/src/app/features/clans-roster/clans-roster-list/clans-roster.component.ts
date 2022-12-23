@@ -1,6 +1,6 @@
-import { Component, OnInit, ViewRef, ViewEncapsulation, ChangeDetectionStrategy } from '@angular/core';
-import { DataSource, Exporter, Filterer, Grouper, Sorter, Viewer } from '@destiny/components';
-import { combineLatest, delay, filter, map, Observable, of, tap } from 'rxjs';
+import { Component, ViewEncapsulation, ChangeDetectionStrategy } from '@angular/core';
+import { DataSource, Exporter, Filterer, Sorter, Viewer } from '@destiny/components';
+import { map, Observable, of, tap } from 'rxjs';
 
 import { BungieDatePipe, BungieDateTimePipe } from '@destiny/components/pipes/bungie-date';
 import { ClanMemberProfile, ClansRosterService } from '../data-access/clans-roster.service';
@@ -12,7 +12,6 @@ import { CLAN_ROSTER_EXPORTER_METADATA } from './clan-roster-metadata/ClanRoster
 interface RosterResources {
   viewer: Viewer;
   filterer: Filterer;
-  //grouper: Grouper;
   exporter: Exporter;
   sorter: Sorter;
   dataSource: DataSource;
@@ -31,10 +30,6 @@ export class ClansRosterComponent {
     private bungieDatePage: BungieDatePipe,
     private bungieDateTimePipe: BungieDateTimePipe
   ) {}
-  // stuff2$ = this.clansRosterService.activeClanPeople$;
-  //members$ = this.clansRosterService.clanMembers$;
-  //profiles$ = this.clansRosterService.clanProfiles$;
-
   rosterViewer = new Viewer(
     {
       metadata: CLAN_ROSTER_VIEWER_METADATA,
