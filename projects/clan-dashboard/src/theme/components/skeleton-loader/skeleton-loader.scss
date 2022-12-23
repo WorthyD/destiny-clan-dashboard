@@ -4,6 +4,9 @@
   height: 1.2em;
   animation: 1.5s ease-in-out 0.5s infinite normal none running skeleton-loader-animation;
 }
+.skeleton-full-width {
+  width: 100%;
+}
 @keyframes skeleton-loader-animation {
   0% {
     opacity: 1;

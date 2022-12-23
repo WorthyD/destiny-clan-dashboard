@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { ClanConfig } from '@core/store/clans';
 import { ClanDetailService } from '../data-access/clan-detail.service';
 import { Observable, tap } from 'rxjs';
@@ -7,7 +7,8 @@ import { GroupsV2GroupV2 } from 'bungie-api-angular';
 @Component({
   selector: 'app-clan-detail',
   templateUrl: './clan-detail.component.html',
-  styleUrls: ['./clan-detail.component.scss']
+  styleUrls: ['./clan-detail.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ClanDetailComponent implements OnChanges {
   // export class ClanDetailComponent {

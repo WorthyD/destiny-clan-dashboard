@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Input, OnInit, Pipe, PipeTransform } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input,  Pipe, PipeTransform } from '@angular/core';
 import { MemberProfile } from '@destiny/data/models';
 
 @Component({

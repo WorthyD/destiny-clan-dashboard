@@ -3,7 +3,17 @@
 }
 .clan-detail {
   width: 100%;
+  .mat-mdc-card-title-group {
+    display: block;
+  }
+  .mat-mdc-card-title {
+    display: flex;
+    align-items: center;
 
+    .title-spacer {
+      flex: 1 1 auto;
+    }
+  }
 
   &__loading {
     .skeleton-title {

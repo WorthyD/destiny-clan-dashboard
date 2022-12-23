@@ -1,13 +1,11 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { ClansDetailsComponent } from './clans-details.component';
 
 const routes: Routes = [
   {
     path: '',
-    loadChildren: () =>
-      import('../clans-details-dashboard/clans-details-dashboard.module').then(
-        (module) => module.ClansDetailsDashboardModule
-      )
+    component: ClansDetailsComponent
   }
 ];
 

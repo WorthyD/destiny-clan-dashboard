@@ -1,0 +1,67 @@
+:host {
+  display: block;
+}
+.clan-detail {
+  width: 100%;
+  .mat-mdc-card-title-group {
+    display: block;
+  }
+  .mat-mdc-card-title {
+    display: flex;
+    align-items: center;
+
+    .title-spacer {
+      flex: 1 1 auto;
+    }
+    .clan-member-count {
+      display: flex;
+      align-items: center;
+    }
+  }
+  .season-progress {
+    margin: 1rem 0;
+    display: flex;
+    align-items: center;
+    &-info {
+      flex: 1;
+    }
+  }
+  .season-level {
+    margin-right: 1rem;
+    span {
+      align-items: center;
+      background: var(--app-primary-color);
+      border-radius: 50%;
+      color: var(--app-primary-color-text);
+      display: flex;
+      justify-content: center;
+      height: 40px;
+      font-size: 1.25rem;
+      text-align: center;
+      width: 40px;
+    }
+  }
+  .progress-info {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 0.25rem;
+  }
+
+  &__loading {
+    .skeleton-title {
+      width: 250px;
+      margin-bottom: 0.75rem;
+    }
+    .skeleton-sub-title {
+      width: 250px;
+      margin-bottom: 0.75rem;
+    }
+
+    .skeleton-list {
+      width: 200px;
+    }
+    .skeleton-button {
+      width: 75px;
+    }
+  }
+}

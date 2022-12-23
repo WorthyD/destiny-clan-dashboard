@@ -6,10 +6,11 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatListModule } from '@angular/material/list';
 import { PipesModule } from '@destiny/components/pipes';
 import { MatIconModule } from '@angular/material/icon';
+import { MatTooltipModule } from '@angular/material/tooltip';
 @Component({
   selector: 'app-clan-detail-cell',
   standalone: true,
-  imports: [CommonModule, MatCardModule, MatButtonModule, MatListModule, PipesModule, MatIconModule],
+  imports: [CommonModule, MatCardModule, MatButtonModule, MatListModule, PipesModule, MatIconModule, MatTooltipModule],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './clan-detail-cell.component.html',
   styleUrls: ['./clan-detail-cell.component.scss']

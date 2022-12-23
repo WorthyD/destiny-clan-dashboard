@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { GroupsV2GroupV2Card } from 'bungie-api-angular/lib/model/groupsV2GroupV2Card';
 import { catchError, Observable, of, switchMap, tap } from 'rxjs';
@@ -7,7 +7,8 @@ import { ClanSearchService } from '../data-access/clan-search.service';
 @Component({
   selector: 'app-clan-search-view',
   templateUrl: './clan-search-view.component.html',
-  styleUrls: ['./clan-search-view.component.scss']
+  styleUrls: ['./clan-search-view.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ClanSearchViewComponent {
   constructor(private clanSearchService: ClanSearchService) {}
