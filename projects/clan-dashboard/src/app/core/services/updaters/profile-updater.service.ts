@@ -83,7 +83,9 @@ export class ProfileUpdaterService {
           // eslint-disable-next-line @ngrx/avoid-dispatching-multiple-actions-sequentially
           this.store.dispatch(updateClanProfileSync({ clanId: clan.clanConfig.clanId }));
 
-          this.clanMemberService.forceReload();
+          //
+          console.log('------------- dispatch update ------------------');
+          // this.clanMemberService.forceReload();
           return {
             ...clan,
             profiles: x

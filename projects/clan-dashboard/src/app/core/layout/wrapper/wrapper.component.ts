@@ -4,6 +4,7 @@ import { select, Store } from '@ngrx/store';
 import { take } from 'rxjs';
 import { ClanUpdaterService } from '../../services/updaters/clan-updater.service';
 import { AppConfig } from '../../config/app-config';
+import { initializeClanMemberProfiles } from '@core/store/clans-members-profiles/clan-members-profiles.actions';
 
 @Component({
   selector: 'app-wrapper',
@@ -23,5 +24,7 @@ export class WrapperComponent implements OnInit {
       .update()
       .pipe(take(1))
       .subscribe((x) => (this.loading = false));
+
+    this.store.dispatch(initializeClanMemberProfiles());
   }
 }

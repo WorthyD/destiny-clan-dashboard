@@ -1,28 +1,14 @@
 import { Injectable } from '@angular/core';
 import { ClanConfig } from '@core/store/clans';
 import { ClanMembersService } from '@destiny/data/clan/clan-members';
+import { MemberProfile } from '@destiny/data/models';
+import { getClanMemberId, getMemberProfileId } from '@destiny/data/utility';
 import { Store } from '@ngrx/store';
+import { ClanMemberProfile } from '@shared/models/ClanMemberProfile';
 import { GroupsV2GroupMember } from 'bungie-api-angular';
-import {
-  BehaviorSubject,
-  combineLatest,
-  from,
-  map,
-  mergeMap,
-  Observable,
-  shareReplay,
-  Subject,
-  switchMap,
-  take,
-  takeUntil,
-  tap,
-  toArray
-} from 'rxjs';
-import {
-  selectEnabledClans,
-  selectEnabledClanIds,
-  selectLastRecentActivityUpdate
-} from '../store/clans/clans.selectors';
+import { ProfileService } from 'projects/data/src/lib/clan/profiles/profile.service';
+import { from, map, mergeMap, Observable, switchMap, toArray } from 'rxjs';
+import { selectEnabledClans } from '../store/clans/clans.selectors';
 
 export interface ClanConfigMembers {
   clan: ClanConfig;
@@ -33,11 +19,9 @@ export interface ClanConfigMembers {
   providedIn: 'root'
 })
 export class ClansMembersService {
-  private reloadClanMembers$ = new BehaviorSubject<void>(undefined);
-
   activeClans$ = this.store.select(selectEnabledClans);
 
-  private _clanMembers$ = this.activeClans$.pipe(
+  clanMembers$ = this.activeClans$.pipe(
     switchMap((activeClans) => {
       return from(activeClans).pipe(
         mergeMap((clan) => {
@@ -52,18 +36,38 @@ export class ClansMembersService {
     })
   );
 
-  public clanMembers$ = this.reloadClanMembers$.pipe(
-    mergeMap(() => this._clanMembers$),
-    shareReplay(1)
+  clanProfiles$: Observable<ClanMemberProfile[]> = this.clanMembers$.pipe(
+    switchMap((clansAndMembers) => {
+      return from(clansAndMembers).pipe(
+        mergeMap((clanAndMembers) => {
+          return this.profileService
+            .getSerializedProfilesFromCache(clanAndMembers.clan.clanId, clanAndMembers.members, [], [])
+            .pipe(
+              switchMap((resultProfiles: MemberProfile[]) => {
+                return clanAndMembers.members.map((member) => {
+                  return {
+                    clan: {
+                      clanId: clanAndMembers.clan.clanId,
+                      clanName: clanAndMembers.clan.clanName,
+                      clanTag: clanAndMembers.clan.clanTag
+                    },
+                    member,
+                    profile: resultProfiles.find((profile) => {
+                      return getClanMemberId(member) === getMemberProfileId(profile);
+                    })
+                  };
+                });
+              })
+            );
+        }),
+        toArray()
+      );
+    })
   );
-
-  forceReload() {
-    // Calling next will complete the current cache instance
-    this.reloadClanMembers$.next();
-  }
 
   constructor(
     private store: Store,
-    private memberService: ClanMembersService
+    private memberService: ClanMembersService,
+    private profileService: ProfileService
   ) {}
 }
