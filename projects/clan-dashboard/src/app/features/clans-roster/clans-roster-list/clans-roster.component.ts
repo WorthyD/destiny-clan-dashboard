@@ -1,13 +1,14 @@
 import { Component, ViewEncapsulation, ChangeDetectionStrategy } from '@angular/core';
 import { DataSource, Exporter, Filterer, Sorter, Viewer } from '@destiny/components';
-import { map, Observable, of, tap } from 'rxjs';
+import { map, Observable, of } from 'rxjs';
 
 import { BungieDatePipe, BungieDateTimePipe } from '@destiny/components/pipes/bungie-date';
-import { ClanMemberProfile, ClansRosterService } from '../data-access/clans-roster.service';
+import { ClansRosterService } from '../data-access/clans-roster.service';
 import { CLAN_ROSTER_VIEWER_METADATA } from './clan-roster-metadata';
 import { CLAN_ROSTER_FILTERER_METADATA } from './clan-roster-metadata/ClanRosterFilterer';
 import { CLAN_ROSTER_SORTER_METADATA } from './clan-roster-metadata/ClanRosterSorter';
 import { CLAN_ROSTER_EXPORTER_METADATA } from './clan-roster-metadata/ClanRosterExporter';
+import { ClanMemberProfile } from '@shared/models/ClanMemberProfile';
 
 interface RosterResources {
   viewer: Viewer;
@@ -40,9 +41,9 @@ export class ClansRosterComponent {
   rosterFilter = new Filterer({ metadata: CLAN_ROSTER_FILTERER_METADATA });
   rosterSorter = new Sorter({ metadata: CLAN_ROSTER_SORTER_METADATA });
   rosterExporter = new Exporter({ metadata: CLAN_ROSTER_EXPORTER_METADATA });
-  isLoading = true;
+  isLoading$ = this.clansRosterService.clanProfilesLoading$;
 
-  rosterInfo$: Observable<RosterResources> = this.clansRosterService.activeClanPeople$.pipe(
+  rosterInfo$: Observable<RosterResources> = this.clansRosterService.clanProfiles$.pipe(
     map((clanProfiles) => {
       return {
         dataSource: new DataSource<ClanMemberProfile>({ data: clanProfiles }),
@@ -52,7 +53,6 @@ export class ClansRosterComponent {
         sorter: this.rosterSorter
       };
     }),
-    tap((x) => (this.isLoading = false))
   );
 
   createViewContextProvider() {

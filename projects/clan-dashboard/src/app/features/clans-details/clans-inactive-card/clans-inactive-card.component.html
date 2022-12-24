@@ -1,0 +1,10 @@
+<ng-container *ngIf="vm$ | async as vm">
+    <app-clan-member-card [cardTitle]="'Longest Away Members'" [itemTemplate]="itemTemplate" [isLoading]="vm.isLoading"
+      [members]="vm.inactiveMemberList">
+      <ng-template let-member #itemTemplate>
+        <div>
+          {{member.profile?.profile.data.dateLastPlayed |  bungieDate}}
+        </div>
+      </ng-template>
+    </app-clan-member-card>
+  </ng-container>

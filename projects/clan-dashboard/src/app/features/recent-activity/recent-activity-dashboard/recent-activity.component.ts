@@ -1,7 +1,7 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { DataSource, Exporter, Filterer, Sorter, Viewer } from '@destiny/components';
-import { BungieDatePipe, BungieDateTimePipe, PlaytimePipe } from '@destiny/components/pipes';
-import { combineLatest, filter, map, Observable, of, tap } from 'rxjs';
+import { BungieDateTimePipe, PlaytimePipe } from '@destiny/components/pipes';
+import { combineLatest, map, Observable, of, tap } from 'rxjs';
 import { RecentActivityService } from '../data-access/recent-activity.service';
 import { ProfileRecentActivity } from '../models/profile-recent-activity';
 import {
@@ -26,7 +26,7 @@ interface RosterActivityResources {
   styleUrls: ['./recent-activity.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class RecentActivityComponent implements OnInit {
+export class RecentActivityComponent {
   constructor(
     private recentActivityService: RecentActivityService,
     private playtimePipe: PlaytimePipe,
@@ -34,10 +34,13 @@ export class RecentActivityComponent implements OnInit {
   ) {}
 
   clanProfileActivity$ = this.recentActivityService.activeClanActivity$;
-  activityViewer = new Viewer({
-    metadata: RECENT_ACTIVITY_VIEWER_METADATA,
-    contextProvider: this.createViewContextProvider()
-  }, '2Dashboard_Roster_Activity_Table_Viewer');
+  activityViewer = new Viewer(
+    {
+      metadata: RECENT_ACTIVITY_VIEWER_METADATA,
+      contextProvider: this.createViewContextProvider()
+    },
+    '2Dashboard_Roster_Activity_Table_Viewer'
+  );
   activityFilterer = new Filterer({ metadata: RECENT_ACTIVITY_FILTERER_METADATA });
   activitySorter = new Sorter({ metadata: RECENT_ACTIVITY_SORTER_METADATA });
   activityExporter = new Exporter({
@@ -66,5 +69,4 @@ export class RecentActivityComponent implements OnInit {
       // dateTimePipe: this.bungieDateTimePipe
     }));
   }
-  ngOnInit(): void {}
 }

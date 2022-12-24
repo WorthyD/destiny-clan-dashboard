@@ -5,41 +5,58 @@
 .clans-details {
   &__wrapper {
     padding: 20px;
-    //display: flex;
   }
   &__clans {
-    //flex: 1;
-    //margin-right: 1rem;
     .clan {
       display: block;
-      // margin-bottom: 1rem;
 
       margin-bottom: 1rem;
     }
   }
-
-  &__info-cards {
-    //   min-width: 350px;
-    //  max-height: 500px;
+  &__info-card {
+    margin-bottom: 1rem;
+    display: block;
+    //  height: 100%;
   }
 }
 @media (min-width: 48em) {
+  // Add back when We go 2 col
+  // .clans-details {
+  //   &__wrapper {
+  //     display: flex;
+  //   }
+  //   &__clans {
+  //     flex: 1;
+  //     margin-right: 1rem;
+  //     .clan {
+  //       display: block;
+  //     }
+  //   }
+
+  //   &__info-cards {
+  //     min-width: 350px;
+  //     max-height: 500px;
+  //   }
+  // }
   .clans-details {
     &__wrapper {
-      // padding: 20px;
-      display: flex;
     }
     &__clans {
-      flex: 1;
-      margin-right: 1rem;
+      //  display: flex;
+      // margin-right: 1rem;
+
       .clan {
         display: block;
       }
     }
 
     &__info-cards {
-      min-width: 350px;
+      display: flex;
       max-height: 500px;
+      justify-content: space-between;
+    }
+    &__info-card {
+      width: 30%;
     }
   }
 }

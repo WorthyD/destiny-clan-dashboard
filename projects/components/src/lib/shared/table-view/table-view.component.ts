@@ -93,7 +93,7 @@ export class TableViewComponent implements OnChanges {
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['dataSource'] || changes['filterer'] || changes['sorter'] || changes['viewer'] || changes['loading']) {
       if (this.filterer && this.sorter && this.viewer) {
-        if (this.isLoading === true) {
+        if (this.isLoading === true ) {
           this.showLoading();
         } else {
           this.loadData();
