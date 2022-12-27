@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { ActivityDefinitionService } from '@core/definition-services/activity-definition.service';
 import { ActivityModeDefinitionService } from '@core/definition-services/activity-mode-definition.service';
+import { DefinitionService } from '@core/definition-services/definition.service';
 import { MilestoneDefinitionService } from '@core/definition-services/milestone-definition.service';
 import { PresentationNodeDefinitionService } from '@core/definition-services/presentation-node-definition.service';
 import { RecordDefinitionService } from '@core/definition-services/record-definition.service';
@@ -17,7 +18,8 @@ export class ManifestService {
     private activityModeService: ActivityModeDefinitionService,
     private milestoneDefinitionService: MilestoneDefinitionService,
     private presentationNodeDefinitionService: PresentationNodeDefinitionService,
-    private recordDefinitionService: RecordDefinitionService
+    private recordDefinitionService: RecordDefinitionService,
+    private definitionService: DefinitionService
   ) {}
 
   loadManifest() {
@@ -32,6 +34,7 @@ export class ManifestService {
       //'DestinySandboxPerkDefinition',
       //'DestinyEnergyTypeDefinition',
       //'DestinyCollectibleDefinition',
+      'DestinyMetricDefinition',
       'DestinyPresentationNodeDefinition',
       'DestinyRecordDefinition',
       'DestinySeasonDefinition',
@@ -62,6 +65,9 @@ export class ManifestService {
 
           if (x.data.DestinyPresentationNodeDefinition) {
             this.presentationNodeDefinitionService.initializeCache(x.data.DestinyPresentationNodeDefinition);
+          }
+          if (x.data) {
+            this.definitionService.initializeCache(x.data);
           }
         }
 

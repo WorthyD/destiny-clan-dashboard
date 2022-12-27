@@ -5,6 +5,8 @@ import { MilestoneDefinitionService } from '@core/definition-services/milestone-
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { RecordDefinitionService } from '@core/definition-services/record-definition.service';
 import { MatTabsModule } from '@angular/material/tabs';
+import { Destiny2Service } from 'bungie-api-angular';
+import { take } from 'rxjs';
 
 @Component({
   selector: 'app-lookup',
@@ -18,7 +20,8 @@ export class LookupComponent {
   constructor(
     private presentationNodeService: PresentationNodeDefinitionService,
     private milestoneDefinitionService: MilestoneDefinitionService,
-    private recordDefinitionService: RecordDefinitionService
+    private recordDefinitionService: RecordDefinitionService,
+    private d2ServiceBase: Destiny2Service
   ) {}
 
   displayObject: any = {};
@@ -44,5 +47,13 @@ export class LookupComponent {
   }
   loadImage() {
     this.imgUrls.push(`//bungie.net/${this.imageUrl.value}`);
+  }
+  userLookup() {
+    this.d2ServiceBase
+      .destiny2GetProfile('4611686018467238913' as unknown as number, 3, [100, 104, 200, 202, 800, 900, 1100])
+      .pipe(take(1))
+      .subscribe((result) => {
+        this.updateDisplay(result);
+      });
   }
 }

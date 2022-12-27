@@ -23,7 +23,6 @@ export class SealsService {
     private profileService: ProfileService,
     private appConfig: AppConfig
   ) {
-    // this.milestonesWithProfiles$.subscribe((x) => console.log('sub', x));
   }
   //legacySealNode = this.presentationNodeService.definitions[1881970629]; //.getDefinitionsByHash(1881970629);
   currentSealNodes = this.presentationNodeService.definitions[this.appConfig.constants.CURRENT_SEALS_HASH];
@@ -60,7 +59,8 @@ export class SealsService {
               clanAndMembers.clan.clanId,
               clanAndMembers.members,
               [],
-              [...hashes, ...gildedHashes]
+              [...hashes, ...gildedHashes],
+              []
             )
             .pipe(
               switchMap((memberProfiles) => {
@@ -125,7 +125,7 @@ export class SealsService {
 
           return {
             clanMember: clanProfile.clanMember,
-            profile: profileSerializer(clanProfile.profile, [], [], []), // Strip records to minimize size of object
+            profile: profileSerializer(clanProfile.profile, [], [], [], []), // Strip records to minimize size of object
             clan: clanProfile.clan,
             sealProgression: {
               isGilded: gildedProgression ? gildedProgression.objectives[0].complete : undefined,

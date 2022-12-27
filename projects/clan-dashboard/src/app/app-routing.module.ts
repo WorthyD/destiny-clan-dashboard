@@ -28,7 +28,6 @@ const routes: Routes = [
       {
         path: 'recent-activity',
         loadChildren: () =>
-          //import('./views/recent-activity/recent-activity.module').then((module) => module.RecentActivityModule)
           import('./features/recent-activity/recent-activity-shell/recent-activity.module').then(
             (module) => module.RecentActivityModule
           )
@@ -37,6 +36,13 @@ const routes: Routes = [
         path: 'seals',
         loadChildren: () =>
           import('./features/seals/seals-shell/seals-routing.module').then((module) => module.SealsRoutingModule)
+      },
+      {
+        path: 'activities',
+        loadChildren: () =>
+          import('./features/activities/activities-shell/activities-shell.module').then(
+            (module) => module.ActivitiesShellModule
+          )
       },
 
       {
@@ -55,7 +61,10 @@ const routes: Routes = [
     // TODO: Clan Guard
     //canActivate: [ClanResolveGuard],
     // loadChildren: () => import('./views/clan-search/clan-search.module').then((module) => module.ClanSearchModule)
-    loadChildren: () => import('./features/clan-search/clan-search-shell/clan-search-shell.module').then((module) => module.ClanSearchModule)
+    loadChildren: () =>
+      import('./features/clan-search/clan-search-shell/clan-search-shell.module').then(
+        (module) => module.ClanSearchModule
+      )
   }
 ];
 

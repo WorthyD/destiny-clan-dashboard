@@ -84,7 +84,7 @@ export class ProfileUpdaterService {
           this.store.dispatch(updateClanProfileSync({ clanId: clan.clanConfig.clanId }));
 
           //
-          console.log('------------- dispatch update ------------------');
+         // console.log('------------- dispatch update ------------------');
           // this.clanMemberService.forceReload();
           return {
             ...clan,
@@ -94,7 +94,7 @@ export class ProfileUpdaterService {
       );
     }
 
-    return this.profileService.getSerializedProfilesFromCache(clan.clanConfig.clanId, clan.members, [], []).pipe(
+    return this.profileService.getSerializedProfilesFromCache(clan.clanConfig.clanId, clan.members, [], [], []).pipe(
       map((x) => {
         return { ...clan, profiles: x };
       })

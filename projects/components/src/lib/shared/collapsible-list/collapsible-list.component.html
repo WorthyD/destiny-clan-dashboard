@@ -1,0 +1,18 @@
+<mat-accordion>
+  <mat-expansion-panel expanded>
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+       {{title}}
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+    <mat-list role="list">
+      <ng-container *ngFor="let item of items; let idx = index">
+        <mat-list-item role="listitem">
+          <ng-container [ngTemplateOutlet]="itemTemplate" [ngTemplateOutletContext]="{ $implicit: item }">
+          </ng-container>
+        </mat-list-item>
+      </ng-container>
+    </mat-list>
+
+  </mat-expansion-panel>
+</mat-accordion>
