@@ -18,7 +18,7 @@ export class RecentActivityService {
       return from(clansAndMembers).pipe(
         mergeMap((clanAndMembers) => {
           return this.profileService
-            .getSerializedProfilesFromCache(clanAndMembers.clan.clanId, clanAndMembers.members, [], [])
+            .getSerializedProfilesFromCache(clanAndMembers.clan.clanId, clanAndMembers.members, [], [], [])
             .pipe(
               switchMap((memberProfiles) => {
                 return this.profileActivityService

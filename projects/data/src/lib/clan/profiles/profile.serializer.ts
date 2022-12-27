@@ -2,7 +2,8 @@ export function profileSerializer(
   p: any,
   progressionHashes: any[],
   collectionHashes: number[] | string[],
-  profileRecords: any[]
+  profileRecords: any[],
+  profileMetrics: any[]
 ) {
   if (!p || !p.profile) {
     return undefined;
@@ -41,6 +42,11 @@ export function profileSerializer(
         lifetimeScore: p.profileRecords?.data?.lifetimeScore,
         records: getProfileRecords(p.profileRecords?.data?.records, profileRecords)
       }
+    },
+    metrics: {
+      data: {
+        metrics: getProfileMetrics(p.metrics?.data?.metrics, profileMetrics)
+      }
     }
   };
 }
@@ -75,6 +81,18 @@ export function getProfileItems(data, itemHashes: number[] | string[]) {
   if (data) {
     const progressions = {};
     itemHashes.forEach((ph) => {
+      progressions[ph] = data[ph];
+    });
+    profileRecords = progressions;
+  }
+
+  return profileRecords;
+}
+function getProfileMetrics(data, profileRecordHashes: number[]) {
+  let profileRecords = {};
+  if (data) {
+    const progressions = {};
+    profileRecordHashes.forEach((ph) => {
       progressions[ph] = data[ph];
     });
     profileRecords = progressions;

@@ -83,6 +83,7 @@ export const CLAN_ROSTER_VIEWER_METADATA = new Map<string, ViewerMetadata<ClanMe
       label: 'Active Triumph',
       plainText: (item: ClanMemberProfile) => `${item.profile?.profileRecords?.data?.activeScore}`,
       render: (item: ClanMemberProfile) => ({
+        classList:['text-center'],
         text: `${item.profile?.profileRecords?.data?.activeScore}`
       })
     }
@@ -93,6 +94,7 @@ export const CLAN_ROSTER_VIEWER_METADATA = new Map<string, ViewerMetadata<ClanMe
       label: 'Lifetime Triumph',
       plainText: (item: ClanMemberProfile) => `${item.profile?.profileRecords?.data?.lifetimeScore}`,
       render: (item: ClanMemberProfile) => ({
+        classList:['text-center'],
         text: `${item.profile?.profileRecords?.data?.lifetimeScore}`
       })
     }

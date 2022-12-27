@@ -13,12 +13,16 @@ body {
 html {
   box-sizing: border-box;
 }
+a {
+  color: var(--app-text-color);
+}
 *,
 *:before,
 *:after {
   box-sizing: inherit;
 }
 @import './theme/components/components.scss';
+@import './theme/utilities.scss';
 
 .mat-drawer::-webkit-scrollbar {
   height: 4px;

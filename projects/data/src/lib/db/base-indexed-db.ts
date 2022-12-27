@@ -47,12 +47,9 @@ export class BaseAppIndexedDb {
   }
 
   purgeDatabase() {
-    console.log('purching db');
     return this.close().then((db) => {
-      console.log('purching db done');
 
       return deleteDB(this.name).catch((x) => {
-      console.log('error deleting', x);
       });
     });
   }

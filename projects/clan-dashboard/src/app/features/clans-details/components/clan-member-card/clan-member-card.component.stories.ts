@@ -1,4 +1,3 @@
-import { SealListItem } from '@features/seals/models/seal-list-item';
 //import { getRandomSLI } from '../../models/__mocks__/seal-list-item';
 import { Meta, moduleMetadata, Story } from '@storybook/angular';
 import { RouterModule } from '@angular/router';

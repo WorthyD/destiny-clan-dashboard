@@ -41,7 +41,7 @@ export class ClansMembersService {
       return from(clansAndMembers).pipe(
         mergeMap((clanAndMembers) => {
           return this.profileService
-            .getSerializedProfilesFromCache(clanAndMembers.clan.clanId, clanAndMembers.members, [], [])
+            .getSerializedProfilesFromCache(clanAndMembers.clan.clanId, clanAndMembers.members, [], [], [])
             .pipe(
               switchMap((resultProfiles: MemberProfile[]) => {
                 return clanAndMembers.members.map((member) => {

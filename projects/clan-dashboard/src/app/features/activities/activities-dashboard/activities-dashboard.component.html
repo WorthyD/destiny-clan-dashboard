@@ -1,0 +1,5 @@
+<div class="activities-container">
+  <ng-container *ngFor="let activity of curatedActivities">
+    <app-activity-card-details [activityDefinition]="activity" class="activity" (viewActivity)="viewActivity($event)"></app-activity-card-details>
+  </ng-container>
+</div>
