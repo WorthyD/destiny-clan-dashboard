@@ -19,6 +19,8 @@ export class ClanDetailCellComponent {
   @Input() clanDetail: GroupsV2GroupV2;
   @Input() loading: boolean;
   @Input() showAdd: boolean;
+  @Input() showReset: boolean;
   @Output() removeClan = new EventEmitter<string>();
   @Output() addClan = new EventEmitter<GroupsV2GroupV2>();
+  @Output() resetClan = new EventEmitter<GroupsV2GroupV2>();
 }

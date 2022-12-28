@@ -1,7 +1,16 @@
 <div class="config-wrapper">
-  <ng-container *ngFor="let clanConfig of clanConfigs$ | async ">
-    <app-clan-config [clanConfig]="clanConfig">
+  <div class="big-button">
+    <h2>Reset Data - <small>Refresh Your Browser After Clicking </small></h2>
+    <button (click)="nuke()" mat-raised-button color="warn">Delete All The Things</button>
+  </div>
 
-    </app-clan-config>
+  <h2>Stored Clans</h2>
+  <ng-container *ngIf="clanConfigs$ | async as clans">
+    <div class="found-clans">
+      <ng-container *ngFor="let clan of clans">
+        <app-clan-detail [clanConfig]="clan" [showReset]="true" class="clan"></app-clan-detail>
+      </ng-container>
+
+    </div>
   </ng-container>
 </div>
