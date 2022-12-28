@@ -5,6 +5,7 @@ import { RecordDefinitionService } from '@core/definition-services/record-defini
 import { ClansMembersService } from '@core/services/clans-members.service';
 import { MemberProfile } from '@destiny/data/models';
 import { getClanMemberId, getMemberProfileId } from '@destiny/data/utility';
+import { DestinyDefinitionsPresentationDestinyPresentationNodeDefinition } from 'bungie-api-angular';
 import { profileSerializer } from 'projects/data/src/lib/clan/profiles/profile.serializer';
 import { ProfileService } from 'projects/data/src/lib/clan/profiles/profile.service';
 import { from, map, mergeMap, Observable, of, switchMap, toArray } from 'rxjs';
@@ -22,14 +23,15 @@ export class SealsService {
     private clansMembersService: ClansMembersService,
     private profileService: ProfileService,
     private appConfig: AppConfig
-  ) {
-  }
+  ) {}
   //legacySealNode = this.presentationNodeService.definitions[1881970629]; //.getDefinitionsByHash(1881970629);
   currentSealNodes = this.presentationNodeService.definitions[this.appConfig.constants.CURRENT_SEALS_HASH];
   //allNodes = this.getNodes(this.currentSealNodes).concat(this.getNodes(this.legacySealNode));
   allNodes = this.getNodes(this.currentSealNodes);
 
-  sealNodes = this.getDefinitionsByHash(this.allNodes);
+  sealNodes: DestinyDefinitionsPresentationDestinyPresentationNodeDefinition[] = this.getDefinitionsByHash(
+    this.allNodes
+  );
 
   private getNodes(node) {
     return node.children.presentationNodes.map((x) => x.presentationNodeHash);

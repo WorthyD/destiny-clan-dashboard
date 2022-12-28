@@ -25,5 +25,8 @@ export interface State extends AppState {
 }
 
 export const DefaultClanConfig: ClanConfig = {
-  enabled: true
+  enabled: true,
+  memberUpdate: '1/1/1900',
+  profileUpdate: '1/1/1900',
+  memberRecentActivityUpdate: '1/1/1900'
 } as ClanConfig;

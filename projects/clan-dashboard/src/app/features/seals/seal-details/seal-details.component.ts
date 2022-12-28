@@ -30,16 +30,26 @@ interface SealDetailsResources {
 export class SealDetailsComponent {
   constructor(private route: ActivatedRoute, private sealsService: SealsService) {}
 
+  sealHash$ = this.route.paramMap.pipe(
+    map((params) => {
+      return this.sealsService.sealNodes.find((x) => x.hash === +params.get('hash'));
+    })
+  );
+
   sealDetails$ = this.route.paramMap.pipe(
     switchMap((params) => {
       return this.sealsService.getSealDetails$(params.get('hash'));
     })
   );
+
   isLoading = true;
-  sealDetailsViewer = new Viewer({
-    metadata: SEAL_DETAILS_VIEWER_METADATA,
-    contextProvider: this.createViewContextProvider()
-  }, '2Dashboard_Seals_Details_Viewer');
+  sealDetailsViewer = new Viewer(
+    {
+      metadata: SEAL_DETAILS_VIEWER_METADATA,
+      contextProvider: this.createViewContextProvider()
+    },
+    'D2Dashboard_Seals_Details_Viewer'
+  );
   sealDetailsFilterer = new Filterer({ metadata: SEAL_DETAILS_FILTERER_METADATA });
   sealDetailsSorter = new Sorter({ metadata: SEAL_DETAILS_SORTER_METADATA });
   sealDetailsExporter = new Exporter({
@@ -53,9 +63,7 @@ export class SealDetailsComponent {
     }));
   }
 
-
-
-  sealDetailsInfo$:Observable<SealDetailsResources> = combineLatest([this.sealDetails$]).pipe(
+  sealDetailsInfo$: Observable<SealDetailsResources> = combineLatest([this.sealDetails$]).pipe(
     map(([sealDetails]) => {
       return {
         loading: of(false),

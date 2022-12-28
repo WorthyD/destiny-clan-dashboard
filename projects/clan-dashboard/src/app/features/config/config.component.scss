@@ -1,4 +1,24 @@
 .config-wrapper {
-  max-width: 960px;
+  margin: 1rem;
+}
+.big-button {
+  margin-bottom: 2rem;
+
+  button {
+    padding: 2rem;
+    font-size: 2rem;
+  }
+}
+.found-clans {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  width: 100%;
+  max-width: 1920px;
   margin: 0 auto;
+  .clan {
+    width: 100%;
+    max-width: 480px;
+    margin: 2rem;
+  }
 }

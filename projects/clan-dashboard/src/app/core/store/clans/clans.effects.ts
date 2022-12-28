@@ -22,7 +22,8 @@ export class ClansEffects {
           clanActions.addClan,
           clanActions.removeClan,
           clanActions.setClans,
-          clanActions.updateClan
+          clanActions.updateClan,
+          clanActions.resetClan
         ),
         concatLatestFrom(() => this.store.select(selectClansState)),
         tap(([action, clans]) => this.localStorageService.setItem(CLANS_KEY, clans))
@@ -52,5 +53,4 @@ export class ClansEffects {
       })
     );
   });
-
 }

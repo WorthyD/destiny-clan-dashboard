@@ -8,12 +8,13 @@ import { GroupsV2GroupV2 } from 'bungie-api-angular';
   selector: 'app-clan-detail',
   templateUrl: './clan-detail.component.html',
   styleUrls: ['./clan-detail.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ClanDetailComponent implements OnChanges {
   // export class ClanDetailComponent {
   @Input() clanConfig: ClanConfig;
   @Input() showAdd: boolean = false;
+  @Input() showReset: boolean = false;
 
   constructor(private clanDetailService: ClanDetailService) {}
 
@@ -35,5 +36,8 @@ export class ClanDetailComponent implements OnChanges {
   }
   addClan(clanDetail: GroupsV2GroupV2) {
     this.clanDetailService.addClan(clanDetail);
+  }
+  resetClan(clanDetail: GroupsV2GroupV2) {
+    this.clanDetailService.resetClan(clanDetail);
   }
 }

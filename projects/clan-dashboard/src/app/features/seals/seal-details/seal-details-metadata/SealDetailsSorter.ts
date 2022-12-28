@@ -24,5 +24,33 @@ export const SEAL_DETAILS_SORTER_METADATA = new Map<string, SorterMetadata<SealC
       label: 'Progress',
       comparator: (a, b) => (a.sealProgression.completionPercentage < b.sealProgression.completionPercentage ? -1 : 1)
     }
+  ],
+  [
+    'gildedCount',
+    {
+      label: 'Gilded Count',
+      comparator: (a, b) => (a.sealProgression.gildedCount < b.sealProgression.gildedCount ? -1 : 1)
+    }
+  ],
+  [
+    'isComplete',
+    {
+      label: 'Is Completed',
+      comparator: (a: any, b: any) => a.sealProgression.isCompleted - b.sealProgression.isCompleted
+    }
+  ],
+  [
+    'isGilded',
+    {
+      label: 'Is Gilded',
+      comparator: (a: any, b: any) => a.sealProgression.isGilded - b.sealProgression.isGilded
+    }
+  ],
+  [
+    'gildedCount',
+    {
+      label: 'Gilded Count',
+      comparator: (a, b) => (a.sealProgression.gildedCount < b.sealProgression.gildedCount ? -1 : 1)
+    }
   ]
 ]);

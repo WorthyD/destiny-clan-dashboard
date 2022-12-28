@@ -1,13 +1,16 @@
-<div class="seal-details">
-  <lib-table-view class="seal-detail-table" [isLoading]="isLoading"
-    [dataSource]="(sealDetailsInfo$ | async)?.dataSource" [header]="'Member Seal Progress'" [viewer]="sealDetailsViewer"
-    [filterer]="sealDetailsFilterer" [sorter]="sealDetailsSorter" [exporter]="sealDetailsExporter">
-  </lib-table-view>
+<ng-container *ngIf="sealHash$ | async as sealDetails">
+  <div class="seal-details">
+    <lib-table-view class="seal-detail-table" [isLoading]="isLoading"
+      [dataSource]="(sealDetailsInfo$ | async)?.dataSource" [header]="sealDetails.displayProperties.name"
+      [viewer]="sealDetailsViewer" [filterer]="sealDetailsFilterer" [sorter]="sealDetailsSorter"
+      [exporter]="sealDetailsExporter">
+    </lib-table-view>
 
-  <ng-template #loading>
-    <div class="loading">
-      Loading Seal Details
-    </div>
-  </ng-template>
+    <ng-template #loading>
+      <div class="loading">
+        Loading Seal Details
+      </div>
+    </ng-template>
 
-</div>
+  </div>
+</ng-container>

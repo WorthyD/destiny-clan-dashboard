@@ -6,6 +6,7 @@ const name = (sr) => `${base}${sr}`;
 
 export const setClans = createAction(name('Set Clans'), props<{ clanIds: ClanConfig[] }>());
 export const addClan = createAction(name('Add Clan'), props<{ clanId: string; clanName: string; clanTag: string }>());
+export const resetClan = createAction(name('Reset Clan'), props<{ clanId: string; clanName: string; clanTag: string }>());
 export const updateClan = createAction(name('Update Clan'), props<{ clan: ClanConfig }>());
 export const removeClan = createAction(name('Remove Clan'), props<{ clanId: string }>());
 

@@ -1,6 +1,6 @@
 import { createReducer, on } from '@ngrx/store';
 import { initialClanState, ClansState, ClanConfigAdapter, DefaultClanConfig } from './clans.state';
-import { addClan, removeClan, setClans, updateClanProfileSync, updateClan } from './clans.actions';
+import { addClan, removeClan, setClans, updateClanProfileSync, updateClan, resetClan } from './clans.actions';
 
 export const ClansReducer = createReducer(
   initialClanState,
@@ -15,7 +15,9 @@ export const ClansReducer = createReducer(
       ...state
     };
   }),
-
+  on(resetClan, (state, { clanId, clanName, clanTag }) => {
+    return ClanConfigAdapter.upsertOne({ clanId, clanName, clanTag, ...DefaultClanConfig }, { ...state });
+  }),
   on(updateClan, (state, { clan }): ClansState => {
     return ClanConfigAdapter.upsertOne(clan, { ...state });
   }),

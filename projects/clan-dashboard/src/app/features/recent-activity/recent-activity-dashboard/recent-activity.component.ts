@@ -39,7 +39,7 @@ export class RecentActivityComponent {
       metadata: RECENT_ACTIVITY_VIEWER_METADATA,
       contextProvider: this.createViewContextProvider()
     },
-    '2Dashboard_Roster_Activity_Table_Viewer'
+    'D2Dashboard_Roster_Activity_Table_Viewer'
   );
   activityFilterer = new Filterer({ metadata: RECENT_ACTIVITY_FILTERER_METADATA });
   activitySorter = new Sorter({ metadata: RECENT_ACTIVITY_SORTER_METADATA });
