@@ -1,4 +1,4 @@
-import { CuratedActivityGroup } from "./CuratedActivities";
+import { CuratedActivityGroup } from './CuratedActivities';
 
 export const CURATED_ACTIVITIES_DUNGEONS: CuratedActivityGroup = {
   title: 'Dungeons',
@@ -14,6 +14,11 @@ export const CURATED_ACTIVITIES_DUNGEONS: CuratedActivityGroup = {
     {
       // Duality
       hash: 2823159265,
+      metrics: []
+    },
+    {
+      // Grasp
+      hash: 4078656646,
       metrics: []
     },
     {
