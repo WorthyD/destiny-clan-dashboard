@@ -9,11 +9,10 @@ import {
 import { getClanMemberId, getMemberProfileId } from '@destiny/data/utility';
 import { Store } from '@ngrx/store';
 import { ClanMemberProfile } from '@shared/models/ClanMemberProfile';
-import { DestinyDefinitionsDestinyActivityDefinition } from 'bungie-api-angular';
 import { ProfileService } from 'projects/data/src/lib/clan/profiles/profile.service';
 import { from, map, mergeMap, Observable, switchMap, take, toArray } from 'rxjs';
 import { ActivitiesShellModule } from '../activities-shell/activities-shell.module';
-import { CURATED_ACTIVITIES } from '../models/CuratedActivities';
+import { CuratedActivityGroupDefinitions,  CURATED_ACTIVITIES_ALL, CURATED_ACTIVITY_GROUPS } from '../models/CuratedActivities';
 
 @Injectable({
   providedIn: ActivitiesShellModule
@@ -27,9 +26,15 @@ export class ActivitiesService {
     private profileService: ProfileService
   ) {}
 
-  getCuratedActivities(): DestinyDefinitionsDestinyActivityDefinition[] {
-    const curatedActivityHashes = CURATED_ACTIVITIES.map((ca) => ca.hash);
-    return curatedActivityHashes.map((ca) => this.activityDefinitionService.definitions[ca]);
+  getCuratedActivities(): CuratedActivityGroupDefinitions[] {
+    const groups = CURATED_ACTIVITY_GROUPS;
+
+    return groups.map((group) => {
+      return {
+        title: group.title,
+        activities: group.activities.map((ca) => this.activityDefinitionService.definitions[ca.hash])
+      }
+    });
   }
 
   getActivityById(hash: number) {
@@ -37,7 +42,7 @@ export class ActivitiesService {
   }
 
   getCuratedMetrics(hash: number): any[] {
-    const curatedMetrics = CURATED_ACTIVITIES.find((ca) => ca.hash === hash).metrics || [];
+    const curatedMetrics = CURATED_ACTIVITIES_ALL.find((ca) => ca.hash === hash).metrics || [];
 
     return curatedMetrics.map((cm) => this.definitionService.metricDefinitions[cm]);
   }

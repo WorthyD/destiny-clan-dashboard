@@ -1,12 +1,27 @@
+mat-card {
+  width: 200px;
+}
 .notification {
   width: 100%;
-  display: flex;
-  align-items: center;
+  //display: flex;
+  // align-items: center;
   .progress-bar {
     flex: 1;
     padding: 0.5rem;
   }
   .info {
     padding: 0.5rem;
+  }
+}
+
+.syncing {
+  animation: rotation 2s infinite linear;
+}
+@keyframes rotation {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(-359deg);
   }
 }
