@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { DataSource, Filterer, Sorter, SorterMetadata, Viewer, ViewerMetadata } from '@destiny/components';
-import { MetricDefinition } from '@destiny/data/models';
+import { CollectionDefinition, MetricDefinition } from '@destiny/data/models';
 import { ClanMemberProfile } from '@shared/models/ClanMemberProfile';
 import { map, Observable, of, tap } from 'rxjs';
 import { ActivitiesService } from '../data-access/activities.service';
@@ -20,23 +20,29 @@ interface ViewContext {
 export class ActivityTableComponent implements OnChanges {
   @Input() title: string;
   @Input() metricDefinitions: MetricDefinition[];
+  @Input() collectionDefinitions: CollectionDefinition[];
 
   isLoading = true;
   activityViewer: Viewer;
   activityFilterer = new Filterer({ metadata: ACTIVITY_FILTERER_METADATA });
-  activitySorter
+  activitySorter;
   activityInfo$: Observable<DataSource>;
 
   constructor(private activitiesService: ActivitiesService, private route: ActivatedRoute) {}
 
   ngOnChanges(simpleChanges: SimpleChanges) {
-    if (simpleChanges['metricDefinitions']) {
+    if (simpleChanges['metricDefinitions'] || simpleChanges['collectionDefinitions']) {
       // Set Viewer
       const initialViewerData = new Map(ACTIVITY_VIEWER_METADATA);
-      const initialSorterData = new Map(ACTIVITY_SORTER_METADATA)
+      const initialSorterData = new Map(ACTIVITY_SORTER_METADATA);
       this.metricDefinitions.forEach((md) => {
         initialViewerData.set(md.hash.toString(), this.createViewerMetric(md));
         initialSorterData.set(md.hash.toString(), this.createSorterMetric(md));
+      });
+
+      this.collectionDefinitions.forEach((md) => {
+        initialViewerData.set(md.hash.toString(), this.createViewerCollection(md));
+        initialSorterData.set(md.hash.toString(), this.createSorterCollection(md));
       });
 
       this.activityViewer = new Viewer({
@@ -46,14 +52,19 @@ export class ActivityTableComponent implements OnChanges {
 
       this.activitySorter = new Sorter({ metadata: initialSorterData });
 
-      this.activityInfo$ = this.activitiesService.getProfiles(this.metricDefinitions.map((md) => md.hash)).pipe(
-        map((ds) => {
-          return new DataSource<ClanMemberProfile>({ data: ds });
-        }),
-        tap((x) => {
-          this.isLoading = false;
-        })
-      );
+      this.activityInfo$ = this.activitiesService
+        .getProfiles(
+          this.metricDefinitions.map((md) => md.hash),
+          this.collectionDefinitions.map((md) => md.hash)
+        )
+        .pipe(
+          map((ds) => {
+            return new DataSource<ClanMemberProfile>({ data: ds });
+          }),
+          tap((x) => {
+            this.isLoading = false;
+          })
+        );
     }
   }
 
@@ -62,11 +73,35 @@ export class ActivityTableComponent implements OnChanges {
     return {
       label: definition.displayProperties.name,
       plainText: (item: ClanMemberProfile) =>
-        `${item.profile.metrics.data.metrics[definition.hash].objectiveProgress.progress.toString()}`,
+        `${item.profile.metrics.data.metrics[definition.hash]?.objectiveProgress?.progress.toString()}`,
       render: (item: ClanMemberProfile) => {
         return {
           classList: 'text-center',
           text: item.profile.metrics.data.metrics[definition.hash].objectiveProgress.progress.toString()
+        };
+      }
+    };
+  }
+
+  hasItem(value): boolean {
+    if (value === undefined || value.state === undefined) {
+      return false;
+    }
+    return (value?.state & 1) === 0;
+  }
+
+  createViewerCollection(definition: CollectionDefinition): ViewerMetadata<ClanMemberProfile, ViewContext> {
+    return {
+      // label: definition.displayProperties.name,
+      label: definition.displayProperties.hasIcon
+        ? `<img class="table-icon" src="https://www.bungie.net/${definition.displayProperties.icon}" alt="${definition.displayProperties.name}"/>`
+        : definition.displayProperties.name,
+      plainText: (item: ClanMemberProfile) =>
+        `${this.hasItem(item.profile.profileCollectibles?.data?.collectibles[definition.hash]) ? 'X' : ''}`,
+      render: (item: ClanMemberProfile) => {
+        return {
+          classList: 'text-center',
+          text: this.hasItem(item.profile.profileCollectibles?.data?.collectibles[definition.hash]) ? 'X' : ''
         };
       }
     };
@@ -78,6 +113,16 @@ export class ActivityTableComponent implements OnChanges {
       comparator: (a, b) =>
         a.profile.metrics?.data?.metrics[definition.hash]?.objectiveProgress.progress <
         b.profile.metrics?.data?.metrics[definition.hash]?.objectiveProgress.progress
+          ? -1
+          : 1
+    };
+  }
+  createSorterCollection(definition: MetricDefinition): SorterMetadata<ClanMemberProfile> {
+    return {
+      label: definition.displayProperties.name,
+      comparator: (a, b) =>
+        this.hasItem(a.profile.profileCollectibles.data.collectibles[definition.hash]) <
+        this.hasItem(a.profile.profileCollectibles.data.collectibles[definition.hash])
           ? -1
           : 1
     };

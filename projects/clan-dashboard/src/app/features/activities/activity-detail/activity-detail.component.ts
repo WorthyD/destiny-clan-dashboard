@@ -19,7 +19,8 @@ export class ActivityDetailComponent {
     map((hash) => {
       return {
         activity: this.activitiesService.getActivityById(hash),
-        metrics: this.activitiesService.getCuratedMetrics(hash)
+        metrics: this.activitiesService.getCuratedMetrics(hash),
+        collections: this.activitiesService.getCuratedCollections(hash)
       };
     })
   );

@@ -1,6 +1,7 @@
 export * from './ActivityStats';
 export * from './ClanDetails';
 export * from './ClanMember';
+export * from './CollectionDefinition';
 export * from './MemberProfile';
 export * from './DeepPartial';
 export * from './enums';

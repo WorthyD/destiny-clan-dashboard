@@ -12,7 +12,11 @@ import { ClanMemberProfile } from '@shared/models/ClanMemberProfile';
 import { ProfileService } from 'projects/data/src/lib/clan/profiles/profile.service';
 import { from, map, mergeMap, Observable, switchMap, take, toArray } from 'rxjs';
 import { ActivitiesShellModule } from '../activities-shell/activities-shell.module';
-import { CuratedActivityGroupDefinitions,  CURATED_ACTIVITIES_ALL, CURATED_ACTIVITY_GROUPS } from '../models/CuratedActivities';
+import {
+  CuratedActivityGroupDefinitions,
+  CURATED_ACTIVITIES_ALL,
+  CURATED_ACTIVITY_GROUPS
+} from '../models/CuratedActivities';
 
 @Injectable({
   providedIn: ActivitiesShellModule
@@ -33,7 +37,7 @@ export class ActivitiesService {
       return {
         title: group.title,
         activities: group.activities.map((ca) => this.activityDefinitionService.definitions[ca.hash])
-      }
+      };
     });
   }
 
@@ -46,16 +50,28 @@ export class ActivitiesService {
 
     return curatedMetrics.map((cm) => this.definitionService.metricDefinitions[cm]);
   }
+
+  getCuratedCollections(hash: number): any[] {
+    const curatedMetrics = CURATED_ACTIVITIES_ALL.find((ca) => ca.hash === hash).collections || [];
+    return curatedMetrics.map((cm) => this.definitionService.collectibleDefinition[cm]);
+  }
+
   clanProfiles$: Observable<ClanMemberProfile[]> = this.store.select(selectAllClansMembersProfiles); //.pipe(
   clanProfilesLoading$: Observable<boolean> = this.store.select(selectClanMemberProfileStateLoading); //
 
-  getProfiles(metricHashes: number[]): Observable<ClanMemberProfile[]> {
+  getProfiles(metricHashes: number[], collectionHashes: number[]): Observable<ClanMemberProfile[]> {
     return this.memberService.clanMembers$.pipe(
       switchMap((clansAndMembers) => {
         return from(clansAndMembers).pipe(
           mergeMap((clanAndMembers) => {
             return this.profileService
-              .getSerializedProfilesFromCache(clanAndMembers.clan.clanId, clanAndMembers.members, [], [], metricHashes)
+              .getSerializedProfilesFromCache(
+                clanAndMembers.clan.clanId,
+                clanAndMembers.members,
+                collectionHashes,
+                [],
+                metricHashes
+              )
               .pipe(
                 switchMap((memberProfiles) => {
                   return clanAndMembers.members.map((member) => {

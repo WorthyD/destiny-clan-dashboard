@@ -3,13 +3,11 @@
     sync
   </mat-icon>
 </button>
-<ng-template cdkConnectedOverlay
-(backdropClick)="isOpen = false"
-[cdkConnectedOverlayBackdropClass]="'cdk-overlay-transparent-backdrop'"
-[cdkConnectedOverlayHasBackdrop]="true"
-[cdkConnectedOverlayOrigin]="trigger" [cdkConnectedOverlayOpen]="isOpen">
+<ng-template cdkConnectedOverlay (backdropClick)="isOpen = false"
+  [cdkConnectedOverlayBackdropClass]="'cdk-overlay-transparent-backdrop'" [cdkConnectedOverlayHasBackdrop]="true"
+  [cdkConnectedOverlayOrigin]="trigger" [cdkConnectedOverlayOpen]="isOpen">
 
-  <mat-card>
+  <mat-card *ngIf="notifications.length > 0">
     <mat-card-content>
       <div *ngFor="let notification of  notifications" mat-menu-item disabled class="notification">
 
@@ -19,7 +17,7 @@
         </div>
         <div class="progress-bar">
 
-          <mat-progress-bar mode="determinate" [value]="notification.data.progress">
+          <mat-progress-bar mode="determinate" [value]="notification.data.progress*100">
           </mat-progress-bar>
         </div>
       </div>
