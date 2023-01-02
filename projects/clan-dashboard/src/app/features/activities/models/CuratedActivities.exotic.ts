@@ -5,12 +5,17 @@ export const CURATED_ACTIVITIES_EXOTIC_MISSIONS: CuratedActivityGroup = {
   activities: [
     {
       hash: 202306511,
-      metrics: []
+      metrics: [],
+      collections: [
+        // 760708739, //??
+        1161231112 //??
+      ]
     },
     {
       // Vox
       hash: 901429423,
-      metrics: []
+      metrics: [],
+      collections: [4028619088, 154026683]
     }
   ]
 };

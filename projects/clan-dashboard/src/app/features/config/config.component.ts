@@ -18,7 +18,9 @@ export class ConfigComponent {
 
     const dbs = await window.indexedDB.databases();
     dbs.forEach((db) => {
-      window.indexedDB.deleteDatabase(db.name);
+      if (db.name === 'manifest') {
+        window.indexedDB.deleteDatabase(db.name);
+      }
     });
   }
 }
