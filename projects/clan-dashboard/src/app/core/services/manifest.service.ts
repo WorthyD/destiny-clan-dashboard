@@ -33,7 +33,7 @@ export class ManifestService {
       //'DestinyClassDefinition',
       //'DestinySandboxPerkDefinition',
       //'DestinyEnergyTypeDefinition',
-      //'DestinyCollectibleDefinition',
+      'DestinyCollectibleDefinition',
       'DestinyMetricDefinition',
       'DestinyPresentationNodeDefinition',
       'DestinyRecordDefinition',

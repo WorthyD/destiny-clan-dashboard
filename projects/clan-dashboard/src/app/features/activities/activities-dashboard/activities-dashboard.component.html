@@ -1,5 +1,12 @@
-<div class="activities-container">
-  <ng-container *ngFor="let activity of curatedActivities">
-    <app-activity-card-details [activityDefinition]="activity" class="activity" (viewActivity)="viewActivity($event)"></app-activity-card-details>
-  </ng-container>
-</div>
+  <div class="activity-dashboard">
+    <div *ngFor="let activityGroups of curatedActivityGroups">
+      <h2>{{activityGroups.title}}</h2>
+      <div class="activities-container">
+        <ng-container *ngFor="let activity of activityGroups.activities">
+          <app-activity-card-details [activityDefinition]="activity" class="activity"
+            (viewActivity)="viewActivity($event)">
+          </app-activity-card-details>
+        </ng-container>
+      </div>
+    </div>
+  </div>

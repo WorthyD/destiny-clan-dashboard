@@ -1,15 +1,18 @@
 :host {
-    flex: 1;
-    overflow: auto;
-  }
-  .activities-container {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
+  flex: 1;
+  overflow: auto;
+}
+.activity-dashboard {
+  margin: 1rem;
+}
+.activities-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
 
-    .activity {
-      width: 100%;
-      max-width: 400px;
-      margin: 2rem;
-    }
+  .activity {
+    width: 100%;
+    max-width: 400px;
+    margin: 2rem;
   }
+}

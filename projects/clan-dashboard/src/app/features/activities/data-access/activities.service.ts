@@ -9,11 +9,14 @@ import {
 import { getClanMemberId, getMemberProfileId } from '@destiny/data/utility';
 import { Store } from '@ngrx/store';
 import { ClanMemberProfile } from '@shared/models/ClanMemberProfile';
-import { DestinyDefinitionsDestinyActivityDefinition } from 'bungie-api-angular';
 import { ProfileService } from 'projects/data/src/lib/clan/profiles/profile.service';
 import { from, map, mergeMap, Observable, switchMap, take, toArray } from 'rxjs';
 import { ActivitiesShellModule } from '../activities-shell/activities-shell.module';
-import { CURATED_ACTIVITIES } from '../models/CuratedActivities';
+import {
+  CuratedActivityGroupDefinitions,
+  CURATED_ACTIVITIES_ALL,
+  CURATED_ACTIVITY_GROUPS
+} from '../models/CuratedActivities';
 
 @Injectable({
   providedIn: ActivitiesShellModule
@@ -27,9 +30,15 @@ export class ActivitiesService {
     private profileService: ProfileService
   ) {}
 
-  getCuratedActivities(): DestinyDefinitionsDestinyActivityDefinition[] {
-    const curatedActivityHashes = CURATED_ACTIVITIES.map((ca) => ca.hash);
-    return curatedActivityHashes.map((ca) => this.activityDefinitionService.definitions[ca]);
+  getCuratedActivities(): CuratedActivityGroupDefinitions[] {
+    const groups = CURATED_ACTIVITY_GROUPS;
+
+    return groups.map((group) => {
+      return {
+        title: group.title,
+        activities: group.activities.map((ca) => this.activityDefinitionService.definitions[ca.hash])
+      };
+    });
   }
 
   getActivityById(hash: number) {
@@ -37,20 +46,32 @@ export class ActivitiesService {
   }
 
   getCuratedMetrics(hash: number): any[] {
-    const curatedMetrics = CURATED_ACTIVITIES.find((ca) => ca.hash === hash).metrics || [];
+    const curatedMetrics = CURATED_ACTIVITIES_ALL.find((ca) => ca.hash === hash).metrics || [];
 
     return curatedMetrics.map((cm) => this.definitionService.metricDefinitions[cm]);
   }
+
+  getCuratedCollections(hash: number): any[] {
+    const curatedMetrics = CURATED_ACTIVITIES_ALL.find((ca) => ca.hash === hash).collections || [];
+    return curatedMetrics.map((cm) => this.definitionService.collectibleDefinition[cm]);
+  }
+
   clanProfiles$: Observable<ClanMemberProfile[]> = this.store.select(selectAllClansMembersProfiles); //.pipe(
   clanProfilesLoading$: Observable<boolean> = this.store.select(selectClanMemberProfileStateLoading); //
 
-  getProfiles(metricHashes: number[]): Observable<ClanMemberProfile[]> {
+  getProfiles(metricHashes: number[], collectionHashes: number[]): Observable<ClanMemberProfile[]> {
     return this.memberService.clanMembers$.pipe(
       switchMap((clansAndMembers) => {
         return from(clansAndMembers).pipe(
           mergeMap((clanAndMembers) => {
             return this.profileService
-              .getSerializedProfilesFromCache(clanAndMembers.clan.clanId, clanAndMembers.members, [], [], metricHashes)
+              .getSerializedProfilesFromCache(
+                clanAndMembers.clan.clanId,
+                clanAndMembers.members,
+                collectionHashes,
+                [],
+                metricHashes
+              )
               .pipe(
                 switchMap((memberProfiles) => {
                   return clanAndMembers.members.map((member) => {

@@ -68,9 +68,11 @@ export class ClanUpdaterService {
     return from(activeClans).pipe(
       // TODO: Double check concat map
       mergeMap((clanConfig: ClanConfig) => {
+        //console.log('update', clanConfig);
         //concatMap((clanConfig: ClanConfig) => {
         return this.clanDetailsService.getClanDetailsSerialized(clanConfig.clanId, false).pipe(
           map((result) => {
+            //console.log('got clan');
             const newConfig = {
               ...clanConfig,
               clanName: result.name,

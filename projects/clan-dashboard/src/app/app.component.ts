@@ -4,7 +4,10 @@ import { loadManifest, selectManifestState } from '@core/store/manifest';
 import { DomSanitizer } from '@angular/platform-browser';
 import { MatIconRegistry } from '@angular/material/icon';
 import { registerIcons } from '@destiny/components/icons';
-import { catchError, map, of } from 'rxjs';
+import { catchError, filter, map, of } from 'rxjs';
+import { NavigationEnd, Router } from '@angular/router';
+
+declare let gtag: Function;
 
 @Component({
   selector: 'app-root',
@@ -21,9 +24,16 @@ export class AppComponent {
     })
   );
 
-  constructor(private store: Store, iconRegistry: MatIconRegistry, domSanitizer: DomSanitizer) {
+  constructor(private store: Store, iconRegistry: MatIconRegistry, domSanitizer: DomSanitizer, private router: Router) {
     registerIcons(iconRegistry, domSanitizer);
 
     this.store.dispatch(loadManifest());
+  }
+  setUpAnalytics() {
+    this.router.events.pipe(filter((event) => event instanceof NavigationEnd)).subscribe((event: NavigationEnd) => {
+      gtag('config', 'UA-174229277-1', {
+        page_path: event.urlAfterRedirects
+      });
+    });
   }
 }

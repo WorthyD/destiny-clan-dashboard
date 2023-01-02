@@ -39,7 +39,7 @@ export class MemberActivityUpdaterService {
           notification: {
             id: 'memberProfile',
             title: `Updating ${clan.clanConfig.clanName} Recent Activity`,
-            data: { progress: 0, total: clan.members.length }
+            data: { progress: 0, complete: 0, total: clan.members.length }
           }
         })
       );
@@ -50,7 +50,11 @@ export class MemberActivityUpdaterService {
             notification: {
               id: 'memberProfile',
               title: `Updating ${clan.clanConfig.clanName} Recent Activity`,
-              data: { progress: progressCount, total: clan.members.length }
+              data: {
+                progress: progressCount / clan.members.length,
+                complete: progressCount,
+                total: clan.members.length
+              }
             }
           })
         );
@@ -61,14 +65,13 @@ export class MemberActivityUpdaterService {
         .pipe(
           take(1),
           map((x) => {
-
             // eslint-disable-next-line @ngrx/avoid-dispatching-multiple-actions-sequentially
             this.store.dispatch(
               removeNotification({
                 notification: {
                   id: 'memberProfile',
                   title: `Updating ${clan.clanConfig.clanName} Recent Activity`,
-                  data: { progress: clan.members.length, total: clan.members.length }
+                  data: { progress: clan.members.length, complete: clan.members.length, total: clan.members.length }
                 }
               })
             );

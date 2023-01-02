@@ -49,7 +49,7 @@ export class ProfileUpdaterService {
           notification: {
             id: 'memberProfile',
             title: `Updating ${clan.clanConfig.clanName} Profiles`,
-            data: { progress: 0, total: clan.members.length }
+            data: { progress: 0, complete: 0, total: clan.members.length }
           }
         })
       );
@@ -58,8 +58,12 @@ export class ProfileUpdaterService {
           updateNotification({
             notification: {
               id: 'memberProfile',
-              title: `Updating ${clan.clanConfig.clanName} Profiles`, // TODO ADD clann
-              data: { progress: progressCount, total: clan.members.length }
+              title: `Updating ${clan.clanConfig.clanName} Profiles`,
+              data: {
+                progress: progressCount / clan.members.length,
+                complete: progressCount,
+                total: clan.members.length
+              }
             }
           })
         );
@@ -68,14 +72,13 @@ export class ProfileUpdaterService {
         filter((x) => x.length > 0),
         take(1),
         map((x) => {
-
           // eslint-disable-next-line @ngrx/avoid-dispatching-multiple-actions-sequentially
           this.store.dispatch(
             removeNotification({
               notification: {
                 id: 'memberProfile',
                 title: `Updating ${clan.clanConfig.clanName} Profiles`,
-                data: { progress: clan.members.length, total: clan.members.length }
+                data: { progress: clan.members.length, complete: clan.members.length, total: clan.members.length }
               }
             })
           );
@@ -84,7 +87,7 @@ export class ProfileUpdaterService {
           this.store.dispatch(updateClanProfileSync({ clanId: clan.clanConfig.clanId }));
 
           //
-         // console.log('------------- dispatch update ------------------');
+          // console.log('------------- dispatch update ------------------');
           // this.clanMemberService.forceReload();
           return {
             ...clan,
