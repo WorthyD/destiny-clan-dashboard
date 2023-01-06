@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { ActivityDefinitionService } from '@core/definition-services/activity-definition.service';
+// import { ActivityDefinitionService } from '@core/definition-services/activity-definition.service';
 import { DefinitionService } from '@core/definition-services/definition.service';
 import { ClansMembersService } from '@core/services/clans-members.service';
 import {
@@ -23,7 +23,7 @@ import {
 })
 export class ActivitiesService {
   constructor(
-    private activityDefinitionService: ActivityDefinitionService,
+    //private activityDefinitionService: ActivityDefinitionService,
     private definitionService: DefinitionService,
     private store: Store,
     private memberService: ClansMembersService,
@@ -36,13 +36,13 @@ export class ActivitiesService {
     return groups.map((group) => {
       return {
         title: group.title,
-        activities: group.activities.map((ca) => this.activityDefinitionService.definitions[ca.hash])
+        activities: group.activities.map((ca) => this.definitionService.activityDefinition[ca.hash])
       };
     });
   }
 
   getActivityById(hash: number) {
-    return this.activityDefinitionService.definitions[hash];
+    return this.definitionService.activityDefinition[hash];
   }
 
   getCuratedMetrics(hash: number): any[] {

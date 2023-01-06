@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AppConfig } from '@core/config/app-config';
-import { PresentationNodeDefinitionService } from '@core/definition-services/presentation-node-definition.service';
-import { RecordDefinitionService } from '@core/definition-services/record-definition.service';
+import { DefinitionService } from '@core/definition-services/definition.service';
+// import { RecordDefinitionService } from '@core/definition-services/record-definition.service';
 import { ClansMembersService } from '@core/services/clans-members.service';
 import { MemberProfile } from '@destiny/data/models';
 import { getClanMemberId, getMemberProfileId } from '@destiny/data/utility';
@@ -18,14 +18,14 @@ import { SealsModule } from '../seals-shell/seals.module';
 })
 export class SealsService {
   constructor(
-    private presentationNodeService: PresentationNodeDefinitionService,
-    private recordNodeService: RecordDefinitionService,
+    private definitionService: DefinitionService,
+    // private recordNodeService: RecordDefinitionService,
     private clansMembersService: ClansMembersService,
     private profileService: ProfileService,
     private appConfig: AppConfig
   ) {}
   //legacySealNode = this.presentationNodeService.definitions[1881970629]; //.getDefinitionsByHash(1881970629);
-  currentSealNodes = this.presentationNodeService.definitions[this.appConfig.constants.CURRENT_SEALS_HASH];
+  currentSealNodes = this.definitionService.presentationDefinition[this.appConfig.constants.CURRENT_SEALS_HASH];
   //allNodes = this.getNodes(this.currentSealNodes).concat(this.getNodes(this.legacySealNode));
   allNodes = this.getNodes(this.currentSealNodes);
 
@@ -39,7 +39,7 @@ export class SealsService {
 
   private getDefinitionsByHash(allNodes: any[]) {
     return allNodes.map((h) => {
-      return this.presentationNodeService.definitions[h];
+      return this.definitionService.presentationDefinition[h];
     });
   }
 
@@ -50,7 +50,7 @@ export class SealsService {
           const hashes = this.sealNodes.filter((x) => x.completionRecordHash).map((x) => x.completionRecordHash);
           const gildedHashes = [];
           hashes.forEach((hash) => {
-            const record = this.recordNodeService.definitions[hash as number];
+            const record = this.definitionService.recordDefinition[hash as number];
             if (record.titleInfo && record.titleInfo.gildingTrackingRecordHash) {
               gildedHashes.push(record.titleInfo.gildingTrackingRecordHash);
             }
@@ -93,7 +93,7 @@ export class SealsService {
       return this.sealNodes
         .filter((x) => x.redacted === false)
         .map((seal) => {
-          const sealRecord = this.recordNodeService.definitions[seal.completionRecordHash as number];
+          const sealRecord = this.definitionService.recordDefinition[seal.completionRecordHash as number];
           const sealGildingRecord =
             sealRecord && sealRecord.titleInfo && sealRecord.titleInfo.gildingTrackingRecordHash
               ? sealRecord.titleInfo.gildingTrackingRecordHash
@@ -112,7 +112,7 @@ export class SealsService {
 
   getSealDetails$(sealHash): Observable<SealClanMember[]> {
     const sealCompletionHash = this.sealNodes.find((h) => h.hash == sealHash)?.completionRecordHash;
-    const sealRecord = this.recordNodeService.definitions[sealCompletionHash as number];
+    const sealRecord = this.definitionService.recordDefinition[sealCompletionHash as number];
     const sealGildingRecord =
       sealRecord && sealRecord.titleInfo && sealRecord.titleInfo.gildingTrackingRecordHash
         ? sealRecord.titleInfo.gildingTrackingRecordHash

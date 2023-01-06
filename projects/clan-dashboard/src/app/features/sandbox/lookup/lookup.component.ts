@@ -1,12 +1,11 @@
 import { Component, ViewEncapsulation } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { PresentationNodeDefinitionService } from '@core/definition-services/presentation-node-definition.service';
-import { MilestoneDefinitionService } from '@core/definition-services/milestone-definition.service';
+// import { MilestoneDefinitionService } from '@core/definition-services/milestone-definition.service';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
-import { RecordDefinitionService } from '@core/definition-services/record-definition.service';
 import { MatTabsModule } from '@angular/material/tabs';
 import { Destiny2Service } from 'bungie-api-angular';
 import { take } from 'rxjs';
+import { DefinitionService } from '@core/definition-services/definition.service';
 
 @Component({
   selector: 'app-lookup',
@@ -18,9 +17,9 @@ import { take } from 'rxjs';
 })
 export class LookupComponent {
   constructor(
-    private presentationNodeService: PresentationNodeDefinitionService,
-    private milestoneDefinitionService: MilestoneDefinitionService,
-    private recordDefinitionService: RecordDefinitionService,
+    // private presentationNodeService: PresentationNodeDefinitionService,
+  //  private milestoneDefinitionService: MilestoneDefinitionService,
+    private definitionService: DefinitionService,
     private d2ServiceBase: Destiny2Service
   ) {}
 
@@ -33,13 +32,13 @@ export class LookupComponent {
   imgUrls = [];
 
   lookupPresentation() {
-    this.updateDisplay(this.presentationNodeService.definitions[this.displayHash.value as unknown as number]);
+    this.updateDisplay(this.definitionService.presentationDefinition[this.displayHash.value as unknown as number]);
   }
   lookupMilestone() {
-    this.updateDisplay(this.milestoneDefinitionService.definitions[this.milestoneHash.value as unknown as number]);
+    this.updateDisplay(this.definitionService.milestoneDefinition[this.milestoneHash.value as unknown as number]);
   }
   lookupRecord() {
-    this.updateDisplay(this.recordDefinitionService.definitions[this.recordHash.value as unknown as number]);
+    this.updateDisplay(this.definitionService.recordDefinition[this.recordHash.value as unknown as number]);
   }
 
   updateDisplay(thing: any) {

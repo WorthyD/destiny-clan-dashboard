@@ -1,16 +1,16 @@
-import { TestBed } from '@angular/core/testing';
+// import { TestBed } from '@angular/core/testing';
 
-import { ActivityModeDefinitionService } from './activity-mode-definition.service';
+// import { ActivityModeDefinitionService } from './activity-mode-definition.service';
 
-describe('ActivityModeDefinitionService', () => {
-  let service: ActivityModeDefinitionService;
+// describe('ActivityModeDefinitionService', () => {
+//   let service: ActivityModeDefinitionService;
 
-  beforeEach(() => {
-    TestBed.configureTestingModule({});
-    service = TestBed.inject(ActivityModeDefinitionService);
-  });
+//   beforeEach(() => {
+//     TestBed.configureTestingModule({});
+//     service = TestBed.inject(ActivityModeDefinitionService);
+//   });
 
-  it('should be created', () => {
-    expect(service).toBeTruthy();
-  });
-});
+//   it('should be created', () => {
+//     expect(service).toBeTruthy();
+//   });
+// });

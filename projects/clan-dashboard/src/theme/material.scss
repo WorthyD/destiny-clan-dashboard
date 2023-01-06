@@ -71,10 +71,6 @@ $destiny-dark-theme: mat.define-dark-theme(
 
 @include mat.card-typography($clan-dashboard-typography);
 
-//@debug map-get($destiny-dark-theme, background);
-// Include theme styles for core and each component used in your app.
-// Alternatively, you can import and @include the theme mixins for each component
-// that you are using.
 
 .content-wrapper {
   background: var(--app-background-color);
