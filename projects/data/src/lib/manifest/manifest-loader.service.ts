@@ -2,8 +2,10 @@ import { Injectable } from '@angular/core';
 
 import { Destiny2Service } from 'bungie-api-angular';
 import { map, Observable, of, switchMap, take } from 'rxjs';
+import { IdbKeyValService } from '../storage/idb-key-val.service';
 import { nowPlusMinutes } from '../utility/date-utils';
 import { ManifestDatabaseService } from './manifest-database.service';
+//import { get, set } from './test-db';
 
 export const STATUS_EXTRACTING_TABLES = 'extracting tables';
 export const STATUS_UNZIPPING = 'unzipping';
@@ -22,7 +24,7 @@ export interface CachedManifest {
   providedIn: 'root'
 })
 export class ManifestLoaderService {
-  constructor(private d2service: Destiny2Service, private db: ManifestDatabaseService) {}
+  constructor(private d2service: Destiny2Service, private db: IdbKeyValService) {}
   private getManifestFromCache(language: string) {
     const jsonPath = window.localStorage.getItem(MANIFEST_PATH_KEY);
     const jsonPathExp = window.localStorage.getItem(MANIFEST_PATH_EXP_KEY);
@@ -64,11 +66,12 @@ export class ManifestLoaderService {
 
   requestDefinitionsArchive(dbPath, tableNames) {
     // TODO This takes about a second and a half to execute
-    return this.db.getValues('manifest').then((cachedValue) => {
+    // return this.db.getValues('manifest').then((cachedValue) => {
+    return this.db.get('manifest').then((cachedValue) => {
       const versionKey = `${VERSION}:${dbPath}`;
 
       if (cachedValue && cachedValue.length > 0 && cachedValue.find((x) => x.id === versionKey)) {
-        this.db.closeDatabase('manifest');
+        // this.db.closeDatabase('manifest');
         return cachedValue.find((x) => x.id === versionKey);
       }
 
@@ -76,9 +79,10 @@ export class ManifestLoaderService {
         return x.json().then((y) => {
           const prunedTables = this.pruneTables(y, tableNames);
           const dbObject = { id: versionKey, data: prunedTables };
-          this.db.update('manifest', 'allData', [dbObject]).then((db) => {
-            this.db.closeDatabase('manifest');
-          });
+          // this.db.update('manifest', 'allData', [dbObject]).then((db) => {
+          //   this.db.closeDatabase('manifest');
+          // });
+          this.db.set('manifest', [dbObject]);
 
           return dbObject;
         });
