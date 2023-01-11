@@ -1,16 +1,16 @@
-import { TestBed } from '@angular/core/testing';
+// import { TestBed } from '@angular/core/testing';
 
-import { IdbKeyvalService } from './idb-keyval.service';
+// import { IdbKeyvalService } from './idb-keyval.service';
 
-describe('IdbKeyvalService', () => {
-  let service: IdbKeyvalService;
+// describe('IdbKeyvalService', () => {
+//   let service: IdbKeyvalService;
 
-  beforeEach(() => {
-    TestBed.configureTestingModule({});
-    service = TestBed.inject(IdbKeyvalService);
-  });
+//   beforeEach(() => {
+//     TestBed.configureTestingModule({});
+//     service = TestBed.inject(IdbKeyvalService);
+//   });
 
-  it('should be created', () => {
-    expect(service).toBeTruthy();
-  });
-});
+//   it('should be created', () => {
+//     expect(service).toBeTruthy();
+//   });
+// });

@@ -67,16 +67,20 @@ export class ManifestLoaderService {
   requestDefinitionsArchive(dbPath, tableNames) {
     // TODO This takes about a second and a half to execute
     // return this.db.getValues('manifest').then((cachedValue) => {
-    return this.db.get('manifest').then((cachedValue) => {
+    return this.db.get<any>('manifest').then((cachedValue) => {
       const versionKey = `${VERSION}:${dbPath}`;
+      console.log('version', cachedValue);
 
       if (cachedValue && cachedValue.length > 0 && cachedValue.find((x) => x.id === versionKey)) {
         // this.db.closeDatabase('manifest');
+        console.log('updating');
         return cachedValue.find((x) => x.id === versionKey);
       }
+      console.log('else');
 
       return fetch(`https://www.bungie.net${dbPath}`).then((x) => {
         return x.json().then((y) => {
+          console.log('-----------------');
           const prunedTables = this.pruneTables(y, tableNames);
           const dbObject = { id: versionKey, data: prunedTables };
           // this.db.update('manifest', 'allData', [dbObject]).then((db) => {

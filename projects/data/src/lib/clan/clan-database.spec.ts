@@ -2,7 +2,7 @@ import { deleteDB } from 'idb';
 import { AppIndexedDb, StoreId } from '../db/clan-indexed-db';
 import { ClanDatabase } from './clan-database';
 
-fdescribe('Clan Database', () => {
+describe('Clan Database', () => {
   let clanDB: ClanDatabase;
   let database: AppIndexedDb;
   const databaseName = 'UnitTestDB';

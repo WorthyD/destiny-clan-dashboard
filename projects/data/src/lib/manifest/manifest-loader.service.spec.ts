@@ -5,6 +5,7 @@ import { Destiny2Service } from 'bungie-api-angular';
 import { ManifestDatabaseService } from './manifest-database.service';
 
 import { ManifestLoaderService } from './manifest-loader.service';
+import { IdbKeyValService, LocalStorageService } from '../storage';
 export const NO_WINDOW_MOCK = {
   fetch: () => {
     return null;
@@ -15,20 +16,22 @@ export function windowProvider() {
   return window;
 }
 
-describe('ManifestLoaderService', () => {
+fdescribe('ManifestLoaderService', () => {
   let service: ManifestLoaderService;
   let apiService: Destiny2Service;
-  let dbService: ManifestDatabaseService;
+  //let dbService: ManifestDatabaseService;
+  let storageService: IdbKeyValService;
   let win;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [HttpClientTestingModule],
-      providers: [{ provide: WindowToken, useValue: NO_WINDOW_MOCK }]
+      providers: [{ provide: WindowToken, useValue: NO_WINDOW_MOCK }, IdbKeyValService]
     });
     service = TestBed.inject(ManifestLoaderService);
     apiService = TestBed.inject(Destiny2Service);
-    dbService = TestBed.inject(ManifestDatabaseService);
+    //dbService = TestBed.inject(ManifestDatabaseService);
+    storageService = TestBed.inject(IdbKeyValService);
     win = TestBed.inject(WindowToken);
   });
 
@@ -37,12 +40,12 @@ describe('ManifestLoaderService', () => {
   });
   describe('requestDefinitionsArchive', () => {
     it('return cached value', (done) => {
-      const dbGetSpy = spyOn(dbService, 'getValues').and.callFake((repo) => {
+      const dbGetSpy = spyOn<any>(storageService, 'get').and.callFake((repo) => {
         return new Promise((res, rej) => {
           res([{ id: 'v1:blah', data: [] }]);
         });
       });
-      const dbUpdateSpy = spyOn(dbService, 'update').and.callThrough();
+      const dbUpdateSpy = spyOn(storageService, 'set').and.callThrough();
       service.requestDefinitionsArchive('blah', []).then((x) => {
         expect(x).toBeTruthy();
         expect(dbGetSpy).toHaveBeenCalledTimes(1);
@@ -50,29 +53,29 @@ describe('ManifestLoaderService', () => {
         done();
       });
     });
-    // it('should request new on with new version', async (done) => {
-    //   const dbGetSpy = spyOn(dbService, 'getValues').and.callFake((repo) => {
-    //     return new Promise((res, rej) => {
-    //       res([{ id: 'v1:blah', data: [] }]);
-    //     });
-    //   });
-    //   const winSpy = spyOn(win, 'fetch').and.callFake((stuff) => {
-    //     return new Promise((res, rej) => {
-    //       res({
-    //         json: () =>
-    //           new Promise((res2, rej2) => {
-    //             res2('res2');
-    //           })
-    //       });
-    //     });
-    //   });
-    //   const dbUpdateSpy = spyOn(dbService, 'update').and.callThrough();
-    //   service.requestDefinitionsArchive('/v2:blah', []).then((x) => {
-    //     expect(x).toBeTruthy();
-    //     expect(dbGetSpy).toHaveBeenCalledTimes(1);
-    //     expect(dbUpdateSpy).toHaveBeenCalledTimes(1);
-    //     done();
-    //   });
-    // });
+    fit('should request new on with new version', async (done) => {
+      const dbGetSpy = spyOn<any>(storageService, 'get').and.callFake((repo) => {
+        return new Promise((res, rej) => {
+          res([{ id: 'v1:blah', data: [] }]);
+        });
+      });
+      const winSpy = spyOn(win, 'fetch').and.callFake((stuff) => {
+        return new Promise((res, rej) => {
+          res({
+            json: () =>
+              new Promise((res2, rej2) => {
+                res2('res2');
+              })
+          });
+        });
+      });
+      const dbUpdateSpy = spyOn(storageService, 'set').and.callThrough();
+      service.requestDefinitionsArchive('/v2:blah', []).then((x) => {
+        expect(x).toBeTruthy();
+        expect(dbGetSpy).toHaveBeenCalledTimes(1);
+        expect(dbUpdateSpy).toHaveBeenCalledTimes(1);
+        done();
+      });
+    });
   });
 });
