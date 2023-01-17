@@ -34,7 +34,8 @@ export class BaseMemberActivityService extends BaseClanService {
     // private d2ServiceBase: Destiny2Service,
     public startValue: Date,
     public maxRequestCount: Number,
-    public activityTypeId = 0
+    public activityTypeId = 0,
+    public fetchFunc
   ) {
     super(clanDbPBase, tableNamePBase);
   }
@@ -45,7 +46,7 @@ export class BaseMemberActivityService extends BaseClanService {
     const url = `https://www.bungie.net/Platform/Destiny2/${member.profile.data.userInfo.membershipType}/Account/${member.profile.data.userInfo.membershipId}/Character/${characterId}/Stats/Activities/?count=${this.ACTIVITY_GET_COUNT}&mode=${this.activityTypeId}&page=${pageNumber}`;
 
     return new Observable((observer) => {
-      fetch(url, { headers: { 'X-API-Key': this.apiKey } })
+      this.fetchFunc(url, { headers: { 'X-API-Key': this.apiKey } })
         .then((response) => response.json())
         .then((data) => {
           observer.next(data);

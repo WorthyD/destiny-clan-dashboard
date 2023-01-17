@@ -3,7 +3,7 @@ import { get, set, createStore, UseStore } from 'idb-keyval';
 import { DataStore } from './datastore.interface';
 
 @Injectable()
-export class IdbKeyValService implements DataStore{
+export class IdbKeyValService implements DataStore {
   defaultStore: UseStore;
   constructor() {
     this.defaultStore = createStore('D2Dashboard', 'data');

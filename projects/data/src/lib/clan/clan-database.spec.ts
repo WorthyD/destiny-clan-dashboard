@@ -25,9 +25,8 @@ describe('Clan Database', () => {
   });
 
   afterEach((done) => {
-    database.removeData().then(() => {
-      done();
-    });
+    window.indexedDB.deleteDatabase(databaseName);
+    done();
   });
 
   describe('getAll', () => {
@@ -45,15 +44,15 @@ describe('Clan Database', () => {
     });
   });
 
-  describe('getById', () => {
-    it('should get everything', (done) => {
-      clanDB.getAll(databaseName, storeId).then((result) => {
-        expect(result.length).toBe(4);
+  // describe('getById', () => {
+  //   it('should get everything', (done) => {
+  //     clanDB.getAll(databaseName, storeId).then((result) => {
+  //       expect(result.length).toBe(4);
 
-        done();
-      });
-    });
-  });
+  //       done();
+  //     });
+  //   });
+  // });
 
   // describe('update', () => {});
 

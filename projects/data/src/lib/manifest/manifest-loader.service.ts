@@ -1,11 +1,10 @@
-import { Injectable } from '@angular/core';
+import { Inject, Injectable } from '@angular/core';
 
 import { Destiny2Service } from 'bungie-api-angular';
 import { map, Observable, of, switchMap, take } from 'rxjs';
+import { WindowToken } from '../injection-tokens/window-token';
 import { IdbKeyValService } from '../storage/idb-key-val.service';
 import { nowPlusMinutes } from '../utility/date-utils';
-import { ManifestDatabaseService } from './manifest-database.service';
-//import { get, set } from './test-db';
 
 export const STATUS_EXTRACTING_TABLES = 'extracting tables';
 export const STATUS_UNZIPPING = 'unzipping';
@@ -24,7 +23,11 @@ export interface CachedManifest {
   providedIn: 'root'
 })
 export class ManifestLoaderService {
-  constructor(private d2service: Destiny2Service, private db: IdbKeyValService) {}
+  constructor(
+    private d2service: Destiny2Service,
+    private db: IdbKeyValService,
+    @Inject(WindowToken) private window: Window
+  ) {}
   private getManifestFromCache(language: string) {
     const jsonPath = window.localStorage.getItem(MANIFEST_PATH_KEY);
     const jsonPathExp = window.localStorage.getItem(MANIFEST_PATH_EXP_KEY);
@@ -69,23 +72,15 @@ export class ManifestLoaderService {
     // return this.db.getValues('manifest').then((cachedValue) => {
     return this.db.get<any>('manifest').then((cachedValue) => {
       const versionKey = `${VERSION}:${dbPath}`;
-      console.log('version', cachedValue);
 
       if (cachedValue && cachedValue.length > 0 && cachedValue.find((x) => x.id === versionKey)) {
-        // this.db.closeDatabase('manifest');
-        console.log('updating');
         return cachedValue.find((x) => x.id === versionKey);
       }
-      console.log('else');
 
-      return fetch(`https://www.bungie.net${dbPath}`).then((x) => {
+      return this.window.fetch(`https://www.bungie.net${dbPath}`).then((x) => {
         return x.json().then((y) => {
-          console.log('-----------------');
           const prunedTables = this.pruneTables(y, tableNames);
           const dbObject = { id: versionKey, data: prunedTables };
-          // this.db.update('manifest', 'allData', [dbObject]).then((db) => {
-          //   this.db.closeDatabase('manifest');
-          // });
           this.db.set('manifest', [dbObject]);
 
           return dbObject;
