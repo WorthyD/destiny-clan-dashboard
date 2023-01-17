@@ -1,8 +1,12 @@
 import { Injectable } from '@angular/core';
 import {
-  DestinyDefinitionsCollectiblesDestinyCollectibleAcquisitionBlock,
   DestinyDefinitionsCollectiblesDestinyCollectibleDefinition,
-  DestinyDefinitionsMetricsDestinyMetricDefinition
+  DestinyDefinitionsDestinyActivityDefinition,
+  DestinyDefinitionsDestinyActivityModeDefinition,
+  DestinyDefinitionsMetricsDestinyMetricDefinition,
+  DestinyDefinitionsMilestonesDestinyMilestoneDefinition,
+  DestinyDefinitionsPresentationDestinyPresentationNodeDefinition,
+  DestinyDefinitionsRecordsDestinyRecordDefinition
 } from 'bungie-api-angular';
 
 @Injectable({
@@ -11,6 +15,11 @@ import {
 export class DefinitionService {
   metricDefinitions: DestinyDefinitionsMetricsDestinyMetricDefinition[];
   collectibleDefinition: DestinyDefinitionsCollectiblesDestinyCollectibleDefinition[];
+  presentationDefinition: DestinyDefinitionsPresentationDestinyPresentationNodeDefinition[];
+  recordDefinition: DestinyDefinitionsRecordsDestinyRecordDefinition[];
+  milestoneDefinition: DestinyDefinitionsMilestonesDestinyMilestoneDefinition[];
+  activityDefinition: DestinyDefinitionsDestinyActivityDefinition[];
+  activityModeDefinition: DestinyDefinitionsDestinyActivityModeDefinition[];
 
   initializeCache(data: any) {
     if (data.DestinyMetricDefinition) {
@@ -18,6 +27,22 @@ export class DefinitionService {
     }
     if (data.DestinyCollectibleDefinition) {
       this.collectibleDefinition = data.DestinyCollectibleDefinition;
+    }
+    if (data.DestinyPresentationNodeDefinition) {
+      this.presentationDefinition = data.DestinyPresentationNodeDefinition;
+    }
+    if (data.DestinyRecordDefinition) {
+      this.recordDefinition = data.DestinyRecordDefinition;
+    }
+    if (data.DestinyMilestoneDefinition) {
+      this.milestoneDefinition = data.DestinyMilestoneDefinition;
+    }
+    if (data.DestinyActivityDefinition) {
+      this.activityDefinition = data.DestinyActivityDefinition;
+    }
+
+    if (data.DestinyActivityModeDefinition) {
+      this.activityModeDefinition = data.DestinyActivityModeDefinition;
     }
   }
 }

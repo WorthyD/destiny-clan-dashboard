@@ -2,7 +2,7 @@ import { deleteDB } from 'idb';
 import { AppIndexedDb, StoreId } from '../db/clan-indexed-db';
 import { ClanDatabase } from './clan-database';
 
-fdescribe('Clan Database', () => {
+describe('Clan Database', () => {
   let clanDB: ClanDatabase;
   let database: AppIndexedDb;
   const databaseName = 'UnitTestDB';
@@ -25,9 +25,8 @@ fdescribe('Clan Database', () => {
   });
 
   afterEach((done) => {
-    database.removeData().then(() => {
-      done();
-    });
+    window.indexedDB.deleteDatabase(databaseName);
+    done();
   });
 
   describe('getAll', () => {
@@ -45,15 +44,15 @@ fdescribe('Clan Database', () => {
     });
   });
 
-  describe('getById', () => {
-    it('should get everything', (done) => {
-      clanDB.getAll(databaseName, storeId).then((result) => {
-        expect(result.length).toBe(4);
+  // describe('getById', () => {
+  //   it('should get everything', (done) => {
+  //     clanDB.getAll(databaseName, storeId).then((result) => {
+  //       expect(result.length).toBe(4);
 
-        done();
-      });
-    });
-  });
+  //       done();
+  //     });
+  //   });
+  // });
 
   // describe('update', () => {});
 

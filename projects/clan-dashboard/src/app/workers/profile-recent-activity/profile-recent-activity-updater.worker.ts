@@ -7,7 +7,7 @@ import { take } from 'rxjs/operators';
 
 addEventListener('message', ({ data }) => {
   const clanDatabase = new ClanDatabase();
-  const profileService = new ClanMemberRecentActivityService(clanDatabase, data.apiKey);
+  const profileService = new ClanMemberRecentActivityService(clanDatabase, data.apiKey, fetch);
 
   const progress = (progressData) => {
     postMessage({ type: 'progress', data: progressData });

@@ -1,9 +1,7 @@
-import { windowProvider } from './window-token';
-describe('WindowToken', () => {
-  it('should be created', () => {
-    expect(windowProvider).toBeTruthy();
-  });
-  it('should return window ', () => {
-    expect(windowProvider()).toEqual(window);
-  });
-});
+//! MOVED TO DATA LIBRARY
+// import { InjectionToken } from '@angular/core';
+
+// export const WindowToken = new InjectionToken('Window');
+// export function windowProvider() {
+//   return window;
+// }

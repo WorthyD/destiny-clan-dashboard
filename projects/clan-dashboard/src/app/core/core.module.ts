@@ -10,13 +10,14 @@ import { EffectsModule } from '@ngrx/effects';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { Configuration } from 'bungie-api-angular';
 import { ClanDbModule } from '@destiny/data/clan';
+import { IdbKeyValService } from '@destiny/data/storage';
 import { LayoutModule } from './layout/layout.module';
 import { ClanMembersService } from '@destiny/data/clan/clan-members';
 import { ProfileService } from 'projects/data/src/lib/clan/profiles/profile.service';
 import { ClanDatabase } from 'projects/data/src/lib/clan/clan-database';
 import { locationProvider, LocationToken } from './injection-tokens/location-token';
-import { windowProvider, WindowToken } from './injection-tokens/window-token';
 import { MatDialogModule } from '@angular/material/dialog';
+import { windowProvider, WindowToken } from 'projects/data/src/lib/injection-tokens/window-token';
 
 @NgModule({
   declarations: [],
@@ -32,6 +33,7 @@ import { MatDialogModule } from '@angular/material/dialog';
   ],
   providers: [
     ClanMembersService,
+    IdbKeyValService,
     { provide: LocationToken, useFactory: locationProvider },
     { provide: WindowToken, useFactory: windowProvider },
     {

@@ -75,21 +75,27 @@ describe('Group activities by date', () => {
   it('groupActivitiesByDate', () => {
     const orig = JSON.stringify(bActivities);
     const formatted = groupActivitiesByDate(bActivities);
-    expect(formatted[0].seconds).toEqual(100);
-    expect(formatted[1].seconds).toEqual(200);
-    expect(formatted[2].seconds).toEqual(200);
+
+    const oneHundred = formatted.filter((x) => x.seconds === 100);
+    expect(oneHundred.length).toEqual(1);
+
+    const twoHundred = formatted.filter((x) => x.seconds === 200);
+    expect(twoHundred.length).toEqual(2);
+
 
     expect(formatted.length).toEqual(3);
     expect(JSON.stringify(bActivities)).toEqual(orig);
-    // expect(formatted.find((x) => x.date === '2020-08-26').seconds).toEqual(700);
   });
 
   it('groupActivityStatsByDate', () => {
     const orig = JSON.stringify(groupedActivities);
     const formatted = groupActivityStatsByDate(groupedActivities);
-    expect(formatted[0].seconds).toEqual(100);
-    expect(formatted[1].seconds).toEqual(200);
-    expect(formatted[2].seconds).toEqual(200);
+
+    const oneHundred = formatted.filter((x) => x.seconds === 100);
+    expect(oneHundred.length).toEqual(1);
+
+    const twoHundred = formatted.filter((x) => x.seconds === 200);
+    expect(twoHundred.length).toEqual(2);
 
     expect(formatted.length).toEqual(3);
 

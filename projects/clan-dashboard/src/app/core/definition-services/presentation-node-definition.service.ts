@@ -1,10 +1,10 @@
-import { Injectable } from '@angular/core';
-import { DestinyDefinitionsPresentationDestinyPresentationNodeDefinition } from 'bungie-api-angular';
-import { BaseDefinitionService } from './base-definition.service';
+// import { Injectable } from '@angular/core';
+// import { DestinyDefinitionsPresentationDestinyPresentationNodeDefinition } from 'bungie-api-angular';
+// import { BaseDefinitionService } from './base-definition.service';
 
-@Injectable({
-  providedIn: 'root'
-})
-export class PresentationNodeDefinitionService  extends BaseDefinitionService<DestinyDefinitionsPresentationDestinyPresentationNodeDefinition> {
+// @Injectable({
+//   providedIn: 'root'
+// })
+// export class PresentationNodeDefinitionService  extends BaseDefinitionService<DestinyDefinitionsPresentationDestinyPresentationNodeDefinition> {
 
-}
+// }

@@ -1,16 +1,18 @@
-import { TestBed } from '@angular/core/testing';
+//! MARKED FOR DELETION 1/12/2023
 
-import { ManifestDatabaseService } from './manifest-database.service';
+// import { TestBed } from '@angular/core/testing';
 
-describe('ManifestDatabaseService', () => {
-  let service: ManifestDatabaseService;
+// import { ManifestDatabaseService } from './manifest-database.service';
 
-  beforeEach(() => {
-    TestBed.configureTestingModule({});
-    service = TestBed.inject(ManifestDatabaseService);
-  });
+// describe('ManifestDatabaseService', () => {
+//   let service: ManifestDatabaseService;
 
-  it('should be created', () => {
-    expect(service).toBeTruthy();
-  });
-});
+//   beforeEach(() => {
+//     TestBed.configureTestingModule({});
+//     service = TestBed.inject(ManifestDatabaseService);
+//   });
+
+//   it('should be created', () => {
+//     expect(service).toBeTruthy();
+//   });
+// });

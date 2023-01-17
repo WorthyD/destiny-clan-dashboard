@@ -11,7 +11,7 @@ export class ClanActivityService {
   readonly CONCURRENT_COUNT = 10;
   private memberActivityService: ClanMemberRecentActivityService;
   constructor(private clanDb: ClanDatabase, private apiKey) {
-    this.memberActivityService = new ClanMemberRecentActivityService(clanDb, apiKey);
+    this.memberActivityService = new ClanMemberRecentActivityService(clanDb, apiKey, fetch);
   }
 
   //getClanActivityStats(clanId: number, clanMemberProfiles: MemberProfile[], activityMode: number = 0) {
