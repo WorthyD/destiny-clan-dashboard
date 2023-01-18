@@ -20,7 +20,7 @@ interface MemberProfile {
 
 export class ClanMemberRecentActivityService extends BaseMemberActivityService {
   private concurrentRequests = 5;
-  constructor(private clanDB: ClanDatabase, private baseApiKey: string, private fFunc) {
+  constructor(private clanDB: ClanDatabase, private baseApiKey: string) {
     super(
       clanDB,
       StoreId.MemberRecentActivities,
@@ -29,7 +29,6 @@ export class ClanMemberRecentActivityService extends BaseMemberActivityService {
       new Date(new Date().setDate(new Date().getDate() + ((2 + 7 - new Date().getDay()) % 7) - 90)),
       8,
       0,
-      fFunc
     );
   }
   getSerializedProfileActivity(

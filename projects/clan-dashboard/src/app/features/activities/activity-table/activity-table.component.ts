@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { DataSource, Filterer, Sorter, SorterMetadata, Viewer, ViewerMetadata } from '@destiny/components';
-import { CollectionDefinition, MetricDefinition } from '@destiny/data/models';
+import { CollectionDefinition, MetricDefinition, RecordDefinition } from '@destiny/data/models';
 import { ClanMemberProfile } from '@shared/models/ClanMemberProfile';
 import { map, Observable, of, tap } from 'rxjs';
 import { ActivitiesService } from '../data-access/activities.service';
@@ -21,6 +21,7 @@ export class ActivityTableComponent implements OnChanges {
   @Input() title: string;
   @Input() metricDefinitions: MetricDefinition[];
   @Input() collectionDefinitions: CollectionDefinition[];
+  @Input() recordDefinitions: RecordDefinition[];
 
   isLoading = true;
   activityViewer: Viewer;
@@ -43,6 +44,10 @@ export class ActivityTableComponent implements OnChanges {
       this.collectionDefinitions.forEach((md) => {
         initialViewerData.set(md.hash.toString(), this.createViewerCollection(md));
         initialSorterData.set(md.hash.toString(), this.createSorterCollection(md));
+      });
+
+      this.recordDefinitions.forEach((md) => {
+        initialViewerData.set(md.hash.toString(), this.createViewerRecord(md));
       });
 
       this.activityViewer = new Viewer({
@@ -102,6 +107,19 @@ export class ActivityTableComponent implements OnChanges {
         return {
           classList: 'text-center',
           text: this.hasItem(item.profile.profileCollectibles?.data?.collectibles[definition.hash]) ? 'X' : ''
+        };
+      }
+    };
+  }
+
+  createViewerRecord(definition: MetricDefinition): ViewerMetadata<ClanMemberProfile, ViewContext> {
+    return {
+      label: definition.displayProperties.name,
+      plainText: (item: ClanMemberProfile) => `1`,
+      render: (item: ClanMemberProfile) => {
+        return {
+          classList: 'text-center',
+          text: '1'
         };
       }
     };

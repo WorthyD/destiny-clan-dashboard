@@ -7,3 +7,4 @@ export * from './DeepPartial';
 export * from './enums';
 export * from './SealDefinition';
 export * from './MetricDefinition';
+export * from './RecordDefinition';

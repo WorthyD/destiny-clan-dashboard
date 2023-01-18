@@ -10,8 +10,9 @@ export const CURATED_ACTIVITIES_EXOTIC_MISSIONS: CuratedActivityGroup = {
         // 760708739, //??
         1161231112 //??
       ],
-      records:[
-        2379774266 //dog
+      records: [
+        // 2379774266 //dog
+        110405822
       ]
       // 110405822 record
     },

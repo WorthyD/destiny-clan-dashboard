@@ -20,7 +20,8 @@ export class ActivityDetailComponent {
       return {
         activity: this.activitiesService.getActivityById(hash),
         metrics: this.activitiesService.getCuratedMetrics(hash),
-        collections: this.activitiesService.getCuratedCollections(hash)
+        collections: this.activitiesService.getCuratedCollections(hash),
+        records: this.activitiesService.getCuratedRecords(hash)
       };
     })
   );
