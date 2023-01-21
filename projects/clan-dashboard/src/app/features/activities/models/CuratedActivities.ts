@@ -16,6 +16,7 @@ export interface CuratedActivity {
   hash: number;
   metrics: number[];
   collections?: number[];
+  records?: number[];
 }
 
 export const CURATED_ACTIVITY_GROUPS: CuratedActivityGroup[] = [

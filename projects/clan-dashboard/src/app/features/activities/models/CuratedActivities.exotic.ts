@@ -9,6 +9,14 @@ export const CURATED_ACTIVITIES_EXOTIC_MISSIONS: CuratedActivityGroup = {
       collections: [
         // 760708739, //??
         1161231112 //??
+      ],
+      records: [
+        3645325693, // Solo
+        2381003836, // Aim for the bushes
+        1282305097, // Solo Flawless
+        1168356473, // Flawless seraph
+        3011661755, // Legend flawless
+        110405822 // Dog
       ]
     },
     {

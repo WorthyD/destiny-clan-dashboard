@@ -52,14 +52,22 @@ export class ActivitiesService {
   }
 
   getCuratedCollections(hash: number): any[] {
-    const curatedMetrics = CURATED_ACTIVITIES_ALL.find((ca) => ca.hash === hash).collections || [];
-    return curatedMetrics.map((cm) => this.definitionService.collectibleDefinition[cm]);
+    const curatedCollections = CURATED_ACTIVITIES_ALL.find((ca) => ca.hash === hash).collections || [];
+    return curatedCollections.map((cm) => this.definitionService.collectibleDefinition[cm]);
+  }
+  getCuratedRecords(hash: number): any[] {
+    const curatedRecords = CURATED_ACTIVITIES_ALL.find((ca) => ca.hash === hash).records || [];
+    return curatedRecords.map((cm) => this.definitionService.recordDefinition[cm]);
   }
 
   clanProfiles$: Observable<ClanMemberProfile[]> = this.store.select(selectAllClansMembersProfiles); //.pipe(
   clanProfilesLoading$: Observable<boolean> = this.store.select(selectClanMemberProfileStateLoading); //
 
-  getProfiles(metricHashes: number[], collectionHashes: number[]): Observable<ClanMemberProfile[]> {
+  getProfiles(
+    metricHashes: number[],
+    collectionHashes: number[],
+    recordHashes: number[]
+  ): Observable<ClanMemberProfile[]> {
     return this.memberService.clanMembers$.pipe(
       switchMap((clansAndMembers) => {
         return from(clansAndMembers).pipe(
@@ -69,7 +77,7 @@ export class ActivitiesService {
                 clanAndMembers.clan.clanId,
                 clanAndMembers.members,
                 collectionHashes,
-                [],
+                recordHashes,
                 metricHashes
               )
               .pipe(

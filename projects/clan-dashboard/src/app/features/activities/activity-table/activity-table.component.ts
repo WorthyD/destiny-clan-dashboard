@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { DataSource, Filterer, Sorter, SorterMetadata, Viewer, ViewerMetadata } from '@destiny/components';
-import { CollectionDefinition, MetricDefinition } from '@destiny/data/models';
+import { CollectionDefinition, MetricDefinition, RecordDefinition } from '@destiny/data/models';
 import { ClanMemberProfile } from '@shared/models/ClanMemberProfile';
 import { map, Observable, of, tap } from 'rxjs';
 import { ActivitiesService } from '../data-access/activities.service';
@@ -21,6 +21,7 @@ export class ActivityTableComponent implements OnChanges {
   @Input() title: string;
   @Input() metricDefinitions: MetricDefinition[];
   @Input() collectionDefinitions: CollectionDefinition[];
+  @Input() recordDefinitions: RecordDefinition[];
 
   isLoading = true;
   activityViewer: Viewer;
@@ -45,6 +46,10 @@ export class ActivityTableComponent implements OnChanges {
         initialSorterData.set(md.hash.toString(), this.createSorterCollection(md));
       });
 
+      this.recordDefinitions.forEach((md) => {
+        initialViewerData.set(md.hash.toString(), this.createViewerRecord(md));
+      });
+
       this.activityViewer = new Viewer({
         metadata: initialViewerData,
         contextProvider: this.createViewContextProvider()
@@ -55,7 +60,8 @@ export class ActivityTableComponent implements OnChanges {
       this.activityInfo$ = this.activitiesService
         .getProfiles(
           this.metricDefinitions.map((md) => md.hash),
-          this.collectionDefinitions.map((md) => md.hash)
+          this.collectionDefinitions.map((md) => md.hash),
+          this.recordDefinitions.map((md) => md.hash)
         )
         .pipe(
           map((ds) => {
@@ -90,6 +96,16 @@ export class ActivityTableComponent implements OnChanges {
     return (value?.state & 1) === 0;
   }
 
+  hasCompleted(value): boolean {
+    if (value === undefined || value.state === undefined || value.objectives === undefined) {
+      return false;
+    }
+    // return value.objectives[value.objectives.length -1]?.complete;
+
+    console.log(value);
+    return value.objectives[0]?.complete;
+  }
+
   createViewerCollection(definition: CollectionDefinition): ViewerMetadata<ClanMemberProfile, ViewContext> {
     return {
       // label: definition.displayProperties.name,
@@ -102,6 +118,21 @@ export class ActivityTableComponent implements OnChanges {
         return {
           classList: 'text-center',
           text: this.hasItem(item.profile.profileCollectibles?.data?.collectibles[definition.hash]) ? 'X' : ''
+        };
+      }
+    };
+  }
+
+  createViewerRecord(definition: MetricDefinition): ViewerMetadata<ClanMemberProfile, ViewContext> {
+    return {
+      label: definition.displayProperties.name,
+      plainText: (item: ClanMemberProfile) =>
+        `${this.hasCompleted(item.profile.profileRecords?.data?.records[definition.hash]) ? 'X' : ''}`,
+      render: (item: ClanMemberProfile) => {
+        console.log('hash', item.profile.profileRecords?.data?.records);
+        return {
+          classList: 'text-center',
+          text: `${this.hasCompleted(this.getRecord(definition, item.profile)) ? 'X' : ''}`
         };
       }
     };
@@ -132,5 +163,14 @@ export class ActivityTableComponent implements OnChanges {
     return of((item: ClanMemberProfile) => ({
       item
     }));
+  }
+
+  getRecord(definition: RecordDefinition, profile) {
+    console.log(profile);
+    return definition.scope === 1
+      ? profile.characterRecords?.data
+        ? (Object.values(profile.characterRecords.data)[0] as unknown as any)?.records[definition.hash]
+        : undefined
+      : profile.profileRecords?.data?.records[definition.hash];
   }
 }
