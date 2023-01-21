@@ -102,7 +102,6 @@ export class ActivityTableComponent implements OnChanges {
     }
     // return value.objectives[value.objectives.length -1]?.complete;
 
-    console.log(value);
     return value.objectives[0]?.complete;
   }
 
@@ -127,9 +126,8 @@ export class ActivityTableComponent implements OnChanges {
     return {
       label: definition.displayProperties.name,
       plainText: (item: ClanMemberProfile) =>
-        `${this.hasCompleted(item.profile.profileRecords?.data?.records[definition.hash]) ? 'X' : ''}`,
+        `${this.hasCompleted(this.getRecord(definition, item.profile)) ? 'X' : ''}`,
       render: (item: ClanMemberProfile) => {
-        console.log('hash', item.profile.profileRecords?.data?.records);
         return {
           classList: 'text-center',
           text: `${this.hasCompleted(this.getRecord(definition, item.profile)) ? 'X' : ''}`
@@ -166,7 +164,6 @@ export class ActivityTableComponent implements OnChanges {
   }
 
   getRecord(definition: RecordDefinition, profile) {
-    console.log(profile);
     return definition.scope === 1
       ? profile.characterRecords?.data
         ? (Object.values(profile.characterRecords.data)[0] as unknown as any)?.records[definition.hash]
