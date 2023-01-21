@@ -30,6 +30,12 @@ export function profileSerializer(
     characterProgressions: {
       data: getCharacterProgressions(p.characterProgressions?.data, progressionHashes)
     },
+    characterRecords: {
+      privacy: p.characterRecords.privacy,
+      data: {
+        [p.profile.data.characterIds[0]]: getCharacterRecords(p, profileRecords)
+      }
+    },
     profileCollectibles: {
       data: {
         collectibles: getProfileItems(p.profileCollectibles?.data?.collectibles, collectionHashes)
@@ -51,6 +57,15 @@ export function profileSerializer(
   };
 }
 
+function getCharacterRecords(p, profileRecords) {
+  if (p.characterRecords?.data) {
+    const characterRecords = Object.values(p.characterRecords?.data)[0] as any;
+
+    return { records: getProfileRecords(characterRecords?.records, profileRecords) };
+  }
+  return { records: null };
+}
+
 function getCharacterProgressions(data, progressionHashes) {
   const characterProgressions = {};
   if (data) {
@@ -69,7 +84,9 @@ function getProfileRecords(data, profileRecordHashes: number[] | string[]) {
   if (data) {
     const progressions = {};
     profileRecordHashes.forEach((ph) => {
-      progressions[ph] = data[ph];
+      if (data[ph]) {
+        progressions[ph] = data[ph];
+      }
     });
     profileRecords = progressions;
   }
@@ -113,3 +130,16 @@ function getProgressionValues(prog) {
     nextLevelAt: prog?.nextLevelAt
   };
 }
+
+/*
+function getRecordComponent(
+  recordDef: DestinyRecordDefinition,
+  profileResponse: DestinyProfileResponse
+): DestinyRecordComponent | undefined {
+  return recordDef.scope === DestinyScope.Character
+    ? profileResponse.characterRecords?.data
+      ? Object.values(profileResponse.characterRecords.data)[0].records[recordDef.hash]
+      : undefined
+    : profileResponse.profileRecords?.data?.records[recordDef.hash];
+}
+*/

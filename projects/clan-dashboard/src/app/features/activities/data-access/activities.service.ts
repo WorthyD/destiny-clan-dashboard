@@ -63,7 +63,11 @@ export class ActivitiesService {
   clanProfiles$: Observable<ClanMemberProfile[]> = this.store.select(selectAllClansMembersProfiles); //.pipe(
   clanProfilesLoading$: Observable<boolean> = this.store.select(selectClanMemberProfileStateLoading); //
 
-  getProfiles(metricHashes: number[], collectionHashes: number[]): Observable<ClanMemberProfile[]> {
+  getProfiles(
+    metricHashes: number[],
+    collectionHashes: number[],
+    recordHashes: number[]
+  ): Observable<ClanMemberProfile[]> {
     return this.memberService.clanMembers$.pipe(
       switchMap((clansAndMembers) => {
         return from(clansAndMembers).pipe(
@@ -73,7 +77,7 @@ export class ActivitiesService {
                 clanAndMembers.clan.clanId,
                 clanAndMembers.members,
                 collectionHashes,
-                [],
+                recordHashes,
                 metricHashes
               )
               .pipe(
