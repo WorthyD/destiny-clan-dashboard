@@ -17,6 +17,32 @@ export const CURATED_ACTIVITIES_PINNACLE: CuratedActivityGroup = {
         1212240353, // shell
         4150064816, // sparrow
         39134720 // ship
+      ],
+      records:[
+        3064133018,
+        1662916867,
+        1965035984,
+        1522246467,
+        2502902092
+      ]
+    },
+    {
+      // Iron Banner
+      hash: 2014552458,
+      metrics: [
+
+      ],
+      collections: [
+
+      ],
+      records:[
+        2096302465,
+        4159436958,
+        999240767,
+        280201145,
+        3191049056,
+        4001216960,
+        3644674925
       ]
     }
   ]

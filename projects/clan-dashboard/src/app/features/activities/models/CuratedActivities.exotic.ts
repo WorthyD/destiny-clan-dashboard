@@ -23,7 +23,13 @@ export const CURATED_ACTIVITIES_EXOTIC_MISSIONS: CuratedActivityGroup = {
       // Vox
       hash: 901429423,
       metrics: [],
-      collections: [4028619088, 154026683]
+      collections: [4028619088, 154026683],
+      records:[
+        2846845044, // Complated master
+        3219227863, // Completed catalyst
+        2012324885, // Listen to all propoganda
+        978050738, // Master flawless
+      ]
     }
   ]
 };

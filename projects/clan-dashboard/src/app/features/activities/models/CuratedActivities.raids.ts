@@ -14,6 +14,11 @@ export const CURATED_ACTIVITIES_RAIDS: CuratedActivityGroup = {
         192937277, // ToM
         2100640553, // Ship
         1942146807 //sparrow
+      ],
+      records:[
+        1360511082, //Flawless
+        70932677, // clan
+        3388215749, // Master
       ]
     },
     {
@@ -27,6 +32,12 @@ export const CURATED_ACTIVITIES_RAIDS: CuratedActivityGroup = {
         2817568609, // weapon
         3070552038, // shell
         844832867 // Sparrow
+      ],
+      records:[
+        610864524, // Master
+        4019717242, // Flawless
+        3330343477, // Clan
+
       ]
     },
     {
@@ -40,6 +51,11 @@ export const CURATED_ACTIVITIES_RAIDS: CuratedActivityGroup = {
       collections: [
         2300465938, // weapon
         958866288 // ship
+      ],
+      records:[
+        2750088202, // Flawless
+        991121189, // Vault of clans
+        3890225317, //  master
       ]
     },
     {
@@ -53,6 +69,10 @@ export const CURATED_ACTIVITIES_RAIDS: CuratedActivityGroup = {
         753200559, //weapon
         3574313939, //shell
         392272160 // sparrow
+      ],
+      records:[
+        3560923614, // Flawless
+        518342793, // clan
       ]
     },
     {
@@ -64,6 +84,10 @@ export const CURATED_ACTIVITIES_RAIDS: CuratedActivityGroup = {
       ],
       collections: [
         1988948484 // weapon
+      ],
+      records:[
+        1221037312, // Clan night
+        1522774125, // flawless
       ]
     },
     {
@@ -78,6 +102,10 @@ export const CURATED_ACTIVITIES_RAIDS: CuratedActivityGroup = {
         3360537485, // shell
         3163873693, //ship
         1469913804 //sparrow
+      ],
+      records:[
+        4078980921, // Clan Night
+        380332968, // Petra's run
       ]
     }
   ]
