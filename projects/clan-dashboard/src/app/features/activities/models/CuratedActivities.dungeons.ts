@@ -13,6 +13,10 @@ export const CURATED_ACTIVITIES_DUNGEONS: CuratedActivityGroup = {
       collections: [
         3558330464 //3558330464
         // 4174431791
+      ],
+      records:[
+        3006836031, //InSPIREd Posse
+        958830294, //Resident Vexpert
       ]
     },
     {
@@ -26,6 +30,10 @@ export const CURATED_ACTIVITIES_DUNGEONS: CuratedActivityGroup = {
       collections: [
         467760883, //Heartshadow
         1047374873 //Mandate of Strength
+      ],
+      records:[
+        2388189655, //United in Secrecy
+        196842574, //Master Thoughtstealer
       ]
     },
     {
@@ -39,6 +47,9 @@ export const CURATED_ACTIVITIES_DUNGEONS: CuratedActivityGroup = {
       collections: [
         4027219968, // Galler
         196980257 // Gallarswift
+      ],
+      records:[
+        2411018844, // Master
       ]
     },
     {
@@ -51,6 +62,9 @@ export const CURATED_ACTIVITIES_DUNGEONS: CuratedActivityGroup = {
       collections: [
         3865096258, // Hareball SHell,
         1669843839 //Of Ten Suns
+      ],
+      records:[
+        3191784400, // Solo flawless
       ]
     },
     {
@@ -74,6 +88,13 @@ export const CURATED_ACTIVITIES_DUNGEONS: CuratedActivityGroup = {
       ],
       collections: [
         1660030044 // wish ender
+      ],
+      records:[
+        3899996566, // Solo ,
+        174211525, // full gear
+        2436465535,  //Thorny predicament
+        4180867423, // Douse
+
       ]
     }
   ]
