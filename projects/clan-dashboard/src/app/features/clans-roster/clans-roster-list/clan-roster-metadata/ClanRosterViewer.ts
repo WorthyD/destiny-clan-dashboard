@@ -4,21 +4,21 @@ import { BungieDatePipe, BungieDateTimePipe } from '@destiny/components/pipes/bu
 import { MemberTypeComponent } from '@destiny/components/icons';
 import { ClassCellComponent } from '../../components/class-cell/class-cell.component';
 import { MembershipTypes } from '@destiny/data/models';
-import { ClanMemberProfile } from '@shared/models/ClanMemberProfile';
+import { ClanRosterItem } from '@features/clans-roster/models/ClanRosterItem';
 
 interface ViewContext {
-  item: ClanMemberProfile;
+  item: ClanRosterItem;
   datePipe: BungieDatePipe;
   dateTimePipe: BungieDateTimePipe;
 }
 
-export const CLAN_ROSTER_VIEWER_METADATA = new Map<string, ViewerMetadata<ClanMemberProfile, ViewContext>>([
+export const CLAN_ROSTER_VIEWER_METADATA = new Map<string, ViewerMetadata<ClanRosterItem, ViewContext>>([
   [
     'platform',
     {
       label: 'Platform',
-      plainText: (item: ClanMemberProfile) => `${getMembershipType(item.member.destinyUserInfo.membershipType)}`,
-      render: (item: ClanMemberProfile) => ({
+      plainText: (item: ClanRosterItem) => `${getMembershipType(item.member.destinyUserInfo.membershipType)}`,
+      render: (item: ClanRosterItem) => ({
         //        styles: {},
         component: MemberTypeComponent,
         data: { type: item.member?.destinyUserInfo?.membershipType || 0 }
@@ -31,24 +31,66 @@ export const CLAN_ROSTER_VIEWER_METADATA = new Map<string, ViewerMetadata<ClanMe
     {
       label: 'Destiny Display Name',
       isSticky: true,
-      plainText: (item: ClanMemberProfile) => `${item.member?.destinyUserInfo?.displayName || ''}`,
-      render: (item: ClanMemberProfile) => ({ text: `${item.member?.destinyUserInfo?.displayName || ''}` })
+      plainText: (item: ClanRosterItem) => `${item.member?.destinyUserInfo?.displayName || ''}`,
+      render: (item: ClanRosterItem) => ({ text: `${item.member?.destinyUserInfo?.displayName || ''}` })
     }
   ],
   [
     'bungieDisplayName',
     {
       label: 'Bungie Display Name',
-      plainText: (item: ClanMemberProfile) => `${item.member?.bungieNetUserInfo?.displayName || ''}`,
-      render: (item: ClanMemberProfile) => ({ text: `${item.member?.bungieNetUserInfo?.displayName || ''}` })
+      plainText: (item: ClanRosterItem) => `${item.member?.bungieNetUserInfo?.displayName || ''}`,
+      render: (item: ClanRosterItem) => ({ text: `${item.member?.bungieNetUserInfo?.displayName || ''}` })
+    }
+  ],
+  [
+    'bungieUnique',
+    {
+      label: 'Bungie Unique Name',
+      plainText: (item: ClanRosterItem) => `${item?.bungieInfo?.uniqueName || ''}`,
+     // plainText: (item: ClanRosterItem) => ``,
+      render: (item: ClanRosterItem) => ({ text: `${item.bungieInfo?.uniqueName  || ''}` })
+    }
+  ],
+  [
+    'psnName',
+    {
+      label: 'PSN Name',
+      //plainText: (item: ClanRosterItem) => `${item?.bungieInfo?.psnDisplayName || ''}`,
+      plainText: (item: ClanRosterItem) => `testing`,
+      render: (item: ClanRosterItem) => ({ text: `${item.bungieInfo?.psnDisplayName  || ''}` })
+    }
+  ],
+  [
+    'xboxName',
+    {
+      label: 'XBox Name',
+      plainText: (item: ClanRosterItem) => `${item?.bungieInfo?.xboxDisplayName || ''}`,
+      render: (item: ClanRosterItem) => ({ text: `${item.bungieInfo?.xboxDisplayName  || ''}` })
+    }
+  ],
+  [
+    'steamName',
+    {
+      label: 'Steam Name',
+      plainText: (item: ClanRosterItem) => `${item?.bungieInfo?.steamDisplayName || ''}`,
+      render: (item: ClanRosterItem) => ({ text: `${item.bungieInfo?.steamDisplayName  || ''}` })
+    }
+  ],
+  [
+    'twitchName',
+    {
+      label: 'Twitch Name',
+      plainText: (item: ClanRosterItem) => `${item?.bungieInfo?.twitchDisplayName || ''}`,
+      render: (item: ClanRosterItem) => ({ text: `${item.bungieInfo?.twitchDisplayName  || ''}` })
     }
   ],
   [
     'characters',
     {
       label: 'Characters',
-      plainText: (item: ClanMemberProfile) => ``,
-      render: (item: ClanMemberProfile) => {
+      plainText: (item: ClanRosterItem) => ``,
+      render: (item: ClanRosterItem) => {
         const characterIds = item.profile?.profile?.data?.characterIds;
         return {
           classList: 'characters-cell',
@@ -70,8 +112,8 @@ export const CLAN_ROSTER_VIEWER_METADATA = new Map<string, ViewerMetadata<ClanMe
     'powerLevel',
     {
       label: '+',
-      plainText: (item: ClanMemberProfile) => `${item.profile?.profileProgression?.data?.seasonalArtifact?.powerBonus}`,
-      render: (item: ClanMemberProfile) => ({
+      plainText: (item: ClanRosterItem) => `${item.profile?.profileProgression?.data?.seasonalArtifact?.powerBonus}`,
+      render: (item: ClanRosterItem) => ({
         classList: 'power-cell',
         text: `${item.profile?.profileProgression?.data?.seasonalArtifact?.powerBonus}`
       })
@@ -81,8 +123,8 @@ export const CLAN_ROSTER_VIEWER_METADATA = new Map<string, ViewerMetadata<ClanMe
     'activeTriumph',
     {
       label: 'Active Triumph',
-      plainText: (item: ClanMemberProfile) => `${item.profile?.profileRecords?.data?.activeScore}`,
-      render: (item: ClanMemberProfile) => ({
+      plainText: (item: ClanRosterItem) => `${item.profile?.profileRecords?.data?.activeScore}`,
+      render: (item: ClanRosterItem) => ({
         classList:['text-center'],
         text: `${item.profile?.profileRecords?.data?.activeScore}`
       })
@@ -92,8 +134,8 @@ export const CLAN_ROSTER_VIEWER_METADATA = new Map<string, ViewerMetadata<ClanMe
     'lifetimeTriumph',
     {
       label: 'Lifetime Triumph',
-      plainText: (item: ClanMemberProfile) => `${item.profile?.profileRecords?.data?.lifetimeScore}`,
-      render: (item: ClanMemberProfile) => ({
+      plainText: (item: ClanRosterItem) => `${item.profile?.profileRecords?.data?.lifetimeScore}`,
+      render: (item: ClanRosterItem) => ({
         classList:['text-center'],
         text: `${item.profile?.profileRecords?.data?.lifetimeScore}`
       })
@@ -103,22 +145,34 @@ export const CLAN_ROSTER_VIEWER_METADATA = new Map<string, ViewerMetadata<ClanMe
     'clan',
     {
       label: 'Clan',
-      plainText: (item: ClanMemberProfile) => `${item.clan.clanName}`,
-      render: (item: ClanMemberProfile, context: ViewContext) => {
+      plainText: (item: ClanRosterItem) => `${item.clan.clanName}`,
+      render: (item: ClanRosterItem, context: ViewContext) => {
         return {
           text: `${item.clan.clanName}`
         };
       }
     }
   ],
-
+  [
+    'bungieProfileCreation',
+    {
+      label: 'Bungie Join Date',
+      plainText: (item: ClanRosterItem, context: ViewContext) =>
+        `${context.datePipe.transform(item.bungieInfo?.firstAccess || new Date() as unknown as Date)}`,
+      render: (item: ClanRosterItem, context: ViewContext) => {
+        return {
+          text: `${context.datePipe.transform(item.bungieInfo?.firstAccess || new Date() as unknown as Date)}`
+        };
+      }
+    }
+  ],
   [
     'clanJoinDate',
     {
       label: 'Clan Join Date',
-      plainText: (item: ClanMemberProfile, context: ViewContext) =>
+      plainText: (item: ClanRosterItem, context: ViewContext) =>
         `${context.datePipe.transform(item.member?.joinDate as unknown as Date)}`,
-      render: (item: ClanMemberProfile, context: ViewContext) => {
+      render: (item: ClanRosterItem, context: ViewContext) => {
         return {
           text: `${context.datePipe.transform(item.member?.joinDate as unknown as Date)}`
         };
@@ -129,8 +183,8 @@ export const CLAN_ROSTER_VIEWER_METADATA = new Map<string, ViewerMetadata<ClanMe
     'dateLastPlayed',
     {
       label: 'Last Played',
-      plainText: (item: ClanMemberProfile, context: ViewContext) => `${context.dateTimePipe.transform(item.profile?.profile.data.dateLastPlayed as unknown as Date)}`,
-      render: (item: ClanMemberProfile, context: ViewContext) => {
+      plainText: (item: ClanRosterItem, context: ViewContext) => `${context.dateTimePipe.transform(item.profile?.profile.data.dateLastPlayed as unknown as Date)}`,
+      render: (item: ClanRosterItem, context: ViewContext) => {
         return {
           text: `${context.dateTimePipe.transform(item.profile?.profile.data.dateLastPlayed as unknown as Date)}`
         };

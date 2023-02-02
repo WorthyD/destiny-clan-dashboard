@@ -1,6 +1,6 @@
 import { Component, ViewEncapsulation, ChangeDetectionStrategy } from '@angular/core';
 import { DataSource, Exporter, Filterer, Sorter, Viewer } from '@destiny/components';
-import { map, Observable, of } from 'rxjs';
+import { map, Observable, of, tap } from 'rxjs';
 
 import { BungieDatePipe, BungieDateTimePipe } from '@destiny/components/pipes/bungie-date';
 import { ClansRosterService } from '../data-access/clans-roster.service';
@@ -36,14 +36,14 @@ export class ClansRosterComponent {
       metadata: CLAN_ROSTER_VIEWER_METADATA,
       contextProvider: this.createViewContextProvider()
     },
-    'D2Dashboard_Roster_Table_Viewer'
+    'D2Dashboard_Roster_Table_ViewerV2'
   );
   rosterFilter = new Filterer({ metadata: CLAN_ROSTER_FILTERER_METADATA });
   rosterSorter = new Sorter({ metadata: CLAN_ROSTER_SORTER_METADATA });
   rosterExporter = new Exporter({ metadata: CLAN_ROSTER_EXPORTER_METADATA });
-  isLoading$ = this.clansRosterService.clanProfilesLoading$;
+  isLoading = true;
 
-  rosterInfo$: Observable<RosterResources> = this.clansRosterService.clanProfiles$.pipe(
+  rosterInfo$: Observable<RosterResources> = this.clansRosterService.clanRosterItems$.pipe(
     map((clanProfiles) => {
       return {
         dataSource: new DataSource<ClanMemberProfile>({ data: clanProfiles }),
@@ -53,6 +53,7 @@ export class ClansRosterComponent {
         sorter: this.rosterSorter
       };
     }),
+    tap((x) => (this.isLoading = false))
   );
 
   createViewContextProvider() {

@@ -1,10 +1,11 @@
 // import { SorterMetadata } from '../data/sorter';
 
 import { SorterMetadata } from '@destiny/components';
+import { ClanRosterItem } from '@features/clans-roster/models/ClanRosterItem';
 import { ClanMemberProfile } from '@shared/models/ClanMemberProfile';
 
 // import { MockListItem } from './ListItems';
-export const CLAN_ROSTER_SORTER_METADATA = new Map<string, SorterMetadata<ClanMemberProfile>>([
+export const CLAN_ROSTER_SORTER_METADATA = new Map<string, SorterMetadata<ClanRosterItem>>([
   //   [
   //     'id',
   //     {
@@ -40,6 +41,65 @@ export const CLAN_ROSTER_SORTER_METADATA = new Map<string, SorterMetadata<ClanMe
       comparator: (a, b) => (a.member?.destinyUserInfo?.membershipType < b.member?.destinyUserInfo?.membershipType ? -1 : 1)
     }
   ],
+  [
+    'bungieUnique',
+    {
+      label: 'Bungie Unique Name',
+      comparator: (a, b) =>
+        a.bungieInfo?.uniqueName?.toLowerCase() <
+        b.bungieInfo?.uniqueName?.toLowerCase()
+          ? -1
+          : 1
+    }
+  ],
+  // ----
+  [
+    'psnDisplayName',
+    {
+      label: 'PSN Name',
+      comparator: (a, b) =>
+        a.bungieInfo?.psnDisplayName?.toLowerCase() <
+        b.bungieInfo?.psnDisplayName?.toLowerCase()
+          ? -1
+          : 1
+    }
+  ],
+  [
+    'xboxDisplayName',
+    {
+      label: 'XBox Name',
+      comparator: (a, b) =>
+        a.bungieInfo?.xboxDisplayName?.toLowerCase() <
+        b.bungieInfo?.xboxDisplayName?.toLowerCase()
+          ? -1
+          : 1
+    }
+  ],
+  [
+    'steamDisplayName',
+    {
+      label: 'Steam Name',
+      comparator: (a, b) =>
+        a.bungieInfo?.steamDisplayName?.toLowerCase() <
+        b.bungieInfo?.steamDisplayName?.toLowerCase()
+          ? -1
+          : 1
+    }
+  ],
+
+  [
+    'twitchDisplayName',
+    {
+      label: 'Twitch Name',
+      comparator: (a, b) =>
+        a.bungieInfo?.twitchDisplayName?.toLowerCase() <
+        b.bungieInfo?.twitchDisplayName?.toLowerCase()
+          ? -1
+          : 1
+    }
+  ],
+
+  // ----
   [
     'powerLevel',
     {

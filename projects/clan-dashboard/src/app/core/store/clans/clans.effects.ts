@@ -53,4 +53,14 @@ export class ClansEffects {
       })
     );
   });
+  updateBungieInfoSync$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(clanActions.updateBungieInfoSync),
+      concatLatestFrom(() => this.store.select(selectClansState)),
+      map(([action, clans]) => {
+        const clanToUpdate = clans.entities[action.clanId];
+        return clanActions.updateClan({ clan: { ...clanToUpdate, bungieInfoUpdate: new Date().toString() } });
+      })
+    );
+  });
 }

@@ -1,4 +1,5 @@
 export * from './ActivityStats';
+export * from './BungieInfo';
 export * from './ClanDetails';
 export * from './ClanMember';
 export * from './CollectionDefinition';

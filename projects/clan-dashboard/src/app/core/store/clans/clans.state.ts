@@ -9,6 +9,7 @@ export interface ClanConfig {
   memberUpdate: string;
   profileUpdate: string;
   memberRecentActivityUpdate: string;
+  bungieInfoUpdate: string;
 }
 
 export interface ClansState extends EntityState<ClanConfig> {}
@@ -28,5 +29,6 @@ export const DefaultClanConfig: ClanConfig = {
   enabled: true,
   memberUpdate: '1/1/1900',
   profileUpdate: '1/1/1900',
-  memberRecentActivityUpdate: '1/1/1900'
+  memberRecentActivityUpdate: '1/1/1900',
+  bungieInfoUpdate: '1/1/1900'
 } as ClanConfig;

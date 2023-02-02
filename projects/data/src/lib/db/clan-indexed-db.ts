@@ -1,31 +1,33 @@
 import { BaseAppIndexedDb } from './base-indexed-db';
 
-const DB_VERSION = 5;
+const DB_VERSION = 6;
 
 export enum StoreId {
-  CacheDetails = 'CacheDetails', //TODO: Verify
+ // CacheDetails = 'CacheDetails', //TODO: Verify
   ClanDetails = 'ClanDetails',
-  ClanRewards = 'ClanRewards', // TODO: Verify
+  //ClanRewards = 'ClanRewards', // TODO: Verify
   MemberProfiles = 'MemberProfiles',
   MemberActivities = 'MemberActivities',
-  MemberActivityStats = 'MemberActivityStats', // TODO: Verify
+  //MemberActivityStats = 'MemberActivityStats', // TODO: Verify
   MemberRecentActivities = 'MemberRecentActivities',
-  ProfileMilestones = 'ProfileMilestones', // TODO  Verfiy
-  ProfileMetrics = 'ProfileMetrics', // TODO: Verify
-  Raids = 'Raids' // TODO verify
+  //ProfileMilestones = 'ProfileMilestones', // TODO  Verfiy
+  //ProfileMetrics = 'ProfileMetrics', // TODO: Verify
+//  Raids = 'Raids' // TODO verify
+BungieInfo = 'BungieInfo'
 }
 
 export const STORE_IDS: StoreId[] = [
-  StoreId.CacheDetails,
+ // StoreId.CacheDetails,
   StoreId.ClanDetails,
-  StoreId.ClanRewards,
+  //StoreId.ClanRewards,
   StoreId.MemberProfiles,
   StoreId.MemberActivities,
   StoreId.MemberRecentActivities,
-  StoreId.ProfileMilestones,
-  StoreId.MemberActivityStats,
-  StoreId.ProfileMetrics,
-  StoreId.Raids
+  StoreId.BungieInfo
+  //StoreId.ProfileMilestones,
+  //StoreId.MemberActivityStats,
+  //StoreId.ProfileMetrics,
+ // StoreId.Raids
 ];
 
 export interface DBObject {
