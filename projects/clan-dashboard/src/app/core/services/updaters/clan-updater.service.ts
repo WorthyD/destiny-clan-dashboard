@@ -24,6 +24,7 @@ import { MemberActivityUpdaterService } from './member-activity-updater.service'
 import { ClanDetailsService } from '@destiny/data/clan/clan-details';
 import { MatDialog } from '@angular/material/dialog';
 import { AppOfflineDialogComponent } from '../../layout/app-offline-dialog/app-offline-dialog.component';
+import { BungieInfoUpdaterService } from './bungie-info-updater.service';
 
 export interface ClanConfigMembers {
   clanConfig: ClanConfig;
@@ -46,6 +47,7 @@ export class ClanUpdaterService {
     private clanDetailsService: ClanDetailsService,
     private profileUpdaterService: ProfileUpdaterService,
     private memberActivityUpdaterService: MemberActivityUpdaterService,
+    private bungieInfoUpdaterService: BungieInfoUpdaterService,
     public dialog: MatDialog
   ) {}
 
@@ -60,7 +62,9 @@ export class ClanUpdaterService {
       switchMap((clans) => this.profileUpdaterService.profilesUpdate(clans)),
       tap((x) => this.showLog && console.log('Member Profile Update Complete', x)),
       switchMap((clans) => this.memberActivityUpdaterService.membersActivityUpdate(clans)),
-      tap((x) => this.showLog && console.log('Member Recent Activity Update Complete', x))
+      tap((x) => this.showLog && console.log('Member Recent Activity Update Complete', x)),
+      switchMap((clans) => this.bungieInfoUpdaterService.updateAllClansBungieInfo(clans)),
+      tap((x) => this.showLog && console.log('Bungie Info Update Complete', x))
     );
   }
 

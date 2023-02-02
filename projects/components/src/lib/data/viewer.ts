@@ -207,7 +207,7 @@ function convertArrayOfObjectsToCSV(args) {
         result += columnDelimiter;
       }
 
-      result += item[key];
+      result += encodeURIComponent(item[key]);
       ctr++;
     });
     result += lineDelimiter;
@@ -215,4 +215,3 @@ function convertArrayOfObjectsToCSV(args) {
 
   return result;
 }
-

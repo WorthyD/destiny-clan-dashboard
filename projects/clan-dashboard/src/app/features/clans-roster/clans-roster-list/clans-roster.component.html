@@ -1,6 +1,6 @@
 <div class="clan-roster">
   <lib-table-view class="clan-roster-table"
-    [isLoading]="isLoading$ |  async"
+    [isLoading]="isLoading"
     [dataSource]="(rosterInfo$ | async)?.dataSource"
     [header]="'Clan Roster'"
     [viewer]="rosterViewer"
