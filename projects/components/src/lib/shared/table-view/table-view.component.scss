@@ -14,8 +14,10 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+  padding-left:8px;
   h3 {
-    margin-left: 16px;
+    padding-left:8px;
+    flex: 1;
     margin-bottom: 0;
   }
   .header-actions {
