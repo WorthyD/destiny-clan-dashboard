@@ -1,6 +1,11 @@
   <lib-table-view class="clan-roster-table" [isLoading]="isLoading" [header]="title"
     [dataSource]="activityInfo$ | async" [viewer]="activityViewer" [filterer]="activityFilterer"
     [sorter]="activitySorter">
+    <div pre-header>
+      <button mat-icon-button aria-label="Back to Activities" routerLink="/activities">
+        <mat-icon>arrow_back</mat-icon>
+      </button>
+    </div>
   </lib-table-view>
 
   <!--  -->
