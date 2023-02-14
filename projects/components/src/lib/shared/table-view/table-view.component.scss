@@ -14,9 +14,9 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding-left:8px;
+  padding-left: 8px;
   h3 {
-    padding-left:8px;
+    padding-left: 8px;
     flex: 1;
     margin-bottom: 0;
   }
@@ -57,4 +57,8 @@ table {
 
 .mat-menu-item {
   //   @include slim-menu-item();
+}
+
+.header-text-center {
+  text-align: center;
 }

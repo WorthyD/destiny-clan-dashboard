@@ -1,6 +1,9 @@
 import { SorterMetadata } from '@destiny/components';
-import { getMemberName } from '@destiny/data/utility';
+import { compare, getMemberName } from '@destiny/data/utility';
 import { SealClanMember } from '../../models/seal-clan-member';
+const sortNumeric = (a: number, b: number) => {
+  return a < b ? -1 : 1;
+};
 
 export const SEAL_DETAILS_SORTER_METADATA = new Map<string, SorterMetadata<SealClanMember>>([
   [
@@ -8,28 +11,28 @@ export const SEAL_DETAILS_SORTER_METADATA = new Map<string, SorterMetadata<SealC
     {
       label: 'Destiny Display Name',
       comparator: (a, b) =>
-        getMemberName(a.clanMember).toLowerCase() < getMemberName(b.clanMember).toLowerCase() ? -1 : 1
+        compare(getMemberName(a.clanMember).toLowerCase(), getMemberName(b.clanMember).toLowerCase())
     }
   ],
   [
     'clanName',
     {
       label: 'Clan Name',
-      comparator: (a, b) => (a.clan.clanName < b.clan.clanName ? -1 : 1)
+      comparator: (a, b) => compare(a.clan.clanName, b.clan.clanName)
     }
   ],
   [
     'progress',
     {
       label: 'Progress',
-      comparator: (a, b) => (a.sealProgression.completionPercentage < b.sealProgression.completionPercentage ? -1 : 1)
+      comparator: (a, b) => compare(a.sealProgression.completionPercentage, b.sealProgression.completionPercentage)
     }
   ],
   [
     'gildedCount',
     {
       label: 'Gilded Count',
-      comparator: (a, b) => (a.sealProgression.gildedCount < b.sealProgression.gildedCount ? -1 : 1)
+      comparator: (a, b) => compare(a.sealProgression.gildedCount, b.sealProgression.gildedCount)
     }
   ],
   [
@@ -50,7 +53,8 @@ export const SEAL_DETAILS_SORTER_METADATA = new Map<string, SorterMetadata<SealC
     'gildedCount',
     {
       label: 'Gilded Count',
-      comparator: (a, b) => (a.sealProgression.gildedCount < b.sealProgression.gildedCount ? -1 : 1)
+      // comparator: (a, b) => (a.sealProgression.gildedCount < b.sealProgression.gildedCount ? -1 : 1)
+      comparator: (a, b) => compare(a.sealProgression.gildedCount || -10, b.sealProgression.gildedCount || -10)
     }
   ]
 ]);
