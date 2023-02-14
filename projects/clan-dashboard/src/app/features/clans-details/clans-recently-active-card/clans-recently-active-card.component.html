@@ -3,7 +3,7 @@
       [members]="vm.lastLoginMembers">
       <ng-template let-member #itemTemplate>
         <div>
-          {{member.profile?.profile.data.dateLastPlayed |  bungieDate}}
+          {{member.profile?.profile.data.dateLastPlayed |  bungieDateTime}}
         </div>
       </ng-template>
     </app-clan-member-card>

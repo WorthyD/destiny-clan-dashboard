@@ -1,6 +1,6 @@
+import { TABLE_DONE, TABLE_NOT_DONE } from '@core/constants';
 import { ViewerMetadata } from '@destiny/components';
 
-import { BungieDatePipe, BungieDateTimePipe } from '@destiny/components/pipes/bungie-date';
 import { getMemberName } from '@destiny/data/utility';
 import { SealClanMember } from '../../models/seal-clan-member';
 
@@ -13,6 +13,7 @@ export const SEAL_DETAILS_VIEWER_METADATA = new Map<string, ViewerMetadata<SealC
     'destinyDisplayName',
     {
       label: 'Destiny Display Name',
+      labelClass: '',
       plainText: (item: SealClanMember) => `${getMemberName(item.clanMember)}`,
       render: (item: SealClanMember) => ({ text: `${getMemberName(item.clanMember)}` })
     }
@@ -21,6 +22,7 @@ export const SEAL_DETAILS_VIEWER_METADATA = new Map<string, ViewerMetadata<SealC
     'destinyClan',
     {
       label: 'Destiny Clan',
+      labelClass: '',
       plainText: (item: SealClanMember) => `${item.clan.clanName}`,
       render: (item: SealClanMember) => ({ text: `${item.clan.clanName}` })
     }
@@ -29,9 +31,11 @@ export const SEAL_DETAILS_VIEWER_METADATA = new Map<string, ViewerMetadata<SealC
     'isComplete',
     {
       label: 'Is Completed',
+      labelClass: 'header-text-center',
       plainText: (item: SealClanMember) => (item.sealProgression.isCompleted ? 'X' : ''),
       render: (item: SealClanMember) => ({
-        text: item.sealProgression.isCompleted ? 'X' : ''
+        classList: ['text-center'],
+        text: item.sealProgression.isCompleted ? TABLE_DONE : TABLE_NOT_DONE
       })
     }
   ],
@@ -39,9 +43,11 @@ export const SEAL_DETAILS_VIEWER_METADATA = new Map<string, ViewerMetadata<SealC
     'isGilded',
     {
       label: 'Is Gilded',
+      labelClass: 'header-text-center',
       plainText: (item: SealClanMember) => (item.sealProgression.isGilded ? 'X' : ''),
       render: (item: SealClanMember) => ({
-        text: item.sealProgression.isGilded ? 'X' : ''
+        classList: ['text-center'],
+        text: item.sealProgression.isGilded ? TABLE_DONE : TABLE_NOT_DONE
       })
     }
   ],
@@ -49,8 +55,10 @@ export const SEAL_DETAILS_VIEWER_METADATA = new Map<string, ViewerMetadata<SealC
     'gildedCount',
     {
       label: 'Gilded Count',
+      labelClass: 'header-text-center',
       plainText: (item: SealClanMember) => `${item.sealProgression.gildedCount || ''}`,
       render: (item: SealClanMember) => ({
+        classList: ['text-center'],
         text: `${item.sealProgression.gildedCount || ''}`
       })
     }
@@ -58,10 +66,12 @@ export const SEAL_DETAILS_VIEWER_METADATA = new Map<string, ViewerMetadata<SealC
   [
     'completeCount',
     {
-      label: 'Completed Count',
+      label: 'Completed / Total',
+      labelClass: 'header-text-center',
       plainText: (item: SealClanMember) =>
         `${item.sealProgression.completedTriumphCount || 0} / ${item.sealProgression.totalTriumphCount}`,
       render: (item: SealClanMember) => ({
+        classList: ['text-center'],
         text: `${item.sealProgression.completedTriumphCount || 0} / ${item.sealProgression.totalTriumphCount}`
       })
     }
@@ -70,8 +80,10 @@ export const SEAL_DETAILS_VIEWER_METADATA = new Map<string, ViewerMetadata<SealC
     'progress',
     {
       label: 'Percent Completed',
+      labelClass: 'header-text-center',
       plainText: (item: SealClanMember) => `${item.sealProgression.completionPercentage}%`,
       render: (item: SealClanMember) => ({
+        classList: ['text-center'],
         text: `${item.sealProgression.completionPercentage}%`
       })
     }

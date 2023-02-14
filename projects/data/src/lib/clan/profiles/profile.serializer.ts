@@ -31,7 +31,7 @@ export function profileSerializer(
       data: getCharacterProgressions(p.characterProgressions?.data, progressionHashes)
     },
     characterRecords: {
-      privacy: p.characterRecords.privacy,
+      privacy: p.characterRecords?.privacy,
       data: {
         [p.profile.data.characterIds[0]]: getCharacterRecords(p, profileRecords)
       }

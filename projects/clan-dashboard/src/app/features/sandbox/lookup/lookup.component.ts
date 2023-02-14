@@ -18,7 +18,7 @@ import { DefinitionService } from '@core/definition-services/definition.service'
 export class LookupComponent {
   constructor(
     // private presentationNodeService: PresentationNodeDefinitionService,
-  //  private milestoneDefinitionService: MilestoneDefinitionService,
+    //  private milestoneDefinitionService: MilestoneDefinitionService,
     private definitionService: DefinitionService,
     private d2ServiceBase: Destiny2Service
   ) {}

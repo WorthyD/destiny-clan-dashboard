@@ -5,7 +5,7 @@ import { combineLatest, filter, map, Observable, of, switchMap, tap } from 'rxjs
 import { SealsService } from '../data-access/seals.service';
 import { SealClanMember } from '../models/seal-clan-member';
 import {
-  SEAL_DETAILS_EXPORTER_METADATA,
+  //SEAL_DETAILS_EXPORTER_METADATA,
   SEAL_DETAILS_FILTERER_METADATA,
   SEAL_DETAILS_SORTER_METADATA,
   SEAL_DETAILS_VIEWER_METADATA
@@ -16,7 +16,7 @@ interface SealDetailsResources {
   viewer: Viewer;
   filterer: Filterer;
   //grouper: Grouper;
-  exporter: Exporter;
+ // exporter: Exporter;
   sorter: Sorter;
   dataSource: DataSource;
 }
@@ -52,10 +52,10 @@ export class SealDetailsComponent {
   );
   sealDetailsFilterer = new Filterer({ metadata: SEAL_DETAILS_FILTERER_METADATA });
   sealDetailsSorter = new Sorter({ metadata: SEAL_DETAILS_SORTER_METADATA });
-  sealDetailsExporter = new Exporter({
-    metadata: SEAL_DETAILS_EXPORTER_METADATA,
-    contextProvider: this.createViewContextProvider()
-  });
+  // sealDetailsExporter = new Exporter({
+  //   metadata: SEAL_DETAILS_EXPORTER_METADATA,
+  //   contextProvider: this.createViewContextProvider()
+  // });
   createViewContextProvider() {
     return of((item: SealClanMember) => ({
       item
@@ -70,7 +70,7 @@ export class SealDetailsComponent {
         dataSource: new DataSource<SealClanMember>({ data: sealDetails }),
         viewer: this.sealDetailsViewer,
         filterer: this.sealDetailsFilterer,
-        exporter: this.sealDetailsExporter,
+     //   exporter: this.sealDetailsExporter,
         sorter: this.sealDetailsSorter
       };
     }),
