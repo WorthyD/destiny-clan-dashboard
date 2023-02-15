@@ -72,11 +72,8 @@ export class ClanUpdaterService {
     return from(activeClans).pipe(
       // TODO: Double check concat map
       mergeMap((clanConfig: ClanConfig) => {
-        //console.log('update', clanConfig);
-        //concatMap((clanConfig: ClanConfig) => {
         return this.clanDetailsService.getClanDetailsSerialized(clanConfig.clanId, false).pipe(
           map((result) => {
-            //console.log('got clan');
             const newConfig = {
               ...clanConfig,
               clanName: result.name,
@@ -85,10 +82,16 @@ export class ClanUpdaterService {
             this.store.dispatch(updateClan({ clan: newConfig }));
 
             return newConfig;
+          }),
+          catchError((error) => {
+            console.log('error', error);
+            // TODO REMOVE Clan
+            //throw Error(error);
+            return of(undefined)
           })
         );
       }, 1),
-
+      filter((x) => !!x),
       toArray(),
       catchError((err) => {
         if (err.message === 'System Offline') {

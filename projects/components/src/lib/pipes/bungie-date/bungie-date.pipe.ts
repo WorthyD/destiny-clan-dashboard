@@ -14,8 +14,8 @@ export class BungieDatePipe extends DatePipe implements PipeTransform {
   }
 
   override transform(date: Date | string): any {
-    if (date === null){
-    return '';
+    if (date === null || date === undefined){
+      return '';
     }
     const d2 = new Date(date)
 

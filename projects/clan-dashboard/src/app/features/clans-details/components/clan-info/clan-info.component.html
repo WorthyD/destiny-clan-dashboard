@@ -5,7 +5,7 @@
         <!-- TODO: Clan Banner -->
         <mat-card-title>
           <div class="title-spacer">{{clanDetail.name}} <ng-container *ngIf="clanDetail.clanInfo.clanCallsign">
-              [{{clanDetail.clanInfo.clanCallsign}}]</ng-container>
+              [{{clanDetail?.clanInfo?.clanCallsign}}]</ng-container>
           </div>
           <span class="clan-member-count">
             <mat-icon matListItemIcon>groups</mat-icon>&nbsp;{{clanDetail.memberCount}}
@@ -16,7 +16,7 @@
           </a>
         </mat-card-title>
         <mat-card-subtitle>
-          {{clanDetail.motto}}
+          {{clanDetail?.motto}}
         </mat-card-subtitle>
       </mat-card-title-group>
     </mat-card-header>
