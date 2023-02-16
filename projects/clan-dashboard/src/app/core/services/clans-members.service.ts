@@ -7,7 +7,7 @@ import { Store } from '@ngrx/store';
 import { ClanMemberProfile } from '@shared/models/ClanMemberProfile';
 import { GroupsV2GroupMember } from 'bungie-api-angular';
 import { ProfileService } from 'projects/data/src/lib/clan/profiles/profile.service';
-import { from, map, mergeMap, Observable, switchMap, toArray } from 'rxjs';
+import { catchError, filter, from, map, mergeMap, Observable, of, switchMap, tap, toArray } from 'rxjs';
 import { selectEnabledClans } from '../store/clans/clans.selectors';
 
 export interface ClanConfigMembers {
@@ -28,9 +28,14 @@ export class ClansMembersService {
           return this.memberService.getClanMembersSerialized(clan.clanId).pipe(
             map((result) => {
               return { clan, members: result };
+            }),
+            catchError(() => {
+              console.error(`Error pulling ${clan.clanId}`);
+              return of(null);
             })
           );
         }),
+        filter((x) => !!x),
         toArray()
       ) as Observable<ClanConfigMembers[]>;
     })

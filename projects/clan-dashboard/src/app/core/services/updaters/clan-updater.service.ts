@@ -12,7 +12,7 @@ import {
   distinctUntilChanged,
   concatMap
 } from 'rxjs/operators';
-import { ClanConfig, selectEnabledClans, updateClan, updateClanProfileSync } from '../../store/clans';
+import { ClanConfig, removeClan, selectEnabledClans, updateClan, updateClanProfileSync } from '../../store/clans';
 import { ClanMembersService } from '@destiny/data/clan/clan-members';
 import { from, Observable, of } from 'rxjs';
 import { GroupsV2GroupMember } from 'bungie-api-angular';
@@ -84,10 +84,11 @@ export class ClanUpdaterService {
             return newConfig;
           }),
           catchError((error) => {
-            console.log('error', error);
-            // TODO REMOVE Clan
+            if (error.error.ErrorStatus === 'ClanNotFound') {
+              this.store.dispatch(removeClan({ clanId: clanConfig.clanId }));
+            }
             //throw Error(error);
-            return of(undefined)
+            return of(undefined);
           })
         );
       }, 1),
