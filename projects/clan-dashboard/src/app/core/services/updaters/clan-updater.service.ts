@@ -12,7 +12,7 @@ import {
   distinctUntilChanged,
   concatMap
 } from 'rxjs/operators';
-import { ClanConfig, selectEnabledClans, updateClan, updateClanProfileSync } from '../../store/clans';
+import { ClanConfig, removeClan, selectEnabledClans, updateClan, updateClanProfileSync } from '../../store/clans';
 import { ClanMembersService } from '@destiny/data/clan/clan-members';
 import { from, Observable, of } from 'rxjs';
 import { GroupsV2GroupMember } from 'bungie-api-angular';
@@ -72,11 +72,8 @@ export class ClanUpdaterService {
     return from(activeClans).pipe(
       // TODO: Double check concat map
       mergeMap((clanConfig: ClanConfig) => {
-        //console.log('update', clanConfig);
-        //concatMap((clanConfig: ClanConfig) => {
         return this.clanDetailsService.getClanDetailsSerialized(clanConfig.clanId, false).pipe(
           map((result) => {
-            //console.log('got clan');
             const newConfig = {
               ...clanConfig,
               clanName: result.name,
@@ -85,10 +82,17 @@ export class ClanUpdaterService {
             this.store.dispatch(updateClan({ clan: newConfig }));
 
             return newConfig;
+          }),
+          catchError((error) => {
+            if (error.error.ErrorStatus === 'ClanNotFound') {
+              this.store.dispatch(removeClan({ clanId: clanConfig.clanId }));
+            }
+            //throw Error(error);
+            return of(undefined);
           })
         );
       }, 1),
-
+      filter((x) => !!x),
       toArray(),
       catchError((err) => {
         if (err.message === 'System Offline') {

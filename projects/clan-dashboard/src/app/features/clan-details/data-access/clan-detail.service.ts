@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { GroupsV2GroupV2Card, GroupV2Service } from 'bungie-api-angular';
-import { map } from 'rxjs';
+import { catchError, map, of } from 'rxjs';
 
 import { ClanDatabase } from 'projects/data/src/lib/clan/clan-database';
 import { addClan, removeClan, resetClan } from '@core/store/clans/clans.actions';
@@ -23,6 +23,17 @@ export class ClanDetailService {
     return this.groupService.groupV2GetGroup(clanId).pipe(
       map((clanResult) => {
         return clanResult.Response.detail;
+      }),
+      catchError((error) => {
+        if (error.error.ErrorStatus === 'ClanNotFound') {
+          return of({
+            groupId: clanId,
+            name: `Clan Not Found - ${clanId}`,
+            clanInfo: { clanCallsign: '' }
+          });
+        }
+
+        throw Error(`Clan with id ${clanId} returned error`);
       })
     );
   }
