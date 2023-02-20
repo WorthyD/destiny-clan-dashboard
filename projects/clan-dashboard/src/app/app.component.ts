@@ -15,6 +15,7 @@ declare let gtag: Function;
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
+  hideDisclaimer;
   manifestState$ = this.store.select(selectManifestState).pipe(
     // eslint-disable-next-line @ngrx/avoid-mapping-selectors
     map((x) => x),
@@ -36,4 +37,7 @@ export class AppComponent {
       });
     });
   }
+
+
+
 }
