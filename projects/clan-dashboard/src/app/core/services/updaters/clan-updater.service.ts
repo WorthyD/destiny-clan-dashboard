@@ -25,6 +25,7 @@ import { ClanDetailsService } from '@destiny/data/clan/clan-details';
 import { MatDialog } from '@angular/material/dialog';
 import { AppOfflineDialogComponent } from '../../layout/app-offline-dialog/app-offline-dialog.component';
 import { BungieInfoUpdaterService } from './bungie-info-updater.service';
+import { isMobile } from '../../utilities/is-mobile';
 
 export interface ClanConfigMembers {
   clanConfig: ClanConfig;
@@ -61,13 +62,12 @@ export class ClanUpdaterService {
       tap((x) => this.showLog && console.log('Member Update Complete', x)),
       switchMap((clans) => this.profileUpdaterService.profilesUpdate(clans)),
       tap((x) => this.showLog && console.log('Member Profile Update Complete', x)),
-      switchMap((clans) => this.memberActivityUpdaterService.membersActivityUpdate(clans)),
+      switchMap((clans) => (isMobile() ? of(clans) : this.memberActivityUpdaterService.membersActivityUpdate(clans))),
       tap((x) => this.showLog && console.log('Member Recent Activity Update Complete', x)),
-      switchMap((clans) => this.bungieInfoUpdaterService.updateAllClansBungieInfo(clans)),
+      switchMap((clans) => (isMobile() ? of(clans) : this.bungieInfoUpdaterService.updateAllClansBungieInfo(clans))),
       tap((x) => this.showLog && console.log('Bungie Info Update Complete', x))
     );
   }
-
   clanUpdate(activeClans) {
     return from(activeClans).pipe(
       // TODO: Double check concat map
