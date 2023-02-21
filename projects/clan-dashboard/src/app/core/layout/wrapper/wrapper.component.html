@@ -1,18 +1,13 @@
 <div class="main-container">
-
   <mat-toolbar color="primary">
     <mat-toolbar-row>
       <button mat-icon-button (click)="sidenav.toggle()">
         <mat-icon>menu</mat-icon>
       </button>
-      <div class="clan-name">
-        Destiny Clan Dashboard
-      </div>
+      <div class="clan-name">Destiny Clan Dashboard</div>
       <app-notifications [notifications]="notifications$ | async"></app-notifications>
       <div>
-
         <app-settings-menu></app-settings-menu>
-
       </div>
     </mat-toolbar-row>
   </mat-toolbar>
@@ -20,8 +15,9 @@
     <mat-sidenav [libResponsiveSidebar]="960" #sidenav mode="side" opened>
       <mat-nav-list class="clan-nav">
         <div class="section-nav">
-          <a mat-list-item routerLink="./" routerLinkActive="active-link" [routerLinkActiveOptions]="{exact: true}">
-            Dashboard </a>
+          <a mat-list-item routerLink="./" routerLinkActive="active-link" [routerLinkActiveOptions]="{ exact: true }">
+            Dashboard
+          </a>
           <a mat-list-item routerLink="roster" routerLinkActive="active-link"> Roster </a>
           <a mat-list-item routerLink="recent-activity" routerLinkActive="active-link"> Member Activity </a>
           <a mat-list-item routerLink="seals" routerLinkActive="active-link"> Seals </a>
@@ -30,8 +26,6 @@
           <ng-container *ngIf="showSandbox">
             <a mat-list-item routerLink="sandbox" routerLinkActive="active-link"> Sandbox </a>
           </ng-container>
-
-
 
           <!-- Left here so I can remember all the stuff I deleted -->
           <!-- <a mat-list-item routerLink="crucible" routerLinkActive="active-link"> Crucible </a> -->
@@ -47,5 +41,31 @@
       <router-outlet></router-outlet>
     </mat-sidenav-content>
   </mat-sidenav-container>
+  <div class="footer-spacer"></div>
+  <footer [ngClass]="{ open: footerOpen }">
+    <div class="footer-display">
+      <div class="footer_app-info">
+        © {{ year }} - <a href="https://twitter.com/worthyd" target="_blank">@WorthyD</a> - Not Affiliated with Bungie -
+        <span> v {{ versionNumber }} </span>
+      </div>
+      <button class="footer-button footer-button__open" (click)="footerOpen = !footerOpen">
+        <mat-icon>keyboard_double_arrow_up</mat-icon>
+      </button>
+    </div>
+    <div class="footer-content">
+      <div>
+        © {{ year }} - <a href="https://twitter.com/worthyd" target="_blank">@WorthyD</a> - Not Affiliated with Bungie -
 
+        <span> v {{ versionNumber }} </span>
+      </div>
+      <div>
+        Source code hosted on <a href="" target="_blank">Github</a>. <a href="" target="_blank">File a bug</a> or
+        <a href="" disabled target="_blank">join the Discord (coming soon)</a> for assistance or request a feature.
+      </div>
+      <div>
+        Destiny is a registered trademark of <a href="https://www.bungie.net/" _target="blank">Bungie</a>. Data and
+        images are from Bungie.
+      </div>
+    </div>
+  </footer>
 </div>

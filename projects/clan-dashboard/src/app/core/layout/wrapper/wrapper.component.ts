@@ -13,11 +13,13 @@ import { initializeClanMemberProfiles } from '@core/store/clans-members-profiles
 })
 export class WrapperComponent implements OnInit {
   constructor(private clanUpdaterService: ClanUpdaterService, private store: Store, private appConfig: AppConfig) {}
+  year = new Date().getFullYear();
   loading: boolean = false;
   showSandbox = !this.appConfig.production;
+  footerOpen = false;
 
   notifications$ = this.store.select(getAllNotifications);
-
+  versionNumber = this.appConfig.appVersion;
   ngOnInit(): void {
     this.loading = true;
     this.clanUpdaterService
