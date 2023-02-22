@@ -11,7 +11,7 @@ addEventListener('message', ({ data }) => {
   };
 
   profileService
-    .getSerializedProfilesWithProgress(data.clanId, data.clanMembers, progress)
+    .getSerializedProfilesWithProgress(data.clanId, data.clanMembers, data.progressionHashes, progress)
     .pipe(take(1))
     .subscribe((x) => {
       postMessage({ type: 'complete', data: x });

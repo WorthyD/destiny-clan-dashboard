@@ -30,7 +30,7 @@ export class ManifestService {
       'DestinyPresentationNodeDefinition',
       'DestinyRecordDefinition',
       'DestinySeasonDefinition',
-      //'DestinySeasonPassDefinition',
+      'DestinySeasonPassDefinition',
       'DestinyMilestoneDefinition',
       'DestinyActivityDefinition',
       'DestinyActivityModeDefinition'
@@ -46,7 +46,7 @@ export class ManifestService {
         return true;
       }),
       catchError((error) => {
-        console.log('caught error');
+        console.log('caught error', error);
         throw error;
       })
     );

@@ -3,12 +3,13 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, of, Subject } from 'rxjs';
 import { environment } from '../../../environments/environment';
 import { MemberProfile } from '@destiny/data/models';
+import { SeasonService } from '@core/services/season.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProfileWorkerService {
-  constructor() {}
+  constructor(private seasonService:SeasonService) {}
   //  members: BehaviorSubject<MemberProfile[]> = new BehaviorSubject([]);
   //members: BehaviorSubject<any[]> = new BehaviorSubject([]);
 
@@ -30,6 +31,7 @@ export class ProfileWorkerService {
     worker.postMessage({
       clanId,
       clanMembers,
+      progressionHashes: this.seasonService.getSeasonProgressionHashes(),
       apiKey: environment.apiKey
     });
     return members;

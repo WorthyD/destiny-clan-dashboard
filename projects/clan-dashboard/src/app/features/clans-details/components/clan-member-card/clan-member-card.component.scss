@@ -12,5 +12,15 @@
 
   .member-name {
     flex: 1;
+    display: flex;
+    align-items: center;
   }
+}
+.online {
+  background: var(--app-online-color);
+  border-radius: 50%;
+  display: block;
+  height: 12px;
+  margin-left: 0.5rem;
+  width: 12px;
 }

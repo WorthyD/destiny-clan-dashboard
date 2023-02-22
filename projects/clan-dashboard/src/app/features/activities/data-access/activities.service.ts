@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 // import { ActivityDefinitionService } from '@core/definition-services/activity-definition.service';
 import { DefinitionService } from '@core/definition-services/definition.service';
 import { ClansMembersService } from '@core/services/clans-members.service';
+import { SeasonService } from '@core/services/season.service';
 import {
   selectAllClansMembersProfiles,
   selectClanMemberProfileStateLoading
@@ -27,7 +28,8 @@ export class ActivitiesService {
     private definitionService: DefinitionService,
     private store: Store,
     private memberService: ClansMembersService,
-    private profileService: ProfileService
+    private profileService: ProfileService,
+    private seasonService: SeasonService
   ) {}
 
   getCuratedActivities(): CuratedActivityGroupDefinitions[] {
@@ -76,6 +78,7 @@ export class ActivitiesService {
               .getSerializedProfilesFromCache(
                 clanAndMembers.clan.clanId,
                 clanAndMembers.members,
+                this.seasonService.getSeasonProgressionHashes(),
                 collectionHashes,
                 recordHashes,
                 metricHashes

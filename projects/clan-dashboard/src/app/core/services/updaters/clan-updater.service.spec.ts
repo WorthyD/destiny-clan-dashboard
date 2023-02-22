@@ -6,10 +6,10 @@ import { MockStore, provideMockStore } from '@ngrx/store/testing';
 import { ClanUpdaterService } from './clan-updater.service';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 // TOOD: FIgure out better solution for this
-import { ClanMembersServiceMock } from '../../../../../data/src/lib/clan/clan-members/clan-members.service.mock';
+import { ClanMembersServiceMock } from '../../../../../../data/src/lib/clan/clan-members/clan-members.service.mock';
 import { take } from 'rxjs';
-import { ProfileWorkerServiceMock } from '../../workers/profile-worker.service.mock';
-import { ProfileWorkerService } from '../../workers/profile-worker.service';
+import { ProfileWorkerServiceMock } from '../../../workers/profile-worker/profile-worker.service.mock';
+import { ProfileWorkerService } from '../../../workers/profile-worker/profile-worker.service';
 import { AppConfig } from '@core/config/app-config';
 import { MockConfig } from '@core/config/app-config.mock';
 
@@ -42,13 +42,22 @@ describe('ClanUpdaterService', () => {
         clanId: '1',
         enabled: true,
         memberUpdate: new Date('1/1/1900').toString(),
-        profileUpdate: new Date('1/1/1900').toString()
+        profileUpdate: new Date('1/1/1900').toString(),
+        bungieInfoUpdate:new Date('1/1/1900').toString(),
+        clanName:'',
+        clanTag:'',
+        memberRecentActivityUpdate:new Date('1/1/1900').toString(),
       },
       {
         clanId: '3',
         enabled: true,
         memberUpdate: new Date('1/1/1900').toString(),
-        profileUpdate: new Date('1/1/1900').toString()
+        profileUpdate: new Date('1/1/1900').toString(),
+        bungieInfoUpdate:new Date('1/1/1900').toString(),
+        clanName:'',
+        clanTag:'',
+        memberRecentActivityUpdate:new Date('1/1/1900').toString(),
+
       }
     ]);
   });

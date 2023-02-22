@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { SeasonService } from '../services/season.service';
 import {
   DestinyDefinitionsCollectiblesDestinyCollectibleDefinition,
   DestinyDefinitionsDestinyActivityDefinition,
@@ -20,6 +21,7 @@ export class DefinitionService {
   milestoneDefinition: DestinyDefinitionsMilestonesDestinyMilestoneDefinition[];
   activityDefinition: DestinyDefinitionsDestinyActivityDefinition[];
   activityModeDefinition: DestinyDefinitionsDestinyActivityModeDefinition[];
+  constructor(private seasonService: SeasonService) {}
 
   initializeCache(data: any) {
     if (data.DestinyMetricDefinition) {
@@ -43,6 +45,10 @@ export class DefinitionService {
 
     if (data.DestinyActivityModeDefinition) {
       this.activityModeDefinition = data.DestinyActivityModeDefinition;
+    }
+
+    if (data.DestinySeasonDefinition && data.DestinySeasonPassDefinition) {
+      this.seasonService.init(data.DestinySeasonDefinition, data.DestinySeasonPassDefinition);
     }
   }
 }

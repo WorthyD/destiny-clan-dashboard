@@ -1,7 +1,7 @@
 <mat-card class="clan-member-card">
   <mat-card-header>
     <mat-card-title-group>
-      <mat-card-title>{{cardTitle}}</mat-card-title>
+      <mat-card-title>{{ cardTitle }}</mat-card-title>
     </mat-card-title-group>
   </mat-card-header>
   <mat-card-content class="clan-member-card__card-content slim-scroll">
@@ -10,7 +10,8 @@
         <mat-list-item *ngFor="let member of members; let idx = index">
           <div class="member-info">
             <div class="member-name">
-              {{member.member.destinyUserInfo.displayName}}
+              {{ member.member.destinyUserInfo.displayName }}
+              <ng-container *ngIf="member.member.isOnline"><span class="online" matTooltip="Online / In Orbit"></span></ng-container>
             </div>
             <ng-container [ngTemplateOutlet]="itemTemplate" [ngTemplateOutletContext]="{ $implicit: member }">
             </ng-container>
@@ -22,11 +23,10 @@
 </mat-card>
 <ng-template #loadingTemplate>
   <mat-list>
-    <ng-container *ngFor="let x of ['','','','','','','','','','','','','','']">
+    <ng-container *ngFor="let x of ['', '', '', '', '', '', '', '', '', '', '', '', '', '']">
       <mat-list-item>
         <span class="skeleton-item skeleton-full-width"></span>
       </mat-list-item>
     </ng-container>
   </mat-list>
-
 </ng-template>

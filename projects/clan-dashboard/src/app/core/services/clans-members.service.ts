@@ -9,6 +9,7 @@ import { GroupsV2GroupMember } from 'bungie-api-angular';
 import { ProfileService } from 'projects/data/src/lib/clan/profiles/profile.service';
 import { catchError, filter, from, map, mergeMap, Observable, of, switchMap, tap, toArray } from 'rxjs';
 import { selectEnabledClans } from '../store/clans/clans.selectors';
+import { SeasonService } from './season.service';
 
 export interface ClanConfigMembers {
   clan: ClanConfig;
@@ -46,7 +47,14 @@ export class ClansMembersService {
       return from(clansAndMembers).pipe(
         mergeMap((clanAndMembers) => {
           return this.profileService
-            .getSerializedProfilesFromCache(clanAndMembers.clan.clanId, clanAndMembers.members, [], [], [])
+            .getSerializedProfilesFromCache(
+              clanAndMembers.clan.clanId,
+              clanAndMembers.members,
+              this.seasonService.getSeasonProgressionHashes(),
+              [],
+              [],
+              []
+            )
             .pipe(
               switchMap((resultProfiles: MemberProfile[]) => {
                 return clanAndMembers.members.map((member) => {
@@ -73,6 +81,7 @@ export class ClansMembersService {
   constructor(
     private store: Store,
     private memberService: ClanMembersService,
-    private profileService: ProfileService
+    private profileService: ProfileService,
+    private seasonService: SeasonService
   ) {}
 }

@@ -3,6 +3,7 @@ import { AppConfig } from '@core/config/app-config';
 import { DefinitionService } from '@core/definition-services/definition.service';
 // import { RecordDefinitionService } from '@core/definition-services/record-definition.service';
 import { ClansMembersService } from '@core/services/clans-members.service';
+import { SeasonService } from '@core/services/season.service';
 import { MemberProfile } from '@destiny/data/models';
 import { getClanMemberId, getMemberProfileId } from '@destiny/data/utility';
 import { DestinyDefinitionsPresentationDestinyPresentationNodeDefinition } from 'bungie-api-angular';
@@ -20,6 +21,7 @@ export class SealsService {
   constructor(
     private definitionService: DefinitionService,
     // private recordNodeService: RecordDefinitionService,
+    private seasonService:SeasonService,
     private clansMembersService: ClansMembersService,
     private profileService: ProfileService,
     private appConfig: AppConfig
@@ -60,6 +62,7 @@ export class SealsService {
             .getSerializedProfilesFromCache(
               clanAndMembers.clan.clanId,
               clanAndMembers.members,
+              this.seasonService.getSeasonProgressionHashes(),
               [],
               [...hashes, ...gildedHashes],
               []
