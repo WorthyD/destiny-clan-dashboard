@@ -7,6 +7,7 @@ import { ProfileRecentActivity } from '../models/profile-recent-activity';
 import { RecentActivityModule } from '../recent-activity-shell/recent-activity.module';
 
 import { ClansMembersService } from '@core/services/clans-members.service';
+import { SeasonService } from '@core/services/season.service';
 
 @Injectable({
   providedIn: RecentActivityModule
@@ -18,7 +19,14 @@ export class RecentActivityService {
       return from(clansAndMembers).pipe(
         mergeMap((clanAndMembers) => {
           return this.profileService
-            .getSerializedProfilesFromCache(clanAndMembers.clan.clanId, clanAndMembers.members, [], [], [])
+            .getSerializedProfilesFromCache(
+              clanAndMembers.clan.clanId,
+              clanAndMembers.members,
+              this.seasonService.getSeasonProgressionHashes(),
+              [],
+              [],
+              []
+            )
             .pipe(
               switchMap((memberProfiles) => {
                 return this.profileActivityService
@@ -54,6 +62,7 @@ export class RecentActivityService {
   constructor(
     private memberService: ClansMembersService,
     private profileService: ProfileService,
-    private profileActivityService: ProfileRecentActivityWorkerService
+    private profileActivityService: ProfileRecentActivityWorkerService,
+    private seasonService: SeasonService
   ) {}
 }

@@ -10,9 +10,8 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { SettingsMenuComponent } from './settings-menu/settings-menu.component';
-import { FooterInfoComponent } from './footer-info/footer-info.component';
 @NgModule({
-  declarations: [WrapperComponent, FooterInfoComponent],
+  declarations: [WrapperComponent],
   imports: [
     CommonModule,
     RouterModule,

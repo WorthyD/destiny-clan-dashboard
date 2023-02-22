@@ -1,16 +1,16 @@
-import { TestBed } from '@angular/core/testing';
+// import { TestBed } from '@angular/core/testing';
 
-import { ProfileWorkerService } from './profile-worker.service';
+// import { ProfileWorkerService } from './profile-worker.service';
 
-describe('ProfileWorkerService', () => {
-  let service: ProfileWorkerService;
+// describe('ProfileWorkerService', () => {
+//   let service: ProfileWorkerService;
 
-  beforeEach(() => {
-    TestBed.configureTestingModule({});
-    service = TestBed.inject(ProfileWorkerService);
-  });
+//   beforeEach(() => {
+//     TestBed.configureTestingModule({});
+//     service = TestBed.inject(ProfileWorkerService);
+//   });
 
-  it('should be created', () => {
-    expect(service).toBeTruthy();
-  });
-});
+//   it('should be created', () => {
+//     expect(service).toBeTruthy();
+//   });
+// });

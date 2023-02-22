@@ -27,7 +27,7 @@ export class ProfileService {
   private profileComponents = [100, 104, 200, 202, 800, 900, 1100];
 
   // TODO: Pull this from somewhere else.
-  private TRACKED_HASHES = [3902035969, 2770852111];
+  // private TRACKED_HASHES = [3902035969, 2770852111];
 
   constructor(private clanDb: ClanDatabase, private apiKey: string) {}
 
@@ -112,13 +112,22 @@ export class ProfileService {
   getSerializedProfiles<T>(
     clanId: string,
     members: ClanMember[],
+    progressionHashes: any[],
     collectionHashes: any[],
     profileRecords: any[],
     profileMetrics: any[]
   ): Observable<T> {
     return from(members).pipe(
       mergeMap(
-        (member) => this.getSerializedProfile(clanId, member, collectionHashes, profileRecords, profileMetrics),
+        (member) =>
+          this.getSerializedProfile(
+            clanId,
+            member,
+            progressionHashes,
+            collectionHashes,
+            profileRecords,
+            profileMetrics
+          ),
         100
       )
     ) as Observable<T>;
@@ -127,6 +136,7 @@ export class ProfileService {
   getSerializedProfilesFromCache(
     clanId: string,
     members: ClanMember[],
+    progressionHashes: any[],
     collectionHashes: any[],
     profileRecords: any[],
     profileMetrics: any[]
@@ -134,7 +144,14 @@ export class ProfileService {
     return from(members).pipe(
       mergeMap(
         (member) =>
-          this.getSerializedProfileFromCache(clanId, member, collectionHashes, profileRecords, profileMetrics),
+          this.getSerializedProfileFromCache(
+            clanId,
+            member,
+            progressionHashes,
+            collectionHashes,
+            profileRecords,
+            profileMetrics
+          ),
         100
       ),
       toArray()
@@ -144,11 +161,17 @@ export class ProfileService {
   getSerializedProfilesWithProgress(
     clanId: string,
     members: ClanMember[],
+    progressionHashes: any[],
     progress?: (done) => any
   ): Observable<MemberProfile[]> {
     let complete = 0;
     return from(members)
-      .pipe(mergeMap((member) => this.getSerializedProfile(clanId, member, [], [], []), this.concurrentRequests))
+      .pipe(
+        mergeMap(
+          (member) => this.getSerializedProfile(clanId, member, progressionHashes, [], [], []),
+          this.concurrentRequests
+        )
+      )
       .pipe(
         bufferTime(1000, undefined, 100),
         /**
@@ -169,6 +192,7 @@ export class ProfileService {
   getSerializedProfile(
     clanId: string,
     member: ClanMember,
+    progressionHashes: any[],
     collectionHashes: any[],
     profileRecords: any[],
     profileMetrics: any[]
@@ -177,7 +201,7 @@ export class ProfileService {
       map((profile) => {
         return profileSerializer(
           profile,
-          this.TRACKED_HASHES,
+          progressionHashes,
           collectionHashes,
           profileRecords,
           profileMetrics
@@ -188,6 +212,7 @@ export class ProfileService {
   getSerializedProfileFromCache(
     clanId: string,
     member: ClanMember,
+    progressionHashes: any[],
     collectionHashes: any[],
     profileRecords: any[],
     profileMetrics: any[]
@@ -196,7 +221,7 @@ export class ProfileService {
       map((profile) => {
         return profileSerializer(
           profile?.data || [],
-          this.TRACKED_HASHES,
+          progressionHashes,
           collectionHashes,
           profileRecords,
           profileMetrics

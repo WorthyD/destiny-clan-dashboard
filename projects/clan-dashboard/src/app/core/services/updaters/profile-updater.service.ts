@@ -13,6 +13,7 @@ import { ProfileService } from 'projects/data/src/lib/clan/profiles/profile.serv
 import { ClanDatabase } from 'projects/data/src/lib/clan/clan-database';
 import { ClansMembersService } from '../clans-members.service';
 import { addNotification, removeNotification, updateNotification } from '../../store/notifications';
+import { SeasonService } from '../season.service';
 
 @Injectable({
   providedIn: 'root'
@@ -23,6 +24,7 @@ export class ProfileUpdaterService {
     private store: Store,
     private clanMemberService: ClansMembersService,
     private profileWorkerService: ProfileWorkerService,
+    private seasonService: SeasonService,
     private appConfig: AppConfig
   ) {
     const clanDB = new ClanDatabase();
@@ -97,10 +99,19 @@ export class ProfileUpdaterService {
       );
     }
 
-    return this.profileService.getSerializedProfilesFromCache(clan.clanConfig.clanId, clan.members, [], [], []).pipe(
-      map((x) => {
-        return { ...clan, profiles: x };
-      })
-    );
+    return this.profileService
+      .getSerializedProfilesFromCache(
+        clan.clanConfig.clanId,
+        clan.members,
+        this.seasonService.getSeasonProgressionHashes(),
+        [],
+        [],
+        []
+      )
+      .pipe(
+        map((x) => {
+          return { ...clan, profiles: x };
+        })
+      );
   }
 }

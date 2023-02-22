@@ -22,5 +22,7 @@
 
     --app-warning-background: #{mat.get-color-from-palette($warning, default)};
     --app-warning-text: #{mat.get-color-from-palette($warning, default-contrast)};
+
+    --app-online-color: green;
   }
 }
