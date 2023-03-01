@@ -1,0 +1,67 @@
+.activity-tooltip {
+  position: fixed;
+  transition: opacity 0.2s;
+  border: 0px;
+  padding: 2px;
+  border-radius: 8px;
+  pointer-events: none;
+  font-size: 0.8em;
+  opacity: 0;
+}
+
+.activity-bar {
+  opacity: 0.6;
+  fill: var(--app-text-color);
+
+  transition: opacity 0.5s;
+  &:hover {
+    opacity: 1;
+  }
+}
+// .apexcharts-text {
+//   // fill: mat.get-color-from-palette($fg, text);
+// }
+.apexcharts-text {
+  fill: var(--app-text-color);
+}
+// .apexcharts-yaxis-title {
+//   //fill: mat.get-color-from-palette($fg, text);
+//     fill: var(--app-text-color);
+// }
+// .activity-bar-chart {
+//   .year-label {
+//     fill: var(--app-text-color);
+//     // fill: mat.get-color-from-palette($fg, text);
+//   }
+//   .day-label {
+//     fill: var(--app-text-color);
+//     // fill: mat.get-color-from-palette($fg, text);
+//   }
+//   .month-label {
+//     fill: var(--app-text-color);
+//     // fill: mat.get-color-from-palette($fg, text);
+//   }
+//   .legend-key {
+//     fill: var(--app-text-color);
+//     // fill: mat.get-color-from-palette($fg, text);
+//   }
+
+//   .legend-desc {
+//     fill: var(--app-text-color);
+//     // fill: mat.get-color-from-palette($fg, text);
+//   }
+// }
+.activity-tooltip {
+  background-color: var(--app-background-color);
+  // background: mat.get-color-from-palette($bg, background);
+}
+.apexcharts-tooltip {
+  background-color: var(--app-background-color) !important;
+  .apexcharts-tooltip-title {
+    background-color: var(--app-background-color) !important;
+    color: var(--app-text-color) !important;
+  }
+  .apexcharts-tooltip-text {
+    color: var(--app-text-color) !important;
+  }
+}
