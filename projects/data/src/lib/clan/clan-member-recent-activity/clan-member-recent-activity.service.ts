@@ -25,7 +25,6 @@ export class ClanMemberRecentActivityService extends BaseMemberActivityService {
       clanDB,
       StoreId.MemberRecentActivities,
       baseApiKey,
-      // d2Service,
       new Date(new Date().setDate(new Date().getDate() + ((2 + 7 - new Date().getDay()) % 7) - 90)),
       8,
       0,

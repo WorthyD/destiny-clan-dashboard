@@ -25,3 +25,8 @@ export const selectLastRecentActivityUpdate = (clanId: string) =>
   createSelector(selectAllClanEntities, (state) => {
     return (clanId && state[clanId]?.memberRecentActivityUpdate) || '';
   });
+
+export const selectAllRecentActivityUpdates = createSelector(selectAllClans, (state) => {
+
+  return state.map((x) => x.memberRecentActivityUpdate);
+});

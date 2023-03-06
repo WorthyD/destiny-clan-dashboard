@@ -38,7 +38,7 @@ export interface DBObject {
 
 export class AppIndexedDb extends BaseAppIndexedDb {
   constructor(name: string, initializeValues: boolean = true) {
-    super(name, DB_VERSION, STORE_IDS, initializeValues);
+    super(`D2DB-${name}`, DB_VERSION, STORE_IDS, initializeValues);
   }
 
   override getAllData(store: StoreId) {

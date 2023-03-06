@@ -7,6 +7,7 @@
 
 import { ClanDatabase } from 'projects/data/src/lib/clan/clan-database';
 import { ClanActivityService } from 'projects/data/src/lib/stat-aggregators/clan-activity.service';
+import { from } from 'rxjs';
 import { take } from 'rxjs/operators';
 
 addEventListener('message', ({ data }) => {
@@ -20,4 +21,12 @@ addEventListener('message', ({ data }) => {
     .subscribe((x) => {
       postMessage({ type: 'complete', data: x });
     });
+
+
+
+    // const { clansAndMembers, apiKey, activityId } = data;
+
+    // from(clansAndMembers).subscribe((x) => {
+    //   postMessage({ type: 'complete', data: x });
+    // });
 });

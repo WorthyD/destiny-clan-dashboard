@@ -112,6 +112,22 @@ export const CLAN_ROSTER_SORTER_METADATA = new Map<string, SorterMetadata<ClanRo
     }
   ],
   [
+    'rank',
+    {
+      label: 'Guardian Rank',
+      comparator: (a, b) =>
+        a.profile?.profile?.data?.currentGuardianRank < b.profile?.profile?.data?.currentGuardianRank ? -1 : 1
+    }
+  ],
+  [
+    'lifetimeRank',
+    {
+      label: 'Lifetime Guardian Rank',
+      comparator: (a, b) =>
+        a.profile?.profile?.data?.lifetimeHighestGuardianRank < b.profile?.profile?.data?.lifetimeHighestGuardianRank ? -1 : 1
+    }
+  ],
+  [
     'activeTriumph',
     {
       label: 'Active Triumph',

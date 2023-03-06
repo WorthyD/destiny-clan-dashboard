@@ -36,7 +36,7 @@ export class ClansRosterComponent {
       metadata: CLAN_ROSTER_VIEWER_METADATA,
       contextProvider: this.createViewContextProvider()
     },
-    'D2Dashboard_Roster_Table_ViewerV2'
+    'D2Dashboard_Roster_Table_ViewerV3'
   );
   rosterFilter = new Filterer({ metadata: CLAN_ROSTER_FILTERER_METADATA });
   rosterSorter = new Sorter({ metadata: CLAN_ROSTER_SORTER_METADATA });

@@ -42,6 +42,33 @@ export class ClansMembersService {
     })
   );
 
+  clanMembersProfiles$ = this.clanMembers$.pipe(
+    switchMap((clansAndMembers) => {
+      return from(clansAndMembers).pipe(
+        mergeMap((clanAndMembers) => {
+          return this.profileService
+            .getSerializedProfilesFromCache(
+              clanAndMembers.clan.clanId,
+              clanAndMembers.members,
+              this.seasonService.getSeasonProgressionHashes(),
+              [],
+              [],
+              []
+            )
+            .pipe(
+              map((x) => {
+                return {
+                  ...clanAndMembers,
+                  profiles: x
+                };
+              })
+            );
+        }),
+        toArray()
+      );
+    })
+  );
+
   clanProfiles$: Observable<ClanMemberProfile[]> = this.clanMembers$.pipe(
     switchMap((clansAndMembers) => {
       return from(clansAndMembers).pipe(

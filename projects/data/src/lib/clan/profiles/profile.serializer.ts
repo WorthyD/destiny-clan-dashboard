@@ -18,7 +18,9 @@ export function profileSerializer(
           applicableMembershipTypes: p.profile.data.userInfo.applicableMembershipTypes
         },
         dateLastPlayed: p.profile.data.dateLastPlayed,
-        characterIds: p.profile.data.characterIds
+        characterIds: p.profile.data.characterIds,
+        currentGuardianRank: p.profile.data.currentGuardianRank,
+        lifetimeHighestGuardianRank: p.profile.data.lifetimeHighestGuardianRank
       }
     },
     profileProgression: {

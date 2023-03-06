@@ -7,12 +7,15 @@ import { from, Observable } from 'rxjs';
 import { map, mergeMap } from 'rxjs/operators';
 import { ClanDatabase } from '../../clan/clan-database';
 import { ClanMemberRecentActivityService } from '../../clan/clan-member-recent-activity/clan-member-recent-activity.service';
-import { ActivityStats, MemberProfile } from '../../models';
+// import {  MemberProfile } from '../../models/MemberProfile';
 import { MemberActivityTime } from '../../models/MemberActivityTime';
 // import { AppConfig } from 'src/app/app.config';
 // import { ClanMemberRecentActivityService } from '../../clan-db/clan-member-recent-activity/clan-member-recent-activity.service';
 // import { ClanDatabase } from '../../clan-db/ClanDatabase';
 // import { ClanMemberRecentActivityService, ClanDatabase } from '../../clan-db';
+interface MemberProfile {
+  profile: any;
+}
 
 export abstract class BaseClanAggregateTimeService {
   readonly CONCURRENT_COUNT = 10;

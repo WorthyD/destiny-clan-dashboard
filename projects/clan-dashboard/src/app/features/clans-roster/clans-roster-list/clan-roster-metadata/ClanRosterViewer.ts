@@ -139,6 +139,30 @@ export const CLAN_ROSTER_VIEWER_METADATA = new Map<string, ViewerMetadata<ClanRo
     }
   ],
   [
+    'rank',
+    {
+      label: 'Guardian Rank',
+      labelClass: '',
+      plainText: (item: ClanRosterItem) => `${item.profile?.profile?.data?.currentGuardianRank}`,
+      render: (item: ClanRosterItem) => ({
+        classList: ['text-center'],
+        text: `${item.profile?.profile?.data?.currentGuardianRank}`
+      })
+    }
+  ],
+  [
+    'lifetimeRank',
+    {
+      label: 'Lifetime Guardian Rank',
+      labelClass: '',
+      plainText: (item: ClanRosterItem) => `${item.profile?.profile?.data?.lifetimeHighestGuardianRank}`,
+      render: (item: ClanRosterItem) => ({
+        classList: ['text-center'],
+        text: `${item.profile?.profile?.data?.lifetimeHighestGuardianRank}`
+      })
+    }
+  ],
+  [
     'activeTriumph',
     {
       label: 'Active Triumph',

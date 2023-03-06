@@ -6,6 +6,7 @@ import { ClansDetailsRoutingModule } from './clans-details-dashboard-routing.mod
 import { ClansHighestLightLevelCardModule } from '../clans-highest-light-level-card/clans-highest-light-level-card.module';
 import { ClansRecentlyActiveCardModule } from '../clans-recently-active-card/clans-recently-active-card.module';
 import { ClansInactiveCardModule } from '../clans-inactive-card/clans-inactive-card.module';
+import { ClansActivityCardModule } from '../clans-activity-card/clans-activity-card.module';
 
 @NgModule({
   declarations: [ClansDetailsDashboardComponent],
@@ -15,7 +16,8 @@ import { ClansInactiveCardModule } from '../clans-inactive-card/clans-inactive-c
     ClansDetailsRoutingModule,
     ClansHighestLightLevelCardModule,
     ClansRecentlyActiveCardModule,
-    ClansInactiveCardModule
+    ClansInactiveCardModule,
+    ClansActivityCardModule
   ]
 })
 export class ClansDetailsDashboardModule {}

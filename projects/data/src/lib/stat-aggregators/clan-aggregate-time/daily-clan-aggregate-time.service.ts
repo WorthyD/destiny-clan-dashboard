@@ -7,9 +7,10 @@ import { MemberActivityTime } from '../../models/MemberActivityTime';
 import { nowPlusDays } from '../../utility/date-utils';
 import { groupActivityStatsByDate } from '../../utility/group-activity-by-date';
 import { BaseClanAggregateTimeService } from './base-clan-aggregate-time.service';
+import { StatAggregator } from './stat-aggregator-interface';
 
-export class DailyClanAggregateTimeService extends BaseClanAggregateTimeService {
-  getClanActivityStatsForDuration(memberActivities: MemberActivityTime[], activityMode: any, days = 60) {
+export class DailyClanAggregateTimeService extends BaseClanAggregateTimeService implements StatAggregator {
+  public getClanActivityStatsForDuration(memberActivities: MemberActivityTime[], activityMode: any, days = 60) {
     const x = this.filterDates(memberActivities, nowPlusDays(-days));
 
     const activities = [...x.map((y) => y.activities)];
@@ -17,7 +18,7 @@ export class DailyClanAggregateTimeService extends BaseClanAggregateTimeService 
     const summedActivities = groupActivityStatsByDate(flatActivities);
     return summedActivities;
   }
-  getClanActivityByPlayer(memberActivities: MemberActivityTime[], activityMode: any, days = 60) {
+  public getClanActivityByPlayer(memberActivities: MemberActivityTime[], activityMode: any, days = 60) {
     const x = this.filterDates(memberActivities, nowPlusDays(-days));
 
     const results = x.map((y) => {

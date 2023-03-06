@@ -1,4 +1,3 @@
-export * from './RecentActivityExporter';
-export * from './RecentActivityFilterer';
-export * from './RecentActivitySorter';
-export * from './RecentActivityViewer';
+export * from './ActivityTableFilterer';
+export * from './ActivityTableSorter';
+export * from './ActivityTableViewer';

@@ -6,12 +6,15 @@
   &__wrapper {
     padding: 20px;
   }
-  &__clans {
+  &__info {
     .clan {
       display: block;
 
       margin-bottom: 1rem;
     }
+  }
+  &__charts {
+    margin-bottom: 1rem;
   }
   &__info-card {
     margin-bottom: 1rem;
@@ -57,6 +60,34 @@
     }
     &__info-card {
       width: 30%;
+    }
+  }
+}
+
+@media (min-width: 96em) {
+  .clans-details {
+    &__main {
+      display: grid;
+      grid-template-columns: minmax(10px, 3fr) minmax(10px, 1fr);
+      gap: 1rem;
+      margin-right: auto;
+      margin-left: auto;
+    }
+    &__info {
+      grid-column: 2;
+      grid-row: 1;
+      > * {
+        display: block;
+        margin-bottom: 1rem;
+      }
+    }
+    &__charts {
+      grid-column: 1;
+      grid-row: 1;
+      > * {
+        display: block;
+        margin-bottom: 1rem;
+      }
     }
   }
 }
