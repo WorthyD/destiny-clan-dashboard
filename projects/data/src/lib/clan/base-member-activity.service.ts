@@ -34,7 +34,7 @@ export class BaseMemberActivityService extends BaseClanService {
     // private d2ServiceBase: Destiny2Service,
     public startValue: Date,
     public maxRequestCount: Number,
-    public activityTypeId = 0,
+    public activityTypeId = 0
   ) {
     super(clanDbPBase, tableNamePBase);
   }
@@ -202,6 +202,9 @@ export class BaseMemberActivityService extends BaseClanService {
   }
 
   groupActivitiesToMember(memberProfile: MemberProfile, allActivities: DBObject[], activityMode: number = 0) {
+    if (!memberProfile) {
+      return undefined;
+    }
     const memberProfileId = `${memberProfile.profile.data.userInfo.membershipType}-${memberProfile.profile.data.userInfo.membershipId}`;
 
     const memberActivitiesDB = allActivities.filter((x) => x.id.startsWith(memberProfileId));
@@ -230,9 +233,11 @@ export class BaseMemberActivityService extends BaseClanService {
     allActivities: DBObject[],
     activityMode: number = 0
   ): any[] {
-    return memberProfiles.map((memberProfile) => {
-      return this.groupActivitiesToMember(memberProfile, allActivities, activityMode);
-    });
+    return memberProfiles
+      .filter((m) => !!m)
+      .map((memberProfile) => {
+        return this.groupActivitiesToMember(memberProfile, allActivities, activityMode);
+      });
   }
 
   getAllActivitiesFromCache(

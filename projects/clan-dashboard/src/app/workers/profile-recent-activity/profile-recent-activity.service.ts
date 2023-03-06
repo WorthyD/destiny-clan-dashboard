@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
+import { ClanConfigMembers } from '@core/services/clans-members.service';
 import { MemberProfile } from 'projects/data/src/lib/models';
+import { AggregateType } from 'projects/data/src/lib/stat-aggregators/clan-aggregate-time';
 import { BehaviorSubject, Observable, of, Subject } from 'rxjs';
 import { environment } from '../../../environments/environment';
 
@@ -42,20 +44,33 @@ export class ProfileRecentActivityWorkerService {
     });
     return memberActivities;
   }
-
-  getAllRecentClanActivitiesByActivityId(clanId: string, memberProfiles: MemberProfile[], activityId: number): Observable<any> {
+  getAllActivities(clansAndMembers: ClanConfigMembers[], statAggregatorType: AggregateType): Observable<any> {
     const memberActivities = new Subject();
-    const worker = new Worker(new URL('./clan-activity-recent-activity-getter.worker', import.meta.url));
+    const worker = new Worker(new URL('./profile-activity-getter.worker', import.meta.url));
     worker.onmessage = ({ data }) => {
       memberActivities.next(data.data);
     };
+    //console.log('stat agg', statAggregator.getClanActivityStatsForDuration);
 
     worker.postMessage({
-      clanId,
-      memberProfiles,
-      apiKey: environment.apiKey,
-      activityId
+      clansAndMembers,
+      statAggregatorType,
+      apiKey: environment.apiKey
     });
     return memberActivities;
   }
+  // getAllRecentClanActivitiesByActivityId(clansAndMembers: ClanConfigMembers[], activityId: number): Observable<any> {
+  //   const memberActivities = new Subject();
+  //   const worker = new Worker(new URL('./clan-activity-recent-activity-getter.worker', import.meta.url));
+  //   worker.onmessage = ({ data }) => {
+  //     memberActivities.next(data.data);
+  //   };
+
+  //   worker.postMessage({
+  //     clansAndMembers,
+  //     apiKey: environment.apiKey,
+  //     activityId
+  //   });
+  //   return memberActivities;
+  // }
 }

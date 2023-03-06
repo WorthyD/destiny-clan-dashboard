@@ -10,7 +10,7 @@ export const parameters = {
       date: /Date$/
     }
   },
-  docs: { inlineStories: true }
+//  docs: { inlineStories: true }
 };
 
 import { componentWrapperDecorator } from '@storybook/angular';

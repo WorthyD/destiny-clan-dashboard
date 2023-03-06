@@ -1912,12 +1912,12 @@
         },
         {
             "name": "DBObject",
-            "id": "interface-DBObject-3ba91d61537e57530fe629be53786654e8a96ade67943bd32818552ae6f7659be3c955bf6b145725c687cb23aa4effc4d3ac27b065bd1fe89f72b2a89e052fa7",
+            "id": "interface-DBObject-382fa08bd71b0d32be55b6bf299d0b02917eb539b7542fc0fc67faa7075f8ec65efd9cca457d183bf9fd2cafb998da2b6234609398dbb44219ea32aa31fcc5a6",
             "file": "projects/data/src/lib/db/clan-indexed-db.ts",
             "deprecated": false,
             "deprecationMessage": "",
             "type": "interface",
-            "sourceCode": "import { BaseAppIndexedDb } from './base-indexed-db';\r\n\r\nconst DB_VERSION = 6;\r\n\r\nexport enum StoreId {\r\n // CacheDetails = 'CacheDetails', //TODO: Verify\r\n  ClanDetails = 'ClanDetails',\r\n  //ClanRewards = 'ClanRewards', // TODO: Verify\r\n  MemberProfiles = 'MemberProfiles',\r\n  MemberActivities = 'MemberActivities',\r\n  //MemberActivityStats = 'MemberActivityStats', // TODO: Verify\r\n  MemberRecentActivities = 'MemberRecentActivities',\r\n  //ProfileMilestones = 'ProfileMilestones', // TODO  Verfiy\r\n  //ProfileMetrics = 'ProfileMetrics', // TODO: Verify\r\n//  Raids = 'Raids' // TODO verify\r\nBungieInfo = 'BungieInfo'\r\n}\r\n\r\nexport const STORE_IDS: StoreId[] = [\r\n // StoreId.CacheDetails,\r\n  StoreId.ClanDetails,\r\n  //StoreId.ClanRewards,\r\n  StoreId.MemberProfiles,\r\n  StoreId.MemberActivities,\r\n  StoreId.MemberRecentActivities,\r\n  StoreId.BungieInfo\r\n  //StoreId.ProfileMilestones,\r\n  //StoreId.MemberActivityStats,\r\n  //StoreId.ProfileMetrics,\r\n // StoreId.Raids\r\n];\r\n\r\nexport interface DBObject {\r\n  id: string;\r\n  data: any;\r\n  createDate: Date;\r\n}\r\n\r\nexport class AppIndexedDb extends BaseAppIndexedDb {\r\n  constructor(name: string, initializeValues: boolean = true) {\r\n    super(name, DB_VERSION, STORE_IDS, initializeValues);\r\n  }\r\n\r\n  override getAllData(store: StoreId) {\r\n    return super.getAllData(store);\r\n  }\r\n\r\n  override getById(store: StoreId, id) {\r\n    return super.getById(store, id);\r\n  }\r\n\r\n  override updateValues(values: DBObject[], collectionId: string) {\r\n    return super.updateValues(values, collectionId);\r\n  }\r\n}\r\n",
+            "sourceCode": "import { BaseAppIndexedDb } from './base-indexed-db';\r\n\r\nconst DB_VERSION = 6;\r\n\r\nexport enum StoreId {\r\n // CacheDetails = 'CacheDetails', //TODO: Verify\r\n  ClanDetails = 'ClanDetails',\r\n  //ClanRewards = 'ClanRewards', // TODO: Verify\r\n  MemberProfiles = 'MemberProfiles',\r\n  MemberActivities = 'MemberActivities',\r\n  //MemberActivityStats = 'MemberActivityStats', // TODO: Verify\r\n  MemberRecentActivities = 'MemberRecentActivities',\r\n  //ProfileMilestones = 'ProfileMilestones', // TODO  Verfiy\r\n  //ProfileMetrics = 'ProfileMetrics', // TODO: Verify\r\n//  Raids = 'Raids' // TODO verify\r\nBungieInfo = 'BungieInfo'\r\n}\r\n\r\nexport const STORE_IDS: StoreId[] = [\r\n // StoreId.CacheDetails,\r\n  StoreId.ClanDetails,\r\n  //StoreId.ClanRewards,\r\n  StoreId.MemberProfiles,\r\n  StoreId.MemberActivities,\r\n  StoreId.MemberRecentActivities,\r\n  StoreId.BungieInfo\r\n  //StoreId.ProfileMilestones,\r\n  //StoreId.MemberActivityStats,\r\n  //StoreId.ProfileMetrics,\r\n // StoreId.Raids\r\n];\r\n\r\nexport interface DBObject {\r\n  id: string;\r\n  data: any;\r\n  createDate: Date;\r\n}\r\n\r\nexport class AppIndexedDb extends BaseAppIndexedDb {\r\n  constructor(name: string, initializeValues: boolean = true) {\r\n    super(`D2DB-${name}`, DB_VERSION, STORE_IDS, initializeValues);\r\n  }\r\n\r\n  override getAllData(store: StoreId) {\r\n    return super.getAllData(store);\r\n  }\r\n\r\n  override getById(store: StoreId, id) {\r\n    return super.getById(store, id);\r\n  }\r\n\r\n  override updateValues(values: DBObject[], collectionId: string) {\r\n    return super.updateValues(values, collectionId);\r\n  }\r\n}\r\n",
             "properties": [
                 {
                     "name": "createDate",
@@ -3938,12 +3938,12 @@
         },
         {
             "name": "RosterResources",
-            "id": "interface-RosterResources-ae2c69747f3d5b884562a3f06318af35beb5bb5f3d8cfeb3238e6a238fb017c0948650ea182715cd093e95c2cd14a5867d600e6612182c978d7b34de21fcffbf",
+            "id": "interface-RosterResources-7227547c0ef0d3fa8deb739d3f7759c624c2afc4b45b6e5545bb6002d46fef8bc94f1ee399374e8fa5811b4e241e4937eec7ba1c3b6129033754e4e7ebab98a9",
             "file": "projects/clan-dashboard/src/app/features/clans-roster/clans-roster-list/clans-roster.component.ts",
             "deprecated": false,
             "deprecationMessage": "",
             "type": "interface",
-            "sourceCode": "import { Component, ViewEncapsulation, ChangeDetectionStrategy } from '@angular/core';\r\nimport { DataSource, Exporter, Filterer, Sorter, Viewer } from '@destiny/components';\r\nimport { map, Observable, of, tap } from 'rxjs';\r\n\r\nimport { BungieDatePipe, BungieDateTimePipe } from '@destiny/components/pipes/bungie-date';\r\nimport { ClansRosterService } from '../data-access/clans-roster.service';\r\nimport { CLAN_ROSTER_VIEWER_METADATA } from './clan-roster-metadata';\r\nimport { CLAN_ROSTER_FILTERER_METADATA } from './clan-roster-metadata/ClanRosterFilterer';\r\nimport { CLAN_ROSTER_SORTER_METADATA } from './clan-roster-metadata/ClanRosterSorter';\r\n// import { CLAN_ROSTER_EXPORTER_METADATA } from './clan-roster-metadata/ClanRosterExporter';\r\nimport { ClanMemberProfile } from '@shared/models/ClanMemberProfile';\r\n\r\ninterface RosterResources {\r\n  viewer: Viewer;\r\n  filterer: Filterer;\r\n  // exporter: Exporter;\r\n  sorter: Sorter;\r\n  dataSource: DataSource;\r\n}\r\n\r\n@Component({\r\n  selector: 'app-clans-roster',\r\n  templateUrl: './clans-roster.component.html',\r\n  styleUrls: ['./clans-roster.component.scss'],\r\n  encapsulation: ViewEncapsulation.None,\r\n  changeDetection: ChangeDetectionStrategy.OnPush\r\n})\r\nexport class ClansRosterComponent {\r\n  constructor(\r\n    private clansRosterService: ClansRosterService,\r\n    private bungieDatePage: BungieDatePipe,\r\n    private bungieDateTimePipe: BungieDateTimePipe\r\n  ) {}\r\n  rosterViewer = new Viewer(\r\n    {\r\n      metadata: CLAN_ROSTER_VIEWER_METADATA,\r\n      contextProvider: this.createViewContextProvider()\r\n    },\r\n    'D2Dashboard_Roster_Table_ViewerV2'\r\n  );\r\n  rosterFilter = new Filterer({ metadata: CLAN_ROSTER_FILTERER_METADATA });\r\n  rosterSorter = new Sorter({ metadata: CLAN_ROSTER_SORTER_METADATA });\r\n  // rosterExporter = new Exporter({ metadata: CLAN_ROSTER_EXPORTER_METADATA });\r\n  isLoading = true;\r\n\r\n  rosterInfo$: Observable<RosterResources> = this.clansRosterService.clanRosterItems$.pipe(\r\n    map((clanProfiles) => {\r\n      return {\r\n        dataSource: new DataSource<ClanMemberProfile>({ data: clanProfiles }),\r\n        viewer: this.rosterViewer,\r\n        filterer: this.rosterFilter,\r\n      //  exporter: this.rosterExporter,\r\n        sorter: this.rosterSorter\r\n      };\r\n    }),\r\n    tap((x) => (this.isLoading = false))\r\n  );\r\n\r\n  createViewContextProvider() {\r\n    return of((item: ClanMemberProfile) => ({\r\n      item,\r\n      datePipe: this.bungieDatePage,\r\n      dateTimePipe: this.bungieDateTimePipe\r\n    }));\r\n  }\r\n}\r\n",
+            "sourceCode": "import { Component, ViewEncapsulation, ChangeDetectionStrategy } from '@angular/core';\r\nimport { DataSource, Exporter, Filterer, Sorter, Viewer } from '@destiny/components';\r\nimport { map, Observable, of, tap } from 'rxjs';\r\n\r\nimport { BungieDatePipe, BungieDateTimePipe } from '@destiny/components/pipes/bungie-date';\r\nimport { ClansRosterService } from '../data-access/clans-roster.service';\r\nimport { CLAN_ROSTER_VIEWER_METADATA } from './clan-roster-metadata';\r\nimport { CLAN_ROSTER_FILTERER_METADATA } from './clan-roster-metadata/ClanRosterFilterer';\r\nimport { CLAN_ROSTER_SORTER_METADATA } from './clan-roster-metadata/ClanRosterSorter';\r\n// import { CLAN_ROSTER_EXPORTER_METADATA } from './clan-roster-metadata/ClanRosterExporter';\r\nimport { ClanMemberProfile } from '@shared/models/ClanMemberProfile';\r\n\r\ninterface RosterResources {\r\n  viewer: Viewer;\r\n  filterer: Filterer;\r\n  // exporter: Exporter;\r\n  sorter: Sorter;\r\n  dataSource: DataSource;\r\n}\r\n\r\n@Component({\r\n  selector: 'app-clans-roster',\r\n  templateUrl: './clans-roster.component.html',\r\n  styleUrls: ['./clans-roster.component.scss'],\r\n  encapsulation: ViewEncapsulation.None,\r\n  changeDetection: ChangeDetectionStrategy.OnPush\r\n})\r\nexport class ClansRosterComponent {\r\n  constructor(\r\n    private clansRosterService: ClansRosterService,\r\n    private bungieDatePage: BungieDatePipe,\r\n    private bungieDateTimePipe: BungieDateTimePipe\r\n  ) {}\r\n  rosterViewer = new Viewer(\r\n    {\r\n      metadata: CLAN_ROSTER_VIEWER_METADATA,\r\n      contextProvider: this.createViewContextProvider()\r\n    },\r\n    'D2Dashboard_Roster_Table_ViewerV3'\r\n  );\r\n  rosterFilter = new Filterer({ metadata: CLAN_ROSTER_FILTERER_METADATA });\r\n  rosterSorter = new Sorter({ metadata: CLAN_ROSTER_SORTER_METADATA });\r\n  // rosterExporter = new Exporter({ metadata: CLAN_ROSTER_EXPORTER_METADATA });\r\n  isLoading = true;\r\n\r\n  rosterInfo$: Observable<RosterResources> = this.clansRosterService.clanRosterItems$.pipe(\r\n    map((clanProfiles) => {\r\n      return {\r\n        dataSource: new DataSource<ClanMemberProfile>({ data: clanProfiles }),\r\n        viewer: this.rosterViewer,\r\n        filterer: this.rosterFilter,\r\n      //  exporter: this.rosterExporter,\r\n        sorter: this.rosterSorter\r\n      };\r\n    }),\r\n    tap((x) => (this.isLoading = false))\r\n  );\r\n\r\n  createViewContextProvider() {\r\n    return of((item: ClanMemberProfile) => ({\r\n      item,\r\n      datePipe: this.bungieDatePage,\r\n      dateTimePipe: this.bungieDateTimePipe\r\n    }));\r\n  }\r\n}\r\n",
             "properties": [
                 {
                     "name": "dataSource",
@@ -4330,34 +4330,7 @@
         },
         {
             "name": "State",
-            "id": "interface-State-131b4100b676e6afdcb7a015551bb0f8564442648cedb162ded16187cb885b9911957e72609eee56f2d9b52c64d22f893a395f71f6a04a4fbb73b7d373464f0e-1",
-            "file": "projects/clan-dashboard/src/app/core/store/manifest/manifest.state.ts",
-            "deprecated": false,
-            "deprecationMessage": "",
-            "type": "interface",
-            "sourceCode": "import { AppState } from '@core/core.state';\r\n\r\nexport interface ManifestState {\r\n  loading: boolean;\r\n  loaded: boolean;\r\n  error: any;\r\n  isApiDown: boolean;\r\n}\r\n\r\nexport const initialManifestState: ManifestState = {\r\n  loading: false,\r\n  loaded: false,\r\n  error: null,\r\n  isApiDown: false\r\n};\r\n\r\nexport interface State extends AppState {\r\n  manifest: ManifestState;\r\n}\r\n",
-            "properties": [
-                {
-                    "name": "manifest",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "ManifestState",
-                    "optional": false,
-                    "description": "",
-                    "line": 18
-                }
-            ],
-            "indexSignatures": [],
-            "kind": 165,
-            "methods": [],
-            "extends": "AppState",
-            "isDuplicate": true,
-            "duplicateId": 1,
-            "duplicateName": "State-1"
-        },
-        {
-            "name": "State",
-            "id": "interface-State-c793a54a6b2f8aaae8c0aa604d1b8e171812e2227f9ac5059fb9af3c87d15070dfd1dea266de135624dd7225422aac27f6fbd100d43f50c1fc76d676df1ef5eb-2",
+            "id": "interface-State-c793a54a6b2f8aaae8c0aa604d1b8e171812e2227f9ac5059fb9af3c87d15070dfd1dea266de135624dd7225422aac27f6fbd100d43f50c1fc76d676df1ef5eb-1",
             "file": "projects/clan-dashboard/src/app/core/store/clans-members-profiles/clan-members-profiles.state.ts",
             "deprecated": false,
             "deprecationMessage": "",
@@ -4372,6 +4345,33 @@
                     "optional": false,
                     "description": "",
                     "line": 24
+                }
+            ],
+            "indexSignatures": [],
+            "kind": 165,
+            "methods": [],
+            "extends": "AppState",
+            "isDuplicate": true,
+            "duplicateId": 1,
+            "duplicateName": "State-1"
+        },
+        {
+            "name": "State",
+            "id": "interface-State-131b4100b676e6afdcb7a015551bb0f8564442648cedb162ded16187cb885b9911957e72609eee56f2d9b52c64d22f893a395f71f6a04a4fbb73b7d373464f0e-2",
+            "file": "projects/clan-dashboard/src/app/core/store/manifest/manifest.state.ts",
+            "deprecated": false,
+            "deprecationMessage": "",
+            "type": "interface",
+            "sourceCode": "import { AppState } from '@core/core.state';\r\n\r\nexport interface ManifestState {\r\n  loading: boolean;\r\n  loaded: boolean;\r\n  error: any;\r\n  isApiDown: boolean;\r\n}\r\n\r\nexport const initialManifestState: ManifestState = {\r\n  loading: false,\r\n  loaded: false,\r\n  error: null,\r\n  isApiDown: false\r\n};\r\n\r\nexport interface State extends AppState {\r\n  manifest: ManifestState;\r\n}\r\n",
+            "properties": [
+                {
+                    "name": "manifest",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "ManifestState",
+                    "optional": false,
+                    "description": "",
+                    "line": 18
                 }
             ],
             "indexSignatures": [],
@@ -4781,7 +4781,51 @@
         },
         {
             "name": "ViewContext",
-            "id": "interface-ViewContext-cf4d28e4451ecbb3645121dcdaabcab34d987cb31d866ee04d0ff06a444763691e8d91571d51893bcc59a596e7744f4c27025cd2f96bff29dc0a64b66e2eb0e2-2",
+            "id": "interface-ViewContext-b96adc631439ac4a750901019c60c1c55f919f472685d53efcc0acc65db85060ea00f76b3fa5d9288ee06ba509b016749da34c94f0231c51c94b17a28c4a99a2-2",
+            "file": "projects/clan-dashboard/src/app/features/clans-roster/clans-roster-list/clan-roster-metadata/ClanRosterViewer.ts",
+            "deprecated": false,
+            "deprecationMessage": "",
+            "type": "interface",
+            "sourceCode": "import { ViewerMetadata } from '@destiny/components';\r\n\r\nimport { BungieDatePipe, BungieDateTimePipe } from '@destiny/components/pipes/bungie-date';\r\nimport { MemberTypeComponent } from '@destiny/components/icons';\r\nimport { ClassCellComponent } from '../../components/class-cell/class-cell.component';\r\nimport { MembershipTypes } from '@destiny/data/models';\r\nimport { ClanRosterItem } from '@features/clans-roster/models/ClanRosterItem';\r\n\r\ninterface ViewContext {\r\n  item: ClanRosterItem;\r\n  datePipe: BungieDatePipe;\r\n  dateTimePipe: BungieDateTimePipe;\r\n}\r\n\r\nexport const CLAN_ROSTER_VIEWER_METADATA = new Map<string, ViewerMetadata<ClanRosterItem, ViewContext>>([\r\n  [\r\n    'platform',\r\n    {\r\n      label: 'Platform',\r\n      //  labelClass: 'text-header-center',\r\n      plainText: (item: ClanRosterItem) => `${getMembershipType(item.member.destinyUserInfo.membershipType)}`,\r\n      render: (item: ClanRosterItem) => ({\r\n        //        styles: {},\r\n        classList: ['text-center'],\r\n        component: MemberTypeComponent,\r\n        data: { type: item.member?.destinyUserInfo?.membershipType || 0 }\r\n        //text: `${item.member.destinyUserInfo.membershipType}`\r\n      })\r\n    }\r\n  ],\r\n  [\r\n    'destinyDisplayName',\r\n    {\r\n      label: 'Destiny Display Name',\r\n      labelClass: '',\r\n      isSticky: true,\r\n      plainText: (item: ClanRosterItem) => `${item.member?.destinyUserInfo?.displayName || ''}`,\r\n      render: (item: ClanRosterItem) => ({\r\n        text: `${item.member?.destinyUserInfo?.displayName || ''}`,\r\n        classList: []\r\n      })\r\n    }\r\n  ],\r\n  [\r\n    'bungieDisplayName',\r\n    {\r\n      label: 'Bungie Display Name',\r\n      labelClass: '',\r\n      plainText: (item: ClanRosterItem) => `${item.member?.bungieNetUserInfo?.displayName || ''}`,\r\n      render: (item: ClanRosterItem) => ({\r\n        text: `${item.member?.bungieNetUserInfo?.displayName || ''}`,\r\n        classList: []\r\n      })\r\n    }\r\n  ],\r\n  [\r\n    'bungieUnique',\r\n    {\r\n      label: 'Bungie Unique Name',\r\n      labelClass: '',\r\n      plainText: (item: ClanRosterItem) => `${item?.bungieInfo?.uniqueName || ''}`,\r\n      // plainText: (item: ClanRosterItem) => ``,\r\n      render: (item: ClanRosterItem) => ({ text: `${item.bungieInfo?.uniqueName || ''}`, classList: [] })\r\n    }\r\n  ],\r\n  [\r\n    'psnName',\r\n    {\r\n      label: 'PSN Name',\r\n      labelClass: '',\r\n      plainText: (item: ClanRosterItem) => `${item?.bungieInfo?.psnDisplayName || ''}`,\r\n      render: (item: ClanRosterItem) => ({ text: `${item.bungieInfo?.psnDisplayName || ''}`, classList: [] })\r\n    }\r\n  ],\r\n  [\r\n    'xboxName',\r\n    {\r\n      label: 'XBox Name',\r\n      labelClass: '',\r\n      plainText: (item: ClanRosterItem) => `${item?.bungieInfo?.xboxDisplayName || ''}`,\r\n      render: (item: ClanRosterItem) => ({ text: `${item.bungieInfo?.xboxDisplayName || ''}`, classList: [] })\r\n    }\r\n  ],\r\n  [\r\n    'steamName',\r\n    {\r\n      label: 'Steam Name',\r\n      labelClass: '',\r\n      plainText: (item: ClanRosterItem) => `${item?.bungieInfo?.steamDisplayName || ''}`,\r\n      render: (item: ClanRosterItem) => ({ text: `${item.bungieInfo?.steamDisplayName || ''}`, classList: [] })\r\n    }\r\n  ],\r\n  [\r\n    'twitchName',\r\n    {\r\n      label: 'Twitch Name',\r\n      labelClass: '',\r\n      plainText: (item: ClanRosterItem) => `${item?.bungieInfo?.twitchDisplayName || ''}`,\r\n      render: (item: ClanRosterItem) => ({\r\n        text: `${item.bungieInfo?.twitchDisplayName || ''}`,\r\n        classList: []\r\n      })\r\n    }\r\n  ],\r\n  [\r\n    'characters',\r\n    {\r\n      label: 'Characters',\r\n      labelClass: 'header-text-center',\r\n      plainText: (item: ClanRosterItem) => ``,\r\n      render: (item: ClanRosterItem) => {\r\n        const characterIds = item.profile?.profile?.data?.characterIds;\r\n        return {\r\n          classList: 'characters-cell',\r\n          children: characterIds?.map((id) => {\r\n            return {\r\n              classList: 'character-cell',\r\n              component: ClassCellComponent,\r\n              data: {\r\n                characterHash: id,\r\n                profile: item.profile\r\n              }\r\n            };\r\n          })\r\n        };\r\n      }\r\n    }\r\n  ],\r\n  [\r\n    'powerLevel',\r\n    {\r\n      label: '+',\r\n      labelClass: 'header-text-center',\r\n      plainText: (item: ClanRosterItem) => `${item.profile?.profileProgression?.data?.seasonalArtifact?.powerBonus}`,\r\n      render: (item: ClanRosterItem) => ({\r\n        classList: 'power-cell',\r\n        text: `${item.profile?.profileProgression?.data?.seasonalArtifact?.powerBonus}`\r\n      })\r\n    }\r\n  ],\r\n  [\r\n    'rank',\r\n    {\r\n      label: 'Guardian Rank',\r\n      labelClass: '',\r\n      plainText: (item: ClanRosterItem) => `${item.profile?.profile?.data?.currentGuardianRank}`,\r\n      render: (item: ClanRosterItem) => ({\r\n        classList: ['text-center'],\r\n        text: `${item.profile?.profile?.data?.currentGuardianRank}`\r\n      })\r\n    }\r\n  ],\r\n  [\r\n    'lifetimeRank',\r\n    {\r\n      label: 'Lifetime Guardian Rank',\r\n      labelClass: '',\r\n      plainText: (item: ClanRosterItem) => `${item.profile?.profile?.data?.lifetimeHighestGuardianRank}`,\r\n      render: (item: ClanRosterItem) => ({\r\n        classList: ['text-center'],\r\n        text: `${item.profile?.profile?.data?.lifetimeHighestGuardianRank}`\r\n      })\r\n    }\r\n  ],\r\n  [\r\n    'activeTriumph',\r\n    {\r\n      label: 'Active Triumph',\r\n      labelClass: '',\r\n      plainText: (item: ClanRosterItem) => `${item.profile?.profileRecords?.data?.activeScore}`,\r\n      render: (item: ClanRosterItem) => ({\r\n        classList: ['text-center'],\r\n        text: `${item.profile?.profileRecords?.data?.activeScore}`\r\n      })\r\n    }\r\n  ],\r\n  [\r\n    'lifetimeTriumph',\r\n    {\r\n      label: 'Lifetime Triumph',\r\n      labelClass: '',\r\n      plainText: (item: ClanRosterItem) => `${item.profile?.profileRecords?.data?.lifetimeScore}`,\r\n      render: (item: ClanRosterItem) => ({\r\n        classList: ['text-center'],\r\n        text: `${item.profile?.profileRecords?.data?.lifetimeScore}`\r\n      })\r\n    }\r\n  ],\r\n  [\r\n    'clan',\r\n    {\r\n      label: 'Clan',\r\n      labelClass: '',\r\n      plainText: (item: ClanRosterItem) => `${item.clan.clanName}`,\r\n      render: (item: ClanRosterItem, context: ViewContext) => {\r\n        return {\r\n          text: `${item.clan.clanName}`,\r\n          classList: []\r\n        };\r\n      }\r\n    }\r\n  ],\r\n  [\r\n    'bungieProfileCreation',\r\n    {\r\n      label: 'Bungie Join Date',\r\n      labelClass: '',\r\n      plainText: (item: ClanRosterItem, context: ViewContext) =>\r\n        `${context.datePipe.transform(item.bungieInfo?.firstAccess || (new Date() as unknown as Date))}`,\r\n      render: (item: ClanRosterItem, context: ViewContext) => {\r\n        return {\r\n          text: `${context.datePipe.transform(item.bungieInfo?.firstAccess || (new Date() as unknown as Date))}`,\r\n          classList: []\r\n        };\r\n      }\r\n    }\r\n  ],\r\n  [\r\n    'clanJoinDate',\r\n    {\r\n      label: 'Clan Join Date',\r\n      labelClass: '',\r\n      plainText: (item: ClanRosterItem, context: ViewContext) =>\r\n        `${context.datePipe.transform(item.member?.joinDate as unknown as Date)}`,\r\n      render: (item: ClanRosterItem, context: ViewContext) => {\r\n        return {\r\n          text: `${context.datePipe.transform(item.member?.joinDate as unknown as Date)}`,\r\n          classList: []\r\n        };\r\n      }\r\n    }\r\n  ],\r\n  [\r\n    'dateLastPlayed',\r\n    {\r\n      label: 'Last Played',\r\n      labelClass: '',\r\n      plainText: (item: ClanRosterItem, context: ViewContext) =>\r\n        `${context.dateTimePipe.transform(item.profile?.profile.data.dateLastPlayed as unknown as Date)}`,\r\n      render: (item: ClanRosterItem, context: ViewContext) => {\r\n        return {\r\n          text: `${context.dateTimePipe.transform(item.profile?.profile.data.dateLastPlayed as unknown as Date)}`\r\n        };\r\n      }\r\n    }\r\n  ]\r\n\r\n  //['name', { label: 'Name', render: (item) => ({ text: `${item.name}` }) }],\r\n  //['startDate', { label: 'Start Date', render: (item) => ({ text: `${new Date(item.startDate).toDateString()}` }) }]\r\n]);\r\n\r\nfunction getMembershipType(value) {\r\n  switch (value) {\r\n    case MembershipTypes.Xbox:\r\n      return 'xbox';\r\n    case MembershipTypes.Psn:\r\n      return 'playstation';\r\n    case MembershipTypes.Steam:\r\n      return 'steam';\r\n    case MembershipTypes.Stadia:\r\n      return 'stadia';\r\n    default:\r\n      return ``;\r\n  }\r\n}\r\n",
+            "properties": [
+                {
+                    "name": "datePipe",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "BungieDatePipe",
+                    "optional": false,
+                    "description": "",
+                    "line": 11
+                },
+                {
+                    "name": "dateTimePipe",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "BungieDateTimePipe",
+                    "optional": false,
+                    "description": "",
+                    "line": 12
+                },
+                {
+                    "name": "item",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "ClanRosterItem",
+                    "optional": false,
+                    "description": "",
+                    "line": 10
+                }
+            ],
+            "indexSignatures": [],
+            "kind": 165,
+            "methods": [],
+            "isDuplicate": true,
+            "duplicateId": 2,
+            "duplicateName": "ViewContext-2"
+        },
+        {
+            "name": "ViewContext",
+            "id": "interface-ViewContext-cf4d28e4451ecbb3645121dcdaabcab34d987cb31d866ee04d0ff06a444763691e8d91571d51893bcc59a596e7744f4c27025cd2f96bff29dc0a64b66e2eb0e2-3",
             "file": "projects/clan-dashboard/src/app/features/recent-activity/recent-activity-dashboard/recent-activity-metadata/RecentActivityExporter.ts",
             "deprecated": false,
             "deprecationMessage": "",
@@ -4820,12 +4864,12 @@
             "kind": 165,
             "methods": [],
             "isDuplicate": true,
-            "duplicateId": 2,
-            "duplicateName": "ViewContext-2"
+            "duplicateId": 3,
+            "duplicateName": "ViewContext-3"
         },
         {
             "name": "ViewContext",
-            "id": "interface-ViewContext-5e38e21ca568badeb18f0bb9ce2125dbba1a0b1265e644bce9ebd11e76eccc22ef27c41a40bd410a265d1cee116fafb44dfb13387fea9735857ffcd334a5627e-3",
+            "id": "interface-ViewContext-5e38e21ca568badeb18f0bb9ce2125dbba1a0b1265e644bce9ebd11e76eccc22ef27c41a40bd410a265d1cee116fafb44dfb13387fea9735857ffcd334a5627e-4",
             "file": "projects/clan-dashboard/src/app/features/recent-activity/recent-activity-dashboard/recent-activity-metadata/RecentActivityViewer.ts",
             "deprecated": false,
             "deprecationMessage": "",
@@ -4858,50 +4902,6 @@
                     "optional": false,
                     "description": "",
                     "line": 8
-                }
-            ],
-            "indexSignatures": [],
-            "kind": 165,
-            "methods": [],
-            "isDuplicate": true,
-            "duplicateId": 3,
-            "duplicateName": "ViewContext-3"
-        },
-        {
-            "name": "ViewContext",
-            "id": "interface-ViewContext-2e988e0bde903364eb58b9ad903b845d3e9728e66365e462175d1d6c01eaf7fa32a30306fe08f4134bdebbcab4451d1d6e9da15d9590354df10e20cf63e57ed7-4",
-            "file": "projects/clan-dashboard/src/app/features/clans-roster/clans-roster-list/clan-roster-metadata/ClanRosterViewer.ts",
-            "deprecated": false,
-            "deprecationMessage": "",
-            "type": "interface",
-            "sourceCode": "import { ViewerMetadata } from '@destiny/components';\r\n\r\nimport { BungieDatePipe, BungieDateTimePipe } from '@destiny/components/pipes/bungie-date';\r\nimport { MemberTypeComponent } from '@destiny/components/icons';\r\nimport { ClassCellComponent } from '../../components/class-cell/class-cell.component';\r\nimport { MembershipTypes } from '@destiny/data/models';\r\nimport { ClanRosterItem } from '@features/clans-roster/models/ClanRosterItem';\r\n\r\ninterface ViewContext {\r\n  item: ClanRosterItem;\r\n  datePipe: BungieDatePipe;\r\n  dateTimePipe: BungieDateTimePipe;\r\n}\r\n\r\nexport const CLAN_ROSTER_VIEWER_METADATA = new Map<string, ViewerMetadata<ClanRosterItem, ViewContext>>([\r\n  [\r\n    'platform',\r\n    {\r\n      label: 'Platform',\r\n      //  labelClass: 'text-header-center',\r\n      plainText: (item: ClanRosterItem) => `${getMembershipType(item.member.destinyUserInfo.membershipType)}`,\r\n      render: (item: ClanRosterItem) => ({\r\n        //        styles: {},\r\n        classList: ['text-center'],\r\n        component: MemberTypeComponent,\r\n        data: { type: item.member?.destinyUserInfo?.membershipType || 0 }\r\n        //text: `${item.member.destinyUserInfo.membershipType}`\r\n      })\r\n    }\r\n  ],\r\n  [\r\n    'destinyDisplayName',\r\n    {\r\n      label: 'Destiny Display Name',\r\n      labelClass: '',\r\n      isSticky: true,\r\n      plainText: (item: ClanRosterItem) => `${item.member?.destinyUserInfo?.displayName || ''}`,\r\n      render: (item: ClanRosterItem) => ({\r\n        text: `${item.member?.destinyUserInfo?.displayName || ''}`,\r\n        classList: []\r\n      })\r\n    }\r\n  ],\r\n  [\r\n    'bungieDisplayName',\r\n    {\r\n      label: 'Bungie Display Name',\r\n      labelClass: '',\r\n      plainText: (item: ClanRosterItem) => `${item.member?.bungieNetUserInfo?.displayName || ''}`,\r\n      render: (item: ClanRosterItem) => ({\r\n        text: `${item.member?.bungieNetUserInfo?.displayName || ''}`,\r\n        classList: []\r\n      })\r\n    }\r\n  ],\r\n  [\r\n    'bungieUnique',\r\n    {\r\n      label: 'Bungie Unique Name',\r\n      labelClass: '',\r\n      plainText: (item: ClanRosterItem) => `${item?.bungieInfo?.uniqueName || ''}`,\r\n      // plainText: (item: ClanRosterItem) => ``,\r\n      render: (item: ClanRosterItem) => ({ text: `${item.bungieInfo?.uniqueName || ''}`, classList: [] })\r\n    }\r\n  ],\r\n  [\r\n    'psnName',\r\n    {\r\n      label: 'PSN Name',\r\n      labelClass: '',\r\n      plainText: (item: ClanRosterItem) => `${item?.bungieInfo?.psnDisplayName || ''}`,\r\n      render: (item: ClanRosterItem) => ({ text: `${item.bungieInfo?.psnDisplayName || ''}`, classList: [] })\r\n    }\r\n  ],\r\n  [\r\n    'xboxName',\r\n    {\r\n      label: 'XBox Name',\r\n      labelClass: '',\r\n      plainText: (item: ClanRosterItem) => `${item?.bungieInfo?.xboxDisplayName || ''}`,\r\n      render: (item: ClanRosterItem) => ({ text: `${item.bungieInfo?.xboxDisplayName || ''}`, classList: [] })\r\n    }\r\n  ],\r\n  [\r\n    'steamName',\r\n    {\r\n      label: 'Steam Name',\r\n      labelClass: '',\r\n      plainText: (item: ClanRosterItem) => `${item?.bungieInfo?.steamDisplayName || ''}`,\r\n      render: (item: ClanRosterItem) => ({ text: `${item.bungieInfo?.steamDisplayName || ''}`, classList: [] })\r\n    }\r\n  ],\r\n  [\r\n    'twitchName',\r\n    {\r\n      label: 'Twitch Name',\r\n      labelClass: '',\r\n      plainText: (item: ClanRosterItem) => `${item?.bungieInfo?.twitchDisplayName || ''}`,\r\n      render: (item: ClanRosterItem) => ({\r\n        text: `${item.bungieInfo?.twitchDisplayName || ''}`,\r\n        classList: []\r\n      })\r\n    }\r\n  ],\r\n  [\r\n    'characters',\r\n    {\r\n      label: 'Characters',\r\n      labelClass: 'header-text-center',\r\n      plainText: (item: ClanRosterItem) => ``,\r\n      render: (item: ClanRosterItem) => {\r\n        const characterIds = item.profile?.profile?.data?.characterIds;\r\n        return {\r\n          classList: 'characters-cell',\r\n          children: characterIds?.map((id) => {\r\n            return {\r\n              classList: 'character-cell',\r\n              component: ClassCellComponent,\r\n              data: {\r\n                characterHash: id,\r\n                profile: item.profile\r\n              }\r\n            };\r\n          })\r\n        };\r\n      }\r\n    }\r\n  ],\r\n  [\r\n    'powerLevel',\r\n    {\r\n      label: '+',\r\n      labelClass: 'header-text-center',\r\n      plainText: (item: ClanRosterItem) => `${item.profile?.profileProgression?.data?.seasonalArtifact?.powerBonus}`,\r\n      render: (item: ClanRosterItem) => ({\r\n        classList: 'power-cell',\r\n        text: `${item.profile?.profileProgression?.data?.seasonalArtifact?.powerBonus}`\r\n      })\r\n    }\r\n  ],\r\n  [\r\n    'activeTriumph',\r\n    {\r\n      label: 'Active Triumph',\r\n      labelClass: '',\r\n      plainText: (item: ClanRosterItem) => `${item.profile?.profileRecords?.data?.activeScore}`,\r\n      render: (item: ClanRosterItem) => ({\r\n        classList: ['text-center'],\r\n        text: `${item.profile?.profileRecords?.data?.activeScore}`\r\n      })\r\n    }\r\n  ],\r\n  [\r\n    'lifetimeTriumph',\r\n    {\r\n      label: 'Lifetime Triumph',\r\n      labelClass: '',\r\n      plainText: (item: ClanRosterItem) => `${item.profile?.profileRecords?.data?.lifetimeScore}`,\r\n      render: (item: ClanRosterItem) => ({\r\n        classList: ['text-center'],\r\n        text: `${item.profile?.profileRecords?.data?.lifetimeScore}`\r\n      })\r\n    }\r\n  ],\r\n  [\r\n    'clan',\r\n    {\r\n      label: 'Clan',\r\n      labelClass: '',\r\n      plainText: (item: ClanRosterItem) => `${item.clan.clanName}`,\r\n      render: (item: ClanRosterItem, context: ViewContext) => {\r\n        return {\r\n          text: `${item.clan.clanName}`,\r\n          classList: []\r\n        };\r\n      }\r\n    }\r\n  ],\r\n  [\r\n    'bungieProfileCreation',\r\n    {\r\n      label: 'Bungie Join Date',\r\n      labelClass: '',\r\n      plainText: (item: ClanRosterItem, context: ViewContext) =>\r\n        `${context.datePipe.transform(item.bungieInfo?.firstAccess || (new Date() as unknown as Date))}`,\r\n      render: (item: ClanRosterItem, context: ViewContext) => {\r\n        return {\r\n          text: `${context.datePipe.transform(item.bungieInfo?.firstAccess || (new Date() as unknown as Date))}`,\r\n          classList: []\r\n        };\r\n      }\r\n    }\r\n  ],\r\n  [\r\n    'clanJoinDate',\r\n    {\r\n      label: 'Clan Join Date',\r\n      labelClass: '',\r\n      plainText: (item: ClanRosterItem, context: ViewContext) =>\r\n        `${context.datePipe.transform(item.member?.joinDate as unknown as Date)}`,\r\n      render: (item: ClanRosterItem, context: ViewContext) => {\r\n        return {\r\n          text: `${context.datePipe.transform(item.member?.joinDate as unknown as Date)}`,\r\n          classList: []\r\n        };\r\n      }\r\n    }\r\n  ],\r\n  [\r\n    'dateLastPlayed',\r\n    {\r\n      label: 'Last Played',\r\n      labelClass: '',\r\n      plainText: (item: ClanRosterItem, context: ViewContext) =>\r\n        `${context.dateTimePipe.transform(item.profile?.profile.data.dateLastPlayed as unknown as Date)}`,\r\n      render: (item: ClanRosterItem, context: ViewContext) => {\r\n        return {\r\n          text: `${context.dateTimePipe.transform(item.profile?.profile.data.dateLastPlayed as unknown as Date)}`\r\n        };\r\n      }\r\n    }\r\n  ]\r\n\r\n  //['name', { label: 'Name', render: (item) => ({ text: `${item.name}` }) }],\r\n  //['startDate', { label: 'Start Date', render: (item) => ({ text: `${new Date(item.startDate).toDateString()}` }) }]\r\n]);\r\n\r\nfunction getMembershipType(value) {\r\n  switch (value) {\r\n    case MembershipTypes.Xbox:\r\n      return 'xbox';\r\n    case MembershipTypes.Psn:\r\n      return 'playstation';\r\n    case MembershipTypes.Steam:\r\n      return 'steam';\r\n    case MembershipTypes.Stadia:\r\n      return 'stadia';\r\n    default:\r\n      return ``;\r\n  }\r\n}\r\n",
-            "properties": [
-                {
-                    "name": "datePipe",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "BungieDatePipe",
-                    "optional": false,
-                    "description": "",
-                    "line": 11
-                },
-                {
-                    "name": "dateTimePipe",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "BungieDateTimePipe",
-                    "optional": false,
-                    "description": "",
-                    "line": 12
-                },
-                {
-                    "name": "item",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "ClanRosterItem",
-                    "optional": false,
-                    "description": "",
-                    "line": 10
                 }
             ],
             "indexSignatures": [],
@@ -9743,7 +9743,7 @@
         },
         {
             "name": "SeasonService",
-            "id": "injectable-SeasonService-bfdb28eb8403a72755612ae347a5e74d7fece0da9b6912cc166eb46cdd80535911dc4fdbdf0f3fdeea8fe60bf850e87a0f65efddb70abf4ca971082970c3434d",
+            "id": "injectable-SeasonService-d5a2f72d76aecb306a12e468fb4e2efbfff7ecab493e7f0d0e1fe55ca81cef9b8cc27933c12b2edc57878631979d919da6963d53763d6de557ae292df018fc86",
             "file": "projects/clan-dashboard/src/app/core/services/season.service.ts",
             "properties": [
                 {
@@ -9824,7 +9824,7 @@
             "deprecationMessage": "",
             "description": "",
             "rawdescription": "\n",
-            "sourceCode": "import { Injectable } from '@angular/core';\nimport {\n  DestinyDefinitionsSeasonsDestinySeasonDefinition,\n  DestinyDefinitionsSeasonsDestinySeasonPassDefinition\n} from 'bungie-api-angular';\n\n@Injectable({\n  providedIn: 'root'\n})\nexport class SeasonService {\n  currentSeason: DestinyDefinitionsSeasonsDestinySeasonDefinition;\n  currentSeasonProgress: DestinyDefinitionsSeasonsDestinySeasonPassDefinition;\n  constructor() {}\n\n  init(\n    seasons: { [key: string]: DestinyDefinitionsSeasonsDestinySeasonDefinition },\n    seasonPasses: { [key: string]: DestinyDefinitionsSeasonsDestinySeasonPassDefinition }\n  ) {\n    const now = new Date();\n    const currentSeasonKey = Object.keys(seasons).find((seasonKey) => {\n      const season = seasons[seasonKey];\n      const hasEndAndNotPassed = !season.endDate || now < new Date(season.endDate);\n      return season.startDate && new Date(season.startDate) < now && hasEndAndNotPassed;\n    });\n\n    this.currentSeason = seasons[currentSeasonKey];\n    this.currentSeasonProgress = seasonPasses[this.currentSeason.seasonPassHash];\n  }\n\n  getSeasonProgressionHashes(): number[] {\n    return [this.currentSeasonProgress.prestigeProgressionHash, this.currentSeasonProgress.rewardProgressionHash];\n  }\n}\n",
+            "sourceCode": "import { Injectable } from '@angular/core';\r\nimport {\r\n  DestinyDefinitionsSeasonsDestinySeasonDefinition,\r\n  DestinyDefinitionsSeasonsDestinySeasonPassDefinition\r\n} from 'bungie-api-angular';\r\n\r\n@Injectable({\r\n  providedIn: 'root'\r\n})\r\nexport class SeasonService {\r\n  currentSeason: DestinyDefinitionsSeasonsDestinySeasonDefinition;\r\n  currentSeasonProgress: DestinyDefinitionsSeasonsDestinySeasonPassDefinition;\r\n  constructor() {}\r\n\r\n  init(\r\n    seasons: { [key: string]: DestinyDefinitionsSeasonsDestinySeasonDefinition },\r\n    seasonPasses: { [key: string]: DestinyDefinitionsSeasonsDestinySeasonPassDefinition }\r\n  ) {\r\n    const now = new Date();\r\n    const currentSeasonKey = Object.keys(seasons).find((seasonKey) => {\r\n      const season = seasons[seasonKey];\r\n      const hasEndAndNotPassed = !season.endDate || now < new Date(season.endDate);\r\n      return season.startDate && new Date(season.startDate) < now && hasEndAndNotPassed;\r\n    });\r\n\r\n    this.currentSeason = seasons[currentSeasonKey];\r\n    this.currentSeasonProgress = seasonPasses[this.currentSeason.seasonPassHash];\r\n  }\r\n\r\n  getSeasonProgressionHashes(): number[] {\r\n    return [this.currentSeasonProgress.prestigeProgressionHash, this.currentSeasonProgress.rewardProgressionHash];\r\n  }\r\n}\r\n",
             "constructorObj": {
                 "name": "constructor",
                 "description": "",
@@ -10510,12 +10510,12 @@
         },
         {
             "name": "AppIndexedDb",
-            "id": "class-AppIndexedDb-3ba91d61537e57530fe629be53786654e8a96ade67943bd32818552ae6f7659be3c955bf6b145725c687cb23aa4effc4d3ac27b065bd1fe89f72b2a89e052fa7-1",
+            "id": "class-AppIndexedDb-382fa08bd71b0d32be55b6bf299d0b02917eb539b7542fc0fc67faa7075f8ec65efd9cca457d183bf9fd2cafb998da2b6234609398dbb44219ea32aa31fcc5a6-1",
             "file": "projects/data/src/lib/db/clan-indexed-db.ts",
             "deprecated": false,
             "deprecationMessage": "",
             "type": "class",
-            "sourceCode": "import { BaseAppIndexedDb } from './base-indexed-db';\r\n\r\nconst DB_VERSION = 6;\r\n\r\nexport enum StoreId {\r\n // CacheDetails = 'CacheDetails', //TODO: Verify\r\n  ClanDetails = 'ClanDetails',\r\n  //ClanRewards = 'ClanRewards', // TODO: Verify\r\n  MemberProfiles = 'MemberProfiles',\r\n  MemberActivities = 'MemberActivities',\r\n  //MemberActivityStats = 'MemberActivityStats', // TODO: Verify\r\n  MemberRecentActivities = 'MemberRecentActivities',\r\n  //ProfileMilestones = 'ProfileMilestones', // TODO  Verfiy\r\n  //ProfileMetrics = 'ProfileMetrics', // TODO: Verify\r\n//  Raids = 'Raids' // TODO verify\r\nBungieInfo = 'BungieInfo'\r\n}\r\n\r\nexport const STORE_IDS: StoreId[] = [\r\n // StoreId.CacheDetails,\r\n  StoreId.ClanDetails,\r\n  //StoreId.ClanRewards,\r\n  StoreId.MemberProfiles,\r\n  StoreId.MemberActivities,\r\n  StoreId.MemberRecentActivities,\r\n  StoreId.BungieInfo\r\n  //StoreId.ProfileMilestones,\r\n  //StoreId.MemberActivityStats,\r\n  //StoreId.ProfileMetrics,\r\n // StoreId.Raids\r\n];\r\n\r\nexport interface DBObject {\r\n  id: string;\r\n  data: any;\r\n  createDate: Date;\r\n}\r\n\r\nexport class AppIndexedDb extends BaseAppIndexedDb {\r\n  constructor(name: string, initializeValues: boolean = true) {\r\n    super(name, DB_VERSION, STORE_IDS, initializeValues);\r\n  }\r\n\r\n  override getAllData(store: StoreId) {\r\n    return super.getAllData(store);\r\n  }\r\n\r\n  override getById(store: StoreId, id) {\r\n    return super.getById(store, id);\r\n  }\r\n\r\n  override updateValues(values: DBObject[], collectionId: string) {\r\n    return super.updateValues(values, collectionId);\r\n  }\r\n}\r\n",
+            "sourceCode": "import { BaseAppIndexedDb } from './base-indexed-db';\r\n\r\nconst DB_VERSION = 6;\r\n\r\nexport enum StoreId {\r\n // CacheDetails = 'CacheDetails', //TODO: Verify\r\n  ClanDetails = 'ClanDetails',\r\n  //ClanRewards = 'ClanRewards', // TODO: Verify\r\n  MemberProfiles = 'MemberProfiles',\r\n  MemberActivities = 'MemberActivities',\r\n  //MemberActivityStats = 'MemberActivityStats', // TODO: Verify\r\n  MemberRecentActivities = 'MemberRecentActivities',\r\n  //ProfileMilestones = 'ProfileMilestones', // TODO  Verfiy\r\n  //ProfileMetrics = 'ProfileMetrics', // TODO: Verify\r\n//  Raids = 'Raids' // TODO verify\r\nBungieInfo = 'BungieInfo'\r\n}\r\n\r\nexport const STORE_IDS: StoreId[] = [\r\n // StoreId.CacheDetails,\r\n  StoreId.ClanDetails,\r\n  //StoreId.ClanRewards,\r\n  StoreId.MemberProfiles,\r\n  StoreId.MemberActivities,\r\n  StoreId.MemberRecentActivities,\r\n  StoreId.BungieInfo\r\n  //StoreId.ProfileMilestones,\r\n  //StoreId.MemberActivityStats,\r\n  //StoreId.ProfileMetrics,\r\n // StoreId.Raids\r\n];\r\n\r\nexport interface DBObject {\r\n  id: string;\r\n  data: any;\r\n  createDate: Date;\r\n}\r\n\r\nexport class AppIndexedDb extends BaseAppIndexedDb {\r\n  constructor(name: string, initializeValues: boolean = true) {\r\n    super(`D2DB-${name}`, DB_VERSION, STORE_IDS, initializeValues);\r\n  }\r\n\r\n  override getAllData(store: StoreId) {\r\n    return super.getAllData(store);\r\n  }\r\n\r\n  override getById(store: StoreId, id) {\r\n    return super.getById(store, id);\r\n  }\r\n\r\n  override updateValues(values: DBObject[], collectionId: string) {\r\n    return super.updateValues(values, collectionId);\r\n  }\r\n}\r\n",
             "constructorObj": {
                 "name": "constructor",
                 "description": "",
@@ -19521,7 +19521,7 @@
         },
         {
             "name": "BarChartComponent",
-            "id": "component-BarChartComponent-6bf3c89869928682fc6d84412c89ef976fb94aa68fe898a5f3c7bf869dc73c05a63219e18d758d88d3be36f62bdb3a931e9964e3275a60bb2854a3b33b028cef",
+            "id": "component-BarChartComponent-b9c277d8332267040965eed6be23ca2fd1c3131dbb2ae0a912f59e6b379142d1e9fd43f3c00cfcce44594d1b759d2a62265cf2f9569c9345580da68d7536c322",
             "file": "projects/components/src/lib/shared/bar-chart/bar-chart.component.ts",
             "changeDetection": "ChangeDetectionStrategy.OnPush",
             "encapsulation": [
@@ -19545,7 +19545,7 @@
                     "defaultValue": "'#3399FF'",
                     "deprecated": false,
                     "deprecationMessage": "",
-                    "line": 52,
+                    "line": 61,
                     "type": "string",
                     "decorators": []
                 },
@@ -19553,7 +19553,7 @@
                     "name": "colorTheme",
                     "deprecated": false,
                     "deprecationMessage": "",
-                    "line": 49,
+                    "line": 58,
                     "type": "\"light\" | \"dark\"",
                     "decorators": []
                 },
@@ -19562,7 +19562,7 @@
                     "defaultValue": "'Minutes'",
                     "deprecated": false,
                     "deprecationMessage": "",
-                    "line": 46,
+                    "line": 55,
                     "type": "string",
                     "decorators": []
                 },
@@ -19570,7 +19570,7 @@
                     "name": "events",
                     "deprecated": false,
                     "deprecationMessage": "",
-                    "line": 57,
+                    "line": 66,
                     "type": "[]",
                     "decorators": []
                 }
@@ -19584,17 +19584,17 @@
                     "type": "",
                     "optional": false,
                     "description": "",
-                    "line": 55
+                    "line": 64
                 },
                 {
                     "name": "chart",
-                    "defaultValue": "{ type: 'bar', height: 400, zoom: { enabled: false } }",
+                    "defaultValue": "{ type: 'bar', height: 400, zoom: { enabled: false }, toolbar: { tools: { download: false } } }",
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "ApexChart",
                     "optional": false,
                     "description": "",
-                    "line": 69
+                    "line": 78
                 },
                 {
                     "name": "colors",
@@ -19603,27 +19603,27 @@
                     "type": "",
                     "optional": false,
                     "description": "",
-                    "line": 107
+                    "line": 116
                 },
                 {
                     "name": "dataLabels",
-                    "defaultValue": "{\n    enabled: false\n  }",
+                    "defaultValue": "{\r\n    enabled: false\r\n  }",
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "ApexDataLabels",
                     "optional": false,
                     "description": "",
-                    "line": 83
+                    "line": 92
                 },
                 {
                     "name": "fill",
-                    "defaultValue": "{\n    opacity: 1\n  }",
+                    "defaultValue": "{\r\n    opacity: 1\r\n  }",
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "ApexFill",
                     "optional": false,
                     "description": "",
-                    "line": 86
+                    "line": 95
                 },
                 {
                     "name": "formatPipe",
@@ -19633,7 +19633,7 @@
                     "type": "",
                     "optional": false,
                     "description": "",
-                    "line": 43
+                    "line": 52
                 },
                 {
                     "name": "legend",
@@ -19643,17 +19643,17 @@
                     "type": "ApexLegend",
                     "optional": false,
                     "description": "",
-                    "line": 74
+                    "line": 83
                 },
                 {
                     "name": "plotOptions",
-                    "defaultValue": "{\n    bar: {\n      horizontal: false,\n      columnWidth: '75%'\n      // endingShape: 'rounded'\n    }\n  }",
+                    "defaultValue": "{\r\n    bar: {\r\n      horizontal: false,\r\n      columnWidth: '75%'\r\n      // endingShape: 'rounded'\r\n    }\r\n  }",
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "ApexPlotOptions",
                     "optional": false,
                     "description": "",
-                    "line": 76
+                    "line": 85
                 },
                 {
                     "name": "series",
@@ -19663,17 +19663,17 @@
                     "type": "ApexAxisChartSeries",
                     "optional": false,
                     "description": "",
-                    "line": 68
+                    "line": 77
                 },
                 {
                     "name": "stroke",
-                    "defaultValue": "{\n    show: true,\n    width: 2,\n    colors: ['transparent']\n  }",
+                    "defaultValue": "{\r\n    show: true,\r\n    width: 2,\r\n    colors: ['transparent']\r\n  }",
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "ApexStroke",
                     "optional": false,
                     "description": "",
-                    "line": 89
+                    "line": 98
                 },
                 {
                     "name": "theme",
@@ -19682,17 +19682,17 @@
                     "type": "ApexTheme",
                     "optional": false,
                     "description": "",
-                    "line": 71
+                    "line": 80
                 },
                 {
                     "name": "tooltip",
-                    "defaultValue": "{\n    y: {\n      formatter: (val) => {\n        let convertedVal = 0;\n        if (this.convertTo === 'Minutes') {\n          convertedVal = val * 60;\n        } else if (this.convertTo === 'Hours') {\n          convertedVal = val * 60 * 60;\n        }\n        return `${this.formatPipe.transform(convertedVal)}`;\n      }\n    }\n  }",
+                    "defaultValue": "{\r\n    y: {\r\n      formatter: (val) => {\r\n        let convertedVal = 0;\r\n        if (this.convertTo === 'Minutes') {\r\n          convertedVal = val * 60;\r\n        } else if (this.convertTo === 'Hours') {\r\n          convertedVal = val * 60 * 60;\r\n        }\r\n        return `${this.formatPipe.transform(convertedVal)}`;\r\n      }\r\n    }\r\n  }",
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "ApexTooltip",
                     "optional": false,
                     "description": "",
-                    "line": 94
+                    "line": 103
                 },
                 {
                     "name": "xaxis",
@@ -19701,7 +19701,7 @@
                     "type": "ApexXAxis",
                     "optional": false,
                     "description": "",
-                    "line": 73
+                    "line": 82
                 },
                 {
                     "name": "yaxis",
@@ -19710,7 +19710,7 @@
                     "type": "ApexYAxis",
                     "optional": false,
                     "description": "",
-                    "line": 70
+                    "line": 79
                 }
             ],
             "methodsClass": [
@@ -19720,7 +19720,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 121,
+                    "line": 130,
                     "deprecated": false,
                     "deprecationMessage": ""
                 },
@@ -19743,7 +19743,7 @@
                     "optional": false,
                     "returnType": "any",
                     "typeParameters": [],
-                    "line": 163,
+                    "line": 172,
                     "deprecated": false,
                     "deprecationMessage": "",
                     "modifierKind": [
@@ -19783,7 +19783,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 138,
+                    "line": 147,
                     "deprecated": false,
                     "deprecationMessage": "",
                     "modifierKind": [
@@ -19814,7 +19814,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 112,
+                    "line": 121,
                     "deprecated": false,
                     "deprecationMessage": "",
                     "modifierKind": [
@@ -19840,11 +19840,11 @@
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, Input, NgZone, OnInit, ViewEncapsulation } from '@angular/core';\nimport { PlaytimePipe } from '../../pipes/playtime';\nimport {\n  ApexAxisChartSeries,\n  ApexChart,\n  ApexDataLabels,\n  ApexFill,\n  ApexLegend,\n  ApexPlotOptions,\n  ApexStroke,\n  ApexTheme,\n  ApexTooltip,\n  ApexXAxis,\n  ApexYAxis\n} from 'ng-apexcharts';\nimport { compare } from '@destiny/data/utility';\n\n@Component({\n  selector: 'lib-bar-chart',\n  template: `\n    <apx-chart\n      [series]=\"series\"\n      [chart]=\"chart\"\n      [dataLabels]=\"dataLabels\"\n      [plotOptions]=\"plotOptions\"\n      [yaxis]=\"yaxis\"\n      [legend]=\"legend\"\n      [fill]=\"fill\"\n      [colors]=\"colors\"\n      [stroke]=\"stroke\"\n      [tooltip]=\"tooltip\"\n      [xaxis]=\"xaxis\"\n      [theme]=\"{\n        mode: colorTheme\n      }\"\n    ></apx-chart>\n  `,\n  styleUrls: ['./bar-chart.component.scss'],\n  changeDetection: ChangeDetectionStrategy.OnPush,\n  encapsulation: ViewEncapsulation.None\n})\nexport class BarChartComponent implements OnInit {\n  formatPipe = new PlaytimePipe();\n  // (window:resize)=”onResize($event)”\n  @Input()\n  convertTo: string = 'Minutes';\n\n  @Input()\n  colorTheme: 'light' | 'dark';\n\n  @Input()\n  barColor: string = '#3399FF';\n  //color: string = '#000';\n\n  _events;\n  @Input()\n  get events(): [] {\n    return this._events;\n  }\n\n  set events(value) {\n    if (value && value.length && value !== this._events) {\n      this._events = value;\n      this.updateChart(this._events);\n    }\n  }\n\n  series: ApexAxisChartSeries = [];\n  chart: ApexChart = { type: 'bar', height: 400, zoom: { enabled: false } };\n  yaxis: ApexYAxis;\n  theme: ApexTheme;\n\n  xaxis: ApexXAxis;\n  legend: ApexLegend = {};\n\n  plotOptions: ApexPlotOptions = {\n    bar: {\n      horizontal: false,\n      columnWidth: '75%'\n      // endingShape: 'rounded'\n    }\n  };\n  dataLabels: ApexDataLabels = {\n    enabled: false\n  };\n  fill: ApexFill = {\n    opacity: 1\n  };\n  stroke: ApexStroke = {\n    show: true,\n    width: 2,\n    colors: ['transparent']\n  };\n  tooltip: ApexTooltip = {\n    y: {\n      formatter: (val) => {\n        let convertedVal = 0;\n        if (this.convertTo === 'Minutes') {\n          convertedVal = val * 60;\n        } else if (this.convertTo === 'Hours') {\n          convertedVal = val * 60 * 60;\n        }\n        return `${this.formatPipe.transform(convertedVal)}`;\n      }\n    }\n  };\n  colors;\n  // private changeSubject = new Subject<any>();\n\n  constructor(private elRef: ElementRef, private cd: ChangeDetectorRef, private zone: NgZone) {}\n\n  private updateChart(eventData) {\n    // if (!this.svg) {\n    //   this.createChart(eventData);\n    //   return;\n    // }\n\n    this.processData(this.events);\n  }\n\n  ngOnInit(): void {\n    this.colors = [this.barColor];\n    this.yaxis = {\n      title: {\n        text: this.convertTo\n      },\n      labels: {\n        formatter: (x) => {\n          return x.toString();\n        }\n      }\n    };\n    this.theme = {\n      mode: this.colorTheme\n    };\n  }\n\n  private processData(sourceData) {\n    if (sourceData) {\n      let cleanedData = [];\n      const firstData = sourceData[0].date;\n\n      if (firstData instanceof Date) {\n        this.xaxis = {\n          type: 'datetime'\n        };\n        cleanedData = this.prepDateData(sourceData, true);\n      } else {\n        this.xaxis = {\n          type: 'category'\n        };\n        cleanedData = this.prepDateData(sourceData, false);\n      }\n      this.series = [\n        {\n          name: '',\n          data: cleanedData\n        }\n      ];\n    }\n  }\n\n  private prepDateData(sourceData, sort) {\n    const preppedData = [];\n    sourceData.forEach((data) => {\n      let convertedSeconds = 0;\n      if (this.convertTo === 'Minutes') {\n        convertedSeconds = Math.floor(data.seconds / 60);\n      } else if (this.convertTo === 'Hours') {\n        convertedSeconds = data.seconds / 60 / 60;\n      }\n\n      preppedData.push({ x: data.date, y: convertedSeconds });\n    });\n\n    if (!sort) {\n      return preppedData;\n    }\n\n    return preppedData.sort((a, b) => {\n      return compare(a.x, b.x);\n    });\n  }\n}\n",
+            "sourceCode": "import {\r\n  ChangeDetectionStrategy,\r\n  ChangeDetectorRef,\r\n  Component,\r\n  ElementRef,\r\n  Input,\r\n  NgZone,\r\n  OnInit,\r\n  ViewEncapsulation\r\n} from '@angular/core';\r\nimport { PlaytimePipe } from '../../pipes/playtime';\r\nimport {\r\n  ApexAxisChartSeries,\r\n  ApexChart,\r\n  ApexDataLabels,\r\n  ApexFill,\r\n  ApexLegend,\r\n  ApexPlotOptions,\r\n  ApexStroke,\r\n  ApexTheme,\r\n  ApexTooltip,\r\n  ApexXAxis,\r\n  ApexYAxis\r\n} from 'ng-apexcharts';\r\nimport { compare } from '@destiny/data/utility';\r\n\r\n@Component({\r\n  selector: 'lib-bar-chart',\r\n  template: `\r\n    <apx-chart\r\n      [series]=\"series\"\r\n      [chart]=\"chart\"\r\n      [dataLabels]=\"dataLabels\"\r\n      [plotOptions]=\"plotOptions\"\r\n      [yaxis]=\"yaxis\"\r\n      [legend]=\"legend\"\r\n      [fill]=\"fill\"\r\n      [colors]=\"colors\"\r\n      [stroke]=\"stroke\"\r\n      [tooltip]=\"tooltip\"\r\n      [xaxis]=\"xaxis\"\r\n      [theme]=\"{\r\n        mode: colorTheme\r\n      }\"\r\n    ></apx-chart>\r\n  `,\r\n  styleUrls: ['./bar-chart.component.scss'],\r\n  changeDetection: ChangeDetectionStrategy.OnPush,\r\n  encapsulation: ViewEncapsulation.None\r\n})\r\nexport class BarChartComponent implements OnInit {\r\n  formatPipe = new PlaytimePipe();\r\n  // (window:resize)=”onResize($event)”\r\n  @Input()\r\n  convertTo: string = 'Minutes';\r\n\r\n  @Input()\r\n  colorTheme: 'light' | 'dark';\r\n\r\n  @Input()\r\n  barColor: string = '#3399FF';\r\n  //color: string = '#000';\r\n\r\n  _events;\r\n  @Input()\r\n  get events(): [] {\r\n    return this._events;\r\n  }\r\n\r\n  set events(value) {\r\n    if (value && value.length && value !== this._events) {\r\n      this._events = value;\r\n      this.updateChart(this._events);\r\n    }\r\n  }\r\n\r\n  series: ApexAxisChartSeries = [];\r\n  chart: ApexChart = { type: 'bar', height: 400, zoom: { enabled: false }, toolbar: { tools: { download: false } } };\r\n  yaxis: ApexYAxis;\r\n  theme: ApexTheme;\r\n\r\n  xaxis: ApexXAxis;\r\n  legend: ApexLegend = {};\r\n\r\n  plotOptions: ApexPlotOptions = {\r\n    bar: {\r\n      horizontal: false,\r\n      columnWidth: '75%'\r\n      // endingShape: 'rounded'\r\n    }\r\n  };\r\n  dataLabels: ApexDataLabels = {\r\n    enabled: false\r\n  };\r\n  fill: ApexFill = {\r\n    opacity: 1\r\n  };\r\n  stroke: ApexStroke = {\r\n    show: true,\r\n    width: 2,\r\n    colors: ['transparent']\r\n  };\r\n  tooltip: ApexTooltip = {\r\n    y: {\r\n      formatter: (val) => {\r\n        let convertedVal = 0;\r\n        if (this.convertTo === 'Minutes') {\r\n          convertedVal = val * 60;\r\n        } else if (this.convertTo === 'Hours') {\r\n          convertedVal = val * 60 * 60;\r\n        }\r\n        return `${this.formatPipe.transform(convertedVal)}`;\r\n      }\r\n    }\r\n  };\r\n  colors;\r\n  // private changeSubject = new Subject<any>();\r\n\r\n  constructor(private elRef: ElementRef, private cd: ChangeDetectorRef, private zone: NgZone) {}\r\n\r\n  private updateChart(eventData) {\r\n    // if (!this.svg) {\r\n    //   this.createChart(eventData);\r\n    //   return;\r\n    // }\r\n\r\n    this.processData(this.events);\r\n  }\r\n\r\n  ngOnInit(): void {\r\n    this.colors = [this.barColor];\r\n    this.yaxis = {\r\n      title: {\r\n        text: this.convertTo\r\n      },\r\n      labels: {\r\n        formatter: (x) => {\r\n          return x.toString();\r\n        }\r\n      }\r\n    };\r\n    this.theme = {\r\n      mode: this.colorTheme\r\n    };\r\n  }\r\n\r\n  private processData(sourceData) {\r\n    if (sourceData) {\r\n      let cleanedData = [];\r\n      const firstData = sourceData[0].date;\r\n\r\n      if (firstData instanceof Date) {\r\n        this.xaxis = {\r\n          type: 'datetime'\r\n        };\r\n        cleanedData = this.prepDateData(sourceData, true);\r\n      } else {\r\n        this.xaxis = {\r\n          type: 'category'\r\n        };\r\n        cleanedData = this.prepDateData(sourceData, false);\r\n      }\r\n      this.series = [\r\n        {\r\n          name: '',\r\n          data: cleanedData\r\n        }\r\n      ];\r\n    }\r\n  }\r\n\r\n  private prepDateData(sourceData, sort) {\r\n    const preppedData = [];\r\n    sourceData.forEach((data) => {\r\n      let convertedSeconds = 0;\r\n      if (this.convertTo === 'Minutes') {\r\n        convertedSeconds = Math.floor(data.seconds / 60);\r\n      } else if (this.convertTo === 'Hours') {\r\n        convertedSeconds = data.seconds / 60 / 60;\r\n      }\r\n\r\n      preppedData.push({ x: data.date, y: convertedSeconds });\r\n    });\r\n\r\n    if (!sort) {\r\n      return preppedData;\r\n    }\r\n\r\n    return preppedData.sort((a, b) => {\r\n      return compare(a.x, b.x);\r\n    });\r\n  }\r\n}\r\n",
             "assetsDirs": [],
             "styleUrlsData": [
                 {
-                    "data": ".activity-tooltip {\r\n  position: fixed;\r\n  transition: opacity 0.2s;\r\n  border: 0px;\r\n  padding: 2px;\r\n  border-radius: 8px;\r\n  pointer-events: none;\r\n  font-size: 0.8em;\r\n  opacity: 0;\r\n}\r\n\r\n.activity-bar {\r\n  opacity: 0.6;\r\n  fill: var(--app-text-color);\r\n\r\n  transition: opacity 0.5s;\r\n  &:hover {\r\n    opacity: 1;\r\n  }\r\n}\r\n.apexcharts-text {\r\n  // fill: mat.get-color-from-palette($fg, text);\r\n}\r\n.apexcharts-yaxis-title {\r\n  fill: mat.get-color-from-palette($fg, text);\r\n}\r\n.activity-bar-chart {\r\n  .year-label {\r\n    fill: var(--app-text-color);\r\n    // fill: mat.get-color-from-palette($fg, text);\r\n  }\r\n  .day-label {\r\n    fill: var(--app-text-color);\r\n    // fill: mat.get-color-from-palette($fg, text);\r\n  }\r\n  .month-label {\r\n    fill: var(--app-text-color);\r\n    // fill: mat.get-color-from-palette($fg, text);\r\n  }\r\n  .legend-key {\r\n    fill: var(--app-text-color);\r\n    // fill: mat.get-color-from-palette($fg, text);\r\n  }\r\n\r\n  .legend-desc {\r\n    fill: var(--app-text-color);\r\n    // fill: mat.get-color-from-palette($fg, text);\r\n  }\r\n}\r\n.activity-tooltip {\r\n  // background: mat.get-color-from-palette($bg, background);\r\n}\r\n",
+                    "data": ".activity-tooltip {\r\n  position: fixed;\r\n  transition: opacity 0.2s;\r\n  border: 0px;\r\n  padding: 2px;\r\n  border-radius: 8px;\r\n  pointer-events: none;\r\n  font-size: 0.8em;\r\n  opacity: 0;\r\n}\r\n\r\n.activity-bar {\r\n  opacity: 0.6;\r\n  fill: var(--app-text-color);\r\n\r\n  transition: opacity 0.5s;\r\n  &:hover {\r\n    opacity: 1;\r\n  }\r\n}\r\n// .apexcharts-text {\r\n//   // fill: mat.get-color-from-palette($fg, text);\r\n// }\r\n.apexcharts-text {\r\n  fill: var(--app-text-color);\r\n}\r\n// .apexcharts-yaxis-title {\r\n//   //fill: mat.get-color-from-palette($fg, text);\r\n//     fill: var(--app-text-color);\r\n// }\r\n// .activity-bar-chart {\r\n//   .year-label {\r\n//     fill: var(--app-text-color);\r\n//     // fill: mat.get-color-from-palette($fg, text);\r\n//   }\r\n//   .day-label {\r\n//     fill: var(--app-text-color);\r\n//     // fill: mat.get-color-from-palette($fg, text);\r\n//   }\r\n//   .month-label {\r\n//     fill: var(--app-text-color);\r\n//     // fill: mat.get-color-from-palette($fg, text);\r\n//   }\r\n//   .legend-key {\r\n//     fill: var(--app-text-color);\r\n//     // fill: mat.get-color-from-palette($fg, text);\r\n//   }\r\n\r\n//   .legend-desc {\r\n//     fill: var(--app-text-color);\r\n//     // fill: mat.get-color-from-palette($fg, text);\r\n//   }\r\n// }\r\n.activity-tooltip {\r\n  background-color: var(--app-background-color);\r\n  // background: mat.get-color-from-palette($bg, background);\r\n}\r\n.apexcharts-tooltip {\r\n  background-color: var(--app-background-color) !important;\r\n  .apexcharts-tooltip-title {\r\n    background-color: var(--app-background-color) !important;\r\n    color: var(--app-text-color) !important;\r\n  }\r\n  .apexcharts-tooltip-text {\r\n    color: var(--app-text-color) !important;\r\n  }\r\n}\r\n",
                     "styleUrl": "./bar-chart.component.scss"
                 }
             ],
@@ -19874,7 +19874,7 @@
                         "deprecationMessage": ""
                     }
                 ],
-                "line": 107,
+                "line": 116,
                 "jsdoctags": [
                     {
                         "name": "elRef",
@@ -19925,7 +19925,7 @@
                             }
                         ],
                         "returnType": "void",
-                        "line": 61,
+                        "line": 70,
                         "jsdoctags": [
                             {
                                 "name": "value",
@@ -19942,7 +19942,7 @@
                         "name": "events",
                         "type": "",
                         "returnType": "",
-                        "line": 57
+                        "line": 66
                     }
                 }
             }
@@ -20070,6 +20070,72 @@
                     }
                 }
             }
+        },
+        {
+            "name": "ClanActivityBarChartComponent",
+            "id": "component-ClanActivityBarChartComponent-1e678a74b99acbad8389f4b986ec471cf913db63fb2d1f309deefc5da2f16d7bbc1419ecd00d95b4689857ed05d70bbdbdb587177180f306e83bc013d8d67e62",
+            "file": "projects/clan-dashboard/src/app/features/clan-details/components/clan-activity-bar-chart/clan-activity-bar-chart.component.ts",
+            "changeDetection": "ChangeDetectionStrategy.OnPush",
+            "encapsulation": [],
+            "entryComponents": [],
+            "inputs": [],
+            "outputs": [],
+            "providers": [],
+            "selector": "app-clan-activity-bar-chart",
+            "styleUrls": [
+                "./clan-activity-bar-chart.component.scss"
+            ],
+            "styles": [],
+            "templateUrl": [
+                "./clan-activity-bar-chart.component.html"
+            ],
+            "viewProviders": [],
+            "inputsClass": [
+                {
+                    "name": "events",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "line": 16,
+                    "type": "any",
+                    "decorators": []
+                },
+                {
+                    "name": "loading",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "line": 19,
+                    "type": "boolean",
+                    "decorators": []
+                },
+                {
+                    "name": "updating",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "line": 22,
+                    "type": "boolean",
+                    "decorators": []
+                }
+            ],
+            "outputsClass": [],
+            "propertiesClass": [],
+            "methodsClass": [],
+            "deprecated": false,
+            "deprecationMessage": "",
+            "hostBindings": [],
+            "hostListeners": [],
+            "description": "",
+            "rawdescription": "\n",
+            "type": "component",
+            "sourceCode": "import { ChangeDetectionStrategy, Component, Input } from '@angular/core';\r\nimport { CommonModule } from '@angular/common';\r\nimport { BarChartModule } from '@destiny/components/shared/bar-chart';\r\nimport { MatCardModule } from '@angular/material/card';\r\n\r\n@Component({\r\n  selector: 'app-clan-activity-bar-chart',\r\n  standalone: true,\r\n  imports: [CommonModule, BarChartModule, MatCardModule],\r\n  templateUrl: './clan-activity-bar-chart.component.html',\r\n  styleUrls: ['./clan-activity-bar-chart.component.scss'],\r\n  changeDetection: ChangeDetectionStrategy.OnPush\r\n})\r\nexport class ClanActivityBarChartComponent {\r\n  @Input()\r\n  events;\r\n\r\n  @Input()\r\n  loading: boolean;\r\n\r\n  @Input()\r\n  updating: boolean;\r\n}\r\n",
+            "assetsDirs": [],
+            "styleUrlsData": [
+                {
+                    "data": "",
+                    "styleUrl": "./clan-activity-bar-chart.component.scss"
+                }
+            ],
+            "stylesData": "",
+            "templateData": "<p>clan-activity-bar-chart works!</p>\r\n"
         },
         {
             "name": "ClanConfigComponent",
@@ -21842,7 +21908,7 @@
         },
         {
             "name": "ClansRosterComponent",
-            "id": "component-ClansRosterComponent-ae2c69747f3d5b884562a3f06318af35beb5bb5f3d8cfeb3238e6a238fb017c0948650ea182715cd093e95c2cd14a5867d600e6612182c978d7b34de21fcffbf",
+            "id": "component-ClansRosterComponent-7227547c0ef0d3fa8deb739d3f7759c624c2afc4b45b6e5545bb6002d46fef8bc94f1ee399374e8fa5811b4e241e4937eec7ba1c3b6129033754e4e7ebab98a9",
             "file": "projects/clan-dashboard/src/app/features/clans-roster/clans-roster-list/clans-roster.component.ts",
             "changeDetection": "ChangeDetectionStrategy.OnPush",
             "encapsulation": [
@@ -21906,7 +21972,7 @@
                 },
                 {
                     "name": "rosterViewer",
-                    "defaultValue": "new Viewer(\r\n    {\r\n      metadata: CLAN_ROSTER_VIEWER_METADATA,\r\n      contextProvider: this.createViewContextProvider()\r\n    },\r\n    'D2Dashboard_Roster_Table_ViewerV2'\r\n  )",
+                    "defaultValue": "new Viewer(\r\n    {\r\n      metadata: CLAN_ROSTER_VIEWER_METADATA,\r\n      contextProvider: this.createViewContextProvider()\r\n    },\r\n    'D2Dashboard_Roster_Table_ViewerV3'\r\n  )",
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "",
@@ -21934,7 +22000,7 @@
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { Component, ViewEncapsulation, ChangeDetectionStrategy } from '@angular/core';\r\nimport { DataSource, Exporter, Filterer, Sorter, Viewer } from '@destiny/components';\r\nimport { map, Observable, of, tap } from 'rxjs';\r\n\r\nimport { BungieDatePipe, BungieDateTimePipe } from '@destiny/components/pipes/bungie-date';\r\nimport { ClansRosterService } from '../data-access/clans-roster.service';\r\nimport { CLAN_ROSTER_VIEWER_METADATA } from './clan-roster-metadata';\r\nimport { CLAN_ROSTER_FILTERER_METADATA } from './clan-roster-metadata/ClanRosterFilterer';\r\nimport { CLAN_ROSTER_SORTER_METADATA } from './clan-roster-metadata/ClanRosterSorter';\r\n// import { CLAN_ROSTER_EXPORTER_METADATA } from './clan-roster-metadata/ClanRosterExporter';\r\nimport { ClanMemberProfile } from '@shared/models/ClanMemberProfile';\r\n\r\ninterface RosterResources {\r\n  viewer: Viewer;\r\n  filterer: Filterer;\r\n  // exporter: Exporter;\r\n  sorter: Sorter;\r\n  dataSource: DataSource;\r\n}\r\n\r\n@Component({\r\n  selector: 'app-clans-roster',\r\n  templateUrl: './clans-roster.component.html',\r\n  styleUrls: ['./clans-roster.component.scss'],\r\n  encapsulation: ViewEncapsulation.None,\r\n  changeDetection: ChangeDetectionStrategy.OnPush\r\n})\r\nexport class ClansRosterComponent {\r\n  constructor(\r\n    private clansRosterService: ClansRosterService,\r\n    private bungieDatePage: BungieDatePipe,\r\n    private bungieDateTimePipe: BungieDateTimePipe\r\n  ) {}\r\n  rosterViewer = new Viewer(\r\n    {\r\n      metadata: CLAN_ROSTER_VIEWER_METADATA,\r\n      contextProvider: this.createViewContextProvider()\r\n    },\r\n    'D2Dashboard_Roster_Table_ViewerV2'\r\n  );\r\n  rosterFilter = new Filterer({ metadata: CLAN_ROSTER_FILTERER_METADATA });\r\n  rosterSorter = new Sorter({ metadata: CLAN_ROSTER_SORTER_METADATA });\r\n  // rosterExporter = new Exporter({ metadata: CLAN_ROSTER_EXPORTER_METADATA });\r\n  isLoading = true;\r\n\r\n  rosterInfo$: Observable<RosterResources> = this.clansRosterService.clanRosterItems$.pipe(\r\n    map((clanProfiles) => {\r\n      return {\r\n        dataSource: new DataSource<ClanMemberProfile>({ data: clanProfiles }),\r\n        viewer: this.rosterViewer,\r\n        filterer: this.rosterFilter,\r\n      //  exporter: this.rosterExporter,\r\n        sorter: this.rosterSorter\r\n      };\r\n    }),\r\n    tap((x) => (this.isLoading = false))\r\n  );\r\n\r\n  createViewContextProvider() {\r\n    return of((item: ClanMemberProfile) => ({\r\n      item,\r\n      datePipe: this.bungieDatePage,\r\n      dateTimePipe: this.bungieDateTimePipe\r\n    }));\r\n  }\r\n}\r\n",
+            "sourceCode": "import { Component, ViewEncapsulation, ChangeDetectionStrategy } from '@angular/core';\r\nimport { DataSource, Exporter, Filterer, Sorter, Viewer } from '@destiny/components';\r\nimport { map, Observable, of, tap } from 'rxjs';\r\n\r\nimport { BungieDatePipe, BungieDateTimePipe } from '@destiny/components/pipes/bungie-date';\r\nimport { ClansRosterService } from '../data-access/clans-roster.service';\r\nimport { CLAN_ROSTER_VIEWER_METADATA } from './clan-roster-metadata';\r\nimport { CLAN_ROSTER_FILTERER_METADATA } from './clan-roster-metadata/ClanRosterFilterer';\r\nimport { CLAN_ROSTER_SORTER_METADATA } from './clan-roster-metadata/ClanRosterSorter';\r\n// import { CLAN_ROSTER_EXPORTER_METADATA } from './clan-roster-metadata/ClanRosterExporter';\r\nimport { ClanMemberProfile } from '@shared/models/ClanMemberProfile';\r\n\r\ninterface RosterResources {\r\n  viewer: Viewer;\r\n  filterer: Filterer;\r\n  // exporter: Exporter;\r\n  sorter: Sorter;\r\n  dataSource: DataSource;\r\n}\r\n\r\n@Component({\r\n  selector: 'app-clans-roster',\r\n  templateUrl: './clans-roster.component.html',\r\n  styleUrls: ['./clans-roster.component.scss'],\r\n  encapsulation: ViewEncapsulation.None,\r\n  changeDetection: ChangeDetectionStrategy.OnPush\r\n})\r\nexport class ClansRosterComponent {\r\n  constructor(\r\n    private clansRosterService: ClansRosterService,\r\n    private bungieDatePage: BungieDatePipe,\r\n    private bungieDateTimePipe: BungieDateTimePipe\r\n  ) {}\r\n  rosterViewer = new Viewer(\r\n    {\r\n      metadata: CLAN_ROSTER_VIEWER_METADATA,\r\n      contextProvider: this.createViewContextProvider()\r\n    },\r\n    'D2Dashboard_Roster_Table_ViewerV3'\r\n  );\r\n  rosterFilter = new Filterer({ metadata: CLAN_ROSTER_FILTERER_METADATA });\r\n  rosterSorter = new Sorter({ metadata: CLAN_ROSTER_SORTER_METADATA });\r\n  // rosterExporter = new Exporter({ metadata: CLAN_ROSTER_EXPORTER_METADATA });\r\n  isLoading = true;\r\n\r\n  rosterInfo$: Observable<RosterResources> = this.clansRosterService.clanRosterItems$.pipe(\r\n    map((clanProfiles) => {\r\n      return {\r\n        dataSource: new DataSource<ClanMemberProfile>({ data: clanProfiles }),\r\n        viewer: this.rosterViewer,\r\n        filterer: this.rosterFilter,\r\n      //  exporter: this.rosterExporter,\r\n        sorter: this.rosterSorter\r\n      };\r\n    }),\r\n    tap((x) => (this.isLoading = false))\r\n  );\r\n\r\n  createViewContextProvider() {\r\n    return of((item: ClanMemberProfile) => ({\r\n      item,\r\n      datePipe: this.bungieDatePage,\r\n      dateTimePipe: this.bungieDateTimePipe\r\n    }));\r\n  }\r\n}\r\n",
             "assetsDirs": [],
             "styleUrlsData": [
                 {
@@ -24829,13 +24895,13 @@
         },
         {
             "name": "BarChartModule",
-            "id": "module-BarChartModule-80b05dbc22a912c6c4645f698b5d5c58a7b453412ee835c04725bd8cb3fb20da3a4f819d6703253187b4021b235f130f9d31a94278e9e9921e55a5af0a48f4e4",
+            "id": "module-BarChartModule-f02d4aa01237987a509e54fae6076aea9f6b4dae7b2a257bbe6eeec3925a4507fba943746b8ebcedb2ee71221dc1d237094911ab9521d693cca9ed23c0a90f2c",
             "description": "",
             "deprecationMessage": "",
             "deprecated": false,
             "file": "projects/components/src/lib/shared/bar-chart/bar-chart.module.ts",
             "methods": [],
-            "sourceCode": "import { NgModule } from '@angular/core';\nimport { CommonModule } from '@angular/common';\nimport { BarChartComponent } from './bar-chart.component';\nimport { NgApexchartsModule } from 'ng-apexcharts';\n\n@NgModule({\n  declarations: [BarChartComponent],\n  imports: [CommonModule, NgApexchartsModule],\n  exports: [BarChartComponent]\n})\nexport class BarChartModule {}\n",
+            "sourceCode": "import { NgModule } from '@angular/core';\r\nimport { CommonModule } from '@angular/common';\r\nimport { BarChartComponent } from './bar-chart.component';\r\nimport { NgApexchartsModule } from 'ng-apexcharts';\r\n\r\n@NgModule({\r\n  declarations: [BarChartComponent],\r\n  imports: [CommonModule, NgApexchartsModule],\r\n  exports: [BarChartComponent]\r\n})\r\nexport class BarChartModule {}\r\n",
             "children": [
                 {
                     "type": "providers",
@@ -25689,47 +25755,7 @@
         },
         {
             "name": "ClansRosterModule",
-            "id": "module-ClansRosterModule-8e9f89f35c847e639c23b447751324b882adce3e8a1137bbb28ad04b7c9e1baabbd5f320f8251af399dd2e8270dfcc38f1c34fd7f850a2e51fc0f016c60fe801",
-            "description": "",
-            "deprecationMessage": "",
-            "deprecated": false,
-            "file": "projects/clan-dashboard/src/app/features/config/clans-roster-shell/config.module.ts",
-            "methods": [],
-            "sourceCode": "import { NgModule } from '@angular/core';\r\nimport { ConfigRoutingModule } from './config-routing.module';\r\n\r\n@NgModule({\r\n  imports: [ConfigRoutingModule]\r\n})\r\nexport class ClansRosterModule {}\r\n",
-            "children": [
-                {
-                    "type": "providers",
-                    "elements": []
-                },
-                {
-                    "type": "declarations",
-                    "elements": []
-                },
-                {
-                    "type": "imports",
-                    "elements": [
-                        {
-                            "name": "ConfigRoutingModule"
-                        }
-                    ]
-                },
-                {
-                    "type": "exports",
-                    "elements": []
-                },
-                {
-                    "type": "bootstrap",
-                    "elements": []
-                },
-                {
-                    "type": "classes",
-                    "elements": []
-                }
-            ]
-        },
-        {
-            "name": "ClansRosterModule",
-            "id": "module-ClansRosterModule-e8fbf0a9927e5ffe6c5691d2e62668309daf8e0da918b20bb03567178da8a25bb4f1876ade4fdc7e41275c9e661a7ac0c32de1874e7c510e95c3c6ed7b5c8af4-1",
+            "id": "module-ClansRosterModule-e8fbf0a9927e5ffe6c5691d2e62668309daf8e0da918b20bb03567178da8a25bb4f1876ade4fdc7e41275c9e661a7ac0c32de1874e7c510e95c3c6ed7b5c8af4",
             "description": "",
             "deprecationMessage": "",
             "deprecated": false,
@@ -25790,7 +25816,7 @@
         },
         {
             "name": "ClansRosterModule",
-            "id": "module-ClansRosterModule-de6c5e03e0e585b2052b9fea4d6525c851f4f44ab3eff930cac8d90b82184d3042efecbf91937c3746313f9a4429a0eafdc6bb6426237848fb219b50db1b5569-2",
+            "id": "module-ClansRosterModule-de6c5e03e0e585b2052b9fea4d6525c851f4f44ab3eff930cac8d90b82184d3042efecbf91937c3746313f9a4429a0eafdc6bb6426237848fb219b50db1b5569-1",
             "description": "",
             "deprecationMessage": "",
             "deprecated": false,
@@ -25811,6 +25837,46 @@
                     "elements": [
                         {
                             "name": "ClansRosterRoutingModule"
+                        }
+                    ]
+                },
+                {
+                    "type": "exports",
+                    "elements": []
+                },
+                {
+                    "type": "bootstrap",
+                    "elements": []
+                },
+                {
+                    "type": "classes",
+                    "elements": []
+                }
+            ]
+        },
+        {
+            "name": "ClansRosterModule",
+            "id": "module-ClansRosterModule-8e9f89f35c847e639c23b447751324b882adce3e8a1137bbb28ad04b7c9e1baabbd5f320f8251af399dd2e8270dfcc38f1c34fd7f850a2e51fc0f016c60fe801-2",
+            "description": "",
+            "deprecationMessage": "",
+            "deprecated": false,
+            "file": "projects/clan-dashboard/src/app/features/config/clans-roster-shell/config.module.ts",
+            "methods": [],
+            "sourceCode": "import { NgModule } from '@angular/core';\r\nimport { ConfigRoutingModule } from './config-routing.module';\r\n\r\n@NgModule({\r\n  imports: [ConfigRoutingModule]\r\n})\r\nexport class ClansRosterModule {}\r\n",
+            "children": [
+                {
+                    "type": "providers",
+                    "elements": []
+                },
+                {
+                    "type": "declarations",
+                    "elements": []
+                },
+                {
+                    "type": "imports",
+                    "elements": [
+                        {
+                            "name": "ConfigRoutingModule"
                         }
                     ]
                 },
@@ -27081,21 +27147,21 @@
                 "name": "base",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "projects/clan-dashboard/src/app/core/store/manifest/manifest.actions.ts",
-                "deprecated": false,
-                "deprecationMessage": "",
-                "type": "string",
-                "defaultValue": "'[Manifest] - '"
-            },
-            {
-                "name": "base",
-                "ctype": "miscellaneous",
-                "subtype": "variable",
                 "file": "projects/clan-dashboard/src/app/core/store/clans-members-profiles/clan-members-profiles.actions.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "string",
                 "defaultValue": "'[ClansMemberPorfile] - '"
+            },
+            {
+                "name": "base",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/clan-dashboard/src/app/core/store/manifest/manifest.actions.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "string",
+                "defaultValue": "'[Manifest] - '"
             },
             {
                 "name": "base",
@@ -27165,7 +27231,7 @@
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "",
-                "defaultValue": "new Map<string, SorterMetadata<ClanRosterItem>>([\r\n  //   [\r\n  //     'id',\r\n  //     {\r\n  //       label: 'ID',\r\n  //       comparator: (a, b) => (a.id < b.id ? -1 : 1)\r\n  //     }\r\n  //   ],\r\n  [\r\n    'destinyDisplayName',\r\n    {\r\n      label: 'Destiny Display Name',\r\n      comparator: (a, b) =>\r\n        a.member?.destinyUserInfo?.displayName?.toLowerCase() < b.member?.destinyUserInfo?.displayName?.toLowerCase()\r\n          ? -1\r\n          : 1\r\n    }\r\n  ],\r\n  [\r\n    'bungieDisplayName',\r\n    {\r\n      label: 'Bungie Display Name',\r\n      comparator: (a, b) =>\r\n        a.member?.bungieNetUserInfo?.displayName?.toLowerCase() <\r\n        b.member?.bungieNetUserInfo?.displayName?.toLowerCase()\r\n          ? -1\r\n          : 1\r\n    }\r\n  ],\r\n  [\r\n    'platform',\r\n    {\r\n      label: 'Platform',\r\n      comparator: (a, b) => (a.member?.destinyUserInfo?.membershipType < b.member?.destinyUserInfo?.membershipType ? -1 : 1)\r\n    }\r\n  ],\r\n  [\r\n    'bungieUnique',\r\n    {\r\n      label: 'Bungie Unique Name',\r\n      comparator: (a, b) =>\r\n        a.bungieInfo?.uniqueName?.toLowerCase() <\r\n        b.bungieInfo?.uniqueName?.toLowerCase()\r\n          ? -1\r\n          : 1\r\n    }\r\n  ],\r\n  // ----\r\n  [\r\n    'psnDisplayName',\r\n    {\r\n      label: 'PSN Name',\r\n      comparator: (a, b) =>\r\n        a.bungieInfo?.psnDisplayName?.toLowerCase() <\r\n        b.bungieInfo?.psnDisplayName?.toLowerCase()\r\n          ? -1\r\n          : 1\r\n    }\r\n  ],\r\n  [\r\n    'xboxDisplayName',\r\n    {\r\n      label: 'XBox Name',\r\n      comparator: (a, b) =>\r\n        a.bungieInfo?.xboxDisplayName?.toLowerCase() <\r\n        b.bungieInfo?.xboxDisplayName?.toLowerCase()\r\n          ? -1\r\n          : 1\r\n    }\r\n  ],\r\n  [\r\n    'steamDisplayName',\r\n    {\r\n      label: 'Steam Name',\r\n      comparator: (a, b) =>\r\n        a.bungieInfo?.steamDisplayName?.toLowerCase() <\r\n        b.bungieInfo?.steamDisplayName?.toLowerCase()\r\n          ? -1\r\n          : 1\r\n    }\r\n  ],\r\n\r\n  [\r\n    'twitchDisplayName',\r\n    {\r\n      label: 'Twitch Name',\r\n      comparator: (a, b) =>\r\n        a.bungieInfo?.twitchDisplayName?.toLowerCase() <\r\n        b.bungieInfo?.twitchDisplayName?.toLowerCase()\r\n          ? -1\r\n          : 1\r\n    }\r\n  ],\r\n\r\n  // ----\r\n  [\r\n    'powerLevel',\r\n    {\r\n      label: 'Power Level',\r\n      comparator: (a, b) =>\r\n        a.profile?.profileProgression?.data?.seasonalArtifact?.powerBonus <\r\n        b.profile?.profileProgression?.data?.seasonalArtifact?.powerBonus\r\n          ? -1\r\n          : 1\r\n    }\r\n  ],\r\n  [\r\n    'activeTriumph',\r\n    {\r\n      label: 'Active Triumph',\r\n      comparator: (a, b) =>\r\n        a.profile?.profileRecords?.data?.activeScore < b.profile?.profileRecords?.data?.activeScore ? -1 : 1\r\n    }\r\n  ],\r\n  [\r\n    'lifetimeTriumph',\r\n    {\r\n      label: 'Lifetime Triumph',\r\n      comparator: (a, b) =>\r\n        a.profile?.profileRecords?.data?.lifetimeScore < b.profile?.profileRecords?.data?.lifetimeScore ? -1 : 1\r\n    }\r\n  ],\r\n  [\r\n    'clanName',\r\n    {\r\n      label: 'Clan Name',\r\n      comparator: (a, b) => (a.clan.clanName < b.clan.clanName ? -1 : 1)\r\n    }\r\n  ],\r\n\r\n  [\r\n    'joinDate',\r\n    {\r\n      label: 'Join Date',\r\n      comparator: (a, b) => (new Date(a.member?.joinDate) < new Date(b.member?.joinDate) ? -1 : 1)\r\n    }\r\n  ],\r\n  [\r\n    'dateLastPlayed',\r\n    {\r\n      label: 'Date Last Played',\r\n      comparator: (a, b) =>\r\n        new Date(a.profile?.profile.data.dateLastPlayed) < new Date(b.profile?.profile.data.dateLastPlayed) ? -1 : 1\r\n    }\r\n  ]\r\n])"
+                "defaultValue": "new Map<string, SorterMetadata<ClanRosterItem>>([\r\n  //   [\r\n  //     'id',\r\n  //     {\r\n  //       label: 'ID',\r\n  //       comparator: (a, b) => (a.id < b.id ? -1 : 1)\r\n  //     }\r\n  //   ],\r\n  [\r\n    'destinyDisplayName',\r\n    {\r\n      label: 'Destiny Display Name',\r\n      comparator: (a, b) =>\r\n        a.member?.destinyUserInfo?.displayName?.toLowerCase() < b.member?.destinyUserInfo?.displayName?.toLowerCase()\r\n          ? -1\r\n          : 1\r\n    }\r\n  ],\r\n  [\r\n    'bungieDisplayName',\r\n    {\r\n      label: 'Bungie Display Name',\r\n      comparator: (a, b) =>\r\n        a.member?.bungieNetUserInfo?.displayName?.toLowerCase() <\r\n        b.member?.bungieNetUserInfo?.displayName?.toLowerCase()\r\n          ? -1\r\n          : 1\r\n    }\r\n  ],\r\n  [\r\n    'platform',\r\n    {\r\n      label: 'Platform',\r\n      comparator: (a, b) => (a.member?.destinyUserInfo?.membershipType < b.member?.destinyUserInfo?.membershipType ? -1 : 1)\r\n    }\r\n  ],\r\n  [\r\n    'bungieUnique',\r\n    {\r\n      label: 'Bungie Unique Name',\r\n      comparator: (a, b) =>\r\n        a.bungieInfo?.uniqueName?.toLowerCase() <\r\n        b.bungieInfo?.uniqueName?.toLowerCase()\r\n          ? -1\r\n          : 1\r\n    }\r\n  ],\r\n  // ----\r\n  [\r\n    'psnDisplayName',\r\n    {\r\n      label: 'PSN Name',\r\n      comparator: (a, b) =>\r\n        a.bungieInfo?.psnDisplayName?.toLowerCase() <\r\n        b.bungieInfo?.psnDisplayName?.toLowerCase()\r\n          ? -1\r\n          : 1\r\n    }\r\n  ],\r\n  [\r\n    'xboxDisplayName',\r\n    {\r\n      label: 'XBox Name',\r\n      comparator: (a, b) =>\r\n        a.bungieInfo?.xboxDisplayName?.toLowerCase() <\r\n        b.bungieInfo?.xboxDisplayName?.toLowerCase()\r\n          ? -1\r\n          : 1\r\n    }\r\n  ],\r\n  [\r\n    'steamDisplayName',\r\n    {\r\n      label: 'Steam Name',\r\n      comparator: (a, b) =>\r\n        a.bungieInfo?.steamDisplayName?.toLowerCase() <\r\n        b.bungieInfo?.steamDisplayName?.toLowerCase()\r\n          ? -1\r\n          : 1\r\n    }\r\n  ],\r\n\r\n  [\r\n    'twitchDisplayName',\r\n    {\r\n      label: 'Twitch Name',\r\n      comparator: (a, b) =>\r\n        a.bungieInfo?.twitchDisplayName?.toLowerCase() <\r\n        b.bungieInfo?.twitchDisplayName?.toLowerCase()\r\n          ? -1\r\n          : 1\r\n    }\r\n  ],\r\n\r\n  // ----\r\n  [\r\n    'powerLevel',\r\n    {\r\n      label: 'Power Level',\r\n      comparator: (a, b) =>\r\n        a.profile?.profileProgression?.data?.seasonalArtifact?.powerBonus <\r\n        b.profile?.profileProgression?.data?.seasonalArtifact?.powerBonus\r\n          ? -1\r\n          : 1\r\n    }\r\n  ],\r\n  [\r\n    'rank',\r\n    {\r\n      label: 'Guardian Rank',\r\n      comparator: (a, b) =>\r\n        a.profile?.profile?.data?.currentGuardianRank < b.profile?.profile?.data?.currentGuardianRank ? -1 : 1\r\n    }\r\n  ],\r\n  [\r\n    'lifetimeRank',\r\n    {\r\n      label: 'Lifetime Guardian Rank',\r\n      comparator: (a, b) =>\r\n        a.profile?.profile?.data?.lifetimeHighestGuardianRank < b.profile?.profile?.data?.lifetimeHighestGuardianRank ? -1 : 1\r\n    }\r\n  ],\r\n  [\r\n    'activeTriumph',\r\n    {\r\n      label: 'Active Triumph',\r\n      comparator: (a, b) =>\r\n        a.profile?.profileRecords?.data?.activeScore < b.profile?.profileRecords?.data?.activeScore ? -1 : 1\r\n    }\r\n  ],\r\n  [\r\n    'lifetimeTriumph',\r\n    {\r\n      label: 'Lifetime Triumph',\r\n      comparator: (a, b) =>\r\n        a.profile?.profileRecords?.data?.lifetimeScore < b.profile?.profileRecords?.data?.lifetimeScore ? -1 : 1\r\n    }\r\n  ],\r\n  [\r\n    'clanName',\r\n    {\r\n      label: 'Clan Name',\r\n      comparator: (a, b) => (a.clan.clanName < b.clan.clanName ? -1 : 1)\r\n    }\r\n  ],\r\n\r\n  [\r\n    'joinDate',\r\n    {\r\n      label: 'Join Date',\r\n      comparator: (a, b) => (new Date(a.member?.joinDate) < new Date(b.member?.joinDate) ? -1 : 1)\r\n    }\r\n  ],\r\n  [\r\n    'dateLastPlayed',\r\n    {\r\n      label: 'Date Last Played',\r\n      comparator: (a, b) =>\r\n        new Date(a.profile?.profile.data.dateLastPlayed) < new Date(b.profile?.profile.data.dateLastPlayed) ? -1 : 1\r\n    }\r\n  ]\r\n])"
             },
             {
                 "name": "CLAN_ROSTER_VIEWER_METADATA",
@@ -27175,7 +27241,7 @@
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "",
-                "defaultValue": "new Map<string, ViewerMetadata<ClanRosterItem, ViewContext>>([\r\n  [\r\n    'platform',\r\n    {\r\n      label: 'Platform',\r\n      //  labelClass: 'text-header-center',\r\n      plainText: (item: ClanRosterItem) => `${getMembershipType(item.member.destinyUserInfo.membershipType)}`,\r\n      render: (item: ClanRosterItem) => ({\r\n        //        styles: {},\r\n        classList: ['text-center'],\r\n        component: MemberTypeComponent,\r\n        data: { type: item.member?.destinyUserInfo?.membershipType || 0 }\r\n        //text: `${item.member.destinyUserInfo.membershipType}`\r\n      })\r\n    }\r\n  ],\r\n  [\r\n    'destinyDisplayName',\r\n    {\r\n      label: 'Destiny Display Name',\r\n      labelClass: '',\r\n      isSticky: true,\r\n      plainText: (item: ClanRosterItem) => `${item.member?.destinyUserInfo?.displayName || ''}`,\r\n      render: (item: ClanRosterItem) => ({\r\n        text: `${item.member?.destinyUserInfo?.displayName || ''}`,\r\n        classList: []\r\n      })\r\n    }\r\n  ],\r\n  [\r\n    'bungieDisplayName',\r\n    {\r\n      label: 'Bungie Display Name',\r\n      labelClass: '',\r\n      plainText: (item: ClanRosterItem) => `${item.member?.bungieNetUserInfo?.displayName || ''}`,\r\n      render: (item: ClanRosterItem) => ({\r\n        text: `${item.member?.bungieNetUserInfo?.displayName || ''}`,\r\n        classList: []\r\n      })\r\n    }\r\n  ],\r\n  [\r\n    'bungieUnique',\r\n    {\r\n      label: 'Bungie Unique Name',\r\n      labelClass: '',\r\n      plainText: (item: ClanRosterItem) => `${item?.bungieInfo?.uniqueName || ''}`,\r\n      // plainText: (item: ClanRosterItem) => ``,\r\n      render: (item: ClanRosterItem) => ({ text: `${item.bungieInfo?.uniqueName || ''}`, classList: [] })\r\n    }\r\n  ],\r\n  [\r\n    'psnName',\r\n    {\r\n      label: 'PSN Name',\r\n      labelClass: '',\r\n      plainText: (item: ClanRosterItem) => `${item?.bungieInfo?.psnDisplayName || ''}`,\r\n      render: (item: ClanRosterItem) => ({ text: `${item.bungieInfo?.psnDisplayName || ''}`, classList: [] })\r\n    }\r\n  ],\r\n  [\r\n    'xboxName',\r\n    {\r\n      label: 'XBox Name',\r\n      labelClass: '',\r\n      plainText: (item: ClanRosterItem) => `${item?.bungieInfo?.xboxDisplayName || ''}`,\r\n      render: (item: ClanRosterItem) => ({ text: `${item.bungieInfo?.xboxDisplayName || ''}`, classList: [] })\r\n    }\r\n  ],\r\n  [\r\n    'steamName',\r\n    {\r\n      label: 'Steam Name',\r\n      labelClass: '',\r\n      plainText: (item: ClanRosterItem) => `${item?.bungieInfo?.steamDisplayName || ''}`,\r\n      render: (item: ClanRosterItem) => ({ text: `${item.bungieInfo?.steamDisplayName || ''}`, classList: [] })\r\n    }\r\n  ],\r\n  [\r\n    'twitchName',\r\n    {\r\n      label: 'Twitch Name',\r\n      labelClass: '',\r\n      plainText: (item: ClanRosterItem) => `${item?.bungieInfo?.twitchDisplayName || ''}`,\r\n      render: (item: ClanRosterItem) => ({\r\n        text: `${item.bungieInfo?.twitchDisplayName || ''}`,\r\n        classList: []\r\n      })\r\n    }\r\n  ],\r\n  [\r\n    'characters',\r\n    {\r\n      label: 'Characters',\r\n      labelClass: 'header-text-center',\r\n      plainText: (item: ClanRosterItem) => ``,\r\n      render: (item: ClanRosterItem) => {\r\n        const characterIds = item.profile?.profile?.data?.characterIds;\r\n        return {\r\n          classList: 'characters-cell',\r\n          children: characterIds?.map((id) => {\r\n            return {\r\n              classList: 'character-cell',\r\n              component: ClassCellComponent,\r\n              data: {\r\n                characterHash: id,\r\n                profile: item.profile\r\n              }\r\n            };\r\n          })\r\n        };\r\n      }\r\n    }\r\n  ],\r\n  [\r\n    'powerLevel',\r\n    {\r\n      label: '+',\r\n      labelClass: 'header-text-center',\r\n      plainText: (item: ClanRosterItem) => `${item.profile?.profileProgression?.data?.seasonalArtifact?.powerBonus}`,\r\n      render: (item: ClanRosterItem) => ({\r\n        classList: 'power-cell',\r\n        text: `${item.profile?.profileProgression?.data?.seasonalArtifact?.powerBonus}`\r\n      })\r\n    }\r\n  ],\r\n  [\r\n    'activeTriumph',\r\n    {\r\n      label: 'Active Triumph',\r\n      labelClass: '',\r\n      plainText: (item: ClanRosterItem) => `${item.profile?.profileRecords?.data?.activeScore}`,\r\n      render: (item: ClanRosterItem) => ({\r\n        classList: ['text-center'],\r\n        text: `${item.profile?.profileRecords?.data?.activeScore}`\r\n      })\r\n    }\r\n  ],\r\n  [\r\n    'lifetimeTriumph',\r\n    {\r\n      label: 'Lifetime Triumph',\r\n      labelClass: '',\r\n      plainText: (item: ClanRosterItem) => `${item.profile?.profileRecords?.data?.lifetimeScore}`,\r\n      render: (item: ClanRosterItem) => ({\r\n        classList: ['text-center'],\r\n        text: `${item.profile?.profileRecords?.data?.lifetimeScore}`\r\n      })\r\n    }\r\n  ],\r\n  [\r\n    'clan',\r\n    {\r\n      label: 'Clan',\r\n      labelClass: '',\r\n      plainText: (item: ClanRosterItem) => `${item.clan.clanName}`,\r\n      render: (item: ClanRosterItem, context: ViewContext) => {\r\n        return {\r\n          text: `${item.clan.clanName}`,\r\n          classList: []\r\n        };\r\n      }\r\n    }\r\n  ],\r\n  [\r\n    'bungieProfileCreation',\r\n    {\r\n      label: 'Bungie Join Date',\r\n      labelClass: '',\r\n      plainText: (item: ClanRosterItem, context: ViewContext) =>\r\n        `${context.datePipe.transform(item.bungieInfo?.firstAccess || (new Date() as unknown as Date))}`,\r\n      render: (item: ClanRosterItem, context: ViewContext) => {\r\n        return {\r\n          text: `${context.datePipe.transform(item.bungieInfo?.firstAccess || (new Date() as unknown as Date))}`,\r\n          classList: []\r\n        };\r\n      }\r\n    }\r\n  ],\r\n  [\r\n    'clanJoinDate',\r\n    {\r\n      label: 'Clan Join Date',\r\n      labelClass: '',\r\n      plainText: (item: ClanRosterItem, context: ViewContext) =>\r\n        `${context.datePipe.transform(item.member?.joinDate as unknown as Date)}`,\r\n      render: (item: ClanRosterItem, context: ViewContext) => {\r\n        return {\r\n          text: `${context.datePipe.transform(item.member?.joinDate as unknown as Date)}`,\r\n          classList: []\r\n        };\r\n      }\r\n    }\r\n  ],\r\n  [\r\n    'dateLastPlayed',\r\n    {\r\n      label: 'Last Played',\r\n      labelClass: '',\r\n      plainText: (item: ClanRosterItem, context: ViewContext) =>\r\n        `${context.dateTimePipe.transform(item.profile?.profile.data.dateLastPlayed as unknown as Date)}`,\r\n      render: (item: ClanRosterItem, context: ViewContext) => {\r\n        return {\r\n          text: `${context.dateTimePipe.transform(item.profile?.profile.data.dateLastPlayed as unknown as Date)}`\r\n        };\r\n      }\r\n    }\r\n  ]\r\n\r\n  //['name', { label: 'Name', render: (item) => ({ text: `${item.name}` }) }],\r\n  //['startDate', { label: 'Start Date', render: (item) => ({ text: `${new Date(item.startDate).toDateString()}` }) }]\r\n])"
+                "defaultValue": "new Map<string, ViewerMetadata<ClanRosterItem, ViewContext>>([\r\n  [\r\n    'platform',\r\n    {\r\n      label: 'Platform',\r\n      //  labelClass: 'text-header-center',\r\n      plainText: (item: ClanRosterItem) => `${getMembershipType(item.member.destinyUserInfo.membershipType)}`,\r\n      render: (item: ClanRosterItem) => ({\r\n        //        styles: {},\r\n        classList: ['text-center'],\r\n        component: MemberTypeComponent,\r\n        data: { type: item.member?.destinyUserInfo?.membershipType || 0 }\r\n        //text: `${item.member.destinyUserInfo.membershipType}`\r\n      })\r\n    }\r\n  ],\r\n  [\r\n    'destinyDisplayName',\r\n    {\r\n      label: 'Destiny Display Name',\r\n      labelClass: '',\r\n      isSticky: true,\r\n      plainText: (item: ClanRosterItem) => `${item.member?.destinyUserInfo?.displayName || ''}`,\r\n      render: (item: ClanRosterItem) => ({\r\n        text: `${item.member?.destinyUserInfo?.displayName || ''}`,\r\n        classList: []\r\n      })\r\n    }\r\n  ],\r\n  [\r\n    'bungieDisplayName',\r\n    {\r\n      label: 'Bungie Display Name',\r\n      labelClass: '',\r\n      plainText: (item: ClanRosterItem) => `${item.member?.bungieNetUserInfo?.displayName || ''}`,\r\n      render: (item: ClanRosterItem) => ({\r\n        text: `${item.member?.bungieNetUserInfo?.displayName || ''}`,\r\n        classList: []\r\n      })\r\n    }\r\n  ],\r\n  [\r\n    'bungieUnique',\r\n    {\r\n      label: 'Bungie Unique Name',\r\n      labelClass: '',\r\n      plainText: (item: ClanRosterItem) => `${item?.bungieInfo?.uniqueName || ''}`,\r\n      // plainText: (item: ClanRosterItem) => ``,\r\n      render: (item: ClanRosterItem) => ({ text: `${item.bungieInfo?.uniqueName || ''}`, classList: [] })\r\n    }\r\n  ],\r\n  [\r\n    'psnName',\r\n    {\r\n      label: 'PSN Name',\r\n      labelClass: '',\r\n      plainText: (item: ClanRosterItem) => `${item?.bungieInfo?.psnDisplayName || ''}`,\r\n      render: (item: ClanRosterItem) => ({ text: `${item.bungieInfo?.psnDisplayName || ''}`, classList: [] })\r\n    }\r\n  ],\r\n  [\r\n    'xboxName',\r\n    {\r\n      label: 'XBox Name',\r\n      labelClass: '',\r\n      plainText: (item: ClanRosterItem) => `${item?.bungieInfo?.xboxDisplayName || ''}`,\r\n      render: (item: ClanRosterItem) => ({ text: `${item.bungieInfo?.xboxDisplayName || ''}`, classList: [] })\r\n    }\r\n  ],\r\n  [\r\n    'steamName',\r\n    {\r\n      label: 'Steam Name',\r\n      labelClass: '',\r\n      plainText: (item: ClanRosterItem) => `${item?.bungieInfo?.steamDisplayName || ''}`,\r\n      render: (item: ClanRosterItem) => ({ text: `${item.bungieInfo?.steamDisplayName || ''}`, classList: [] })\r\n    }\r\n  ],\r\n  [\r\n    'twitchName',\r\n    {\r\n      label: 'Twitch Name',\r\n      labelClass: '',\r\n      plainText: (item: ClanRosterItem) => `${item?.bungieInfo?.twitchDisplayName || ''}`,\r\n      render: (item: ClanRosterItem) => ({\r\n        text: `${item.bungieInfo?.twitchDisplayName || ''}`,\r\n        classList: []\r\n      })\r\n    }\r\n  ],\r\n  [\r\n    'characters',\r\n    {\r\n      label: 'Characters',\r\n      labelClass: 'header-text-center',\r\n      plainText: (item: ClanRosterItem) => ``,\r\n      render: (item: ClanRosterItem) => {\r\n        const characterIds = item.profile?.profile?.data?.characterIds;\r\n        return {\r\n          classList: 'characters-cell',\r\n          children: characterIds?.map((id) => {\r\n            return {\r\n              classList: 'character-cell',\r\n              component: ClassCellComponent,\r\n              data: {\r\n                characterHash: id,\r\n                profile: item.profile\r\n              }\r\n            };\r\n          })\r\n        };\r\n      }\r\n    }\r\n  ],\r\n  [\r\n    'powerLevel',\r\n    {\r\n      label: '+',\r\n      labelClass: 'header-text-center',\r\n      plainText: (item: ClanRosterItem) => `${item.profile?.profileProgression?.data?.seasonalArtifact?.powerBonus}`,\r\n      render: (item: ClanRosterItem) => ({\r\n        classList: 'power-cell',\r\n        text: `${item.profile?.profileProgression?.data?.seasonalArtifact?.powerBonus}`\r\n      })\r\n    }\r\n  ],\r\n  [\r\n    'rank',\r\n    {\r\n      label: 'Guardian Rank',\r\n      labelClass: '',\r\n      plainText: (item: ClanRosterItem) => `${item.profile?.profile?.data?.currentGuardianRank}`,\r\n      render: (item: ClanRosterItem) => ({\r\n        classList: ['text-center'],\r\n        text: `${item.profile?.profile?.data?.currentGuardianRank}`\r\n      })\r\n    }\r\n  ],\r\n  [\r\n    'lifetimeRank',\r\n    {\r\n      label: 'Lifetime Guardian Rank',\r\n      labelClass: '',\r\n      plainText: (item: ClanRosterItem) => `${item.profile?.profile?.data?.lifetimeHighestGuardianRank}`,\r\n      render: (item: ClanRosterItem) => ({\r\n        classList: ['text-center'],\r\n        text: `${item.profile?.profile?.data?.lifetimeHighestGuardianRank}`\r\n      })\r\n    }\r\n  ],\r\n  [\r\n    'activeTriumph',\r\n    {\r\n      label: 'Active Triumph',\r\n      labelClass: '',\r\n      plainText: (item: ClanRosterItem) => `${item.profile?.profileRecords?.data?.activeScore}`,\r\n      render: (item: ClanRosterItem) => ({\r\n        classList: ['text-center'],\r\n        text: `${item.profile?.profileRecords?.data?.activeScore}`\r\n      })\r\n    }\r\n  ],\r\n  [\r\n    'lifetimeTriumph',\r\n    {\r\n      label: 'Lifetime Triumph',\r\n      labelClass: '',\r\n      plainText: (item: ClanRosterItem) => `${item.profile?.profileRecords?.data?.lifetimeScore}`,\r\n      render: (item: ClanRosterItem) => ({\r\n        classList: ['text-center'],\r\n        text: `${item.profile?.profileRecords?.data?.lifetimeScore}`\r\n      })\r\n    }\r\n  ],\r\n  [\r\n    'clan',\r\n    {\r\n      label: 'Clan',\r\n      labelClass: '',\r\n      plainText: (item: ClanRosterItem) => `${item.clan.clanName}`,\r\n      render: (item: ClanRosterItem, context: ViewContext) => {\r\n        return {\r\n          text: `${item.clan.clanName}`,\r\n          classList: []\r\n        };\r\n      }\r\n    }\r\n  ],\r\n  [\r\n    'bungieProfileCreation',\r\n    {\r\n      label: 'Bungie Join Date',\r\n      labelClass: '',\r\n      plainText: (item: ClanRosterItem, context: ViewContext) =>\r\n        `${context.datePipe.transform(item.bungieInfo?.firstAccess || (new Date() as unknown as Date))}`,\r\n      render: (item: ClanRosterItem, context: ViewContext) => {\r\n        return {\r\n          text: `${context.datePipe.transform(item.bungieInfo?.firstAccess || (new Date() as unknown as Date))}`,\r\n          classList: []\r\n        };\r\n      }\r\n    }\r\n  ],\r\n  [\r\n    'clanJoinDate',\r\n    {\r\n      label: 'Clan Join Date',\r\n      labelClass: '',\r\n      plainText: (item: ClanRosterItem, context: ViewContext) =>\r\n        `${context.datePipe.transform(item.member?.joinDate as unknown as Date)}`,\r\n      render: (item: ClanRosterItem, context: ViewContext) => {\r\n        return {\r\n          text: `${context.datePipe.transform(item.member?.joinDate as unknown as Date)}`,\r\n          classList: []\r\n        };\r\n      }\r\n    }\r\n  ],\r\n  [\r\n    'dateLastPlayed',\r\n    {\r\n      label: 'Last Played',\r\n      labelClass: '',\r\n      plainText: (item: ClanRosterItem, context: ViewContext) =>\r\n        `${context.dateTimePipe.transform(item.profile?.profile.data.dateLastPlayed as unknown as Date)}`,\r\n      render: (item: ClanRosterItem, context: ViewContext) => {\r\n        return {\r\n          text: `${context.dateTimePipe.transform(item.profile?.profile.data.dateLastPlayed as unknown as Date)}`\r\n        };\r\n      }\r\n    }\r\n  ]\r\n\r\n  //['name', { label: 'Name', render: (item) => ({ text: `${item.name}` }) }],\r\n  //['startDate', { label: 'Start Date', render: (item) => ({ text: `${new Date(item.startDate).toDateString()}` }) }]\r\n])"
             },
             {
                 "name": "ClanConfigAdapter",
@@ -27671,7 +27737,7 @@
                 "name": "Loading",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "projects/clan-dashboard/src/app/features/clan-search/components/clan-search-autocomplete/clan-search-autocomplete.component.stories.ts",
+                "file": "projects/clan-dashboard/src/app/features/clans-details/components/clan-member-card/clan-member-card.component.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "",
@@ -27691,7 +27757,7 @@
                 "name": "Loading",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "projects/clan-dashboard/src/app/features/clans-details/components/clan-member-card/clan-member-card.component.stories.ts",
+                "file": "projects/clan-dashboard/src/app/features/clan-search/components/clan-search-autocomplete/clan-search-autocomplete.component.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "",
@@ -27931,7 +27997,7 @@
                 "name": "name",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "projects/clan-dashboard/src/app/core/store/manifest/manifest.actions.ts",
+                "file": "projects/clan-dashboard/src/app/core/store/clans-members-profiles/clan-members-profiles.actions.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "",
@@ -27941,7 +28007,7 @@
                 "name": "name",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "projects/clan-dashboard/src/app/core/store/clans-members-profiles/clan-members-profiles.actions.ts",
+                "file": "projects/clan-dashboard/src/app/core/store/manifest/manifest.actions.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "",
@@ -28071,7 +28137,7 @@
                 "name": "Primary",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "projects/components/src/lib/shared/display-options/display-options.stories.ts",
+                "file": "projects/components/src/lib/shared/rendered-view/rendered-view.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "",
@@ -28081,7 +28147,7 @@
                 "name": "Primary",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "projects/components/src/lib/shared/rendered-view/rendered-view.stories.ts",
+                "file": "projects/components/src/lib/shared/display-options/display-options.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "",
@@ -28101,7 +28167,7 @@
                 "name": "Primary",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "projects/clan-dashboard/src/app/features/activities/components/activity-card-details/activity-card-details.component.stories.ts",
+                "file": "projects/clan-dashboard/src/app/features/clan-details/components/clan-activity-bar-chart/clan-activity-bar-chart.component.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "",
@@ -28121,7 +28187,17 @@
                 "name": "Primary",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "projects/clan-dashboard/src/app/features/clan-search/components/clan-search-autocomplete/clan-search-autocomplete.component.stories.ts",
+                "file": "projects/clan-dashboard/src/app/features/activities/components/activity-card-details/activity-card-details.component.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "",
+                "defaultValue": "Template.bind({})"
+            },
+            {
+                "name": "Primary",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/clan-dashboard/src/app/features/clans-details/components/clan-member-card/clan-member-card.component.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "",
@@ -28141,7 +28217,7 @@
                 "name": "Primary",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "projects/clan-dashboard/src/app/features/clans-details/components/clan-member-card/clan-member-card.component.stories.ts",
+                "file": "projects/clan-dashboard/src/app/features/clan-search/components/clan-search-autocomplete/clan-search-autocomplete.component.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "",
@@ -28518,6 +28594,16 @@
                 "defaultValue": "[]"
             },
             {
+                "name": "stats",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/clan-dashboard/src/app/features/clan-details/components/clan-activity-bar-chart/clan-activity-bar-chart.component.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "[]",
+                "defaultValue": "[]"
+            },
+            {
                 "name": "stats2",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
@@ -28681,21 +28767,21 @@
                 "name": "Template",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "projects/components/src/lib/shared/display-options/display-options.stories.ts",
-                "deprecated": false,
-                "deprecationMessage": "",
-                "type": "Story<DisplayOptionsComponent>",
-                "defaultValue": "(args: DisplayOptionsComponent) => ({\r\n  props: args\r\n})"
-            },
-            {
-                "name": "Template",
-                "ctype": "miscellaneous",
-                "subtype": "variable",
                 "file": "projects/components/src/lib/shared/rendered-view/rendered-view.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "Story<RenderedViewComponent>",
                 "defaultValue": "(args: RenderedViewComponent) => ({\r\n  props: args\r\n})"
+            },
+            {
+                "name": "Template",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/components/src/lib/shared/display-options/display-options.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Story<DisplayOptionsComponent>",
+                "defaultValue": "(args: DisplayOptionsComponent) => ({\r\n  props: args\r\n})"
             },
             {
                 "name": "Template",
@@ -28711,11 +28797,11 @@
                 "name": "Template",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "projects/clan-dashboard/src/app/features/activities/components/activity-card-details/activity-card-details.component.stories.ts",
+                "file": "projects/clan-dashboard/src/app/features/clan-details/components/clan-activity-bar-chart/clan-activity-bar-chart.component.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
-                "type": "Story<ActivityCardDetailsComponent>",
-                "defaultValue": "(args: ActivityCardDetailsComponent) => ({\r\n  props: args\r\n})"
+                "type": "Story<ClanActivityBarChartComponent>",
+                "defaultValue": "(args: ClanActivityBarChartComponent) => ({\r\n  props: args\r\n})"
             },
             {
                 "name": "Template",
@@ -28731,11 +28817,21 @@
                 "name": "Template",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "projects/clan-dashboard/src/app/features/clan-search/components/clan-search-autocomplete/clan-search-autocomplete.component.stories.ts",
+                "file": "projects/clan-dashboard/src/app/features/activities/components/activity-card-details/activity-card-details.component.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
-                "type": "Story<ClanSearchAutocompleteComponent>",
-                "defaultValue": "(args: ClanSearchAutocompleteComponent) => ({\r\n  props: args\r\n})"
+                "type": "Story<ActivityCardDetailsComponent>",
+                "defaultValue": "(args: ActivityCardDetailsComponent) => ({\r\n  props: args\r\n})"
+            },
+            {
+                "name": "Template",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/clan-dashboard/src/app/features/clans-details/components/clan-member-card/clan-member-card.component.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Story<ClanMemberCardComponent>",
+                "defaultValue": "(args: ClanMemberCardComponent) => ({\r\n  template: `\r\n  <div style=\"height:300px\">\r\n  <app-clan-member-card [cardTitle]=\"cartTitle\" [members]=\"roster\" [isLoading]=\"isLoading\" [itemTemplate]=\"itemTemplate\">\r\n  <ng-template let-member #itemTemplate>\r\n  <div >\r\n  View\r\n  </div>\r\n  </ng-template>\r\n  </app-clan-member-card>\r\n  </div>\r\n `,\r\n  props: args\r\n})"
             },
             {
                 "name": "Template",
@@ -28751,11 +28847,11 @@
                 "name": "Template",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "projects/clan-dashboard/src/app/features/clans-details/components/clan-member-card/clan-member-card.component.stories.ts",
+                "file": "projects/clan-dashboard/src/app/features/clan-search/components/clan-search-autocomplete/clan-search-autocomplete.component.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
-                "type": "Story<ClanMemberCardComponent>",
-                "defaultValue": "(args: ClanMemberCardComponent) => ({\r\n  template: `\r\n  <div style=\"height:300px\">\r\n  <app-clan-member-card [cardTitle]=\"cartTitle\" [members]=\"roster\" [isLoading]=\"isLoading\" [itemTemplate]=\"itemTemplate\">\r\n  <ng-template let-member #itemTemplate>\r\n  <div >\r\n  View\r\n  </div>\r\n  </ng-template>\r\n  </app-clan-member-card>\r\n  </div>\r\n `,\r\n  props: args\r\n})"
+                "type": "Story<ClanSearchAutocompleteComponent>",
+                "defaultValue": "(args: ClanSearchAutocompleteComponent) => ({\r\n  props: args\r\n})"
             },
             {
                 "name": "Template",
@@ -28772,6 +28868,16 @@
                 "ctype": "miscellaneous",
                 "subtype": "variable",
                 "file": "projects/components/src/lib/shared/bar-chart/_MOCK_GRID_ITEMS.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "",
+                "defaultValue": "new Date(new Date().setDate(new Date().getDate() + ((2 + 7 - new Date().getDay()) % 7) - 189))"
+            },
+            {
+                "name": "today",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/clan-dashboard/src/app/features/clan-details/components/clan-activity-bar-chart/clan-activity-bar-chart.component.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "",
@@ -32931,6 +33037,48 @@
                     "defaultValue": "() => ({\r\n  component: IconComponent,\r\n  template: `\r\n    <lib-icons></lib-icons>\r\n   `,\r\n  props: {}\r\n})"
                 }
             ],
+            "projects/clan-dashboard/src/app/core/store/clans-members-profiles/clan-members-profiles.actions.ts": [
+                {
+                    "name": "base",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/clan-dashboard/src/app/core/store/clans-members-profiles/clan-members-profiles.actions.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "string",
+                    "defaultValue": "'[ClansMemberPorfile] - '"
+                },
+                {
+                    "name": "initializeClanMemberProfiles",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/clan-dashboard/src/app/core/store/clans-members-profiles/clan-members-profiles.actions.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "defaultValue": "createAction(name('Initialize ClanMemberProfiles'))"
+                },
+                {
+                    "name": "name",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/clan-dashboard/src/app/core/store/clans-members-profiles/clan-members-profiles.actions.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "defaultValue": "(sr) => `${base}${sr}`"
+                },
+                {
+                    "name": "setClanMemberProfiles",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/clan-dashboard/src/app/core/store/clans-members-profiles/clan-members-profiles.actions.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "defaultValue": "createAction(name('Set ClanMemberProfiles'), props<{ clanMemberProfiles: ClanMemberProfileWID[] }>())"
+                }
+            ],
             "projects/clan-dashboard/src/app/core/store/manifest/manifest.actions.ts": [
                 {
                     "name": "base",
@@ -32981,48 +33129,6 @@
                     "deprecationMessage": "",
                     "type": "",
                     "defaultValue": "(sr) => `${base}${sr}`"
-                }
-            ],
-            "projects/clan-dashboard/src/app/core/store/clans-members-profiles/clan-members-profiles.actions.ts": [
-                {
-                    "name": "base",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "projects/clan-dashboard/src/app/core/store/clans-members-profiles/clan-members-profiles.actions.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "string",
-                    "defaultValue": "'[ClansMemberPorfile] - '"
-                },
-                {
-                    "name": "initializeClanMemberProfiles",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "projects/clan-dashboard/src/app/core/store/clans-members-profiles/clan-members-profiles.actions.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "",
-                    "defaultValue": "createAction(name('Initialize ClanMemberProfiles'))"
-                },
-                {
-                    "name": "name",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "projects/clan-dashboard/src/app/core/store/clans-members-profiles/clan-members-profiles.actions.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "",
-                    "defaultValue": "(sr) => `${base}${sr}`"
-                },
-                {
-                    "name": "setClanMemberProfiles",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "projects/clan-dashboard/src/app/core/store/clans-members-profiles/clan-members-profiles.actions.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "",
-                    "defaultValue": "createAction(name('Set ClanMemberProfiles'), props<{ clanMemberProfiles: ClanMemberProfileWID[] }>())"
                 }
             ],
             "projects/clan-dashboard/src/environments/constants.ts": [
@@ -33134,7 +33240,7 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "",
-                    "defaultValue": "new Map<string, SorterMetadata<ClanRosterItem>>([\r\n  //   [\r\n  //     'id',\r\n  //     {\r\n  //       label: 'ID',\r\n  //       comparator: (a, b) => (a.id < b.id ? -1 : 1)\r\n  //     }\r\n  //   ],\r\n  [\r\n    'destinyDisplayName',\r\n    {\r\n      label: 'Destiny Display Name',\r\n      comparator: (a, b) =>\r\n        a.member?.destinyUserInfo?.displayName?.toLowerCase() < b.member?.destinyUserInfo?.displayName?.toLowerCase()\r\n          ? -1\r\n          : 1\r\n    }\r\n  ],\r\n  [\r\n    'bungieDisplayName',\r\n    {\r\n      label: 'Bungie Display Name',\r\n      comparator: (a, b) =>\r\n        a.member?.bungieNetUserInfo?.displayName?.toLowerCase() <\r\n        b.member?.bungieNetUserInfo?.displayName?.toLowerCase()\r\n          ? -1\r\n          : 1\r\n    }\r\n  ],\r\n  [\r\n    'platform',\r\n    {\r\n      label: 'Platform',\r\n      comparator: (a, b) => (a.member?.destinyUserInfo?.membershipType < b.member?.destinyUserInfo?.membershipType ? -1 : 1)\r\n    }\r\n  ],\r\n  [\r\n    'bungieUnique',\r\n    {\r\n      label: 'Bungie Unique Name',\r\n      comparator: (a, b) =>\r\n        a.bungieInfo?.uniqueName?.toLowerCase() <\r\n        b.bungieInfo?.uniqueName?.toLowerCase()\r\n          ? -1\r\n          : 1\r\n    }\r\n  ],\r\n  // ----\r\n  [\r\n    'psnDisplayName',\r\n    {\r\n      label: 'PSN Name',\r\n      comparator: (a, b) =>\r\n        a.bungieInfo?.psnDisplayName?.toLowerCase() <\r\n        b.bungieInfo?.psnDisplayName?.toLowerCase()\r\n          ? -1\r\n          : 1\r\n    }\r\n  ],\r\n  [\r\n    'xboxDisplayName',\r\n    {\r\n      label: 'XBox Name',\r\n      comparator: (a, b) =>\r\n        a.bungieInfo?.xboxDisplayName?.toLowerCase() <\r\n        b.bungieInfo?.xboxDisplayName?.toLowerCase()\r\n          ? -1\r\n          : 1\r\n    }\r\n  ],\r\n  [\r\n    'steamDisplayName',\r\n    {\r\n      label: 'Steam Name',\r\n      comparator: (a, b) =>\r\n        a.bungieInfo?.steamDisplayName?.toLowerCase() <\r\n        b.bungieInfo?.steamDisplayName?.toLowerCase()\r\n          ? -1\r\n          : 1\r\n    }\r\n  ],\r\n\r\n  [\r\n    'twitchDisplayName',\r\n    {\r\n      label: 'Twitch Name',\r\n      comparator: (a, b) =>\r\n        a.bungieInfo?.twitchDisplayName?.toLowerCase() <\r\n        b.bungieInfo?.twitchDisplayName?.toLowerCase()\r\n          ? -1\r\n          : 1\r\n    }\r\n  ],\r\n\r\n  // ----\r\n  [\r\n    'powerLevel',\r\n    {\r\n      label: 'Power Level',\r\n      comparator: (a, b) =>\r\n        a.profile?.profileProgression?.data?.seasonalArtifact?.powerBonus <\r\n        b.profile?.profileProgression?.data?.seasonalArtifact?.powerBonus\r\n          ? -1\r\n          : 1\r\n    }\r\n  ],\r\n  [\r\n    'activeTriumph',\r\n    {\r\n      label: 'Active Triumph',\r\n      comparator: (a, b) =>\r\n        a.profile?.profileRecords?.data?.activeScore < b.profile?.profileRecords?.data?.activeScore ? -1 : 1\r\n    }\r\n  ],\r\n  [\r\n    'lifetimeTriumph',\r\n    {\r\n      label: 'Lifetime Triumph',\r\n      comparator: (a, b) =>\r\n        a.profile?.profileRecords?.data?.lifetimeScore < b.profile?.profileRecords?.data?.lifetimeScore ? -1 : 1\r\n    }\r\n  ],\r\n  [\r\n    'clanName',\r\n    {\r\n      label: 'Clan Name',\r\n      comparator: (a, b) => (a.clan.clanName < b.clan.clanName ? -1 : 1)\r\n    }\r\n  ],\r\n\r\n  [\r\n    'joinDate',\r\n    {\r\n      label: 'Join Date',\r\n      comparator: (a, b) => (new Date(a.member?.joinDate) < new Date(b.member?.joinDate) ? -1 : 1)\r\n    }\r\n  ],\r\n  [\r\n    'dateLastPlayed',\r\n    {\r\n      label: 'Date Last Played',\r\n      comparator: (a, b) =>\r\n        new Date(a.profile?.profile.data.dateLastPlayed) < new Date(b.profile?.profile.data.dateLastPlayed) ? -1 : 1\r\n    }\r\n  ]\r\n])"
+                    "defaultValue": "new Map<string, SorterMetadata<ClanRosterItem>>([\r\n  //   [\r\n  //     'id',\r\n  //     {\r\n  //       label: 'ID',\r\n  //       comparator: (a, b) => (a.id < b.id ? -1 : 1)\r\n  //     }\r\n  //   ],\r\n  [\r\n    'destinyDisplayName',\r\n    {\r\n      label: 'Destiny Display Name',\r\n      comparator: (a, b) =>\r\n        a.member?.destinyUserInfo?.displayName?.toLowerCase() < b.member?.destinyUserInfo?.displayName?.toLowerCase()\r\n          ? -1\r\n          : 1\r\n    }\r\n  ],\r\n  [\r\n    'bungieDisplayName',\r\n    {\r\n      label: 'Bungie Display Name',\r\n      comparator: (a, b) =>\r\n        a.member?.bungieNetUserInfo?.displayName?.toLowerCase() <\r\n        b.member?.bungieNetUserInfo?.displayName?.toLowerCase()\r\n          ? -1\r\n          : 1\r\n    }\r\n  ],\r\n  [\r\n    'platform',\r\n    {\r\n      label: 'Platform',\r\n      comparator: (a, b) => (a.member?.destinyUserInfo?.membershipType < b.member?.destinyUserInfo?.membershipType ? -1 : 1)\r\n    }\r\n  ],\r\n  [\r\n    'bungieUnique',\r\n    {\r\n      label: 'Bungie Unique Name',\r\n      comparator: (a, b) =>\r\n        a.bungieInfo?.uniqueName?.toLowerCase() <\r\n        b.bungieInfo?.uniqueName?.toLowerCase()\r\n          ? -1\r\n          : 1\r\n    }\r\n  ],\r\n  // ----\r\n  [\r\n    'psnDisplayName',\r\n    {\r\n      label: 'PSN Name',\r\n      comparator: (a, b) =>\r\n        a.bungieInfo?.psnDisplayName?.toLowerCase() <\r\n        b.bungieInfo?.psnDisplayName?.toLowerCase()\r\n          ? -1\r\n          : 1\r\n    }\r\n  ],\r\n  [\r\n    'xboxDisplayName',\r\n    {\r\n      label: 'XBox Name',\r\n      comparator: (a, b) =>\r\n        a.bungieInfo?.xboxDisplayName?.toLowerCase() <\r\n        b.bungieInfo?.xboxDisplayName?.toLowerCase()\r\n          ? -1\r\n          : 1\r\n    }\r\n  ],\r\n  [\r\n    'steamDisplayName',\r\n    {\r\n      label: 'Steam Name',\r\n      comparator: (a, b) =>\r\n        a.bungieInfo?.steamDisplayName?.toLowerCase() <\r\n        b.bungieInfo?.steamDisplayName?.toLowerCase()\r\n          ? -1\r\n          : 1\r\n    }\r\n  ],\r\n\r\n  [\r\n    'twitchDisplayName',\r\n    {\r\n      label: 'Twitch Name',\r\n      comparator: (a, b) =>\r\n        a.bungieInfo?.twitchDisplayName?.toLowerCase() <\r\n        b.bungieInfo?.twitchDisplayName?.toLowerCase()\r\n          ? -1\r\n          : 1\r\n    }\r\n  ],\r\n\r\n  // ----\r\n  [\r\n    'powerLevel',\r\n    {\r\n      label: 'Power Level',\r\n      comparator: (a, b) =>\r\n        a.profile?.profileProgression?.data?.seasonalArtifact?.powerBonus <\r\n        b.profile?.profileProgression?.data?.seasonalArtifact?.powerBonus\r\n          ? -1\r\n          : 1\r\n    }\r\n  ],\r\n  [\r\n    'rank',\r\n    {\r\n      label: 'Guardian Rank',\r\n      comparator: (a, b) =>\r\n        a.profile?.profile?.data?.currentGuardianRank < b.profile?.profile?.data?.currentGuardianRank ? -1 : 1\r\n    }\r\n  ],\r\n  [\r\n    'lifetimeRank',\r\n    {\r\n      label: 'Lifetime Guardian Rank',\r\n      comparator: (a, b) =>\r\n        a.profile?.profile?.data?.lifetimeHighestGuardianRank < b.profile?.profile?.data?.lifetimeHighestGuardianRank ? -1 : 1\r\n    }\r\n  ],\r\n  [\r\n    'activeTriumph',\r\n    {\r\n      label: 'Active Triumph',\r\n      comparator: (a, b) =>\r\n        a.profile?.profileRecords?.data?.activeScore < b.profile?.profileRecords?.data?.activeScore ? -1 : 1\r\n    }\r\n  ],\r\n  [\r\n    'lifetimeTriumph',\r\n    {\r\n      label: 'Lifetime Triumph',\r\n      comparator: (a, b) =>\r\n        a.profile?.profileRecords?.data?.lifetimeScore < b.profile?.profileRecords?.data?.lifetimeScore ? -1 : 1\r\n    }\r\n  ],\r\n  [\r\n    'clanName',\r\n    {\r\n      label: 'Clan Name',\r\n      comparator: (a, b) => (a.clan.clanName < b.clan.clanName ? -1 : 1)\r\n    }\r\n  ],\r\n\r\n  [\r\n    'joinDate',\r\n    {\r\n      label: 'Join Date',\r\n      comparator: (a, b) => (new Date(a.member?.joinDate) < new Date(b.member?.joinDate) ? -1 : 1)\r\n    }\r\n  ],\r\n  [\r\n    'dateLastPlayed',\r\n    {\r\n      label: 'Date Last Played',\r\n      comparator: (a, b) =>\r\n        new Date(a.profile?.profile.data.dateLastPlayed) < new Date(b.profile?.profile.data.dateLastPlayed) ? -1 : 1\r\n    }\r\n  ]\r\n])"
                 }
             ],
             "projects/clan-dashboard/src/app/features/clans-roster/clans-roster-list/clan-roster-metadata/ClanRosterViewer.ts": [
@@ -33146,7 +33252,7 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "",
-                    "defaultValue": "new Map<string, ViewerMetadata<ClanRosterItem, ViewContext>>([\r\n  [\r\n    'platform',\r\n    {\r\n      label: 'Platform',\r\n      //  labelClass: 'text-header-center',\r\n      plainText: (item: ClanRosterItem) => `${getMembershipType(item.member.destinyUserInfo.membershipType)}`,\r\n      render: (item: ClanRosterItem) => ({\r\n        //        styles: {},\r\n        classList: ['text-center'],\r\n        component: MemberTypeComponent,\r\n        data: { type: item.member?.destinyUserInfo?.membershipType || 0 }\r\n        //text: `${item.member.destinyUserInfo.membershipType}`\r\n      })\r\n    }\r\n  ],\r\n  [\r\n    'destinyDisplayName',\r\n    {\r\n      label: 'Destiny Display Name',\r\n      labelClass: '',\r\n      isSticky: true,\r\n      plainText: (item: ClanRosterItem) => `${item.member?.destinyUserInfo?.displayName || ''}`,\r\n      render: (item: ClanRosterItem) => ({\r\n        text: `${item.member?.destinyUserInfo?.displayName || ''}`,\r\n        classList: []\r\n      })\r\n    }\r\n  ],\r\n  [\r\n    'bungieDisplayName',\r\n    {\r\n      label: 'Bungie Display Name',\r\n      labelClass: '',\r\n      plainText: (item: ClanRosterItem) => `${item.member?.bungieNetUserInfo?.displayName || ''}`,\r\n      render: (item: ClanRosterItem) => ({\r\n        text: `${item.member?.bungieNetUserInfo?.displayName || ''}`,\r\n        classList: []\r\n      })\r\n    }\r\n  ],\r\n  [\r\n    'bungieUnique',\r\n    {\r\n      label: 'Bungie Unique Name',\r\n      labelClass: '',\r\n      plainText: (item: ClanRosterItem) => `${item?.bungieInfo?.uniqueName || ''}`,\r\n      // plainText: (item: ClanRosterItem) => ``,\r\n      render: (item: ClanRosterItem) => ({ text: `${item.bungieInfo?.uniqueName || ''}`, classList: [] })\r\n    }\r\n  ],\r\n  [\r\n    'psnName',\r\n    {\r\n      label: 'PSN Name',\r\n      labelClass: '',\r\n      plainText: (item: ClanRosterItem) => `${item?.bungieInfo?.psnDisplayName || ''}`,\r\n      render: (item: ClanRosterItem) => ({ text: `${item.bungieInfo?.psnDisplayName || ''}`, classList: [] })\r\n    }\r\n  ],\r\n  [\r\n    'xboxName',\r\n    {\r\n      label: 'XBox Name',\r\n      labelClass: '',\r\n      plainText: (item: ClanRosterItem) => `${item?.bungieInfo?.xboxDisplayName || ''}`,\r\n      render: (item: ClanRosterItem) => ({ text: `${item.bungieInfo?.xboxDisplayName || ''}`, classList: [] })\r\n    }\r\n  ],\r\n  [\r\n    'steamName',\r\n    {\r\n      label: 'Steam Name',\r\n      labelClass: '',\r\n      plainText: (item: ClanRosterItem) => `${item?.bungieInfo?.steamDisplayName || ''}`,\r\n      render: (item: ClanRosterItem) => ({ text: `${item.bungieInfo?.steamDisplayName || ''}`, classList: [] })\r\n    }\r\n  ],\r\n  [\r\n    'twitchName',\r\n    {\r\n      label: 'Twitch Name',\r\n      labelClass: '',\r\n      plainText: (item: ClanRosterItem) => `${item?.bungieInfo?.twitchDisplayName || ''}`,\r\n      render: (item: ClanRosterItem) => ({\r\n        text: `${item.bungieInfo?.twitchDisplayName || ''}`,\r\n        classList: []\r\n      })\r\n    }\r\n  ],\r\n  [\r\n    'characters',\r\n    {\r\n      label: 'Characters',\r\n      labelClass: 'header-text-center',\r\n      plainText: (item: ClanRosterItem) => ``,\r\n      render: (item: ClanRosterItem) => {\r\n        const characterIds = item.profile?.profile?.data?.characterIds;\r\n        return {\r\n          classList: 'characters-cell',\r\n          children: characterIds?.map((id) => {\r\n            return {\r\n              classList: 'character-cell',\r\n              component: ClassCellComponent,\r\n              data: {\r\n                characterHash: id,\r\n                profile: item.profile\r\n              }\r\n            };\r\n          })\r\n        };\r\n      }\r\n    }\r\n  ],\r\n  [\r\n    'powerLevel',\r\n    {\r\n      label: '+',\r\n      labelClass: 'header-text-center',\r\n      plainText: (item: ClanRosterItem) => `${item.profile?.profileProgression?.data?.seasonalArtifact?.powerBonus}`,\r\n      render: (item: ClanRosterItem) => ({\r\n        classList: 'power-cell',\r\n        text: `${item.profile?.profileProgression?.data?.seasonalArtifact?.powerBonus}`\r\n      })\r\n    }\r\n  ],\r\n  [\r\n    'activeTriumph',\r\n    {\r\n      label: 'Active Triumph',\r\n      labelClass: '',\r\n      plainText: (item: ClanRosterItem) => `${item.profile?.profileRecords?.data?.activeScore}`,\r\n      render: (item: ClanRosterItem) => ({\r\n        classList: ['text-center'],\r\n        text: `${item.profile?.profileRecords?.data?.activeScore}`\r\n      })\r\n    }\r\n  ],\r\n  [\r\n    'lifetimeTriumph',\r\n    {\r\n      label: 'Lifetime Triumph',\r\n      labelClass: '',\r\n      plainText: (item: ClanRosterItem) => `${item.profile?.profileRecords?.data?.lifetimeScore}`,\r\n      render: (item: ClanRosterItem) => ({\r\n        classList: ['text-center'],\r\n        text: `${item.profile?.profileRecords?.data?.lifetimeScore}`\r\n      })\r\n    }\r\n  ],\r\n  [\r\n    'clan',\r\n    {\r\n      label: 'Clan',\r\n      labelClass: '',\r\n      plainText: (item: ClanRosterItem) => `${item.clan.clanName}`,\r\n      render: (item: ClanRosterItem, context: ViewContext) => {\r\n        return {\r\n          text: `${item.clan.clanName}`,\r\n          classList: []\r\n        };\r\n      }\r\n    }\r\n  ],\r\n  [\r\n    'bungieProfileCreation',\r\n    {\r\n      label: 'Bungie Join Date',\r\n      labelClass: '',\r\n      plainText: (item: ClanRosterItem, context: ViewContext) =>\r\n        `${context.datePipe.transform(item.bungieInfo?.firstAccess || (new Date() as unknown as Date))}`,\r\n      render: (item: ClanRosterItem, context: ViewContext) => {\r\n        return {\r\n          text: `${context.datePipe.transform(item.bungieInfo?.firstAccess || (new Date() as unknown as Date))}`,\r\n          classList: []\r\n        };\r\n      }\r\n    }\r\n  ],\r\n  [\r\n    'clanJoinDate',\r\n    {\r\n      label: 'Clan Join Date',\r\n      labelClass: '',\r\n      plainText: (item: ClanRosterItem, context: ViewContext) =>\r\n        `${context.datePipe.transform(item.member?.joinDate as unknown as Date)}`,\r\n      render: (item: ClanRosterItem, context: ViewContext) => {\r\n        return {\r\n          text: `${context.datePipe.transform(item.member?.joinDate as unknown as Date)}`,\r\n          classList: []\r\n        };\r\n      }\r\n    }\r\n  ],\r\n  [\r\n    'dateLastPlayed',\r\n    {\r\n      label: 'Last Played',\r\n      labelClass: '',\r\n      plainText: (item: ClanRosterItem, context: ViewContext) =>\r\n        `${context.dateTimePipe.transform(item.profile?.profile.data.dateLastPlayed as unknown as Date)}`,\r\n      render: (item: ClanRosterItem, context: ViewContext) => {\r\n        return {\r\n          text: `${context.dateTimePipe.transform(item.profile?.profile.data.dateLastPlayed as unknown as Date)}`\r\n        };\r\n      }\r\n    }\r\n  ]\r\n\r\n  //['name', { label: 'Name', render: (item) => ({ text: `${item.name}` }) }],\r\n  //['startDate', { label: 'Start Date', render: (item) => ({ text: `${new Date(item.startDate).toDateString()}` }) }]\r\n])"
+                    "defaultValue": "new Map<string, ViewerMetadata<ClanRosterItem, ViewContext>>([\r\n  [\r\n    'platform',\r\n    {\r\n      label: 'Platform',\r\n      //  labelClass: 'text-header-center',\r\n      plainText: (item: ClanRosterItem) => `${getMembershipType(item.member.destinyUserInfo.membershipType)}`,\r\n      render: (item: ClanRosterItem) => ({\r\n        //        styles: {},\r\n        classList: ['text-center'],\r\n        component: MemberTypeComponent,\r\n        data: { type: item.member?.destinyUserInfo?.membershipType || 0 }\r\n        //text: `${item.member.destinyUserInfo.membershipType}`\r\n      })\r\n    }\r\n  ],\r\n  [\r\n    'destinyDisplayName',\r\n    {\r\n      label: 'Destiny Display Name',\r\n      labelClass: '',\r\n      isSticky: true,\r\n      plainText: (item: ClanRosterItem) => `${item.member?.destinyUserInfo?.displayName || ''}`,\r\n      render: (item: ClanRosterItem) => ({\r\n        text: `${item.member?.destinyUserInfo?.displayName || ''}`,\r\n        classList: []\r\n      })\r\n    }\r\n  ],\r\n  [\r\n    'bungieDisplayName',\r\n    {\r\n      label: 'Bungie Display Name',\r\n      labelClass: '',\r\n      plainText: (item: ClanRosterItem) => `${item.member?.bungieNetUserInfo?.displayName || ''}`,\r\n      render: (item: ClanRosterItem) => ({\r\n        text: `${item.member?.bungieNetUserInfo?.displayName || ''}`,\r\n        classList: []\r\n      })\r\n    }\r\n  ],\r\n  [\r\n    'bungieUnique',\r\n    {\r\n      label: 'Bungie Unique Name',\r\n      labelClass: '',\r\n      plainText: (item: ClanRosterItem) => `${item?.bungieInfo?.uniqueName || ''}`,\r\n      // plainText: (item: ClanRosterItem) => ``,\r\n      render: (item: ClanRosterItem) => ({ text: `${item.bungieInfo?.uniqueName || ''}`, classList: [] })\r\n    }\r\n  ],\r\n  [\r\n    'psnName',\r\n    {\r\n      label: 'PSN Name',\r\n      labelClass: '',\r\n      plainText: (item: ClanRosterItem) => `${item?.bungieInfo?.psnDisplayName || ''}`,\r\n      render: (item: ClanRosterItem) => ({ text: `${item.bungieInfo?.psnDisplayName || ''}`, classList: [] })\r\n    }\r\n  ],\r\n  [\r\n    'xboxName',\r\n    {\r\n      label: 'XBox Name',\r\n      labelClass: '',\r\n      plainText: (item: ClanRosterItem) => `${item?.bungieInfo?.xboxDisplayName || ''}`,\r\n      render: (item: ClanRosterItem) => ({ text: `${item.bungieInfo?.xboxDisplayName || ''}`, classList: [] })\r\n    }\r\n  ],\r\n  [\r\n    'steamName',\r\n    {\r\n      label: 'Steam Name',\r\n      labelClass: '',\r\n      plainText: (item: ClanRosterItem) => `${item?.bungieInfo?.steamDisplayName || ''}`,\r\n      render: (item: ClanRosterItem) => ({ text: `${item.bungieInfo?.steamDisplayName || ''}`, classList: [] })\r\n    }\r\n  ],\r\n  [\r\n    'twitchName',\r\n    {\r\n      label: 'Twitch Name',\r\n      labelClass: '',\r\n      plainText: (item: ClanRosterItem) => `${item?.bungieInfo?.twitchDisplayName || ''}`,\r\n      render: (item: ClanRosterItem) => ({\r\n        text: `${item.bungieInfo?.twitchDisplayName || ''}`,\r\n        classList: []\r\n      })\r\n    }\r\n  ],\r\n  [\r\n    'characters',\r\n    {\r\n      label: 'Characters',\r\n      labelClass: 'header-text-center',\r\n      plainText: (item: ClanRosterItem) => ``,\r\n      render: (item: ClanRosterItem) => {\r\n        const characterIds = item.profile?.profile?.data?.characterIds;\r\n        return {\r\n          classList: 'characters-cell',\r\n          children: characterIds?.map((id) => {\r\n            return {\r\n              classList: 'character-cell',\r\n              component: ClassCellComponent,\r\n              data: {\r\n                characterHash: id,\r\n                profile: item.profile\r\n              }\r\n            };\r\n          })\r\n        };\r\n      }\r\n    }\r\n  ],\r\n  [\r\n    'powerLevel',\r\n    {\r\n      label: '+',\r\n      labelClass: 'header-text-center',\r\n      plainText: (item: ClanRosterItem) => `${item.profile?.profileProgression?.data?.seasonalArtifact?.powerBonus}`,\r\n      render: (item: ClanRosterItem) => ({\r\n        classList: 'power-cell',\r\n        text: `${item.profile?.profileProgression?.data?.seasonalArtifact?.powerBonus}`\r\n      })\r\n    }\r\n  ],\r\n  [\r\n    'rank',\r\n    {\r\n      label: 'Guardian Rank',\r\n      labelClass: '',\r\n      plainText: (item: ClanRosterItem) => `${item.profile?.profile?.data?.currentGuardianRank}`,\r\n      render: (item: ClanRosterItem) => ({\r\n        classList: ['text-center'],\r\n        text: `${item.profile?.profile?.data?.currentGuardianRank}`\r\n      })\r\n    }\r\n  ],\r\n  [\r\n    'lifetimeRank',\r\n    {\r\n      label: 'Lifetime Guardian Rank',\r\n      labelClass: '',\r\n      plainText: (item: ClanRosterItem) => `${item.profile?.profile?.data?.lifetimeHighestGuardianRank}`,\r\n      render: (item: ClanRosterItem) => ({\r\n        classList: ['text-center'],\r\n        text: `${item.profile?.profile?.data?.lifetimeHighestGuardianRank}`\r\n      })\r\n    }\r\n  ],\r\n  [\r\n    'activeTriumph',\r\n    {\r\n      label: 'Active Triumph',\r\n      labelClass: '',\r\n      plainText: (item: ClanRosterItem) => `${item.profile?.profileRecords?.data?.activeScore}`,\r\n      render: (item: ClanRosterItem) => ({\r\n        classList: ['text-center'],\r\n        text: `${item.profile?.profileRecords?.data?.activeScore}`\r\n      })\r\n    }\r\n  ],\r\n  [\r\n    'lifetimeTriumph',\r\n    {\r\n      label: 'Lifetime Triumph',\r\n      labelClass: '',\r\n      plainText: (item: ClanRosterItem) => `${item.profile?.profileRecords?.data?.lifetimeScore}`,\r\n      render: (item: ClanRosterItem) => ({\r\n        classList: ['text-center'],\r\n        text: `${item.profile?.profileRecords?.data?.lifetimeScore}`\r\n      })\r\n    }\r\n  ],\r\n  [\r\n    'clan',\r\n    {\r\n      label: 'Clan',\r\n      labelClass: '',\r\n      plainText: (item: ClanRosterItem) => `${item.clan.clanName}`,\r\n      render: (item: ClanRosterItem, context: ViewContext) => {\r\n        return {\r\n          text: `${item.clan.clanName}`,\r\n          classList: []\r\n        };\r\n      }\r\n    }\r\n  ],\r\n  [\r\n    'bungieProfileCreation',\r\n    {\r\n      label: 'Bungie Join Date',\r\n      labelClass: '',\r\n      plainText: (item: ClanRosterItem, context: ViewContext) =>\r\n        `${context.datePipe.transform(item.bungieInfo?.firstAccess || (new Date() as unknown as Date))}`,\r\n      render: (item: ClanRosterItem, context: ViewContext) => {\r\n        return {\r\n          text: `${context.datePipe.transform(item.bungieInfo?.firstAccess || (new Date() as unknown as Date))}`,\r\n          classList: []\r\n        };\r\n      }\r\n    }\r\n  ],\r\n  [\r\n    'clanJoinDate',\r\n    {\r\n      label: 'Clan Join Date',\r\n      labelClass: '',\r\n      plainText: (item: ClanRosterItem, context: ViewContext) =>\r\n        `${context.datePipe.transform(item.member?.joinDate as unknown as Date)}`,\r\n      render: (item: ClanRosterItem, context: ViewContext) => {\r\n        return {\r\n          text: `${context.datePipe.transform(item.member?.joinDate as unknown as Date)}`,\r\n          classList: []\r\n        };\r\n      }\r\n    }\r\n  ],\r\n  [\r\n    'dateLastPlayed',\r\n    {\r\n      label: 'Last Played',\r\n      labelClass: '',\r\n      plainText: (item: ClanRosterItem, context: ViewContext) =>\r\n        `${context.dateTimePipe.transform(item.profile?.profile.data.dateLastPlayed as unknown as Date)}`,\r\n      render: (item: ClanRosterItem, context: ViewContext) => {\r\n        return {\r\n          text: `${context.dateTimePipe.transform(item.profile?.profile.data.dateLastPlayed as unknown as Date)}`\r\n        };\r\n      }\r\n    }\r\n  ]\r\n\r\n  //['name', { label: 'Name', render: (item) => ({ text: `${item.name}` }) }],\r\n  //['startDate', { label: 'Start Date', render: (item) => ({ text: `${new Date(item.startDate).toDateString()}` }) }]\r\n])"
                 }
             ],
             "projects/clan-dashboard/src/app/core/store/clans/clans.state.ts": [
@@ -33857,38 +33963,6 @@
                     "defaultValue": "(args: ClanDetailCellComponent) => ({\r\n  props: args\r\n})"
                 }
             ],
-            "projects/clan-dashboard/src/app/features/clans-details/components/clan-info/clan-info.component.stories.ts": [
-                {
-                    "name": "Loading",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "projects/clan-dashboard/src/app/features/clans-details/components/clan-info/clan-info.component.stories.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "",
-                    "defaultValue": "Template.bind({})"
-                },
-                {
-                    "name": "Primary",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "projects/clan-dashboard/src/app/features/clans-details/components/clan-info/clan-info.component.stories.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "",
-                    "defaultValue": "Template.bind({})"
-                },
-                {
-                    "name": "Template",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "projects/clan-dashboard/src/app/features/clans-details/components/clan-info/clan-info.component.stories.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "Story<ClanInfoComponent>",
-                    "defaultValue": "(args: ClanInfoComponent) => ({\r\n  props: args\r\n})"
-                }
-            ],
             "projects/clan-dashboard/src/app/features/clans-details/components/clan-member-card/clan-member-card.component.stories.ts": [
                 {
                     "name": "Loading",
@@ -33939,6 +34013,38 @@
                     "deprecationMessage": "",
                     "type": "Story<ClanMemberCardComponent>",
                     "defaultValue": "(args: ClanMemberCardComponent) => ({\r\n  template: `\r\n  <div style=\"height:300px\">\r\n  <app-clan-member-card [cardTitle]=\"cartTitle\" [members]=\"roster\" [isLoading]=\"isLoading\" [itemTemplate]=\"itemTemplate\">\r\n  <ng-template let-member #itemTemplate>\r\n  <div >\r\n  View\r\n  </div>\r\n  </ng-template>\r\n  </app-clan-member-card>\r\n  </div>\r\n `,\r\n  props: args\r\n})"
+                }
+            ],
+            "projects/clan-dashboard/src/app/features/clans-details/components/clan-info/clan-info.component.stories.ts": [
+                {
+                    "name": "Loading",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/clan-dashboard/src/app/features/clans-details/components/clan-info/clan-info.component.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "defaultValue": "Template.bind({})"
+                },
+                {
+                    "name": "Primary",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/clan-dashboard/src/app/features/clans-details/components/clan-info/clan-info.component.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "defaultValue": "Template.bind({})"
+                },
+                {
+                    "name": "Template",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/clan-dashboard/src/app/features/clans-details/components/clan-info/clan-info.component.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Story<ClanInfoComponent>",
+                    "defaultValue": "(args: ClanInfoComponent) => ({\r\n  props: args\r\n})"
                 }
             ],
             "projects/data/src/lib/injection-tokens/location-token.ts": [
@@ -34331,6 +34437,48 @@
                     "deprecationMessage": "",
                     "type": "Story<DisplayOptionsComponent>",
                     "defaultValue": "(args: DisplayOptionsComponent) => ({\r\n  props: args\r\n})"
+                }
+            ],
+            "projects/clan-dashboard/src/app/features/clan-details/components/clan-activity-bar-chart/clan-activity-bar-chart.component.stories.ts": [
+                {
+                    "name": "Primary",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/clan-dashboard/src/app/features/clan-details/components/clan-activity-bar-chart/clan-activity-bar-chart.component.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "defaultValue": "Template.bind({})"
+                },
+                {
+                    "name": "stats",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/clan-dashboard/src/app/features/clan-details/components/clan-activity-bar-chart/clan-activity-bar-chart.component.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "[]",
+                    "defaultValue": "[]"
+                },
+                {
+                    "name": "Template",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/clan-dashboard/src/app/features/clan-details/components/clan-activity-bar-chart/clan-activity-bar-chart.component.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Story<ClanActivityBarChartComponent>",
+                    "defaultValue": "(args: ClanActivityBarChartComponent) => ({\r\n  props: args\r\n})"
+                },
+                {
+                    "name": "today",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/clan-dashboard/src/app/features/clan-details/components/clan-activity-bar-chart/clan-activity-bar-chart.component.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "defaultValue": "new Date(new Date().setDate(new Date().getDate() + ((2 + 7 - new Date().getDay()) % 7) - 189))"
                 }
             ],
             "projects/clan-dashboard/src/app/features/activities/components/activity-card-details/activity-card-details.component.stories.ts": [
@@ -39942,6 +40090,55 @@
                 "name": "ClanDetailComponent",
                 "coveragePercent": 0,
                 "coverageCount": "0/11",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/clan-dashboard/src/app/features/clan-details/components/clan-activity-bar-chart/clan-activity-bar-chart.component.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Primary",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/clan-dashboard/src/app/features/clan-details/components/clan-activity-bar-chart/clan-activity-bar-chart.component.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "stats",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/clan-dashboard/src/app/features/clan-details/components/clan-activity-bar-chart/clan-activity-bar-chart.component.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Template",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/clan-dashboard/src/app/features/clan-details/components/clan-activity-bar-chart/clan-activity-bar-chart.component.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "today",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/clan-dashboard/src/app/features/clan-details/components/clan-activity-bar-chart/clan-activity-bar-chart.component.ts",
+                "type": "component",
+                "linktype": "component",
+                "name": "ClanActivityBarChartComponent",
+                "coveragePercent": 0,
+                "coverageCount": "0/4",
                 "status": "low"
             },
             {

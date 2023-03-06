@@ -1,5 +1,7 @@
 // //import { ClanMemberActivityService } from 'projects/data/src/lib/clan-db/clan-member-activity/clan-member-activity.service';
 
+import { from } from "rxjs";
+
 // import { ClanDatabase } from 'projects/data/src/lib/clan/clan-database';
 // import { ClanMemberRecentActivityService } from 'projects/data/src/lib/clan/clan-member-recent-activity/clan-member-recent-activity.service';
 // import { DailyClanAggregateTimeService } from 'projects/data/src/lib/stat-aggregators/clan-aggregate-time/daily-clan-aggregate-time.service';
@@ -12,6 +14,12 @@
 // import { map, take } from 'rxjs/operators';
 
 addEventListener('message', ({ data }) => {
+  const { clansAndMembers, apiKey, activityId } = data;
+
+  from(clansAndMembers).subscribe((x) => {
+    postMessage({ type: 'complete', data: x });
+  });
+
   //   const clanDatabase = new ClanDatabase();
   //   const profileService = new ClanMemberRecentActivityService(clanDatabase, data.apiKey);
   //   const weekAggregator = new DailyClanAggregateTimeService(clanDatabase, data.apiKey);

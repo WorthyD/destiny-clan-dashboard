@@ -1,7 +1,7 @@
 import { ClanConfig } from '@core/store/clans';
 const dod_clans_pc = [
   2073131, // Chums
-  4859164, // Champs
+  5018079, //compadres
   4322250, // DoD Dad Guard
   2866236, // GMT
   4430645, //Family Pride

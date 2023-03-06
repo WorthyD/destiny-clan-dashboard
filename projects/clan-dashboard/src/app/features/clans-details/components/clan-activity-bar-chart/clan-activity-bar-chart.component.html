@@ -1,0 +1,28 @@
+<mat-card>
+  <mat-card-content>
+    <div class="card-header">
+      <div class="h2">In Game Time</div>
+    </div>
+    <div class="chart-container">
+      <lib-bar-chart *ngIf="!loading; else loadingTemplate" [events]="events" convertTo="Hours"></lib-bar-chart>
+      <!-- <div class="h3">Feature coming soon </div> -->
+    </div>
+    <div *ngIf="updating && events.length > 0" class="update-info">Updating...</div>
+    <div *ngIf="updating && events.length === 0" class="chart-container">
+      <!-- <lib-loading></lib-loading> -->
+      <div class="text-center">
+        <div class="h3">Loading Initial Data...</div>
+        <div class="h6">This may take a while....</div>
+      </div>
+    </div>
+  </mat-card-content>
+</mat-card>
+
+<ng-template #loadingTemplate>
+  <div class="loading-container">
+    <!-- <lib-loading></lib-loading> -->
+    <div class="text-center">
+      <div class="h3">Loading Activities...</div>
+    </div>
+  </div>
+</ng-template>
