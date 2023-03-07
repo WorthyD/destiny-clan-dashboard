@@ -9,4 +9,5 @@ import { ClansDetailsActivitiesService } from '../data-access/clans-details-acti
 export class ClansActivityCardComponent {
   constructor(private clansDetailsActivitiesService: ClansDetailsActivitiesService) {}
   events$ = this.clansDetailsActivitiesService.events$;
+  loading$ = this.clansDetailsActivitiesService.playerActivitiesLoading$;
 }
