@@ -2,11 +2,12 @@ import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { BarChartModule } from '@destiny/components/shared/bar-chart';
 import { MatCardModule } from '@angular/material/card';
+import { SkeletonChartLoaderComponent } from '@destiny/components/shared/skeleton-chart-loader';
 
 @Component({
   selector: 'app-clan-activity-bar-chart',
   standalone: true,
-  imports: [CommonModule, BarChartModule, MatCardModule],
+  imports: [CommonModule, BarChartModule, MatCardModule, SkeletonChartLoaderComponent],
   templateUrl: './clan-activity-bar-chart.component.html',
   styleUrls: ['./clan-activity-bar-chart.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
