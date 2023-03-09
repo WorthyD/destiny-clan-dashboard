@@ -9,3 +9,5 @@ export * from './enums';
 export * from './SealDefinition';
 export * from './MetricDefinition';
 export * from './RecordDefinition';
+export * from './DestinyActivityModeType';
+export * from './DestinyActivityModeCategory';

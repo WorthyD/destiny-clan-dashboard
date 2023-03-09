@@ -5,17 +5,33 @@ import { MemberActivityStats } from '../../models/MemberActivityStat';
 import { groupActivities } from '../../utility/group-activity-by-date';
 //import { getBungieStartDate } from '../../utility/date-utils';
 //import { groupActivitiesByWeek } from '../../utility/group-activity-by-week';
+export interface TrackedDuration {
+  id: string;
+  description: string;
+  startDate: Date;
+  endDate: Date;
+}
 
-export function clanMemberRecentActivitySerializer(activity: MemberActivityStats): MemberActivityRecentStats {
-  let lastWeek = 0;
-  let lastMonth = 0;
-  let lastNinety = 0;
+export function clanMemberRecentActivitySerializer(
+  activity: MemberActivityStats,
+  trackedDates: TrackedDuration[]
+): MemberActivityRecentStats {
+  // let lastWeek = 0;
+  // let lastMonth = 0;
+  // let lastNinety = 0;
+  // let lastSeason = 0;
+  // let thisSeason = 0;
   const today = new Date();
-  const lwDate = new Date(today.setDate(today.getDate() - 7));
-  const lmDate = new Date(today.setDate(today.getDate() - 30));
-  const l90Date = new Date(today.setDate(today.getDate() - 90));
+  // const lwDate = new Date(today.setDate(today.getDate() - 7));
+  // const lmDate = new Date(today.setDate(today.getDate() - 30));
+  // const l90Date = new Date(today.setDate(today.getDate() - 90));
 
-  if (!activity) {
+  const runningTrackedNumbers = {};
+  trackedDates.forEach((trackedDate) => {
+    runningTrackedNumbers[trackedDate.id] = 0;
+  });
+
+  if (!activity || trackedDates.length === 0) {
     return null;
   }
 
@@ -23,24 +39,33 @@ export function clanMemberRecentActivitySerializer(activity: MemberActivityStats
     const actDate = new Date(x.period);
     const actSeconds = x.values['activityDurationSeconds'].basic.value;
 
-    if (lwDate < actDate) {
-      lastWeek += actSeconds;
-    }
-    if (lmDate < actDate) {
-      lastMonth += actSeconds;
-    }
-    if (l90Date < actDate) {
-      lastNinety += actSeconds;
-    }
+    trackedDates.forEach((trackedDate) => {
+      if (new Date(trackedDate.startDate) < actDate && new Date(trackedDate.endDate) > actDate) {
+        runningTrackedNumbers[trackedDate.id] += actSeconds;
+      }
+    });
+
+    // if (lwDate < actDate) {
+    //   lastWeek += actSeconds;
+    // }
+    // if (lmDate < actDate) {
+    //   lastMonth += actSeconds;
+    // }
+    // if (l90Date < actDate) {
+    //   lastNinety += actSeconds;
+    // }
   });
 
   return {
     activities: groupActivitiesByWeek(activity.activities),
     id: activity.id,
-    lastMonth: lastMonth,
-    lastNinetyDays: lastNinety,
-    lastWeek: lastWeek
-  };
+    // lastMonth: lastMonth,
+    // lastNinetyDays: lastNinety,
+    // lastWeek: lastWeek,
+    // lastSeason: lastSeason,
+    // thisSeason: thisSeason
+    trackedDates: { ...runningTrackedNumbers }
+  } as MemberActivityRecentStats;
 }
 
 function groupActivitiesByWeek(data): Array<MemberActivityRecentStatsActivity> {

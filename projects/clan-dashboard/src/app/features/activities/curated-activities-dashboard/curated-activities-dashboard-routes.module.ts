@@ -1,16 +1,16 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-import { ActivitiesDashboardComponent } from './activities-dashboard.component';
+import { CuratedActivitiesDashboardComponent } from './curated-activities-dashboard.component';
 
 const routes: Routes = [
   {
     path: '',
-    component: ActivitiesDashboardComponent
+    component: CuratedActivitiesDashboardComponent
   }
 ];
 @NgModule({
     imports: [RouterModule.forChild(routes)],
     exports: [RouterModule]
   })
-  export class ActivitiesDashboardRoutingModule {}
+  export class CuratedActivitiesDashboardRoutingModule {}

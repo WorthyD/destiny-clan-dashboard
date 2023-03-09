@@ -13,20 +13,20 @@
       </button>
     </div>
   </ng-container>
-  <ng-container *ngIf="manifestState.error">
-    <div class="loading-manifest-container">
-      <h1>Error State</h1>
-      <p>Hey something went wrong</p>
-    </div>
-  </ng-container>
 
   <ng-template #loading>
     <!-- <div class="loading-manifest-container">
       <h2>Loading Manifest</h2>
       <mat-spinner mode="indeterminate"></mat-spinner>
     </div> -->
-
-    <div class="app-loading">
+    <ng-container *ngIf="manifestState.error">
+      <div class="loading-manifest-container">
+        <h1>Error Loading Manifest</h1>
+        <h2>Bungie Error - {{ manifestState.error.ErrorStatus }}</h2>
+        <p>{{ manifestState.error.Message }}</p>
+      </div>
+    </ng-container>
+    <div class="app-loading" *ngIf="manifestState.loading">
       <h2>Destiny Clan Dashboard</h2>
       <h3>Loading Manifest</h3>
       <div class="logo">

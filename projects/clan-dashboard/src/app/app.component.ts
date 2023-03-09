@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { loadManifest, selectManifestState } from '@core/store/manifest';
+import { loadManifest, selectManifestError, selectManifestState } from '@core/store/manifest';
 import { DomSanitizer } from '@angular/platform-browser';
 import { MatIconRegistry } from '@angular/material/icon';
 import { registerIcons } from '@destiny/components/icons';
@@ -24,6 +24,8 @@ export class AppComponent {
       return of(null);
     })
   );
+  manifestError$ = this.store.select(selectManifestError)
+
 
   constructor(private store: Store, iconRegistry: MatIconRegistry, domSanitizer: DomSanitizer, private router: Router) {
     registerIcons(iconRegistry, domSanitizer);

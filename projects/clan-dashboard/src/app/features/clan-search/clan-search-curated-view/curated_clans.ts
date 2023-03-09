@@ -74,5 +74,18 @@ export const DOD: CuratedClan = {
     }
   ]
 };
+export const DOD_PC: CuratedClan = {
+  key: 'dod-pc',
+  title: "Dad's of Destiny",
+  subGroups: [
+    {
+      title: 'PC',
+      clans: m([
+        2073131, // Chums
+        5018079
+      ]) //compadres])
+    }
+  ]
+};
 
-export const ALL_CLANS = [DOD];
+export const ALL_CLANS = [DOD, DOD_PC];

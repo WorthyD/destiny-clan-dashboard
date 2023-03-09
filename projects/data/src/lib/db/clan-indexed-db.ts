@@ -3,16 +3,10 @@ import { BaseAppIndexedDb } from './base-indexed-db';
 const DB_VERSION = 6;
 
 export enum StoreId {
- // CacheDetails = 'CacheDetails', //TODO: Verify
   ClanDetails = 'ClanDetails',
-  //ClanRewards = 'ClanRewards', // TODO: Verify
   MemberProfiles = 'MemberProfiles',
   MemberActivities = 'MemberActivities',
-  //MemberActivityStats = 'MemberActivityStats', // TODO: Verify
   MemberRecentActivities = 'MemberRecentActivities',
-  //ProfileMilestones = 'ProfileMilestones', // TODO  Verfiy
-  //ProfileMetrics = 'ProfileMetrics', // TODO: Verify
-//  Raids = 'Raids' // TODO verify
 BungieInfo = 'BungieInfo'
 }
 

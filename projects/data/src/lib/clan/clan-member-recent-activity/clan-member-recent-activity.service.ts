@@ -12,7 +12,7 @@ import { ClanDatabase } from '../clan-database';
 import { StoreId } from '../../db/clan-indexed-db';
 // import { MemberProfile } from '../../models';
 import { MemberActivityRecentStats } from '../../models/MemberActivityRecentStats';
-import { clanMemberRecentActivitySerializer } from './clan-member-recent-activity.serializer';
+import { clanMemberRecentActivitySerializer, TrackedDuration } from './clan-member-recent-activity.serializer';
 
 interface MemberProfile {
   profile: any;
@@ -27,18 +27,19 @@ export class ClanMemberRecentActivityService extends BaseMemberActivityService {
       baseApiKey,
       new Date(new Date().setDate(new Date().getDate() + ((2 + 7 - new Date().getDay()) % 7) - 90)),
       8,
-      0,
+      0
     );
   }
   getSerializedProfileActivity(
     clanId: number,
     member: any,
     useCache: boolean,
+    trackedDates: TrackedDuration[],
     activityMode: number = 0
   ): Observable<MemberActivityRecentStats> {
     return this.getMemberActivity(clanId, member, useCache, activityMode).pipe(
       map((profileActivity) => {
-        return clanMemberRecentActivitySerializer(profileActivity);
+        return clanMemberRecentActivitySerializer(profileActivity, trackedDates);
       })
     );
   }

@@ -23,27 +23,27 @@ export const CLAN_ROSTER_EXPORTER_METADATA = new Map<string, ExporterMetadata<Pr
       text: (item: ProfileRecentActivity) => `${item.clan.clanName}`
     }
   ],
-  [
-    'lastWeek',
-    {
-      label: 'Last Week (Minutes)',
-      text: (item: ProfileRecentActivity) => `${convertToMinutes(item.profileActivity?.stats?.lastWeek)}`
-    }
-  ],
-  [
-    'lastMonth',
-    {
-      label: 'Last Month (Minutes)',
-      text: (item: ProfileRecentActivity) => `${convertToMinutes(item.profileActivity?.stats?.lastMonth)}`
-    }
-  ],
-  [
-    'lastNinety',
-    {
-      label: 'Last 90 Days (Minutes)',
-      text: (item: ProfileRecentActivity) => `${convertToMinutes(item.profileActivity?.stats?.lastNinetyDays)}`
-    }
-  ],
+  // [
+  //   'lastWeek',
+  //   {
+  //     label: 'Last Week (Minutes)',
+  //     text: (item: ProfileRecentActivity) => `${convertToMinutes(item.profileActivity?.stats?.lastWeek)}`
+  //   }
+  // ],
+  // [
+  //   'lastMonth',
+  //   {
+  //     label: 'Last Month (Minutes)',
+  //     text: (item: ProfileRecentActivity) => `${convertToMinutes(item.profileActivity?.stats?.lastMonth)}`
+  //   }
+  // ],
+  // [
+  //   'lastNinety',
+  //   {
+  //     label: 'Last 90 Days (Minutes)',
+  //     text: (item: ProfileRecentActivity) => `${convertToMinutes(item.profileActivity?.stats?.lastNinetyDays)}`
+  //   }
+  // ],
   [
     'dateLastPlayed',
     {
