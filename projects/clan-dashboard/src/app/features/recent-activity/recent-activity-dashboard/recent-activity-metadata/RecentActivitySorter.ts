@@ -30,30 +30,30 @@ export const RECENT_ACTIVITY_SORTER_METADATA = new Map<string, SorterMetadata<Pr
       comparator: (a, b) => (a.clan.clanName?.toLowerCase() < b.clan.clanName?.toLowerCase() ? -1 : 1)
     }
   ],
-  [
-    'lastWeek',
-    {
-      label: 'Last Week',
-      comparator: (a, b) => ((a.profileActivity.stats.lastWeek || 0) < (b.profileActivity.stats.lastWeek || 0) ? -1 : 1)
-    }
-  ],
+  // [
+  //   'lastWeek',
+  //   {
+  //     label: 'Last Week',
+  //     comparator: (a, b) => ((a.profileActivity.stats.lastWeek || 0) < (b.profileActivity.stats.lastWeek || 0) ? -1 : 1)
+  //   }
+  // ],
 
-  [
-    'lastMonth',
-    {
-      label: 'Last Month',
-      comparator: (a, b) =>
-        (a.profileActivity.stats.lastMonth || 0) < (b.profileActivity.stats.lastMonth || 0) ? -1 : 1
-    }
-  ],
-  [
-    'lastNinety',
-    {
-      label: 'Last 90',
-      comparator: (a, b) =>
-        (a.profileActivity.stats.lastNinetyDays || 0) < (b.profileActivity.stats.lastNinetyDays || 0) ? -1 : 1
-    }
-  ],
+  // [
+  //   'lastMonth',
+  //   {
+  //     label: 'Last Month',
+  //     comparator: (a, b) =>
+  //       (a.profileActivity.stats.lastMonth || 0) < (b.profileActivity.stats.lastMonth || 0) ? -1 : 1
+  //   }
+  // ],
+  // [
+  //   'lastNinety',
+  //   {
+  //     label: 'Last 90',
+  //     comparator: (a, b) =>
+  //       (a.profileActivity.stats.lastNinetyDays || 0) < (b.profileActivity.stats.lastNinetyDays || 0) ? -1 : 1
+  //   }
+  // ],
   [
     'lastLogin',
     {

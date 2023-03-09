@@ -46,7 +46,7 @@ export class ManifestService {
         return true;
       }),
       catchError((error) => {
-        console.log('caught error', error);
+
         throw error;
       })
     );

@@ -16,7 +16,7 @@ addEventListener('message', ({ data }) => {
 
   profileService
     //.getAllActivitiesFromCache(data.clanId, data.memberProfiles)
-    .getClanActivityStats(data.clanId, data.memberProfiles)
+    .getClanActivityStats(data.clanId, data.memberProfiles, [])
     .pipe(take(1))
     .subscribe((x) => {
       postMessage({ type: 'complete', data: x });

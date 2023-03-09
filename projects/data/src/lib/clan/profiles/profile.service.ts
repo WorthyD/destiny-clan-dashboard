@@ -26,8 +26,6 @@ export class ProfileService {
   // 1100 Metrics
   private profileComponents = [100, 104, 200, 202, 800, 900, 1100];
 
-  // TODO: Pull this from somewhere else.
-  // private TRACKED_HASHES = [3902035969, 2770852111];
 
   constructor(private clanDb: ClanDatabase, private apiKey: string) {}
 

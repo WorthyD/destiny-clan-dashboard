@@ -16,9 +16,7 @@ export interface ActivityStats {
 export interface MemberActivityRecentStats {
   id: string;
   activities: MemberActivityRecentStatsActivity[];
-  lastNinetyDays?: number;
-  lastMonth?: number;
-  lastWeek?: number;
+  trackedDates: { [key: string]: number };
 }
 export interface MemberActivityRecentStatsActivity {
   date: string | Date;

@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ActivitiesDashboardComponent } from './activities-dashboard.component';
+import { CuratedActivitiesDashboardComponent } from './curated-activities-dashboard.component';
 
 describe('ActivitiesDashboardComponent', () => {
-  let component: ActivitiesDashboardComponent;
-  let fixture: ComponentFixture<ActivitiesDashboardComponent>;
+  let component: CuratedActivitiesDashboardComponent;
+  let fixture: ComponentFixture<CuratedActivitiesDashboardComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ActivitiesDashboardComponent ]
+      declarations: [ CuratedActivitiesDashboardComponent ]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(ActivitiesDashboardComponent);
+    fixture = TestBed.createComponent(CuratedActivitiesDashboardComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

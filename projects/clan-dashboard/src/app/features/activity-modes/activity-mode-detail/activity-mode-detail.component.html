@@ -1,0 +1,13 @@
+<div class="activity-mode-detail">
+  <ng-container *ngIf="vm$ | async as vm">
+    <!-- <app-activity-table
+      [title]="vm.activity.displayProperties.name"
+      [metricDefinitions]="vm.metrics"
+      [collectionDefinitions]="vm.collections"
+      [recordDefinitions]="vm.records"
+      class="activity-table"
+    >
+    </app-activity-table> -->
+    <app-activity-mode-table [title]="vm.mode.displayProperties.name" [mode]="vm.mode" class="activity-mode-table"></app-activity-mode-table>
+  </ng-container>
+</div>

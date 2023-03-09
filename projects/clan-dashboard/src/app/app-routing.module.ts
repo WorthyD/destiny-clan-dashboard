@@ -25,13 +25,13 @@ const routes: Routes = [
             (module) => module.ClansRosterModule
           )
       },
-      {
-        path: 'recent-activity',
-        loadChildren: () =>
-          import('./features/recent-activity/recent-activity-shell/recent-activity.module').then(
-            (module) => module.RecentActivityModule
-          )
-      },
+      // {
+      //   path: 'recent-activity',
+      //   loadChildren: () =>
+      //     import('./features/recent-activity/recent-activity-shell/recent-activity.module').then(
+      //       (module) => module.RecentActivityModule
+      //     )
+      // },
       {
         path: 'seals',
         loadChildren: () =>
@@ -44,7 +44,13 @@ const routes: Routes = [
             (module) => module.ActivitiesShellModule
           )
       },
-
+      {
+        path: 'activity-modes',
+        loadChildren: () =>
+          import('./features/activity-modes/activity-mode-shell/activity-mode-shell.module').then(
+            (module) => module.ActivityModeShellModule
+          )
+      },
       {
         path: 'config',
         loadChildren: () => import('./views/config/config.module').then((module) => module.ConfigModule)

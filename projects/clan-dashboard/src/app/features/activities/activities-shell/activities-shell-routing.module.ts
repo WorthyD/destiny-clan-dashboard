@@ -2,11 +2,25 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
+  // {
+  //   path: '',
+  //   loadChildren: () =>
+  //     import('../activity-mode-dashboard/activity-mode-dashboard.module').then(
+  //       (module) => module.ActivityModeDashboardModule
+  //     )
+  // },
   {
     path: '',
     loadChildren: () =>
-      import('../activities-dashboard/activities-dashboard.module').then((module) => module.ActivitiesDashboardModule)
+      import('../curated-activities-dashboard/curated-activities-dashboard.module').then(
+        (module) => module.CuratedActivitiesDashboardModule
+      )
   },
+  // {
+  //   path: 'mode/:modeType',
+  //   loadChildren: () =>
+  //     import('../activity-mode-detail/activity-mode-detail.module').then((module) => module.ActivityModeDetailModule)
+  // },
   // TODO: GUARD THIS
   {
     path: ':activityHash',

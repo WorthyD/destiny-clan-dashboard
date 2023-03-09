@@ -1,6 +1,11 @@
 // //import { ClanMemberActivityService } from 'projects/data/src/lib/clan-db/clan-member-activity/clan-member-activity.service';
 
-import { from } from "rxjs";
+import { ClanDatabase } from 'projects/data/src/lib/clan/clan-database';
+import { TrackedDuration } from 'projects/data/src/lib/clan/clan-member-recent-activity/clan-member-recent-activity.serializer';
+// import { ClanMemberRecentActivityService } from 'projects/data/src/lib/clan/clan-member-recent-activity/clan-member-recent-activity.service';
+import { ClanActivityService } from 'projects/data/src/lib/stat-aggregators/clan-activity.service';
+import { getClanMemberId, getMemberProfileId } from 'projects/data/src/lib/utility/get-ids';
+import { filter, from, map, mergeMap, toArray } from 'rxjs';
 
 // import { ClanDatabase } from 'projects/data/src/lib/clan/clan-database';
 // import { ClanMemberRecentActivityService } from 'projects/data/src/lib/clan/clan-member-recent-activity/clan-member-recent-activity.service';
@@ -12,13 +17,52 @@ import { from } from "rxjs";
 
 // import { playtime } from 'projects/data/src/lib/utility/date-utils';
 // import { map, take } from 'rxjs/operators';
+interface MSGData {
+  apiKey: string;
+  activityModeId: number;
+  trackedDates: TrackedDuration[];
+  clansAndMembers: {
+    clan: { clanId: number; clanName: string; clanTag: string };
+    members: any[];
+    profiles: any[];
+  }[];
+}
+addEventListener('message', ({ data }: { data: MSGData }) => {
+  const { clansAndMembers, apiKey, trackedDates, activityModeId } = data;
+  const clanDatabase = new ClanDatabase();
+  // const profileService = new ClanMemberRecentActivityService(clanDatabase, apiKey);
+  const profileService = new ClanActivityService(clanDatabase, data.apiKey);
+  from(clansAndMembers)
+    .pipe(
+      mergeMap((clanAndMembers) => {
+        return profileService
+          .getClanActivityStats(clanAndMembers.clan.clanId, clanAndMembers.profiles, trackedDates, activityModeId)
+          .pipe(
+            map((memberStats) => {
+              return clanAndMembers.members.map((member) => {
+                const memberId = getClanMemberId(member);
+                return {
+                  member,
+                  profile: clanAndMembers.profiles.find((m) => getMemberProfileId(m) === memberId),
+                  stats: memberStats.find((x) => getMemberProfileId(x.memberProfile) === memberId)?.stats,
+                  clan: {
+                    clanId: clanAndMembers.clan.clanId,
+                    clanName: clanAndMembers.clan.clanName,
+                    clanTag: clanAndMembers.clan.clanTag
+                  }
+                };
+              });
+            })
+          );
+      }),
+      filter((x) => !!x),
+      toArray(),
+      map((x) => x.flatMap((y) => y))
+    )
 
-addEventListener('message', ({ data }) => {
-  const { clansAndMembers, apiKey, activityId } = data;
-
-  from(clansAndMembers).subscribe((x) => {
-    postMessage({ type: 'complete', data: x });
-  });
+    .subscribe((x) => {
+      postMessage({ type: 'complete', data: x });
+    });
 
   //   const clanDatabase = new ClanDatabase();
   //   const profileService = new ClanMemberRecentActivityService(clanDatabase, data.apiKey);

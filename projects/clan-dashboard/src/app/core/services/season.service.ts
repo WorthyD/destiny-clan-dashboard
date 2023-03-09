@@ -10,6 +10,7 @@ import {
 export class SeasonService {
   currentSeason: DestinyDefinitionsSeasonsDestinySeasonDefinition;
   currentSeasonProgress: DestinyDefinitionsSeasonsDestinySeasonPassDefinition;
+  allSeasons: DestinyDefinitionsSeasonsDestinySeasonDefinition[];
   constructor() {}
 
   init(
@@ -23,11 +24,21 @@ export class SeasonService {
       return season.startDate && new Date(season.startDate) < now && hasEndAndNotPassed;
     });
 
+    this.allSeasons = Object.keys(seasons).map((seasonKey) => {
+      return seasons[seasonKey];
+    });
     this.currentSeason = seasons[currentSeasonKey];
     this.currentSeasonProgress = seasonPasses[this.currentSeason.seasonPassHash];
   }
 
   getSeasonProgressionHashes(): number[] {
     return [this.currentSeasonProgress.prestigeProgressionHash, this.currentSeasonProgress.rewardProgressionHash];
+  }
+
+  getPreviousSeason() {
+    const currentSeasonNumber = this.currentSeason.seasonNumber;
+    return this.allSeasons.find((season) => {
+      return season.seasonNumber && season.seasonNumber === currentSeasonNumber - 1;
+    });
   }
 }

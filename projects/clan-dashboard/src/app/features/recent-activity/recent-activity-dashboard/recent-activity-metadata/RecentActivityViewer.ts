@@ -34,45 +34,45 @@ export const RECENT_ACTIVITY_VIEWER_METADATA = new Map<string, ViewerMetadata<Pr
       }
     }
   ],
-  [
-    'lastWeek',
-    {
-      label: 'Last Week',
-      plainText: (item: ProfileRecentActivity, context: ViewContext) =>
-        `${context.playTimePipe.transform(item.profileActivity.stats.lastWeek)}`,
-      render: (item: ProfileRecentActivity, context: ViewContext) => {
-        return {
-          text: `${context.playTimePipe.transform(item.profileActivity.stats.lastWeek)}`
-        };
-      }
-    }
-  ],
-  [
-    'lastMonth',
-    {
-      label: 'Last Month',
-      plainText: (item: ProfileRecentActivity, context: ViewContext) =>
-        `${context.playTimePipe.transform(item.profileActivity.stats.lastMonth)}`,
-      render: (item: ProfileRecentActivity, context: ViewContext) => {
-        return {
-          text: `${context.playTimePipe.transform(item.profileActivity.stats.lastMonth)}`
-        };
-      }
-    }
-  ],
-  [
-    'lastNinety',
-    {
-      label: 'Last 90 Days',
-      plainText: (item: ProfileRecentActivity, context: ViewContext) =>
-        `${context.playTimePipe.transform(item.profileActivity.stats.lastNinetyDays)}`,
-      render: (item: ProfileRecentActivity, context: ViewContext) => {
-        return {
-          text: `${context.playTimePipe.transform(item.profileActivity.stats.lastNinetyDays)}`
-        };
-      }
-    }
-  ],
+  // [
+  //   'lastWeek',
+  //   {
+  //     label: 'Last Week',
+  //     plainText: (item: ProfileRecentActivity, context: ViewContext) =>
+  //       `${context.playTimePipe.transform(item.profileActivity.stats.lastWeek)}`,
+  //     render: (item: ProfileRecentActivity, context: ViewContext) => {
+  //       return {
+  //         text: `${context.playTimePipe.transform(item.profileActivity.stats.lastWeek)}`
+  //       };
+  //     }
+  //   }
+  // ],
+  // [
+  //   'lastMonth',
+  //   {
+  //     label: 'Last Month',
+  //     plainText: (item: ProfileRecentActivity, context: ViewContext) =>
+  //       `${context.playTimePipe.transform(item.profileActivity.stats.lastMonth)}`,
+  //     render: (item: ProfileRecentActivity, context: ViewContext) => {
+  //       return {
+  //         text: `${context.playTimePipe.transform(item.profileActivity.stats.lastMonth)}`
+  //       };
+  //     }
+  //   }
+  // ],
+  // [
+  //   'lastNinety',
+  //   {
+  //     label: 'Last 90 Days',
+  //     plainText: (item: ProfileRecentActivity, context: ViewContext) =>
+  //       `${context.playTimePipe.transform(item.profileActivity.stats.lastNinetyDays)}`,
+  //     render: (item: ProfileRecentActivity, context: ViewContext) => {
+  //       return {
+  //         text: `${context.playTimePipe.transform(item.profileActivity.stats..lastNinetyDays)}`
+  //       };
+  //     }
+  //   }
+  // ],
   [
     'dateLastPlayed',
     {
