@@ -73,17 +73,18 @@ export const ACTIVITY_MODE_VIEWER_METADATA = new Map<string, ViewerMetadata<Prof
   //     }
   //   }
   // ],
-  [
-    'dateLastPlayed',
-    {
-      label: 'Last Played',
-      plainText: (item: ProfileRecentActivity, context: ActivityModeViewContext) =>
-        `${context.dateTimePipe.transform(item.profile?.profile.data.dateLastPlayed as unknown as Date)}`,
-      render: (item: ProfileRecentActivity, context: ActivityModeViewContext) => {
-        return {
-          text: `${context.dateTimePipe.transform(item.profile?.profile.data.dateLastPlayed as unknown as Date)}`
-        };
-      }
-    }
-  ]
+  // TODO: Add back
+  // [
+  //   'dateLastPlayed',
+  //   {
+  //     label: 'Last Played',
+  //     plainText: (item: ProfileRecentActivity, context: ActivityModeViewContext) =>
+  //       `${context.dateTimePipe.transform(item.profile?.profile.data.dateLastPlayed as unknown as Date)}`,
+  //     render: (item: ProfileRecentActivity, context: ActivityModeViewContext) => {
+  //       return {
+  //         text: `${context.dateTimePipe.transform(item.profile?.profile.data.dateLastPlayed as unknown as Date)}`
+  //       };
+  //     }
+  //   }
+  // ]
 ]);

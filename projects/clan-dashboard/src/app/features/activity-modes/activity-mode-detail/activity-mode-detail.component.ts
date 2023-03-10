@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { map } from 'rxjs';
 import { ActivityModeService } from '../data-access/activity-mode.service';
@@ -6,7 +6,8 @@ import { ActivityModeService } from '../data-access/activity-mode.service';
 @Component({
   selector: 'app-activity-mode-detail',
   templateUrl: './activity-mode-detail.component.html',
-  styleUrls: ['./activity-mode-detail.component.scss']
+  styleUrls: ['./activity-mode-detail.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ActivityModeDetailComponent {
   constructor(private activitiesService: ActivityModeService, private route: ActivatedRoute) {}

@@ -82,7 +82,8 @@ export const DOD_PC: CuratedClan = {
       title: 'PC',
       clans: m([
         2073131, // Chums
-        5018079
+        5018079,
+        3816773
       ]) //compadres])
     }
   ]

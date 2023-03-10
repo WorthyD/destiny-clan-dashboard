@@ -10,7 +10,7 @@ export interface DestinyActivityModeCategory {
 
 const NONE: DestinyActivityModeCategory = {
   id: 0,
-  title: 'None',
+  title: 'All',
   desc: 'Activities that are neither PVP nor PVE, such as social activities.'
 };
 

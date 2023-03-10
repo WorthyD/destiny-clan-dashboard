@@ -1,9 +1,9 @@
 {
   "name": "destiny-clan-dashboard",
-  "version": "0.2.0",
+  "version": "1.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve --port 4321 --open",
+    "start": "ng serve --port 4321",
     "build": "ng build --project=clan-dashboard",
     "watch": "ng build --watch --configuration development",
     "build:stats": "ng build --project=clan-dashboard --configuration production --stats-json",

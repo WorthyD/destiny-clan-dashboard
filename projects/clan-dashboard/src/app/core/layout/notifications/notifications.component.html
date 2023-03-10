@@ -3,8 +3,8 @@
     sync
   </mat-icon>
 </button>
-<ng-template cdkConnectedOverlay (backdropClick)="isOpen = false"
-  [cdkConnectedOverlayBackdropClass]="'cdk-overlay-transparent-backdrop'" [cdkConnectedOverlayHasBackdrop]="true"
+<ng-template cdkConnectedOverlay
+  [cdkConnectedOverlayBackdropClass]="'cdk-overlay-transparent-backdrop'" [cdkConnectedOverlayHasBackdrop]="false"
   [cdkConnectedOverlayOrigin]="trigger" [cdkConnectedOverlayOpen]="isOpen">
 
   <mat-card *ngIf="notifications.length > 0">
