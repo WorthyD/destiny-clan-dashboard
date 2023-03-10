@@ -1,3 +1,12 @@
+# [0.2.0](https://github.com/WorthyD/destiny-clan-dashboard/compare/0.1.0...0.2.0) (2023-03-10)
+
+
+### Features
+
+* Adding node exotic mission ([ff0e41d](https://github.com/WorthyD/destiny-clan-dashboard/commit/ff0e41d75bb90ac0179d1da8fc2f69196a535e33))
+
+
+
 # [0.1.0](https://github.com/WorthyD/destiny-clan-dashboard/compare/0.0.4...0.1.0) (2023-03-09)
 
 
