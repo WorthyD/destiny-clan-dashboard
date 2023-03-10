@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { SeasonService } from '@core/services/season.service';
 import { DataSource, Filterer, Sorter, SorterMetadata, Viewer, ViewerMetadata } from '@destiny/components';
@@ -15,7 +15,8 @@ import { ActivityModeViewContext, ACTIVITY_MODE_VIEWER_METADATA } from './activi
 @Component({
   selector: 'app-activity-mode-table',
   templateUrl: './activity-mode-table.component.html',
-  styleUrls: ['./activity-mode-table.component.scss']
+  styleUrls: ['./activity-mode-table.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ActivityModeTableComponent implements OnChanges {
   @Input() title: string;

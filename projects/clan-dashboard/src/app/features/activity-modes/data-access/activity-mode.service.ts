@@ -44,6 +44,9 @@ export class ActivityModeService {
     90, // IB Rift
     61, // Scorched
     60, // Lockdown
+    65, // Break through
+    80, // Elimination
+    89, // Zone control
     75, // GB Prime
   ];
 

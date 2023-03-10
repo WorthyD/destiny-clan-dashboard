@@ -49,7 +49,8 @@ export class LookupComponent {
   }
   userLookup() {
     this.d2ServiceBase
-      .destiny2GetProfile('4611686018467238913' as unknown as number, 3, [100, 104, 200, 202, 800, 900, 1100])
+      //.destiny2GetProfile('4611686018467238913' as unknown as number, 3, [100, 104, 200, 202, 800, 900, 1100, 1400])
+      .destiny2GetProfile('4611686018467238913' as unknown as number, 3, [ 1400])
       .pipe(take(1))
       .subscribe((result) => {
         this.updateDisplay(result);

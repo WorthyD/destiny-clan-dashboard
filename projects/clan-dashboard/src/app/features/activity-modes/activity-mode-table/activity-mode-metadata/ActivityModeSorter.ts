@@ -55,15 +55,15 @@ export const ACTIVITY_MODE_SORTER_METADATA = new Map<string, SorterMetadata<Prof
   //       (a.profileActivity.stats.lastNinetyDays || 0) < (b.profileActivity.stats.lastNinetyDays || 0) ? -1 : 1
   //   }
   // ],
-  [
-    'lastLogin',
-    {
-      label: 'Last Login',
-      comparator: (a, b) =>
-        (new Date(a.profile.profile.data.dateLastPlayed) || new Date(1 / 1 / 1900)) <
-        (new Date(b.profile.profile.data.dateLastPlayed) || new Date(1 / 1 / 1900))
-          ? -1
-          : 1
-    }
-  ]
+  // [
+  //   'lastLogin',
+  //   {
+  //     label: 'Last Login',
+  //     comparator: (a, b) =>
+  //       (new Date(a.profile.profile.data.dateLastPlayed) || new Date(1 / 1 / 1900)) <
+  //       (new Date(b.profile.profile.data.dateLastPlayed) || new Date(1 / 1 / 1900))
+  //         ? -1
+  //         : 1
+  //   }
+  // ]
 ]);

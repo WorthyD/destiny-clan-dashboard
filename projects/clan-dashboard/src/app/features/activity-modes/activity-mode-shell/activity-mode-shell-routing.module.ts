@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { ActivityModeResolveGuard } from '../guards/activity-mode.guard';
 
 const routes: Routes = [
   {
@@ -12,6 +13,7 @@ const routes: Routes = [
   //TODO // Guard
   {
     path: ':modeType',
+  //  canActivate:[ActivityModeResolveGuard],
     loadChildren: () =>
       import('../activity-mode-detail/activity-mode-detail.module').then((module) => module.ActivityModeDetailModule)
   }
