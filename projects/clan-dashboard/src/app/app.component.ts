@@ -24,22 +24,19 @@ export class AppComponent {
       return of(null);
     })
   );
-  manifestError$ = this.store.select(selectManifestError)
-
+  manifestError$ = this.store.select(selectManifestError);
 
   constructor(private store: Store, iconRegistry: MatIconRegistry, domSanitizer: DomSanitizer, private router: Router) {
     registerIcons(iconRegistry, domSanitizer);
 
     this.store.dispatch(loadManifest());
+    this.setUpAnalytics();
   }
   setUpAnalytics() {
     this.router.events.pipe(filter((event) => event instanceof NavigationEnd)).subscribe((event: NavigationEnd) => {
-      gtag('config', 'UA-174229277-1', {
+      gtag('config', 'G-FCTYCE6GLS', {
         page_path: event.urlAfterRedirects
       });
     });
   }
-
-
-
 }
