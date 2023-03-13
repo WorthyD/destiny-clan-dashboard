@@ -25,13 +25,6 @@ const routes: Routes = [
             (module) => module.ClansRosterModule
           )
       },
-      // {
-      //   path: 'recent-activity',
-      //   loadChildren: () =>
-      //     import('./features/recent-activity/recent-activity-shell/recent-activity.module').then(
-      //       (module) => module.RecentActivityModule
-      //     )
-      // },
       {
         path: 'seals',
         loadChildren: () =>
@@ -63,7 +56,7 @@ const routes: Routes = [
     ]
   },
   {
-    path: 'clan-search',
+    path: 'home',
     // TODO: Clan Guard
     //canActivate: [ClanResolveGuard],
     // loadChildren: () => import('./views/clan-search/clan-search.module').then((module) => module.ClanSearchModule)
@@ -71,7 +64,8 @@ const routes: Routes = [
       import('./features/clan-search/clan-search-shell/clan-search-shell.module').then(
         (module) => module.ClanSearchModule
       )
-  }
+  },
+  { path: '**', redirectTo: '', pathMatch: 'full' }
 ];
 
 @NgModule({

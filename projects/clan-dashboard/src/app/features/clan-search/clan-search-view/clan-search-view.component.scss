@@ -43,7 +43,16 @@
 .bg-3 {
   background-image: url('/assets/backgrounds/3.jpg');
 }
+.unstyled-button {
+  border: none;
+  color: inherit;
+  cursor: pointer;
+  text-decoration: underline;
+  letter-spacing: 0.03125em;
+  background: none;
 
+  padding: 0;
+}
 .alert-card {
   align-items: center;
   background-color: var(--app-warning-background);
