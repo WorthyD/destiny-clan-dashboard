@@ -11,3 +11,10 @@
   display: block;
   width: 100%;
 }
+
+.clan-search-autocomplete__input {
+  caret-color: var(--app-text-color);
+  &:focus::placeholder {
+    opacity: 0.5;
+  }
+}
