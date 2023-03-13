@@ -6,7 +6,7 @@ import { getClanMemberId, getMemberProfileId } from '@destiny/data/utility';
 import { Store } from '@ngrx/store';
 import { ClanMemberProfile } from '@shared/models/ClanMemberProfile';
 import { GroupsV2GroupMember } from 'bungie-api-angular';
-import { ProfileService } from 'projects/data/src/lib/clan/profiles/profile.service';
+import { ClanProfileService } from 'projects/data/src/lib/clan/profiles/profile.service';
 import { catchError, filter, from, map, mergeMap, Observable, of, switchMap, tap, toArray } from 'rxjs';
 import { selectEnabledClans } from '../store/clans/clans.selectors';
 import { SeasonService } from './season.service';
@@ -108,7 +108,7 @@ export class ClansMembersService {
   constructor(
     private store: Store,
     private memberService: ClanMembersService,
-    private profileService: ProfileService,
+    private profileService: ClanProfileService,
     private seasonService: SeasonService
   ) {}
 }

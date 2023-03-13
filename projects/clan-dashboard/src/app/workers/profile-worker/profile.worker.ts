@@ -1,10 +1,10 @@
 import { ClanDatabase } from 'projects/data/src/lib/clan/clan-database';
-import { ProfileService } from 'projects/data/src/lib/clan/profiles/profile.service';
+import { ClanProfileService } from 'projects/data/src/lib/clan/profiles/profile.service';
 import { take } from 'rxjs/operators';
 
 addEventListener('message', ({ data }) => {
   const clanDatabase = new ClanDatabase();
-  const profileService = new ProfileService(clanDatabase, data.apiKey);
+  const profileService = new ClanProfileService(clanDatabase, data.apiKey);
 
   const progress = (progressData) => {
     postMessage({ type: 'progress', data: progressData });

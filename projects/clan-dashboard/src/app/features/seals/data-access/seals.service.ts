@@ -7,8 +7,8 @@ import { SeasonService } from '@core/services/season.service';
 import { MemberProfile } from '@destiny/data/models';
 import { getClanMemberId, getMemberProfileId } from '@destiny/data/utility';
 import { DestinyDefinitionsPresentationDestinyPresentationNodeDefinition } from 'bungie-api-angular';
-import { profileSerializer } from 'projects/data/src/lib/clan/profiles/profile.serializer';
-import { ProfileService } from 'projects/data/src/lib/clan/profiles/profile.service';
+import { ClanProfileService } from 'projects/data/src/lib/clan/profiles/profile.service';
+import { profileSerializer } from 'projects/data/src/lib/profile/profile.serializer';
 import { from, map, mergeMap, Observable, of, switchMap, toArray } from 'rxjs';
 import { SealClanMember } from '../models/seal-clan-member';
 import { SealListItem } from '../models/seal-list-item';
@@ -23,7 +23,7 @@ export class SealsService {
     // private recordNodeService: RecordDefinitionService,
     private seasonService:SeasonService,
     private clansMembersService: ClansMembersService,
-    private profileService: ProfileService,
+    private profileService: ClanProfileService,
     private appConfig: AppConfig
   ) {}
   //legacySealNode = this.presentationNodeService.definitions[1881970629]; //.getDefinitionsByHash(1881970629);

@@ -1,62 +1,32 @@
 //import { ClanDatabase } from '../ClanDatabase';
 import { map, catchError, mergeMap, bufferTime, toArray } from 'rxjs/operators';
-import { Observable, from, of, throwError } from 'rxjs';
+import { Observable, from, of } from 'rxjs';
 
 //import { StoreId } from '../app-indexed-db';
 
-import { profileSerializer } from './profile.serializer';
 import { nowPlusDays, unixTimeStampToDate } from '../../utility/date-utils';
 import { StoreId } from '../../db/clan-indexed-db';
 import { ClanDatabase } from '../clan-database';
 import { ClanMember } from '../../models/ClanMember';
+import { ProfileService } from '../../profile/profile.service';
+import { profileSerializer } from '../../profile/profile.serializer';
 //import { MemberProfile } from '../../models/MemberProfile';
 // import { ClanMember } from 'projects/bungie-models/src/lib/models/ClanMember';
 // import { latestSeason } from 'projects/bungie-models/src/lib/entities/seasons/season-latest';
 interface MemberProfile {}
 
-export class ProfileService {
+export class ClanProfileService extends ProfileService {
   private tableName: StoreId = StoreId.MemberProfiles;
   private concurrentRequests = 20;
-  // 100 Profiles
-  // 104 Profile Progression
-  // 200 Characters
-  // 202 Character progression
-  // 800 Collections
-  // 900 Milestones
-  // 1100 Metrics
-  private profileComponents = [100, 104, 200, 202, 800, 900, 1100];
 
+  //  private profileComponents = [100, 104, 200, 202, 800, 900, 1100];
 
-  constructor(private clanDb: ClanDatabase, private apiKey: string) {}
-
-  private getProfileId(member: ClanMember) {
-    return `${member.destinyUserInfo.membershipType}-${member.destinyUserInfo.membershipId}`;
+  constructor(private clanDb: ClanDatabase, private apiKey: string) {
+    super(apiKey);
   }
 
   private getProfileFromCache(clanId: string, member: ClanMember) {
     return this.clanDb.getById(clanId, this.tableName, this.getProfileId(member));
-  }
-
-  private getProfileFromAPI(member: ClanMember) {
-    const url = `https://www.bungie.net/Platform/Destiny2/${member.destinyUserInfo.membershipType}/Profile/${
-      member.destinyUserInfo.membershipId
-    }/?components=${this.profileComponents.join(',')}`;
-
-    return new Observable((observer) => {
-      fetch(url, { headers: { 'X-API-Key': this.apiKey } })
-        .then((response) => response.json())
-        .then((data) => {
-          if (!data.Response) {
-            throw data;
-          }
-          observer.next(data);
-          observer.complete();
-        })
-        .catch((err) => {
-          console.log('error', err);
-          observer.error(err);
-        });
-    });
   }
 
   getProfile(clanId: string, member: ClanMember): Observable<any> {
@@ -73,7 +43,7 @@ export class ProfileService {
             return of(cachedData?.data);
           }
         }
-        return this.getProfileFromAPI(member).pipe(
+        return this.getProfileFromAPI(member.destinyUserInfo.membershipType, member.destinyUserInfo.membershipId).pipe(
           map((memberProfileResponse: any) => {
             if (memberProfileResponse.Response) {
               this.clanDb.update(clanId, this.tableName, [
@@ -106,7 +76,26 @@ export class ProfileService {
       })
     );
   }
-
+  getSerializedProfile(
+    clanId: string,
+    member: ClanMember,
+    progressionHashes: any[],
+    collectionHashes: any[],
+    profileRecords: any[],
+    profileMetrics: any[]
+  ): Observable<MemberProfile> {
+    return this.getProfile(clanId, member).pipe(
+      map((profile) => {
+        return profileSerializer(
+          profile,
+          progressionHashes,
+          collectionHashes,
+          profileRecords,
+          profileMetrics
+        ) as MemberProfile;
+      })
+    );
+  }
   getSerializedProfiles<T>(
     clanId: string,
     members: ClanMember[],
@@ -130,7 +119,6 @@ export class ProfileService {
       )
     ) as Observable<T>;
   }
-
   getSerializedProfilesFromCache(
     clanId: string,
     members: ClanMember[],
@@ -187,26 +175,6 @@ export class ProfileService {
       );
   }
 
-  getSerializedProfile(
-    clanId: string,
-    member: ClanMember,
-    progressionHashes: any[],
-    collectionHashes: any[],
-    profileRecords: any[],
-    profileMetrics: any[]
-  ): Observable<MemberProfile> {
-    return this.getProfile(clanId, member).pipe(
-      map((profile) => {
-        return profileSerializer(
-          profile,
-          progressionHashes,
-          collectionHashes,
-          profileRecords,
-          profileMetrics
-        ) as MemberProfile;
-      })
-    );
-  }
   getSerializedProfileFromCache(
     clanId: string,
     member: ClanMember,

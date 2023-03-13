@@ -6,11 +6,12 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { Destiny2Service } from 'bungie-api-angular';
 import { take } from 'rxjs';
 import { DefinitionService } from '@core/definition-services/definition.service';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-lookup',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, MatTabsModule],
+  imports: [CommonModule, ReactiveFormsModule, MatTabsModule, RouterModule],
   templateUrl: './lookup.component.html',
   encapsulation: ViewEncapsulation.None,
   styleUrls: ['./lookup.component.scss']

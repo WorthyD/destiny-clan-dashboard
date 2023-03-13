@@ -13,7 +13,7 @@ import { ClanDbModule } from '@destiny/data/clan';
 import { IdbKeyValService } from '@destiny/data/storage';
 import { LayoutModule } from './layout/layout.module';
 import { ClanMembersService } from '@destiny/data/clan/clan-members';
-import { ProfileService } from 'projects/data/src/lib/clan/profiles/profile.service';
+import { ClanProfileService } from 'projects/data/src/lib/clan/profiles/profile.service';
 import { ClanDatabase } from 'projects/data/src/lib/clan/clan-database';
 import { locationProvider, LocationToken } from './injection-tokens/location-token';
 import { MatDialogModule } from '@angular/material/dialog';
@@ -38,9 +38,9 @@ import { BungieInfoService } from 'projects/data/src/lib/clan/bungie-info/bungie
     { provide: LocationToken, useFactory: locationProvider },
     { provide: WindowToken, useFactory: windowProvider },
     {
-      provide: ProfileService,
+      provide: ClanProfileService,
       useFactory: (canDB) => {
-        return new ProfileService(canDB, environment.apiKey);
+        return new ClanProfileService(canDB, environment.apiKey);
       },
       deps: [ClanDatabase]
     },

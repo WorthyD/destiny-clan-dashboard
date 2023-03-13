@@ -9,7 +9,7 @@ import { ProfileWorkerService } from '../../../workers/profile-worker/profile-wo
 import { nowPlusMinutes } from 'projects/data/src/lib/utility/date-utils';
 import { AppConfig } from '@core/config/app-config';
 import { ClanConfigMembers } from './clan-updater.service';
-import { ProfileService } from 'projects/data/src/lib/clan/profiles/profile.service';
+import { ClanProfileService } from 'projects/data/src/lib/clan/profiles/profile.service';
 import { ClanDatabase } from 'projects/data/src/lib/clan/clan-database';
 import { ClansMembersService } from '../clans-members.service';
 import { addNotification, removeNotification, updateNotification } from '../../store/notifications';
@@ -19,7 +19,7 @@ import { SeasonService } from '../season.service';
   providedIn: 'root'
 })
 export class ProfileUpdaterService {
-  profileService: ProfileService;
+  profileService: ClanProfileService;
   constructor(
     private store: Store,
     private clanMemberService: ClansMembersService,
@@ -28,7 +28,7 @@ export class ProfileUpdaterService {
     private appConfig: AppConfig
   ) {
     const clanDB = new ClanDatabase();
-    this.profileService = new ProfileService(clanDB, appConfig.apiKey);
+    this.profileService = new ClanProfileService(clanDB, appConfig.apiKey);
   }
 
   profilesUpdate(clans: ClanConfigMembers[]): Observable<ClanConfigMembers[]> {
