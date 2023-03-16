@@ -1,3 +1,7 @@
+## [1.0.3](https://github.com/WorthyD/destiny-clan-dashboard/compare/1.0.2...1.0.3) (2023-03-16)
+
+
+
 ## [1.0.2](https://github.com/WorthyD/destiny-clan-dashboard/compare/1.0.1...1.0.2) (2023-03-13)
 
 
@@ -21,10 +25,6 @@
 ### Features
 
 * adding activity modes ([5bf7c35](https://github.com/WorthyD/destiny-clan-dashboard/commit/5bf7c35c73eae343b2e09438cb534226a978431b))
-
-
-
-## [0.0.4](https://github.com/WorthyD/destiny-clan-dashboard/compare/0.0.3...0.0.4) (2023-03-07)
 
 
 
