@@ -8,7 +8,9 @@ export const CURATED_ACTIVITIES_PINNACLE: CuratedActivityGroup = {
       hash: 588019350,
       metrics: [
         1365664208, // wins
+        2367472811,// Wins this season
         1765255052, // flawwless
+        1114483243, //  Flawless this season
         2082314848, //Opponents Defeated
         301249970, // Caries
         4112712479 // Flawless seal guilding
