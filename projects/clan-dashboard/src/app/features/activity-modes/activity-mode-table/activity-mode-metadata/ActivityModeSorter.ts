@@ -1,6 +1,7 @@
 // import { SorterMetadata } from '../data/sorter';
 
 import { SorterMetadata } from '@destiny/components';
+import { getBungieDisplayName } from '@destiny/data/utility';
 // import { ProfileRecentActivity } from '../../models/profile-recent-activity';
 import { ProfileRecentActivity } from '../../models/ProfileActivityMode';
 
@@ -18,10 +19,7 @@ export const ACTIVITY_MODE_SORTER_METADATA = new Map<string, SorterMetadata<Prof
     {
       label: 'Destiny Display Name',
       comparator: (a, b) =>
-        a.profile?.profile?.data.userInfo.displayName?.toLowerCase() <
-        b.profile?.profile?.data.userInfo.displayName?.toLowerCase()
-          ? -1
-          : 1
+        getBungieDisplayName(a.profile).toLowerCase() < getBungieDisplayName(b.profile).toLowerCase() ? -1 : 1
     }
   ],
   [
@@ -30,7 +28,7 @@ export const ACTIVITY_MODE_SORTER_METADATA = new Map<string, SorterMetadata<Prof
       label: 'Clan Name',
       comparator: (a, b) => (a.clan.clanName?.toLowerCase() < b.clan.clanName?.toLowerCase() ? -1 : 1)
     }
-  ],
+  ]
   // [
   //   'lastWeek',
   //   {

@@ -1,6 +1,7 @@
 import { ViewerMetadata } from '@destiny/components';
 import { BungieDateTimePipe } from '@destiny/components/pipes';
 import { PlaytimePipe } from '@destiny/components/pipes/playtime';
+import { getBungieDisplayName } from '@destiny/data/utility';
 //import { ProfileRecentActivity } from '../../models/profile-recent-activity';
 import { ProfileRecentActivity } from '../../models/ProfileActivityMode';
 export interface ActivityModeViewContext {
@@ -8,18 +9,31 @@ export interface ActivityModeViewContext {
   playTimePipe: PlaytimePipe;
   dateTimePipe: BungieDateTimePipe;
 }
-export const ACTIVITY_MODE_VIEWER_METADATA = new Map<string, ViewerMetadata<ProfileRecentActivity, ActivityModeViewContext>>([
+export const ACTIVITY_MODE_VIEWER_METADATA = new Map<
+  string,
+  ViewerMetadata<ProfileRecentActivity, ActivityModeViewContext>
+>([
+  // [
+  //   'playerName',
+  //   {
+  //     label: 'Display Name',
+  //     isSticky: true,
+  //     plainText: (item: ProfileRecentActivity) => `${item.member?.destinyUserInfo?.displayName}`,
+  //     render: (item: ProfileRecentActivity) => {
+  //       return {
+  //         text: `${item.member?.destinyUserInfo?.displayName}`
+  //       };
+  //     }
+  //   }
+  // ],
   [
-    'playerName',
+    'bungieUnique',
     {
-      label: 'Display Name',
-      isSticky: true,
-      plainText: (item: ProfileRecentActivity) => `${item.member?.destinyUserInfo?.displayName}`,
-      render: (item: ProfileRecentActivity) => {
-        return {
-          text: `${item.member?.destinyUserInfo?.displayName}`
-        };
-      }
+      label: 'Bungie Display Name',
+      labelClass: '',
+      plainText: (item: ProfileRecentActivity) => `${getBungieDisplayName(item?.profile) || ''}`,
+      // plainText: (item: ClanRosterItem) => ``,
+      render: (item: ProfileRecentActivity) => ({ text: `${getBungieDisplayName(item?.profile) || ''}`, classList: [] })
     }
   ],
   [
@@ -33,7 +47,7 @@ export const ACTIVITY_MODE_VIEWER_METADATA = new Map<string, ViewerMetadata<Prof
         };
       }
     }
-  ],
+  ]
   // [
   //   'lastWeek',
   //   {
