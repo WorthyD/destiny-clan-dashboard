@@ -1,7 +1,7 @@
 import { TABLE_DONE, TABLE_NOT_DONE } from '@core/constants';
 import { ViewerMetadata } from '@destiny/components';
 
-import { getMemberName } from '@destiny/data/utility';
+import { getBungieDisplayName, getMemberName } from '@destiny/data/utility';
 import { SealClanMember } from '../../models/seal-clan-member';
 
 interface ViewContext {
@@ -9,13 +9,23 @@ interface ViewContext {
 }
 
 export const SEAL_DETAILS_VIEWER_METADATA = new Map<string, ViewerMetadata<SealClanMember, ViewContext>>([
+  // [
+  //   'destinyDisplayName',
+  //   {
+  //     label: 'Destiny Display Name',
+  //     labelClass: '',
+  //     plainText: (item: SealClanMember) => `${getMemberName(item.clanMember)}`,
+  //     render: (item: SealClanMember) => ({ text: `${getMemberName(item.clanMember)}` })
+  //   }
+  // ],
   [
-    'destinyDisplayName',
+    'bungieUnique',
     {
-      label: 'Destiny Display Name',
+      label: 'Bungie Display Name',
       labelClass: '',
-      plainText: (item: SealClanMember) => `${getMemberName(item.clanMember)}`,
-      render: (item: SealClanMember) => ({ text: `${getMemberName(item.clanMember)}` })
+      plainText: (item: SealClanMember) => `${getBungieDisplayName(item?.profile) || ''}`,
+      // plainText: (item: ClanRosterItem) => ``,
+      render: (item: SealClanMember) => ({ text: `${getBungieDisplayName(item?.profile) || ''}`, classList: [] })
     }
   ],
   [

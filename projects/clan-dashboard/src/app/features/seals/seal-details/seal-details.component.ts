@@ -48,7 +48,7 @@ export class SealDetailsComponent {
       metadata: SEAL_DETAILS_VIEWER_METADATA,
       contextProvider: this.createViewContextProvider()
     },
-    'D2Dashboard_Seals_Details_Viewer'
+    'D2Dashboard_Seals_Details_ViewerV2'
   );
   sealDetailsFilterer = new Filterer({ metadata: SEAL_DETAILS_FILTERER_METADATA });
   sealDetailsSorter = new Sorter({ metadata: SEAL_DETAILS_SORTER_METADATA });

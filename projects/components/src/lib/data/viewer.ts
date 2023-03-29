@@ -184,9 +184,10 @@ function downloadCSV(args, stockData) {
   filename = args.filename || 'export.csv';
 
   if (!csv.match(/^data:text\/csv/i)) {
-    csv = 'data:text/csv;charset=utf-8,' + csv;
+    csv = 'data:text/csv;charset=utf-8,' + encodeURIComponent(csv);
   }
-  data = encodeURI(csv);
+  //data = encodeURI(csv);
+  data = csv;
 
   link = document.createElement('a');
   link.setAttribute('href', data);

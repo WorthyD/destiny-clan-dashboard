@@ -1,5 +1,5 @@
 import { SorterMetadata } from '@destiny/components';
-import { compare, getMemberName } from '@destiny/data/utility';
+import { compare, getBungieDisplayName, getMemberName } from '@destiny/data/utility';
 import { SealClanMember } from '../../models/seal-clan-member';
 const sortNumeric = (a: number, b: number) => {
   return a < b ? -1 : 1;
@@ -9,9 +9,9 @@ export const SEAL_DETAILS_SORTER_METADATA = new Map<string, SorterMetadata<SealC
   [
     'destinyDisplayName',
     {
-      label: 'Destiny Display Name',
+      label: 'Bungie Display Name',
       comparator: (a, b) =>
-        compare(getMemberName(a.clanMember).toLowerCase(), getMemberName(b.clanMember).toLowerCase())
+        compare(getBungieDisplayName(a.profile).toLowerCase(), getBungieDisplayName(b.profile).toLowerCase())
     }
   ],
   [

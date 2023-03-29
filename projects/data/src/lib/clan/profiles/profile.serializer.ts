@@ -15,7 +15,9 @@ export function profileSerializer(
           membershipType: p.profile.data.userInfo.membershipType,
           membershipId: p.profile.data.userInfo.membershipId,
           displayName: p.profile.data.userInfo.displayName,
-          applicableMembershipTypes: p.profile.data.userInfo.applicableMembershipTypes
+          applicableMembershipTypes: p.profile.data.userInfo.applicableMembershipTypes,
+          bungieGlobalDisplayNameCode:p.profile.data.userInfo.bungieGlobalDisplayNameCode,
+          bungieGlobalDisplayName:p.profile.data.userInfo.bungieGlobalDisplayName,
         },
         dateLastPlayed: p.profile.data.dateLastPlayed,
         characterIds: p.profile.data.characterIds,
