@@ -11,13 +11,13 @@
   <button mat-button class="nav-button" routerLink="./activity" routerLinkActive="active-link">Activity</button>
 
   <ng-container *ngIf="profile$ | async as profile">
-    <!-- <a mat-button class="nav-button" href="{{ profile | bungieProfileUrl }}" target="_blank"
+    <a mat-button class="nav-button" href="{{ profile | bungieProfileUrl }}" target="_blank"
       >Bungie Profile &nbsp; <mat-icon>open_in_new </mat-icon></a
     >
-
     <a mat-button class="nav-button" href="{{ profile | raidReportProfileUrl }}" target="_blank"
       >Raid Report &nbsp; <mat-icon> open_in_new </mat-icon></a
     >
+
     <a mat-button class="nav-button" href="{{ profile | dungeonReportProfileUrl }}" target="_blank"
       >Dungeon Report &nbsp; <mat-icon>open_in_new </mat-icon></a
     >
@@ -30,7 +30,7 @@
     >
     <a mat-button class="nav-button" href="{{ profile | triumphReport }}" target="_blank">
       Triumph.Report &nbsp; <mat-icon>open_in_new </mat-icon></a
-    > -->
+    >
     <!-- https://raid.report/pc/4611686018467238913 -->
   </ng-container>
 </mat-toolbar>

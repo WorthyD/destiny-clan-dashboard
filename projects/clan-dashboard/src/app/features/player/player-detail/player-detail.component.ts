@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { map, Observable } from 'rxjs';
+import { map, Observable, switchMap } from 'rxjs';
 import { PlayerService } from '../data-access/player.service';
 
 interface MemberInfo {
@@ -22,6 +22,6 @@ export class PlayerDetailComponent {
   );
 
   profile$ = this.memberInfo$.pipe(
-    map((memberInfo) => this.playerService.getProfile(memberInfo.memberType, memberInfo.memberId))
+    switchMap((memberInfo) => this.playerService.getProfile(memberInfo.memberType, memberInfo.memberId))
   );
 }
