@@ -1,6 +1,6 @@
 {
   "name": "destiny-clan-dashboard",
-  "version": "1.0.0",
+  "version": "1.1.2",
   "scripts": {
     "ng": "ng",
     "start": "ng serve --port 4321",
@@ -15,7 +15,6 @@
     "test:data:coverage": "ng test --project=data --code-coverage=true",
     "test:components": "ng test --project=components",
     "test:components:coverage": "ng test --project=components --browsers=ChromeHeadless --code-coverage=true --watch=false",
-    "docs:json": "compodoc -p ./tsconfig.json -e json -d .",
     "storybook": "ng run clan-dashboard:storybook",
     "config": "ts-node set-env.ts",
     "lint": "ng lint"

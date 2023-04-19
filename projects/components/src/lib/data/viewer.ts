@@ -28,6 +28,7 @@ export type RenderedView = RenderedViewWithText | RenderedViewWithChildren | Ren
 
 export interface ViewerMetadata<T = any, C = any> {
   label: string;
+  tooltip?: string;
   isSticky?: boolean;
   labelClass?: string;
   plainText: (item: T, context: C) => string | null;
@@ -38,6 +39,7 @@ export interface ViewLabel {
   id: string;
   isSticky: boolean;
   label: string;
+  tooltip?: string;
   labelClass?: string;
 }
 
@@ -73,7 +75,13 @@ export class Viewer<T = any, C = any> {
   getViews(): ViewLabel[] {
     const views: ViewLabel[] = [];
     this.metadata.forEach((value, key) =>
-      views.push({ id: key, label: value.label, labelClass: value.labelClass, isSticky: value.isSticky || false })
+      views.push({
+        id: key,
+        label: value.label,
+        tooltip: value.tooltip,
+        labelClass: value.labelClass,
+        isSticky: value.isSticky || false
+      })
     );
     return views;
   }
@@ -176,9 +184,10 @@ function downloadCSV(args, stockData) {
   filename = args.filename || 'export.csv';
 
   if (!csv.match(/^data:text\/csv/i)) {
-    csv = 'data:text/csv;charset=utf-8,' + csv;
+    csv = 'data:text/csv;charset=utf-8,' + encodeURIComponent(csv);
   }
-  data = encodeURI(csv);
+  //data = encodeURI(csv);
+  data = csv;
 
   link = document.createElement('a');
   link.setAttribute('href', data);

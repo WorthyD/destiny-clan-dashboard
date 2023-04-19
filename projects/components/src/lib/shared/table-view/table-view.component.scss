@@ -42,6 +42,10 @@ advanced-search {
 
 .table-container {
   overflow: auto;
+  .info-tip {
+    margin-left: 0.5rem;
+    display: inline;
+  }
 }
 
 table {

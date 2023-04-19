@@ -4,7 +4,7 @@
       <h1>Destiny Clan Dashboard</h1>
       <h2>View your clan's activity, accomplishments, and population with relative ease.</h2>
       <p>I hope you find this thing useful. <a href="https://twitter.com/worthyd">Send me your feedback</a></p>
-      <small style="font-size:6px;">If you can read this, you do not need glasses.</small>
+      <small style="font-size: 6px">If you can read this, you do not need glasses.</small>
     </div>
   </div>
 
@@ -19,7 +19,7 @@
     </h2>
     <h4>
       Find your clan and any additional clans you wish to track. <br />Just want to look? Try
-      <button mat-raised-button (click)="demoClan()">this one</button> and have a look around.
+      <button (click)="demoClan()" class="unstyled-button">this one</button> and have a look around.
     </h4>
     <app-clan-search-autocomplete
       class="clan-search-autocomplete"
@@ -39,7 +39,7 @@
     </div>
 
     <div *ngIf="clans.length > 0" class="lets-go-btn">
-      <button color="accent" mat-raised-button routerLink="/">Let's Go</button>
+      <button color="accent" mat-raised-button routerLink="/">View Dashboard</button>
     </div>
     <!-- TODO: Add Let's go -->
 
@@ -49,7 +49,7 @@
       </ng-container>
     </div>
 
-    <section class="app-info" *ngIf="clans.length === 0">
+    <section class="app-info">
       <div class="info-card">
         <div class="icon">
           <i class="material-icons"> date_range </i>

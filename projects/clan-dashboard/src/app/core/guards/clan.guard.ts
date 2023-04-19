@@ -14,7 +14,7 @@ export class ClanResolveGuard implements CanActivate {
     return this.store.select(selectTotalClans).pipe(
       map((clans) => {
         if (!clans || clans === 0) {
-          return this.router.parseUrl('/clan-search');
+          return this.router.parseUrl('/home');
         }
         return true;
       })

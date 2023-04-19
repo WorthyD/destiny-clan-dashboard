@@ -17,6 +17,8 @@ import { Grouper } from '../../data/grouper';
 import { Sorter } from '../../data/sorter';
 import { RenderedViewModule } from '../rendered-view/rendered-view.module';
 import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 export interface Item {
   id: string;
@@ -53,6 +55,8 @@ interface TablePage {
     MatButtonModule,
     RenderedViewModule,
     MatPaginatorModule,
+    MatTooltipModule,
+    MatIconModule,
     MatDividerModule,
     DisplayOptionsComponent
   ],

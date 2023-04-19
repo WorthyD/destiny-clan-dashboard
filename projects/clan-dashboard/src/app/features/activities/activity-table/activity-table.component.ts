@@ -78,6 +78,7 @@ export class ActivityTableComponent implements OnChanges {
   createViewerMetric(definition: MetricDefinition): ViewerMetadata<ClanMemberProfile, ViewContext> {
     return {
       label: definition.displayProperties.name,
+      tooltip: definition.displayProperties.description,
       plainText: (item: ClanMemberProfile) =>
         `${item.profile.metrics.data.metrics[definition.hash]?.objectiveProgress?.progress.toString()}`,
       render: (item: ClanMemberProfile) => {
@@ -131,6 +132,7 @@ export class ActivityTableComponent implements OnChanges {
   createViewerRecord(definition: MetricDefinition): ViewerMetadata<ClanMemberProfile, ViewContext> {
     return {
       label: definition.displayProperties.name,
+      tooltip: definition.displayProperties.description,
       plainText: (item: ClanMemberProfile) =>
         `${this.hasCompleted(this.getRecord(definition, item.profile)) ? 'X' : ''}`,
       render: (item: ClanMemberProfile) => {

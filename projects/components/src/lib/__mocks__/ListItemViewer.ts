@@ -13,7 +13,15 @@ export const EXAMPLE_VIEWER_METADATA = new Map<string, ViewerMetadata<MockListIt
     'isPublic',
     { label: 'Is Public', plainText: (item) => `${item.isPublic}`, render: (item) => ({ text: `${item.isPublic}` }) }
   ],
-  ['name', { label: 'Name', plainText: (item) => `${item.name}`, render: (item) => ({ text: `${item.name}` }) }],
+  [
+    'name',
+    {
+      label: 'Names',
+      tooltip: 'testing tooltip',
+      plainText: (item) => `${item.name}`,
+      render: (item) => ({ text: `${item.name}` })
+    }
+  ],
   [
     'startDate',
     {

@@ -22,6 +22,7 @@ import { MemberTypePipe } from './member-type/member-type.pipe';
 // import { D2ChecklistUrlPipe } from './d2-checklist-url/d2-checklist-url.pipe';
 // import { TriumphReportPipe } from './triumph-report/triumph-report.pipe';
 import { PlaytimeMillisecondsPipe, PlaytimePipe } from './playtime/playtime.pipe';
+import { BungieDisplayNamePipe } from './bungie-display-name/bungie-display-name.pipe';
 
 const pipes = [
   // DateAgoPipe,
