@@ -10,8 +10,10 @@
         <mat-list-item *ngFor="let member of members; let idx = index">
           <div class="member-info">
             <div class="member-name">
-              {{ member.profile | bungieDisplayName }}
-              <ng-container *ngIf="member.member.isOnline"><span class="online" matTooltip="Online / In Orbit"></span></ng-container>
+              <lib-profile-link [profile]="member.profile"></lib-profile-link>
+              <ng-container *ngIf="member.member.isOnline"
+                ><span class="online" matTooltip="Online / In Orbit"></span
+              ></ng-container>
             </div>
             <ng-container [ngTemplateOutlet]="itemTemplate" [ngTemplateOutletContext]="{ $implicit: member }">
             </ng-container>

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { from, map, mergeMap, Observable, switchMap, take, toArray } from 'rxjs';
-import { ProfileService } from 'projects/data/src/lib/clan/profiles/profile.service';
+import { ClanProfileService } from 'projects/data/src/lib/clan/profiles/profile.service';
 import { getClanMemberId, getMemberProfileId } from '@destiny/data/utility';
 import { ProfileRecentActivityWorkerService } from '../../../workers/profile-recent-activity/profile-recent-activity.service';
 import { ProfileRecentActivity } from '../models/profile-recent-activity';
@@ -61,7 +61,7 @@ export class RecentActivityService {
 
   constructor(
     private memberService: ClansMembersService,
-    private profileService: ProfileService,
+    private profileService: ClanProfileService,
     private profileActivityService: ProfileRecentActivityWorkerService,
     private seasonService: SeasonService
   ) {}
