@@ -5,6 +5,7 @@ import { PlayerDetailComponent } from './player-detail.component';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { RouterModule } from '@angular/router';
 import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
 import { BungieProfileUrlPipe } from '@destiny/components/pipes/bungie-profile-url';
 import { RaidReportProfileUrlPipe } from '@destiny/components/pipes/raid-report-url';
 import { DungeonReportProfileUrlPipe } from '@destiny/components/pipes/dungeon-report-url';
@@ -24,7 +25,8 @@ import { TriumphReportPipe } from '@destiny/components/pipes/triumph-report';
     DungeonReportProfileUrlPipe,
     DestinyTrackerUrlPipe,
     D2ChecklistUrlPipe,
-    TriumphReportPipe
+    TriumphReportPipe,
+    MatButtonModule
   ]
 })
 export class PlayerDetailModule {}
