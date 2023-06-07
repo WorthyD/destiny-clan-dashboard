@@ -23,9 +23,10 @@ import { MemberTypePipe } from './member-type/member-type.pipe';
 // import { TriumphReportPipe } from './triumph-report/triumph-report.pipe';
 import { PlaytimeMillisecondsPipe, PlaytimePipe } from './playtime/playtime.pipe';
 import { BungieDisplayNamePipe } from './bungie-display-name/bungie-display-name.pipe';
+import { DateAgoPipe } from './date-pipes';
 
 const pipes = [
-  // DateAgoPipe,
+   DateAgoPipe,
   ClassTypeTextPipe,
   RaceTypeTextPipe,
   GenderTypeTextPipe,

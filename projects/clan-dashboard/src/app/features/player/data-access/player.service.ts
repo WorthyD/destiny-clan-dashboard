@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { PlayerShellModule } from '../player-shell/player-shell.module';
 import { CachedProfileService } from '@destiny/data/profile';
+import { AppConfig } from '@core/config/app-config';
 
 @Injectable()
 //   {
@@ -10,6 +11,8 @@ import { CachedProfileService } from '@destiny/data/profile';
 export class PlayerService {
   constructor(
     private cachedProfileService: CachedProfileService // private cachedProfileService: CachedProfileService
+    ,
+    private appConfig: AppConfig
   ) {}
 
   getProfile(membershipType: string, membershipId: string) {

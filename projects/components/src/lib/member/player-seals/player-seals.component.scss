@@ -1,0 +1,12 @@
+.player-seal {
+  &__list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content:space-evenly;
+
+  }
+}
+
+lib-player-seal{
+  width:150px;
+}

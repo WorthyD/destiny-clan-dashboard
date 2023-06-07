@@ -13,6 +13,7 @@ import { from, map, mergeMap, Observable, of, switchMap, toArray } from 'rxjs';
 import { SealClanMember } from '../models/seal-clan-member';
 import { SealListItem } from '../models/seal-list-item';
 import { SealsModule } from '../seals-shell/seals.module';
+import { GlobalSealsService } from '@core/services/global-seals.service';
 
 @Injectable({
   providedIn: 'root'
@@ -24,32 +25,33 @@ export class SealsService {
     private seasonService:SeasonService,
     private clansMembersService: ClansMembersService,
     private profileService: ClanProfileService,
-    private appConfig: AppConfig
+    private globalSeals: GlobalSealsService
   ) {}
   //legacySealNode = this.presentationNodeService.definitions[1881970629]; //.getDefinitionsByHash(1881970629);
-  currentSealNodes = this.definitionService.presentationDefinition[this.appConfig.constants.CURRENT_SEALS_HASH];
-  //allNodes = this.getNodes(this.currentSealNodes).concat(this.getNodes(this.legacySealNode));
-  allNodes = this.getNodes(this.currentSealNodes);
+  // currentSealNodes = this.definitionService.presentationDefinition[this.appConfig.constants.CURRENT_SEALS_HASH];
+  // //allNodes = this.getNodes(this.currentSealNodes).concat(this.getNodes(this.legacySealNode));
+  // allNodes = this.getNodes(this.currentSealNodes);
 
-  sealNodes: DestinyDefinitionsPresentationDestinyPresentationNodeDefinition[] = this.getDefinitionsByHash(
-    this.allNodes
-  );
+  // sealNodes: DestinyDefinitionsPresentationDestinyPresentationNodeDefinition[] = this.getDefinitionsByHash(
+  //   this.allNodes
+  // );
 
-  private getNodes(node) {
-    return node.children.presentationNodes.map((x) => x.presentationNodeHash);
-  }
+  // private getNodes(node) {
+  //   return node.children.presentationNodes.map((x) => x.presentationNodeHash);
+  // }
 
-  private getDefinitionsByHash(allNodes: any[]) {
-    return allNodes.map((h) => {
-      return this.definitionService.presentationDefinition[h];
-    });
-  }
+  // private getDefinitionsByHash(allNodes: any[]) {
+  //   return allNodes.map((h) => {
+  //     return this.definitionService.presentationDefinition[h];
+  //   });
+  // }
+  sealNodes = this.globalSeals.sealNodes;
 
   clanProfiles$ = this.clansMembersService.clanMembers$.pipe(
     switchMap((clansAndMembers) => {
       return from(clansAndMembers).pipe(
         mergeMap((clanAndMembers) => {
-          const hashes = this.sealNodes.filter((x) => x.completionRecordHash).map((x) => x.completionRecordHash);
+          const hashes = this.globalSeals.sealNodes.filter((x) => x.completionRecordHash).map((x) => x.completionRecordHash);
           const gildedHashes = [];
           hashes.forEach((hash) => {
             const record = this.definitionService.recordDefinition[hash as number];
@@ -93,7 +95,7 @@ export class SealsService {
 
   milestonesWithProfiles$: Observable<SealListItem[]> = this.clanProfiles$.pipe(
     map((cp) => {
-      return this.sealNodes
+      return this.globalSeals.sealNodes
         .filter((x) => x.redacted === false)
         .map((seal) => {
           const sealRecord = this.definitionService.recordDefinition[seal.completionRecordHash as number];
@@ -114,7 +116,7 @@ export class SealsService {
   );
 
   getSealDetails$(sealHash): Observable<SealClanMember[]> {
-    const sealCompletionHash = this.sealNodes.find((h) => h.hash == sealHash)?.completionRecordHash;
+    const sealCompletionHash = this.globalSeals.sealNodes.find((h) => h.hash == sealHash)?.completionRecordHash;
     const sealRecord = this.definitionService.recordDefinition[sealCompletionHash as number];
     const sealGildingRecord =
       sealRecord && sealRecord.titleInfo && sealRecord.titleInfo.gildingTrackingRecordHash

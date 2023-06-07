@@ -10,6 +10,10 @@ import {
 export class SeasonService {
   currentSeason: DestinyDefinitionsSeasonsDestinySeasonDefinition;
   currentSeasonProgress: DestinyDefinitionsSeasonsDestinySeasonPassDefinition;
+
+  lastSeason: DestinyDefinitionsSeasonsDestinySeasonDefinition;
+  lastSeasonProgress: DestinyDefinitionsSeasonsDestinySeasonPassDefinition;
+
   allSeasons: DestinyDefinitionsSeasonsDestinySeasonDefinition[];
   constructor() {}
 
@@ -29,6 +33,9 @@ export class SeasonService {
     });
     this.currentSeason = seasons[currentSeasonKey];
     this.currentSeasonProgress = seasonPasses[this.currentSeason.seasonPassHash];
+
+    this.lastSeason = this.getPreviousSeason();
+    this.lastSeasonProgress = seasonPasses[this.lastSeason.seasonPassHash];
   }
 
   getSeasonProgressionHashes(): number[] {

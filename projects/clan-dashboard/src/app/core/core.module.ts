@@ -18,7 +18,7 @@ import { ClanDatabase } from 'projects/data/src/lib/clan/clan-database';
 import { locationProvider, LocationToken } from './injection-tokens/location-token';
 import { MatDialogModule } from '@angular/material/dialog';
 import { windowProvider, WindowToken } from 'projects/data/src/lib/injection-tokens/window-token';
-import { BungieInfoService } from 'projects/data/src/lib/clan/bungie-info/bungie-info.service';
+import { ClanBungieInfoService } from 'projects/data/src/lib/clan/bungie-info/bungie-info.service';
 
 @NgModule({
   declarations: [],
@@ -45,9 +45,9 @@ import { BungieInfoService } from 'projects/data/src/lib/clan/bungie-info/bungie
       deps: [ClanDatabase]
     },
     {
-      provide: BungieInfoService,
+      provide: ClanBungieInfoService,
       useFactory: (canDB) => {
-        return new BungieInfoService(canDB, environment.apiKey);
+        return new ClanBungieInfoService(canDB, environment.apiKey);
       },
       deps: [ClanDatabase]
     },

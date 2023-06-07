@@ -1,4 +1,4 @@
-import { Component, Input, ViewEncapsulation } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, ViewEncapsulation } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
 import { PipesModule } from '../../pipes/pipes.module';
@@ -7,6 +7,7 @@ import { PipesModule } from '../../pipes/pipes.module';
   selector: 'lib-member-type-icon',
   standalone: true,
   imports: [CommonModule, PipesModule, MatIconModule],
+  changeDetection: ChangeDetectionStrategy.OnPush,
   template: `<mat-icon [svgIcon]="type | memberType" class="ico-{{type | memberType}}"></mat-icon>`,
   encapsulation: ViewEncapsulation.None
 })

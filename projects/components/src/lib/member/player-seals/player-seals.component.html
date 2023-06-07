@@ -1,0 +1,29 @@
+<mat-card>
+  <mat-card-header> <mat-card-title> Seals </mat-card-title> </mat-card-header>
+
+  <mat-card-content>
+    <div class="player-seal__list">
+      <ng-container *ngFor="let seal of guildedSeals">
+        <lib-player-seal [playerSeal]="seal"></lib-player-seal>
+      </ng-container>
+      <ng-container *ngFor="let seal of completedSeals">
+        <lib-player-seal [playerSeal]="seal"></lib-player-seal>
+      </ng-container>
+    </div>
+    <mat-expansion-panel class="mat-elevation-z0">
+      <mat-expansion-panel-header>
+        <mat-panel-title> In Progress </mat-panel-title>
+        <mat-panel-description>
+          <div></div>
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+      <ng-template matExpansionPanelContent>
+        <div class="player-seal__list">
+          <ng-container *ngFor="let seal of partialSeals">
+            <lib-player-seal [playerSeal]="seal"></lib-player-seal>
+          </ng-container>
+        </div>
+      </ng-template>
+    </mat-expansion-panel>
+  </mat-card-content>
+</mat-card>

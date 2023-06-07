@@ -5,6 +5,7 @@ import { MemberTypeComponent } from '@destiny/components/icons';
 import { ClassCellComponent } from '../../components/class-cell/class-cell.component';
 import { MembershipTypes } from '@destiny/data/models';
 import { ClanRosterItem } from '@features/clans-roster/models/ClanRosterItem';
+import { ProfileLinkComponent } from '@destiny/components/shared/profile-link';
 
 interface ViewContext {
   item: ClanRosterItem;
@@ -29,6 +30,20 @@ export const CLAN_ROSTER_VIEWER_METADATA = new Map<string, ViewerMetadata<ClanRo
     }
   ],
   [
+    'bungieUnique',
+    {
+      label: 'Bungie Unique Name',
+      labelClass: '',
+      plainText: (item: ClanRosterItem) => `${item?.bungieInfo?.uniqueName || ''}`,
+      // plainText: (item: ClanRosterItem) => ``,
+      //render: (item: ClanRosterItem) => ({ text: `${item.bungieInfo?.uniqueName || ''}`, classList: [] }),
+      render: (item: ClanRosterItem) => ({
+        component: ProfileLinkComponent,
+        data: { profile: item?.profile }
+      })
+    }
+  ],
+  [
     'destinyDisplayName',
     {
       label: 'Destiny Display Name',
@@ -47,22 +62,17 @@ export const CLAN_ROSTER_VIEWER_METADATA = new Map<string, ViewerMetadata<ClanRo
       label: 'Bungie Display Name',
       labelClass: '',
       plainText: (item: ClanRosterItem) => `${item.member?.bungieNetUserInfo?.displayName || ''}`,
+      // render: (item: ClanRosterItem) => ({
+      //   component: ProfileLinkComponent,
+      //   data: { profile: item?.profile }
+      // })
       render: (item: ClanRosterItem) => ({
         text: `${item.member?.bungieNetUserInfo?.displayName || ''}`,
         classList: []
       })
     }
   ],
-  [
-    'bungieUnique',
-    {
-      label: 'Bungie Unique Name',
-      labelClass: '',
-      plainText: (item: ClanRosterItem) => `${item?.bungieInfo?.uniqueName || ''}`,
-      // plainText: (item: ClanRosterItem) => ``,
-      render: (item: ClanRosterItem) => ({ text: `${item.bungieInfo?.uniqueName || ''}`, classList: [] })
-    }
-  ],
+
   [
     'psnName',
     {

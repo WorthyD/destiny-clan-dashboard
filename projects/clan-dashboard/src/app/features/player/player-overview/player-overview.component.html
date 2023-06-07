@@ -1,9 +1,6 @@
-<app-member-overview *ngIf="profile$ | async as profile" [memberOverview]="profile"> </app-member-overview>
-<p>player-overview works!</p>
-
-<div style="overflow: scroll">
-  <pre
-    >{{ profile$ | async | json }}
-</pre
-  >
-</div>
+<app-member-overview
+  [memberOverview]="profile$ | async"
+  [bungieInfo$]="bungieInfo$"
+  [bungieInfoLoading$]="bungieInfoLoading$"
+>
+</app-member-overview>

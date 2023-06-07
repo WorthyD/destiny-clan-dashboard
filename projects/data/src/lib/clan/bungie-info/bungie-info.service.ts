@@ -8,7 +8,7 @@ import { ClanMember } from '../../models/ClanMember';
 import { BungieInfo } from '../../models/BungieInfo';
 interface MemberProfile {}
 
-export class BungieInfoService {
+export class ClanBungieInfoService {
   private tableName: StoreId = StoreId.BungieInfo;
   private concurrentRequests = 20;
 

@@ -1,10 +1,10 @@
 import { ClanDatabase } from 'projects/data/src/lib/clan/clan-database';
-import { BungieInfoService } from 'projects/data/src/lib/clan/bungie-info/bungie-info.service';
+import { ClanBungieInfoService } from 'projects/data/src/lib/clan/bungie-info/bungie-info.service';
 import { take } from 'rxjs/operators';
 
 addEventListener('message', ({ data }) => {
   const clanDatabase = new ClanDatabase();
-  const bungieInfoService = new BungieInfoService(clanDatabase, data.apiKey);
+  const bungieInfoService = new ClanBungieInfoService(clanDatabase, data.apiKey);
 
   const progress = (progressData) => {
     postMessage({ type: 'progress', data: progressData });
