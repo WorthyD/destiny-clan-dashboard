@@ -9,7 +9,7 @@ export class BungieDateTimePipe extends DatePipe implements PipeTransform {
     super(locale);
   }
 
-  override transform(date: Date): any {
+  override transform(date: Date | string): any {
     return super.transform(date, 'yyyy-MM-dd h:mm a') || '';
   }
 }

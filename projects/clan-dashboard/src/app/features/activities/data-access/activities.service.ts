@@ -10,7 +10,7 @@ import {
 import { getClanMemberId, getMemberProfileId } from '@destiny/data/utility';
 import { Store } from '@ngrx/store';
 import { ClanMemberProfile } from '@shared/models/ClanMemberProfile';
-import { ProfileService } from 'projects/data/src/lib/clan/profiles/profile.service';
+import { ClanProfileService } from 'projects/data/src/lib/clan/profiles/profile.service';
 import { from, map, mergeMap, Observable, switchMap, take, toArray } from 'rxjs';
 import { ActivitiesShellModule } from '../activities-shell/activities-shell.module';
 import {
@@ -28,7 +28,7 @@ export class ActivitiesService {
     private definitionService: DefinitionService,
     private store: Store,
     private memberService: ClansMembersService,
-    private profileService: ProfileService,
+    private profileService: ClanProfileService,
     private seasonService: SeasonService
   ) {}
 

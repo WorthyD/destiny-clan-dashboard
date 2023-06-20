@@ -6,7 +6,7 @@ import {
   selectClanMemberProfileStateLoading
 } from '@core/store/clans-members-profiles/clan-members-profiles.selectors';
 import { ClanMemberProfile } from '@shared/models/ClanMemberProfile';
-import { BungieInfoService } from 'projects/data/src/lib/clan/bungie-info/bungie-info.service';
+import { ClanBungieInfoService } from 'projects/data/src/lib/clan/bungie-info/bungie-info.service';
 import { ClanRosterItem } from '../models/ClanRosterItem';
 import { BungieInfo } from '@destiny/data/models';
 
@@ -51,5 +51,5 @@ export class ClansRosterService {
     })
   );
 
-  constructor(private store: Store, private bungieInfoService: BungieInfoService) {}
+  constructor(private store: Store, private bungieInfoService: ClanBungieInfoService) {}
 }

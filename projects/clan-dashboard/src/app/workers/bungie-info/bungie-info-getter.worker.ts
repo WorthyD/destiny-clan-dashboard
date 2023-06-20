@@ -1,11 +1,11 @@
-import { BungieInfoService } from 'projects/data/src/lib/clan/bungie-info/bungie-info.service';
+import { ClanBungieInfoService } from 'projects/data/src/lib/clan/bungie-info/bungie-info.service';
 import { ClanDatabase } from 'projects/data/src/lib/clan/clan-database';
 
 import { take } from 'rxjs/operators';
 
 addEventListener('message', ({ data }) => {
   const clanDatabase = new ClanDatabase();
-  const profileService = new BungieInfoService(clanDatabase, data.apiKey);
+  const profileService = new ClanBungieInfoService(clanDatabase, data.apiKey);
 
 
   profileService

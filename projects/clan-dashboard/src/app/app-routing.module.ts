@@ -38,6 +38,11 @@ const routes: Routes = [
           )
       },
       {
+        path: 'player',
+        loadChildren: () =>
+          import('./features/player/player-shell/player-shell.module').then((module) => module.PlayerShellModule)
+      },
+      {
         path: 'activity-modes',
         loadChildren: () =>
           import('./features/activity-modes/activity-mode-shell/activity-mode-shell.module').then(

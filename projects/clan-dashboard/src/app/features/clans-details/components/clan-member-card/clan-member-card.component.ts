@@ -5,11 +5,19 @@ import { MatCardModule } from '@angular/material/card';
 import { MatListModule } from '@angular/material/list';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { BungieDisplayNameModule } from 'projects/components/src/lib/pipes/bungie-display-name';
+import { ProfileLinkComponent } from '@destiny/components/shared/profile-link';
 
 @Component({
   selector: 'app-clan-member-card',
   standalone: true,
-  imports: [CommonModule, MatCardModule, MatListModule, MatTooltipModule, BungieDisplayNameModule],
+  imports: [
+    CommonModule,
+    MatCardModule,
+    MatListModule,
+    MatTooltipModule,
+    BungieDisplayNameModule,
+    ProfileLinkComponent
+  ],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './clan-member-card.component.html',
   styleUrls: ['./clan-member-card.component.scss']

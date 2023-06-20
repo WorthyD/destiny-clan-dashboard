@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { ActivityModeResolveGuard } from '../guards/activity-mode.guard';
+// import { ActivityModeResolveGuard } from '../guards/activity-mode.guard';
 
 const routes: Routes = [
   {

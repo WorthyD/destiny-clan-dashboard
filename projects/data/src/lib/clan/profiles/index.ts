@@ -1,1 +1,1 @@
-export { ProfileService } from './profile.service';
+export { ClanProfileService } from './profile.service';
