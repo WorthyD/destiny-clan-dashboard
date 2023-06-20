@@ -3,6 +3,7 @@ import { BungieDateTimePipe } from '@destiny/components/pipes';
 import { PlaytimePipe } from '@destiny/components/pipes/playtime';
 import { getBungieDisplayName } from '@destiny/data/utility';
 import { ClanMemberProfile } from '@shared/models/ClanMemberProfile';
+import { ProfileLinkComponent } from '@destiny/components/shared/profile-link';
 
 interface ViewContext {
   item: ClanMemberProfile;
@@ -29,7 +30,11 @@ export const ACTIVITY_VIEWER_METADATA = new Map<string, ViewerMetadata<ClanMembe
       isSticky: true,
       plainText: (item: ClanMemberProfile) => `${getBungieDisplayName(item?.profile) || ''}`,
       // plainText: (item: ClanRosterItem) => ``,
-      render: (item: ClanMemberProfile) => ({ text: `${getBungieDisplayName(item?.profile) || ''}`, classList: [] })
+      //render: (item: ClanMemberProfile) => ({ text: `${getBungieDisplayName(item?.profile) || ''}`, classList: [] }),
+      render: (item: ClanMemberProfile) => ({
+        component: ProfileLinkComponent,
+        data: { profile: item?.profile }
+      })
     }
   ],
   [

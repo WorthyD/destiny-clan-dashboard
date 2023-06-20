@@ -49,7 +49,7 @@ export class ClanSearchAutocompleteComponent implements OnInit {
     if (selectedItem.type === 'clan') {
       this.addClan.emit(selectedItem.clanInfo);
     } else if (selectedItem.type === 'player') {
-      console.log(selectedItem);
+     // console.log(selectedItem);
       this.addMembersClan.emit(selectedItem.memberInfo);
     }
   }

@@ -4,6 +4,9 @@ import { PlaytimePipe } from '@destiny/components/pipes/playtime';
 import { getBungieDisplayName } from '@destiny/data/utility';
 //import { ProfileRecentActivity } from '../../models/profile-recent-activity';
 import { ProfileRecentActivity } from '../../models/ProfileActivityMode';
+
+import { ProfileLinkComponent } from '@destiny/components/shared/profile-link';
+
 export interface ActivityModeViewContext {
   item: ProfileRecentActivity;
   playTimePipe: PlaytimePipe;
@@ -33,7 +36,11 @@ export const ACTIVITY_MODE_VIEWER_METADATA = new Map<
       labelClass: '',
       plainText: (item: ProfileRecentActivity) => `${getBungieDisplayName(item?.profile) || ''}`,
       // plainText: (item: ClanRosterItem) => ``,
-      render: (item: ProfileRecentActivity) => ({ text: `${getBungieDisplayName(item?.profile) || ''}`, classList: [] })
+      //  render: (item: ProfileRecentActivity) => ({ text: `${getBungieDisplayName(item?.profile) || ''}`, classList: [] })
+      render: (item: ProfileRecentActivity) => ({
+        component: ProfileLinkComponent,
+        data: { profile: item?.profile }
+      })
     }
   ],
   [

@@ -72,7 +72,7 @@ export class MemberOverviewComponent implements OnChanges {
           prestigeProgression: characterProgressions[lastSeason.prestigeProgressionHash]
         };
 
-        console.log(this.globalSealsService.sealNodesWLegacy);
+        //console.log(this.globalSealsService.sealNodesWLegacy);
         this.memberSealInfo = convertSealAndProfile(this.globalSealsService.sealNodesWLegacy, this.memberOverview);
       }
     }

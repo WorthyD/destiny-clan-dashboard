@@ -6,7 +6,7 @@ import { ClanMembersServiceInterface } from './clan-members.interface';
 
 export class ClanMembersServiceMock implements ClanMembersServiceInterface {
   getClanMembersSerialized(clanId: string): Observable<GroupsV2GroupMember[]> {
-    console.log('returning');
+    //console.log('returning');
     return of([]);
   }
 }

@@ -3,6 +3,23 @@ import { CuratedActivityGroup } from './CuratedActivities';
 export const CURATED_ACTIVITIES_DUNGEONS: CuratedActivityGroup = {
   title: 'Dungeons',
   activities: [
+    { // Ghost of the deep
+      hash: 313828469,
+      metrics: [
+        3846201365, //Ghost of the deep Completions
+        2521923488, //ghosts of the deep Flawless Solo Completions
+        3251969937 //ghosts of the deep Flawless Completions
+      ],
+      collections: [
+        161963863 //3558330464
+        // 4174431791
+      ],
+      records:[
+        470621007, //Sovereign
+        3817062456, //the trinity
+      ]
+    },
+
     {
       hash: 1262462921,
       metrics: [

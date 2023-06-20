@@ -4,6 +4,8 @@ import { ViewerMetadata } from '@destiny/components';
 import { getBungieDisplayName, getMemberName } from '@destiny/data/utility';
 import { SealClanMember } from '../../models/seal-clan-member';
 
+import { ProfileLinkComponent } from '@destiny/components/shared/profile-link';
+
 interface ViewContext {
   item: SealClanMember;
 }
@@ -25,7 +27,11 @@ export const SEAL_DETAILS_VIEWER_METADATA = new Map<string, ViewerMetadata<SealC
       labelClass: '',
       plainText: (item: SealClanMember) => `${getBungieDisplayName(item?.profile) || ''}`,
       // plainText: (item: ClanRosterItem) => ``,
-      render: (item: SealClanMember) => ({ text: `${getBungieDisplayName(item?.profile) || ''}`, classList: [] })
+      //  render: (item: SealClanMember) => ({ text: `${getBungieDisplayName(item?.profile) || ''}`, classList: [] })
+      render: (item: SealClanMember) => ({
+        component: ProfileLinkComponent,
+        data: { profile: item?.profile }
+      })
     }
   ],
   [

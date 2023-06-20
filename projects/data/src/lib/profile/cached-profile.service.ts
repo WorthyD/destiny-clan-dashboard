@@ -20,10 +20,10 @@ export class CachedProfileService extends ProfileService {
   }
 
   getProfile(membershipType, membershipId): Observable<MemberProfile> {
-    console.log(`${membershipType}${membershipId}`);
+    // console.log(`${membershipType}${membershipId}`);
     return from(this.getProfileFromCache(membershipType, membershipId)).pipe(
       mergeMap((cachedData) => {
-        console.log('cached', cachedData);
+        //console.log('cached', cachedData);
         if (cachedData && cachedData.createDate) {
           const cacheDate = cachedData.createDate;
           //const lastStatusChange = unixTimeStampToDate(member.lastOnlineStatusChange);
@@ -32,7 +32,7 @@ export class CachedProfileService extends ProfileService {
           //const expireDate = staleXP > lastStatusChange ? staleXP : lastStatusChange;
 
           if (cacheDate > staleXP) {
-            console.log('returning cached');
+            //  console.log('returning cached');
             return of(cachedData?.data);
           }
         }
