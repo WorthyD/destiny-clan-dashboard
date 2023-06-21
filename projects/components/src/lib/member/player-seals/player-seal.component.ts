@@ -3,20 +3,26 @@ import { PlayerSeal } from './player-seal';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { CommonModule } from '@angular/common';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
-
+import { MatIconModule } from '@angular/material/icon';
+import { MatBadgeModule } from '@angular/material/badge';
 @Component({
   selector: 'lib-player-seal',
   standalone: true,
-  imports: [CommonModule, MatTooltipModule, MatProgressBarModule],
+  imports: [CommonModule, MatTooltipModule, MatProgressBarModule, MatIconModule, MatBadgeModule],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <section [matTooltip]="playerSeal.sealDescription">
-      <div [ngClass]="{ 'seal-completed': playerSeal.complete, 'seal-image': true }">
+      <div
+        [ngClass]="{ 'seal-completed': playerSeal.complete, 'seal-image': true }"
+        [matBadge]="playerSeal.gildedCount"
+        [matBadgeHidden]="playerSeal.gildedCount === 0"
+        matBadgeOverlap="false"
+      >
         <img src="//bungie.net/{{ playerSeal.sealImage }}" alt="{{ playerSeal.sealTitle }}" />
       </div>
       <h3>
         {{ playerSeal.sealTitle }}
-        <mat-icon *ngIf="playerSeal.guilded" matTooltip="Guilded">workspace_premium </mat-icon>
+        <mat-icon *ngIf="playerSeal.gilded" matTooltip="Gilded">workspace_premium</mat-icon>
       </h3>
       <div *ngIf="!playerSeal.complete" class="seal-progress">
         <mat-progress-bar mode="determinate" [value]="playerSeal.progress"></mat-progress-bar>
@@ -36,7 +42,7 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
         height: 127px;
         width: 127px;
         position: relative;
-        overflow: hidden;
+        //overflow: hidden;
         display: block;
         margin: 0 auto;
         img {
