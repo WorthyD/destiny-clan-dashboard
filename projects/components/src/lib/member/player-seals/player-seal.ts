@@ -3,6 +3,7 @@ export interface PlayerSeal {
   sealDescription: string;
   sealImage: string;
   complete: boolean;
-  guilded: boolean;
+  gilded: boolean;
+  gildedCount: number;
   progress: number;
 }

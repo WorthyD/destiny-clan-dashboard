@@ -7,14 +7,14 @@ import { MemberTypeIconComponent } from '@destiny/components/member/member-type-
 import { CharacterCardComponent } from '@destiny/components/member/character-card';
 import { SeasonPassComponent } from '@destiny/components/member/season-pass';
 import { BungieInfoComponent } from '@destiny/components/member/bungie-info';
-import {PlayerSealsComponent, convertSealAndProfile  } from '@destiny/components/member/player-seals';
-
+import { PlayerSealsComponent, convertSealAndProfile } from '@destiny/components/member/player-seals';
 
 import { Character } from 'projects/data/src/lib/models/Character';
 import { ClanMemberSeasonPassProgression } from 'projects/data/src/lib/models/ClanMemberSeasonPass';
 import { SeasonService } from '@core/services/season.service';
 import { Observable } from 'rxjs';
 import { GlobalSealsService } from '@core/services/global-seals.service';
+import { DefinitionService } from '@core/definition-services/definition.service';
 
 @Component({
   selector: 'app-member-overview',
@@ -48,7 +48,11 @@ export class MemberOverviewComponent implements OnChanges {
   lastSeasonPass: ClanMemberSeasonPassProgression;
   memberSealInfo;
 
-  constructor(private seasonService: SeasonService, private globalSealsService: GlobalSealsService) {}
+  constructor(
+    private seasonService: SeasonService,
+    private globalSealsService: GlobalSealsService,
+    private definitionService: DefinitionService
+  ) {}
 
   ngOnChanges(simpleChanges: SimpleChanges) {
     if (simpleChanges['memberOverview']) {
@@ -73,7 +77,11 @@ export class MemberOverviewComponent implements OnChanges {
         };
 
         //console.log(this.globalSealsService.sealNodesWLegacy);
-        this.memberSealInfo = convertSealAndProfile(this.globalSealsService.sealNodesWLegacy, this.memberOverview);
+        this.memberSealInfo = convertSealAndProfile(
+          this.globalSealsService.sealNodesWLegacy,
+          this.memberOverview,
+          this.definitionService
+        );
       }
     }
   }

@@ -4,6 +4,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { PlayerSealComponent } from './player-seal.component';
 import { PlayerSeal } from './player-seal';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'lib-player-seals',
@@ -14,7 +15,7 @@ import { PlayerSeal } from './player-seal';
   styleUrls: ['./player-seals.component.scss']
 })
 export class PlayerSealsComponent {
-  guildedSeals: PlayerSeal[] = [];
+  gildedSeals: PlayerSeal[] = [];
   completedSeals: PlayerSeal[] = [];
   partialSeals: PlayerSeal[] = [];
   _playerSeals;
@@ -29,8 +30,8 @@ export class PlayerSealsComponent {
   }
 
   applySeals(seals: PlayerSeal[]) {
-    this.guildedSeals = seals?.filter((x) => x.guilded === true && x.complete === true);
-    this.completedSeals = seals?.filter((x) => x.complete === true && x.guilded === false);
-    this.partialSeals = seals?.filter((x) => x.complete === false && x.guilded === false);
+    this.gildedSeals = seals?.filter((x) => x.gilded === true );
+    this.completedSeals = seals?.filter((x) => x.complete === true && x.gilded !== true);
+    this.partialSeals = seals?.filter((x) => x.complete === false);
   }
 }
