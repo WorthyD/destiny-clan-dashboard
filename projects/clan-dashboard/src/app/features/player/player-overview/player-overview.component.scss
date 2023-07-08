@@ -2,3 +2,15 @@
   flex: 1;
   overflow: auto;
 }
+.member-overview {
+  --column-count: 2;
+
+  display: grid;
+  grid-template-columns: repeat(var(--column-count), 1fr);
+  gap: 1rem;
+  padding: 1rem;
+}
+.member-seals {
+  margin: 0rem 1rem 1rem 1rem;
+  display:block;
+}

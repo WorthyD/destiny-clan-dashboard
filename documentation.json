@@ -5310,12 +5310,12 @@
         },
         {
             "name": "PlayerSeal",
-            "id": "interface-PlayerSeal-907491b69a7cf8a225ec25ecb999bf350797d6b670c12ef8bcf8d45abbee5df4405e1321afcb1e8a9f4d21fbd3d932dcccacdbf001448c4e5574216b20ff2a2c",
+            "id": "interface-PlayerSeal-01f2d60607fb3359ba4c3cf1bda5834542ad41879aeaab94b94b1895fa6e864623e646d0ba6e7a814e5b37466d92c770af5c1badfaedfc4fa98443a13ddfd770",
             "file": "projects/components/src/lib/member/player-seals/player-seal.ts",
             "deprecated": false,
             "deprecationMessage": "",
             "type": "interface",
-            "sourceCode": "export interface PlayerSeal {\r\n  sealTitle: string;\r\n  sealDescription: string;\r\n  sealImage: string;\r\n  complete: boolean;\r\n  guilded: boolean;\r\n  progress: number;\r\n}\r\n",
+            "sourceCode": "export interface PlayerSeal {\r\n  sealTitle: string;\r\n  sealDescription: string;\r\n  sealImage: string;\r\n  complete: boolean;\r\n  gilded: boolean;\r\n  gildedCount: number;\r\n  progress: number;\r\n}\r\n",
             "properties": [
                 {
                     "name": "complete",
@@ -5327,7 +5327,7 @@
                     "line": 5
                 },
                 {
-                    "name": "guilded",
+                    "name": "gilded",
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "boolean",
@@ -5336,13 +5336,22 @@
                     "line": 6
                 },
                 {
-                    "name": "progress",
+                    "name": "gildedCount",
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "number",
                     "optional": false,
                     "description": "",
                     "line": 7
+                },
+                {
+                    "name": "progress",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "number",
+                    "optional": false,
+                    "description": "",
+                    "line": 8
                 },
                 {
                     "name": "sealDescription",
@@ -5378,57 +5387,7 @@
         },
         {
             "name": "ProfileRecentActivity",
-            "id": "interface-ProfileRecentActivity-af16f60aa3133a02cd33176e4d795fe0801c8683d8be63cc7b21b66ae5adf2298eb301b747654a5cf45c10c76853791db5c79a15cbe81a41219780cd1caadeb4",
-            "file": "projects/clan-dashboard/src/app/features/activity-modes/models/ProfileActivityMode.ts",
-            "deprecated": false,
-            "deprecationMessage": "",
-            "type": "interface",
-            "sourceCode": "import { ActivityStats, MemberActivityRecentStats, MemberProfile } from '@destiny/data/models';\r\nimport { MemberActivityTime } from 'projects/data/src/lib/models/MemberActivityTime';\r\nimport { GroupsV2GroupMember } from 'bungie-api-angular';\r\n\r\nexport interface ProfileRecentActivity {\r\n  clan: {\r\n    clanId: string;\r\n    clanName: string;\r\n    clanTag: string;\r\n  };\r\n  member: GroupsV2GroupMember;\r\n  profile: MemberProfile;\r\n  stats: MemberActivityRecentStats;\r\n}\r\n",
-            "properties": [
-                {
-                    "name": "clan",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "literal type",
-                    "optional": false,
-                    "description": "",
-                    "line": 6
-                },
-                {
-                    "name": "member",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "GroupsV2GroupMember",
-                    "optional": false,
-                    "description": "",
-                    "line": 11
-                },
-                {
-                    "name": "profile",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "MemberProfile",
-                    "optional": false,
-                    "description": "",
-                    "line": 12
-                },
-                {
-                    "name": "stats",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "MemberActivityRecentStats",
-                    "optional": false,
-                    "description": "",
-                    "line": 13
-                }
-            ],
-            "indexSignatures": [],
-            "kind": 165,
-            "methods": []
-        },
-        {
-            "name": "ProfileRecentActivity",
-            "id": "interface-ProfileRecentActivity-065d7821cbd01d674044482ef8f9d3d06a233b8f9edc6ed4831a875ed88965dccbe14300d22e6f77b61168c53d19e1c15abd648d73dcb424166ba5f1f4ae9f18-1",
+            "id": "interface-ProfileRecentActivity-065d7821cbd01d674044482ef8f9d3d06a233b8f9edc6ed4831a875ed88965dccbe14300d22e6f77b61168c53d19e1c15abd648d73dcb424166ba5f1f4ae9f18",
             "file": "projects/clan-dashboard/src/app/features/recent-activity/models/profile-recent-activity.ts",
             "deprecated": false,
             "deprecationMessage": "",
@@ -5467,6 +5426,56 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "ActivityStats",
+                    "optional": false,
+                    "description": "",
+                    "line": 13
+                }
+            ],
+            "indexSignatures": [],
+            "kind": 165,
+            "methods": []
+        },
+        {
+            "name": "ProfileRecentActivity",
+            "id": "interface-ProfileRecentActivity-af16f60aa3133a02cd33176e4d795fe0801c8683d8be63cc7b21b66ae5adf2298eb301b747654a5cf45c10c76853791db5c79a15cbe81a41219780cd1caadeb4-1",
+            "file": "projects/clan-dashboard/src/app/features/activity-modes/models/ProfileActivityMode.ts",
+            "deprecated": false,
+            "deprecationMessage": "",
+            "type": "interface",
+            "sourceCode": "import { ActivityStats, MemberActivityRecentStats, MemberProfile } from '@destiny/data/models';\r\nimport { MemberActivityTime } from 'projects/data/src/lib/models/MemberActivityTime';\r\nimport { GroupsV2GroupMember } from 'bungie-api-angular';\r\n\r\nexport interface ProfileRecentActivity {\r\n  clan: {\r\n    clanId: string;\r\n    clanName: string;\r\n    clanTag: string;\r\n  };\r\n  member: GroupsV2GroupMember;\r\n  profile: MemberProfile;\r\n  stats: MemberActivityRecentStats;\r\n}\r\n",
+            "properties": [
+                {
+                    "name": "clan",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "literal type",
+                    "optional": false,
+                    "description": "",
+                    "line": 6
+                },
+                {
+                    "name": "member",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "GroupsV2GroupMember",
+                    "optional": false,
+                    "description": "",
+                    "line": 11
+                },
+                {
+                    "name": "profile",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "MemberProfile",
+                    "optional": false,
+                    "description": "",
+                    "line": 12
+                },
+                {
+                    "name": "stats",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "MemberActivityRecentStats",
                     "optional": false,
                     "description": "",
                     "line": 13
@@ -26151,55 +26160,7 @@
         },
         {
             "name": "ConfigComponent",
-            "id": "component-ConfigComponent-0c2ae2ba5421421291c17cad705a84d9133491174d675f1cf6f4b887cc1ae876a31ce17932c9e5e02c382f28e952cf334b1eecf18417a8ea7a18991fb81fd0a7",
-            "file": "projects/clan-dashboard/src/app/views/config/config.component.ts",
-            "encapsulation": [],
-            "entryComponents": [],
-            "inputs": [],
-            "outputs": [],
-            "providers": [],
-            "selector": "app-config-view",
-            "styleUrls": [
-                "./config.component.scss"
-            ],
-            "styles": [],
-            "templateUrl": [
-                "./config.component.html"
-            ],
-            "viewProviders": [],
-            "inputsClass": [],
-            "outputsClass": [],
-            "propertiesClass": [],
-            "methodsClass": [],
-            "deprecated": false,
-            "deprecationMessage": "",
-            "hostBindings": [],
-            "hostListeners": [],
-            "description": "",
-            "rawdescription": "\n",
-            "type": "component",
-            "sourceCode": "import { Component} from '@angular/core';\r\n\r\n@Component({\r\n  selector: 'app-config-view',\r\n  templateUrl: './config.component.html',\r\n  styleUrls: ['./config.component.scss']\r\n})\r\nexport class ConfigComponent {\r\n\r\n  constructor() { }\r\n\r\n\r\n\r\n}\r\n",
-            "assetsDirs": [],
-            "styleUrlsData": [
-                {
-                    "data": "",
-                    "styleUrl": "./config.component.scss"
-                }
-            ],
-            "stylesData": "",
-            "constructorObj": {
-                "name": "constructor",
-                "description": "",
-                "deprecated": false,
-                "deprecationMessage": "",
-                "args": [],
-                "line": 8
-            },
-            "templateData": "<app-config></app-config>\r\n"
-        },
-        {
-            "name": "ConfigComponent",
-            "id": "component-ConfigComponent-d5bc44360861a569495511800f7ece12efeaab86b2d366f1836b9b1e85c94bbcba633f43b52e2623ef0bae958788a6d972b0971ca38c87c48545b3b820470b62-1",
+            "id": "component-ConfigComponent-d5bc44360861a569495511800f7ece12efeaab86b2d366f1836b9b1e85c94bbcba633f43b52e2623ef0bae958788a6d972b0971ca38c87c48545b3b820470b62",
             "file": "projects/clan-dashboard/src/app/features/config/config.component.ts",
             "encapsulation": [],
             "entryComponents": [],
@@ -26286,10 +26247,58 @@
                     }
                 ]
             },
+            "templateData": "<div class=\"config-wrapper\">\r\n  <div class=\"big-button\">\r\n    <h2>Reset Data - <small>Refresh Your Browser After Clicking </small></h2>\r\n    <button (click)=\"nuke()\" mat-raised-button color=\"warn\">Delete Manifest</button>\r\n  </div>\r\n\r\n  <h2>Stored Clans</h2>\r\n  <ng-container *ngIf=\"clanConfigs$ | async as clans\">\r\n    <div class=\"found-clans\">\r\n      <ng-container *ngFor=\"let clan of clans\">\r\n        <app-clan-detail [clanConfig]=\"clan\" [showReset]=\"true\" class=\"clan\"></app-clan-detail>\r\n      </ng-container>\r\n\r\n    </div>\r\n  </ng-container>\r\n</div>\r\n"
+        },
+        {
+            "name": "ConfigComponent",
+            "id": "component-ConfigComponent-0c2ae2ba5421421291c17cad705a84d9133491174d675f1cf6f4b887cc1ae876a31ce17932c9e5e02c382f28e952cf334b1eecf18417a8ea7a18991fb81fd0a7-1",
+            "file": "projects/clan-dashboard/src/app/views/config/config.component.ts",
+            "encapsulation": [],
+            "entryComponents": [],
+            "inputs": [],
+            "outputs": [],
+            "providers": [],
+            "selector": "app-config-view",
+            "styleUrls": [
+                "./config.component.scss"
+            ],
+            "styles": [],
+            "templateUrl": [
+                "./config.component.html"
+            ],
+            "viewProviders": [],
+            "inputsClass": [],
+            "outputsClass": [],
+            "propertiesClass": [],
+            "methodsClass": [],
+            "deprecated": false,
+            "deprecationMessage": "",
+            "hostBindings": [],
+            "hostListeners": [],
+            "description": "",
+            "rawdescription": "\n",
+            "type": "component",
+            "sourceCode": "import { Component} from '@angular/core';\r\n\r\n@Component({\r\n  selector: 'app-config-view',\r\n  templateUrl: './config.component.html',\r\n  styleUrls: ['./config.component.scss']\r\n})\r\nexport class ConfigComponent {\r\n\r\n  constructor() { }\r\n\r\n\r\n\r\n}\r\n",
+            "assetsDirs": [],
+            "styleUrlsData": [
+                {
+                    "data": "",
+                    "styleUrl": "./config.component.scss"
+                }
+            ],
+            "stylesData": "",
+            "constructorObj": {
+                "name": "constructor",
+                "description": "",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "args": [],
+                "line": 8
+            },
             "isDuplicate": true,
             "duplicateId": 1,
             "duplicateName": "ConfigComponent-1",
-            "templateData": "<div class=\"config-wrapper\">\r\n  <div class=\"big-button\">\r\n    <h2>Reset Data - <small>Refresh Your Browser After Clicking </small></h2>\r\n    <button (click)=\"nuke()\" mat-raised-button color=\"warn\">Delete Manifest</button>\r\n  </div>\r\n\r\n  <h2>Stored Clans</h2>\r\n  <ng-container *ngIf=\"clanConfigs$ | async as clans\">\r\n    <div class=\"found-clans\">\r\n      <ng-container *ngFor=\"let clan of clans\">\r\n        <app-clan-detail [clanConfig]=\"clan\" [showReset]=\"true\" class=\"clan\"></app-clan-detail>\r\n      </ng-container>\r\n\r\n    </div>\r\n  </ng-container>\r\n</div>\r\n"
+            "templateData": "<app-config></app-config>\r\n"
         },
         {
             "name": "CuratedActivitiesDashboardComponent",
@@ -27066,7 +27075,7 @@
         },
         {
             "name": "MemberOverviewComponent",
-            "id": "component-MemberOverviewComponent-86f234d03e36f15184f487fadbeeec6526465f59dd77d08393f5d76c6a0efb86a1904de86bc4b2e4c386608aefcb58caa7178c16b02d7d16d17f886d19408bb7",
+            "id": "component-MemberOverviewComponent-89f6146313244eb9506f563701d8dae82e841643a9b453c82fbc7ba61c77b03d4661ff8d26b8ccf7ed2e4267c652a98db68ce034821795971ec4e76c30d64317",
             "file": "projects/clan-dashboard/src/app/features/player/components/member-overview/member-overview.component.ts",
             "changeDetection": "ChangeDetectionStrategy.OnPush",
             "encapsulation": [],
@@ -27162,7 +27171,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 53,
+                    "line": 57,
                     "deprecated": false,
                     "deprecationMessage": "",
                     "jsdoctags": [
@@ -27185,7 +27194,7 @@
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { ChangeDetectionStrategy, Component, Input, OnChanges, SimpleChanges } from '@angular/core';\r\nimport { CommonModule } from '@angular/common';\r\nimport { BungieInfo, MemberProfile } from '@destiny/data/models';\r\nimport { MatCardModule } from '@angular/material/card';\r\nimport { PipesModule } from '@destiny/components/pipes';\r\nimport { MemberTypeIconComponent } from '@destiny/components/member/member-type-icon';\r\nimport { CharacterCardComponent } from '@destiny/components/member/character-card';\r\nimport { SeasonPassComponent } from '@destiny/components/member/season-pass';\r\nimport { BungieInfoComponent } from '@destiny/components/member/bungie-info';\r\nimport {PlayerSealsComponent, convertSealAndProfile  } from '@destiny/components/member/player-seals';\r\n\r\n\r\nimport { Character } from 'projects/data/src/lib/models/Character';\r\nimport { ClanMemberSeasonPassProgression } from 'projects/data/src/lib/models/ClanMemberSeasonPass';\r\nimport { SeasonService } from '@core/services/season.service';\r\nimport { Observable } from 'rxjs';\r\nimport { GlobalSealsService } from '@core/services/global-seals.service';\r\n\r\n@Component({\r\n  selector: 'app-member-overview',\r\n  standalone: true,\r\n  imports: [\r\n    CommonModule,\r\n    MatCardModule,\r\n    PipesModule,\r\n    MemberTypeIconComponent,\r\n    CharacterCardComponent,\r\n    SeasonPassComponent,\r\n    BungieInfoComponent,\r\n    PlayerSealsComponent\r\n  ],\r\n  templateUrl: './member-overview.component.html',\r\n  styleUrls: ['./member-overview.component.scss'],\r\n  changeDetection: ChangeDetectionStrategy.OnPush\r\n})\r\nexport class MemberOverviewComponent implements OnChanges {\r\n  @Input()\r\n  memberOverview: MemberProfile;\r\n\r\n  @Input()\r\n  bungieInfo$: Observable<BungieInfo>;\r\n\r\n  @Input()\r\n  bungieInfoLoading$: Observable<boolean>;\r\n\r\n  characters: Character[];\r\n  seasonPass: ClanMemberSeasonPassProgression;\r\n  lastSeasonPass: ClanMemberSeasonPassProgression;\r\n  memberSealInfo;\r\n\r\n  constructor(private seasonService: SeasonService, private globalSealsService: GlobalSealsService) {}\r\n\r\n  ngOnChanges(simpleChanges: SimpleChanges) {\r\n    if (simpleChanges['memberOverview']) {\r\n      this.characters = this.memberOverview?.profile?.data?.characterIds.map((id) => {\r\n        return this.memberOverview.characters.data[id];\r\n      });\r\n\r\n      const currentSeason = this.seasonService.currentSeasonProgress;\r\n      const lastSeason = this.seasonService.lastSeasonProgress;\r\n      const characterId = this.memberOverview?.profile?.data?.characterIds[0];\r\n\r\n      if (characterId > 0 && this.memberOverview?.characterProgressions?.data[characterId]?.progressions) {\r\n        const characterProgressions = this.memberOverview?.characterProgressions?.data[characterId].progressions;\r\n        this.seasonPass = {\r\n          progression: characterProgressions[currentSeason.rewardProgressionHash],\r\n          prestigeProgression: characterProgressions[currentSeason.prestigeProgressionHash]\r\n        };\r\n\r\n        this.lastSeasonPass = {\r\n          progression: characterProgressions[lastSeason.rewardProgressionHash],\r\n          prestigeProgression: characterProgressions[lastSeason.prestigeProgressionHash]\r\n        };\r\n\r\n        //console.log(this.globalSealsService.sealNodesWLegacy);\r\n        this.memberSealInfo = convertSealAndProfile(this.globalSealsService.sealNodesWLegacy, this.memberOverview);\r\n      }\r\n    }\r\n  }\r\n}\r\n",
+            "sourceCode": "import { ChangeDetectionStrategy, Component, Input, OnChanges, SimpleChanges } from '@angular/core';\r\nimport { CommonModule } from '@angular/common';\r\nimport { BungieInfo, MemberProfile } from '@destiny/data/models';\r\nimport { MatCardModule } from '@angular/material/card';\r\nimport { PipesModule } from '@destiny/components/pipes';\r\nimport { MemberTypeIconComponent } from '@destiny/components/member/member-type-icon';\r\nimport { CharacterCardComponent } from '@destiny/components/member/character-card';\r\nimport { SeasonPassComponent } from '@destiny/components/member/season-pass';\r\nimport { BungieInfoComponent } from '@destiny/components/member/bungie-info';\r\nimport { PlayerSealsComponent, convertSealAndProfile } from '@destiny/components/member/player-seals';\r\n\r\nimport { Character } from 'projects/data/src/lib/models/Character';\r\nimport { ClanMemberSeasonPassProgression } from 'projects/data/src/lib/models/ClanMemberSeasonPass';\r\nimport { SeasonService } from '@core/services/season.service';\r\nimport { Observable } from 'rxjs';\r\nimport { GlobalSealsService } from '@core/services/global-seals.service';\r\nimport { DefinitionService } from '@core/definition-services/definition.service';\r\n\r\n@Component({\r\n  selector: 'app-member-overview',\r\n  standalone: true,\r\n  imports: [\r\n    CommonModule,\r\n    MatCardModule,\r\n    PipesModule,\r\n    MemberTypeIconComponent,\r\n    CharacterCardComponent,\r\n    SeasonPassComponent,\r\n    BungieInfoComponent,\r\n    PlayerSealsComponent\r\n  ],\r\n  templateUrl: './member-overview.component.html',\r\n  styleUrls: ['./member-overview.component.scss'],\r\n  changeDetection: ChangeDetectionStrategy.OnPush\r\n})\r\nexport class MemberOverviewComponent implements OnChanges {\r\n  @Input()\r\n  memberOverview: MemberProfile;\r\n\r\n  @Input()\r\n  bungieInfo$: Observable<BungieInfo>;\r\n\r\n  @Input()\r\n  bungieInfoLoading$: Observable<boolean>;\r\n\r\n  characters: Character[];\r\n  seasonPass: ClanMemberSeasonPassProgression;\r\n  lastSeasonPass: ClanMemberSeasonPassProgression;\r\n  memberSealInfo;\r\n\r\n  constructor(\r\n    private seasonService: SeasonService,\r\n    private globalSealsService: GlobalSealsService,\r\n    private definitionService: DefinitionService\r\n  ) {}\r\n\r\n  ngOnChanges(simpleChanges: SimpleChanges) {\r\n    if (simpleChanges['memberOverview']) {\r\n      this.characters = this.memberOverview?.profile?.data?.characterIds.map((id) => {\r\n        return this.memberOverview.characters.data[id];\r\n      });\r\n\r\n      const currentSeason = this.seasonService.currentSeasonProgress;\r\n      const lastSeason = this.seasonService.lastSeasonProgress;\r\n      const characterId = this.memberOverview?.profile?.data?.characterIds[0];\r\n\r\n      if (characterId > 0 && this.memberOverview?.characterProgressions?.data[characterId]?.progressions) {\r\n        const characterProgressions = this.memberOverview?.characterProgressions?.data[characterId].progressions;\r\n        this.seasonPass = {\r\n          progression: characterProgressions[currentSeason.rewardProgressionHash],\r\n          prestigeProgression: characterProgressions[currentSeason.prestigeProgressionHash]\r\n        };\r\n\r\n        this.lastSeasonPass = {\r\n          progression: characterProgressions[lastSeason.rewardProgressionHash],\r\n          prestigeProgression: characterProgressions[lastSeason.prestigeProgressionHash]\r\n        };\r\n\r\n        //console.log(this.globalSealsService.sealNodesWLegacy);\r\n        this.memberSealInfo = convertSealAndProfile(\r\n          this.globalSealsService.sealNodesWLegacy,\r\n          this.memberOverview,\r\n          this.definitionService\r\n        );\r\n      }\r\n    }\r\n  }\r\n}\r\n",
             "assetsDirs": [],
             "styleUrlsData": [
                 {
@@ -27211,6 +27220,12 @@
                         "type": "GlobalSealsService",
                         "deprecated": false,
                         "deprecationMessage": ""
+                    },
+                    {
+                        "name": "definitionService",
+                        "type": "DefinitionService",
+                        "deprecated": false,
+                        "deprecationMessage": ""
                     }
                 ],
                 "line": 49,
@@ -27227,6 +27242,15 @@
                     {
                         "name": "globalSealsService",
                         "type": "GlobalSealsService",
+                        "deprecated": false,
+                        "deprecationMessage": "",
+                        "tagName": {
+                            "text": "param"
+                        }
+                    },
+                    {
+                        "name": "definitionService",
+                        "type": "DefinitionService",
                         "deprecated": false,
                         "deprecationMessage": "",
                         "tagName": {
@@ -27784,7 +27808,7 @@
         },
         {
             "name": "PlayerSealComponent",
-            "id": "component-PlayerSealComponent-34cdb8904f3108aa86ae9c2352bd8a0932bd332f959c318ba546cfee6d274ae9cb24237e4e528dbd048718f0f610041b4b7145fe5f84d22f9ac828f4ea703340",
+            "id": "component-PlayerSealComponent-33ad4bc43938965018ed0ecf38b8335d9754dfae4a8b6e0a111bf8551c879adce90f51d29be8ed3cbc8f9af1e609501bd05c49d2a3919362bb5b53f8c903258a",
             "file": "projects/components/src/lib/member/player-seals/player-seal.component.ts",
             "changeDetection": "ChangeDetectionStrategy.OnPush",
             "encapsulation": [],
@@ -27795,9 +27819,9 @@
             "selector": "lib-player-seal",
             "styleUrls": [],
             "styles": [
-                "\n      h3 {\n        text-align: center;\n      }\n      section {\n        padding: 1rem;\n      }\n      .seal-image {\n        height: 127px;\n        width: 127px;\n        position: relative;\n        overflow: hidden;\n        display: block;\n        margin: 0 auto;\n        img {\n          height: 127px;\n          width: 127px;\n        }\n      }\n      h3 {\n        display: flex;\n        align-items: center;\n        justify-content: center;\n      }\n\n      /* Unfortunately, this looks really bad on a dark background\n      /*\n      .seal-completed:after {\n        animation: shine 3s ease-in-out infinite;\n        animation-fill-mode: forwards;\n        content: '';\n        position: absolute;\n        top: -110%;\n        left: -210%;\n        width: 200%;\n        height: 200%;\n        opacity: 0;\n        transform: rotate(30deg);\n\n        background: rgba(255, 255, 255, 0.13);\n        background: linear-gradient(\n          to right,\n          rgba(255, 255, 255, 0.13) 0%,\n          rgba(255, 255, 255, 0.13) 77%,\n          rgba(255, 255, 255, 0.5) 92%,\n          rgba(255, 255, 255, 0) 100%\n        );\n      }\n      */\n      .seal-completed:active:after {\n      }\n      mat-progress-bar {\n        margin-right: 0.5rem;\n      }\n      /* h4 {\n        padding: 12px 48px;\n        color: #ffffff;\n        background: linear-gradient(to right, #c0c0c0 0, white 10%, #c0c0c0 20%);\n        background-position: 0;\n        -webkit-background-clip: text;\n        -webkit-text-fill-color: transparent;\n        animation: shine 2s infinite linear;\n        animation-fill-mode: forwards;\n        -webkit-text-size-adjust: none;\n      } */\n\n      /* @keyframes shine {\n        0% {\n          background-position: 0;\n        }\n        60% {\n          background-position: 180px;\n        }\n        100% {\n          background-position: 280px;\n        }\n      } */\n      .seal-progress {\n        display: flex;\n        align-items: center;\n      }\n      /* @keyframes shine {\n        10% {\n          opacity: 1;\n          top: -30%;\n          left: -30%;\n          transition-property: left, top, opacity;\n          transition-duration: 0.7s, 0.7s, 0.15s;\n          transition-timing-function: ease;\n        }\n        100% {\n          opacity: 0;\n          top: -30%;\n          left: -30%;\n          transition-property: left, top, opacity;\n        }\n      } */\n    "
+                "\n      h3 {\n        text-align: center;\n      }\n      section {\n        padding: 1rem;\n      }\n      .seal-image {\n        height: 127px;\n        width: 127px;\n        position: relative;\n        //overflow: hidden;\n        display: block;\n        margin: 0 auto;\n        img {\n          height: 127px;\n          width: 127px;\n        }\n      }\n      h3 {\n        display: flex;\n        align-items: center;\n        justify-content: center;\n      }\n\n      /* Unfortunately, this looks really bad on a dark background\n      /*\n      .seal-completed:after {\n        animation: shine 3s ease-in-out infinite;\n        animation-fill-mode: forwards;\n        content: '';\n        position: absolute;\n        top: -110%;\n        left: -210%;\n        width: 200%;\n        height: 200%;\n        opacity: 0;\n        transform: rotate(30deg);\n\n        background: rgba(255, 255, 255, 0.13);\n        background: linear-gradient(\n          to right,\n          rgba(255, 255, 255, 0.13) 0%,\n          rgba(255, 255, 255, 0.13) 77%,\n          rgba(255, 255, 255, 0.5) 92%,\n          rgba(255, 255, 255, 0) 100%\n        );\n      }\n      */\n      .seal-completed:active:after {\n      }\n      mat-progress-bar {\n        margin-right: 0.5rem;\n      }\n      /* h4 {\n        padding: 12px 48px;\n        color: #ffffff;\n        background: linear-gradient(to right, #c0c0c0 0, white 10%, #c0c0c0 20%);\n        background-position: 0;\n        -webkit-background-clip: text;\n        -webkit-text-fill-color: transparent;\n        animation: shine 2s infinite linear;\n        animation-fill-mode: forwards;\n        -webkit-text-size-adjust: none;\n      } */\n\n      /* @keyframes shine {\n        0% {\n          background-position: 0;\n        }\n        60% {\n          background-position: 180px;\n        }\n        100% {\n          background-position: 280px;\n        }\n      } */\n      .seal-progress {\n        display: flex;\n        align-items: center;\n      }\n      /* @keyframes shine {\n        10% {\n          opacity: 1;\n          top: -30%;\n          left: -30%;\n          transition-property: left, top, opacity;\n          transition-duration: 0.7s, 0.7s, 0.15s;\n          transition-timing-function: ease;\n        }\n        100% {\n          opacity: 0;\n          top: -30%;\n          left: -30%;\n          transition-property: left, top, opacity;\n        }\n      } */\n    "
             ],
-            "template": "<section [matTooltip]=\"playerSeal.sealDescription\">\n  <div [ngClass]=\"{ 'seal-completed': playerSeal.complete, 'seal-image': true }\">\n    <img src=\"//bungie.net/{{ playerSeal.sealImage }}\" alt=\"{{ playerSeal.sealTitle }}\" />\n  </div>\n  <h3>\n    {{ playerSeal.sealTitle }}\n    <mat-icon *ngIf=\"playerSeal.guilded\" matTooltip=\"Guilded\">workspace_premium </mat-icon>\n  </h3>\n  <div *ngIf=\"!playerSeal.complete\" class=\"seal-progress\">\n    <mat-progress-bar mode=\"determinate\" [value]=\"playerSeal.progress\"></mat-progress-bar>\n    {{ playerSeal.progress }}%\n  </div>\n</section>\n",
+            "template": "<section [matTooltip]=\"playerSeal.sealDescription\">\n  <div\n    [ngClass]=\"{ 'seal-completed': playerSeal.complete, 'seal-image': true }\"\n    [matBadge]=\"playerSeal.gildedCount\"\n    [matBadgeHidden]=\"playerSeal.gildedCount === 0\"\n    matBadgeOverlap=\"false\"\n  >\n    <img src=\"//bungie.net/{{ playerSeal.sealImage }}\" alt=\"{{ playerSeal.sealTitle }}\" />\n  </div>\n  <h3>\n    {{ playerSeal.sealTitle }}\n    <mat-icon *ngIf=\"playerSeal.gilded\" matTooltip=\"Gilded\">workspace_premium</mat-icon>\n  </h3>\n  <div *ngIf=\"!playerSeal.complete\" class=\"seal-progress\">\n    <mat-progress-bar mode=\"determinate\" [value]=\"playerSeal.progress\"></mat-progress-bar>\n    {{ playerSeal.progress }}%\n  </div>\n</section>\n",
             "templateUrl": [],
             "viewProviders": [],
             "inputsClass": [
@@ -27805,7 +27829,7 @@
                     "name": "playerSeal",
                     "deprecated": false,
                     "deprecationMessage": "",
-                    "line": 130,
+                    "line": 136,
                     "type": "PlayerSeal",
                     "decorators": []
                 }
@@ -27820,22 +27844,22 @@
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';\r\nimport { PlayerSeal } from './player-seal';\r\nimport { MatTooltipModule } from '@angular/material/tooltip';\r\nimport { CommonModule } from '@angular/common';\r\nimport { MatProgressBarModule } from '@angular/material/progress-bar';\r\n\r\n@Component({\r\n  selector: 'lib-player-seal',\r\n  standalone: true,\r\n  imports: [CommonModule, MatTooltipModule, MatProgressBarModule],\r\n  changeDetection: ChangeDetectionStrategy.OnPush,\r\n  template: `\r\n    <section [matTooltip]=\"playerSeal.sealDescription\">\r\n      <div [ngClass]=\"{ 'seal-completed': playerSeal.complete, 'seal-image': true }\">\r\n        <img src=\"//bungie.net/{{ playerSeal.sealImage }}\" alt=\"{{ playerSeal.sealTitle }}\" />\r\n      </div>\r\n      <h3>\r\n        {{ playerSeal.sealTitle }}\r\n        <mat-icon *ngIf=\"playerSeal.guilded\" matTooltip=\"Guilded\">workspace_premium </mat-icon>\r\n      </h3>\r\n      <div *ngIf=\"!playerSeal.complete\" class=\"seal-progress\">\r\n        <mat-progress-bar mode=\"determinate\" [value]=\"playerSeal.progress\"></mat-progress-bar>\r\n        {{ playerSeal.progress }}%\r\n      </div>\r\n    </section>\r\n  `,\r\n  styles: [\r\n    `\r\n      h3 {\r\n        text-align: center;\r\n      }\r\n      section {\r\n        padding: 1rem;\r\n      }\r\n      .seal-image {\r\n        height: 127px;\r\n        width: 127px;\r\n        position: relative;\r\n        overflow: hidden;\r\n        display: block;\r\n        margin: 0 auto;\r\n        img {\r\n          height: 127px;\r\n          width: 127px;\r\n        }\r\n      }\r\n      h3 {\r\n        display: flex;\r\n        align-items: center;\r\n        justify-content: center;\r\n      }\r\n\r\n      /* Unfortunately, this looks really bad on a dark background\r\n      /*\r\n      .seal-completed:after {\r\n        animation: shine 3s ease-in-out infinite;\r\n        animation-fill-mode: forwards;\r\n        content: '';\r\n        position: absolute;\r\n        top: -110%;\r\n        left: -210%;\r\n        width: 200%;\r\n        height: 200%;\r\n        opacity: 0;\r\n        transform: rotate(30deg);\r\n\r\n        background: rgba(255, 255, 255, 0.13);\r\n        background: linear-gradient(\r\n          to right,\r\n          rgba(255, 255, 255, 0.13) 0%,\r\n          rgba(255, 255, 255, 0.13) 77%,\r\n          rgba(255, 255, 255, 0.5) 92%,\r\n          rgba(255, 255, 255, 0) 100%\r\n        );\r\n      }\r\n      */\r\n      .seal-completed:active:after {\r\n      }\r\n      mat-progress-bar {\r\n        margin-right: 0.5rem;\r\n      }\r\n      /* h4 {\r\n        padding: 12px 48px;\r\n        color: #ffffff;\r\n        background: linear-gradient(to right, #c0c0c0 0, white 10%, #c0c0c0 20%);\r\n        background-position: 0;\r\n        -webkit-background-clip: text;\r\n        -webkit-text-fill-color: transparent;\r\n        animation: shine 2s infinite linear;\r\n        animation-fill-mode: forwards;\r\n        -webkit-text-size-adjust: none;\r\n      } */\r\n\r\n      /* @keyframes shine {\r\n        0% {\r\n          background-position: 0;\r\n        }\r\n        60% {\r\n          background-position: 180px;\r\n        }\r\n        100% {\r\n          background-position: 280px;\r\n        }\r\n      } */\r\n      .seal-progress {\r\n        display: flex;\r\n        align-items: center;\r\n      }\r\n      /* @keyframes shine {\r\n        10% {\r\n          opacity: 1;\r\n          top: -30%;\r\n          left: -30%;\r\n          transition-property: left, top, opacity;\r\n          transition-duration: 0.7s, 0.7s, 0.15s;\r\n          transition-timing-function: ease;\r\n        }\r\n        100% {\r\n          opacity: 0;\r\n          top: -30%;\r\n          left: -30%;\r\n          transition-property: left, top, opacity;\r\n        }\r\n      } */\r\n    `\r\n  ]\r\n})\r\nexport class PlayerSealComponent {\r\n  @Input()\r\n  playerSeal: PlayerSeal;\r\n\r\n  constructor() {}\r\n}\r\n",
+            "sourceCode": "import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';\r\nimport { PlayerSeal } from './player-seal';\r\nimport { MatTooltipModule } from '@angular/material/tooltip';\r\nimport { CommonModule } from '@angular/common';\r\nimport { MatProgressBarModule } from '@angular/material/progress-bar';\r\nimport { MatIconModule } from '@angular/material/icon';\r\nimport { MatBadgeModule } from '@angular/material/badge';\r\n@Component({\r\n  selector: 'lib-player-seal',\r\n  standalone: true,\r\n  imports: [CommonModule, MatTooltipModule, MatProgressBarModule, MatIconModule, MatBadgeModule],\r\n  changeDetection: ChangeDetectionStrategy.OnPush,\r\n  template: `\r\n    <section [matTooltip]=\"playerSeal.sealDescription\">\r\n      <div\r\n        [ngClass]=\"{ 'seal-completed': playerSeal.complete, 'seal-image': true }\"\r\n        [matBadge]=\"playerSeal.gildedCount\"\r\n        [matBadgeHidden]=\"playerSeal.gildedCount === 0\"\r\n        matBadgeOverlap=\"false\"\r\n      >\r\n        <img src=\"//bungie.net/{{ playerSeal.sealImage }}\" alt=\"{{ playerSeal.sealTitle }}\" />\r\n      </div>\r\n      <h3>\r\n        {{ playerSeal.sealTitle }}\r\n        <mat-icon *ngIf=\"playerSeal.gilded\" matTooltip=\"Gilded\">workspace_premium</mat-icon>\r\n      </h3>\r\n      <div *ngIf=\"!playerSeal.complete\" class=\"seal-progress\">\r\n        <mat-progress-bar mode=\"determinate\" [value]=\"playerSeal.progress\"></mat-progress-bar>\r\n        {{ playerSeal.progress }}%\r\n      </div>\r\n    </section>\r\n  `,\r\n  styles: [\r\n    `\r\n      h3 {\r\n        text-align: center;\r\n      }\r\n      section {\r\n        padding: 1rem;\r\n      }\r\n      .seal-image {\r\n        height: 127px;\r\n        width: 127px;\r\n        position: relative;\r\n        //overflow: hidden;\r\n        display: block;\r\n        margin: 0 auto;\r\n        img {\r\n          height: 127px;\r\n          width: 127px;\r\n        }\r\n      }\r\n      h3 {\r\n        display: flex;\r\n        align-items: center;\r\n        justify-content: center;\r\n      }\r\n\r\n      /* Unfortunately, this looks really bad on a dark background\r\n      /*\r\n      .seal-completed:after {\r\n        animation: shine 3s ease-in-out infinite;\r\n        animation-fill-mode: forwards;\r\n        content: '';\r\n        position: absolute;\r\n        top: -110%;\r\n        left: -210%;\r\n        width: 200%;\r\n        height: 200%;\r\n        opacity: 0;\r\n        transform: rotate(30deg);\r\n\r\n        background: rgba(255, 255, 255, 0.13);\r\n        background: linear-gradient(\r\n          to right,\r\n          rgba(255, 255, 255, 0.13) 0%,\r\n          rgba(255, 255, 255, 0.13) 77%,\r\n          rgba(255, 255, 255, 0.5) 92%,\r\n          rgba(255, 255, 255, 0) 100%\r\n        );\r\n      }\r\n      */\r\n      .seal-completed:active:after {\r\n      }\r\n      mat-progress-bar {\r\n        margin-right: 0.5rem;\r\n      }\r\n      /* h4 {\r\n        padding: 12px 48px;\r\n        color: #ffffff;\r\n        background: linear-gradient(to right, #c0c0c0 0, white 10%, #c0c0c0 20%);\r\n        background-position: 0;\r\n        -webkit-background-clip: text;\r\n        -webkit-text-fill-color: transparent;\r\n        animation: shine 2s infinite linear;\r\n        animation-fill-mode: forwards;\r\n        -webkit-text-size-adjust: none;\r\n      } */\r\n\r\n      /* @keyframes shine {\r\n        0% {\r\n          background-position: 0;\r\n        }\r\n        60% {\r\n          background-position: 180px;\r\n        }\r\n        100% {\r\n          background-position: 280px;\r\n        }\r\n      } */\r\n      .seal-progress {\r\n        display: flex;\r\n        align-items: center;\r\n      }\r\n      /* @keyframes shine {\r\n        10% {\r\n          opacity: 1;\r\n          top: -30%;\r\n          left: -30%;\r\n          transition-property: left, top, opacity;\r\n          transition-duration: 0.7s, 0.7s, 0.15s;\r\n          transition-timing-function: ease;\r\n        }\r\n        100% {\r\n          opacity: 0;\r\n          top: -30%;\r\n          left: -30%;\r\n          transition-property: left, top, opacity;\r\n        }\r\n      } */\r\n    `\r\n  ]\r\n})\r\nexport class PlayerSealComponent {\r\n  @Input()\r\n  playerSeal: PlayerSeal;\r\n\r\n  constructor() {}\r\n}\r\n",
             "assetsDirs": [],
             "styleUrlsData": "",
-            "stylesData": "\n      h3 {\n        text-align: center;\n      }\n      section {\n        padding: 1rem;\n      }\n      .seal-image {\n        height: 127px;\n        width: 127px;\n        position: relative;\n        overflow: hidden;\n        display: block;\n        margin: 0 auto;\n        img {\n          height: 127px;\n          width: 127px;\n        }\n      }\n      h3 {\n        display: flex;\n        align-items: center;\n        justify-content: center;\n      }\n\n      /* Unfortunately, this looks really bad on a dark background\n      /*\n      .seal-completed:after {\n        animation: shine 3s ease-in-out infinite;\n        animation-fill-mode: forwards;\n        content: '';\n        position: absolute;\n        top: -110%;\n        left: -210%;\n        width: 200%;\n        height: 200%;\n        opacity: 0;\n        transform: rotate(30deg);\n\n        background: rgba(255, 255, 255, 0.13);\n        background: linear-gradient(\n          to right,\n          rgba(255, 255, 255, 0.13) 0%,\n          rgba(255, 255, 255, 0.13) 77%,\n          rgba(255, 255, 255, 0.5) 92%,\n          rgba(255, 255, 255, 0) 100%\n        );\n      }\n      */\n      .seal-completed:active:after {\n      }\n      mat-progress-bar {\n        margin-right: 0.5rem;\n      }\n      /* h4 {\n        padding: 12px 48px;\n        color: #ffffff;\n        background: linear-gradient(to right, #c0c0c0 0, white 10%, #c0c0c0 20%);\n        background-position: 0;\n        -webkit-background-clip: text;\n        -webkit-text-fill-color: transparent;\n        animation: shine 2s infinite linear;\n        animation-fill-mode: forwards;\n        -webkit-text-size-adjust: none;\n      } */\n\n      /* @keyframes shine {\n        0% {\n          background-position: 0;\n        }\n        60% {\n          background-position: 180px;\n        }\n        100% {\n          background-position: 280px;\n        }\n      } */\n      .seal-progress {\n        display: flex;\n        align-items: center;\n      }\n      /* @keyframes shine {\n        10% {\n          opacity: 1;\n          top: -30%;\n          left: -30%;\n          transition-property: left, top, opacity;\n          transition-duration: 0.7s, 0.7s, 0.15s;\n          transition-timing-function: ease;\n        }\n        100% {\n          opacity: 0;\n          top: -30%;\n          left: -30%;\n          transition-property: left, top, opacity;\n        }\n      } */\n    \n",
+            "stylesData": "\n      h3 {\n        text-align: center;\n      }\n      section {\n        padding: 1rem;\n      }\n      .seal-image {\n        height: 127px;\n        width: 127px;\n        position: relative;\n        //overflow: hidden;\n        display: block;\n        margin: 0 auto;\n        img {\n          height: 127px;\n          width: 127px;\n        }\n      }\n      h3 {\n        display: flex;\n        align-items: center;\n        justify-content: center;\n      }\n\n      /* Unfortunately, this looks really bad on a dark background\n      /*\n      .seal-completed:after {\n        animation: shine 3s ease-in-out infinite;\n        animation-fill-mode: forwards;\n        content: '';\n        position: absolute;\n        top: -110%;\n        left: -210%;\n        width: 200%;\n        height: 200%;\n        opacity: 0;\n        transform: rotate(30deg);\n\n        background: rgba(255, 255, 255, 0.13);\n        background: linear-gradient(\n          to right,\n          rgba(255, 255, 255, 0.13) 0%,\n          rgba(255, 255, 255, 0.13) 77%,\n          rgba(255, 255, 255, 0.5) 92%,\n          rgba(255, 255, 255, 0) 100%\n        );\n      }\n      */\n      .seal-completed:active:after {\n      }\n      mat-progress-bar {\n        margin-right: 0.5rem;\n      }\n      /* h4 {\n        padding: 12px 48px;\n        color: #ffffff;\n        background: linear-gradient(to right, #c0c0c0 0, white 10%, #c0c0c0 20%);\n        background-position: 0;\n        -webkit-background-clip: text;\n        -webkit-text-fill-color: transparent;\n        animation: shine 2s infinite linear;\n        animation-fill-mode: forwards;\n        -webkit-text-size-adjust: none;\n      } */\n\n      /* @keyframes shine {\n        0% {\n          background-position: 0;\n        }\n        60% {\n          background-position: 180px;\n        }\n        100% {\n          background-position: 280px;\n        }\n      } */\n      .seal-progress {\n        display: flex;\n        align-items: center;\n      }\n      /* @keyframes shine {\n        10% {\n          opacity: 1;\n          top: -30%;\n          left: -30%;\n          transition-property: left, top, opacity;\n          transition-duration: 0.7s, 0.7s, 0.15s;\n          transition-timing-function: ease;\n        }\n        100% {\n          opacity: 0;\n          top: -30%;\n          left: -30%;\n          transition-property: left, top, opacity;\n        }\n      } */\n    \n",
             "constructorObj": {
                 "name": "constructor",
                 "description": "",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "args": [],
-                "line": 130
+                "line": 136
             }
         },
         {
             "name": "PlayerSealsComponent",
-            "id": "component-PlayerSealsComponent-8a77c38f96eced48be04d4408496fd4f51e6d009b5751e4d8b14342a30db4570326c57ce2f4a1d1e245cf8b476f335411e1c603cc6b5614848364c7f876e14fa",
+            "id": "component-PlayerSealsComponent-9fd465d610fadb7f656284427cb197eab13dd52678f9fc08917bf123423c702a658faf2c73490384010612ac8117fe71daf256944344256c11f0e2e1144eb534",
             "file": "projects/components/src/lib/member/player-seals/player-seals.component.ts",
             "changeDetection": "ChangeDetectionStrategy.OnPush",
             "encapsulation": [],
@@ -27857,7 +27881,7 @@
                     "name": "playerSeals",
                     "deprecated": false,
                     "deprecationMessage": "",
-                    "line": 23,
+                    "line": 24,
                     "type": "PlayerSeal[]",
                     "decorators": []
                 }
@@ -27871,7 +27895,7 @@
                     "type": "",
                     "optional": false,
                     "description": "",
-                    "line": 20
+                    "line": 21
                 },
                 {
                     "name": "completedSeals",
@@ -27881,17 +27905,17 @@
                     "type": "PlayerSeal[]",
                     "optional": false,
                     "description": "",
-                    "line": 18
+                    "line": 19
                 },
                 {
-                    "name": "guildedSeals",
+                    "name": "gildedSeals",
                     "defaultValue": "[]",
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "PlayerSeal[]",
                     "optional": false,
                     "description": "",
-                    "line": 17
+                    "line": 18
                 },
                 {
                     "name": "partialSeals",
@@ -27901,7 +27925,7 @@
                     "type": "PlayerSeal[]",
                     "optional": false,
                     "description": "",
-                    "line": 19
+                    "line": 20
                 }
             ],
             "methodsClass": [
@@ -27918,7 +27942,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 31,
+                    "line": 32,
                     "deprecated": false,
                     "deprecationMessage": "",
                     "jsdoctags": [
@@ -27941,7 +27965,7 @@
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { ChangeDetectionStrategy, Component, Input } from '@angular/core';\r\nimport { CommonModule } from '@angular/common';\r\nimport { MatCardModule } from '@angular/material/card';\r\nimport { MatExpansionModule } from '@angular/material/expansion';\r\nimport { PlayerSealComponent } from './player-seal.component';\r\nimport { PlayerSeal } from './player-seal';\r\n\r\n@Component({\r\n  selector: 'lib-player-seals',\r\n  standalone: true,\r\n  imports: [CommonModule, MatCardModule, MatExpansionModule, PlayerSealComponent],\r\n  changeDetection: ChangeDetectionStrategy.OnPush,\r\n  templateUrl: './player-seals.component.html',\r\n  styleUrls: ['./player-seals.component.scss']\r\n})\r\nexport class PlayerSealsComponent {\r\n  guildedSeals: PlayerSeal[] = [];\r\n  completedSeals: PlayerSeal[] = [];\r\n  partialSeals: PlayerSeal[] = [];\r\n  _playerSeals;\r\n\r\n  @Input()\r\n  get playerSeals(): PlayerSeal[] {\r\n    return this._playerSeals;\r\n  }\r\n  set playerSeals(value) {\r\n    this._playerSeals = value;\r\n    this.applySeals(value);\r\n  }\r\n\r\n  applySeals(seals: PlayerSeal[]) {\r\n    this.guildedSeals = seals?.filter((x) => x.guilded === true && x.complete === true);\r\n    this.completedSeals = seals?.filter((x) => x.complete === true && x.guilded === false);\r\n    this.partialSeals = seals?.filter((x) => x.complete === false && x.guilded === false);\r\n  }\r\n}\r\n",
+            "sourceCode": "import { ChangeDetectionStrategy, Component, Input } from '@angular/core';\r\nimport { CommonModule } from '@angular/common';\r\nimport { MatCardModule } from '@angular/material/card';\r\nimport { MatExpansionModule } from '@angular/material/expansion';\r\nimport { PlayerSealComponent } from './player-seal.component';\r\nimport { PlayerSeal } from './player-seal';\r\nimport { MatIconModule } from '@angular/material/icon';\r\n\r\n@Component({\r\n  selector: 'lib-player-seals',\r\n  standalone: true,\r\n  imports: [CommonModule, MatCardModule, MatExpansionModule, PlayerSealComponent],\r\n  changeDetection: ChangeDetectionStrategy.OnPush,\r\n  templateUrl: './player-seals.component.html',\r\n  styleUrls: ['./player-seals.component.scss']\r\n})\r\nexport class PlayerSealsComponent {\r\n  gildedSeals: PlayerSeal[] = [];\r\n  completedSeals: PlayerSeal[] = [];\r\n  partialSeals: PlayerSeal[] = [];\r\n  _playerSeals;\r\n\r\n  @Input()\r\n  get playerSeals(): PlayerSeal[] {\r\n    return this._playerSeals;\r\n  }\r\n  set playerSeals(value) {\r\n    this._playerSeals = value;\r\n    this.applySeals(value);\r\n  }\r\n\r\n  applySeals(seals: PlayerSeal[]) {\r\n    this.gildedSeals = seals?.filter((x) => x.gilded === true );\r\n    this.completedSeals = seals?.filter((x) => x.complete === true && x.gilded !== true);\r\n    this.partialSeals = seals?.filter((x) => x.complete === false);\r\n  }\r\n}\r\n",
             "assetsDirs": [],
             "styleUrlsData": [
                 {
@@ -27967,7 +27991,7 @@
                             }
                         ],
                         "returnType": "void",
-                        "line": 26,
+                        "line": 27,
                         "jsdoctags": [
                             {
                                 "name": "value",
@@ -27984,11 +28008,11 @@
                         "name": "playerSeals",
                         "type": "[]",
                         "returnType": "PlayerSeal[]",
-                        "line": 23
+                        "line": 24
                     }
                 }
             },
-            "templateData": "<mat-card>\r\n  <mat-card-header> <mat-card-title> Seals </mat-card-title> </mat-card-header>\r\n\r\n  <mat-card-content>\r\n    <div class=\"player-seal__list\">\r\n      <ng-container *ngFor=\"let seal of guildedSeals\">\r\n        <lib-player-seal [playerSeal]=\"seal\"></lib-player-seal>\r\n      </ng-container>\r\n      <ng-container *ngFor=\"let seal of completedSeals\">\r\n        <lib-player-seal [playerSeal]=\"seal\"></lib-player-seal>\r\n      </ng-container>\r\n    </div>\r\n    <mat-expansion-panel class=\"mat-elevation-z0\">\r\n      <mat-expansion-panel-header>\r\n        <mat-panel-title> In Progress </mat-panel-title>\r\n        <mat-panel-description>\r\n          <div></div>\r\n        </mat-panel-description>\r\n      </mat-expansion-panel-header>\r\n      <ng-template matExpansionPanelContent>\r\n        <div class=\"player-seal__list\">\r\n          <ng-container *ngFor=\"let seal of partialSeals\">\r\n            <lib-player-seal [playerSeal]=\"seal\"></lib-player-seal>\r\n          </ng-container>\r\n        </div>\r\n      </ng-template>\r\n    </mat-expansion-panel>\r\n  </mat-card-content>\r\n</mat-card>\r\n"
+            "templateData": "<mat-card>\r\n  <mat-card-header> <mat-card-title> Seals </mat-card-title> </mat-card-header>\r\n\r\n  <mat-card-content>\r\n    <div class=\"player-seal__list\">\r\n      <ng-container *ngFor=\"let seal of gildedSeals\">\r\n        <lib-player-seal [playerSeal]=\"seal\"></lib-player-seal>\r\n      </ng-container>\r\n      <ng-container *ngFor=\"let seal of completedSeals\">\r\n        <lib-player-seal [playerSeal]=\"seal\"></lib-player-seal>\r\n      </ng-container>\r\n    </div>\r\n    <mat-expansion-panel class=\"mat-elevation-z0\">\r\n      <mat-expansion-panel-header>\r\n        <mat-panel-title> In Progress </mat-panel-title>\r\n        <mat-panel-description>\r\n          <div></div>\r\n        </mat-panel-description>\r\n      </mat-expansion-panel-header>\r\n      <ng-template matExpansionPanelContent>\r\n        <div class=\"player-seal__list\">\r\n          <ng-container *ngFor=\"let seal of partialSeals\">\r\n            <lib-player-seal [playerSeal]=\"seal\"></lib-player-seal>\r\n          </ng-container>\r\n        </div>\r\n      </ng-template>\r\n    </mat-expansion-panel>\r\n  </mat-card-content>\r\n</mat-card>\r\n"
         },
         {
             "name": "ProfileLinkComponent",
@@ -30465,47 +30489,7 @@
         },
         {
             "name": "ClansDetailsModule",
-            "id": "module-ClansDetailsModule-d32f4784435521f5b23dcb3c6c6b879d77e592bdf2aa504f75709a1af2459135d4384220e140078ddaa7025776841cbc1c6b275c383ba029aeb6dc45dbdab853",
-            "description": "",
-            "deprecationMessage": "",
-            "deprecated": false,
-            "file": "projects/clan-dashboard/src/app/features/clans-details/clans-details-shell/clans-details.module.ts",
-            "methods": [],
-            "sourceCode": "import { NgModule } from '@angular/core';\r\nimport { ClansDetailsRoutingModule } from './clans-details-routing.module';\r\n\r\n@NgModule({\r\n  imports: [ClansDetailsRoutingModule]\r\n})\r\nexport class ClansDetailsModule {}\r\n",
-            "children": [
-                {
-                    "type": "providers",
-                    "elements": []
-                },
-                {
-                    "type": "declarations",
-                    "elements": []
-                },
-                {
-                    "type": "imports",
-                    "elements": [
-                        {
-                            "name": "ClansDetailsRoutingModule"
-                        }
-                    ]
-                },
-                {
-                    "type": "exports",
-                    "elements": []
-                },
-                {
-                    "type": "bootstrap",
-                    "elements": []
-                },
-                {
-                    "type": "classes",
-                    "elements": []
-                }
-            ]
-        },
-        {
-            "name": "ClansDetailsModule",
-            "id": "module-ClansDetailsModule-651cf0455f9c704ae2a8f7d236f0ab5dd67b9ffef1e2f87293b60d7893b8ce205c69ddfb616f40e15d8f7ab43fd66738faed3579429d2a0a0a52adbfae53c835-1",
+            "id": "module-ClansDetailsModule-651cf0455f9c704ae2a8f7d236f0ab5dd67b9ffef1e2f87293b60d7893b8ce205c69ddfb616f40e15d8f7ab43fd66738faed3579429d2a0a0a52adbfae53c835",
             "description": "",
             "deprecationMessage": "",
             "deprecated": false,
@@ -30559,8 +30543,84 @@
             ]
         },
         {
+            "name": "ClansDetailsModule",
+            "id": "module-ClansDetailsModule-d32f4784435521f5b23dcb3c6c6b879d77e592bdf2aa504f75709a1af2459135d4384220e140078ddaa7025776841cbc1c6b275c383ba029aeb6dc45dbdab853-1",
+            "description": "",
+            "deprecationMessage": "",
+            "deprecated": false,
+            "file": "projects/clan-dashboard/src/app/features/clans-details/clans-details-shell/clans-details.module.ts",
+            "methods": [],
+            "sourceCode": "import { NgModule } from '@angular/core';\r\nimport { ClansDetailsRoutingModule } from './clans-details-routing.module';\r\n\r\n@NgModule({\r\n  imports: [ClansDetailsRoutingModule]\r\n})\r\nexport class ClansDetailsModule {}\r\n",
+            "children": [
+                {
+                    "type": "providers",
+                    "elements": []
+                },
+                {
+                    "type": "declarations",
+                    "elements": []
+                },
+                {
+                    "type": "imports",
+                    "elements": [
+                        {
+                            "name": "ClansDetailsRoutingModule"
+                        }
+                    ]
+                },
+                {
+                    "type": "exports",
+                    "elements": []
+                },
+                {
+                    "type": "bootstrap",
+                    "elements": []
+                },
+                {
+                    "type": "classes",
+                    "elements": []
+                }
+            ]
+        },
+        {
             "name": "ClansDetailsRoutingModule",
-            "id": "module-ClansDetailsRoutingModule-8f1f06866740af79efa6efc2c7233b9511c30a079a0ee4f95a0559ed496892bcc630d817b87a8e9d0f4e8a723189a9f090d32572d4f7362b0f6844482363f610",
+            "id": "module-ClansDetailsRoutingModule-6cd54ab9e20897f16106127dc13bad6fbedf47541245a0ac74c63ce7e0065d544f5e5abffc460277ad98ac55e5c604dc24b3885f3dc1bfcae1ff676b7d107e58",
+            "description": "",
+            "deprecationMessage": "",
+            "deprecated": false,
+            "file": "projects/clan-dashboard/src/app/features/clans-details/clans-details/clans-details-routing.module.ts",
+            "methods": [],
+            "sourceCode": "import { NgModule } from '@angular/core';\r\nimport { RouterModule, Routes } from '@angular/router';\r\nimport { ClansDetailsComponent } from './clans-details.component';\r\n\r\nconst routes: Routes = [\r\n  {\r\n    path: '',\r\n    component: ClansDetailsComponent\r\n  }\r\n];\r\n\r\n@NgModule({\r\n  imports: [RouterModule.forChild(routes)],\r\n  exports: [RouterModule]\r\n})\r\nexport class ClansDetailsRoutingModule {}\r\n",
+            "children": [
+                {
+                    "type": "providers",
+                    "elements": []
+                },
+                {
+                    "type": "declarations",
+                    "elements": []
+                },
+                {
+                    "type": "imports",
+                    "elements": []
+                },
+                {
+                    "type": "exports",
+                    "elements": []
+                },
+                {
+                    "type": "bootstrap",
+                    "elements": []
+                },
+                {
+                    "type": "classes",
+                    "elements": []
+                }
+            ]
+        },
+        {
+            "name": "ClansDetailsRoutingModule",
+            "id": "module-ClansDetailsRoutingModule-8f1f06866740af79efa6efc2c7233b9511c30a079a0ee4f95a0559ed496892bcc630d817b87a8e9d0f4e8a723189a9f090d32572d4f7362b0f6844482363f610-1",
             "description": "",
             "deprecationMessage": "",
             "deprecated": false,
@@ -30596,49 +30656,13 @@
         },
         {
             "name": "ClansDetailsRoutingModule",
-            "id": "module-ClansDetailsRoutingModule-2a99e7c8d8c4d607f224968a965329bfd18b451de63c34f939993e558ac2089fb83cd1ee798d393b2d0dc8c1aa8f3cc907567385db9ab9c21d31c51b23519b41-1",
+            "id": "module-ClansDetailsRoutingModule-2a99e7c8d8c4d607f224968a965329bfd18b451de63c34f939993e558ac2089fb83cd1ee798d393b2d0dc8c1aa8f3cc907567385db9ab9c21d31c51b23519b41-2",
             "description": "",
             "deprecationMessage": "",
             "deprecated": false,
             "file": "projects/clan-dashboard/src/app/features/clans-details/clans-details-shell/clans-details-routing.module.ts",
             "methods": [],
             "sourceCode": "import { NgModule } from '@angular/core';\r\nimport { RouterModule, Routes } from '@angular/router';\r\n\r\nconst routes: Routes = [\r\n  {\r\n    path: '',\r\n    loadChildren: () =>\r\n      \"import('../clans-details-dashboard/clans-details-dashboard.module').then(\\\n        (module) => module.ClansDetailsDashboardModule\\\n      )\"\r\n  }\r\n];\r\n\r\n@NgModule({\r\n  imports: [RouterModule.forChild(routes)],\r\n  exports: [RouterModule]\r\n})\r\nexport class ClansDetailsRoutingModule {}\r\n",
-            "children": [
-                {
-                    "type": "providers",
-                    "elements": []
-                },
-                {
-                    "type": "declarations",
-                    "elements": []
-                },
-                {
-                    "type": "imports",
-                    "elements": []
-                },
-                {
-                    "type": "exports",
-                    "elements": []
-                },
-                {
-                    "type": "bootstrap",
-                    "elements": []
-                },
-                {
-                    "type": "classes",
-                    "elements": []
-                }
-            ]
-        },
-        {
-            "name": "ClansDetailsRoutingModule",
-            "id": "module-ClansDetailsRoutingModule-6cd54ab9e20897f16106127dc13bad6fbedf47541245a0ac74c63ce7e0065d544f5e5abffc460277ad98ac55e5c604dc24b3885f3dc1bfcae1ff676b7d107e58-2",
-            "description": "",
-            "deprecationMessage": "",
-            "deprecated": false,
-            "file": "projects/clan-dashboard/src/app/features/clans-details/clans-details/clans-details-routing.module.ts",
-            "methods": [],
-            "sourceCode": "import { NgModule } from '@angular/core';\r\nimport { RouterModule, Routes } from '@angular/router';\r\nimport { ClansDetailsComponent } from './clans-details.component';\r\n\r\nconst routes: Routes = [\r\n  {\r\n    path: '',\r\n    component: ClansDetailsComponent\r\n  }\r\n];\r\n\r\n@NgModule({\r\n  imports: [RouterModule.forChild(routes)],\r\n  exports: [RouterModule]\r\n})\r\nexport class ClansDetailsRoutingModule {}\r\n",
             "children": [
                 {
                     "type": "providers",
@@ -30907,13 +30931,13 @@
         },
         {
             "name": "ClanSearchRoutingModule",
-            "id": "module-ClanSearchRoutingModule-d870dcd5a65049a349deec15f2a64b5bb79cb344d9b7104455feb32ea638f31a264712264024177e015e1ed351930a397aab8d5ed19d0c3aa7fb629afd77630c-2",
+            "id": "module-ClanSearchRoutingModule-e09b35ec65798fc1093149615aa545fae564ee58accbc55dfbf8c0227ab975ded33f450aef9771c5454ee2f8440029f39d8ff3a8390c866e353eb675a3067928-2",
             "description": "",
             "deprecationMessage": "",
             "deprecated": false,
-            "file": "projects/clan-dashboard/src/app/features/clan-search/clan-search-shell/clan-search-shell-routing.module.ts",
+            "file": "projects/clan-dashboard/src/app/features/clan-search/clan-search-view/clan-search-view-routing.module.ts",
             "methods": [],
-            "sourceCode": "import { NgModule } from '@angular/core';\r\nimport { RouterModule, Routes } from '@angular/router';\r\n\r\nconst routes: Routes = [\r\n  {\r\n    path: '',\r\n    loadChildren: () =>\r\n      \"import('../clan-search-view/clan-search-view.module').then((module) => module.ClanSearchViewModule)\"\r\n  },\r\n  {\r\n    path: ':key',\r\n    loadChildren: () =>\r\n      \"import('../clan-search-curated-view/clan-search-curated-view.module').then(\\\n        (module) => module.ClanSearchCuratedViewModule\\\n      )\"\r\n  }\r\n];\r\n\r\n@NgModule({ imports: [RouterModule.forChild(routes)], exports: [RouterModule] })\r\nexport class ClanSearchRoutingModule {}\r\n",
+            "sourceCode": "import { NgModule } from '@angular/core';\r\nimport { Routes, RouterModule } from '@angular/router';\r\nimport { ClanSearchViewComponent } from './clan-search-view.component';\r\n\r\nconst routes: Routes = [\r\n  {\r\n    path: '',\r\n    component: ClanSearchViewComponent\r\n  }\r\n];\r\n\r\n@NgModule({\r\n  imports: [RouterModule.forChild(routes)],\r\n  exports: [RouterModule]\r\n})\r\nexport class ClanSearchRoutingModule {}\r\n",
             "children": [
                 {
                     "type": "providers",
@@ -30943,13 +30967,13 @@
         },
         {
             "name": "ClanSearchRoutingModule",
-            "id": "module-ClanSearchRoutingModule-e09b35ec65798fc1093149615aa545fae564ee58accbc55dfbf8c0227ab975ded33f450aef9771c5454ee2f8440029f39d8ff3a8390c866e353eb675a3067928-3",
+            "id": "module-ClanSearchRoutingModule-d870dcd5a65049a349deec15f2a64b5bb79cb344d9b7104455feb32ea638f31a264712264024177e015e1ed351930a397aab8d5ed19d0c3aa7fb629afd77630c-3",
             "description": "",
             "deprecationMessage": "",
             "deprecated": false,
-            "file": "projects/clan-dashboard/src/app/features/clan-search/clan-search-view/clan-search-view-routing.module.ts",
+            "file": "projects/clan-dashboard/src/app/features/clan-search/clan-search-shell/clan-search-shell-routing.module.ts",
             "methods": [],
-            "sourceCode": "import { NgModule } from '@angular/core';\r\nimport { Routes, RouterModule } from '@angular/router';\r\nimport { ClanSearchViewComponent } from './clan-search-view.component';\r\n\r\nconst routes: Routes = [\r\n  {\r\n    path: '',\r\n    component: ClanSearchViewComponent\r\n  }\r\n];\r\n\r\n@NgModule({\r\n  imports: [RouterModule.forChild(routes)],\r\n  exports: [RouterModule]\r\n})\r\nexport class ClanSearchRoutingModule {}\r\n",
+            "sourceCode": "import { NgModule } from '@angular/core';\r\nimport { RouterModule, Routes } from '@angular/router';\r\n\r\nconst routes: Routes = [\r\n  {\r\n    path: '',\r\n    loadChildren: () =>\r\n      \"import('../clan-search-view/clan-search-view.module').then((module) => module.ClanSearchViewModule)\"\r\n  },\r\n  {\r\n    path: ':key',\r\n    loadChildren: () =>\r\n      \"import('../clan-search-curated-view/clan-search-curated-view.module').then(\\\n        (module) => module.ClanSearchCuratedViewModule\\\n      )\"\r\n  }\r\n];\r\n\r\n@NgModule({ imports: [RouterModule.forChild(routes)], exports: [RouterModule] })\r\nexport class ClanSearchRoutingModule {}\r\n",
             "children": [
                 {
                     "type": "providers",
@@ -31173,47 +31197,7 @@
         },
         {
             "name": "ClansRosterModule",
-            "id": "module-ClansRosterModule-8e9f89f35c847e639c23b447751324b882adce3e8a1137bbb28ad04b7c9e1baabbd5f320f8251af399dd2e8270dfcc38f1c34fd7f850a2e51fc0f016c60fe801",
-            "description": "",
-            "deprecationMessage": "",
-            "deprecated": false,
-            "file": "projects/clan-dashboard/src/app/features/config/clans-roster-shell/config.module.ts",
-            "methods": [],
-            "sourceCode": "import { NgModule } from '@angular/core';\r\nimport { ConfigRoutingModule } from './config-routing.module';\r\n\r\n@NgModule({\r\n  imports: [ConfigRoutingModule]\r\n})\r\nexport class ClansRosterModule {}\r\n",
-            "children": [
-                {
-                    "type": "providers",
-                    "elements": []
-                },
-                {
-                    "type": "declarations",
-                    "elements": []
-                },
-                {
-                    "type": "imports",
-                    "elements": [
-                        {
-                            "name": "ConfigRoutingModule"
-                        }
-                    ]
-                },
-                {
-                    "type": "exports",
-                    "elements": []
-                },
-                {
-                    "type": "bootstrap",
-                    "elements": []
-                },
-                {
-                    "type": "classes",
-                    "elements": []
-                }
-            ]
-        },
-        {
-            "name": "ClansRosterModule",
-            "id": "module-ClansRosterModule-e8fbf0a9927e5ffe6c5691d2e62668309daf8e0da918b20bb03567178da8a25bb4f1876ade4fdc7e41275c9e661a7ac0c32de1874e7c510e95c3c6ed7b5c8af4-1",
+            "id": "module-ClansRosterModule-e8fbf0a9927e5ffe6c5691d2e62668309daf8e0da918b20bb03567178da8a25bb4f1876ade4fdc7e41275c9e661a7ac0c32de1874e7c510e95c3c6ed7b5c8af4",
             "description": "",
             "deprecationMessage": "",
             "deprecated": false,
@@ -31274,7 +31258,7 @@
         },
         {
             "name": "ClansRosterModule",
-            "id": "module-ClansRosterModule-de6c5e03e0e585b2052b9fea4d6525c851f4f44ab3eff930cac8d90b82184d3042efecbf91937c3746313f9a4429a0eafdc6bb6426237848fb219b50db1b5569-2",
+            "id": "module-ClansRosterModule-de6c5e03e0e585b2052b9fea4d6525c851f4f44ab3eff930cac8d90b82184d3042efecbf91937c3746313f9a4429a0eafdc6bb6426237848fb219b50db1b5569-1",
             "description": "",
             "deprecationMessage": "",
             "deprecated": false,
@@ -31295,6 +31279,46 @@
                     "elements": [
                         {
                             "name": "ClansRosterRoutingModule"
+                        }
+                    ]
+                },
+                {
+                    "type": "exports",
+                    "elements": []
+                },
+                {
+                    "type": "bootstrap",
+                    "elements": []
+                },
+                {
+                    "type": "classes",
+                    "elements": []
+                }
+            ]
+        },
+        {
+            "name": "ClansRosterModule",
+            "id": "module-ClansRosterModule-8e9f89f35c847e639c23b447751324b882adce3e8a1137bbb28ad04b7c9e1baabbd5f320f8251af399dd2e8270dfcc38f1c34fd7f850a2e51fc0f016c60fe801-2",
+            "description": "",
+            "deprecationMessage": "",
+            "deprecated": false,
+            "file": "projects/clan-dashboard/src/app/features/config/clans-roster-shell/config.module.ts",
+            "methods": [],
+            "sourceCode": "import { NgModule } from '@angular/core';\r\nimport { ConfigRoutingModule } from './config-routing.module';\r\n\r\n@NgModule({\r\n  imports: [ConfigRoutingModule]\r\n})\r\nexport class ClansRosterModule {}\r\n",
+            "children": [
+                {
+                    "type": "providers",
+                    "elements": []
+                },
+                {
+                    "type": "declarations",
+                    "elements": []
+                },
+                {
+                    "type": "imports",
+                    "elements": [
+                        {
+                            "name": "ConfigRoutingModule"
                         }
                     ]
                 },
@@ -31386,51 +31410,7 @@
         },
         {
             "name": "ConfigModule",
-            "id": "module-ConfigModule-59a3aa6cc5dbd416340be8bf73c8e80e8109a0708433f8f2dfa86c85136d78ba457fc62295f580f73d2dc2a3993be66ca870c5b80a8b1c858f5d093c8c2c1ca5",
-            "description": "",
-            "deprecationMessage": "",
-            "deprecated": false,
-            "file": "projects/clan-dashboard/src/app/views/config/config.module.ts",
-            "methods": [],
-            "sourceCode": "import { NgModule } from '@angular/core';\r\nimport { CommonModule } from '@angular/common';\r\nimport { ConfigComponent } from './config.component';\r\nimport { ConfigRoutingModule } from './config-routing.module';\r\nimport { ConfigModule as ConfigFeatureModule } from '../../features/config/config.module';\r\n\r\n@NgModule({\r\n  declarations: [ConfigComponent],\r\n  imports: [CommonModule, ConfigRoutingModule, ConfigFeatureModule]\r\n})\r\nexport class ConfigModule {}\r\n",
-            "children": [
-                {
-                    "type": "providers",
-                    "elements": []
-                },
-                {
-                    "type": "declarations",
-                    "elements": [
-                        {
-                            "name": "ConfigComponent"
-                        }
-                    ]
-                },
-                {
-                    "type": "imports",
-                    "elements": [
-                        {
-                            "name": "ConfigRoutingModule"
-                        }
-                    ]
-                },
-                {
-                    "type": "exports",
-                    "elements": []
-                },
-                {
-                    "type": "bootstrap",
-                    "elements": []
-                },
-                {
-                    "type": "classes",
-                    "elements": []
-                }
-            ]
-        },
-        {
-            "name": "ConfigModule",
-            "id": "module-ConfigModule-fbec53b97b6b67759fefac601d1a7b255fdafc289da62027c04bc6b7abacad30e9cad6af57df9f27249df3391e57507974ea57cc291844086071a0e4550d3f7e-1",
+            "id": "module-ConfigModule-fbec53b97b6b67759fefac601d1a7b255fdafc289da62027c04bc6b7abacad30e9cad6af57df9f27249df3391e57507974ea57cc291844086071a0e4550d3f7e",
             "description": "",
             "deprecationMessage": "",
             "deprecated": false,
@@ -31458,6 +31438,54 @@
                     "elements": [
                         {
                             "name": "ClanDetailsModule"
+                        }
+                    ]
+                },
+                {
+                    "type": "exports",
+                    "elements": [
+                        {
+                            "name": "ConfigComponent"
+                        }
+                    ]
+                },
+                {
+                    "type": "bootstrap",
+                    "elements": []
+                },
+                {
+                    "type": "classes",
+                    "elements": []
+                }
+            ]
+        },
+        {
+            "name": "ConfigModule",
+            "id": "module-ConfigModule-59a3aa6cc5dbd416340be8bf73c8e80e8109a0708433f8f2dfa86c85136d78ba457fc62295f580f73d2dc2a3993be66ca870c5b80a8b1c858f5d093c8c2c1ca5-1",
+            "description": "",
+            "deprecationMessage": "",
+            "deprecated": false,
+            "file": "projects/clan-dashboard/src/app/views/config/config.module.ts",
+            "methods": [],
+            "sourceCode": "import { NgModule } from '@angular/core';\r\nimport { CommonModule } from '@angular/common';\r\nimport { ConfigComponent } from './config.component';\r\nimport { ConfigRoutingModule } from './config-routing.module';\r\nimport { ConfigModule as ConfigFeatureModule } from '../../features/config/config.module';\r\n\r\n@NgModule({\r\n  declarations: [ConfigComponent],\r\n  imports: [CommonModule, ConfigRoutingModule, ConfigFeatureModule]\r\n})\r\nexport class ConfigModule {}\r\n",
+            "children": [
+                {
+                    "type": "providers",
+                    "elements": []
+                },
+                {
+                    "type": "declarations",
+                    "elements": [
+                        {
+                            "name": "ConfigComponent"
+                        }
+                    ]
+                },
+                {
+                    "type": "imports",
+                    "elements": [
+                        {
+                            "name": "ConfigRoutingModule"
                         }
                     ]
                 },
@@ -32152,47 +32180,7 @@
         },
         {
             "name": "RecentActivityModule",
-            "id": "module-RecentActivityModule-85de2887800c4049af04118f290bdb58c912e2562dd273278e0260e1a37d1cdfd24b6763974064b6953279c2ab7eff230a97a74b9bb6aec1ea8975e23d1e69fc",
-            "description": "",
-            "deprecationMessage": "",
-            "deprecated": false,
-            "file": "projects/clan-dashboard/src/app/features/recent-activity/recent-activity-shell/recent-activity.module.ts",
-            "methods": [],
-            "sourceCode": "import { NgModule } from '@angular/core';\r\nimport { RecentActivityRoutingModule } from './recent-activity-routing.module';\r\n\r\n@NgModule({\r\n  imports: [RecentActivityRoutingModule]\r\n})\r\nexport class RecentActivityModule {}\r\n",
-            "children": [
-                {
-                    "type": "providers",
-                    "elements": []
-                },
-                {
-                    "type": "declarations",
-                    "elements": []
-                },
-                {
-                    "type": "imports",
-                    "elements": [
-                        {
-                            "name": "RecentActivityRoutingModule"
-                        }
-                    ]
-                },
-                {
-                    "type": "exports",
-                    "elements": []
-                },
-                {
-                    "type": "bootstrap",
-                    "elements": []
-                },
-                {
-                    "type": "classes",
-                    "elements": []
-                }
-            ]
-        },
-        {
-            "name": "RecentActivityModule",
-            "id": "module-RecentActivityModule-cff434130beed1a018851793ca342c2dcb9c2556030a751a3225e3f623c40a9f1758359eac8296bbab12d6eeb78a7e0c820d7beb13be9b74d69055f4b6609dcf-1",
+            "id": "module-RecentActivityModule-cff434130beed1a018851793ca342c2dcb9c2556030a751a3225e3f623c40a9f1758359eac8296bbab12d6eeb78a7e0c820d7beb13be9b74d69055f4b6609dcf",
             "description": "",
             "deprecationMessage": "",
             "deprecated": false,
@@ -32242,14 +32230,54 @@
             ]
         },
         {
-            "name": "RecentActivityRoutingModule",
-            "id": "module-RecentActivityRoutingModule-b3e375eeadf45fe77676b87e9ee9f15fe7e9d391071cd8f7e996770057c10c10a282a3e3ddeed674816d2c3209d7569eb36566874bf410a6f371e5f5c9e6ead2",
+            "name": "RecentActivityModule",
+            "id": "module-RecentActivityModule-85de2887800c4049af04118f290bdb58c912e2562dd273278e0260e1a37d1cdfd24b6763974064b6953279c2ab7eff230a97a74b9bb6aec1ea8975e23d1e69fc-1",
             "description": "",
             "deprecationMessage": "",
             "deprecated": false,
-            "file": "projects/clan-dashboard/src/app/features/recent-activity/recent-activity-shell/recent-activity-routing.module.ts",
+            "file": "projects/clan-dashboard/src/app/features/recent-activity/recent-activity-shell/recent-activity.module.ts",
             "methods": [],
-            "sourceCode": "import { NgModule } from '@angular/core';\r\nimport { RouterModule, Routes } from '@angular/router';\r\n\r\nconst routes: Routes = [\r\n  {\r\n    path: '',\r\n    loadChildren: () => \"import('../recent-activity-dashboard/recent-activity.module').then((module) => module.RecentActivityModule)\"\r\n  }\r\n];\r\n\r\n@NgModule({ imports: [RouterModule.forChild(routes)], exports: [RouterModule] })\r\nexport class RecentActivityRoutingModule {}\r\n",
+            "sourceCode": "import { NgModule } from '@angular/core';\r\nimport { RecentActivityRoutingModule } from './recent-activity-routing.module';\r\n\r\n@NgModule({\r\n  imports: [RecentActivityRoutingModule]\r\n})\r\nexport class RecentActivityModule {}\r\n",
+            "children": [
+                {
+                    "type": "providers",
+                    "elements": []
+                },
+                {
+                    "type": "declarations",
+                    "elements": []
+                },
+                {
+                    "type": "imports",
+                    "elements": [
+                        {
+                            "name": "RecentActivityRoutingModule"
+                        }
+                    ]
+                },
+                {
+                    "type": "exports",
+                    "elements": []
+                },
+                {
+                    "type": "bootstrap",
+                    "elements": []
+                },
+                {
+                    "type": "classes",
+                    "elements": []
+                }
+            ]
+        },
+        {
+            "name": "RecentActivityRoutingModule",
+            "id": "module-RecentActivityRoutingModule-320a8fc4050cc00c23f08cd755b01016c093774df27364d75f26feae506dea8de323c3b7b465545b64eda3161f4ccea7e09e0cda8f4dc13c7dbf36e7769a1931",
+            "description": "",
+            "deprecationMessage": "",
+            "deprecated": false,
+            "file": "projects/clan-dashboard/src/app/features/recent-activity/recent-activity-dashboard/clan-roster-routing.module.ts.ts",
+            "methods": [],
+            "sourceCode": "import { NgModule } from '@angular/core';\r\nimport { Routes, RouterModule } from '@angular/router';\r\nimport { RecentActivityComponent } from './recent-activity.component';\r\n\r\nconst routes: Routes = [\r\n  {\r\n    path: '',\r\n    component: RecentActivityComponent\r\n  }\r\n];\r\n\r\n@NgModule({\r\n  imports: [RouterModule.forChild(routes)],\r\n  exports: [RouterModule]\r\n})\r\nexport class RecentActivityRoutingModule {}\r\n",
             "children": [
                 {
                     "type": "providers",
@@ -32279,13 +32307,13 @@
         },
         {
             "name": "RecentActivityRoutingModule",
-            "id": "module-RecentActivityRoutingModule-320a8fc4050cc00c23f08cd755b01016c093774df27364d75f26feae506dea8de323c3b7b465545b64eda3161f4ccea7e09e0cda8f4dc13c7dbf36e7769a1931-1",
+            "id": "module-RecentActivityRoutingModule-b3e375eeadf45fe77676b87e9ee9f15fe7e9d391071cd8f7e996770057c10c10a282a3e3ddeed674816d2c3209d7569eb36566874bf410a6f371e5f5c9e6ead2-1",
             "description": "",
             "deprecationMessage": "",
             "deprecated": false,
-            "file": "projects/clan-dashboard/src/app/features/recent-activity/recent-activity-dashboard/clan-roster-routing.module.ts.ts",
+            "file": "projects/clan-dashboard/src/app/features/recent-activity/recent-activity-shell/recent-activity-routing.module.ts",
             "methods": [],
-            "sourceCode": "import { NgModule } from '@angular/core';\r\nimport { Routes, RouterModule } from '@angular/router';\r\nimport { RecentActivityComponent } from './recent-activity.component';\r\n\r\nconst routes: Routes = [\r\n  {\r\n    path: '',\r\n    component: RecentActivityComponent\r\n  }\r\n];\r\n\r\n@NgModule({\r\n  imports: [RouterModule.forChild(routes)],\r\n  exports: [RouterModule]\r\n})\r\nexport class RecentActivityRoutingModule {}\r\n",
+            "sourceCode": "import { NgModule } from '@angular/core';\r\nimport { RouterModule, Routes } from '@angular/router';\r\n\r\nconst routes: Routes = [\r\n  {\r\n    path: '',\r\n    loadChildren: () => \"import('../recent-activity-dashboard/recent-activity.module').then((module) => module.RecentActivityModule)\"\r\n  }\r\n];\r\n\r\n@NgModule({ imports: [RouterModule.forChild(routes)], exports: [RouterModule] })\r\nexport class RecentActivityRoutingModule {}\r\n",
             "children": [
                 {
                     "type": "providers",
@@ -32532,13 +32560,13 @@
         },
         {
             "name": "SealsDashboardRoutingModule",
-            "id": "module-SealsDashboardRoutingModule-b4346c4b8742c9c9fcf14793ee080ae7267031cf8b472401534db7fdc9d9ea1a0100f4b31873a9d0abd947c196c7662abf64970a301cb23bb9a80a09fdc72ee6",
+            "id": "module-SealsDashboardRoutingModule-f797166f24891cab1959b9773b9aee6fff1b81d3aba7a455037920bb8feb54e49201b1b0efb676f17a34961d16fabaea6ea67398afea44804bc7965e7b1f7650",
             "description": "",
             "deprecationMessage": "",
             "deprecated": false,
-            "file": "projects/clan-dashboard/src/app/features/seals/seal-details/seal-detail-routing.module.ts",
+            "file": "projects/clan-dashboard/src/app/features/seals/seals-dashboard/seals-dashboard-routing.module.ts",
             "methods": [],
-            "sourceCode": "import { NgModule } from '@angular/core';\r\nimport { Routes, RouterModule } from '@angular/router';\r\nimport { SealDetailsComponent } from './seal-details.component';\r\n\r\nconst routes: Routes = [\r\n  {\r\n    path: '',\r\n    component: SealDetailsComponent\r\n  }\r\n];\r\n\r\n@NgModule({\r\n  imports: [RouterModule.forChild(routes)],\r\n  exports: [RouterModule]\r\n})\r\nexport class SealsDashboardRoutingModule {}\r\n",
+            "sourceCode": "import { NgModule } from '@angular/core';\r\nimport { Routes, RouterModule } from '@angular/router';\r\nimport { SealsDashboardComponent } from './seals-dashboard.component';\r\n\r\nconst routes: Routes = [\r\n  {\r\n    path: '',\r\n    component: SealsDashboardComponent\r\n  }\r\n];\r\n\r\n@NgModule({\r\n  imports: [RouterModule.forChild(routes)],\r\n  exports: [RouterModule]\r\n})\r\nexport class SealsDashboardRoutingModule {}\r\n",
             "children": [
                 {
                     "type": "providers",
@@ -32568,13 +32596,13 @@
         },
         {
             "name": "SealsDashboardRoutingModule",
-            "id": "module-SealsDashboardRoutingModule-f797166f24891cab1959b9773b9aee6fff1b81d3aba7a455037920bb8feb54e49201b1b0efb676f17a34961d16fabaea6ea67398afea44804bc7965e7b1f7650-1",
+            "id": "module-SealsDashboardRoutingModule-b4346c4b8742c9c9fcf14793ee080ae7267031cf8b472401534db7fdc9d9ea1a0100f4b31873a9d0abd947c196c7662abf64970a301cb23bb9a80a09fdc72ee6-1",
             "description": "",
             "deprecationMessage": "",
             "deprecated": false,
-            "file": "projects/clan-dashboard/src/app/features/seals/seals-dashboard/seals-dashboard-routing.module.ts",
+            "file": "projects/clan-dashboard/src/app/features/seals/seal-details/seal-detail-routing.module.ts",
             "methods": [],
-            "sourceCode": "import { NgModule } from '@angular/core';\r\nimport { Routes, RouterModule } from '@angular/router';\r\nimport { SealsDashboardComponent } from './seals-dashboard.component';\r\n\r\nconst routes: Routes = [\r\n  {\r\n    path: '',\r\n    component: SealsDashboardComponent\r\n  }\r\n];\r\n\r\n@NgModule({\r\n  imports: [RouterModule.forChild(routes)],\r\n  exports: [RouterModule]\r\n})\r\nexport class SealsDashboardRoutingModule {}\r\n",
+            "sourceCode": "import { NgModule } from '@angular/core';\r\nimport { Routes, RouterModule } from '@angular/router';\r\nimport { SealDetailsComponent } from './seal-details.component';\r\n\r\nconst routes: Routes = [\r\n  {\r\n    path: '',\r\n    component: SealDetailsComponent\r\n  }\r\n];\r\n\r\n@NgModule({\r\n  imports: [RouterModule.forChild(routes)],\r\n  exports: [RouterModule]\r\n})\r\nexport class SealsDashboardRoutingModule {}\r\n",
             "children": [
                 {
                     "type": "providers",
@@ -33368,21 +33396,21 @@
                 "name": "environment",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "projects/clan-dashboard/src/environments/environment.prod.ts",
-                "deprecated": false,
-                "deprecationMessage": "",
-                "type": "object",
-                "defaultValue": "{\r\n  constants: { ...baseConstants },\r\n  production: true,\r\n  apiKey: secretKeys.apiKey,\r\n  appVersion: packageJson.version\r\n}"
-            },
-            {
-                "name": "environment",
-                "ctype": "miscellaneous",
-                "subtype": "variable",
                 "file": "projects/clan-dashboard/src/environments/environment.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "object",
                 "defaultValue": "{\r\n  constants: {...baseConstants},\r\n  production: false,\r\n  apiKey: secretKeys.apiKey,\r\n  appVersion: packageJson.version\r\n}"
+            },
+            {
+                "name": "environment",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/clan-dashboard/src/environments/environment.prod.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "object",
+                "defaultValue": "{\r\n  constants: { ...baseConstants },\r\n  production: true,\r\n  apiKey: secretKeys.apiKey,\r\n  appVersion: packageJson.version\r\n}"
             },
             {
                 "name": "events",
@@ -33687,7 +33715,7 @@
                 "name": "Loading",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "projects/clan-dashboard/src/app/features/clans-details/components/clan-info/clan-info.component.stories.ts",
+                "file": "projects/clan-dashboard/src/app/features/clans-details/components/clan-activity-bar-chart/clan-activity-bar-chart.component.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "",
@@ -33697,7 +33725,7 @@
                 "name": "Loading",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "projects/clan-dashboard/src/app/features/clans-details/components/clan-activity-bar-chart/clan-activity-bar-chart.component.stories.ts",
+                "file": "projects/clan-dashboard/src/app/features/clans-details/components/clan-info/clan-info.component.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "",
@@ -34057,7 +34085,7 @@
                 "name": "packageJson",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "projects/clan-dashboard/src/environments/environment.prod.ts",
+                "file": "projects/clan-dashboard/src/environments/environment.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "",
@@ -34067,7 +34095,7 @@
                 "name": "packageJson",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "projects/clan-dashboard/src/environments/environment.ts",
+                "file": "projects/clan-dashboard/src/environments/environment.prod.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "",
@@ -34127,16 +34155,6 @@
                 "name": "Primary",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "projects/components/src/lib/shared/profile-link/profile-link.stories.ts",
-                "deprecated": false,
-                "deprecationMessage": "",
-                "type": "",
-                "defaultValue": "Template.bind({})"
-            },
-            {
-                "name": "Primary",
-                "ctype": "miscellaneous",
-                "subtype": "variable",
                 "file": "projects/components/src/lib/shared/rendered-view/rendered-view.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
@@ -34147,7 +34165,7 @@
                 "name": "Primary",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "projects/components/src/lib/shared/table-view/table-view.stories.ts",
+                "file": "projects/components/src/lib/shared/profile-link/profile-link.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "",
@@ -34158,6 +34176,16 @@
                 "ctype": "miscellaneous",
                 "subtype": "variable",
                 "file": "projects/components/src/lib/shared/skeleton-chart-loader/skeleton-chart-loader.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "",
+                "defaultValue": "Template.bind({})"
+            },
+            {
+                "name": "Primary",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/components/src/lib/shared/table-view/table-view.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "",
@@ -34197,7 +34225,7 @@
                 "name": "Primary",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "projects/clan-dashboard/src/app/features/clans-details/components/clan-info/clan-info.component.stories.ts",
+                "file": "projects/clan-dashboard/src/app/features/clans-details/components/clan-activity-bar-chart/clan-activity-bar-chart.component.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "",
@@ -34207,7 +34235,7 @@
                 "name": "Primary",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "projects/clan-dashboard/src/app/features/clans-details/components/clan-activity-bar-chart/clan-activity-bar-chart.component.stories.ts",
+                "file": "projects/clan-dashboard/src/app/features/clans-details/components/clan-info/clan-info.component.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "",
@@ -34777,11 +34805,21 @@
                 "name": "Template",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "projects/components/src/lib/member/player-seals/player-seals.component.stories.ts",
+                "file": "projects/clan-dashboard/src/theme/components/mat-card/mat-card.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
-                "type": "Story<PlayerSealsComponent>",
-                "defaultValue": "(args) => ({\r\n  props: args\r\n})"
+                "type": "Story<MatCard>",
+                "defaultValue": "(args: MatCard) => ({\r\n  component: MatCard,\r\n  props: args,\r\n  styles: [\r\n    `\r\n    .example-card {\r\n        max-width: 400px;\r\n      }\r\n\r\n      .example-header-image {\r\n        background-image: url('https://material.angular.io/assets/img/examples/shiba1.jpg');\r\n        background-size: cover;\r\n      }\r\n   `\r\n  ],\r\n  template: `\r\n    <mat-card>\r\n    <mat-card-content>Simple card</mat-card-content>\r\n  </mat-card>\r\n  <hr>\r\n<a class=\"mat-card-link\">\r\n<mat-card>\r\n    <mat-card-content>Link Card</mat-card-content>\r\n  </mat-card>\r\n  </a>\r\n  <hr>\r\n\r\n  <mat-card>\r\n  <mat-card-header>\r\n    <mat-card-title>Actions Buttons</mat-card-title>\r\n    <mat-card-subtitle>Start</mat-card-subtitle>\r\n  </mat-card-header>\r\n  <mat-card-actions>\r\n    <button mat-button>LIKE</button>\r\n    <button mat-button>SHARE</button>\r\n  </mat-card-actions>\r\n</mat-card>\r\n<hr>\r\n<mat-card class=\"example-card\">\r\n  <mat-card-header>\r\n    <div mat-card-avatar class=\"example-header-image\"></div>\r\n    <mat-card-title>Shiba Inu</mat-card-title>\r\n    <mat-card-subtitle>Dog Breed</mat-card-subtitle>\r\n  </mat-card-header>\r\n  <img mat-card-image src=\"https://material.angular.io/assets/img/examples/shiba2.jpg\" alt=\"Photo of a Shiba Inu\">\r\n  <mat-card-content>\r\n    <p>\r\n      The Shiba Inu is the smallest of the six original and distinct spitz breeds of dog from Japan.\r\n      A small, agile dog that copes very well with mountainous terrain, the Shiba Inu was originally\r\n      bred for hunting.\r\n    </p>\r\n  </mat-card-content>\r\n  <mat-card-actions>\r\n    <button mat-button>LIKE</button>\r\n    <button mat-button>SHARE</button>\r\n  </mat-card-actions>\r\n</mat-card>\r\n    `\r\n})"
+            },
+            {
+                "name": "Template",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/clan-dashboard/src/theme/components/mat-buttons/mat-buttons.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Story<MatButton>",
+                "defaultValue": "(args: MatButton) => ({\r\n  component: MatButton,\r\n  props: args,\r\n  styles: [\r\n    `\r\n  section {\r\n    display: table;\r\n  }\r\n  .example-label {\r\n    display: table-cell;\r\n    font-size: 14px;\r\n    margin-left: 8px;\r\n    min-width: 120px;\r\n  }\r\n  .example-button-row {\r\n    display: table-cell;\r\n    width: 800px;\r\n  }\r\n  .example-button-row .mat-button-base {\r\n    margin: 8px 8px 8px 0;\r\n  }\r\n  .example-flex-container {\r\n    display: flex;\r\n    justify-content: space-between;\r\n    flex-wrap: wrap;\r\n  }\r\n  .example-button-container {\r\n    display: flex;\r\n    justify-content: center;\r\n    width: 120px;\r\n  }`\r\n  ],\r\n  template: `\r\n  <section>\r\n  <div class=\"example-label\">Basic</div>\r\n  <div class=\"example-button-row\">\r\n    <button mat-button>Basic</button>\r\n    <button mat-button disabled>Disabled</button>\r\n    <button mat-button color=\"primary\">Primary</button>\r\n    <button mat-button color=\"primary\" disabled>Primary</button>\r\n    <button mat-button color=\"accent\">Accent</button>\r\n    <button mat-button color=\"accent\" disabled>Accent</button>\r\n    <button mat-button color=\"warn\">Warn</button>\r\n    <button mat-button color=\"warn\" disabled>Warn</button>\r\n    <a mat-button href=\"https://www.google.com/\" target=\"_blank\">Link</a>\r\n  </div>\r\n</section>\r\n<mat-divider></mat-divider>\r\n<section>\r\n  <div class=\"example-label\">Raised</div>\r\n  <div class=\"example-button-row\">\r\n    <button mat-raised-button>Basic</button>\r\n    <button mat-raised-button disabled>Disabled</button>\r\n    <button mat-raised-button color=\"primary\">Primary</button>\r\n    <button mat-raised-button color=\"primary\"  disabled>Primary</button>\r\n    <button mat-raised-button color=\"accent\">Accent</button>\r\n    <button mat-raised-button color=\"accent\" disabled>Accent</button>\r\n    <button mat-raised-button color=\"warn\">Warn</button>\r\n    <button mat-raised-button color=\"warn\" disabled>Warn</button>\r\n    <a mat-raised-button href=\"https://www.google.com/\" target=\"_blank\">Link</a>\r\n  </div>\r\n</section>\r\n<mat-divider></mat-divider>\r\n<section>\r\n  <div class=\"example-label\">Stroked</div>\r\n  <div class=\"example-button-row\">\r\n    <button mat-stroked-button>Basic</button>\r\n    <button mat-stroked-button disabled>Disabled</button>\r\n    <button mat-stroked-button color=\"primary\">Primary</button>\r\n    <button mat-stroked-button color=\"primary\" disabled>Primary</button>\r\n    <button mat-stroked-button color=\"accent\">Accent</button>\r\n    <button mat-stroked-button color=\"accent\" disabled>Accent</button>\r\n    <button mat-stroked-button color=\"warn\">Warn</button>\r\n    <button mat-stroked-button color=\"warn\" disabled>Warn</button>\r\n    <a mat-stroked-button href=\"https://www.google.com/\" target=\"_blank\">Link</a>\r\n  </div>\r\n</section>\r\n<mat-divider></mat-divider>\r\n<section>\r\n  <div class=\"example-label\">Flat</div>\r\n  <div class=\"example-button-row\">\r\n    <button mat-flat-button>Basic</button>\r\n    <button mat-flat-button disabled>Disabled</button>\r\n    <button mat-flat-button color=\"primary\">Primary</button>\r\n    <button mat-flat-button color=\"primary\" disabled>Primary</button>\r\n    <button mat-flat-button color=\"accent\">Accent</button>\r\n    <button mat-flat-button color=\"accent\" disabled>Accent</button>\r\n    <button mat-flat-button color=\"warn\">Warn</button>\r\n    <button mat-flat-button color=\"warn\" disabled>Warn</button>\r\n    <a mat-flat-button href=\"https://www.google.com/\" target=\"_blank\">Link</a>\r\n  </div>\r\n</section>\r\n<mat-divider></mat-divider>\r\n<section>\r\n  <div class=\"example-label\">Icon</div>\r\n  <div class=\"example-button-row\">\r\n    <div class=\"example-flex-container\">\r\n      <button mat-icon-button aria-label=\"Example icon button with a vertical three dot icon\">\r\n        <mat-icon>more_vert</mat-icon>\r\n      </button>\r\n      <button mat-icon-button color=\"primary\" aria-label=\"Example icon button with a home icon\">\r\n        <mat-icon>home</mat-icon>\r\n      </button>\r\n      <button mat-icon-button color=\"accent\" aria-label=\"Example icon button with a menu icon\">\r\n        <mat-icon>menu</mat-icon>\r\n      </button>\r\n      <button mat-icon-button color=\"warn\" aria-label=\"Example icon button with a heart icon\">\r\n        <mat-icon>favorite</mat-icon>\r\n      </button>\r\n      <button mat-icon-button disabled aria-label=\"Example icon button with a open in new tab icon\">\r\n        <mat-icon>open_in_new</mat-icon>\r\n      </button>\r\n    </div>\r\n  </div>\r\n</section>\r\n<mat-divider></mat-divider>\r\n<section>\r\n  <div class=\"example-label\">FAB</div>\r\n  <div class=\"example-button-row\">\r\n    <div class=\"example-flex-container\">\r\n      <div class=\"example-button-container\">\r\n        <button mat-fab color=\"primary\" aria-label=\"Example icon button with a delete icon\">\r\n          <mat-icon>delete</mat-icon>\r\n        </button>\r\n      </div>\r\n      <div class=\"example-button-container\">\r\n        <button mat-fab color=\"accent\" aria-label=\"Example icon button with a bookmark icon\">\r\n          <mat-icon>bookmark</mat-icon>\r\n        </button>\r\n      </div>\r\n      <div class=\"example-button-container\">\r\n        <button mat-fab color=\"warn\" aria-label=\"Example icon button with a home icon\">\r\n          <mat-icon>home</mat-icon>\r\n        </button>\r\n      </div>\r\n      <div class=\"example-button-container\">\r\n        <button mat-fab disabled aria-label=\"Example icon button with a heart icon\">\r\n          <mat-icon>favorite</mat-icon>\r\n        </button>\r\n      </div>\r\n    </div>\r\n  </div>\r\n</section>\r\n<mat-divider></mat-divider>\r\n<section>\r\n  <div class=\"example-label\">Mini FAB</div>\r\n  <div class=\"example-button-row\">\r\n    <div class=\"example-flex-container\">\r\n      <div class=\"example-button-container\">\r\n        <button mat-mini-fab color=\"primary\" aria-label=\"Example icon button with a menu icon\">\r\n          <mat-icon>menu</mat-icon>\r\n        </button>\r\n      </div>\r\n      <div class=\"example-button-container\">\r\n        <button mat-mini-fab color=\"accent\" aria-label=\"Example icon button with a plus one icon\">\r\n          <mat-icon>plus_one</mat-icon>\r\n        </button>\r\n      </div>\r\n      <div class=\"example-button-container\">\r\n        <button mat-mini-fab color=\"warn\" aria-label=\"Example icon button with a filter list icon\">\r\n          <mat-icon>filter_list</mat-icon>\r\n        </button>\r\n      </div>\r\n      <div class=\"example-button-container\">\r\n        <button mat-mini-fab disabled aria-label=\"Example icon button with a home icon\">\r\n          <mat-icon>home</mat-icon>\r\n        </button>\r\n      </div>\r\n    </div>\r\n  </div>\r\n</section>\r\n\r\n  `\r\n})"
             },
             {
                 "name": "Template",
@@ -34817,16 +34855,6 @@
                 "name": "Template",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "projects/components/src/lib/shared/profile-link/profile-link.stories.ts",
-                "deprecated": false,
-                "deprecationMessage": "",
-                "type": "Story<ProfileLinkComponent>",
-                "defaultValue": "(args: ProfileLinkComponent) => ({\r\n  props: args\r\n})"
-            },
-            {
-                "name": "Template",
-                "ctype": "miscellaneous",
-                "subtype": "variable",
                 "file": "projects/components/src/lib/shared/rendered-view/rendered-view.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
@@ -34837,11 +34865,11 @@
                 "name": "Template",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "projects/components/src/lib/shared/table-view/table-view.stories.ts",
+                "file": "projects/components/src/lib/shared/profile-link/profile-link.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
-                "type": "Story<TableViewComponent>",
-                "defaultValue": "(args: TableViewComponent) => ({\r\n  props: args\r\n})"
+                "type": "Story<ProfileLinkComponent>",
+                "defaultValue": "(args: ProfileLinkComponent) => ({\r\n  props: args\r\n})"
             },
             {
                 "name": "Template",
@@ -34857,21 +34885,21 @@
                 "name": "Template",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "projects/clan-dashboard/src/theme/components/mat-card/mat-card.stories.ts",
+                "file": "projects/components/src/lib/shared/table-view/table-view.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
-                "type": "Story<MatCard>",
-                "defaultValue": "(args: MatCard) => ({\r\n  component: MatCard,\r\n  props: args,\r\n  styles: [\r\n    `\r\n    .example-card {\r\n        max-width: 400px;\r\n      }\r\n\r\n      .example-header-image {\r\n        background-image: url('https://material.angular.io/assets/img/examples/shiba1.jpg');\r\n        background-size: cover;\r\n      }\r\n   `\r\n  ],\r\n  template: `\r\n    <mat-card>\r\n    <mat-card-content>Simple card</mat-card-content>\r\n  </mat-card>\r\n  <hr>\r\n<a class=\"mat-card-link\">\r\n<mat-card>\r\n    <mat-card-content>Link Card</mat-card-content>\r\n  </mat-card>\r\n  </a>\r\n  <hr>\r\n\r\n  <mat-card>\r\n  <mat-card-header>\r\n    <mat-card-title>Actions Buttons</mat-card-title>\r\n    <mat-card-subtitle>Start</mat-card-subtitle>\r\n  </mat-card-header>\r\n  <mat-card-actions>\r\n    <button mat-button>LIKE</button>\r\n    <button mat-button>SHARE</button>\r\n  </mat-card-actions>\r\n</mat-card>\r\n<hr>\r\n<mat-card class=\"example-card\">\r\n  <mat-card-header>\r\n    <div mat-card-avatar class=\"example-header-image\"></div>\r\n    <mat-card-title>Shiba Inu</mat-card-title>\r\n    <mat-card-subtitle>Dog Breed</mat-card-subtitle>\r\n  </mat-card-header>\r\n  <img mat-card-image src=\"https://material.angular.io/assets/img/examples/shiba2.jpg\" alt=\"Photo of a Shiba Inu\">\r\n  <mat-card-content>\r\n    <p>\r\n      The Shiba Inu is the smallest of the six original and distinct spitz breeds of dog from Japan.\r\n      A small, agile dog that copes very well with mountainous terrain, the Shiba Inu was originally\r\n      bred for hunting.\r\n    </p>\r\n  </mat-card-content>\r\n  <mat-card-actions>\r\n    <button mat-button>LIKE</button>\r\n    <button mat-button>SHARE</button>\r\n  </mat-card-actions>\r\n</mat-card>\r\n    `\r\n})"
+                "type": "Story<TableViewComponent>",
+                "defaultValue": "(args: TableViewComponent) => ({\r\n  props: args\r\n})"
             },
             {
                 "name": "Template",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "projects/clan-dashboard/src/theme/components/mat-buttons/mat-buttons.stories.ts",
+                "file": "projects/components/src/lib/member/player-seals/player-seals.component.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
-                "type": "Story<MatButton>",
-                "defaultValue": "(args: MatButton) => ({\r\n  component: MatButton,\r\n  props: args,\r\n  styles: [\r\n    `\r\n  section {\r\n    display: table;\r\n  }\r\n  .example-label {\r\n    display: table-cell;\r\n    font-size: 14px;\r\n    margin-left: 8px;\r\n    min-width: 120px;\r\n  }\r\n  .example-button-row {\r\n    display: table-cell;\r\n    width: 800px;\r\n  }\r\n  .example-button-row .mat-button-base {\r\n    margin: 8px 8px 8px 0;\r\n  }\r\n  .example-flex-container {\r\n    display: flex;\r\n    justify-content: space-between;\r\n    flex-wrap: wrap;\r\n  }\r\n  .example-button-container {\r\n    display: flex;\r\n    justify-content: center;\r\n    width: 120px;\r\n  }`\r\n  ],\r\n  template: `\r\n  <section>\r\n  <div class=\"example-label\">Basic</div>\r\n  <div class=\"example-button-row\">\r\n    <button mat-button>Basic</button>\r\n    <button mat-button disabled>Disabled</button>\r\n    <button mat-button color=\"primary\">Primary</button>\r\n    <button mat-button color=\"primary\" disabled>Primary</button>\r\n    <button mat-button color=\"accent\">Accent</button>\r\n    <button mat-button color=\"accent\" disabled>Accent</button>\r\n    <button mat-button color=\"warn\">Warn</button>\r\n    <button mat-button color=\"warn\" disabled>Warn</button>\r\n    <a mat-button href=\"https://www.google.com/\" target=\"_blank\">Link</a>\r\n  </div>\r\n</section>\r\n<mat-divider></mat-divider>\r\n<section>\r\n  <div class=\"example-label\">Raised</div>\r\n  <div class=\"example-button-row\">\r\n    <button mat-raised-button>Basic</button>\r\n    <button mat-raised-button disabled>Disabled</button>\r\n    <button mat-raised-button color=\"primary\">Primary</button>\r\n    <button mat-raised-button color=\"primary\"  disabled>Primary</button>\r\n    <button mat-raised-button color=\"accent\">Accent</button>\r\n    <button mat-raised-button color=\"accent\" disabled>Accent</button>\r\n    <button mat-raised-button color=\"warn\">Warn</button>\r\n    <button mat-raised-button color=\"warn\" disabled>Warn</button>\r\n    <a mat-raised-button href=\"https://www.google.com/\" target=\"_blank\">Link</a>\r\n  </div>\r\n</section>\r\n<mat-divider></mat-divider>\r\n<section>\r\n  <div class=\"example-label\">Stroked</div>\r\n  <div class=\"example-button-row\">\r\n    <button mat-stroked-button>Basic</button>\r\n    <button mat-stroked-button disabled>Disabled</button>\r\n    <button mat-stroked-button color=\"primary\">Primary</button>\r\n    <button mat-stroked-button color=\"primary\" disabled>Primary</button>\r\n    <button mat-stroked-button color=\"accent\">Accent</button>\r\n    <button mat-stroked-button color=\"accent\" disabled>Accent</button>\r\n    <button mat-stroked-button color=\"warn\">Warn</button>\r\n    <button mat-stroked-button color=\"warn\" disabled>Warn</button>\r\n    <a mat-stroked-button href=\"https://www.google.com/\" target=\"_blank\">Link</a>\r\n  </div>\r\n</section>\r\n<mat-divider></mat-divider>\r\n<section>\r\n  <div class=\"example-label\">Flat</div>\r\n  <div class=\"example-button-row\">\r\n    <button mat-flat-button>Basic</button>\r\n    <button mat-flat-button disabled>Disabled</button>\r\n    <button mat-flat-button color=\"primary\">Primary</button>\r\n    <button mat-flat-button color=\"primary\" disabled>Primary</button>\r\n    <button mat-flat-button color=\"accent\">Accent</button>\r\n    <button mat-flat-button color=\"accent\" disabled>Accent</button>\r\n    <button mat-flat-button color=\"warn\">Warn</button>\r\n    <button mat-flat-button color=\"warn\" disabled>Warn</button>\r\n    <a mat-flat-button href=\"https://www.google.com/\" target=\"_blank\">Link</a>\r\n  </div>\r\n</section>\r\n<mat-divider></mat-divider>\r\n<section>\r\n  <div class=\"example-label\">Icon</div>\r\n  <div class=\"example-button-row\">\r\n    <div class=\"example-flex-container\">\r\n      <button mat-icon-button aria-label=\"Example icon button with a vertical three dot icon\">\r\n        <mat-icon>more_vert</mat-icon>\r\n      </button>\r\n      <button mat-icon-button color=\"primary\" aria-label=\"Example icon button with a home icon\">\r\n        <mat-icon>home</mat-icon>\r\n      </button>\r\n      <button mat-icon-button color=\"accent\" aria-label=\"Example icon button with a menu icon\">\r\n        <mat-icon>menu</mat-icon>\r\n      </button>\r\n      <button mat-icon-button color=\"warn\" aria-label=\"Example icon button with a heart icon\">\r\n        <mat-icon>favorite</mat-icon>\r\n      </button>\r\n      <button mat-icon-button disabled aria-label=\"Example icon button with a open in new tab icon\">\r\n        <mat-icon>open_in_new</mat-icon>\r\n      </button>\r\n    </div>\r\n  </div>\r\n</section>\r\n<mat-divider></mat-divider>\r\n<section>\r\n  <div class=\"example-label\">FAB</div>\r\n  <div class=\"example-button-row\">\r\n    <div class=\"example-flex-container\">\r\n      <div class=\"example-button-container\">\r\n        <button mat-fab color=\"primary\" aria-label=\"Example icon button with a delete icon\">\r\n          <mat-icon>delete</mat-icon>\r\n        </button>\r\n      </div>\r\n      <div class=\"example-button-container\">\r\n        <button mat-fab color=\"accent\" aria-label=\"Example icon button with a bookmark icon\">\r\n          <mat-icon>bookmark</mat-icon>\r\n        </button>\r\n      </div>\r\n      <div class=\"example-button-container\">\r\n        <button mat-fab color=\"warn\" aria-label=\"Example icon button with a home icon\">\r\n          <mat-icon>home</mat-icon>\r\n        </button>\r\n      </div>\r\n      <div class=\"example-button-container\">\r\n        <button mat-fab disabled aria-label=\"Example icon button with a heart icon\">\r\n          <mat-icon>favorite</mat-icon>\r\n        </button>\r\n      </div>\r\n    </div>\r\n  </div>\r\n</section>\r\n<mat-divider></mat-divider>\r\n<section>\r\n  <div class=\"example-label\">Mini FAB</div>\r\n  <div class=\"example-button-row\">\r\n    <div class=\"example-flex-container\">\r\n      <div class=\"example-button-container\">\r\n        <button mat-mini-fab color=\"primary\" aria-label=\"Example icon button with a menu icon\">\r\n          <mat-icon>menu</mat-icon>\r\n        </button>\r\n      </div>\r\n      <div class=\"example-button-container\">\r\n        <button mat-mini-fab color=\"accent\" aria-label=\"Example icon button with a plus one icon\">\r\n          <mat-icon>plus_one</mat-icon>\r\n        </button>\r\n      </div>\r\n      <div class=\"example-button-container\">\r\n        <button mat-mini-fab color=\"warn\" aria-label=\"Example icon button with a filter list icon\">\r\n          <mat-icon>filter_list</mat-icon>\r\n        </button>\r\n      </div>\r\n      <div class=\"example-button-container\">\r\n        <button mat-mini-fab disabled aria-label=\"Example icon button with a home icon\">\r\n          <mat-icon>home</mat-icon>\r\n        </button>\r\n      </div>\r\n    </div>\r\n  </div>\r\n</section>\r\n\r\n  `\r\n})"
+                "type": "Story<PlayerSealsComponent>",
+                "defaultValue": "(args) => ({\r\n  props: args\r\n})"
             },
             {
                 "name": "Template",
@@ -34907,21 +34935,21 @@
                 "name": "Template",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "projects/clan-dashboard/src/app/features/clans-details/components/clan-info/clan-info.component.stories.ts",
-                "deprecated": false,
-                "deprecationMessage": "",
-                "type": "Story<ClanInfoComponent>",
-                "defaultValue": "(args: ClanInfoComponent) => ({\r\n  props: args\r\n})"
-            },
-            {
-                "name": "Template",
-                "ctype": "miscellaneous",
-                "subtype": "variable",
                 "file": "projects/clan-dashboard/src/app/features/clans-details/components/clan-activity-bar-chart/clan-activity-bar-chart.component.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "Story<ClanActivityBarChartComponent>",
                 "defaultValue": "(args: ClanActivityBarChartComponent) => ({\r\n  props: args\r\n})"
+            },
+            {
+                "name": "Template",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/clan-dashboard/src/app/features/clans-details/components/clan-info/clan-info.component.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Story<ClanInfoComponent>",
+                "defaultValue": "(args: ClanInfoComponent) => ({\r\n  props: args\r\n})"
             },
             {
                 "name": "Template",
@@ -35462,6 +35490,12 @@
                         "type": "MemberProfile",
                         "deprecated": false,
                         "deprecationMessage": ""
+                    },
+                    {
+                        "name": "definitionService",
+                        "type": "DefinitionService",
+                        "deprecated": false,
+                        "deprecationMessage": ""
                     }
                 ],
                 "returnType": "PlayerSeal[]",
@@ -35477,6 +35511,15 @@
                     {
                         "name": "profile",
                         "type": "MemberProfile",
+                        "deprecated": false,
+                        "deprecationMessage": "",
+                        "tagName": {
+                            "text": "param"
+                        }
+                    },
+                    {
+                        "name": "definitionService",
+                        "type": "DefinitionService",
                         "deprecated": false,
                         "deprecationMessage": "",
                         "tagName": {
@@ -40158,28 +40201,6 @@
                     "defaultValue": "(args: SealsListComponent) => ({\r\n  props: args\r\n})"
                 }
             ],
-            "projects/clan-dashboard/src/environments/environment.prod.ts": [
-                {
-                    "name": "environment",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "projects/clan-dashboard/src/environments/environment.prod.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "object",
-                    "defaultValue": "{\r\n  constants: { ...baseConstants },\r\n  production: true,\r\n  apiKey: secretKeys.apiKey,\r\n  appVersion: packageJson.version\r\n}"
-                },
-                {
-                    "name": "packageJson",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "projects/clan-dashboard/src/environments/environment.prod.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "",
-                    "defaultValue": "require('../../../../package.json')"
-                }
-            ],
             "projects/clan-dashboard/src/environments/environment.ts": [
                 {
                     "name": "environment",
@@ -40196,6 +40217,28 @@
                     "ctype": "miscellaneous",
                     "subtype": "variable",
                     "file": "projects/clan-dashboard/src/environments/environment.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "defaultValue": "require('../../../../package.json')"
+                }
+            ],
+            "projects/clan-dashboard/src/environments/environment.prod.ts": [
+                {
+                    "name": "environment",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/clan-dashboard/src/environments/environment.prod.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "object",
+                    "defaultValue": "{\r\n  constants: { ...baseConstants },\r\n  production: true,\r\n  apiKey: secretKeys.apiKey,\r\n  appVersion: packageJson.version\r\n}"
+                },
+                {
+                    "name": "packageJson",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/clan-dashboard/src/environments/environment.prod.ts",
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "",
@@ -40457,38 +40500,6 @@
                     "defaultValue": "(args: ClanDetailCellComponent) => ({\r\n  props: args\r\n})"
                 }
             ],
-            "projects/clan-dashboard/src/app/features/clans-details/components/clan-info/clan-info.component.stories.ts": [
-                {
-                    "name": "Loading",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "projects/clan-dashboard/src/app/features/clans-details/components/clan-info/clan-info.component.stories.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "",
-                    "defaultValue": "Template.bind({})"
-                },
-                {
-                    "name": "Primary",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "projects/clan-dashboard/src/app/features/clans-details/components/clan-info/clan-info.component.stories.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "",
-                    "defaultValue": "Template.bind({})"
-                },
-                {
-                    "name": "Template",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "projects/clan-dashboard/src/app/features/clans-details/components/clan-info/clan-info.component.stories.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "Story<ClanInfoComponent>",
-                    "defaultValue": "(args: ClanInfoComponent) => ({\r\n  props: args\r\n})"
-                }
-            ],
             "projects/clan-dashboard/src/app/features/clans-details/components/clan-activity-bar-chart/clan-activity-bar-chart.component.stories.ts": [
                 {
                     "name": "Loading",
@@ -40549,6 +40560,38 @@
                     "deprecationMessage": "",
                     "type": "",
                     "defaultValue": "Template.bind({})"
+                }
+            ],
+            "projects/clan-dashboard/src/app/features/clans-details/components/clan-info/clan-info.component.stories.ts": [
+                {
+                    "name": "Loading",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/clan-dashboard/src/app/features/clans-details/components/clan-info/clan-info.component.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "defaultValue": "Template.bind({})"
+                },
+                {
+                    "name": "Primary",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/clan-dashboard/src/app/features/clans-details/components/clan-info/clan-info.component.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "defaultValue": "Template.bind({})"
+                },
+                {
+                    "name": "Template",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/clan-dashboard/src/app/features/clans-details/components/clan-info/clan-info.component.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Story<ClanInfoComponent>",
+                    "defaultValue": "(args: ClanInfoComponent) => ({\r\n  props: args\r\n})"
                 }
             ],
             "projects/clan-dashboard/src/app/features/clans-details/components/clan-member-card/clan-member-card.component.stories.ts": [
@@ -43278,6 +43321,12 @@
                             "type": "MemberProfile",
                             "deprecated": false,
                             "deprecationMessage": ""
+                        },
+                        {
+                            "name": "definitionService",
+                            "type": "DefinitionService",
+                            "deprecated": false,
+                            "deprecationMessage": ""
                         }
                     ],
                     "returnType": "PlayerSeal[]",
@@ -43293,6 +43342,15 @@
                         {
                             "name": "profile",
                             "type": "MemberProfile",
+                            "deprecated": false,
+                            "deprecationMessage": "",
+                            "tagName": {
+                                "text": "param"
+                            }
+                        },
+                        {
+                            "name": "definitionService",
+                            "type": "DefinitionService",
                             "deprecated": false,
                             "deprecationMessage": "",
                             "tagName": {
@@ -45565,12 +45623,12 @@
                                                                         "children": [
                                                                             {
                                                                                 "name": "routes",
-                                                                                "filename": "projects/clan-dashboard/src/app/features/clans-details/clans-details-dashboard/clans-details-dashboard-routing.module.ts",
+                                                                                "filename": "projects/clan-dashboard/src/app/features/clans-details/clans-details/clans-details-routing.module.ts",
                                                                                 "module": "ClansDetailsRoutingModule",
                                                                                 "children": [
                                                                                     {
                                                                                         "path": "",
-                                                                                        "component": "ClansDetailsDashboardComponent"
+                                                                                        "component": "ClansDetailsComponent"
                                                                                     }
                                                                                 ],
                                                                                 "kind": "module"
@@ -48904,7 +48962,7 @@
                 "linktype": "interface",
                 "name": "PlayerSeal",
                 "coveragePercent": 0,
-                "coverageCount": "0/7",
+                "coverageCount": "0/8",
                 "status": "low"
             },
             {

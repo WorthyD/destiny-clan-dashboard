@@ -10,19 +10,35 @@ import { Character } from 'projects/data/src/lib/models/Character';
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [CommonModule, MatCardModule, PipesModule],
   template: `
-    <mat-card *ngIf="character">
-      <mat-card-header>
-        <mat-card-title>{{ character.classType | classTypeText }} - {{ character.light }}</mat-card-title>
-        <mat-card-subtitle
-          >{{ character.raceType | raceTypeText }} - {{ character.genderType | genderTypeText }}
-        </mat-card-subtitle>
-      </mat-card-header>
-      <mat-card-content></mat-card-content>
-    </mat-card>
+    <ng-container *ngIf="!isLoading; else loading">
+      <mat-card *ngIf="character">
+        <mat-card-header>
+          <mat-card-title>{{ character.classType | classTypeText }} - {{ character.light }}</mat-card-title>
+          <mat-card-subtitle>{{ character.raceType | raceTypeText }} </mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-content></mat-card-content>
+      </mat-card>
+    </ng-container>
+    <ng-template #loading>
+      <mat-card>
+        <mat-card-header>
+          <mat-card-title><span class="skeleton-item skeleton-title"></span></mat-card-title>
+          <mat-card-subtitle><span class="skeleton-item skeleton-title"></span> </mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-content></mat-card-content>
+      </mat-card>
+    </ng-template>
   `,
   styleUrls: ['./character-card.component.scss']
 })
 export class CharacterCardComponent {
+  //TODO: IDEAS TO SHOW
+  /*
+    time played total, time played this season, emblem, current title
+  */
   @Input()
   character: Character;
+
+  @Input()
+  isLoading: boolean;
 }

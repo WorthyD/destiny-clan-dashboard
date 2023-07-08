@@ -1,23 +1,38 @@
 <!-- TODO: add  Season INfo-->
 <mat-card>
-  <mat-card-header>
-  <mat-card-title>
-    Season Pass - {{subTitle}}
-  </mat-card-title>
-  <mat-card-subtitle>Current Level: {{seasonPassProgress}}</mat-card-subtitle>
-</mat-card-header>
-  <mat-card-content>
-    <mat-progress-bar mode="determinate" [value]="seasonPassProgressBarValue"></mat-progress-bar>
-    <div class="mb-3">
-      <div class="float-right"
-        *ngIf="clanMemberSeasonPass?.progression?.level < clanMemberSeasonPass?.progression?.levelCap; else maxLevel">
-        {{clanMemberSeasonPass?.progression?.level}} /
-        {{clanMemberSeasonPass?.progression?.levelCap}}</div>
-    </div>
-  </mat-card-content>
+  <ng-container *ngIf="!isLoading; else loading">
+    <mat-card-header>
+      <mat-card-title> Season Pass - {{ subTitle }} </mat-card-title>
+      <mat-card-subtitle>Current Level: {{ seasonPassProgress }}</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+      <mat-progress-bar mode="determinate" [value]="seasonPassProgressBarValue"></mat-progress-bar>
+      <div class="mb-3">
+        <div
+          class="float-right"
+          *ngIf="clanMemberSeasonPass?.progression?.level < clanMemberSeasonPass?.progression?.levelCap; else maxLevel"
+        >
+          {{ clanMemberSeasonPass?.progression?.level }} / {{ clanMemberSeasonPass?.progression?.levelCap }}
+        </div>
+      </div>
+    </mat-card-content>
+  </ng-container>
 </mat-card>
 <ng-template #maxLevel>
-  <div class="float-right">
-    Season Pass Complete
-  </div>
+  <div class="float-right">Season Pass Complete</div>
+</ng-template>
+
+<ng-template #loading>
+  <mat-card-header>
+    <mat-card-title> <span class="skeleton-item skeleton-title"></span> </mat-card-title>
+    <mat-card-subtitle> <span class="skeleton-item skeleton-list"></span></mat-card-subtitle>
+  </mat-card-header>
+  <mat-card-content>
+    <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+    <div class="mb-3">
+      <div class="float-right">
+        <span class="skeleton-item skeleton-list"></span>
+      </div>
+    </div>
+  </mat-card-content>
 </ng-template>

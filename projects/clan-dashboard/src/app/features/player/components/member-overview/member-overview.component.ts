@@ -1,20 +1,20 @@
 import { ChangeDetectionStrategy, Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { BungieInfo, MemberProfile } from '@destiny/data/models';
+import { MemberProfile } from '@destiny/data/models';
 import { MatCardModule } from '@angular/material/card';
 import { PipesModule } from '@destiny/components/pipes';
 import { MemberTypeIconComponent } from '@destiny/components/member/member-type-icon';
 import { CharacterCardComponent } from '@destiny/components/member/character-card';
 import { SeasonPassComponent } from '@destiny/components/member/season-pass';
 import { BungieInfoComponent } from '@destiny/components/member/bungie-info';
-import { PlayerSealsComponent, convertSealAndProfile } from '@destiny/components/member/player-seals';
+//import { PlayerSealsComponent, convertSealAndProfile } from '@destiny/components/member/player-seals';
 
 import { Character } from 'projects/data/src/lib/models/Character';
 import { ClanMemberSeasonPassProgression } from 'projects/data/src/lib/models/ClanMemberSeasonPass';
 import { SeasonService } from '@core/services/season.service';
-import { Observable } from 'rxjs';
-import { GlobalSealsService } from '@core/services/global-seals.service';
-import { DefinitionService } from '@core/definition-services/definition.service';
+// import { Observable } from 'rxjs';
+// import { GlobalSealsService } from '@core/services/global-seals.service';
+// import { DefinitionService } from '@core/definition-services/definition.service';
 
 @Component({
   selector: 'app-member-overview',
@@ -26,8 +26,8 @@ import { DefinitionService } from '@core/definition-services/definition.service'
     MemberTypeIconComponent,
     CharacterCardComponent,
     SeasonPassComponent,
-    BungieInfoComponent,
-    PlayerSealsComponent
+    BungieInfoComponent
+    // PlayerSealsComponent
   ],
   templateUrl: './member-overview.component.html',
   styleUrls: ['./member-overview.component.scss'],
@@ -36,23 +36,15 @@ import { DefinitionService } from '@core/definition-services/definition.service'
 export class MemberOverviewComponent implements OnChanges {
   @Input()
   memberOverview: MemberProfile;
-
   @Input()
-  bungieInfo$: Observable<BungieInfo>;
-
-  @Input()
-  bungieInfoLoading$: Observable<boolean>;
+  isLoading: boolean;
 
   characters: Character[];
   seasonPass: ClanMemberSeasonPassProgression;
   lastSeasonPass: ClanMemberSeasonPassProgression;
   memberSealInfo;
 
-  constructor(
-    private seasonService: SeasonService,
-    private globalSealsService: GlobalSealsService,
-    private definitionService: DefinitionService
-  ) {}
+  constructor(private seasonService: SeasonService) {}
 
   ngOnChanges(simpleChanges: SimpleChanges) {
     if (simpleChanges['memberOverview']) {
@@ -65,23 +57,15 @@ export class MemberOverviewComponent implements OnChanges {
       const characterId = this.memberOverview?.profile?.data?.characterIds[0];
 
       if (characterId > 0 && this.memberOverview?.characterProgressions?.data[characterId]?.progressions) {
-        const characterProgressions = this.memberOverview?.characterProgressions?.data[characterId].progressions;
-        this.seasonPass = {
-          progression: characterProgressions[currentSeason.rewardProgressionHash],
-          prestigeProgression: characterProgressions[currentSeason.prestigeProgressionHash]
-        };
-
-        this.lastSeasonPass = {
-          progression: characterProgressions[lastSeason.rewardProgressionHash],
-          prestigeProgression: characterProgressions[lastSeason.prestigeProgressionHash]
-        };
-
-        //console.log(this.globalSealsService.sealNodesWLegacy);
-        this.memberSealInfo = convertSealAndProfile(
-          this.globalSealsService.sealNodesWLegacy,
-          this.memberOverview,
-          this.definitionService
-        );
+          const characterProgressions = this.memberOverview?.characterProgressions?.data[characterId].progressions;
+          this.seasonPass = {
+            progression: characterProgressions[currentSeason.rewardProgressionHash],
+            prestigeProgression: characterProgressions[currentSeason.prestigeProgressionHash]
+          };
+          this.lastSeasonPass = {
+            progression: characterProgressions[lastSeason.rewardProgressionHash],
+            prestigeProgression: characterProgressions[lastSeason.prestigeProgressionHash]
+          };
       }
     }
   }
