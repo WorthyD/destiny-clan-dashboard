@@ -1,6 +1,5 @@
 <div class="member-overview">
-  <app-member-overview [memberOverview]="" [isLoading]="true"> </app-member-overview>
-  <!-- <app-member-overview [memberOverview]="profile$ | async" [isLoading]="profileLoading$ | async"> </app-member-overview> -->
+  <app-member-overview [memberOverview]="profile$ | async" [isLoading]="profileLoading$ | async"> </app-member-overview>
 
   <div class="member-bungie">
     <lib-bungie-info [bungieInfo]="bungieInfo$ | async" [isLoading]="bungieInfoLoading$ | async"> </lib-bungie-info>

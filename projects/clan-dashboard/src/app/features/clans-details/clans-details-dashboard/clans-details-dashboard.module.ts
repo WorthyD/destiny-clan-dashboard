@@ -7,6 +7,7 @@ import { ClansHighestLightLevelCardModule } from '../clans-highest-light-level-c
 import { ClansRecentlyActiveCardModule } from '../clans-recently-active-card/clans-recently-active-card.module';
 import { ClansInactiveCardModule } from '../clans-inactive-card/clans-inactive-card.module';
 import { ClansActivityCardModule } from '../clans-activity-card/clans-activity-card.module';
+import { ClansHighestSeasonPassLevelCardModule } from '../clans-highest-season-pass-level-card/clans-highest-season-pass-level-card.module';
 
 @NgModule({
   declarations: [ClansDetailsDashboardComponent],
@@ -14,7 +15,8 @@ import { ClansActivityCardModule } from '../clans-activity-card/clans-activity-c
     CommonModule,
     ClansDetailsModule,
     ClansDetailsRoutingModule,
-    ClansHighestLightLevelCardModule,
+    ClansHighestSeasonPassLevelCardModule,
+    //ClansHighestLightLevelCardModule,
     ClansRecentlyActiveCardModule,
     ClansInactiveCardModule,
     ClansActivityCardModule
