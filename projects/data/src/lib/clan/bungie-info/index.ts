@@ -1,1 +1,1 @@
-export { BungieInfoService } from './bungie-info.service';
+export { ClanBungieInfoService } from './bungie-info.service';

@@ -15,23 +15,19 @@ import { ClanMemberSeasonPassProgression } from 'projects/data/src/lib/models/Cl
 })
 export class SeasonPassComponent {
   @Input()
-  subTitle:string;
+  subTitle: string;
 
   @Input()
   clanMemberSeasonPass: ClanMemberSeasonPassProgression;
 
+  @Input()
+  isLoading: boolean;
+
   get seasonPassProgress() {
-      return (
-          this.clanMemberSeasonPass?.progression?.level +
-          this.clanMemberSeasonPass?.prestigeProgression?.level
-      );
+    return this.clanMemberSeasonPass?.progression?.level + this.clanMemberSeasonPass?.prestigeProgression?.level;
   }
 
   get seasonPassProgressBarValue() {
-      return (
-          (this.clanMemberSeasonPass?.progression?.level /
-              this.clanMemberSeasonPass?.progression?.levelCap) *
-          100
-      );
+    return (this.clanMemberSeasonPass?.progression?.level / this.clanMemberSeasonPass?.progression?.levelCap) * 100;
   }
 }

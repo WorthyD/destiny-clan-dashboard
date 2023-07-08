@@ -26,3 +26,11 @@ export const baseMaxLevel = () => ({
         clanMemberSeasonPass: MOCK_SEASON_PROGRESSION_MAX,
     },
 });
+
+export const loading = () => ({
+    component: SeasonPassComponent,
+    template: `<lib-season-pass [clanMemberSeasonPass]="clanMemberSeasonPass" [isLoading]="true"></lib-season-pass>`,
+    props: {
+        clanMemberSeasonPass: MOCK_SEASON_PROGRESSION,
+    },
+});

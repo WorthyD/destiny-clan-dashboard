@@ -1,8 +1,8 @@
-<!-- Well this has turned into a full page component. Wasn't planning on that -->
-<div class="member-overview">
-  <div class="member-basic">
-    <mat-card>
-      <!-- TODO: is online -->
+<!-- TODO: Look at https://www.bungie.net/7/en/User/Profile/3/4611686018467238913  for inspiration-->
+<!-- Ranking within clan? -->
+<div class="member-basic">
+  <mat-card>
+    <ng-container *ngIf="!isLoading; else loadingInfo">
       <mat-card-header>
         <mat-card-title>{{ memberOverview?.profile?.data?.userInfo?.displayName }} </mat-card-title>
         <mat-card-subtitle> </mat-card-subtitle>
@@ -17,23 +17,45 @@
           </ng-container>
         </section>
       </mat-card-content>
-    </mat-card>
-    <!-- Characters -->
+    </ng-container>
+  </mat-card>
+  <!-- Characters -->
 
+  <ng-container *ngIf="!isLoading; else loadingCharacters">
     <div *ngIf="characters">
       <div *ngFor="let character of characters" class="character-card">
         <lib-character-card [character]="character"></lib-character-card>
       </div>
     </div>
-    <div class="season-card">
-      <lib-season-pass [clanMemberSeasonPass]="seasonPass" subTitle="Current Season"> </lib-season-pass>
-    </div>
-    <div class="season-card">
-      <lib-season-pass [clanMemberSeasonPass]="lastSeasonPass" subTitle="Last Season"> </lib-season-pass>
-    </div>
+  </ng-container>
+  <div class="season-card">
+    <lib-season-pass [clanMemberSeasonPass]="seasonPass" [isLoading]="isLoading" subTitle="Current Season">
+    </lib-season-pass>
   </div>
-  <div class="member-bungie">
-    <lib-bungie-info [bungieInfo]="bungieInfo$ | async" [isLoading]="bungieInfoLoading$ | async"> </lib-bungie-info>
+  <div class="season-card">
+    <lib-season-pass [clanMemberSeasonPass]="lastSeasonPass" [isLoading]="isLoading" subTitle="Last Season">
+    </lib-season-pass>
   </div>
 </div>
-<lib-player-seals [playerSeals]="memberSealInfo" class="member-seals"></lib-player-seals>
+
+<ng-template #loadingCharacters>
+  <div *ngIf="characters">
+    <div *ngFor="let character of ['', '', '']" class="character-card">
+      <lib-character-card [isLoading]="true"></lib-character-card>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #loadingInfo>
+  <mat-card-header>
+    <mat-card-title><span class="skeleton-item skeleton-title"></span></mat-card-title>
+    <mat-card-subtitle> </mat-card-subtitle>
+  </mat-card-header>
+
+  <mat-card-content>
+    <section><span class="skeleton-item skeleton-list"></span></section>
+    <section class="platforms">
+      <span class="skeleton-item skeleton-list"></span>
+    </section>
+  </mat-card-content>
+</ng-template>

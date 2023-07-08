@@ -25,17 +25,39 @@
 
         <div mat-subheader>Linked Accounts</div>
         <mat-list-item *ngFor="let link of linkedAccounts">
-          <mat-icon matListItemIcon [svgIcon]="link.icon" class="ico-{{link.icon}}"></mat-icon>
-          <div matListItemLine>{{link.name}}</div>
-          <div matListItemLine>{{link.description}}</div>
+          <mat-icon matListItemIcon [svgIcon]="link.icon" class="ico-{{ link.icon }}"></mat-icon>
+          <div matListItemLine>{{ link.name }}</div>
+          <div matListItemLine>{{ link.description }}</div>
         </mat-list-item>
       </mat-list>
     </ng-container>
   </mat-card-content>
 </mat-card>
 <ng-template #loading>
-  <div class="text-center m-5">
-    <!-- <lib-loading></lib-loading> -->
-    <h3>LOADING</h3>
-  </div>
+  <!-- <lib-loading></lib-loading> -->
+  <mat-list>
+    <div mat-subheader>About</div>
+    <mat-list-item>
+      <mat-icon matListItemIcon>account_circle</mat-icon>
+      <!-- <h3 matLine>{{ bungieInfo?.displayName }}</h3> -->
+      <span class="skeleton-item skeleton-title"></span>
+    </mat-list-item>
+    <mat-list-item>
+      <mat-icon matListItemIcon>cake</mat-icon>
+      <div matListItemLine><span class="skeleton-item skeleton-list"></span></div>
+      <div matListItemLine><span class="skeleton-item skeleton-list"></span></div>
+    </mat-list-item>
+    <mat-list-item>
+      <mat-icon matListItemIcon>language</mat-icon>
+      <div matListItemLine><span class="skeleton-item skeleton-list"></span></div>
+    </mat-list-item>
+    <mat-divider></mat-divider>
+
+    <div mat-subheader>Linked Accounts</div>
+     <mat-list-item *ngFor="let link of ['', '', '']">
+      <mat-icon matListItemIcon>sports_esports</mat-icon>
+      <div matListItemLine><span class="skeleton-item skeleton-list"></span></div>
+      <div matListItemLine><span class="skeleton-item skeleton-list"></span></div>
+    </mat-list-item>
+  </mat-list>
 </ng-template>
