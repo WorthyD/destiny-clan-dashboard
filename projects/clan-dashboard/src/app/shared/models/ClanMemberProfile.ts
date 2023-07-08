@@ -1,5 +1,5 @@
-import { MemberProfile } from "@destiny/data/models";
-import { GroupsV2GroupMember } from "bungie-api-angular";
+import { MemberProfile } from '@destiny/data/models';
+import { GroupsV2GroupMember } from 'bungie-api-angular';
 
 export interface ClanMemberProfile {
   clan: {
@@ -9,4 +9,7 @@ export interface ClanMemberProfile {
   };
   member: GroupsV2GroupMember;
   profile: MemberProfile;
+}
+export interface ClanMemberProfileWSeason extends ClanMemberProfile {
+  seasonPass: number;
 }

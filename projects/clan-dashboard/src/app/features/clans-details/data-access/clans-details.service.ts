@@ -9,7 +9,8 @@ import { from, Observable } from 'rxjs';
 import { map, mergeMap, toArray, switchMap } from 'rxjs/operators';
 import { ClanDetailsService as DataService } from '@destiny/data/clan/clan-details';
 import { ClansDetailsModule } from '../clans-details-shell/clans-details.module';
-import { ClanMemberProfile } from '@shared/models/ClanMemberProfile';
+import { ClanMemberProfile, ClanMemberProfileWSeason } from '@shared/models/ClanMemberProfile';
+import { SeasonService } from '@core/services/season.service';
 
 @Injectable({
   providedIn: ClansDetailsModule
@@ -46,6 +47,30 @@ export class ClansDetailsService {
     })
   );
 
+  highestSeasonPassMembers$: Observable<ClanMemberProfileWSeason[]> = this.clanProfiles$.pipe(
+    map((members) => {
+      if (members.length > 0) {
+        const currentSeason = this.seasonService.currentSeasonProgress;
+        const membersWithSeasonProgression = members.map((m) => {
+          const characterId = m.profile.profile.data.characterIds[0];
+          const progressions = m.profile?.characterProgressions?.data[characterId]?.progressions || {};
+          return {
+            ...m,
+            seasonPass:
+              (progressions[currentSeason.rewardProgressionHash]?.level || 0) +
+              (progressions[currentSeason.prestigeProgressionHash]?.level || 0)
+          };
+        });
+        const sortedMembersWithProgression = membersWithSeasonProgression.sort((a, b) => {
+          return a.seasonPass > b.seasonPass ? -1 : 1;
+        });
+        return sortedMembersWithProgression.slice(0, 20);
+      }
+
+      return [];
+    })
+  );
+
   lastLoginMembers$: Observable<ClanMemberProfile[]> = this.clanProfiles$.pipe(
     map((members) => {
       if (members.length > 0) {
@@ -73,8 +98,5 @@ export class ClansDetailsService {
     return this.dataService.getClanDetailsSerialized(clanId, true);
   }
 
-  constructor(
-    private store: Store,
-    private dataService: DataService,
-  ) {}
+  constructor(private store: Store, private dataService: DataService, private seasonService: SeasonService) {}
 }
