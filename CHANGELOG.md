@@ -1,3 +1,7 @@
+## [1.1.5](https://github.com/WorthyD/destiny-clan-dashboard/compare/1.1.4...1.1.5) (2023-07-08)
+
+
+
 ## [1.1.4](https://github.com/WorthyD/destiny-clan-dashboard/compare/1.1.3...1.1.4) (2023-06-21)
 
 
@@ -11,15 +15,6 @@
 
 
 ## [1.1.1](https://github.com/WorthyD/destiny-clan-dashboard/compare/1.1.0...1.1.1) (2023-03-29)
-
-
-
-# [1.1.0](https://github.com/WorthyD/destiny-clan-dashboard/compare/1.0.3...1.1.0) (2023-03-24)
-
-
-### Features
-
-* adding tool tips to tables ([64053db](https://github.com/WorthyD/destiny-clan-dashboard/commit/64053dbe1c046226e570356eb69460eeb1f3f6e1))
 
 
 
