@@ -9,6 +9,8 @@
     grid-template-columns: 1fr max-content;
   }
   &__title {
+    font-size: 1.24rem;
+    margin-bottom: 0.5rem;
   }
   &__description {
     grid-column: span 2;

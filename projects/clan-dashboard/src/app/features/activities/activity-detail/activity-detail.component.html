@@ -4,7 +4,7 @@
       <mat-icon>arrow_back</mat-icon>
     </button>
     <ng-container *ngIf="vm$ | async as vm">
-      {{vm?.activity?.displayProperties?.name}}
+      <h2 class="">{{ vm?.activity?.displayProperties?.name }}</h2>
     </ng-container>
     <button
       mat-button
@@ -15,15 +15,7 @@
     >
       Overview
     </button>
-    <button
-      mat-button
-      class="nav-button"
-      routerLink="./table"
-      routerLinkActive="active-link"
-      [routerLinkActiveOptions]="{ exact: true }"
-    >
-      Player Table
-    </button>
+    <button mat-button class="nav-button" routerLink="./table" routerLinkActive="active-link">Player Table</button>
 
     <!-- <button mat-button class="nav-button" routerLink="./activity" routerLinkActive="active-link">Activity</button> -->
   </mat-toolbar>

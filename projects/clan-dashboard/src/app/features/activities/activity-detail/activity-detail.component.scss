@@ -27,3 +27,17 @@
 //     display:flex;
 //   }
 // }
+
+h2 {
+  margin-bottom: 0;
+  padding-right: 1rem;
+}
+.active-link {
+  color: var(--app-primary-color-text) !important;
+  background: var(--app-primary-color) !important;
+
+  &:hover,
+  &:focus {
+    background-color: var(--app-primary-color-darker) !important;
+  }
+}
