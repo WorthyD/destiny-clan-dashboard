@@ -1,0 +1,31 @@
+<ng-container *ngIf="!isLoading; else loading">
+  <mat-card class="activity-breakdown-item">
+    <mat-card-content class="activity-breakdown-item__content">
+      <ng-container *ngIf="iconUrl">
+        <div class="activity-breakdown-item__icon">
+          <img class="table-icon" src="https://www.bungie.net/{{ iconUrl }}" alt="{{ title }}" />
+        </div>
+      </ng-container>
+      <div class="activity-breakdown-item__info">
+        <div class="activity-breakdown-item__title">{{ title }}</div>
+        <div class="activity-breakdown-item__label">
+          {{ label }}
+        </div>
+        <div class="activity-breakdown-item__description">{{ description }}</div>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</ng-container>
+
+<ng-template #loading>
+  <mat-card>
+    <mat-card-content>
+      <span class="skeleton-item skeleton-title"></span>
+      <h3><span class="skeleton-item skeleton-title"></span></h3>
+      <p><span class="skeleton-item skeleton-title"></span></p>
+      <div>
+        <span class="skeleton-item skeleton-list"></span>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</ng-template>

@@ -1,1 +1,22 @@
-<p>activity-dashboard works!</p>
+<!-- <mat-toolbar>
+  <button
+    mat-button
+    class="nav-button"
+    routerLink="./"
+    routerLinkActive="active-link"
+    [routerLinkActiveOptions]="{ exact: true }"
+  >
+    Overview
+  </button>
+</mat-toolbar> -->
+
+<div class="activity">
+  <ng-container *ngIf="vm$ | async as vm">
+    <app-activity-breakdown-list
+      [metricDefinitions]="vm.metrics"
+      [collectionDefinitions]="vm.collections"
+      [recordDefinitions]="vm.records"
+    >
+    </app-activity-breakdown-list>
+  </ng-container>
+</div>

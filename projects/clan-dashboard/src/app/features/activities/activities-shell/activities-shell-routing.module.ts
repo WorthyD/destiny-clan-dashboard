@@ -27,6 +27,11 @@ const routes: Routes = [
     loadChildren: () =>
       import('../activity-detail/activity-detail.module').then((module) => module.ActivityDetailModule)
   }
+  // {
+  //   path: ':activityHash',
+  //   loadChildren: () =>
+  //     import('../activity-dashboard/activity-dashboard.module').then((module) => module.ActivityDashboardModule)
+  // }
 ];
 
 @NgModule({ imports: [RouterModule.forChild(routes)], exports: [RouterModule] })

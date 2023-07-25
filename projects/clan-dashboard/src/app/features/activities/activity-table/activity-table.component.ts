@@ -3,7 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { DataSource, Filterer, Sorter, SorterMetadata, Viewer, ViewerMetadata } from '@destiny/components';
 import { CollectionDefinition, MetricDefinition, RecordDefinition } from '@destiny/data/models';
 import { ClanMemberProfile } from '@shared/models/ClanMemberProfile';
-import { map, Observable, of, tap } from 'rxjs';
+import { map, Observable, of, switchMap, tap } from 'rxjs';
 import { ActivitiesService } from '../data-access/activities.service';
 import { ACTIVITY_FILTERER_METADATA } from './activity-table-metadata/ActivityTableFilterer';
 import { ACTIVITY_SORTER_METADATA } from './activity-table-metadata/ActivityTableSorter';
@@ -17,36 +17,36 @@ interface ViewContext {
   styleUrls: ['./activity-table.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ActivityTableComponent implements OnChanges {
-  @Input() title: string;
-  @Input() metricDefinitions: MetricDefinition[];
-  @Input() collectionDefinitions: CollectionDefinition[];
-  @Input() recordDefinitions: RecordDefinition[];
+export class ActivityTableComponent {
+  // @Input() title: string;
+  // @Input() metricDefinitions: MetricDefinition[];
+  // @Input() collectionDefinitions: CollectionDefinition[];
+  // @Input() recordDefinitions: RecordDefinition[];
 
-  isLoading = true;
-  activityViewer: Viewer;
-  activityFilterer = new Filterer({ metadata: ACTIVITY_FILTERER_METADATA });
-  activitySorter;
-  activityInfo$: Observable<DataSource>;
+  activityHash$ = this.route.parent.parent.paramMap.pipe(map((params) => +params.get('activityHash')));
 
-  constructor(private activitiesService: ActivitiesService, private route: ActivatedRoute) {}
-
-  ngOnChanges(simpleChanges: SimpleChanges) {
-    if (simpleChanges['metricDefinitions'] || simpleChanges['collectionDefinitions']) {
+  vm$ = this.activityHash$.pipe(
+    map((hash) => {
+      const vm = {
+        activity: this.activitiesService.getActivityById(hash),
+        metrics: this.activitiesService.getCuratedMetrics(hash),
+        collections: this.activitiesService.getCuratedCollections(hash),
+        records: this.activitiesService.getCuratedRecords(hash)
+      };
       // Set Viewer
       const initialViewerData = new Map(ACTIVITY_VIEWER_METADATA);
       const initialSorterData = new Map(ACTIVITY_SORTER_METADATA);
-      this.metricDefinitions.forEach((md) => {
+      vm.metrics.forEach((md) => {
         initialViewerData.set(md.hash.toString(), this.createViewerMetric(md));
         initialSorterData.set(md.hash.toString(), this.createSorterMetric(md));
       });
 
-      this.collectionDefinitions.forEach((md) => {
+      vm.collections.forEach((md) => {
         initialViewerData.set(md.hash.toString(), this.createViewerCollection(md));
         initialSorterData.set(md.hash.toString(), this.createSorterCollection(md));
       });
 
-      this.recordDefinitions.forEach((md) => {
+      vm.records.forEach((md) => {
         initialViewerData.set(md.hash.toString(), this.createViewerRecord(md));
       });
 
@@ -57,11 +57,21 @@ export class ActivityTableComponent implements OnChanges {
 
       this.activitySorter = new Sorter({ metadata: initialSorterData });
 
-      this.activityInfo$ = this.activitiesService
+      return { ...vm };
+    })
+  );
+
+  isLoading = true;
+  activityViewer: Viewer;
+  activityFilterer = new Filterer({ metadata: ACTIVITY_FILTERER_METADATA });
+  activitySorter;
+  activityInfo$: Observable<DataSource> = this.vm$.pipe(
+    switchMap((vm) => {
+      return this.activitiesService
         .getProfiles(
-          this.metricDefinitions.map((md) => md.hash),
-          this.collectionDefinitions.map((md) => md.hash),
-          this.recordDefinitions.map((md) => md.hash)
+          vm.metrics.map((md) => md.hash),
+          vm.collections.map((md) => md.hash),
+          vm.records.map((md) => md.hash)
         )
         .pipe(
           map((ds) => {
@@ -71,8 +81,10 @@ export class ActivityTableComponent implements OnChanges {
             this.isLoading = false;
           })
         );
-    }
-  }
+    })
+  );
+
+  constructor(private activitiesService: ActivitiesService, private route: ActivatedRoute) {}
 
   // TODO: Eventually add formatting. Metric definitions have the formatting
   createViewerMetric(definition: MetricDefinition): ViewerMetadata<ClanMemberProfile, ViewContext> {

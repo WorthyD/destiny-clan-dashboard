@@ -1,0 +1,16 @@
+.activity-breakdown-item {
+  &__content {
+    display: grid;
+    grid-template-columns: 48px 1fr;
+    grid-template-rows: 1fr;
+  }
+  &__info {
+    display: grid;
+    grid-template-columns: 1fr max-content;
+  }
+  &__title {
+  }
+  &__description {
+    grid-column: span 2;
+  }
+}

@@ -18,10 +18,10 @@ export class ActivityDetailComponent {
   vm$ = this.activityHash$.pipe(
     map((hash) => {
       return {
-        activity: this.activitiesService.getActivityById(hash),
-        metrics: this.activitiesService.getCuratedMetrics(hash),
-        collections: this.activitiesService.getCuratedCollections(hash),
-        records: this.activitiesService.getCuratedRecords(hash)
+        activity: this.activitiesService.getActivityById(hash)
+        //       metrics: this.activitiesService.getCuratedMetrics(hash),
+        //       collections: this.activitiesService.getCuratedCollections(hash),
+        //       records: this.activitiesService.getCuratedRecords(hash)
       };
     })
   );
