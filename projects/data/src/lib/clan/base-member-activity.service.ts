@@ -201,7 +201,12 @@ export class BaseMemberActivityService extends BaseClanService {
     );
   }
 
-  groupActivitiesToMember(memberProfile: MemberProfile, allActivities: DBObject[], activityMode: number = 0) {
+  groupActivitiesToMember(
+    memberProfile: MemberProfile,
+    allActivities: DBObject[],
+    activityMode: number = 0,
+    activityTypeId: number = 0
+  ) {
     if (!memberProfile) {
       return undefined;
     }
@@ -213,14 +218,21 @@ export class BaseMemberActivityService extends BaseClanService {
       activityDB.data.map((activity) => clanMemberActivitySerializer(activity))
     );
 
-    const allFilteredActivities =
+    const allFilteredModeActivities =
       activityMode > 0
         ? memberActivitiesSerialized.map((items) =>
             items.filter((a) => a.activityDetails.modes.indexOf(activityMode) > -1)
           )
         : memberActivitiesSerialized;
 
-    const timed = groupActivitiesByDate([].concat(...allFilteredActivities));
+    const allFilteredTypeActivities =
+      activityTypeId > 0
+        ? allFilteredModeActivities.map((items) =>
+            items.filter((a) => a.activityDetails.directorActivityHash === activityTypeId)
+          )
+        : allFilteredModeActivities;
+
+    const timed = groupActivitiesByDate([].concat(...allFilteredTypeActivities));
 
     return {
       id: memberProfileId,
@@ -231,23 +243,25 @@ export class BaseMemberActivityService extends BaseClanService {
   groupActivitiesToMembers(
     memberProfiles: MemberProfile[],
     allActivities: DBObject[],
-    activityMode: number = 0
+    activityMode: number = 0,
+    activityTypeId = 0
   ): any[] {
     return memberProfiles
       .filter((m) => !!m)
       .map((memberProfile) => {
-        return this.groupActivitiesToMember(memberProfile, allActivities, activityMode);
+        return this.groupActivitiesToMember(memberProfile, allActivities, activityMode, activityTypeId);
       });
   }
 
   getAllActivitiesFromCache(
     clanId: number,
     memberProfiles: MemberProfile[],
-    activityMode = 0
+    activityMode = 0,
+    activityTypeId = 0
   ): Observable<MemberActivityTime[]> {
     return from(this.getAllDataFromCache(clanId.toString())).pipe(
       map((x) => {
-        const y = this.groupActivitiesToMembers(memberProfiles, x, activityMode);
+        const y = this.groupActivitiesToMembers(memberProfiles, x, activityMode, activityTypeId);
         return y;
       })
     );
@@ -296,14 +310,22 @@ export class BaseMemberActivityService extends BaseClanService {
     clanId: number,
     member: any,
     useCache: boolean,
-    activityMode: number = 0
+    activityMode: number = 0,
+    activityType: number = 0
   ): Observable<MemberActivityStats> {
     if (!member?.profile) {
       return of(null);
     }
     return from(member.profile.data.characterIds).pipe(
       mergeMap((characterId: number) => {
-        return this.getMemberCharacterActivitySerialized(clanId, member, characterId, useCache, activityMode);
+        return this.getMemberCharacterActivitySerialized(
+          clanId,
+          member,
+          characterId,
+          useCache,
+          activityMode,
+          activityType
+        );
       }),
       map((x) => {
         return x.activities;
@@ -326,13 +348,18 @@ export class BaseMemberActivityService extends BaseClanService {
     member: MemberProfile,
     characterId: number,
     useCache: boolean,
-    activityMode: number = 0
+    activityMode: number = 0,
+    activityHash: number = 0
   ) {
     return this.getMemberCharacterActivity(clanId, member, characterId, useCache).pipe(
       map((activity) => {
         if (activityMode > 0) {
           activity = activity.filter((a) => a.activityDetails.modes.indexOf(activityMode) > -1);
         }
+        if (activityMode > 0) {
+          activity = activity.filter((a) => a.activityDetails.directorActivityHash === activityMode);
+        }
+
         return {
           activities: activity.map((a) => clanMemberActivitySerializer(a))
         };

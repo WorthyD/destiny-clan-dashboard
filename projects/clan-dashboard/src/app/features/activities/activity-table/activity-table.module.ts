@@ -5,9 +5,17 @@ import { TableViewComponent } from '@destiny/components/shared/table-view';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { RouterModule } from '@angular/router';
+import { ActivitiesTableRoutingModule } from './activity-table-routes.module';
 @NgModule({
   declarations: [ActivityTableComponent],
   exports: [ActivityTableComponent],
-  imports: [CommonModule, MatButtonModule, MatIconModule, TableViewComponent, RouterModule ]
+  imports: [
+    CommonModule,
+    MatButtonModule,
+    MatIconModule,
+    TableViewComponent,
+    RouterModule,
+    ActivitiesTableRoutingModule
+  ]
 })
 export class ActivityTableModule {}

@@ -45,7 +45,12 @@ export class ProfileRecentActivityWorkerService {
     });
     return memberActivities;
   }
-  getAllActivities(clansAndMembers: ClanConfigMembers[], statAggregatorType: AggregateType): Observable<any> {
+  getAllActivities(
+    clansAndMembers: ClanConfigMembers[],
+    statAggregatorType: AggregateType,
+    activityModeId: number,
+    activityTypeId: number
+  ): Observable<any> {
     const memberActivities = new Subject();
     const worker = new Worker(new URL('./profile-activity-getter.worker', import.meta.url));
     worker.onmessage = ({ data }) => {
@@ -56,14 +61,18 @@ export class ProfileRecentActivityWorkerService {
     worker.postMessage({
       clansAndMembers,
       statAggregatorType,
-      apiKey: environment.apiKey
+      apiKey: environment.apiKey,
+      activityModeId,
+      activityTypeId
     });
     return memberActivities;
   }
+
   getAllRecentClanActivitiesByActivityModeId(
     clansAndMembers: ClanConfigMembers[],
     trackedDates: TrackedDuration[],
-    activityModeId: number
+    activityModeId: number,
+    activityTypeId: number
   ): Observable<any> {
     const memberActivities = new Subject();
     const worker = new Worker(new URL('./clan-activity-recent-activity-getter.worker', import.meta.url));
@@ -75,7 +84,8 @@ export class ProfileRecentActivityWorkerService {
       clansAndMembers,
       apiKey: environment.apiKey,
       trackedDates,
-      activityModeId
+      activityModeId,
+      activityTypeId
     });
     return memberActivities;
   }

@@ -35,9 +35,10 @@ export class ClanMemberRecentActivityService extends BaseMemberActivityService {
     member: any,
     useCache: boolean,
     trackedDates: TrackedDuration[],
-    activityMode: number = 0
+    activityMode: number = 0,
+    activityTypeId: number = 0
   ): Observable<MemberActivityRecentStats> {
-    return this.getMemberActivity(clanId, member, useCache, activityMode).pipe(
+    return this.getMemberActivity(clanId, member, useCache, activityMode, activityTypeId).pipe(
       map((profileActivity) => {
         return clanMemberRecentActivitySerializer(profileActivity, trackedDates);
       })

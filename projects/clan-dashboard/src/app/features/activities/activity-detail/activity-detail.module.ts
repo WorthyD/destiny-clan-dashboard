@@ -6,9 +6,19 @@ import { ActivityDetailRoutingModule } from './activity-detail-routes.module';
 import { CollapsibleListComponent } from '@destiny/components/shared/collapsible-list';
 import { MatButtonModule } from '@angular/material/button';
 import { ActivityTableModule } from '../activity-table/activity-table.module';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatIconModule } from '@angular/material/icon';
 
 @NgModule({
   declarations: [ActivityDetailComponent],
-  imports: [CommonModule, CollapsibleListComponent, ActivityDetailRoutingModule, MatButtonModule, ActivityTableModule]
+  imports: [
+    CommonModule,
+    CollapsibleListComponent,
+    ActivityDetailRoutingModule,
+    MatButtonModule,
+    ActivityTableModule,
+    MatIconModule,
+    MatToolbarModule
+  ]
 })
 export class ActivityDetailModule {}

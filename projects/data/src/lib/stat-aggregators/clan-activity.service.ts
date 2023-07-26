@@ -20,11 +20,12 @@ export class ClanActivityService {
     clanId: number,
     clanMemberProfiles: any[],
     trackedDates: TrackedDuration[],
-    activityMode: number = 0
+    activityMode: number = 0,
+    activityTypeId: number = 0
   ) {
     return from(clanMemberProfiles).pipe(
       mergeMap((member) => {
-        return this.getMemberActivityStats(clanId, member, trackedDates, activityMode);
+        return this.getMemberActivityStats(clanId, member, trackedDates, activityMode, activityTypeId);
       }, this.CONCURRENT_COUNT),
       toArray()
     );
@@ -34,11 +35,12 @@ export class ClanActivityService {
     clanId: number,
     member: any,
     trackedDates: TrackedDuration[],
-    activityMode: number = 0
+    activityMode: number = 0,
+    activityTypeId: number = 0
   ): Observable<ActivityStats> {
     // private getMemberActivityStats(clanId: number, member: any, activityMode: number = 0): Observable<any> {
     return this.memberActivityService
-      .getSerializedProfileActivity(clanId, member, true, trackedDates, activityMode)
+      .getSerializedProfileActivity(clanId, member, true, trackedDates, activityMode, activityTypeId)
       .pipe(
         map((memberActivityResponse) => {
           return {

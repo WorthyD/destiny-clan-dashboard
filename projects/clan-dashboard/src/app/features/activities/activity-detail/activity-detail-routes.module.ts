@@ -7,7 +7,19 @@ import { ActivityDetailComponent } from './activity-detail.component';
 const routes: Routes = [
   {
     path: '',
-    component: ActivityDetailComponent
+    component: ActivityDetailComponent,
+    children: [
+      {
+        path: '',
+        loadChildren: () =>
+          import('../activity-dashboard/activity-dashboard.module').then((module) => module.ActivityDashboardModule)
+      },
+      {
+        path: 'table',
+        loadChildren: () =>
+          import('../activity-table/activity-table.module').then((module) => module.ActivityTableModule)
+      }
+    ]
   }
 ];
 @NgModule({

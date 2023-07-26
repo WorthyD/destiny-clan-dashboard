@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output, TemplateRef } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output, TemplateRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { DestinyDefinitionsDestinyActivityDefinition } from 'bungie-api-angular';
 import { RouterModule } from '@angular/router';
@@ -9,7 +9,8 @@ import { MatButtonModule } from '@angular/material/button';
   standalone: true,
   imports: [CommonModule, RouterModule, MatCardModule, MatButtonModule],
   templateUrl: './activity-card-details.component.html',
-  styleUrls: ['./activity-card-details.component.scss']
+  styleUrls: ['./activity-card-details.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ActivityCardDetailsComponent {
   @Input() activityDefinition: DestinyDefinitionsDestinyActivityDefinition;

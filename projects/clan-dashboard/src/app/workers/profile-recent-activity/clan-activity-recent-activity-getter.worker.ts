@@ -20,6 +20,7 @@ import { filter, from, map, mergeMap, toArray } from 'rxjs';
 interface MSGData {
   apiKey: string;
   activityModeId: number;
+  activityTypeId: number;
   trackedDates: TrackedDuration[];
   clansAndMembers: {
     clan: { clanId: number; clanName: string; clanTag: string };
@@ -28,7 +29,7 @@ interface MSGData {
   }[];
 }
 addEventListener('message', ({ data }: { data: MSGData }) => {
-  const { clansAndMembers, apiKey, trackedDates, activityModeId } = data;
+  const { clansAndMembers, apiKey, trackedDates, activityModeId, activityTypeId } = data;
   const clanDatabase = new ClanDatabase();
   // const profileService = new ClanMemberRecentActivityService(clanDatabase, apiKey);
   const profileService = new ClanActivityService(clanDatabase, data.apiKey);
@@ -36,7 +37,13 @@ addEventListener('message', ({ data }: { data: MSGData }) => {
     .pipe(
       mergeMap((clanAndMembers) => {
         return profileService
-          .getClanActivityStats(clanAndMembers.clan.clanId, clanAndMembers.profiles, trackedDates, activityModeId)
+          .getClanActivityStats(
+            clanAndMembers.clan.clanId,
+            clanAndMembers.profiles,
+            trackedDates,
+            activityModeId,
+            activityTypeId
+          )
           .pipe(
             map((memberStats) => {
               return clanAndMembers.members.map((member) => {

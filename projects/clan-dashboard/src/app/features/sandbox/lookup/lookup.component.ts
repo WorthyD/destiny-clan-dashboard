@@ -58,4 +58,19 @@ export class LookupComponent {
         this.updateDisplay(result);
       });
   }
+
+  activityLookup() {
+    this.d2ServiceBase
+      //.destiny2GetProfile('4611686018467238913' as unknown as number, 3, [100, 104, 200, 202, 800, 900, 1100, 1400])
+      .destiny2GetActivityHistory(
+        '2305843009310516628' as unknown as number,
+        '4611686018467238913' as unknown as number,
+        3
+      )
+      //.destiny2GetProfile('4611686018467238913' as unknown as number, 3, [ 1400])
+      .pipe(take(1))
+      .subscribe((result) => {
+        this.updateDisplay(result);
+      });
+  }
 }

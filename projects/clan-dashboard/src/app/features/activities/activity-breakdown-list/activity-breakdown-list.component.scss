@@ -1,0 +1,10 @@
+.activity-breakdown-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  &__item {
+    width: 100%;
+    max-width: 400px;
+    margin: 2rem;
+  }
+}
