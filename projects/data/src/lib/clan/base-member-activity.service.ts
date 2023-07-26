@@ -356,8 +356,8 @@ export class BaseMemberActivityService extends BaseClanService {
         if (activityMode > 0) {
           activity = activity.filter((a) => a.activityDetails.modes.indexOf(activityMode) > -1);
         }
-        if (activityMode > 0) {
-          activity = activity.filter((a) => a.activityDetails.directorActivityHash === activityMode);
+        if (activityHash > 0) {
+          activity = activity.filter((a) => a.activityDetails.directorActivityHash === activityHash);
         }
 
         return {
