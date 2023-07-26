@@ -11,7 +11,8 @@ export function clanMemberActivitySerializer(
     period: activity.period,
     activityDetails: {
       mode: activity.activityDetails.mode,
-      modes: activity.activityDetails.modes
+      modes: activity.activityDetails.modes,
+      directorActivityHash: activity.activityDetails.directorActivityHash
     },
     values: {
       activityDurationSeconds: activity?.values['activityDurationSeconds'],

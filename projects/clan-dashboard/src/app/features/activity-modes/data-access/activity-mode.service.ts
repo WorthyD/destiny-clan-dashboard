@@ -47,7 +47,7 @@ export class ActivityModeService {
     65, // Break through
     80, // Elimination
     89, // Zone control
-    75, // GB Prime
+    75 // GB Prime
   ];
 
   getActivityModeDefinition(modeType: number) {
@@ -85,7 +85,8 @@ export class ActivityModeService {
         return this.profileRecentActivityWorkerService.getAllRecentClanActivitiesByActivityModeId(
           clanMembersProfiles,
           trackedDates,
-          mode
+          mode,
+          0
         );
         return of(clanMembersProfiles);
       })

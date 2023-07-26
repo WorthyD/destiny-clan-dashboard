@@ -1,7 +1,7 @@
 import { Component, ChangeDetectionStrategy, inject } from '@angular/core';
 import { ActivitiesService } from '../data-access/activities.service';
 import { ActivatedRoute } from '@angular/router';
-import { map } from 'rxjs';
+import { BehaviorSubject, Observable, map, switchMap, tap } from 'rxjs';
 
 @Component({
   selector: 'app-activity-dashboard',
@@ -15,6 +15,8 @@ export class ActivityDashboardComponent {
   curatedActivities = this.activitiesService.getCuratedActivities();
 
   activityHash$ = this.route.paramMap.pipe(map((params) => +params.get('activityHash')));
+  eventsLoadingSource: BehaviorSubject<boolean> = new BehaviorSubject(false);
+  eventsLoading$: Observable<boolean> = this.eventsLoadingSource.asObservable();
 
   vm$ = this.activityHash$.pipe(
     map((hash) => {
@@ -26,5 +28,11 @@ export class ActivityDashboardComponent {
       };
     })
   );
-
+  events$ = this.activityHash$.pipe(
+    tap(() => this.eventsLoadingSource.next(true)),
+    switchMap((hash) => {
+      return this.activitiesService.getActivityStatsByHash(hash);
+    }),
+    tap(() => this.eventsLoadingSource.next(false))
+  );
 }

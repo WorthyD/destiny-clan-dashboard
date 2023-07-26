@@ -18,6 +18,7 @@ import {
   CURATED_ACTIVITIES_ALL,
   CURATED_ACTIVITY_GROUPS
 } from '../models/CuratedActivities';
+import { ProfileRecentActivityWorkerService } from '../../../workers/profile-recent-activity/profile-recent-activity.service';
 
 @Injectable({
   providedIn: ActivitiesShellModule
@@ -29,7 +30,8 @@ export class ActivitiesService {
     private store: Store,
     private memberService: ClansMembersService,
     private profileService: ClanProfileService,
-    private seasonService: SeasonService
+    private seasonService: SeasonService,
+    private profileRecentActivityWorkerService: ProfileRecentActivityWorkerService
   ) {}
 
   getCuratedActivities(): CuratedActivityGroupDefinitions[] {
@@ -102,6 +104,14 @@ export class ActivitiesService {
           toArray(),
           map((x) => x.flatMap((y) => y))
         );
+      })
+    );
+  }
+
+  getActivityStatsByHash(hash: number): Observable<any> {
+    return this.memberService.clanMembersProfiles$.pipe(
+      switchMap((clanMembersProfiles) => {
+        return this.profileRecentActivityWorkerService.getAllActivities(clanMembersProfiles, 'daily', 0, hash);
       })
     );
   }

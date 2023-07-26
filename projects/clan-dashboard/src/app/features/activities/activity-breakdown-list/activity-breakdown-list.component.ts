@@ -97,7 +97,6 @@ export class ActivityBreakdownListComponent implements OnChanges {
             return items;
           }),
           tap((x) => {
-            console.log('tapping done');
             this.isLoading = false;
           })
         );

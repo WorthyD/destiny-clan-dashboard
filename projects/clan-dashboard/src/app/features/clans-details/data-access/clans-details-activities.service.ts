@@ -29,7 +29,7 @@ export class ClansDetailsActivitiesService {
       return this.clansDetailsService.clanMembersProfiles$.pipe(
         take(1),
         switchMap((x) => {
-          return this.profileRecentActivityWorkerService.getAllActivities(x, 'daily');
+          return this.profileRecentActivityWorkerService.getAllActivities(x, 'daily', 0, 0);
         })
       );
     }),
