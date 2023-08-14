@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { NgIf } from '@angular/common';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatCardModule } from '@angular/material/card';
 import { MatChipsModule } from '@angular/material/chips';
@@ -8,7 +8,7 @@ import { ClanMemberSeasonPassProgression } from 'projects/data/src/lib/models/Cl
 @Component({
   selector: 'lib-season-pass',
   standalone: true,
-  imports: [CommonModule, MatProgressBarModule, MatCardModule, MatChipsModule],
+  imports: [NgIf, MatProgressBarModule, MatCardModule, MatChipsModule],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './season-pass.component.html',
   styleUrls: ['./season-pass.component.scss']

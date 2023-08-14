@@ -1,5 +1,5 @@
-import { Component, ViewEncapsulation, Input, ChangeDetectionStrategy } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
+import { CommonModule, NgIf } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
 import { PipesModule } from '../../pipes';
 import { Character } from 'projects/data/src/lib/models/Character';
@@ -8,7 +8,7 @@ import { Character } from 'projects/data/src/lib/models/Character';
   selector: 'lib-character-card',
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [CommonModule, MatCardModule, PipesModule],
+  imports: [NgIf, MatCardModule, PipesModule],
   template: `
     <ng-container *ngIf="!isLoading; else loading">
       <mat-card *ngIf="character">

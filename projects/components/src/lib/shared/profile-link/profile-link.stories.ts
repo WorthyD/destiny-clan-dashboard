@@ -9,7 +9,7 @@ export default {
   // More on argTypes: https://storybook.js.org/docs/angular/api/argtypes
   decorators: [
     moduleMetadata({
-      imports: [RouterTestingModule]
+      imports: [RouterTestingModule.withRoutes([])]
     })
   ],
   argTypes: {}
@@ -27,8 +27,8 @@ Primary.args = {
         userInfo: {
           bungieGlobalDisplayName: 'Test',
           bungieGlobalDisplayNameCode: '1234',
-          membershipType:3,
-          membershipId:123
+          membershipType: 3,
+          membershipId: 123
         }
       }
     }

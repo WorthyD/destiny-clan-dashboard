@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Meta, moduleMetadata, Story } from '@storybook/angular';
 import { StorybookModule } from '../../storybook/storybook.module';
 import { CollapsibleListComponent } from './collapsible-list.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 export default {
   title: 'Components/Collapsible List',
@@ -9,7 +10,7 @@ export default {
   // More on argTypes: https://storybook.js.org/docs/angular/api/argtypes
   decorators: [
     moduleMetadata({
-      imports: [StorybookModule]
+      imports: [BrowserAnimationsModule]
     })
   ],
   argTypes: {}
