@@ -2,6 +2,7 @@ import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output, Templa
 import { CommonModule } from '@angular/common';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatListModule } from '@angular/material/list';
+
 @Component({
   selector: 'lib-collapsible-list',
   standalone: true,
@@ -13,6 +14,6 @@ import { MatListModule } from '@angular/material/list';
 export class CollapsibleListComponent {
   @Input() title: string;
   @Input() items: any[];
-  @Input() itemTemplate: TemplateRef<HTMLElement>;
+  @Input() itemTemplate: TemplateRef<any>;
   //@Output() viewActivity = new EventEmitter<number>();
 }
