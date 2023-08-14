@@ -117,12 +117,14 @@
           "builder": "@storybook/angular:start-storybook",
           "options": {
             "browserTarget": "clan-dashboard:build",
+            "compodoc": false,
             "port": 6006
           }
         },
         "build-storybook": {
           "builder": "@storybook/angular:build-storybook",
           "options": {
+            "compodoc": false,
             "browserTarget": "angular-cli:build"
           }
         }
