@@ -1,5 +1,5 @@
 // component originated form https://github.com/crafted/crafted
-import { AsyncPipe } from '@angular/common';
+import { AsyncPipe, NgFor } from '@angular/common';
 import { ChangeDetectionStrategy, Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
@@ -13,7 +13,7 @@ import { Viewer, ViewLabel } from '../../data/viewer';
 @Component({
   selector: 'lib-display-options',
   templateUrl: './display-options.component.html',
-  imports: [AsyncPipe, FormsModule, MatButtonModule, MatMenuModule, MatIconModule],
+  imports: [AsyncPipe, NgFor, FormsModule, MatButtonModule, MatMenuModule, MatIconModule],
   standalone: true,
   styleUrls: ['./display-options.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush

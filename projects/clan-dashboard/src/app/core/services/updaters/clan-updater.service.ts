@@ -1,20 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
-import {
-  mergeMap,
-  map,
-  catchError,
-  toArray,
-  switchMap,
-  tap,
-  take,
-  filter,
-  distinctUntilChanged,
-  concatMap
-} from 'rxjs/operators';
+import { mergeMap, map, catchError, toArray, switchMap, tap, take, filter } from 'rxjs/operators';
 import { ClanConfig, removeClan, selectEnabledClans, updateClan, updateClanProfileSync } from '../../store/clans';
 import { ClanMembersService } from '@destiny/data/clan/clan-members';
-import { from, Observable, of } from 'rxjs';
+import { from, of } from 'rxjs';
 import { GroupsV2GroupMember } from 'bungie-api-angular';
 import { ProfileWorkerService } from '../../../workers/profile-worker/profile-worker.service';
 import { nowPlusMinutes } from 'projects/data/src/lib/utility/date-utils';
@@ -26,6 +15,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { AppOfflineDialogComponent } from '../../layout/app-offline-dialog/app-offline-dialog.component';
 import { BungieInfoUpdaterService } from './bungie-info-updater.service';
 import { isMobile } from '../../utilities/is-mobile';
+import { environment } from 'projects/clan-dashboard/src/environments/environment';
 
 export interface ClanConfigMembers {
   clanConfig: ClanConfig;
@@ -38,12 +28,11 @@ export interface ClanConfigMembers {
 })
 export class ClanUpdaterService {
   activeClanIds$ = this.store.select(selectEnabledClans);
-  showLog = true;
+  showLog = environment.production === false;
 
   constructor(
     private store: Store,
     private memberService: ClanMembersService,
-    private profileWorkerService: ProfileWorkerService,
     private appConfig: AppConfig,
     private clanDetailsService: ClanDetailsService,
     private profileUpdaterService: ProfileUpdaterService,
@@ -51,23 +40,58 @@ export class ClanUpdaterService {
     private bungieInfoUpdaterService: BungieInfoUpdaterService,
     public dialog: MatDialog
   ) {}
+  clanUpdaterKey = 'clanUpdaterKey';
+  clanMemberUpdater = 'clanMemberUpdater';
+  profileUpdater = 'profileUpdater';
+  recentActivityUpdater = 'recentActivityUpdater';
+  updateAllClansBungieInfo = 'updateAllClansBungieInfo';
 
   update() {
     return this.activeClanIds$.pipe(
       take(1),
-      tap((x) => this.showLog && console.log('Starting Updater', x)),
+      tap((x) => this.showLog && this.tapFunc('Starting Updater', x, this.clanUpdaterKey)),
       switchMap((activeClans) => this.clanUpdate(activeClans)),
-      tap((x) => this.showLog && console.log('Starting Member Updater', x)),
+      tap(
+        (x) => this.showLog && this.tapFunc('Starting Member Updater', x, this.clanMemberUpdater, this.clanUpdaterKey)
+      ),
       switchMap((activeClans) => this.memberUpdate(activeClans)),
-      tap((x) => this.showLog && console.log('Member Update Complete', x)),
+      tap(
+        (x) => this.showLog && this.tapFunc('Member Update Complete', x, this.profileUpdater, this.clanMemberUpdater)
+      ),
       switchMap((clans) => this.profileUpdaterService.profilesUpdate(clans)),
-      tap((x) => this.showLog && console.log('Member Profile Update Complete', x)),
+      tap(
+        (x) =>
+          this.showLog &&
+          this.tapFunc('Member Profile Update Complete', x, this.recentActivityUpdater, this.profileUpdater)
+      ),
       switchMap((clans) => (isMobile() ? of(clans) : this.memberActivityUpdaterService.membersActivityUpdate(clans))),
-      tap((x) => this.showLog && console.log('Member Recent Activity Update Complete', x)),
+      tap(
+        (x) =>
+          this.showLog &&
+          this.tapFunc(
+            'Member Recent Activity Update Complete',
+            x,
+            this.updateAllClansBungieInfo,
+            this.recentActivityUpdater
+          )
+      ),
       switchMap((clans) => (isMobile() ? of(clans) : this.bungieInfoUpdaterService.updateAllClansBungieInfo(clans))),
-      tap((x) => this.showLog && console.log('Bungie Info Update Complete', x))
+      tap(
+        (x) => this.showLog && this.tapFunc('Bungie Info Update Complete', x, undefined, this.updateAllClansBungieInfo)
+      )
     );
   }
+
+  tapFunc(msg, data, logKey = undefined, lastLogKey = undefined) {
+    console.log(msg, data);
+    if (logKey) {
+      console.time(logKey);
+    }
+    if (lastLogKey) {
+      console.timeEnd(lastLogKey);
+    }
+  }
+
   clanUpdate(activeClans) {
     return from(activeClans).pipe(
       // TODO: Double check concat map
@@ -111,6 +135,7 @@ export class ClanUpdaterService {
   memberUpdate(activeClans) {
     return from(activeClans).pipe(
       mergeMap((clanConfig: ClanConfig) => {
+        console.log('----------memberUpdate ------------', clanConfig.clanId);
         return this.memberService.getClanMembersSerialized(clanConfig.clanId).pipe(
           map((members) => ({
             members,
