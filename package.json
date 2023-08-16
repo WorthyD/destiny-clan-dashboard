@@ -10,7 +10,7 @@
     "analyze": "npx webpack-bundle-analyzer dist/clan-dashboard/stats.json",
     "test": "ng test --watch false --browsers=ChromeHeadless",
     "_test:ui": "ng test --project=clan-dashboard",
-    "test:data": "ng test --project=data",
+    "_test:data": "ng test --project=data",
     "test:data:headless": "ng test --project=data --browsers=ChromeHeadless ",
     "test:data:coverage": "ng test --project=data --code-coverage=true",
     "test:components": "ng test --project=components",
@@ -18,7 +18,8 @@
     "storybook": "ng run clan-dashboard:storybook",
     "config": "ts-node set-env.ts",
     "lint": "ng lint",
-    "test:ui": "jest --config ./projects/clan-dashboard/jest.config.js"
+    "test:ui": "jest --config ./projects/clan-dashboard/jest.config.js",
+    "test:data": "jest --config ./projects/data/jest.config.js"
   },
   "private": true,
   "dependencies": {
@@ -66,6 +67,7 @@
     "@storybook/angular": "^7.2.3",
     "@storybook/testing-library": "^0.2.0",
     "@types/jasmine": "^4.3.5",
+    "@types/jest": "^29.5.3",
     "@typescript-eslint/eslint-plugin": "^5.62.0",
     "@typescript-eslint/parser": "^5.62.0",
     "babel-loader": "^8.3.0",

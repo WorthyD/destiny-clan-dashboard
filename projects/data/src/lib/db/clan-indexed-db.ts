@@ -7,21 +7,15 @@ export enum StoreId {
   MemberProfiles = 'MemberProfiles',
   MemberActivities = 'MemberActivities',
   MemberRecentActivities = 'MemberRecentActivities',
-BungieInfo = 'BungieInfo'
+  BungieInfo = 'BungieInfo'
 }
 
 export const STORE_IDS: StoreId[] = [
- // StoreId.CacheDetails,
   StoreId.ClanDetails,
-  //StoreId.ClanRewards,
   StoreId.MemberProfiles,
   StoreId.MemberActivities,
   StoreId.MemberRecentActivities,
   StoreId.BungieInfo
-  //StoreId.ProfileMilestones,
-  //StoreId.MemberActivityStats,
-  //StoreId.ProfileMetrics,
- // StoreId.Raids
 ];
 
 export interface DBObject {
