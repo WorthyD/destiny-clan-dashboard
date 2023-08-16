@@ -32,5 +32,5 @@ export class ClanMemberCardComponent {
   @Input()
   isLoading: boolean;
 
-  @Input() itemTemplate: TemplateRef<HTMLElement>;
+  @Input() itemTemplate: TemplateRef<any>;
 }

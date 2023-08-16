@@ -28,9 +28,7 @@
               "projects/clan-dashboard/src/assets",
               "projects/clan-dashboard/src/_redirects"
             ],
-            "styles": [
-              "projects/clan-dashboard/src/styles.scss"
-            ],
+            "styles": ["projects/clan-dashboard/src/styles.scss"],
             "scripts": [],
             "webWorkerTsConfig": "projects/clan-dashboard/tsconfig.worker.json"
           },
@@ -86,43 +84,30 @@
           }
         },
         "test": {
-          "builder": "@angular-devkit/build-angular:karma",
+          "builder": "@angular-devkit/build-angular:jest",
           "options": {
-            "main": "projects/clan-dashboard/src/test.ts",
             "polyfills": "projects/clan-dashboard/src/polyfills.ts",
-            "tsConfig": "projects/clan-dashboard/tsconfig.spec.json",
-            "karmaConfig": "projects/clan-dashboard/karma.conf.js",
-            "inlineStyleLanguage": "scss",
-            "assets": [
-              "projects/clan-dashboard/src/favicon.ico",
-              "projects/clan-dashboard/src/assets"
-            ],
-            "styles": [
-              "projects/clan-dashboard/src/styles.scss"
-            ],
-            "scripts": [],
-            "webWorkerTsConfig": "projects/clan-dashboard/tsconfig.worker.json"
+            "tsConfig": "projects/clan-dashboard/tsconfig.spec.json"
           }
         },
         "lint": {
           "builder": "@angular-eslint/builder:lint",
           "options": {
-            "lintFilePatterns": [
-              "projects/clan-dashboard/**/*.ts",
-              "projects/clan-dashboard/**/*.html"
-            ]
+            "lintFilePatterns": ["projects/clan-dashboard/**/*.ts", "projects/clan-dashboard/**/*.html"]
           }
         },
         "storybook": {
           "builder": "@storybook/angular:start-storybook",
           "options": {
             "browserTarget": "clan-dashboard:build",
+            "compodoc": false,
             "port": 6006
           }
         },
         "build-storybook": {
           "builder": "@storybook/angular:build-storybook",
           "options": {
+            "compodoc": false,
             "browserTarget": "angular-cli:build"
           }
         }
@@ -150,20 +135,15 @@
           "defaultConfiguration": "production"
         },
         "test": {
-          "builder": "@angular-devkit/build-angular:karma",
+          "builder": "@angular-devkit/build-angular:jest",
           "options": {
-            "main": "projects/data/src/test.ts",
             "tsConfig": "projects/data/tsconfig.spec.json",
-            "karmaConfig": "projects/data/karma.conf.js"
           }
         },
         "lint": {
           "builder": "@angular-eslint/builder:lint",
           "options": {
-            "lintFilePatterns": [
-              "projects/data/**/*.ts",
-              "projects/data/**/*.html"
-            ]
+            "lintFilePatterns": ["projects/data/**/*.ts", "projects/data/**/*.html"]
           }
         }
       }
@@ -195,20 +175,15 @@
           "defaultConfiguration": "production"
         },
         "test": {
-          "builder": "@angular-devkit/build-angular:karma",
+          "builder": "@angular-devkit/build-angular:jest",
           "options": {
-            "main": "projects/components/src/test.ts",
             "tsConfig": "projects/components/tsconfig.spec.json",
-            "karmaConfig": "projects/components/karma.conf.js"
           }
         },
         "lint": {
           "builder": "@angular-eslint/builder:lint",
           "options": {
-            "lintFilePatterns": [
-              "projects/components/**/*.ts",
-              "projects/components/**/*.html"
-            ]
+            "lintFilePatterns": ["projects/components/**/*.ts", "projects/components/**/*.html"]
           }
         },
         "storybook": {
@@ -228,9 +203,7 @@
     }
   },
   "cli": {
-    "schematicCollections": [
-      "@angular-eslint/schematics"
-    ]
+    "schematicCollections": ["@angular-eslint/schematics"]
   },
   "schematics": {
     "@angular-eslint/schematics:application": {

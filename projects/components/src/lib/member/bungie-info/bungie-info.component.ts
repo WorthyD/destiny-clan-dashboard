@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { NgFor, NgIf } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
 import { MatListModule } from '@angular/material/list';
 import { MatIconModule } from '@angular/material/icon';
@@ -9,12 +9,12 @@ import { PipesModule } from '../../pipes';
 @Component({
   selector: 'lib-bungie-info',
   standalone: true,
-  imports: [CommonModule, MatCardModule, MatListModule, MatIconModule, PipesModule],
+  imports: [NgIf, NgFor, MatCardModule, MatListModule, MatIconModule, PipesModule],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './bungie-info.component.html',
   styleUrls: ['./bungie-info.component.scss']
 })
-export class BungieInfoComponent  {
+export class BungieInfoComponent {
   _bungieInfo: BungieInfo;
   @Input()
   get bungieInfo(): BungieInfo {
@@ -31,7 +31,7 @@ export class BungieInfoComponent  {
   linkedAccounts = [];
   constructor() {}
 
- // ngOnInit(): void {}
+  // ngOnInit(): void {}
 
   applyLinks() {
     if (!this._bungieInfo) {

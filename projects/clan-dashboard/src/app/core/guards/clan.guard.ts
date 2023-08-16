@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot } from '@angular/router';
+import { ActivatedRouteSnapshot, Router, RouterStateSnapshot } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { map, Observable, of } from 'rxjs';
 import { selectTotalClans } from '@core/store/clans/clans.selectors';
@@ -7,7 +7,7 @@ import { selectTotalClans } from '@core/store/clans/clans.selectors';
 @Injectable({
   providedIn: 'root'
 })
-export class ClanResolveGuard implements CanActivate {
+export class ClanResolveGuard  {
   constructor(private store: Store, private router: Router) {}
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {

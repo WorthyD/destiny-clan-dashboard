@@ -9,7 +9,7 @@ const dod_clans_pc = [
   4767446 // Lucid Loops
 ];
 const dod_clans_all = [
-  4803739, //DoD Still Vexier Than You
+  //4803739, //DoD Still Vexier Than You
   4523816, //DoD Lightforged
   223562, //DoD Westside
   523657, //DoD Battleborn

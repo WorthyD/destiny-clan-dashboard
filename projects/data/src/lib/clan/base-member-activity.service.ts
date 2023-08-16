@@ -33,7 +33,7 @@ export class BaseMemberActivityService extends BaseClanService {
     private apiKey: string,
     // private d2ServiceBase: Destiny2Service,
     public startValue: Date,
-    public maxRequestCount: Number,
+    public maxRequestCount: number,
     public activityTypeId = 0
   ) {
     super(clanDbPBase, tableNamePBase);
