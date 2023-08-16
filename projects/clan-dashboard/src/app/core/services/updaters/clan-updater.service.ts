@@ -135,7 +135,7 @@ export class ClanUpdaterService {
   memberUpdate(activeClans) {
     return from(activeClans).pipe(
       mergeMap((clanConfig: ClanConfig) => {
-        console.log('----------memberUpdate ------------', clanConfig.clanId);
+       // console.log('----------memberUpdate ------------', clanConfig.clanId);
         return this.memberService.getClanMembersSerialized(clanConfig.clanId).pipe(
           map((members) => ({
             members,
