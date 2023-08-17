@@ -13,17 +13,17 @@ import { HttpErrorResponse } from '@angular/common/http';
 //import { ClanDatabase } from '../ClanDatabase';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { ClanDatabase } from '../clan-database';
-import { ProfileService } from './profile.service';
+import { ClanProfileService } from './profile.service';
 // import { of, defer, forkJoin } from 'rxjs';
 
-describe('ProfileService', () => {
-  let service: ProfileService;
+describe('ClanProfileService', () => {
+  let service: ClanProfileService;
   let dbService: ClanDatabase;
   let d2Service: Destiny2Service;
 
   beforeEach(() => {
     const clanDatabase = new ClanDatabase();
-    service = new ProfileService(clanDatabase, '');
+    service = new ClanProfileService(clanDatabase, '');
     // TestBed.configureTestingModule({
     //   imports: [HttpClientTestingModule],
     //   providers: [Destiny2Service, ClanDatabase, ClanMemberRecentActivityService]

@@ -16,8 +16,11 @@ describe('Base Clan Service', () => {
     });
 
     it('should return all data', (done) => {
+      service = new BaseClanService(mockClanDB, StoreId.MemberRecentActivities);
+      service.updateDB('test', 'test', {});
       const d = service.getDataFromCache('test', 'test');
       d.then((result) => {
+        console.log('all the things', result);
         expect(result).toBeDefined();
         done();
       });

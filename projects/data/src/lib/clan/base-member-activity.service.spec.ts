@@ -45,7 +45,7 @@ const mockActivityObj: Partial<DBObject> = {
 describe('Base Member Activity Service', () => {
   let activityService: BaseMemberActivityService;
   //let clanDbPBase: ClanDatabase;
-  const fetchSpy = jasmine.createSpy('fetch');
+  const fetchSpy = jest.fn();
 
   const getFreshService = (clanDbPBase = new ClanDatabase()) => {
     return new BaseMemberActivityService(clanDbPBase, StoreId.MemberActivities, 'apiKey', new Date(), 10, 0, fetchSpy);
@@ -61,7 +61,7 @@ describe('Base Member Activity Service', () => {
     });
 
     it('should work', (done) => {
-      fetchSpy.and.returnValue(
+      fetchSpy.mockReturnValue(
         new Promise((res, rej) => {
           res({
             json: () =>
@@ -81,7 +81,7 @@ describe('Base Member Activity Service', () => {
         });
     });
     it('should error', (done) => {
-      fetchSpy.and.returnValue(
+      fetchSpy.mockReturnValue(
         new Promise((res, rej) => {
           res({
             json: () =>
@@ -114,14 +114,17 @@ describe('Base Member Activity Service', () => {
       fetchSpy.calls.reset();
     });
     it('should work without cache', (done) => {
-      const dbSpy = jasmine.createSpyObj('ClanDatabase', ['getAll', 'getById']) as jasmine.SpyObj<ClanDatabase>;
-      dbSpy.getById.and.returnValue(
+      const dbSpy = {
+        'getAll': jest.fn(),
+        'getById': jest.fn()
+      } as jasmine.SpyObj<ClanDatabase>;
+      dbSpy.getById.mockReturnValue(
         new Promise((res, rej) => {
           res(mockActivityObj as unknown as DBObject);
         })
       );
       activityService = getFreshService(dbSpy);
-      const cacheSpy = spyOn(activityService, 'verifyCacheIntegrity');
+      const cacheSpy = jest.spyOn(activityService, 'verifyCacheIntegrity');
       activityService
         .getMemberCharacterActivity(1, mockProfile, 1, false)
         .pipe(take(1))
@@ -155,7 +158,10 @@ describe('Base Member Activity Service', () => {
   });
   describe('verifyCacheIntegrity', () => {
     it('should work with valid data', (done) => {
-      const dbSpy = jasmine.createSpyObj('ClanDatabase', ['getAll', 'getById']) as jasmine.SpyObj<ClanDatabase>;
+      const dbSpy = {
+        'getAll': jest.fn(),
+        'getById': jest.fn()
+      } as jasmine.SpyObj<ClanDatabase>;
       activityService = getFreshService(dbSpy);
 
       const clanId = 1;
@@ -163,7 +169,7 @@ describe('Base Member Activity Service', () => {
       const characterId = 1;
       const cachedData: Partial<DBObject> = { ...mockActivityObj, createDate: new Date() };
 
-      const cacheSpy = spyOn(activityService, 'getFreshMemberCharacterActivity');
+      const cacheSpy = jest.spyOn(activityService, 'getFreshMemberCharacterActivity');
       activityService
         .verifyCacheIntegrity(clanId, memberProfile, characterId, cachedData as DBObject)
         .pipe(take(1))
@@ -174,7 +180,10 @@ describe('Base Member Activity Service', () => {
         });
     });
     it('should call for fresh data with old data', (done) => {
-      const dbSpy = jasmine.createSpyObj('ClanDatabase', ['getAll', 'getById']) as jasmine.SpyObj<ClanDatabase>;
+      const dbSpy = {
+        'getAll': jest.fn(),
+        'getById': jest.fn()
+      } as jasmine.SpyObj<ClanDatabase>;
       activityService = getFreshService(dbSpy);
 
       const clanId = 1;
@@ -182,7 +191,7 @@ describe('Base Member Activity Service', () => {
       const characterId = 1;
       const cachedData: Partial<DBObject> = { ...mockActivityObj, createDate: new Date('1/1/1900') };
 
-      const cacheSpy = spyOn(activityService, 'getFreshMemberCharacterActivity').and.callThrough();
+      const cacheSpy = jest.spyOn(activityService, 'getFreshMemberCharacterActivity');
       activityService
         .verifyCacheIntegrity(clanId, memberProfile, characterId, cachedData as DBObject)
         .pipe(take(1))
@@ -198,7 +207,7 @@ describe('Base Member Activity Service', () => {
       fetchSpy.calls.reset();
     });
     it('should work', (done) => {
-      fetchSpy.and.returnValue(
+      fetchSpy.mockReturnValue(
         new Promise((res, rej) => {
           res({
             json: () =>

@@ -68,8 +68,6 @@ export class ManifestLoaderService {
   }
 
   requestDefinitionsArchive(dbPath, tableNames) {
-    // TODO This takes about a second and a half to execute
-    // return this.db.getValues('manifest').then((cachedValue) => {
     return this.db.get<any>('manifest').then((cachedValue) => {
       const versionKey = `${VERSION}:${dbPath}`;
 

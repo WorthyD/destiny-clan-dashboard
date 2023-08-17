@@ -1,5 +1,7 @@
 // import { TestBed } from '@angular/core/testing';
 
+import { ClanBungieInfoService } from "./bungie-info.service";
+
 // import { Destiny2Service } from 'bungie-api-angular';
 // // import { MOCK_WORTHY_PROFILE } from '../../testing-utils/objects/profiles.mock';
 // // import {
@@ -16,24 +18,25 @@
 // import { ProfileService } from './profile.service';
 // // import { of, defer, forkJoin } from 'rxjs';
 
-// describe('ProfileService', () => {
-//   let service: ProfileService;
-//   let dbService: ClanDatabase;
-//   let d2Service: Destiny2Service;
+describe('ClanBungieInfoService', () => {
+  //   let service: ProfileService;
+  //   let dbService: ClanDatabase;
+  //   let d2Service: Destiny2Service;
 
-//   beforeEach(() => {
-//     const clanDatabase = new ClanDatabase();
-//     service = new ProfileService(clanDatabase, '');
-//     // TestBed.configureTestingModule({
-//     //   imports: [HttpClientTestingModule],
-//     //   providers: [Destiny2Service, ClanDatabase, ClanMemberRecentActivityService]
-//     // });
-//     // service = TestBed.inject(ClanMemberRecentActivityService);
-//     // dbService = TestBed.inject(ClanDatabase);
-//     // d2Service = TestBed.inject(Destiny2Service);
-//   });
+  //   beforeEach(() => {
+  //     const clanDatabase = new ClanDatabase();
+  //     service = new ProfileService(clanDatabase, '');
+  //     // TestBed.configureTestingModule({
+  //     //   imports: [HttpClientTestingModule],
+  //     //   providers: [Destiny2Service, ClanDatabase, ClanMemberRecentActivityService]
+  //     // });
+  //     // service = TestBed.inject(ClanMemberRecentActivityService);
+  //     // dbService = TestBed.inject(ClanDatabase);
+  //     // d2Service = TestBed.inject(Destiny2Service);
+  //   });
 
-//   it('should be created', () => {
-//     expect(service).toBeTruthy();
-//   });
-// });
+  it('should be created', () => {
+    const service: ClanBungieInfoService = new ClanBungieInfoService(null, null);
+    expect(service).toBeTruthy();
+  });
+});

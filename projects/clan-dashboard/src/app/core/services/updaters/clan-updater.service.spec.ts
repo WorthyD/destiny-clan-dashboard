@@ -68,8 +68,8 @@ describe('ClanUpdaterService', () => {
 
   describe('update', () => {
     it('should update clan members', (done) => {
-      const dataSourceSpy = spyOn(memberService, 'getClanMembersSerialized').and.callThrough();
-      const storeSpy = spyOn(store, 'dispatch').and.callThrough();
+      const dataSourceSpy = jest.spyOn(memberService, 'getClanMembersSerialized');
+      const storeSpy = jest.spyOn(store, 'dispatch');
       // service.update();
       const x = 'test';
       service

@@ -8,6 +8,7 @@ export class ClanDatabase {
   }
 
   getById(repository: string, type: StoreId, id: string): Promise<DBObject> {
+    console.log('stuff', `${repository}, ${type}, ${id}`);
     return this.getDatabase(repository).getById(type, id);
   }
 
