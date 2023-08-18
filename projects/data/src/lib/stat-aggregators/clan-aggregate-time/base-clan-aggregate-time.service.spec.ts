@@ -3,6 +3,10 @@
 // import { MemberProfile } from 'bungie-models';
 // import { of } from 'rxjs';
 
+import { ClanDatabase } from '../../clan/clan-database';
+import { MemberActivityTime } from '../../models/MemberActivityTime';
+import { BaseClanAggregateTimeService } from './base-clan-aggregate-time.service';
+
 // import { ClanDatabase, ClanMemberRecentActivityService,  } from '../../clan-db';
 // import { MOCK_RESP_ACTIVITIES_COMBINED } from '../../testing-utils/objects/member-activities.mock';
 // import { BaseClanAggregateTimeService } from './base-clan-aggregate-time.service';
@@ -78,22 +82,30 @@
 // //     }
 // //   }
 // // } as MemberProfile;
+class DummyClass extends BaseClanAggregateTimeService {
+  public getClanActivityStatsForDuration(memberActivities: MemberActivityTime[], activityMode: any, days = 60) {
+    return null;
+  }
+  public getClanActivityByPlayer(memberActivities: MemberActivityTime[], activityMode: any, days = 60) {
+    return null;
+  }
+}
 
-// describe('BaseClanAggregateTimeService', () => {
-//   let service: BaseClanAggregateTimeService;
-//   let activityService: ClanMemberRecentActivityService;
-
-//   beforeEach(() => {
-//     TestBed.configureTestingModule({
-//       imports: [HttpClientTestingModule],
-//       providers: [ ClanMemberRecentActivityService, ClanDatabase]
-//     });
-//     service = TestBed.inject(BaseClanAggregateTimeService);
-//     //profileService = TestBed.inject(ProfileService);
-//     activityService = TestBed.inject(ClanMemberRecentActivityService);
-//   });
-
-//   it('should be created', () => {
-//     expect(service).toBeTruthy();
-//   });
-// });
+describe('BaseClanAggregateTimeService', () => {
+  //   let service: BaseClanAggregateTimeService;
+  //   let activityService: ClanMemberRecentActivityService;
+  //   beforeEach(() => {
+  //     TestBed.configureTestingModule({
+  //       imports: [HttpClientTestingModule],
+  //       providers: [ ClanMemberRecentActivityService, ClanDatabase]
+  //     });
+  //     service = TestBed.inject(BaseClanAggregateTimeService);
+  //     //profileService = TestBed.inject(ProfileService);
+  //     activityService = TestBed.inject(ClanMemberRecentActivityService);
+  //   });
+  it('should be created', () => {
+    const newDB = new ClanDatabase();
+    let service: BaseClanAggregateTimeService = new DummyClass(newDB, '');
+    expect(service).toBeTruthy();
+  });
+});

@@ -42,13 +42,18 @@ const mockActivityObj: Partial<DBObject> = {
     }
   ]
 };
+jest.mock('./clan-database');
+
+const mockedDatabase = ClanDatabase as jest.Mock<ClanDatabase>;
+
 describe('Base Member Activity Service', () => {
   let activityService: BaseMemberActivityService;
   //let clanDbPBase: ClanDatabase;
-  const fetchSpy = jest.fn();
+  //const fetchSpy = jest.fn();
+  //let windowSpy;
 
   const getFreshService = (clanDbPBase = new ClanDatabase()) => {
-    return new BaseMemberActivityService(clanDbPBase, StoreId.MemberActivities, 'apiKey', new Date(), 10, 0, fetchSpy);
+    return new BaseMemberActivityService(clanDbPBase, StoreId.MemberActivities, 'apiKey', new Date(), 10, 0);
   };
 
   it('should instantiate', () => {
@@ -57,40 +62,35 @@ describe('Base Member Activity Service', () => {
 
   describe('getMemberCharacterActivityFromAPI', () => {
     beforeEach(() => {
-      fetchSpy.calls.reset();
+      // fetchSpy.calls.reset();
     });
 
     it('should work', (done) => {
-      fetchSpy.mockReturnValue(
-        new Promise((res, rej) => {
-          res({
-            json: () =>
-              new Promise((res2, rej2) => {
-                res2('res2');
-              })
-          });
+      const fetchSpyFn = jest.fn(() =>
+        Promise.resolve({
+          json: () => Promise.resolve('')
         })
-      );
+      ) as jest.Mock;
+
+      global.fetch = fetchSpyFn;
+
       activityService = getFreshService();
       activityService
         .getMemberCharacterActivityFromAPI(mockProfile, 1, 0)
         .pipe(take(1))
         .subscribe((x) => {
-          expect(fetchSpy).toHaveBeenCalledTimes(1);
+          expect(fetchSpyFn).toHaveBeenCalledTimes(1);
           done();
         });
     });
     it('should error', (done) => {
-      fetchSpy.mockReturnValue(
-        new Promise((res, rej) => {
-          res({
-            json: () =>
-              new Promise((res2, rej2) => {
-                rej2('res2');
-              })
-          });
+      const fetchSpyFn = jest.fn(() =>
+        Promise.resolve({
+          json: () => Promise.reject('')
         })
-      );
+      ) as jest.Mock;
+
+      global.fetch = fetchSpyFn;
       activityService = getFreshService();
       activityService
         .getMemberCharacterActivityFromAPI(mockProfile, 1, 0)
@@ -102,7 +102,7 @@ describe('Base Member Activity Service', () => {
           })
         )
         .subscribe((x) => {
-          expect(fetchSpy).toHaveBeenCalledTimes(1);
+          expect(fetchSpyFn).toHaveBeenCalledTimes(1);
           expect(x).toBeNull();
           done();
         });
@@ -111,19 +111,19 @@ describe('Base Member Activity Service', () => {
 
   describe('getMemberCharacterActivity', () => {
     beforeEach(() => {
-      fetchSpy.calls.reset();
+      mockedDatabase.mockClear();
     });
     it('should work without cache', (done) => {
-      const dbSpy = {
-        'getAll': jest.fn(),
-        'getById': jest.fn()
-      } as jasmine.SpyObj<ClanDatabase>;
-      dbSpy.getById.mockReturnValue(
-        new Promise((res, rej) => {
-          res(mockActivityObj as unknown as DBObject);
-        })
-      );
-      activityService = getFreshService(dbSpy);
+      const getFnPromise = jest.fn().mockResolvedValue(mockActivityObj);
+
+      mockedDatabase.mockImplementation(() => {
+        return {
+          getById: getFnPromise,
+          getAll: jest.fn()
+        } as unknown as ClanDatabase;
+      });
+
+      activityService = getFreshService(new mockedDatabase());
       const cacheSpy = jest.spyOn(activityService, 'verifyCacheIntegrity');
       activityService
         .getMemberCharacterActivity(1, mockProfile, 1, false)
@@ -134,8 +134,9 @@ describe('Base Member Activity Service', () => {
           done();
         });
     });
-    //! TODO Fix eventually
-    /*
+  });
+  //! TODO Fix eventually
+  /*
     it('should work with cache', (done) => {
       const dbSpy = jasmine.createSpyObj('ClanDatabase', ['getAll', 'getById']) as jasmine.SpyObj<ClanDatabase>;
       dbSpy.getById.and.returnValue(
@@ -155,68 +156,89 @@ describe('Base Member Activity Service', () => {
         });
     });
     */
+  //});
+   describe('verifyCacheIntegrity', () => {
+  it('should work with valid data', (done) => {
+    // const dbSpy = {
+    //   'getAll': jest.fn(),
+    //   'getById': jest.fn()
+    // } as jasmine.SpyObj<ClanDatabase>;
+    const getFnPromise = jest.fn().mockResolvedValue(mockActivityObj);
+
+    mockedDatabase.mockImplementation(() => {
+      return {
+        getById: jest.fn(),
+        getAll: jest.fn()
+      } as unknown as ClanDatabase;
+    });
+
+    activityService = getFreshService(new mockedDatabase());
+
+    const clanId = 1;
+    const memberProfile = mockProfile;
+    const characterId = 1;
+    const cachedData: Partial<DBObject> = { ...mockActivityObj, createDate: new Date() };
+    const cacheSpy = jest.spyOn(activityService, 'getFreshMemberCharacterActivity');
+    activityService
+      .verifyCacheIntegrity(clanId, memberProfile, characterId, cachedData as DBObject)
+      .pipe(take(1))
+      .subscribe((result) => {
+        expect(result.length).toEqual(1);
+        expect(cacheSpy).toHaveBeenCalledTimes(0);
+        done();
+      });
   });
-  describe('verifyCacheIntegrity', () => {
-    it('should work with valid data', (done) => {
-      const dbSpy = {
-        'getAll': jest.fn(),
-        'getById': jest.fn()
-      } as jasmine.SpyObj<ClanDatabase>;
-      activityService = getFreshService(dbSpy);
-
-      const clanId = 1;
-      const memberProfile = mockProfile;
-      const characterId = 1;
-      const cachedData: Partial<DBObject> = { ...mockActivityObj, createDate: new Date() };
-
-      const cacheSpy = jest.spyOn(activityService, 'getFreshMemberCharacterActivity');
-      activityService
-        .verifyCacheIntegrity(clanId, memberProfile, characterId, cachedData as DBObject)
-        .pipe(take(1))
-        .subscribe((result) => {
-          expect(result.length).toEqual(1);
-          expect(cacheSpy).toHaveBeenCalledTimes(0);
-          done();
-        });
+  it('should call for fresh data with old data', (done) => {
+    // const dbSpy = {
+    //   'getAll': jest.fn(),
+    //   'getById': jest.fn()
+    // } as jasmine.SpyObj<ClanDatabase>;
+    mockedDatabase.mockImplementation(() => {
+      return {
+        getById: jest.fn(),
+        getAll: jest.fn()
+      } as unknown as ClanDatabase;
     });
-    it('should call for fresh data with old data', (done) => {
-      const dbSpy = {
-        'getAll': jest.fn(),
-        'getById': jest.fn()
-      } as jasmine.SpyObj<ClanDatabase>;
-      activityService = getFreshService(dbSpy);
-
-      const clanId = 1;
-      const memberProfile = mockProfile;
-      const characterId = 1;
-      const cachedData: Partial<DBObject> = { ...mockActivityObj, createDate: new Date('1/1/1900') };
-
-      const cacheSpy = jest.spyOn(activityService, 'getFreshMemberCharacterActivity');
-      activityService
-        .verifyCacheIntegrity(clanId, memberProfile, characterId, cachedData as DBObject)
-        .pipe(take(1))
-        .subscribe((result) => {
-          expect(result.length).toEqual(1);
-          expect(cacheSpy).toHaveBeenCalledTimes(1);
-          done();
-        });
-    });
+    activityService = getFreshService(new mockedDatabase());
+    const clanId = 1;
+    const memberProfile = mockProfile;
+    const characterId = 1;
+    const cachedData: Partial<DBObject> = { ...mockActivityObj, createDate: new Date('1/1/1900') };
+    const cacheSpy = jest.spyOn(activityService, 'getFreshMemberCharacterActivity');
+    activityService
+      .verifyCacheIntegrity(clanId, memberProfile, characterId, cachedData as DBObject)
+      .pipe(take(1))
+      .subscribe((result) => {
+        expect(result.length).toEqual(1);
+        expect(cacheSpy).toHaveBeenCalledTimes(1);
+        done();
+      });
   });
-  describe('getFreshMemberCharacterActivity', () => {
-    beforeEach(() => {
-      fetchSpy.calls.reset();
-    });
-    it('should work', (done) => {
-      fetchSpy.mockReturnValue(
-        new Promise((res, rej) => {
-          res({
-            json: () =>
-              new Promise((res2, rej2) => {
-                rej2({ Response: mockActivityObj.data });
-              })
-          });
-        })
-      );
+  });
+   describe('getFreshMemberCharacterActivity', () => {
+  //   beforeEach(() => {
+  //     //fetchSpy.calls.reset();
+  //   });
+     it('should work', (done) => {
+      // fetchSpy.mockReturnValue(
+      //   new Promise((res, rej) => {
+      //     res({
+      //       json: () =>
+      //         new Promise((res2, rej2) => {
+      //           rej2({ Response: mockActivityObj.data });
+      //         })
+      //     });
+      //   })
+      // );
+
+
+
+
+
+
+
+
+
       const clanId = '1';
       const memberProfile = mockProfile;
       const characterId = 1;
@@ -236,22 +258,22 @@ describe('Base Member Activity Service', () => {
     it('should return empty privacy', () => {});
     it('should return cached data on error', () => {});
   });
-  describe('groupActivitiesToMember', () => {
-    it('should work', () => {});
-  });
-  describe('groupActivitiesToMembers', () => {
-    it('should work', () => {});
-  });
-  describe('getAllActivitiesFromCache', () => {
-    it('should work', () => {});
-  });
-  describe('updateAllActivityCache', () => {
-    it('should work', () => {});
-  });
-  describe('getMemberActivity', () => {
-    it('should work', () => {});
-  });
-  describe('getMemberCharacterActivitySerialized', () => {
-    it('should work', () => {});
-  });
+  // describe('groupActivitiesToMember', () => {
+  //   it('should work', () => {});
+  // });
+  // describe('groupActivitiesToMembers', () => {
+  //   it('should work', () => {});
+  // });
+  // describe('getAllActivitiesFromCache', () => {
+  //   it('should work', () => {});
+  // });
+  // describe('updateAllActivityCache', () => {
+  //   it('should work', () => {});
+  // });
+  // describe('getMemberActivity', () => {
+  //   it('should work', () => {});
+  // });
+  // describe('getMemberCharacterActivitySerialized', () => {
+  //   it('should work', () => {});
+  // });
 });
