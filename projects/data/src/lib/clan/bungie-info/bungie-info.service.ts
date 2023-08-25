@@ -1,7 +1,7 @@
 import { map, catchError, mergeMap, bufferTime, toArray } from 'rxjs/operators';
 import { Observable, from, of, throwError } from 'rxjs';
 // import { profileSerializer } from './profile.serializer';
-import { nowPlusDays, unixTimeStampToDate } from '../../utility/date-utils';
+import { isValidDate, nowPlusDays, unixTimeStampToDate } from '../../utility/date-utils';
 import { StoreId } from '../../db/clan-indexed-db';
 import { ClanDatabase } from '../clan-database';
 import { ClanMember } from '../../models/ClanMember';
@@ -11,6 +11,7 @@ interface MemberProfile {}
 export class ClanBungieInfoService {
   private tableName: StoreId = StoreId.BungieInfo;
   private concurrentRequests = 20;
+  private CACHE_EXPIRATION = -1;
 
   constructor(private clanDb: ClanDatabase, private apiKey: string) {}
 
@@ -49,15 +50,15 @@ export class ClanBungieInfoService {
     return of(null);
   }
 
-  getBungieInfo(clanId: string, member: ClanMember): Observable<any> {
+  getBungieInfo(clanId: string, member: ClanMember): Observable<BungieInfo> {
     return from(this.getBungieInfoFromCache(clanId, member)).pipe(
       mergeMap((cachedData) => {
         if (cachedData && cachedData.createDate) {
           const cacheDate = cachedData.createDate;
           const lastStatusChange = unixTimeStampToDate(member.lastOnlineStatusChange);
-          const staleXP = nowPlusDays(-1);
+          const staleXP = nowPlusDays(this.CACHE_EXPIRATION);
           // Make sure we recapture new data after season change
-          const expireDate = staleXP > lastStatusChange ? staleXP : lastStatusChange;
+          const expireDate = !isValidDate(lastStatusChange) || staleXP > lastStatusChange ? staleXP : lastStatusChange;
 
           if (cacheDate > expireDate) {
             return of(cachedData?.data);
@@ -97,16 +98,9 @@ export class ClanBungieInfoService {
     );
   }
 
-  getSerializedBungieInfos<T>(clanId: string, members: ClanMember[]): Observable<T> {
-    return from(members).pipe(mergeMap((member) => this.getSerializedBungieInfo(clanId, member), 100)) as Observable<T>;
-  }
-
-  getSerializedBungieInfosFromCache(clanId: string, members: ClanMember[]): Observable<BungieInfo[]> {
-    return from(members).pipe(
-      mergeMap((member) => this.getSerializedBungieInfoFromCache(clanId, member), 100),
-      toArray()
-    );
-  }
+  // getSerializedBungieInfos<T>(clanId: string, members: ClanMember[]): Observable<T> {
+  //   return from(members).pipe(mergeMap((member) => this.getSerializedBungieInfo(clanId, member), 100)) as Observable<T>;
+  // }
 
   getSerializedBungieInfosWithProgress(
     clanId: string,
@@ -120,11 +114,12 @@ export class ClanBungieInfoService {
         bufferTime(1000, undefined, 100),
         /**
          * Don't continue processing if the timer in `bufferTime` was reached and
-         *   there are no buffered companies.
+         *   there are no buffered members.
          */
         mergeMap((memberResp) => {
           complete += memberResp.length;
           if (progress) {
+            // console.log('progress', complete);
             progress(complete);
           }
           return memberResp;
@@ -133,31 +128,25 @@ export class ClanBungieInfoService {
       );
   }
 
-  getSerializedBungieInfo(clanId: string, member: ClanMember): Observable<BungieInfo> {
+  private getSerializedBungieInfo(clanId: string, member: ClanMember): Observable<BungieInfo> {
     return this.getBungieInfo(clanId, member).pipe(
       map((profile) => {
         return profile;
-        // return profileSerializer(
-        //   profile,
-        //   this.TRACKED_HASHES,
-        //   collectionHashes,
-        //   profileRecords,
-        //   profileMetrics
-        // ) as MemberProfile;
       })
     );
   }
+
+  getSerializedBungieInfosFromCache(clanId: string, members: ClanMember[]): Observable<BungieInfo[]> {
+    return from(members).pipe(
+      mergeMap((member) => this.getSerializedBungieInfoFromCache(clanId, member), 100),
+      toArray()
+    );
+  }
+
   getSerializedBungieInfoFromCache(clanId: string, member: ClanMember): Observable<BungieInfo> {
     return from(this.getBungieInfoFromCache(clanId, member)).pipe(
       map((profile) => {
         return profile?.data || [];
-        // return profileSerializer(
-        //   profile?.data || [],
-        //   this.TRACKED_HASHES,
-        //   collectionHashes,
-        //   profileRecords,
-        //   profileMetrics
-        // ) as MemberProfile;
       })
     );
   }
