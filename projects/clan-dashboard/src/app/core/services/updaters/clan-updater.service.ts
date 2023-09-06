@@ -16,6 +16,7 @@ import { AppOfflineDialogComponent } from '../../layout/app-offline-dialog/app-o
 import { BungieInfoUpdaterService } from './bungie-info-updater.service';
 import { isMobile } from '../../utilities/is-mobile';
 import { environment } from 'projects/clan-dashboard/src/environments/environment';
+import deepEqual from 'deep-equal';
 
 export interface ClanConfigMembers {
   clanConfig: ClanConfig;
@@ -103,7 +104,11 @@ export class ClanUpdaterService {
               clanName: result.name,
               clanTag: result.clanInfo.clanCallsign
             };
-            this.store.dispatch(updateClan({ clan: newConfig }));
+
+            // Only dispatch update on proper update
+            if (!deepEqual(clanConfig, newConfig)) {
+              this.store.dispatch(updateClan({ clan: newConfig }));
+            }
 
             return newConfig;
           }),
@@ -135,7 +140,6 @@ export class ClanUpdaterService {
   memberUpdate(activeClans) {
     return from(activeClans).pipe(
       mergeMap((clanConfig: ClanConfig) => {
-       // console.log('----------memberUpdate ------------', clanConfig.clanId);
         return this.memberService.getClanMembersSerialized(clanConfig.clanId).pipe(
           map((members) => ({
             members,

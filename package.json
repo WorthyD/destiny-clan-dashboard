@@ -39,6 +39,7 @@
     "@ngrx/store-devtools": "^16.2.0",
     "apexcharts": "^3.41.1",
     "bungie-api-angular": "^0.7.2",
+    "deep-equal": "^2.2.2",
     "idb": "^7.1.1",
     "idb-keyval": "^6.2.1",
     "ng-apexcharts": "^1.8.0",

@@ -4,7 +4,9 @@ import { select, Store } from '@ngrx/store';
 import { of, take } from 'rxjs';
 import { ClanUpdaterService } from '../../services/updaters/clan-updater.service';
 import { AppConfig } from '../../config/app-config';
-import { initializeClanMemberProfiles } from '@core/store/clans-members-profiles/clan-members-profiles.actions';
+// import { initializeClanMemberProfiles } from '@core/store/clans-members-profiles/clan-members-profiles.actions';
+import { initializeClanWithMembers } from '@core/store/clans-with-members';
+import { initializeClanItems } from '@core/store/clans';
 
 @Component({
   selector: 'app-wrapper',
@@ -27,6 +29,6 @@ export class WrapperComponent implements OnInit {
       .pipe(take(1))
       .subscribe((x) => (this.loading = false));
 
-    this.store.dispatch(initializeClanMemberProfiles());
+    this.store.dispatch(initializeClanItems());
   }
 }

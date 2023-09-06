@@ -13,3 +13,5 @@ export const removeClan = createAction(name('Remove Clan'), props<{ clanId: stri
 export const updateClanProfileSync = createAction(name('Update Clan Sync'), props<{ clanId: string }>());
 export const updateClanMemberActivitySync = createAction(name('Update Clan Activity Sync'), props<{ clanId: string }>());
 export const updateBungieInfoSync = createAction(name('Update Bungie Info Sync'), props<{ clanId: string }>());
+
+export const initializeClanItems = createAction(name('Initialize'));

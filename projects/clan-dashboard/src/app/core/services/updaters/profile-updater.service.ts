@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Injector, inject } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { mergeMap, map, catchError, toArray, switchMap, tap, take, filter } from 'rxjs/operators';
 import { ClanConfig, selectEnabledClans, updateClanProfileSync } from '../../store/clans';
@@ -20,9 +20,10 @@ import { SeasonService } from '../season.service';
 })
 export class ProfileUpdaterService {
   profileService: ClanProfileService;
+  //clanDB = inject(ClanDatabase);
   constructor(
     private store: Store,
-    private clanMemberService: ClansMembersService,
+    //private clanMemberService: ClansMembersService,
     private profileWorkerService: ProfileWorkerService,
     private seasonService: SeasonService,
     private appConfig: AppConfig
