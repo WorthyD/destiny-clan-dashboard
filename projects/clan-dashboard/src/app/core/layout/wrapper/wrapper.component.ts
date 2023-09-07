@@ -1,11 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { getAllNotifications } from '@core/store/notifications';
-import { select, Store } from '@ngrx/store';
-import { of, take } from 'rxjs';
+import { Store } from '@ngrx/store';
+import { take } from 'rxjs';
 import { ClanUpdaterService } from '../../services/updaters/clan-updater.service';
 import { AppConfig } from '../../config/app-config';
-// import { initializeClanMemberProfiles } from '@core/store/clans-members-profiles/clan-members-profiles.actions';
-import { initializeClanWithMembers } from '@core/store/clans-with-members';
 import { initializeClanItems } from '@core/store/clans';
 
 @Component({
