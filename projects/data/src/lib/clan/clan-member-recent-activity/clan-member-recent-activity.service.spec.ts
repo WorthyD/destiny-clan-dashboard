@@ -23,7 +23,7 @@ describe('ClanMemberRecentActivityService', () => {
 
   beforeEach(() => {
     const clanDatabase = new ClanDatabase();
-    service = new ClanMemberRecentActivityService(clanDatabase, '', fetch);
+    service = new ClanMemberRecentActivityService(clanDatabase, '');
     // TestBed.configureTestingModule({
     //   imports: [HttpClientTestingModule],
     //   providers: [Destiny2Service, ClanDatabase, ClanMemberRecentActivityService]

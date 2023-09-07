@@ -25,7 +25,6 @@ export class ClanDetailsService extends BaseClanService {
     //console.log(`thinkg ${clanId} ${this.rowId} `);
     return from(this.getDataFromCache(clanId.toString(), this.rowId)).pipe(
       switchMap((cachedData) => {
-        //console.log(cachedData);
         if (this.isCacheValid(cachedData, 10)) {
           return of(cachedData?.data);
         }

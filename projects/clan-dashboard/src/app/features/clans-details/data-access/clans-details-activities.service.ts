@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { ClansMembersService } from '@core/services/clans-members.service';
-import { BehaviorSubject, distinctUntilChanged, Observable, of, switchMap, take, tap } from 'rxjs';
+import { BehaviorSubject, distinctUntilChanged, filter, Observable, of, switchMap, take, tap } from 'rxjs';
 import { ProfileRecentActivityWorkerService } from '../../../workers/profile-recent-activity/profile-recent-activity.service';
 import { ClansDetailsModule } from '../clans-details/clans-details.module';
 import { ClansDetailsService } from './clans-details.service';
@@ -23,12 +23,15 @@ export class ClansDetailsActivitiesService {
   playerActivitiesLoading$: Observable<boolean> = this.playerActivitiesLoadingSource.asObservable();
 
   events$ = this.activityUpdates$.pipe(
-    distinctUntilChanged((a, b) => JSON.stringify(a) === JSON.stringify(b)),
+    //distinctUntilChanged((a, b) => JSON.stringify(a) === JSON.stringify(b)),
     tap(() => this.playerActivitiesLoadingSource.next(true)),
     switchMap((y) => {
+      // console.log('-----------------');
       return this.clansDetailsService.clanMembersProfiles$.pipe(
-        take(1),
+        //take(1),
+        filter((x) => x.length > 0),
         switchMap((x) => {
+          //console.log('------wark-----------', x);
           return this.profileRecentActivityWorkerService.getAllActivities(x, 'daily', 0, 0);
         })
       );

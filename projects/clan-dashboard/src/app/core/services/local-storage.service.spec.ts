@@ -19,7 +19,7 @@ describe('LocalStorageService', () => {
   });
 
   it('testLocalStorage should be executable', () => {
-    spyOn(service, 'testLocalStorage');
+    jest.spyOn(service, 'testLocalStorage').mockImplementation(() => {});
     service.testLocalStorage();
     expect(service.testLocalStorage).toHaveBeenCalled();
   });

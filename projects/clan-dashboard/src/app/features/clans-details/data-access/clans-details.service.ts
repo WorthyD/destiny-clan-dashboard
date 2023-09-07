@@ -52,14 +52,17 @@ export class ClansDetailsService {
       if (members.length > 0) {
         const currentSeason = this.seasonService.currentSeasonProgress;
         const membersWithSeasonProgression = members.map((m) => {
-          const characterId = m.profile.profile.data.characterIds[0];
-          const progressions = m.profile?.characterProgressions?.data[characterId]?.progressions || {};
-          return {
-            ...m,
-            seasonPass:
-              (progressions[currentSeason.rewardProgressionHash]?.level || 0) +
-              (progressions[currentSeason.prestigeProgressionHash]?.level || 0)
-          };
+          if (m.profile) {
+            const characterId = m.profile.profile.data.characterIds[0];
+            const progressions = m.profile?.characterProgressions?.data[characterId]?.progressions || {};
+            return {
+              ...m,
+              seasonPass:
+                (progressions[currentSeason.rewardProgressionHash]?.level || 0) +
+                (progressions[currentSeason.prestigeProgressionHash]?.level || 0)
+            };
+          }
+          return { ...m, seasonPass: 0 };
         });
         const sortedMembersWithProgression = membersWithSeasonProgression.sort((a, b) => {
           return a.seasonPass > b.seasonPass ? -1 : 1;
@@ -73,6 +76,7 @@ export class ClansDetailsService {
 
   lastLoginMembers$: Observable<ClanMemberProfile[]> = this.clanProfiles$.pipe(
     map((members) => {
+      // console.log('last login members', members);
       if (members.length > 0) {
         const sortedMembers = members.sort((a, b) => {
           return a.profile?.profile.data.dateLastPlayed > b.profile?.profile.data.dateLastPlayed ? -1 : 1;
