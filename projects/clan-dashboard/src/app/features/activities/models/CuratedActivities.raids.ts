@@ -4,11 +4,30 @@ export const CURATED_ACTIVITIES_RAIDS: CuratedActivityGroup = {
   title: 'Raids',
   activities: [
     {
+      // Crota's End
+      hash: 4179289725, // may be 4179289725
+      metrics: [
+        2552956848,
+        124026888 // 321051454, // completions
+        // 2499684194 // Carries
+      ],
+      collections: [
+        203521123 // Necrocasm
+        //  2950205721, // Ship -
+        //2978830223 //sparrow
+      ],
+      records: [
+        1732432755, // Broken Throne
+        295018272, //Conquest by virtue
+        2572383496 // Perfected Truth
+      ]
+    },
+    {
       // Root of Nightmare
       hash: 2381413764, // may be 1191701339
       metrics: [
         321051454, // completions
-        2499684194, // Carries
+        2499684194 // Carries
         // 1624029217, //King's Fall Completions
         // 4210188841 //  Carries complete
       ],
