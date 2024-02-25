@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, Input, OnChanges, OnInit, SimpleCha
 import { ActivatedRoute } from '@angular/router';
 import { SeasonService } from '@core/services/season.service';
 import { DataSource, Filterer, Sorter, SorterMetadata, Viewer, ViewerMetadata } from '@destiny-clan-dashboard/components';
-import { BungieDateTimePipe, PlaytimePipe } from '@destiny-clan-dashboard/components/pipes';
+import {  PlaytimePipe } from '@destiny-clan-dashboard/components/pipes';
 import { DestinyDefinitionsDestinyActivityModeDefinition } from 'bungie-api-angular';
 import { TrackedDuration } from 'libs/data/src/lib/clan/clan-member-recent-activity/clan-member-recent-activity.serializer';
 import { map, Observable, of, switchMap, tap } from 'rxjs';
@@ -11,6 +11,7 @@ import { ProfileRecentActivity } from '../models/ProfileActivityMode';
 import { ACTIVITY_MODE_FILTERER_METADATA } from './activity-mode-metadata/ActivityModeFilterer';
 import { ACTIVITY_MODE_SORTER_METADATA } from './activity-mode-metadata/ActivityModeSorter';
 import { ActivityModeViewContext, ACTIVITY_MODE_VIEWER_METADATA } from './activity-mode-metadata/ActivityModeViewer';
+import { BungieDateTimePipe } from '@destiny-clan-dashboard/shared/pipes/bungie-date-pipe';
 
 @Component({
   selector: 'app-activity-mode-table',

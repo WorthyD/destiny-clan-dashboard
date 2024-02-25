@@ -4,7 +4,7 @@
   "projectType": "application",
   "prefix": "destiny-clan-dashboard",
   "sourceRoot": "apps/destiny-clan-dashboard/src",
-  "tags": [],
+  "tags": ["type:app"],
   "targets": {
     "build": {
       "executor": "@angular-devkit/build-angular:browser",

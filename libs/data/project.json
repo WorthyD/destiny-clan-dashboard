@@ -3,7 +3,7 @@
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "libs/data/src",
   "prefix": "destiny-clan-dashboard",
-  "tags": [],
+  "tags": ["type:util"],
   "projectType": "library",
   "targets": {
     "test": {

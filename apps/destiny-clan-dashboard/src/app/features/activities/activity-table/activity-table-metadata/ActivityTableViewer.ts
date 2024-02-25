@@ -1,6 +1,4 @@
 import { ViewerMetadata } from '@destiny-clan-dashboard/components';
-import { BungieDateTimePipe } from '@destiny-clan-dashboard/components/pipes';
-import { PlaytimePipe } from '@destiny-clan-dashboard/components/pipes/playtime';
 import { getBungieDisplayName } from '@destiny-clan-dashboard/data/utility';
 import { ClanMemberProfile } from '@shared/models/ClanMemberProfile';
 import { ProfileLinkComponent } from '@destiny-clan-dashboard/components/shared/profile-link';

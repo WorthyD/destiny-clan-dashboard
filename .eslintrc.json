@@ -1,13 +1,13 @@
 {
   "root": true,
   "ignorePatterns": ["**/*"],
-  "plugins": ["@nx"],
+  "plugins": ["@nx", "functional", "unused-imports", "no-autofix"],
   "overrides": [
     {
       "files": ["*.ts", "*.tsx", "*.js", "*.jsx"],
       "rules": {
         "@nx/enforce-module-boundaries": [
-          "berror",
+          "error",
           {
             "enforceBuildableLibDependency": true,
             "allow": [],
@@ -35,17 +35,43 @@
             ]
           }
         ]
-        
+      }
+    },
+
+    {
+      "files": ["*.spec.ts", "*.ts"],
+      "extends": ["plugin:@angular-eslint/recommended"],
+      "rules": {
+        "no-console": [
+          "warn",
+          {
+            "allow": ["error"]
+          }
+        ],
+        "unused-imports/no-unused-imports": "error",
+        "@typescript-eslint/no-empty-function": "off"
       }
     },
     {
-      "files": ["*.ts", "*.tsx"],
-      "extends": ["plugin:@nx/typescript"],
+      "files": ["*.ts"],
+      "excludedFiles": ["*.spec.ts", "*.stories.ts"],
+      "extends": ["plugin:@angular-eslint/template/process-inline-templates", "plugin:functional/no-mutations", "plugin:storybook/recommended"],
       "rules": {
-        "@typescript-eslint/no-implicit-any": "warn",
-        "@typescript-eslint/no-explicit-any": "warn",
-        "@typescript-eslint/no-inferable-types": "warn",
-        "@nx/enforce-module-boundaries":"warn"
+        "functional/immutable-data": [
+          "warn",
+          {
+            "ignoreAccessorPattern": ["**._mutable*", "**.mutable*"]
+          }
+        ],
+        "functional/prefer-immutable-types":"warn",
+        "functional/prefer-readonly-type": "off",
+        "no-autofix/functional/prefer-readonly-type": [
+          "warn",
+          {
+            "ignorePattern": ["^mutable", "^_mutable"],
+            "ignoreInterface": true
+          }
+        ]
       }
     },
     {

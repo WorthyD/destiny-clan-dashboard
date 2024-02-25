@@ -5,6 +5,7 @@ import { ClanSearchViewComponent } from './clan-search-view.component';
 import { ClanSearchAutocompleteComponent } from '@destiny-clan-dashboard/clan-search/ui/clan-search-autocomplete';
 import { MatTooltipModule } from '@angular/material/tooltip';
 // import { ClanDetailsModule } from '../../clan-details/clan-details.module';
+import { ClanDetailComponent } from '@destiny-clan-dashboard/shared/clan-details/feature';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
@@ -24,6 +25,7 @@ import { ClanSearchService } from '@destiny-clan-dashboard/clan-search/data-acce
     ClanSearchAutocompleteComponent,
     MatTooltipModule,
     MatCardModule,
+    ClanDetailComponent,
     // ClanDetailsModule,
     MatIconModule,
     MatButtonModule

@@ -11,8 +11,7 @@ import { GenderTypeTextPipe } from './gender-type/gender-type-text.pipe';
 // import { PlaytimePipe, PlaytimeMillisecondsPipe } from './playtime/playtime.pipe';
 // import { DungeonReportUrlPipe } from './dungeon-report-url/dungeon-report-url.pipe';
 // import { DungeonReportProfileUrlPipe } from './dungeon-report-url/dungeon-report-profile-url.pipe';
-import { BungieDatePipe } from './bungie-date/bungie-date.pipe';
-import { BungieDateTimePipe } from './bungie-date/bungie-date-time.pipe';
+import { BungieDatePipe, BungieDateTimePipe } from '@destiny-clan-dashboard/shared/pipes/bungie-date-pipe';
 import { MemberTypePipe } from './member-type/member-type.pipe';
 // import { SortByClassPipe } from './sortByClass/sort-by-class.pipe';
 // import { RaidCompletionTotalPipe } from './raid-completion-total/raid-completion-total.pipe';
@@ -26,7 +25,7 @@ import { BungieDisplayNamePipe } from './bungie-display-name/bungie-display-name
 import { DateAgoPipe } from './date-pipes';
 
 const pipes = [
-   DateAgoPipe,
+  DateAgoPipe,
   ClassTypeTextPipe,
   RaceTypeTextPipe,
   GenderTypeTextPipe,
@@ -40,8 +39,8 @@ const pipes = [
   // DungeonReportProfileUrlPipe,
   PlaytimePipe,
   PlaytimeMillisecondsPipe,
-  BungieDatePipe,
-  BungieDateTimePipe,
+  //BungieDatePipe,
+  //BungieDateTimePipe,
   MemberTypePipe
   // SortByClassPipe,
   // RaidCompletionTotalPipe,
@@ -55,7 +54,7 @@ const pipes = [
 @NgModule({
   providers: [...pipes],
   declarations: [...pipes],
-  exports: [...pipes],
-  imports: [CommonModule]
+  exports: [...pipes, BungieDatePipe, BungieDateTimePipe],
+  imports: [CommonModule, BungieDatePipe, BungieDateTimePipe]
 })
 export class PipesModule {}

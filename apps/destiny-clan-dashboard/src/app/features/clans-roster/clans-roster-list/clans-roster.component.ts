@@ -2,13 +2,13 @@ import { Component, ViewEncapsulation, ChangeDetectionStrategy } from '@angular/
 import { DataSource, Exporter, Filterer, Sorter, Viewer } from '@destiny-clan-dashboard/components';
 import { map, Observable, of, tap } from 'rxjs';
 
-import { BungieDatePipe, BungieDateTimePipe } from '@destiny-clan-dashboard/components/pipes/bungie-date';
 import { ClansRosterService } from '../data-access/clans-roster.service';
 import { CLAN_ROSTER_VIEWER_METADATA } from './clan-roster-metadata';
 import { CLAN_ROSTER_FILTERER_METADATA } from './clan-roster-metadata/ClanRosterFilterer';
 import { CLAN_ROSTER_SORTER_METADATA } from './clan-roster-metadata/ClanRosterSorter';
 // import { CLAN_ROSTER_EXPORTER_METADATA } from './clan-roster-metadata/ClanRosterExporter';
 import { ClanMemberProfile } from '@shared/models/ClanMemberProfile';
+import { BungieDatePipe, BungieDateTimePipe } from '@destiny-clan-dashboard/shared/pipes/bungie-date-pipe';
 
 interface RosterResources {
   viewer: Viewer;
@@ -49,7 +49,7 @@ export class ClansRosterComponent {
         dataSource: new DataSource<ClanMemberProfile>({ data: clanProfiles }),
         viewer: this.rosterViewer,
         filterer: this.rosterFilter,
-      //  exporter: this.rosterExporter,
+        //  exporter: this.rosterExporter,
         sorter: this.rosterSorter
       };
     }),
