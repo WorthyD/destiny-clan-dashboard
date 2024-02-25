@@ -1,0 +1,29 @@
+.skeleton-chart-loader {
+  height: 400px;
+  width: 100%;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+
+  &__chart-item {
+    flex: 1 1 15%;
+    display: block;
+    position: relative;
+    //text-align: center;
+    //vertical-align: bottom;
+    max-width: 20%;
+    height: 100%;
+    margin: 0 0.9% 0 0.9%;
+
+    $i: 1;
+    $ref: 20%, 25%, 40%, 45%, 65%, 50%, 45%, 55%, 65%, 75%, 85%;
+
+    @for $i from 1 through length($ref) {
+      $c: nth($ref, $i);
+
+      &:nth-child(#{$i}) {
+        height: $c;
+      }
+    }
+  }
+}

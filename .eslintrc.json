@@ -1,69 +1,90 @@
 {
   "root": true,
-  "ignorePatterns": [
-    "projects/**/*"
-  ],
+  "ignorePatterns": ["**/*"],
+  "plugins": ["@nx", "functional", "unused-imports", "no-autofix"],
   "overrides": [
     {
-      "files": [
-        "*.ts"
-      ],
-      "parserOptions": {
-        "project": [
-          "tsconfig.json"
-        ],
-        "createDefaultProgram": true
-      },
-      "extends": [
-        "plugin:@angular-eslint/recommended",
-        "plugin:@angular-eslint/template/process-inline-templates"
-      ],
+      "files": ["*.ts", "*.tsx", "*.js", "*.jsx"],
       "rules": {
-        "@angular-eslint/directive-selector": [
+        "@nx/enforce-module-boundaries": [
           "error",
           {
-            "type": "attribute",
-            "prefix": "app",
-            "style": "camelCase"
+            "enforceBuildableLibDependency": true,
+            "allow": [],
+            "depConstraints": [
+              {
+                "sourceTag": "type:app",
+                "onlyDependOnLibsWithTags": ["type:feature", "type:util", "type:data-access", "type:ui"]
+              },
+              {
+                "sourceTag": "type:feature",
+                "onlyDependOnLibsWithTags": ["type:feature", "type:util", "type:data-access", "type:ui"]
+              },
+              {
+                "sourceTag": "type:ui",
+                "onlyDependOnLibsWithTags": ["type:util", "type:ui", "type:data-access"]
+              },
+              {
+                "sourceTag": "type:data-access",
+                "onlyDependOnLibsWithTags": ["type:util", "type:data-access"]
+              },
+              {
+                "sourceTag": "type:util",
+                "onlyDependOnLibsWithTags": ["type:util"]
+              }
+            ]
+          }
+        ]
+      }
+    },
+
+    {
+      "files": ["*.spec.ts", "*.ts"],
+      "extends": ["plugin:@angular-eslint/recommended"],
+      "rules": {
+        "no-console": [
+          "warn",
+          {
+            "allow": ["error"]
           }
         ],
-        "@angular-eslint/component-selector": [
-          "error",
+        "unused-imports/no-unused-imports": "error",
+        "@typescript-eslint/no-empty-function": "off"
+      }
+    },
+    {
+      "files": ["*.ts"],
+      "excludedFiles": ["*.spec.ts", "*.stories.ts"],
+      "extends": ["plugin:@angular-eslint/template/process-inline-templates", "plugin:functional/no-mutations", "plugin:storybook/recommended"],
+      "rules": {
+        "functional/immutable-data": [
+          "warn",
           {
-            "type": "element",
-            "prefix": "app",
-            "style": "kebab-case"
+            "ignoreAccessorPattern": ["**._mutable*", "**.mutable*"]
+          }
+        ],
+        "functional/prefer-immutable-types":"warn",
+        "functional/prefer-readonly-type": "off",
+        "no-autofix/functional/prefer-readonly-type": [
+          "warn",
+          {
+            "ignorePattern": ["^mutable", "^_mutable"],
+            "ignoreInterface": true
           }
         ]
       }
     },
     {
-      "files": [
-        "*.html"
-      ],
-      "extends": [
-        "plugin:@angular-eslint/template/recommended"
-      ],
-      "rules": {
-        "@angular-eslint/template/no-positive-tabindex": 2,
-        "@angular-eslint/template/click-events-have-key-events": 2,
-        "@angular-eslint/template/mouse-events-have-key-events": 2,
-        "@angular-eslint/template/no-autofocus": 2,
-        "@angular-eslint/template/no-distracting-elements": 2,
-        "@angular-eslint/template/alt-text": 2,
-        "@angular-eslint/template/elements-content": 2,
-        "@angular-eslint/template/label-for": 2,
-        "@angular-eslint/template/table-scope": 2,
-        "@angular-eslint/template/valid-aria": 2
-      }
+      "files": ["*.js", "*.jsx"],
+      "extends": ["plugin:@nx/javascript"],
+      "rules": {}
     },
     {
-      "files": [
-        "*.ts"
-      ],
-      "extends": [
-        "plugin:@ngrx/recommended"
-      ]
+      "files": ["*.spec.ts", "*.spec.tsx", "*.spec.js", "*.spec.jsx"],
+      "env": {
+        "jest": true
+      },
+      "rules": {}
     }
   ]
 }

@@ -1,0 +1,54 @@
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+    "rootDir": ".",
+    "sourceMap": true,
+    "declaration": false,
+    "moduleResolution": "node",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "importHelpers": true,
+    "target": "es2015",
+    "module": "esnext",
+    "lib": ["es2020", "dom"],
+    "typeRoots": ["node_modules/@types"],
+    "skipLibCheck": true,
+    "skipDefaultLibCheck": true,
+    "baseUrl": ".",
+    "paths": {
+      "@core/*": ["apps/destiny-clan-dashboard/src/app/core/*"],
+      "@destiny-clan-dashboard/clan-search/data-access": ["libs/dcd/clan-search/data-access/src/index.ts"],
+      "@destiny-clan-dashboard/clan-search/feature/clan-search-curated-view": [
+        "libs/dcd/clan-search/feature/clan-search-curated-view/src/index.ts"
+      ],
+      "@destiny-clan-dashboard/clan-search/feature/clan-search-view": [
+        "libs/dcd/clan-search/feature/clan-search-view/src/index.ts"
+      ],
+      "@destiny-clan-dashboard/clan-search/feature/shell": ["libs/dcd/clan-search/feature/shell/src/index.ts"],
+      "@destiny-clan-dashboard/clan-search/ui/clan-search-autocomplete": [
+        "libs/dcd/clan-search/ui/clan-search-autocomplete/src/index.ts"
+      ],
+      "@destiny-clan-dashboard/clan-search/ui/search-error-dialog": [
+        "libs/dcd/clan-search/ui/search-error-dialog/src/index.ts"
+      ],
+      "@destiny-clan-dashboard/clan-search/utils/clan-search-models": [
+        "libs/dcd/clan-search/util/clan-search-models/src/index.ts"
+      ],
+      "@destiny-clan-dashboard/components": ["libs/components/src/index.ts"],
+      "@destiny-clan-dashboard/components/*": ["libs/components/src/lib/*/public-api"],
+      "@destiny-clan-dashboard/data": ["libs/data/src/index.ts"],
+      "@destiny-clan-dashboard/data/*": ["libs/data/src/lib/*"],
+      "@destiny-clan-dashboard/shared/clan-details/data-access": [
+        "libs/dcd/shared/clan-details/data-access/src/index.ts"
+      ],
+      "@destiny-clan-dashboard/shared/clan-details/feature": ["libs/dcd/shared/clan-details/feature/src/index.ts"],
+      "@destiny-clan-dashboard/shared/clan-details/ui": ["libs/dcd/shared/clan-details/ui/src/index.ts"],
+      "@destiny-clan-dashboard/shared/pipes/bungie-date-pipe": ["libs/dcd/shared/pipes/bungie-date-pipe/src/index.ts"],
+      "@environment/*": ["apps/destiny-clan-dashboard/src/app/environments/*"],
+      "@features/*": ["apps/destiny-clan-dashboard/src/app/features/*"],
+      "@shared/*": ["apps/destiny-clan-dashboard/src/app/shared/*"],
+      "@utilities/*": ["apps/destiny-clan-dashboard/src/app/utilities/*"]
+    }
+  },
+  "exclude": ["node_modules", "tmp"]
+}
