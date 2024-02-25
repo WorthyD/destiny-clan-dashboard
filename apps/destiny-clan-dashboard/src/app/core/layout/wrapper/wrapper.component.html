@@ -16,16 +16,44 @@
       <mat-nav-list class="clan-nav">
         <div class="section-nav">
           <a mat-list-item routerLink="./" routerLinkActive="active-link" [routerLinkActiveOptions]="{ exact: true }">
+            <mat-icon matListItemIcon>dashboard</mat-icon>
             Dashboard
           </a>
-          <a mat-list-item routerLink="roster" routerLinkActive="active-link"> Roster </a>
-          <a mat-list-item routerLink="activity-modes/0" routerLinkActive="active-link"> Recent Activity </a>
-          <a mat-list-item routerLink="seals" routerLinkActive="active-link"> Seals </a>
-          <a mat-list-item routerLink="activities" routerLinkActive="active-link"> Curated Activities </a>
-          <a mat-list-item routerLink="activity-modes" routerLinkActive="active-link"> Activity Modes </a>
-          <a mat-list-item routerLink="home" routerLinkActive="active-link"> Home </a>
+          <a mat-list-item routerLink="roster" routerLinkActive="active-link">
+            <mat-icon matListItemIcon>groups</mat-icon>
+
+            Roster
+          </a>
+          <a mat-list-item routerLink="seals" routerLinkActive="active-link">
+            <mat-icon matListItemIcon>local_police</mat-icon>
+            Seals
+          </a>
+          <mat-divider></mat-divider>
+          <div mat-subheader>Activities</div>
+
+          <a mat-list-item routerLink="activity-modes/0" routerLinkActive="active-link">
+            <mat-icon matListItemIcon>calendar_month</mat-icon>
+            Recent Activity
+          </a>
+          <a mat-list-item routerLink="activity-modes" routerLinkActive="active-link">
+            <mat-icon matListItemIcon>trending_up</mat-icon>
+            Activity Modes
+          </a>
+          <a mat-list-item routerLink="activities" routerLinkActive="active-link">
+            <mat-icon matListItemIcon>filter_alt</mat-icon>
+            Curated Activities
+          </a>
+
+          <mat-divider></mat-divider>
+          <a mat-list-item routerLink="home" routerLinkActive="active-link">
+            <mat-icon matListItemIcon>home</mat-icon>
+            Home / Search
+          </a>
           <ng-container *ngIf="showSandbox">
-            <a mat-list-item routerLink="sandbox" routerLinkActive="active-link"> Sandbox </a>
+            <a mat-list-item routerLink="sandbox" routerLinkActive="active-link">
+              <mat-icon matListItemIcon>code</mat-icon>
+              Sandbox
+            </a>
           </ng-container>
 
           <!-- Left here so I can remember all the stuff I deleted -->
