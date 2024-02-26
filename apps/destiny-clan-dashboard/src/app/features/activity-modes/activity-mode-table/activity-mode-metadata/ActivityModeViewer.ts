@@ -1,6 +1,6 @@
 import { ViewerMetadata } from '@destiny-clan-dashboard/components';
 import { PlaytimePipe } from '@destiny-clan-dashboard/components/pipes/playtime';
-import { getBungieDisplayName } from '@destiny-clan-dashboard/data/utility';
+import { getBungieDisplayName } from '@destiny-clan-dashboard/shared/utils';
 //import { ProfileRecentActivity } from '../../models/profile-recent-activity';
 import { ProfileRecentActivity } from '../../models/ProfileActivityMode';
 

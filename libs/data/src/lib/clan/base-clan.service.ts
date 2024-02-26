@@ -1,6 +1,6 @@
 import { ClanDatabase } from './clan-database';
 import { DBObject, StoreId } from '../db/clan-indexed-db';
-import { isValidDate, nowPlusMinutes } from '../utility/date-utils';
+import { isValidDate, nowPlusMinutes } from '@destiny-clan-dashboard/shared/utils';
 
 export class BaseClanService {
   tableName;

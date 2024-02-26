@@ -2,27 +2,27 @@ export function isValidDate(d: any) {
   return d instanceof Date && !isNaN(d.getTime());
 }
 
-export function nowPlusMinutes(minutes) {
+export function nowPlusMinutes(minutes: number) {
   return new Date(new Date().setMinutes(new Date().getMinutes() + minutes));
 }
 
-export function nowPlusDays(days) {
+export function nowPlusDays(days: number) {
   return new Date(new Date().setDate(new Date().getDate() + days));
 }
 
-export function nowPlusWeeks(weeks) {
+export function nowPlusWeeks(weeks: number) {
   return new Date(new Date().setDate(new Date().getDate() + weeks * 7));
 }
 
-export function dateToUnixTimeStamp(d) {
+export function dateToUnixTimeStamp(d: Date) {
   return Math.floor(d.getTime() / 1000);
 }
 
-export function unixTimeStampToDate(uts) {
+export function unixTimeStampToDate(uts: number) {
   return new Date(uts * 1000);
 }
 
-export function getBungieStartDate(date): Date {
+export function getBungieStartDate(date: Date): Date {
   const offset = date.getDay() >= 2 ? 2 : -5;
   // Clone date to prevent mutation
   const cDate = new Date(date.getTime());
@@ -31,7 +31,7 @@ export function getBungieStartDate(date): Date {
   return new Date(cDate.setDate(date.getDate() - date.getDay() + offset));
 }
 
-export function getFirstDayOfMonth(date): Date {
+export function getFirstDayOfMonth(date: Date): Date {
   return new Date(date.getFullYear(), date.getMonth(), 1);
 }
 
@@ -48,7 +48,7 @@ function addDays(date: Date, days: number) {
   date.setDate(date.getDate() + days);
   return date;
 }
-export function getDayOfWeek(dayIndex) {
+export function getDayOfWeek(dayIndex: number) {
   switch (dayIndex) {
     case 0:
       return 'Sunday';

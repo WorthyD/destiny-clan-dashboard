@@ -1,7 +1,7 @@
-import { formatDate } from './format-date';
-import { getBungieStartDate, getFirstDayOfMonth } from './date-utils';
-import { groupActivities } from './group-activity-by-date';
-import { MemberActivityRecentStatsActivity } from '../models';
+// import { formatDate } from './format-date';
+// import { getBungieStartDate, getFirstDayOfMonth } from './date-utils';
+// import { groupActivities } from './group-activity-by-date';
+// import { MemberActivityRecentStatsActivity } from '../models';
 
 /*
 export function groupActivitiesBySeason(data): Array<MemberActivityRecentStatsActivity> {
@@ -50,13 +50,13 @@ function getFirstDayOfSeason(date) {
   return retDate;
 }
 */
-export function compare(a: number | string | Date, b: number | string | Date, isAsc: boolean) {
-  return (a < b ? -1 : 1) * (isAsc ? 1 : -1);
-}
-function lastWord(words) {
-  const n = words?.split(' ');
-  if (n && n.length) {
-    return n[n?.length - 1];
-  }
-  return '';
-}
+// export function compare(a: number | string | Date, b: number | string | Date, isAsc: boolean) {
+//   return (a < b ? -1 : 1) * (isAsc ? 1 : -1);
+// }
+// function lastWord(words) {
+//   const n = words?.split(' ');
+//   if (n && n.length) {
+//     return n[n?.length - 1];
+//   }
+//   return '';
+// }

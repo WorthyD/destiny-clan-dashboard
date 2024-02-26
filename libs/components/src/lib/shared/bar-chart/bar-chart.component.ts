@@ -22,7 +22,7 @@ import {
   ApexXAxis,
   ApexYAxis
 } from 'ng-apexcharts';
-import { compare } from '@destiny-clan-dashboard/data/utility';
+import { compare } from '@destiny-clan-dashboard/shared/utils';
 
 @Component({
   selector: 'lib-bar-chart',

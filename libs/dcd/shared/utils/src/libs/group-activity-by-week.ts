@@ -1,12 +1,24 @@
 // import { MemberActivityRecentStatsActivity } from 'bungie-models';
-import { MemberActivityRecentStatsActivity } from '../models';
+// import { MemberActivityRecentStatsActivity } from '../models';
 import { getBungieStartDate } from './date-utils';
 import { groupActivities } from './group-activity-by-date';
+import { MemberActivityRecentStatsActivity } from './util.models';
 
-export function groupActivitiesByWeek(data): Array<MemberActivityRecentStatsActivity> {
+interface ActivitiesToGroupModel {
+  period: Date | string | number;
+  values: {
+    activityDurationSeconds: {
+      basic: {
+        value: number;
+      };
+    };
+  };
+}
+
+export function groupActivitiesByWeek(data: ActivitiesToGroupModel[]): Array<MemberActivityRecentStatsActivity> {
   const raw = data.map((x) => {
     return {
-      date: getBungieStartDate(new Date(x.period)),
+      date: getBungieStartDate(new Date(x.period)).toString(),
       seconds: x.values.activityDurationSeconds.basic.value
     };
   });
@@ -27,7 +39,7 @@ export function groupActivityStatsByWeek(data: MemberActivityRecentStatsActivity
 
   const raw = data.map((x) => {
     return {
-      date: getBungieStartDate(x.date),
+      date: getBungieStartDate(x.date as Date).toString(),
       seconds: x.seconds
     };
   });

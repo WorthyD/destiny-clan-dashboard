@@ -4,8 +4,8 @@
 //import { map, mergeMap, toArray } from 'rxjs/operators';
 // import { MemberActivityTime } from 'projects/bungie-models/src/lib/models/MemberActivityTime';
 import { MemberActivityTime } from '../../models/MemberActivityTime';
-import { nowPlusDays } from '../../utility/date-utils';
-import { groupActivityStatsByDate } from '../../utility/group-activity-by-date';
+import { nowPlusDays } from '@destiny-clan-dashboard/shared/utils';
+import { groupActivityStatsByDate } from '@destiny-clan-dashboard/shared/utils';
 import { BaseClanAggregateTimeService } from './base-clan-aggregate-time.service';
 import { StatAggregator } from './stat-aggregator-interface';
 

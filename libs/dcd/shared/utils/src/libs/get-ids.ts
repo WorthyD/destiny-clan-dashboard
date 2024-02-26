@@ -1,5 +1,4 @@
-import { ClanMember } from '../models/ClanMember';
-import { MemberProfile } from '../models/MemberProfile';
+import { ClanMember, MemberProfile } from "./util.models";
 
 export function getClanMemberId(member: ClanMember) {
   return `${member?.destinyUserInfo?.membershipType}-${member?.destinyUserInfo?.membershipId}`;

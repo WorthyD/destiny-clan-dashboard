@@ -6,7 +6,7 @@ import { ProfileWorkerService } from '../../../workers/profile-worker/profile-wo
 import { ProfileRecentActivityWorkerService } from '../../../workers/profile-recent-activity/profile-recent-activity.service';
 import { ClanConfigMembers } from './clan-updater.service';
 import { filter, from, map, mergeMap, Observable, of, take, toArray } from 'rxjs';
-import { nowPlusMinutes } from 'libs/data/src/lib/utility/date-utils';
+import { nowPlusMinutes } from '@destiny-clan-dashboard/shared/utils';
 import { updateClanMemberActivitySync } from '@core/store/clans';
 import { addNotification, removeNotification, updateNotification } from '../../store/notifications';
 

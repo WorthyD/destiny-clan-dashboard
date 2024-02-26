@@ -1,4 +1,4 @@
-import { tryJSONParse } from '@destiny-clan-dashboard/data/utility';
+import { tryJSONParse } from '@destiny-clan-dashboard/shared/utils';
 import { combineLatest, EMPTY, Observable, ReplaySubject } from 'rxjs';
 import { map, startWith, take } from 'rxjs/operators';
 

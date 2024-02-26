@@ -3,8 +3,8 @@ import { AppConfig } from '@core/config/app-config';
 import { updateBungieInfoSync, updateClanProfileSync } from '@core/store/clans';
 import { addNotification, removeNotification, updateNotification } from '@core/store/notifications';
 import { Store } from '@ngrx/store';
-import { ClanDatabase } from 'libs/data/src/lib/clan/clan-database';
-import { nowPlusMinutes } from 'libs/data/src/lib/utility/date-utils';
+// import { ClanDatabase } from 'libs/data/src/lib/clan/clan-database';
+import { nowPlusMinutes } from '@destiny-clan-dashboard/shared/utils';
 import { filter, from, map, mergeMap, Observable, of, take, toArray } from 'rxjs';
 
 import { BungieInfoWorkerService } from '../../../workers/bungie-info/bungie-info.service';

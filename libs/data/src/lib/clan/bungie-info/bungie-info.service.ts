@@ -1,7 +1,7 @@
 import { map, catchError, mergeMap, bufferTime, toArray } from 'rxjs/operators';
 import { Observable, from, of, throwError } from 'rxjs';
 // import { profileSerializer } from './profile.serializer';
-import { isValidDate, nowPlusDays, unixTimeStampToDate } from '../../utility/date-utils';
+import { isValidDate, nowPlusDays, unixTimeStampToDate } from '@destiny-clan-dashboard/shared/utils';
 import { StoreId } from '../../db/clan-indexed-db';
 import { ClanDatabase } from '../clan-database';
 import { ClanMember } from '../../models/ClanMember';

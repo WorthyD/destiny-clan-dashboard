@@ -1,8 +1,18 @@
 import { formatDate } from './format-date';
+interface ActivitiesToGroupModel {
+  period: Date | string | number;
+  values: {
+    activityDurationSeconds: {
+      basic: {
+        value: number;
+      };
+    };
+  };
+}
 
-export function groupActivities(raw) {
-  // Todo: Find better way to handle this.
-  let holder = {};
+export function groupActivities(raw: { date: string; seconds: number }[]) {
+  // Todo: Find more performant way to do this
+  let holder: { [key: string]: number } = {};
 
   raw.forEach(function (d) {
     if (holder.hasOwnProperty(d.date)) {
@@ -21,7 +31,7 @@ export function groupActivities(raw) {
   return obj2;
 }
 
-export function groupActivitiesByDate(data) {
+export function groupActivitiesByDate(data: ActivitiesToGroupModel[]) {
   const raw = data.map((x) => {
     return { date: formatDate(x.period), seconds: x.values.activityDurationSeconds.basic.value };
   });
@@ -29,7 +39,7 @@ export function groupActivitiesByDate(data) {
   return groupActivities(raw);
 }
 
-export function groupActivityStatsByDate(data) {
+export function groupActivityStatsByDate(data: { date: string; seconds: number }[]) {
   return groupActivities(
     data.map((x) => {
       return { date: formatDate(x.date), seconds: x.seconds };

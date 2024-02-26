@@ -1,7 +1,7 @@
 import { TABLE_DONE, TABLE_NOT_DONE } from '@core/constants';
 import { ViewerMetadata } from '@destiny-clan-dashboard/components';
 
-import { getBungieDisplayName, getMemberName } from '@destiny-clan-dashboard/data/utility';
+import { getBungieDisplayName, getMemberName } from '@destiny-clan-dashboard/shared/utils';
 import { SealClanMember } from '../../models/seal-clan-member';
 
 import { ProfileLinkComponent } from '@destiny-clan-dashboard/components/shared/profile-link';
