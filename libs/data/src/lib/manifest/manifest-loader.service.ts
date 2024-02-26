@@ -4,7 +4,7 @@ import { Destiny2Service } from 'bungie-api-angular';
 import { map, Observable, of, switchMap, take } from 'rxjs';
 import { WindowToken } from '../injection-tokens/window-token';
 import { IdbKeyValService } from '../storage/idb-key-val.service';
-import { nowPlusMinutes } from '../utility/date-utils';
+import { nowPlusMinutes } from '@destiny-clan-dashboard/shared/utils';
 
 export const STATUS_EXTRACTING_TABLES = 'extracting tables';
 export const STATUS_UNZIPPING = 'unzipping';

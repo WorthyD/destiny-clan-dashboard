@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { ClanConfig } from '@core/store/clans';
 import { ClanMembersService } from '@destiny-clan-dashboard/data/clan/clan-members';
 import { MemberProfile } from '@destiny-clan-dashboard/data/models';
-import { getClanMemberId, getMemberProfileId } from '@destiny-clan-dashboard/data/utility';
+import { getClanMemberId, getMemberProfileId } from '@destiny-clan-dashboard/shared/utils';
 import { Store } from '@ngrx/store';
 import { ClanMemberProfile } from '@shared/models/ClanMemberProfile';
 import { GroupsV2GroupMember } from 'bungie-api-angular';

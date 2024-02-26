@@ -7,7 +7,7 @@ import {
   selectAllClansMembersProfiles,
   selectClanMemberProfileStateLoading
 } from '@core/store/clans-members-profiles/clan-members-profiles.selectors';
-import { getClanMemberId, getMemberProfileId } from '@destiny-clan-dashboard/data/utility';
+import { getClanMemberId, getMemberProfileId } from '@destiny-clan-dashboard/shared/utils';
 import { Store } from '@ngrx/store';
 import { ClanMemberProfile } from '@shared/models/ClanMemberProfile';
 import { ClanProfileService } from 'libs/data/src/lib/clan/profiles/profile.service';

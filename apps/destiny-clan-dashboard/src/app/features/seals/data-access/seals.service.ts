@@ -5,7 +5,7 @@ import { DefinitionService } from '@core/definition-services/definition.service'
 import { ClansMembersService } from '@core/services/clans-members.service';
 import { SeasonService } from '@core/services/season.service';
 import { MemberProfile } from '@destiny-clan-dashboard/data/models';
-import { getClanMemberId, getMemberProfileId } from '@destiny-clan-dashboard/data/utility';
+import { getClanMemberId, getMemberProfileId } from '@destiny-clan-dashboard/shared/utils';
 import { DestinyDefinitionsPresentationDestinyPresentationNodeDefinition } from 'bungie-api-angular';
 import { ClanProfileService } from 'libs/data/src/lib/clan/profiles/profile.service';
 import { profileSerializer } from 'libs/data/src/lib/profile/profile.serializer';

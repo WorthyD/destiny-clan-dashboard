@@ -44,6 +44,7 @@
       "@destiny-clan-dashboard/shared/clan-details/feature": ["libs/dcd/shared/clan-details/feature/src/index.ts"],
       "@destiny-clan-dashboard/shared/clan-details/ui": ["libs/dcd/shared/clan-details/ui/src/index.ts"],
       "@destiny-clan-dashboard/shared/pipes/bungie-date-pipe": ["libs/dcd/shared/pipes/bungie-date-pipe/src/index.ts"],
+      "@destiny-clan-dashboard/shared/utils": ["libs/dcd/shared/utils/src/index.ts"],
       "@environment/*": ["apps/destiny-clan-dashboard/src/app/environments/*"],
       "@features/*": ["apps/destiny-clan-dashboard/src/app/features/*"],
       "@shared/*": ["apps/destiny-clan-dashboard/src/app/shared/*"],

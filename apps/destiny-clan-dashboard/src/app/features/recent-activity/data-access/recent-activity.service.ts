@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { from, map, mergeMap, Observable, switchMap, take, toArray } from 'rxjs';
 import { ClanProfileService } from 'projects/data/src/lib/clan/profiles/profile.service';
-import { getClanMemberId, getMemberProfileId } from '@destiny-clan-dashboard/data/utility';
+import { getClanMemberId, getMemberProfileId } from '@@destiny-clan-dashboard/shared/utils';
 import { ProfileRecentActivityWorkerService } from '../../../workers/profile-recent-activity/profile-recent-activity.service';
 import { ProfileRecentActivity } from '../models/profile-recent-activity';
 import { RecentActivityModule } from '../recent-activity-shell/recent-activity.module';

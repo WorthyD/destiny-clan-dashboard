@@ -4,7 +4,7 @@ import { ClanDatabase } from 'libs/data/src/lib/clan/clan-database';
 import { TrackedDuration } from 'libs/data/src/lib/clan/clan-member-recent-activity/clan-member-recent-activity.serializer';
 // import { ClanMemberRecentActivityService } from 'projects/data/src/lib/clan/clan-member-recent-activity/clan-member-recent-activity.service';
 import { ClanActivityService } from 'libs/data/src/lib/stat-aggregators/clan-activity.service';
-import { getClanMemberId, getMemberProfileId } from 'libs/data/src/lib/utility/get-ids';
+import { getClanMemberId, getMemberProfileId } from '@destiny-clan-dashboard/shared/utils';
 import { filter, from, map, mergeMap, toArray } from 'rxjs';
 
 // import { ClanDatabase } from 'projects/data/src/lib/clan/clan-database';
