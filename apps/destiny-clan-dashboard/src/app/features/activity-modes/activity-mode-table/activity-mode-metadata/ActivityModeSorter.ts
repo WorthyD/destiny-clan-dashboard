@@ -1,6 +1,6 @@
 // import { SorterMetadata } from '../data/sorter';
 
-import { SorterMetadata } from '@destiny-clan-dashboard/components';
+import { SorterMetadata } from '@destiny-clan-dashboard/shared/data';
 import { getBungieDisplayName } from '@destiny-clan-dashboard/shared/utils';
 // import { ProfileRecentActivity } from '../../models/profile-recent-activity';
 import { ProfileRecentActivity } from '../../models/ProfileActivityMode';

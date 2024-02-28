@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { DataSource, Filterer, Sorter, SorterMetadata, Viewer, ViewerMetadata } from '@destiny-clan-dashboard/components';
+import { DataSource, Filterer, Sorter, SorterMetadata, Viewer, ViewerMetadata } from '@destiny-clan-dashboard/shared/data';
 import { CollectionDefinition, MetricDefinition, RecordDefinition } from '@destiny-clan-dashboard/data/models';
 import { ClanMemberProfile } from '@shared/models/ClanMemberProfile';
 import { map, Observable, of, switchMap, tap } from 'rxjs';

@@ -1,4 +1,4 @@
-import { SorterMetadata } from '@destiny-clan-dashboard/components';
+import { SorterMetadata } from '@destiny-clan-dashboard/shared/data';
 import { compare, getBungieDisplayName, getMemberName } from '@destiny-clan-dashboard/shared/utils';
 import { SealClanMember } from '../../models/seal-clan-member';
 const sortNumeric = (a: number, b: number) => {

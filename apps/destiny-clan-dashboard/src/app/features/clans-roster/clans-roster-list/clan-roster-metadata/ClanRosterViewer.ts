@@ -1,4 +1,4 @@
-import { ViewerMetadata } from '@destiny-clan-dashboard/components';
+import { ViewerMetadata } from '@destiny-clan-dashboard/shared/data';
 
 import { MemberTypeComponent } from '@destiny-clan-dashboard/components/icons';
 import { ClassCellComponent } from '../../components/class-cell/class-cell.component';
