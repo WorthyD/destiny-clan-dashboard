@@ -1,9 +1,9 @@
-import { DateEquality, NumberEquality, StateEquality, TextEquality } from '../filterer-types';
+import { DateEquality, NumberEquality, StateEquality, TextEquality } from './filterer-types';
 
 const OR = ' OR ';
 const AND = ' AND ';
 
-export function textMatchesEquality(inputValue: string, filterValue: string, equality: TextEquality): boolean {
+export function textMatchesEquality(inputValue?: string, filterValue?: string, equality?: TextEquality): boolean {
   if (!inputValue) {
     return false;
   }
@@ -44,7 +44,7 @@ export function textMatchesEquality(inputValue: string, filterValue: string, equ
   }
 }
 
-export function numberMatchesEquality(inputNumber: number, filterNumber: number, equality: NumberEquality): boolean {
+export function numberMatchesEquality(inputNumber: number, filterNumber?: number, equality?: NumberEquality): boolean {
   if (!filterNumber && filterNumber !== 0) {
     return true;
   }
@@ -61,7 +61,7 @@ export function numberMatchesEquality(inputNumber: number, filterNumber: number,
   }
 }
 
-export function dateMatchesEquality(inputDateStr: string, filterDateStr: string, equality: DateEquality): boolean {
+export function dateMatchesEquality(inputDateStr?: string, filterDateStr?: string, equality?: DateEquality): boolean {
   if (!filterDateStr) {
     return true;
   }

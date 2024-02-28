@@ -9,12 +9,17 @@ import { MatDividerModule } from '@angular/material/divider';
 import { RenderedViewComponent } from '../rendered-view/rendered-view.component';
 import { DisplayOptionsComponent } from '../display-options/display-options.component';
 
-import { RenderedView, Viewer, ViewLabel } from '../../data/viewer';
-import { Exporter } from '../../data/exporter';
-import { DataSource } from '../../data/data-source';
-import { Filterer } from '../../data/filterer';
-import { Grouper } from '../../data/grouper';
-import { Sorter } from '../../data/sorter';
+import {
+  RenderedView,
+  Viewer,
+  ViewLabel,
+  Exporter,
+  DataSource,
+  Filterer,
+  Grouper,
+  Sorter
+} from '@destiny-clan-dashboard/shared/data';
+
 import { RenderedViewModule } from '../rendered-view/rendered-view.module';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
@@ -97,7 +102,7 @@ export class TableViewComponent implements OnChanges {
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['dataSource'] || changes['filterer'] || changes['sorter'] || changes['viewer'] || changes['loading']) {
       if (this.filterer && this.sorter && this.viewer) {
-        if (this.isLoading === true ) {
+        if (this.isLoading === true) {
           this.showLoading();
         } else {
           this.loadData();

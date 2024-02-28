@@ -18,20 +18,23 @@ export class Exporter<T = any, C = any> {
 
   constructor(options: ExporterOptions<T, C> = {}) {
     this.metadata = options.metadata || new Map();
-    this.contextProvider = options.contextProvider || EMPTY.pipe(startWith(() => null));
+    this.contextProvider = options.contextProvider || EMPTY.pipe(startWith(() => null as C));
   }
 
   exportData(name: string, items$: Observable<T[]>): void {
     combineLatest([items$, this.contextProvider])
       .pipe(take(1))
       .subscribe(([items, context]) => {
-        const keys = [];
+        const keys: string[] = [];
+
         this.metadata.forEach((value, key) => keys.push(key));
         const formattedObj = items.map((item) => {
-          const obj = {};
+          const obj: { [key: string]: string | null | undefined } = {};
           keys.forEach((key) => {
             const config = this.metadata.get(key);
-            obj[config.label] = config.text(item, context(item));
+            if (config) {
+              obj[config.label] = config?.text(item, context(item));
+            }
           });
           return obj;
         });
@@ -40,7 +43,7 @@ export class Exporter<T = any, C = any> {
   }
 }
 
-function downloadCSV(args, stockData) {
+function downloadCSV<T>(args: { filename: string }, stockData: T[]) {
   let data, filename, link;
   let csv = convertArrayOfObjectsToCSV({
     data: stockData
@@ -61,8 +64,15 @@ function downloadCSV(args, stockData) {
   link.setAttribute('download', filename);
   link.click();
 }
-function convertArrayOfObjectsToCSV(args) {
-  let result, ctr, keys, columnDelimiter, lineDelimiter, data;
+
+interface convertArrayOfObjectsToCSVModel {
+  data?: any;
+  columnDelimiter?: string;
+  lineDelimiter?: string;
+}
+
+function convertArrayOfObjectsToCSV<T>(args: convertArrayOfObjectsToCSVModel) {
+  let result: any, keys: any, columnDelimiter: string, lineDelimiter: string, data;
 
   data = args.data || null;
   if (data == null || !data.length) {
@@ -78,9 +88,9 @@ function convertArrayOfObjectsToCSV(args) {
   result += keys.join(columnDelimiter);
   result += lineDelimiter;
 
-  data.forEach(function (item) {
-    ctr = 0;
-    keys.forEach(function (key) {
+  data.forEach(function (item: any) {
+    let ctr = 0;
+    keys.forEach(function (key: any) {
       if (ctr > 0) {
         result += columnDelimiter;
       }

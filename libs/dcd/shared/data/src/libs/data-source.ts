@@ -44,6 +44,6 @@ export class DataSource<T = any> {
   }
 
   getDataProperty<V = any>(id: string, item: T): V {
-    return this.metadata.get(id).accessor(item);
+    return this.metadata?.get(id)?.accessor(item);
   }
 }

@@ -1,6 +1,6 @@
 // import { SorterMetadata } from '../data/sorter';
 
-import { SorterMetadata } from '@destiny-clan-dashboard/components';
+import { SorterMetadata } from '@destiny-clan-dashboard/shared/data';
 import { ClanRosterItem } from '@features/clans-roster/models/ClanRosterItem';
 import { ClanMemberProfile } from '@shared/models/ClanMemberProfile';
 

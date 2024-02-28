@@ -1,4 +1,4 @@
-import { FiltererMetadata, textMatchesEquality } from '@destiny-clan-dashboard/components';
+import { FiltererMetadata, textMatchesEquality } from '@destiny-clan-dashboard/shared/data';
 import { SealClanMember } from '../../models/seal-clan-member';
 // import { numberMatchesEquality } from '../data/utility/filter-matcher';
 // import { MockListItem } from './ListItems';

@@ -1,5 +1,5 @@
 import { FiltererMetadata } from '../data/filterer';
-import { numberMatchesEquality } from '../data/utility/filter-matcher';
+import { numberMatchesEquality } from '../../../../dcd/shared/data/src/libs/utility/filter-matcher';
 import { MockListItem } from './ListItems';
 
 export const EXAMPLE_FILTERER_METADATA = new Map<string, FiltererMetadata<MockListItem>>([

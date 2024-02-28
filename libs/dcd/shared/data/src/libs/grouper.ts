@@ -6,9 +6,9 @@ export interface GrouperState {
 }
 
 export class Group<T> {
-  id: string;
-  title: string;
-  items: T[];
+  id: string = '';
+  title: string = '';
+  items: T[] = [];
 }
 
 export interface GrouperMetadata<T = any, C = any> {
@@ -37,7 +37,7 @@ export class Grouper<T = any, C = any> {
 
   constructor(options: GrouperOptions<T, C> = {}) {
     this.metadata = options.metadata || new Map();
-    this.contextProvider = options.contextProvider || EMPTY.pipe(startWith(null));
+    this.contextProvider = options.contextProvider || (EMPTY.pipe(startWith(null)) as Observable<C>);
 
     if (options.initialState) {
       this.state.next(options.initialState);
@@ -113,7 +113,7 @@ export function getGroupByValue<T>(items: T[], property: string): Group<T>[] {
       valueMap.set(value, []);
     }
 
-    valueMap.get(value).push(item);
+    valueMap.get(value)?.push(item);
   });
 
   return getGroupsFromMap(valueMap);
@@ -131,7 +131,7 @@ export function getGroupByListValues<T>(items: T[], key: string): Group<T>[] {
       if (!valueMap.get(value)) {
         valueMap.set(value, []);
       }
-      valueMap.get(value).push(item);
+      valueMap.get(value)?.push(item);
     });
   });
 

@@ -1,7 +1,7 @@
 //  component originated form https://github.com/crafted/crafted
 import { ChangeDetectionStrategy, Component, Input, OnInit, ViewChild } from '@angular/core';
 import { Observable } from 'rxjs';
-import { RenderedView } from '../../data/viewer';
+import { RenderedView } from '@destiny-clan-dashboard/shared/data';
 import { RenderedViewDynamicCompDirective } from './rendered-view-component.directive';
 
 @Component({

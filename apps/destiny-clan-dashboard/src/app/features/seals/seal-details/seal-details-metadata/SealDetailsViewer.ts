@@ -1,5 +1,5 @@
 import { TABLE_DONE, TABLE_NOT_DONE } from '@core/constants';
-import { ViewerMetadata } from '@destiny-clan-dashboard/components';
+import { ViewerMetadata } from '@destiny-clan-dashboard/shared/data';
 
 import { getBungieDisplayName, getMemberName } from '@destiny-clan-dashboard/shared/utils';
 import { SealClanMember } from '../../models/seal-clan-member';

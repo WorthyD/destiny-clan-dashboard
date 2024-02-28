@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { SeasonService } from '@core/services/season.service';
-import { DataSource, Filterer, Sorter, SorterMetadata, Viewer, ViewerMetadata } from '@destiny-clan-dashboard/components';
+import { DataSource, Filterer, Sorter, SorterMetadata, Viewer, ViewerMetadata } from '@destiny-clan-dashboard/shared/data';
 import {  PlaytimePipe } from '@destiny-clan-dashboard/components/pipes';
 import { DestinyDefinitionsDestinyActivityModeDefinition } from 'bungie-api-angular';
 import { TrackedDuration } from 'libs/data/src/lib/clan/clan-member-recent-activity/clan-member-recent-activity.serializer';

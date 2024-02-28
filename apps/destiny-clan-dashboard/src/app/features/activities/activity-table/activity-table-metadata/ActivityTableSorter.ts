@@ -1,5 +1,5 @@
 
-import { SorterMetadata } from '@destiny-clan-dashboard/components';
+import { SorterMetadata } from '@destiny-clan-dashboard/shared/data';
 import { compare, getBungieDisplayName } from '@destiny-clan-dashboard/shared/utils';
 import { ClanMemberProfile } from '@shared/models/ClanMemberProfile';
 
