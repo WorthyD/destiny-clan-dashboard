@@ -28,7 +28,7 @@ export class RenderedViewComponent implements OnInit {
       const componentRef = viewContainerRef.createComponent(this.component);
       for (const property in this.data) {
         componentRef.instance[property] = this.data[property];
-      }
+    }
     }
   }
 }

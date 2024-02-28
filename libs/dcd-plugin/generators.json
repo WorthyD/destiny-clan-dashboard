@@ -1,0 +1,9 @@
+{
+  "generators": {
+    "dcd-lib-generator": {
+      "factory": "./src/generators/dcd-lib-generator/generator",
+      "schema": "./src/generators/dcd-lib-generator/schema.json",
+      "description": "dcd-lib-generator generator"
+    }
+  }
+}
