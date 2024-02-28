@@ -49,7 +49,8 @@
       "@environment/*": ["apps/destiny-clan-dashboard/src/app/environments/*"],
       "@features/*": ["apps/destiny-clan-dashboard/src/app/features/*"],
       "@shared/*": ["apps/destiny-clan-dashboard/src/app/shared/*"],
-      "@utilities/*": ["apps/destiny-clan-dashboard/src/app/utilities/*"]
+      "@utilities/*": ["apps/destiny-clan-dashboard/src/app/utilities/*"],
+      "dcd-plugin": ["libs/dcd-plugin/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]
