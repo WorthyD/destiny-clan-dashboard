@@ -17,6 +17,14 @@
     "baseUrl": ".",
     "paths": {
       "@core/*": ["apps/destiny-clan-dashboard/src/app/core/*"],
+      "@dcd/seals/data-access": ["libs/dcd/seals/data-access/src/index.ts"],
+      "@dcd/seals/feature/seals-dashboard": ["libs/dcd/seals/feature/seals-dashboard/src/index.ts"],
+      "@dcd/seals/feature/seals-details": ["libs/dcd/seals/feature/seals-details/src/index.ts"],
+      "@dcd/seals/feature/seals-shell": ["libs/dcd/seals/feature/seals-shell/src/index.ts"],
+      "@dcd/seals/models": ["libs/dcd/seals/models/src/index.ts"],
+      "@dcd/seals/ui/seal-list": ["libs/dcd/seals/ui/seal-list/src/index.ts"],
+      "@dcd/seals/ui/seal-member-progress-table": ["libs/dcd/seals/ui/seal-member-progress-table/src/index.ts"],
+      "@dcd/shared/models": ["libs/dcd/shared/models/src/index.ts"],
       "@destiny-clan-dashboard/clan-search/data-access": ["libs/dcd/clan-search/data-access/src/index.ts"],
       "@destiny-clan-dashboard/clan-search/feature/clan-search-curated-view": [
         "libs/dcd/clan-search/feature/clan-search-curated-view/src/index.ts"

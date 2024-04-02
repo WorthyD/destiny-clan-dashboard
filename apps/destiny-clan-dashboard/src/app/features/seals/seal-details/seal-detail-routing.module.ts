@@ -1,16 +1,16 @@
-import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
-import { SealDetailsComponent } from './seal-details.component';
+// import { NgModule } from '@angular/core';
+// import { Routes, RouterModule } from '@angular/router';
+// import { SealDetailsComponent } from './seal-details.component';
 
-const routes: Routes = [
-  {
-    path: '',
-    component: SealDetailsComponent
-  }
-];
+// const routes: Routes = [
+//   {
+//     path: '',
+//     component: SealDetailsComponent
+//   }
+// ];
 
-@NgModule({
-  imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
-})
-export class SealsDashboardRoutingModule {}
+// @NgModule({
+//   imports: [RouterModule.forChild(routes)],
+//   exports: [RouterModule]
+// })
+// export class SealsDashboardRoutingModule {}

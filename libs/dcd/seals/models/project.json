@@ -1,0 +1,13 @@
+{
+  "name": "seals-models",
+  "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/dcd/seals/models/src",
+  "prefix": "lib",
+  "tags": ["type:model"],
+  "projectType": "library",
+  "targets": {
+    "lint": {
+      "executor": "@nx/eslint:lint"
+    }
+  }
+}

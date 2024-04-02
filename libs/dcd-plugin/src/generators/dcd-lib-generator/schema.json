@@ -12,6 +12,12 @@
         "index": 0
       },
       "x-prompt": "What name would you like to use?"
+    },
+    "libType":{
+      "description":"Lib type",
+      "type":"string",
+      "enum":["type:feature", "type:data-access", "type:ui", "type:util", "type:model"],
+      "x-prompt": "Lib Type"
     }
   },
   "required": ["name"]
