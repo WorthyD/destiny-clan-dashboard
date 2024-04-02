@@ -20,7 +20,7 @@ export const appRoutes: Route[] = [
       },
       {
         path: 'seals',
-        loadChildren: () => import('./features/seals/seals-shell/seals-routing.module').then((module) => module.SealsRoutingModule)
+        loadChildren: () => import('@dcd/seals/feature/seals-shell').then((module) => module.SealsRoutingModule)
       },
       {
         path: 'activities',
