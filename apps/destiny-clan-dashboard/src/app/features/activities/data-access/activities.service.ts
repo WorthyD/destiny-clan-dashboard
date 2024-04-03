@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
 // import { ActivityDefinitionService } from '@core/definition-services/activity-definition.service';
-import { DefinitionService } from '@core/definition-services/definition.service';
 import { ClansMembersService } from '@core/services/clans-members.service';
-import { SeasonService } from '@core/services/season.service';
+import { SeasonService, DefinitionService } from '@dcd/shared/data-access/definitions';
 import {
   selectAllClansMembersProfiles,
   selectClanMemberProfileStateLoading

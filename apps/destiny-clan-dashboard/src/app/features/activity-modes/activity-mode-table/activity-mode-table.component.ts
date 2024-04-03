@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { SeasonService } from '@core/services/season.service';
+import { SeasonService } from '@dcd/shared/data-access/definitions';
 import { DataSource, Filterer, Sorter, SorterMetadata, Viewer, ViewerMetadata } from '@destiny-clan-dashboard/shared/data';
 import {  PlaytimePipe } from '@destiny-clan-dashboard/components/pipes';
 import { DestinyDefinitionsDestinyActivityModeDefinition } from 'bungie-api-angular';

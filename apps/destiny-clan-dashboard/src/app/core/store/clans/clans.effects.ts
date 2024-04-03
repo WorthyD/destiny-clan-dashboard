@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AppState } from '@core/core.state';
-import { LocalStorageService } from '@core/services/local-storage.service';
+import { LocalStorageService } from '@dcd/shared/utils/local-storage';
 import { ManifestService } from '@core/services/manifest.service';
 import { Actions, createEffect, ofType, concatLatestFrom } from '@ngrx/effects';
 import { Store } from '@ngrx/store';

@@ -11,7 +11,7 @@ import { BungieInfoComponent } from '@destiny-clan-dashboard/components/member/b
 
 import { Character } from 'libs/data/src/lib/models/Character';
 import { ClanMemberSeasonPassProgression } from 'libs/data/src/lib/models/ClanMemberSeasonPass';
-import { SeasonService } from '@core/services/season.service';
+import { SeasonService } from '@dcd/shared/data-access/definitions';
 // import { Observable } from 'rxjs';
 // import { GlobalSealsService } from '@core/services/global-seals.service';
 // import { DefinitionService } from '@core/definition-services/definition.service';

@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
-import { DefinitionService } from '@core/definition-services/definition.service';
-// import { RecordDefinitionService } from '@core/definition-services/record-definition.service';
+// import { RecordDefin itionService } from '@core/definition-services/record-definition.service';
+import { SeasonService, DefinitionService } from '@dcd/shared/data-access/definitions';
 import { ClansMembersService } from '@core/services/clans-members.service';
-import { SeasonService } from '@core/services/season.service';
 import { MemberProfile } from '@destiny-clan-dashboard/data/models';
 import { getClanMemberId, getMemberProfileId } from '@destiny-clan-dashboard/shared/utils';
 import { ClanProfileService } from 'libs/data/src/lib/clan/profiles/profile.service';

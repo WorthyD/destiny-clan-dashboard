@@ -6,7 +6,7 @@ import { BungieInfoService } from 'libs/data/src/lib/profile/bungie-info.service
 import { BungieInfo } from '@destiny-clan-dashboard/data/models';
 import { convertSealAndProfile } from '@destiny-clan-dashboard/components/member/player-seals';
 import { GlobalSealsService } from '@core/services/global-seals.service';
-import { DefinitionService } from '@core/definition-services/definition.service';
+import {  DefinitionService } from '@dcd/shared/data-access/definitions';
 interface MemberInfo {
   memberType: string;
   memberId: string;

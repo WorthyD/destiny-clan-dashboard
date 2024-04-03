@@ -9,7 +9,7 @@ import { GroupsV2GroupMember } from 'bungie-api-angular';
 import { ClanProfileService } from 'libs/data/src/lib/clan/profiles/profile.service';
 import { catchError, filter, from, map, mergeMap, Observable, of, shareReplay, switchMap, tap, toArray } from 'rxjs';
 import { selectEnabledClans } from '../store/clans/clans.selectors';
-import { SeasonService } from './season.service';
+import { SeasonService } from '@dcd/shared/data-access/definitions';
 import { selectAllClansMembersProfiles } from '@core/store/clans-members-profiles/clan-members-profiles.selectors';
 // import { ClanMemberProfileWID } from '@core/store/clans-members-profiles/clan-members-profiles.state';
 import { selectAllClansWithMembers } from '@core/store/clans-with-members';
