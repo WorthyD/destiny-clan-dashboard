@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AppConfig } from '@core/config/app-config';
-import { DefinitionService } from '@core/definition-services/definition.service';
+import { DefinitionService } from '@dcd/shared/data-access/definitions';
 import { DestinyDefinitionsPresentationDestinyPresentationNodeDefinition } from 'bungie-api-angular/lib/model/destinyDefinitionsPresentationDestinyPresentationNodeDefinition';
 
 @Injectable({
@@ -15,14 +15,12 @@ export class GlobalSealsService {
   allNodes = this.getNodes(this.currentSealNodes);
   allNodesWLegacy = this.getNodes(this.currentSealNodes).concat(this.getNodes(this.legacySealNodes));
 
-
   sealNodes: DestinyDefinitionsPresentationDestinyPresentationNodeDefinition[] = this.getDefinitionsByHash(
     this.allNodes
   );
   sealNodesWLegacy: DestinyDefinitionsPresentationDestinyPresentationNodeDefinition[] = this.getDefinitionsByHash(
     this.allNodesWLegacy
   );
-
 
   private getNodes(node) {
     return node.children.presentationNodes.map((x) => x.presentationNodeHash);

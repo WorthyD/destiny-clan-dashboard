@@ -13,7 +13,7 @@ import { ClanProfileService } from 'libs/data/src/lib/clan/profiles/profile.serv
 import { ClanDatabase } from 'libs/data/src/lib/clan/clan-database';
 import { ClansMembersService } from '../clans-members.service';
 import { addNotification, removeNotification, updateNotification } from '../../store/notifications';
-import { SeasonService } from '../season.service';
+import { SeasonService } from '@dcd/shared/data-access/definitions';
 
 @Injectable({
   providedIn: 'root'

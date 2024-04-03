@@ -16,9 +16,9 @@ import { ClanMembersService } from '@destiny-clan-dashboard/data/clan/clan-membe
 //import { ClanProfileService } from 'libs/data/src/lib/clan/profiles/profile.service';
 import { ClanProfileService } from '@destiny-clan-dashboard/data/clan/profiles/profile.service';
 import { ClanDatabase } from '@destiny-clan-dashboard/data/clan/clan-database';
-import { locationProvider, LocationToken } from './injection-tokens/location-token';
+import { locationProvider, LocationToken, windowProvider, WindowToken } from '@dcd/shared/tokens';
+
 import { MatDialogModule } from '@angular/material/dialog';
-import { windowProvider, WindowToken } from 'libs/data/src/lib/injection-tokens/window-token';
 import { ClanBungieInfoService } from '@destiny-clan-dashboard/data/clan/bungie-info/bungie-info.service';
 
 @NgModule({

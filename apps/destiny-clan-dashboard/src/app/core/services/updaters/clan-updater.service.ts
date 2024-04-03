@@ -13,9 +13,9 @@ import { ClanDetailsService } from '@destiny-clan-dashboard/data/clan/clan-detai
 import { MatDialog } from '@angular/material/dialog';
 import { AppOfflineDialogComponent } from '../../layout/app-offline-dialog/app-offline-dialog.component';
 import { BungieInfoUpdaterService } from './bungie-info-updater.service';
-import { isMobile } from '../../utilities/is-mobile';
 import { environment } from 'apps/destiny-clan-dashboard/src/environments/environment';
 import deepEqual from 'deep-equal';
+import { isMobile } from '@destiny-clan-dashboard/shared/utils';
 
 export interface ClanConfigMembers {
   clanConfig: ClanConfig;
@@ -64,7 +64,7 @@ export class ClanUpdaterService {
           this.showLog &&
           this.tapFunc('Member Profile Update Complete', x, this.recentActivityUpdater, this.profileUpdater)
       ),
-      switchMap((clans) => (isMobile() ? of(clans) : this.memberActivityUpdaterService.membersActivityUpdate(clans))),
+      switchMap((clans) => (isMobile(window) ? of(clans) : this.memberActivityUpdaterService.membersActivityUpdate(clans))),
       tap(
         (x) =>
           this.showLog &&
@@ -75,7 +75,7 @@ export class ClanUpdaterService {
             this.recentActivityUpdater
           )
       ),
-      switchMap((clans) => (isMobile() ? of(clans) : this.bungieInfoUpdaterService.updateAllClansBungieInfo(clans))),
+      switchMap((clans) => (isMobile(window) ? of(clans) : this.bungieInfoUpdaterService.updateAllClansBungieInfo(clans))),
       tap(
         (x) => this.showLog && this.tapFunc('Bungie Info Update Complete', x, undefined, this.updateAllClansBungieInfo)
       )

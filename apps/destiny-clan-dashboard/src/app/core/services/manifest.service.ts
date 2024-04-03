@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 //import { ActivityDefinitionService } from '@core/definition-services/activity-definition.service';
 //import { ActivityModeDefinitionService } from '@core/definition-services/activity-mode-definition.service';
-import { DefinitionService } from '@core/definition-services/definition.service';
+import {  DefinitionService } from '@dcd/shared/data-access/definitions';
 //import { MilestoneDefinitionService } from '@core/definition-services/milestone-definition.service';
 // import { RecordDefinitionService } from '@core/definition-services/record-definition.service';
 import { ManifestLoaderService } from '@destiny-clan-dashboard/data/manifest';

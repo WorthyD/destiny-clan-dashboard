@@ -1,7 +1,7 @@
 import { MemberProfile } from '@destiny-clan-dashboard/data/models';
 import { PlayerSeal } from './player-seal';
 import { DestinyDefinitionsPresentationDestinyPresentationNodeDefinition } from 'bungie-api-angular/lib/model/destinyDefinitionsPresentationDestinyPresentationNodeDefinition';
-import { DefinitionService } from 'apps/destiny-clan-dashboard/src/app/core/definition-services/definition.service';
+import {  DefinitionService } from '@dcd/shared/data-access/definitions';
 
 export function convertSealAndProfile(
   seals: DestinyDefinitionsPresentationDestinyPresentationNodeDefinition[],

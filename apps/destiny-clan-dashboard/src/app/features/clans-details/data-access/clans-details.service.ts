@@ -10,7 +10,7 @@ import { map, mergeMap, toArray, switchMap } from 'rxjs/operators';
 import { ClanDetailsService as DataService } from '@destiny-clan-dashboard/data/clan/clan-details';
 import { ClansDetailsModule } from '../clans-details-shell/clans-details.module';
 import { ClanMemberProfile, ClanMemberProfileWSeason } from '@shared/models/ClanMemberProfile';
-import { SeasonService } from '@core/services/season.service';
+import { SeasonService } from '@dcd/shared/data-access/definitions';
 
 @Injectable({
   providedIn: ClansDetailsModule

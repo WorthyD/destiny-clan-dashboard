@@ -1,6 +1,6 @@
 import { ActivityModeShellModule } from '../activity-mode-shell/activity-mode-shell.module';
 import { DESTINY_ACTIVITY_MODES } from '@destiny-clan-dashboard/data/models';
-import { DefinitionService } from '@core/definition-services/definition.service';
+import { DefinitionService } from '@dcd/shared/data-access/definitions';
 import { Injectable } from '@angular/core';
 import { ClansMembersService } from '@core/services/clans-members.service';
 import { of, switchMap } from 'rxjs';

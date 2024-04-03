@@ -5,7 +5,7 @@ import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { MatTabsModule } from '@angular/material/tabs';
 import { Destiny2Service } from 'bungie-api-angular';
 import { take } from 'rxjs';
-import { DefinitionService } from '@core/definition-services/definition.service';
+import { DefinitionService } from '@dcd/shared/data-access/definitions';
 import { RouterModule } from '@angular/router';
 
 @Component({
