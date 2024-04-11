@@ -6,7 +6,7 @@ import { ClanMembersService } from '@destiny-clan-dashboard/data/clan/clan-membe
 import { from, of } from 'rxjs';
 import { GroupsV2GroupMember } from 'bungie-api-angular';
 import { ProfileWorkerService } from '../../../workers/profile-worker/profile-worker.service';
-import { AppConfig } from '@core/config/app-config';
+import { AppConfigService } from '@dcd/shared/utils/app-config';
 import { ProfileUpdaterService } from './profile-updater.service';
 import { MemberActivityUpdaterService } from './member-activity-updater.service';
 import { ClanDetailsService } from '@destiny-clan-dashboard/data/clan/clan-details';
@@ -33,7 +33,7 @@ export class ClanUpdaterService {
   constructor(
     private store: Store,
     private memberService: ClanMembersService,
-    private appConfig: AppConfig,
+    private appConfig: AppConfigService,
     private clanDetailsService: ClanDetailsService,
     private profileUpdaterService: ProfileUpdaterService,
     private memberActivityUpdaterService: MemberActivityUpdaterService,
@@ -125,7 +125,7 @@ export class ClanUpdaterService {
       catchError((err) => {
         if (err.message === 'System Offline') {
           const acknowledgeOffline = window.sessionStorage.getItem(
-            this.appConfig.constants.D2DASHBOARD_ACKNOWLEDGE_OFFLINE
+            this.appConfig.config.constants.D2DASHBOARD_ACKNOWLEDGE_OFFLINE
           );
           if (!acknowledgeOffline) {
             this.dialog.open(AppOfflineDialogComponent);

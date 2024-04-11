@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { AppConfig } from '@core/config/app-config';
+import { AppConfigService } from '@dcd/shared/utils/app-config';
 import { Store } from '@ngrx/store';
 import { GroupsV2GroupV2Card } from 'bungie-api-angular/lib/model/groupsV2GroupV2Card';
 import { catchError, Observable, of, switchMap, tap } from 'rxjs';
@@ -13,14 +13,14 @@ import { ClanSearchService } from '@destiny-clan-dashboard/clan-search/data-acce
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ClanSearchViewComponent {
-  constructor(private clanSearchService: ClanSearchService, private appConfig: AppConfig) {}
+  constructor(private clanSearchService: ClanSearchService, private appConfig: AppConfigService) {}
   year = new Date().getFullYear();
   clans$ = this.clanSearchService.clans$;
 
   bgClass = `bg-${Math.floor(Math.random() * 3) + 1}`;
   loading = false;
   autoCompleteResults$: Observable<any>;
-  versionNumber = this.appConfig.appVersion;
+  versionNumber = this.appConfig.config.appVersion;
   searchClans(search: any) {
     this.autoCompleteResults$ = of(search).pipe(
       tap(() => (this.loading = true)),

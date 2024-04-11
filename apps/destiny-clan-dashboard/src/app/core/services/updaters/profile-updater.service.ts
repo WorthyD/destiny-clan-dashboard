@@ -7,7 +7,7 @@ import { from, Observable, of } from 'rxjs';
 import { GroupsV2GroupMember } from 'bungie-api-angular';
 import { ProfileWorkerService } from '../../../workers/profile-worker/profile-worker.service';
 import { nowPlusMinutes } from '@destiny-clan-dashboard/shared/utils';
-import { AppConfig } from '@core/config/app-config';
+import { AppConfigService } from '@dcd/shared/utils/app-config';
 import { ClanConfigMembers } from './clan-updater.service';
 import { ClanProfileService } from 'libs/data/src/lib/clan/profiles/profile.service';
 import { ClanDatabase } from 'libs/data/src/lib/clan/clan-database';
@@ -26,10 +26,10 @@ export class ProfileUpdaterService {
     //private clanMemberService: ClansMembersService,
     private profileWorkerService: ProfileWorkerService,
     private seasonService: SeasonService,
-    private appConfig: AppConfig
+    private appConfig: AppConfigService
   ) {
     const clanDB = new ClanDatabase();
-    this.profileService = new ClanProfileService(clanDB, appConfig.apiKey);
+    this.profileService = new ClanProfileService(clanDB, appConfig.config.apiKey);
   }
 
   profilesUpdate(clans: ClanConfigMembers[]): Observable<ClanConfigMembers[]> {
@@ -44,7 +44,7 @@ export class ProfileUpdaterService {
 
   profileUpdate(clan: ClanConfigMembers): Observable<ClanConfigMembers> {
     const lastUpdate = new Date(clan.clanConfig.profileUpdate || '1/1/1900');
-    const staleDate = nowPlusMinutes(-this.appConfig.constants.PROFILE_UPDATING_EXP_MINUTES);
+    const staleDate = nowPlusMinutes(-this.appConfig.config.constants.PROFILE_UPDATING_EXP_MINUTES);
 
     if (staleDate > lastUpdate) {
       this.store.dispatch(

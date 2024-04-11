@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
-import { AppConfig } from '@core/config/app-config';
+//import { AppConfig } from '@core/config/app-config';
+import { AppConfigService } from '@dcd/shared/utils/app-config';
 import { DefinitionService } from '@dcd/shared/data-access/definitions';
 import { DestinyDefinitionsPresentationDestinyPresentationNodeDefinition } from 'bungie-api-angular/lib/model/destinyDefinitionsPresentationDestinyPresentationNodeDefinition';
 
@@ -7,9 +8,9 @@ import { DestinyDefinitionsPresentationDestinyPresentationNodeDefinition } from 
   providedIn: 'root'
 })
 export class GlobalSealsService {
-  constructor(private appConfig: AppConfig, private definitionService: DefinitionService) {}
-  currentSealNodes = this.definitionService.presentationDefinition[this.appConfig.constants.CURRENT_SEALS_HASH];
-  legacySealNodes = this.definitionService.presentationDefinition[this.appConfig.constants.LEGACY_SEALS_HASH];
+  constructor(private appConfig: AppConfigService, private definitionService: DefinitionService) {}
+  currentSealNodes = this.definitionService.presentationDefinition[this.appConfig.config.constants.CURRENT_SEALS_HASH];
+  legacySealNodes = this.definitionService.presentationDefinition[this.appConfig.config.constants.LEGACY_SEALS_HASH];
 
   //allNodes = this.getNodes(this.currentSealNodes).concat(this.getNodes(this.legacySealNode));
   allNodes = this.getNodes(this.currentSealNodes);

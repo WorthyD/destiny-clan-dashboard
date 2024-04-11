@@ -2,7 +2,8 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatIconModule } from '@angular/material/icon';
-import { AppConfig } from '@core/config/app-config';
+//import { AppConfig } from '@core/config/app-config';
+import { AppConfigService } from '@dcd/shared/utils/app-config';
 import { MatButtonModule } from '@angular/material/button';
 import { RouterModule } from '@angular/router';
 @Component({
@@ -14,6 +15,6 @@ import { RouterModule } from '@angular/router';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SettingsMenuComponent {
-  constructor(private appConfig: AppConfig) {}
-  versionNumber = this.appConfig.appVersion;
+  constructor(private appConfig: AppConfigService) {}
+  versionNumber = this.appConfig.config.appVersion;
 }

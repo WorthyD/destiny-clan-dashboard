@@ -27,6 +27,7 @@
       "@dcd/shared/data-access/definitions": ["libs/dcd/shared/data-access/definitions/src/index.ts"],
       "@dcd/shared/models": ["libs/dcd/shared/models/src/index.ts"],
       "@dcd/shared/tokens": ["libs/dcd/shared/tokens/src/index.ts"],
+      "@dcd/shared/utils/app-config": ["libs/dcd/shared/utils/app-config/src/index.ts"],
       "@dcd/shared/utils/local-storage": ["libs/dcd/shared/utils/local-storage/src/index.ts"],
       "@destiny-clan-dashboard/clan-search/data-access": ["libs/dcd/clan-search/data-access/src/index.ts"],
       "@destiny-clan-dashboard/clan-search/feature/clan-search-curated-view": [

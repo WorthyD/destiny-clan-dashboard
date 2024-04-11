@@ -1,6 +1,7 @@
 import { NgModule, Optional, SkipSelf } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { AppConfig } from './config/app-config';
+///import { AppConfig } from './config/app-config';
+import { AppConfigService } from '@dcd/shared/utils/app-config';
 import { environment } from '../../environments/environment';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ApiKeyInterceptor } from './interceptors/apikey.interceptor';
@@ -54,7 +55,7 @@ import { ClanBungieInfoService } from '@destiny-clan-dashboard/data/clan/bungie-
       },
       deps: [ClanDatabase]
     },
-    { provide: AppConfig, useValue: environment },
+  //  { provide: AppConfig, useValue: environment },
     // {
     //   provide: Configuration,
     //   useFactory: () => new Configuration(

@@ -1,10 +1,11 @@
-import { TABLE_DONE, TABLE_NOT_DONE } from '@core/constants';
 import { ViewerMetadata } from '@destiny-clan-dashboard/shared/data';
 
 import { getBungieDisplayName, getMemberName } from '@destiny-clan-dashboard/shared/utils';
 import {SealClanMember} from '@dcd/seals/models';
 
+export const TABLE_DONE = '<span class="mat-icon material-icons">done</span>';
 import { ProfileLinkComponent } from '@destiny-clan-dashboard/components/shared/profile-link';
+export const TABLE_NOT_DONE = '';
 
 interface ViewContext {
   item: SealClanMember;
