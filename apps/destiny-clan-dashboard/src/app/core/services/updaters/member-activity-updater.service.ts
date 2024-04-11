@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { AppConfig } from '@core/config/app-config';
 import { ClanMembersService } from '@destiny-clan-dashboard/data/clan/clan-members';
 import { ProfileWorkerService } from '../../../workers/profile-worker/profile-worker.service';
 import { ProfileRecentActivityWorkerService } from '../../../workers/profile-recent-activity/profile-recent-activity.service';
@@ -9,6 +8,7 @@ import { filter, from, map, mergeMap, Observable, of, take, toArray } from 'rxjs
 import { nowPlusMinutes } from '@destiny-clan-dashboard/shared/utils';
 import { updateClanMemberActivitySync } from '@core/store/clans';
 import { addNotification, removeNotification, updateNotification } from '../../store/notifications';
+import { AppConfigService } from '@dcd/shared/utils/app-config';
 
 @Injectable({
   providedIn: 'root'
@@ -17,7 +17,7 @@ export class MemberActivityUpdaterService {
   constructor(
     private store: Store,
     private profileRecentActivityWorkerService: ProfileRecentActivityWorkerService,
-    private appConfig: AppConfig
+    private appConfig: AppConfigService
   ) {}
 
   membersActivityUpdate(clans: ClanConfigMembers[]): Observable<ClanConfigMembers[]> {
@@ -31,7 +31,7 @@ export class MemberActivityUpdaterService {
 
   memberActivityUpdate(clan: ClanConfigMembers): Observable<ClanConfigMembers> {
     const lastUpdate = new Date(clan.clanConfig.memberRecentActivityUpdate || '1/1/1900');
-    const staleDate = nowPlusMinutes(-this.appConfig.constants.PROFILE_UPDATING_EXP_MINUTES);
+    const staleDate = nowPlusMinutes(-this.appConfig.config.constants.PROFILE_UPDATING_EXP_MINUTES);
 
     if (staleDate > lastUpdate) {
       this.store.dispatch(

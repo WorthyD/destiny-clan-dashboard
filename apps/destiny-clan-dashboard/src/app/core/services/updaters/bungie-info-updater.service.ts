@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
-import { AppConfig } from '@core/config/app-config';
+// import { AppConfig } from '@core/config/app-config';
+import { AppConfigService } from '@dcd/shared/utils/app-config';
 import { updateBungieInfoSync, updateClanProfileSync } from '@core/store/clans';
 import { addNotification, removeNotification, updateNotification } from '@core/store/notifications';
 import { Store } from '@ngrx/store';
@@ -15,7 +16,7 @@ import { ClanConfigMembers } from './clan-updater.service';
 })
 export class BungieInfoUpdaterService {
   infoService: BungieInfoWorkerService;
-  constructor(private store: Store, private bungieInfoWorker: BungieInfoWorkerService, private appConfig: AppConfig) {
+  constructor(private store: Store, private bungieInfoWorker: BungieInfoWorkerService, private appConfig: AppConfigService) {
     // const clanDB = new ClanDatabase();
     // this.infoService = new BungieInfoWorkerService(clanDB, appConfig.apiKey);
   }
@@ -32,7 +33,7 @@ export class BungieInfoUpdaterService {
 
   updateBungieInfo(clan: ClanConfigMembers): Observable<ClanConfigMembers> {
     const lastUpdate = new Date(clan.clanConfig.bungieInfoUpdate || '1/1/1900');
-    const staleDate = nowPlusMinutes(-this.appConfig.constants.PROFILE_UPDATING_EXP_MINUTES);
+    const staleDate = nowPlusMinutes(-this.appConfig.config.constants.PROFILE_UPDATING_EXP_MINUTES);
 
     if (staleDate > lastUpdate) {
       this.store.dispatch(
