@@ -1,14 +1,15 @@
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { ClanMembersService } from '@destiny-clan-dashboard/data/clan/clan-members';
-import { ProfileWorkerService } from '../../../workers/profile-worker/profile-worker.service';
-import { ProfileRecentActivityWorkerService } from '../../../workers/profile-recent-activity/profile-recent-activity.service';
-import { filter, from, map, mergeMap, Observable, of, take, toArray } from 'rxjs';
+import { ProfileRecentActivityWorkerService } from './profile-recent-activity.fake.service';
+import { from, map, mergeMap, Observable, of, take, toArray } from 'rxjs';
 import { nowPlusMinutes } from '@destiny-clan-dashboard/shared/utils';
-// import { updateClanMemberActivitySync } from '@core/store/clans';
-// import { addNotification, removeNotification, updateNotification } from '../../store/notifications';
 import { AppConfigService } from '@dcd/shared/utils/app-config';
-import { addNotification, removeNotification, updateClanMemberActivitySync, updateNotification } from '@dcd/shared/data-access/store';
+import {
+  addNotification,
+  removeNotification,
+  updateClanMemberActivitySync,
+  updateNotification
+} from '@dcd/shared/data-access/store';
 import { ClanConfigMembers } from '@dcd/shared/models';
 
 @Injectable({
@@ -45,7 +46,7 @@ export class MemberActivityUpdaterService {
         })
       );
 
-      const progress = (progressCount) => {
+      const progress = (progressCount: any) => {
         this.store.dispatch(
           updateNotification({
             notification: {
@@ -62,7 +63,7 @@ export class MemberActivityUpdaterService {
       };
 
       return this.profileRecentActivityWorkerService
-        .updateAllRecentActivityCache(clan.clanConfig.clanId, clan.profiles, progress)
+        .updateAllRecentActivityCache(clan.clanConfig.clanId, clan.profiles!, progress)
         .pipe(
           take(1),
           map((x) => {
