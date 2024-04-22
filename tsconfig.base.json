@@ -17,6 +17,8 @@
     "baseUrl": ".",
     "paths": {
       "@core/*": ["apps/destiny-clan-dashboard/src/app/core/*"],
+      "@dcd/config/config": ["libs/dcd/config/config/src/index.ts"],
+      "@dcd/config/shell": ["libs/dcd/config/shell/src/index.ts"],
       "@dcd/layout": ["libs/dcd/layout/src/index.ts"],
       "@dcd/seals/data-access": ["libs/dcd/seals/data-access/src/index.ts"],
       "@dcd/seals/feature/seals-dashboard": ["libs/dcd/seals/feature/seals-dashboard/src/index.ts"],

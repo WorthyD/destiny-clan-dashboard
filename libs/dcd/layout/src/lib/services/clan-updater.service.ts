@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { mergeMap, map, catchError, toArray, switchMap, tap, take, filter } from 'rxjs/operators';
-import { removeClan, selectEnabledClans, updateClan, updateClanProfileSync } from '@dcd/shared/data-access/store';
+import { removeClan, selectEnabledClans, updateClan } from '@dcd/shared/data-access/store';
 import { ClanMembersService } from '@destiny-clan-dashboard/data/clan/clan-members';
 import { from, of } from 'rxjs';
 import { AppConfigService } from '@dcd/shared/utils/app-config';
@@ -11,7 +11,7 @@ import { ClanDetailsService } from '@destiny-clan-dashboard/data/clan/clan-detai
 import { MatDialog } from '@angular/material/dialog';
 import { AppOfflineDialogComponent } from '@dcd/shared/ui/app-offline-dialog';
 
-import { environment } from 'apps/destiny-clan-dashboard/src/environments/environment';
+// import { environment } from 'apps/destiny-clan-dashboard/src/environments/environment';
 import deepEqual from 'deep-equal';
 import { isMobile } from '@destiny-clan-dashboard/shared/utils';
 import { BungieInfoUpdaterService } from '@dcd/shared/data-access/bungie-info';
@@ -22,7 +22,7 @@ import { ClanConfig } from '@dcd/shared/models';
 })
 export class ClanUpdaterService {
   activeClanIds$ = this.store.select(selectEnabledClans);
-  showLog = environment.production === false;
+  showLog = false; //environment.production === false;
 
   constructor(
     private store: Store,
@@ -33,7 +33,9 @@ export class ClanUpdaterService {
     private memberActivityUpdaterService: MemberActivityUpdaterService,
     private bungieInfoUpdaterService: BungieInfoUpdaterService,
     public dialog: MatDialog
-  ) {}
+  ) {
+    this.showLog = this.appConfig.config.production === false;
+  }
   clanUpdaterKey = 'clanUpdaterKey';
   clanMemberUpdater = 'clanMemberUpdater';
   profileUpdater = 'profileUpdater';

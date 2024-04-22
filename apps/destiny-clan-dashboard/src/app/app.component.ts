@@ -7,17 +7,23 @@ import { registerIcons } from '@destiny-clan-dashboard/components/icons';
 import { catchError, filter, map, of } from 'rxjs';
 import { NavigationEnd, Router, RouterModule } from '@angular/router';
 import { MatButtonModule } from '@angular/material/button';
-import { CoreModule } from '@core/core.module';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { CommonModule } from '@angular/common';
+import { LayoutModule } from '@dcd/layout';
 
 declare let gtag: Function;
 
 @Component({
   standalone: true,
-  imports: [RouterModule, MatIconModule, CommonModule, MatButtonModule,
-   //CoreModule,
-     MatProgressSpinnerModule],
+  imports: [
+    RouterModule,
+    MatIconModule,
+    CommonModule,
+    MatButtonModule,
+    //CoreModule,
+    LayoutModule,
+    MatProgressSpinnerModule
+  ],
   selector: 'destiny-clan-dashboard-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
