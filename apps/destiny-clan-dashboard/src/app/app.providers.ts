@@ -1,10 +1,9 @@
 import { ApplicationConfig, importProvidersFrom } from '@angular/core';
 import { provideRouter, withEnabledBlockingInitialNavigation } from '@angular/router';
 import { appRoutes } from './app.routes';
-import { CoreModule } from './core/core.module';
 import { provideStore } from '@ngrx/store';
 import { provideEffects } from '@ngrx/effects';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { coreEffects, coreReducers, metaReducers } from '@dcd/shared/data-access/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from '../environments/environment';
@@ -20,18 +19,59 @@ import { ProfileWorkerService } from './workers/profile-worker/profile-worker.se
 
 import { ProfileRecentActivityWorkerService as ProfileRecentActivityWorkerServiceFake } from '@dcd/shared/data-access/member-activity';
 import { ProfileRecentActivityWorkerService } from './workers/profile-recent-activity/profile-recent-activity.service';
+import { LocationToken, WindowToken, locationProvider, windowProvider } from '@dcd/shared/tokens';
+import { IdbKeyValService } from '@destiny-clan-dashboard/data/storage';
+import { ClanMembersService } from '@destiny-clan-dashboard/data/clan/clan-members';
+import { ApiKeyInterceptor } from '@dcd/shared/utils/api-key-interceptor';
+import { ClanDatabase } from '@destiny-clan-dashboard/data/clan/clan-database';
+import { ClanBungieInfoService } from '@destiny-clan-dashboard/data/clan/bungie-info/bungie-info.service';
+import { ClanProfileService } from '@destiny-clan-dashboard/data/clan/profiles/profile.service';
+import { ClanDbModule } from '@destiny-clan-dashboard/data/clan';
 
 export const appProviders: ApplicationConfig = {
   providers: [
+    // Routes
+    provideRouter(appRoutes, withEnabledBlockingInitialNavigation()),
+    // Custom providers
     { provide: BungieInfoWorkerServiceFake, useClass: BungieInfoWorkerService },
     { provide: ProfileWorkerServiceFake, useClass: ProfileWorkerService },
     { provide: ProfileRecentActivityWorkerServiceFake, useClass: ProfileRecentActivityWorkerService },
-    provideRouter(appRoutes, withEnabledBlockingInitialNavigation()),
-    importProvidersFrom(CoreModule, SealsModule, BrowserAnimationsModule),
+    {
+      provide: ClanProfileService,
+      useFactory: (canDB) => {
+        return new ClanProfileService(canDB, environment.apiKey);
+      },
+      deps: [ClanDatabase]
+    },
+    {
+      provide: ClanBungieInfoService,
+      useFactory: (canDB) => {
+        return new ClanBungieInfoService(canDB, environment.apiKey);
+      },
+      deps: [ClanDatabase]
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: ApiKeyInterceptor,
+      multi: true
+    },
+
+    // Imported Providers
+    importProvidersFrom(HttpClientModule, ClanDbModule, SealsModule, BrowserAnimationsModule),
+
+    // NGRX Providers
     provideStore(coreReducers, { metaReducers }),
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production }).providers,
     provideEffects(coreEffects),
+
+    //Tokens
     getAppConfigProvider(appConfig),
-    AppConfigService
+    { provide: LocationToken, useFactory: locationProvider },
+    { provide: WindowToken, useFactory: windowProvider },
+
+    // Standard providers
+    AppConfigService,
+    IdbKeyValService,
+    ClanMembersService
   ]
 };

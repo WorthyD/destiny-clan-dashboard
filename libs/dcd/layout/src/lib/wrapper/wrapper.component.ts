@@ -1,12 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-// import { getAllNotifications } from '@core/store/notifications';
 import { Store } from '@ngrx/store';
 import { take } from 'rxjs';
-import { ClanUpdaterService } from '../../../../../../apps/destiny-clan-dashboard/src/app/core/services/updaters/clan-updater.service';
-//import { AppConfig } from '../../config/app-config';
+import { ClanUpdaterService } from '../services/clan-updater.service';
 import { AppConfigService } from '@dcd/shared/utils/app-config';
 import { getAllNotifications, initializeClanItems } from '@dcd/shared/data-access/store';
-// import { initializeClanItems } from '@core/store/clans';
 
 @Component({
   selector: 'app-wrapper',

@@ -4,4 +4,4 @@ import { ConfigRoutingModule } from './config-routing.module';
 @NgModule({
   imports: [ConfigRoutingModule]
 })
-export class ClansRosterModule {}
+export class ConfigShellModule {}

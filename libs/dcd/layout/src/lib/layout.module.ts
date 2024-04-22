@@ -10,10 +10,13 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { SettingsMenuComponent } from './settings-menu/settings-menu.component';
+
+import { MatDialogModule } from '@angular/material/dialog';
 @NgModule({
   declarations: [WrapperComponent],
   imports: [
     CommonModule,
+    MatDialogModule,
     RouterModule,
     NotificationsComponent,
     MatSidenavModule,

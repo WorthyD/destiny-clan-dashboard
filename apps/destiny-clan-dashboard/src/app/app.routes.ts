@@ -36,7 +36,8 @@ export const appRoutes: Route[] = [
       },
       {
         path: 'config',
-        loadChildren: () => import('./views/config/config.module').then((module) => module.ConfigModule)
+        //loadChildren: () => import('./views/config/config.module').then((module) => module.ConfigModule)
+        loadChildren: () => import('@dcd/config/shell').then((module) => module.ConfigShellModule)
       },
       {
         path: 'sandbox',
