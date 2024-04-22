@@ -28,6 +28,7 @@
       "@dcd/shared/data-access/bungie-info": ["libs/dcd/shared/data-access/bungie-info/src/index.ts"],
       "@dcd/shared/data-access/definitions": ["libs/dcd/shared/data-access/definitions/src/index.ts"],
       "@dcd/shared/data-access/manifest": ["libs/dcd/shared/data-access/manifest/src/index.ts"],
+      "@dcd/shared/data-access/member-activity": ["libs/dcd/shared/data-access/member-activity/src/index.ts"],
       "@dcd/shared/data-access/profile": ["libs/dcd/shared/data-access/profile/src/index.ts"],
       "@dcd/shared/data-access/seals": ["libs/dcd/shared/data-access/seals/src/index.ts"],
       "@dcd/shared/data-access/store": ["libs/dcd/shared/data-access/store/src/index.ts"],

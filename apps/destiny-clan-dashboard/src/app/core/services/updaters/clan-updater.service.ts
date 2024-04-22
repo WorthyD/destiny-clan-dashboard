@@ -6,7 +6,7 @@ import { ClanMembersService } from '@destiny-clan-dashboard/data/clan/clan-membe
 import { from, of } from 'rxjs';
 import { AppConfigService } from '@dcd/shared/utils/app-config';
 import { ProfileUpdaterService } from '@dcd/shared/data-access/profile';
-import { MemberActivityUpdaterService } from './member-activity-updater.service';
+import { MemberActivityUpdaterService } from '@dcd/shared/data-access/member-activity';
 import { ClanDetailsService } from '@destiny-clan-dashboard/data/clan/clan-details';
 import { MatDialog } from '@angular/material/dialog';
 import { AppOfflineDialogComponent } from '@dcd/shared/ui/app-offline-dialog';

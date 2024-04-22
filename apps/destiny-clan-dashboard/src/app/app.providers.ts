@@ -18,12 +18,14 @@ import { BungieInfoWorkerService } from './workers/bungie-info/bungie-info-worke
 import { ProfileWorkerService as ProfileWorkerServiceFake } from '@dcd/shared/data-access/profile';
 import { ProfileWorkerService } from './workers/profile-worker/profile-worker.service';
 
-
+import { ProfileRecentActivityWorkerService as ProfileRecentActivityWorkerServiceFake } from '@dcd/shared/data-access/member-activity';
+import { ProfileRecentActivityWorkerService } from './workers/profile-recent-activity/profile-recent-activity.service';
 
 export const appProviders: ApplicationConfig = {
   providers: [
     { provide: BungieInfoWorkerServiceFake, useClass: BungieInfoWorkerService },
     { provide: ProfileWorkerServiceFake, useClass: ProfileWorkerService },
+    { provide: ProfileRecentActivityWorkerServiceFake, useClass: ProfileRecentActivityWorkerService },
     provideRouter(appRoutes, withEnabledBlockingInitialNavigation()),
     importProvidersFrom(CoreModule, SealsModule, BrowserAnimationsModule),
     provideStore(coreReducers, { metaReducers }),
