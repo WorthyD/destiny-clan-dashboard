@@ -7,7 +7,7 @@ import { getClanMemberId, getMemberProfileId } from '@destiny-clan-dashboard/sha
 import { ClanProfileService } from 'libs/data/src/lib/clan/profiles/profile.service';
 import { profileSerializer } from 'libs/data/src/lib/profile/profile.serializer';
 import { from, map, mergeMap, Observable, switchMap, toArray } from 'rxjs';
-import { GlobalSealsService } from '@core/services/global-seals.service';
+import { GlobalSealsService } from '@dcd/shared/data-access/seals';
 import { SealClanMember, SealListItem } from '@dcd/seals/models';
 
 @Injectable({

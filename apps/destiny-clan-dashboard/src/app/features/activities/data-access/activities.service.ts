@@ -1,11 +1,13 @@
 import { Injectable } from '@angular/core';
 // import { ActivityDefinitionService } from '@core/definition-services/activity-definition.service';
-import { ClansMembersService } from '@core/services/clans-members.service';
+import { ClanConfigMembers, ClansMembersService } from '@core/services/clans-members.service';
 import { SeasonService, DefinitionService } from '@dcd/shared/data-access/definitions';
-import {
-  selectAllClansMembersProfiles,
-  selectClanMemberProfileStateLoading
-} from '@core/store/clans-members-profiles/clan-members-profiles.selectors';
+
+// import {
+//   selectAllClansMembersProfiles,
+//   selectClanMemberProfileStateLoading
+// } from '@core/store/clans-members-profiles/clan-members-profiles.selectors';
+
 import { getClanMemberId, getMemberProfileId } from '@destiny-clan-dashboard/shared/utils';
 import { Store } from '@ngrx/store';
 import { ClanMemberProfile } from '@shared/models/ClanMemberProfile';
@@ -18,6 +20,7 @@ import {
   CURATED_ACTIVITY_GROUPS
 } from '../models/CuratedActivities';
 import { ProfileRecentActivityWorkerService } from '../../../workers/profile-recent-activity/profile-recent-activity.service';
+import { selectAllClansMembersProfiles, selectClanMemberProfileStateLoading } from '@dcd/shared/data-access/store';
 
 @Injectable({
   providedIn: ActivitiesShellModule
@@ -110,7 +113,7 @@ export class ActivitiesService {
   getActivityStatsByHash(hash: number): Observable<any> {
     return this.memberService.clanMembersProfiles$.pipe(
       switchMap((clanMembersProfiles) => {
-        return this.profileRecentActivityWorkerService.getAllActivities(clanMembersProfiles, 'daily', 0, hash);
+        return this.profileRecentActivityWorkerService.getAllActivities(clanMembersProfiles as ClanConfigMembers[], 'daily', 0, hash);
       })
     );
   }

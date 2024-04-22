@@ -1,16 +1,13 @@
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { selectEnabledClans } from '@core/store/clans';
-import {
-  selectAllClansMembersProfiles,
-  selectClanMemberProfileStateLoading
-} from '@core/store/clans-members-profiles/clan-members-profiles.selectors';
+
 import { from, Observable } from 'rxjs';
 import { map, mergeMap, toArray, switchMap } from 'rxjs/operators';
 import { ClanDetailsService as DataService } from '@destiny-clan-dashboard/data/clan/clan-details';
 import { ClansDetailsModule } from '../clans-details-shell/clans-details.module';
 import { ClanMemberProfile, ClanMemberProfileWSeason } from '@shared/models/ClanMemberProfile';
 import { SeasonService } from '@dcd/shared/data-access/definitions';
+import { selectAllClansMembersProfiles, selectClanMemberProfileStateLoading, selectEnabledClans } from '@dcd/shared/data-access/store';
 
 @Injectable({
   providedIn: ClansDetailsModule

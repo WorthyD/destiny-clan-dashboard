@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { mergeMap, map, catchError, toArray, switchMap, tap, take, filter } from 'rxjs/operators';
-import { ClanConfig, removeClan, selectEnabledClans, updateClan, updateClanProfileSync } from '../../store/clans';
+import { removeClan, selectEnabledClans, updateClan, updateClanProfileSync } from '@dcd/shared/data-access/store';
 import { ClanMembersService } from '@destiny-clan-dashboard/data/clan/clan-members';
 import { from, of } from 'rxjs';
 import { GroupsV2GroupMember } from 'bungie-api-angular';
@@ -11,17 +11,14 @@ import { ProfileUpdaterService } from './profile-updater.service';
 import { MemberActivityUpdaterService } from './member-activity-updater.service';
 import { ClanDetailsService } from '@destiny-clan-dashboard/data/clan/clan-details';
 import { MatDialog } from '@angular/material/dialog';
-import { AppOfflineDialogComponent } from '../../layout/app-offline-dialog/app-offline-dialog.component';
-import { BungieInfoUpdaterService } from './bungie-info-updater.service';
+import { AppOfflineDialogComponent } from '@dcd/shared/ui/app-offline-dialog';
+
+// import { BungieInfoUpdaterService } from './bungie-info-updater.service';
 import { environment } from 'apps/destiny-clan-dashboard/src/environments/environment';
 import deepEqual from 'deep-equal';
 import { isMobile } from '@destiny-clan-dashboard/shared/utils';
-
-export interface ClanConfigMembers {
-  clanConfig: ClanConfig;
-  members: GroupsV2GroupMember[];
-  profiles?: any[];
-}
+import { BungieInfoUpdaterService } from '@dcd/shared/data-access/bungie-info';
+import { ClanConfig } from '@dcd/shared/models';
 
 @Injectable({
   providedIn: 'root'
@@ -64,7 +61,9 @@ export class ClanUpdaterService {
           this.showLog &&
           this.tapFunc('Member Profile Update Complete', x, this.recentActivityUpdater, this.profileUpdater)
       ),
-      switchMap((clans) => (isMobile(window) ? of(clans) : this.memberActivityUpdaterService.membersActivityUpdate(clans))),
+      switchMap((clans) =>
+        isMobile(window) ? of(clans) : this.memberActivityUpdaterService.membersActivityUpdate(clans)
+      ),
       tap(
         (x) =>
           this.showLog &&
@@ -75,7 +74,9 @@ export class ClanUpdaterService {
             this.recentActivityUpdater
           )
       ),
-      switchMap((clans) => (isMobile(window) ? of(clans) : this.bungieInfoUpdaterService.updateAllClansBungieInfo(clans))),
+      switchMap((clans) =>
+        isMobile(window) ? of(clans) : this.bungieInfoUpdaterService.updateAllClansBungieInfo(clans)
+      ),
       tap(
         (x) => this.showLog && this.tapFunc('Bungie Info Update Complete', x, undefined, this.updateAllClansBungieInfo)
       )

@@ -1,10 +1,10 @@
 import { ChangeDetectionStrategy, Component, Input, OnChanges, SimpleChanges } from '@angular/core';
-import { ClanConfig } from '@core/store/clans';
 import { ClanDetailService } from '@destiny-clan-dashboard/shared/clan-details/data-access';
 import { Observable, of, tap } from 'rxjs';
 import { GroupsV2GroupV2 } from 'bungie-api-angular';
 import { CommonModule } from '@angular/common';
 import { ClanDetailCellComponent } from '@destiny-clan-dashboard/shared/clan-details/ui';
+import { ClanConfig } from '@dcd/shared/models';
 
 @Component({
   selector: 'app-clan-detail',

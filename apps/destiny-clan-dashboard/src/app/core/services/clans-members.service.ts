@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { ClanConfig } from '@core/store/clans';
+//import { ClanConfig } from '@core/store/clans';
 import { ClanMembersService } from '@destiny-clan-dashboard/data/clan/clan-members';
 import { MemberProfile } from '@destiny-clan-dashboard/data/models';
 import { getClanMemberId, getMemberProfileId } from '@destiny-clan-dashboard/shared/utils';
@@ -8,12 +8,14 @@ import { ClanMemberProfile } from '@shared/models/ClanMemberProfile';
 import { GroupsV2GroupMember } from 'bungie-api-angular';
 import { ClanProfileService } from 'libs/data/src/lib/clan/profiles/profile.service';
 import { catchError, filter, from, map, mergeMap, Observable, of, shareReplay, switchMap, tap, toArray } from 'rxjs';
-import { selectEnabledClans } from '../store/clans/clans.selectors';
+//import { selectEnabledClans } from '../../../../../../libs/dcd/shared/data-access/store/src/lib/clans/clans.selectors';
 import { SeasonService } from '@dcd/shared/data-access/definitions';
-import { selectAllClansMembersProfiles } from '@core/store/clans-members-profiles/clan-members-profiles.selectors';
+import {  selectAllClansMembersProfiles, selectAllClansWithMembers, selectAllClansWithMembersProfiles, selectEnabledClans } from '@dcd/shared/data-access/store';
+import { ClanConfig } from '@dcd/shared/models';
+//import { selectAllClansMembersProfiles } from '@core/store/clans-members-profiles/clan-members-profiles.selectors';
 // import { ClanMemberProfileWID } from '@core/store/clans-members-profiles/clan-members-profiles.state';
-import { selectAllClansWithMembers } from '@core/store/clans-with-members';
-import { selectAllClansWithMembersProfiles } from '@core/store/clans-with-members-profiles';
+//import { selectAllClansWithMembers } from '@core/store/clans-with-members';
+//import { selectAllClansWithMembersProfiles } from '@core/store/clans-with-members-profiles';
 
 export interface ClanConfigMembers {
   clan: ClanConfig;

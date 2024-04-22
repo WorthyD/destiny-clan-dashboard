@@ -1,19 +1,22 @@
 import { Injectable, Injector, inject } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { mergeMap, map, catchError, toArray, switchMap, tap, take, filter } from 'rxjs/operators';
-import { ClanConfig, selectEnabledClans, updateClanProfileSync } from '../../store/clans';
+// import { ClanConfig, selectEnabledClans, updateClanProfileSync } from '../../../../../../../libs/dcd/shared/data-access/store/src/lib/clans';
+import { updateClanProfileSync } from '@dcd/shared/data-access/store';
+
 import { ClanMembersService } from '@destiny-clan-dashboard/data/clan/clan-members';
 import { from, Observable, of } from 'rxjs';
 import { GroupsV2GroupMember } from 'bungie-api-angular';
 import { ProfileWorkerService } from '../../../workers/profile-worker/profile-worker.service';
 import { nowPlusMinutes } from '@destiny-clan-dashboard/shared/utils';
 import { AppConfigService } from '@dcd/shared/utils/app-config';
-import { ClanConfigMembers } from './clan-updater.service';
 import { ClanProfileService } from 'libs/data/src/lib/clan/profiles/profile.service';
 import { ClanDatabase } from 'libs/data/src/lib/clan/clan-database';
 import { ClansMembersService } from '../clans-members.service';
-import { addNotification, removeNotification, updateNotification } from '../../store/notifications';
+/// import { addNotification, removeNotification, updateNotification } from '../../store/notifications';
 import { SeasonService } from '@dcd/shared/data-access/definitions';
+import { addNotification, removeNotification, updateNotification } from '@dcd/shared/data-access/store';
+import { ClanConfigMembers } from '@dcd/shared/models';
 
 @Injectable({
   providedIn: 'root'

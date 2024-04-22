@@ -6,7 +6,8 @@ import { ClansDetailsModule } from '../clans-details/clans-details.module';
 import { ClansDetailsService } from './clans-details.service';
 import { DailyClanAggregateTimeService } from 'libs/data/src/lib/stat-aggregators/clan-aggregate-time/daily-clan-aggregate-time.service';
 import { Store } from '@ngrx/store';
-import { selectAllRecentActivityUpdates } from '@core/store/clans';
+import { selectAllRecentActivityUpdates } from '@dcd/shared/data-access/store';
+//import { selectAllRecentActivityUpdates } from '@core/store/clans';
 
 @Injectable({
   providedIn: ClansDetailsModule
@@ -29,7 +30,7 @@ export class ClansDetailsActivitiesService {
       // console.log('-----------------');
       return this.clansDetailsService.clanMembersProfiles$.pipe(
         //take(1),
-        filter((x) => x.length > 0),
+        filter((x: any[]) => x.length > 0),
         switchMap((x) => {
           //console.log('------wark-----------', x);
           return this.profileRecentActivityWorkerService.getAllActivities(x, 'daily', 0, 0);

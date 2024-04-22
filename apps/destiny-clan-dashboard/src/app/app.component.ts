@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { loadManifest, selectManifestError, selectManifestState } from './core/store/manifest';
+import { loadManifest, selectManifestError, selectManifestState } from '@dcd/shared/data-access/store';
 import { DomSanitizer } from '@angular/platform-browser';
 import { MatIconModule, MatIconRegistry } from '@angular/material/icon';
 import { registerIcons } from '@destiny-clan-dashboard/components/icons';
@@ -15,7 +15,7 @@ declare let gtag: Function;
 
 @Component({
   standalone: true,
-  imports: [RouterModule, MatIconModule, CommonModule, MatButtonModule, 
+  imports: [RouterModule, MatIconModule, CommonModule, MatButtonModule,
    //CoreModule,
      MatProgressSpinnerModule],
   selector: 'destiny-clan-dashboard-root',

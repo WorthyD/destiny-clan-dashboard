@@ -4,15 +4,15 @@ import { CommonModule } from '@angular/common';
 import { AppConfigService } from '@dcd/shared/utils/app-config';
 import { environment } from '../../environments/environment';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { ApiKeyInterceptor } from './interceptors/apikey.interceptor';
+import { ApiKeyInterceptor } from '@dcd/shared/utils/api-key-interceptor';
 import { StoreModule } from '@ngrx/store';
-import { coreReducers, coreEffects, metaReducers } from './core.state';
+// import { coreReducers, coreEffects, metaReducers } from './core.state';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { Configuration } from 'bungie-api-angular';
 import { ClanDbModule } from '@destiny-clan-dashboard/data/clan';
 import { IdbKeyValService } from '@destiny-clan-dashboard/data/storage';
-import { LayoutModule } from './layout/layout.module';
+import { LayoutModule } from '@dcd/layout';
 import { ClanMembersService } from '@destiny-clan-dashboard/data/clan/clan-members';
 //import { ClanProfileService } from 'libs/data/src/lib/clan/profiles/profile.service';
 import { ClanProfileService } from '@destiny-clan-dashboard/data/clan/profiles/profile.service';
@@ -29,12 +29,12 @@ import { ClanBungieInfoService } from '@destiny-clan-dashboard/data/clan/bungie-
     HttpClientModule,
     ClanDbModule,
     LayoutModule,
-    MatDialogModule,
+    MatDialogModule
     //StoreModule.forRoot(coreReducers, { metaReducers }),
-   // StoreModule.forFeature( coreReducers, { metaReducers }),
+    // StoreModule.forFeature( coreReducers, { metaReducers }),
     //EffectsModule.forRoot(coreEffects),
     //EffectsModule.forRoot(coreEffects),
-  //  StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production })
+    //  StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production })
   ],
   providers: [
     ClanMembersService,
@@ -55,7 +55,7 @@ import { ClanBungieInfoService } from '@destiny-clan-dashboard/data/clan/bungie-
       },
       deps: [ClanDatabase]
     },
-  //  { provide: AppConfig, useValue: environment },
+    //  { provide: AppConfig, useValue: environment },
     // {
     //   provide: Configuration,
     //   useFactory: () => new Configuration(
