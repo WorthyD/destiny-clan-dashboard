@@ -4,16 +4,13 @@ import { mergeMap, map, catchError, toArray, switchMap, tap, take, filter } from
 import { removeClan, selectEnabledClans, updateClan, updateClanProfileSync } from '@dcd/shared/data-access/store';
 import { ClanMembersService } from '@destiny-clan-dashboard/data/clan/clan-members';
 import { from, of } from 'rxjs';
-import { GroupsV2GroupMember } from 'bungie-api-angular';
-import { ProfileWorkerService } from '../../../workers/profile-worker/profile-worker.service';
 import { AppConfigService } from '@dcd/shared/utils/app-config';
-import { ProfileUpdaterService } from './profile-updater.service';
+import { ProfileUpdaterService } from '@dcd/shared/data-access/profile';
 import { MemberActivityUpdaterService } from './member-activity-updater.service';
 import { ClanDetailsService } from '@destiny-clan-dashboard/data/clan/clan-details';
 import { MatDialog } from '@angular/material/dialog';
 import { AppOfflineDialogComponent } from '@dcd/shared/ui/app-offline-dialog';
 
-// import { BungieInfoUpdaterService } from './bungie-info-updater.service';
 import { environment } from 'apps/destiny-clan-dashboard/src/environments/environment';
 import deepEqual from 'deep-equal';
 import { isMobile } from '@destiny-clan-dashboard/shared/utils';

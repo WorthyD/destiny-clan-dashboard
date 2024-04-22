@@ -5,9 +5,7 @@ import { environment } from '../../../environments/environment';
 import { MemberProfile } from '@destiny-clan-dashboard/data/models';
 import { SeasonService } from '@dcd/shared/data-access/definitions';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class ProfileWorkerService {
   constructor(private seasonService:SeasonService) {}
   //  members: BehaviorSubject<MemberProfile[]> = new BehaviorSubject([]);
