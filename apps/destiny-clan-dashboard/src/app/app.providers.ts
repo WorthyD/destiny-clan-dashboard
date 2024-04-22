@@ -15,9 +15,15 @@ import { SealsModule } from '@dcd/shared/data-access/seals';
 import { BungieInfoWorkerService as BungieInfoWorkerServiceFake } from '@dcd/shared/data-access/bungie-info';
 import { BungieInfoWorkerService } from './workers/bungie-info/bungie-info-worker.service';
 
+import { ProfileWorkerService as ProfileWorkerServiceFake } from '@dcd/shared/data-access/profile';
+import { ProfileWorkerService } from './workers/profile-worker/profile-worker.service';
+
+
+
 export const appProviders: ApplicationConfig = {
   providers: [
     { provide: BungieInfoWorkerServiceFake, useClass: BungieInfoWorkerService },
+    { provide: ProfileWorkerServiceFake, useClass: ProfileWorkerService },
     provideRouter(appRoutes, withEnabledBlockingInitialNavigation()),
     importProvidersFrom(CoreModule, SealsModule, BrowserAnimationsModule),
     provideStore(coreReducers, { metaReducers }),
