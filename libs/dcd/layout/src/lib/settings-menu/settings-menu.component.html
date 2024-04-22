@@ -1,0 +1,46 @@
+<button mat-icon-button [matMenuTriggerFor]="settingsMenu">
+  <mat-icon>
+    settings
+  </mat-icon>
+</button>
+<mat-menu #settingsMenu="matMenu">
+  <a href="https://github.com/WorthyD/destiny-clan-dashboard/issues" target="_blank" mat-menu-item>
+    <mat-icon>
+      bug_report
+    </mat-icon>
+    <span> Report a Bug</span>
+  </a>
+  <a href="https://github.com/WorthyD/destiny-clan-dashboard" target="_blank" mat-menu-item>
+    <mat-icon>
+      code
+    </mat-icon>
+    <span> Source Code</span>
+  </a>
+  <a href="https://twitter.com/WorthyD" target="_blank" mat-menu-item>
+    <mat-icon>
+      keyboard
+    </mat-icon>
+    <span> Developer</span>
+  </a>
+  <!-- <button mat-menu-item>
+    <mat-icon>
+      help
+    </mat-icon>
+    <span> About App</span>
+  </button> -->
+  <a mat-menu-item routerLink="config">
+    <mat-icon>
+      settings
+    </mat-icon>
+    <span> Config</span>
+  </a>
+
+  <button mat-menu-item>
+    <mat-icon>
+      info
+    </mat-icon>
+    <span>
+      v {{versionNumber}}
+    </span>
+  </button>
+</mat-menu>
