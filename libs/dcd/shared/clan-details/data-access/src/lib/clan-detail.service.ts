@@ -5,7 +5,7 @@ import { GroupsV2GroupV2, GroupsV2GroupV2Card, GroupV2Service } from 'bungie-api
 import { catchError, map, Observable, of } from 'rxjs';
 
 import { ClanDatabase } from 'libs/data/src/lib/clan/clan-database';
-import { addClan, removeClan, resetClan } from '@core/store/clans/clans.actions';
+import { addClan, removeClan, resetClan } from 'libs/dcd/shared/data-access/store/src/lib/clans/clans.actions';
 
 @Injectable({
   //Note can't figure out how to provide in the module I want.

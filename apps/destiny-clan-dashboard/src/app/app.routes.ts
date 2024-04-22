@@ -1,6 +1,6 @@
 import { Route } from '@angular/router';
 import { ClanResolveGuard } from './core/guards/clan.guard';
-import { WrapperComponent } from './core/layout/wrapper/wrapper.component';
+import { WrapperComponent } from '../../../../libs/dcd/layout/src/lib/wrapper/wrapper.component';
 
 export const appRoutes: Route[] = [
   {

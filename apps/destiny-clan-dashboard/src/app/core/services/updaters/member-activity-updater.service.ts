@@ -3,12 +3,13 @@ import { Store } from '@ngrx/store';
 import { ClanMembersService } from '@destiny-clan-dashboard/data/clan/clan-members';
 import { ProfileWorkerService } from '../../../workers/profile-worker/profile-worker.service';
 import { ProfileRecentActivityWorkerService } from '../../../workers/profile-recent-activity/profile-recent-activity.service';
-import { ClanConfigMembers } from './clan-updater.service';
 import { filter, from, map, mergeMap, Observable, of, take, toArray } from 'rxjs';
 import { nowPlusMinutes } from '@destiny-clan-dashboard/shared/utils';
-import { updateClanMemberActivitySync } from '@core/store/clans';
-import { addNotification, removeNotification, updateNotification } from '../../store/notifications';
+// import { updateClanMemberActivitySync } from '@core/store/clans';
+// import { addNotification, removeNotification, updateNotification } from '../../store/notifications';
 import { AppConfigService } from '@dcd/shared/utils/app-config';
+import { addNotification, removeNotification, updateClanMemberActivitySync, updateNotification } from '@dcd/shared/data-access/store';
+import { ClanConfigMembers } from '@dcd/shared/models';
 
 @Injectable({
   providedIn: 'root'

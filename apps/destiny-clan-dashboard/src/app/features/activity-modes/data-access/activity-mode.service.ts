@@ -2,7 +2,7 @@ import { ActivityModeShellModule } from '../activity-mode-shell/activity-mode-sh
 import { DESTINY_ACTIVITY_MODES } from '@destiny-clan-dashboard/data/models';
 import { DefinitionService } from '@dcd/shared/data-access/definitions';
 import { Injectable } from '@angular/core';
-import { ClansMembersService } from '@core/services/clans-members.service';
+import { ClanConfigMembers, ClansMembersService } from '@core/services/clans-members.service';
 import { of, switchMap } from 'rxjs';
 import { ProfileRecentActivityWorkerService } from '../../../workers/profile-recent-activity/profile-recent-activity.service';
 import { DestinyDefinitionsDestinyActivityModeDefinition } from 'bungie-api-angular';
@@ -83,7 +83,7 @@ export class ActivityModeService {
     return this.clansDetailsService.clanMembersProfiles$.pipe(
       switchMap((clanMembersProfiles) => {
         return this.profileRecentActivityWorkerService.getAllRecentClanActivitiesByActivityModeId(
-          clanMembersProfiles,
+          clanMembersProfiles as ClanConfigMembers[],
           trackedDates,
           mode,
           0

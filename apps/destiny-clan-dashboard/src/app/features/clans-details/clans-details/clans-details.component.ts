@@ -1,8 +1,9 @@
 import { ChangeDetectionStrategy, Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
-import { ClanConfig } from '@core/store/clans';
+// import { ClanConfig } from '@core/store/clans';
 import { GroupsV2GroupV2 } from 'bungie-api-angular';
 import { combineLatest, map, Observable, tap } from 'rxjs';
 import { ClansDetailsService } from '../data-access/clans-details.service';
+import { ClanConfig } from '@dcd/shared/models';
 
 @Component({
   selector: 'app-clans-details',

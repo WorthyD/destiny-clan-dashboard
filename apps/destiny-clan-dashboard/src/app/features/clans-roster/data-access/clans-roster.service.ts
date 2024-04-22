@@ -1,10 +1,12 @@
 import { Injectable } from '@angular/core';
 import { from, map, mergeMap, Observable, switchMap, toArray } from 'rxjs';
 import { Store } from '@ngrx/store';
-import {
-  selectAllClansMembersProfiles,
-  selectClanMemberProfileStateLoading
-} from '@core/store/clans-members-profiles/clan-members-profiles.selectors';
+// import {
+//   selectAllClansMembersProfiles,
+//   selectClanMemberProfileStateLoading
+// } from '@core/store/clans-members-profiles/clan-members-profiles.selectors';
+import { selectAllClansMembersProfiles, selectClanMemberProfileStateLoading } from '@dcd/shared/data-access/store';
+
 import { ClanMemberProfile } from '@shared/models/ClanMemberProfile';
 import { ClanBungieInfoService } from 'libs/data/src/lib/clan/bungie-info/bungie-info.service';
 import { ClanRosterItem } from '../models/ClanRosterItem';

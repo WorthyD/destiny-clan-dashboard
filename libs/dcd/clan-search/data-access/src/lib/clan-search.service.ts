@@ -1,8 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { addClan } from '@core/store/clans';
-import { selectAllClans } from '@core/store/clans/clans.selectors';
+import { addClan } from 'libs/dcd/shared/data-access/store/src/lib/clans';
+import { selectAllClans } from 'libs/dcd/shared/data-access/store/src/lib/clans/clans.selectors';
 import { Store } from '@ngrx/store';
 import { GroupsV2GroupV2Card, GroupV2Service } from 'bungie-api-angular';
 import { forkJoin, map, Observable, of, take } from 'rxjs';
