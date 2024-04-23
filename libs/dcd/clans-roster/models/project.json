@@ -1,0 +1,13 @@
+{
+  "name": "clans-roster-models",
+  "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/dcd/clans-roster/models/src",
+  "prefix": "lib",
+  "tags": ["type:model"],
+  "projectType": "library",
+  "targets": {
+    "lint": {
+      "executor": "@nx/eslint:lint"
+    }
+  }
+}

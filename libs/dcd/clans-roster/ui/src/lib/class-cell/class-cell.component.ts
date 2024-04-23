@@ -1,5 +1,25 @@
-import { ChangeDetectionStrategy, Component, Input,  Pipe, PipeTransform } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { ChangeDetectionStrategy, Component, Input, Pipe, PipeTransform } from '@angular/core';
 import { MemberProfile } from '@destiny-clan-dashboard/data/models';
+@Pipe({
+  name: 'classicon',
+  pure: true,
+  standalone: true
+})
+export class ClassIconPipe implements PipeTransform {
+  constructor() {}
+
+  transform(classType: number): any {
+    switch (classType) {
+      case 0:
+        return 'titan-cell';
+      case 1:
+        return 'hunter-cell';
+      case 2:
+        return 'warlock-cell';
+    }
+  }
+}
 
 @Component({
   selector: 'app-class-cell',
@@ -8,9 +28,10 @@ import { MemberProfile } from '@destiny-clan-dashboard/data/models';
       {{ (profile?.characters.data)[characterHash].light }}
     </div>
   `,
-  styles: [
-  ],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  styles: [],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: true,
+  imports: [CommonModule, ClassIconPipe]
 })
 export class ClassCellComponent {
   @Input() characterHash: string;
@@ -30,24 +51,6 @@ export class ClassCellComponent {
         return 'warlock';
       default:
         return '';
-    }
-  }
-}
-@Pipe({
-  name: 'classicon',
-  pure: true
-})
-export class ClassIconPipe implements PipeTransform {
-  constructor() {}
-
-  transform(classType: number): any {
-    switch (classType) {
-      case 0:
-        return 'titan-cell';
-      case 1:
-        return 'hunter-cell';
-      case 2:
-        return 'warlock-cell';
     }
   }
 }
