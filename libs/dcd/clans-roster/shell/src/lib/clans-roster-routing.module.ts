@@ -4,7 +4,7 @@ import { RouterModule, Routes } from '@angular/router';
 const routes: Routes = [
   {
     path: '',
-    loadChildren: () => import('../clans-roster-list/clans-roster.module').then((module) => module.ClansRosterModule)
+    loadChildren: () => import('@dcd/clans-roster/clans-roster-list').then((module) => module.ClansRosterModule)
   }
 ];
 

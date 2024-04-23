@@ -1,9 +1,9 @@
 import { ViewerMetadata } from '@destiny-clan-dashboard/shared/data';
 
 import { MemberTypeComponent } from '@destiny-clan-dashboard/components/icons';
-import { ClassCellComponent } from '../../components/class-cell/class-cell.component';
+import { ClassCellComponent } from '../../../../ui/src/lib/class-cell/class-cell.component';
 import { MembershipTypes } from '@destiny-clan-dashboard/data/models';
-import { ClanRosterItem } from '@features/clans-roster/models/ClanRosterItem';
+import { ClanRosterItem } from '@dcd/clans-roster/models';
 import { ProfileLinkComponent } from '@destiny-clan-dashboard/components/shared/profile-link';
 import { BungieDatePipe, BungieDateTimePipe } from '@destiny-clan-dashboard/shared/pipes/bungie-date-pipe';
 

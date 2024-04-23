@@ -16,7 +16,7 @@ export const appRoutes: Route[] = [
         path: 'roster',
         //loadChildren: () => import('./views/roster/roster.module').then((module) => module.RosterModule)
 
-        loadChildren: () => import('./features/clans-roster/clans-roster-shell/clans-roster.module').then((module) => module.ClansRosterModule)
+        loadChildren: () => import('@dcd/clans-roster/shell').then((module) => module.ClansRosterModule)
       },
       {
         path: 'seals',
