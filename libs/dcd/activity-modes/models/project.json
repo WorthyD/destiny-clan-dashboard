@@ -1,0 +1,13 @@
+{
+  "name": "activity-modes-models",
+  "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/dcd/activity-modes/models/src",
+  "prefix": "lib",
+  "tags": ["type:model"],
+  "projectType": "library",
+  "targets": {
+    "lint": {
+      "executor": "@nx/eslint:lint"
+    }
+  }
+}

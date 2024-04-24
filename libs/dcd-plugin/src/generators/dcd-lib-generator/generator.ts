@@ -28,6 +28,7 @@ export async function dcdLibGeneratorGenerator(tree: Tree, options: DcdLibGenera
     tags: options.libType,
     skipModule: true,
     standalone: false,
+    prefix:'dcd',
     unitTestRunner: includeUnitTests ? UnitTestRunner.Jest : UnitTestRunner.None,
     strict:true,
     style: 'scss',
