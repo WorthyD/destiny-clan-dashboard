@@ -27,6 +27,8 @@ import { ClanDatabase } from '@destiny-clan-dashboard/data/clan/clan-database';
 import { ClanBungieInfoService } from '@destiny-clan-dashboard/data/clan/bungie-info/bungie-info.service';
 import { ClanProfileService } from '@destiny-clan-dashboard/data/clan/profiles/profile.service';
 import { ClanDbModule } from '@destiny-clan-dashboard/data/clan';
+import { ProfileRecentActivityWorkerService as ProfileRecentActivityWorkerServiceFakeSecond } from '@dcd/roster-recent-activity/data-access';
+import { ProfileRecentActivityWorkerService as ProfileRecentActivityWorkerServiceFakeThird } from '@dcd/activity-modes/data-access';
 
 export const appProviders: ApplicationConfig = {
   providers: [
@@ -36,6 +38,8 @@ export const appProviders: ApplicationConfig = {
     { provide: BungieInfoWorkerServiceFake, useClass: BungieInfoWorkerService },
     { provide: ProfileWorkerServiceFake, useClass: ProfileWorkerService },
     { provide: ProfileRecentActivityWorkerServiceFake, useClass: ProfileRecentActivityWorkerService },
+    { provide: ProfileRecentActivityWorkerServiceFakeSecond, useClass: ProfileRecentActivityWorkerService },
+    { provide: ProfileRecentActivityWorkerServiceFakeThird, useClass: ProfileRecentActivityWorkerService },
     {
       provide: ClanProfileService,
       useFactory: (canDB) => {

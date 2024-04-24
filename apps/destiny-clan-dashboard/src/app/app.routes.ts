@@ -1,6 +1,7 @@
 import { Route } from '@angular/router';
 import { ClanResolveGuard } from './core/guards/clan.guard';
-import { WrapperComponent } from '../../../../libs/dcd/layout/src/lib/wrapper/wrapper.component';
+import { WrapperComponent } from '@dcd/layout';
+// import { WrapperComponent } from '../../../../libs/dcd/layout/src/lib/wrapper/wrapper.component';
 
 export const appRoutes: Route[] = [
   {
@@ -32,7 +33,7 @@ export const appRoutes: Route[] = [
       },
       {
         path: 'activity-modes',
-        loadChildren: () => import('./features/activity-modes/activity-mode-shell/activity-mode-shell.module').then((module) => module.ActivityModeShellModule)
+        loadChildren: () => import('@dcd/activity-modes/shell').then((module) => module.ActivityModeShellModule)
       },
       {
         path: 'config',

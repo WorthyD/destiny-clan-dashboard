@@ -1,0 +1,13 @@
+{
+  "name": "roster-recent-activity-models",
+  "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/dcd/roster-recent-activity/models/src",
+  "prefix": "lib",
+  "tags": ["type:model"],
+  "projectType": "library",
+  "targets": {
+    "lint": {
+      "executor": "@nx/eslint:lint"
+    }
+  }
+}
