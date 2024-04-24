@@ -1,3 +1,7 @@
+## [1.2.4](https://github.com/WorthyD/destiny-clan-dashboard/compare/1.2.3...1.2.4) (2024-04-24)
+
+
+
 ## [1.2.3](https://github.com/WorthyD/destiny-clan-dashboard/compare/1.2.2...1.2.3) (2024-04-23)
 
 
@@ -17,10 +21,6 @@
 
 * migrating seals ([8d634be](https://github.com/WorthyD/destiny-clan-dashboard/commit/8d634be4a6a36c12d197cff44124f0c2dc663714))
 * migrating seals ([14430ab](https://github.com/WorthyD/destiny-clan-dashboard/commit/14430ab83da5300eca5a4683b60607428465a1d0))
-
-
-
-## [1.1.11](https://github.com/WorthyD/destiny-clan-dashboard/compare/1.1.10...1.1.11) (2023-09-19)
 
 
 
