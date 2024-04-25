@@ -29,6 +29,7 @@ import { ClanProfileService } from '@destiny-clan-dashboard/data/clan/profiles/p
 import { ClanDbModule } from '@destiny-clan-dashboard/data/clan';
 import { ProfileRecentActivityWorkerService as ProfileRecentActivityWorkerServiceFakeSecond } from '@dcd/roster-recent-activity/data-access';
 import { ProfileRecentActivityWorkerService as ProfileRecentActivityWorkerServiceFakeThird } from '@dcd/activity-modes/data-access';
+import { ProfileRecentActivityWorkerService as ProfileRecentActivityWorkerServiceFakeFourth } from '@dcd/activities/data-access';
 
 export const appProviders: ApplicationConfig = {
   providers: [
@@ -40,6 +41,7 @@ export const appProviders: ApplicationConfig = {
     { provide: ProfileRecentActivityWorkerServiceFake, useClass: ProfileRecentActivityWorkerService },
     { provide: ProfileRecentActivityWorkerServiceFakeSecond, useClass: ProfileRecentActivityWorkerService },
     { provide: ProfileRecentActivityWorkerServiceFakeThird, useClass: ProfileRecentActivityWorkerService },
+    { provide: ProfileRecentActivityWorkerServiceFakeFourth, useClass: ProfileRecentActivityWorkerService },
     {
       provide: ClanProfileService,
       useFactory: (canDB) => {

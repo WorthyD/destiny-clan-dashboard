@@ -30,16 +30,16 @@ import { BungieDateTimePipe } from '@destiny-clan-dashboard/shared/pipes/bungie-
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ActivityModeTableComponent implements OnChanges {
-  @Input() title: string;
-  @Input() mode: DestinyDefinitionsDestinyActivityModeDefinition;
+  @Input() title!: string;
+  @Input() mode!: DestinyDefinitionsDestinyActivityModeDefinition;
 
   private readonly today = new Date();
   trackedDates: TrackedDuration[];
   isLoading = true;
-  activityViewer: Viewer;
+  activityViewer: Viewer | undefined = undefined;
   activityFilterer = new Filterer({ metadata: ACTIVITY_MODE_FILTERER_METADATA });
-  activitySorter;
-  activityInfo$: Observable<DataSource>;
+  activitySorter: Sorter<ProfileRecentActivity, any> | undefined = undefined;
+  activityInfo$: Observable<DataSource | undefined> = of(undefined);
 
   constructor(
     private activitiesService: ActivityModeService,
@@ -104,14 +104,16 @@ export class ActivityModeTableComponent implements OnChanges {
 
       //if (this.mode && this.mode.modeType) {
       //console.log('trying');
-      this.activityInfo$ = this.activitiesService.getAllActivitiesByMode(this.mode?.modeType ?? 0, this.trackedDates).pipe(
-        map((ds) => {
-          return new DataSource<any>({ data: ds });
-        }),
-        tap((x) => {
-          this.isLoading = false;
-        })
-      );
+      this.activityInfo$ = this.activitiesService
+        .getAllActivitiesByMode(this.mode?.modeType ?? 0, this.trackedDates)
+        .pipe(
+          map((ds) => {
+            return new DataSource<any>({ data: ds });
+          }),
+          tap((x) => {
+            this.isLoading = false;
+          })
+        );
       //}
     }
   }
