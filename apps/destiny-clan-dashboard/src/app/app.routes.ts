@@ -25,7 +25,7 @@ export const appRoutes: Route[] = [
       },
       {
         path: 'activities',
-        loadChildren: () => import('./features/activities/activities-shell/activities-shell.module').then((module) => module.ActivitiesShellModule)
+        loadChildren: () => import('@dcd/activities/shell').then((module) => module.ActivitiesShellModule)
       },
       {
         path: 'player',
