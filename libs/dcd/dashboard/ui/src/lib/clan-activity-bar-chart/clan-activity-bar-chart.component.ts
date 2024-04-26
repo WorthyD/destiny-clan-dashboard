@@ -1,8 +1,8 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { BarChartModule } from '@destiny-clan-dashboard/components/shared/bar-chart';
+import { BarChartModule } from '@dcd/shared/ui/bar-chart';
 import { MatCardModule } from '@angular/material/card';
-import { SkeletonChartLoaderComponent } from '@destiny-clan-dashboard/components/shared/skeleton-chart-loader';
+import { SkeletonChartLoaderComponent } from '@dcd/shared/ui/skeleton-chart-loader';
 
 @Component({
   selector: 'dcd-clan-activity-bar-chart',

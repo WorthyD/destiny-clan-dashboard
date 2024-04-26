@@ -6,7 +6,7 @@ import { MatListModule } from '@angular/material/list';
 import { MatTooltipModule } from '@angular/material/tooltip';
 // import { BungieDisplayNameModule } from 'libs/components/src/lib/pipes/bungie-display-name';
 import { BungieDisplayNamePipe } from '@dcd/shared/utils/pipes';
-import { ProfileLinkComponent } from '@destiny-clan-dashboard/components/shared/profile-link';
+import { ProfileLinkComponent } from '@dcd/shared/ui/profile-link';
 
 @Component({
   selector: 'dcd-clan-member-card',
