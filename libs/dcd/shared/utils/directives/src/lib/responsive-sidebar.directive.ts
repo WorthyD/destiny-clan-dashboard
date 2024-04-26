@@ -6,7 +6,8 @@ import { Subject } from 'rxjs';
 import { map, takeUntil, filter } from 'rxjs/operators';
 
 @Directive({
-  selector: '[libResponsiveSidebar]'
+  selector: '[libResponsiveSidebar]',
+  standalone: true
 })
 export class ResponsiveSidebarDirective implements OnInit, OnDestroy {
   destroy$ = new Subject();
