@@ -8,7 +8,9 @@ import {
   OnInit,
   ViewEncapsulation
 } from '@angular/core';
-import { PlaytimePipe } from '../../pipes/playtime';
+//import { PlaytimePipe } from '../../../../../dcd/shared/utils/pipes/src/lib/playtime';
+
+//import {pla} from '@dcd/shared/utils/pipes';
 import {
   ApexAxisChartSeries,
   ApexChart,
@@ -23,6 +25,7 @@ import {
   ApexYAxis
 } from 'ng-apexcharts';
 import { compare } from '@destiny-clan-dashboard/shared/utils';
+import { PlaytimePipe } from '@dcd/shared/utils/pipes';
 
 @Component({
   selector: 'lib-bar-chart',

@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 // import { ActivityDefinitionService } from '@core/definition-services/activity-definition.service';
-import { ClanConfigMembers, ClansMembersService } from '@core/services/clans-members.service';
 import { SeasonService, DefinitionService } from '@dcd/shared/data-access/definitions';
 
 // import {
@@ -10,7 +9,7 @@ import { SeasonService, DefinitionService } from '@dcd/shared/data-access/defini
 
 import { getClanMemberId, getMemberProfileId } from '@destiny-clan-dashboard/shared/utils';
 import { Store } from '@ngrx/store';
-import { ClanMemberProfile } from '@shared/models/ClanMemberProfile';
+import { ClanMemberProfile } from '@dcd/shared/models';
 import { ClanProfileService } from 'libs/data/src/lib/clan/profiles/profile.service';
 import { from, map, mergeMap, Observable, switchMap, take, toArray } from 'rxjs';
 // import {
@@ -20,13 +19,19 @@ import { from, map, mergeMap, Observable, switchMap, take, toArray } from 'rxjs'
 // } from '../models/CuratedActivities';
 
 // import { ProfileRecentActivityWorkerService } from '../../../workers/profile-recent-activity/profile-recent-activity.service';
-import { selectAllClansMembersProfiles, selectClanMemberProfileStateLoading } from '@dcd/shared/data-access/store';
+import {
+  selectAllClansMembersProfiles,
+  selectAllClansWithMembers,
+  selectAllClansWithMembersProfiles,
+  selectClanMemberProfileStateLoading
+} from '@dcd/shared/data-access/store';
 import { ProfileRecentActivityWorkerService } from './profile-recent-activity.fake.service';
 import {
   CuratedActivityGroupDefinitions,
   CURATED_ACTIVITIES_ALL,
   CURATED_ACTIVITY_GROUPS
 } from '@dcd/activities/models';
+import { ClanConfigMembers } from '@dcd/shared/models';
 
 @Injectable()
 export class ActivitiesService {
@@ -34,11 +39,14 @@ export class ActivitiesService {
     //private activityDefinitionService: ActivityDefinitionService,
     private definitionService: DefinitionService,
     private store: Store,
-    private memberService: ClansMembersService,
+    //private memberService: ClansMembersService,
     private profileService: ClanProfileService,
     private seasonService: SeasonService,
     private profileRecentActivityWorkerService: ProfileRecentActivityWorkerService
   ) {}
+
+  clanMembers$ = this.store.select(selectAllClansWithMembers);
+  clanMembersProfiles$ = this.store.select(selectAllClansWithMembersProfiles);
 
   getCuratedActivities(): CuratedActivityGroupDefinitions[] {
     const groups = CURATED_ACTIVITY_GROUPS;
@@ -78,7 +86,7 @@ export class ActivitiesService {
     collectionHashes: number[],
     recordHashes: number[]
   ): Observable<ClanMemberProfile[]> {
-    return this.memberService.clanMembers$.pipe(
+    return this.clanMembers$.pipe(
       switchMap((clansAndMembers) => {
         return from(clansAndMembers).pipe(
           mergeMap((clanAndMembers) => {
@@ -115,14 +123,9 @@ export class ActivitiesService {
   }
 
   getActivityStatsByHash(hash: number): Observable<any> {
-    return this.memberService.clanMembersProfiles$.pipe(
+    return this.clanMembersProfiles$.pipe(
       switchMap((clanMembersProfiles) => {
-        return this.profileRecentActivityWorkerService.getAllActivities(
-          clanMembersProfiles as ClanConfigMembers[],
-          'daily',
-          0,
-          hash
-        );
+        return this.profileRecentActivityWorkerService.getAllActivities(clanMembersProfiles, 'daily', 0, hash);
       })
     );
   }

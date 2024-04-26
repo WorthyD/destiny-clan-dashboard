@@ -3,10 +3,11 @@ import { CollectionDefinition, MetricDefinition, RecordDefinition } from '@desti
 //import { ActivitiesService } from '../data-access/activities.service';
 import { ActivitiesService } from '@dcd/activities/data-access';
 import { Observable, map, of, startWith, tap } from 'rxjs';
-import { ClanMemberProfile } from '@shared/models/ClanMemberProfile';
-import { MetricTotalPipe } from '@destiny-clan-dashboard/components/pipes/metric-total';
-import { InCollectionsTotalPipe } from '@destiny-clan-dashboard/components/pipes/in-collections';
-import { RecordTotalPipe } from '@destiny-clan-dashboard/components/pipes/record-total';
+import { ClanMemberProfile } from '@dcd/shared/models';
+import { InCollectionsTotalPipe, MetricTotalPipe, RecordTotalPipe } from '@dcd/shared/utils/pipes';
+//import { MetricTotalPipe } from '@destiny-clan-dashboard/components/pipes/metric-total';
+//import { InCollectionsTotalPipe } from '@destiny-clan-dashboard/components/pipes/in-collections';
+//import { RecordTotalPipe } from '@destiny-clan-dashboard/components/pipes/record-total';
 
 type ActivityBreakDownItem =
   | MetricActivityBreakDownItem

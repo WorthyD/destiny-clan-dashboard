@@ -1,6 +1,6 @@
 // import { ExporterMetadata } from '@destiny-clan-dashboard/components';
 // import { MembershipTypes } from '@destiny-clan-dashboard/data/models/enums';
-// import { ClanMemberProfile } from '@shared/models/ClanMemberProfile';
+// import { ClanMemberProfile } from '@dcd/shared/models';
 
 // // import { MockListItem } from './ListItems';
 // export const CLAN_ROSTER_EXPORTER_METADATA = new Map<string, ExporterMetadata<ClanMemberProfile>>([

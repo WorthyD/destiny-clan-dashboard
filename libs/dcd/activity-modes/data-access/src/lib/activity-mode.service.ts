@@ -1,20 +1,26 @@
 import { DESTINY_ACTIVITY_MODES } from '@destiny-clan-dashboard/data/models';
 import { DefinitionService } from '@dcd/shared/data-access/definitions';
 import { Injectable } from '@angular/core';
-import { ClanConfigMembers, ClansMembersService } from '@core/services/clans-members.service';
 import { of, switchMap } from 'rxjs';
 //import { ProfileRecentActivityWorkerService } from '../../../workers/profile-recent-activity/profile-recent-activity.service';
 import { ProfileRecentActivityWorkerService } from './profile-recent-activity.fake.service';
 import { DestinyDefinitionsDestinyActivityModeDefinition } from 'bungie-api-angular';
 import { TrackedDuration } from 'libs/data/src/lib/clan/clan-member-recent-activity/clan-member-recent-activity.serializer';
+import { Store } from '@ngrx/store';
+import { selectAllClansWithMembersProfiles } from '@dcd/shared/data-access/store';
+import { ClanConfigMembers } from '@dcd/shared/models';
 
 @Injectable()
 export class ActivityModeService {
   constructor(
     private definitionService: DefinitionService,
-    private clansDetailsService: ClansMembersService,
+
+    private store: Store,
+    //private clansDetailsService: ClansMembersService,
     private profileRecentActivityWorkerService: ProfileRecentActivityWorkerService
   ) {}
+
+  clanMembersProfiles$ = this.store.select(selectAllClansWithMembersProfiles);
   readonly ignoredModes = [
     16, // NFStrikes - no stats
     66, // Forges
@@ -79,10 +85,10 @@ export class ActivityModeService {
   }
 
   getAllActivitiesByMode(mode: number, trackedDates: TrackedDuration[]) {
-    return this.clansDetailsService.clanMembersProfiles$.pipe(
+    return this.clanMembersProfiles$.pipe(
       switchMap((clanMembersProfiles) => {
         return this.profileRecentActivityWorkerService.getAllRecentClanActivitiesByActivityModeId(
-          clanMembersProfiles as ClanConfigMembers[],
+          clanMembersProfiles as unknown as ClanConfigMembers[],
           trackedDates,
           mode,
           0

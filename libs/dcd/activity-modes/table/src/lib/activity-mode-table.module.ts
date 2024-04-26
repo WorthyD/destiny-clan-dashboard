@@ -7,9 +7,8 @@ import { MatIconModule } from '@angular/material/icon';
 // eslint-disable-next-line @nx/enforce-module-boundaries
 import { TableViewComponent } from '@destiny-clan-dashboard/components/shared/table-view';
 // eslint-disable-next-line @nx/enforce-module-boundaries
-import { PipesModule } from '@destiny-clan-dashboard/components/pipes';
 import { RouterModule } from '@angular/router';
-import { BungieDateTimePipe } from '@destiny-clan-dashboard/shared/pipes/bungie-date-pipe';
+import { BungieDateTimePipe, PlaytimePipe } from '@dcd/shared/utils/pipes';
 
 @NgModule({
   declarations: [ActivityModeTableComponent],
@@ -17,12 +16,12 @@ import { BungieDateTimePipe } from '@destiny-clan-dashboard/shared/pipes/bungie-
   imports: [
     CommonModule,
     MatButtonModule,
-    PipesModule,
+    BungieDateTimePipe,
     MatIconModule,
     TableViewComponent,
     RouterModule,
     BungieDateTimePipe
   ],
-  providers: [BungieDateTimePipe]
+  providers: [BungieDateTimePipe, PlaytimePipe]
 })
 export class ActivityModeTableModule {}

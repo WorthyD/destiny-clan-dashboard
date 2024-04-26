@@ -1,6 +1,6 @@
 // import { AppState } from '../../core.state';
 // import { createEntityAdapter, EntityAdapter, EntityState } from '@ngrx/entity';
-// import { ClanMemberProfile } from '@shared/models/ClanMemberProfile';
+// import { ClanMemberProfile } from '@dcd/shared/models';
 
 // export interface ClanMemberProfileWID extends ClanMemberProfile {
 //   id: string;

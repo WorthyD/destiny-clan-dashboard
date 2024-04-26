@@ -1,7 +1,7 @@
 import { MembershipTypes } from '@destiny-clan-dashboard/data/models/enums';
 import { ProfileRecentActivity } from '@dcd/roster-recent-activity/models';
-import { PlaytimePipe } from '@destiny-clan-dashboard/components/pipes';
-import { BungieDateTimePipe } from '@destiny-clan-dashboard/shared/pipes/bungie-date-pipe';
+import { PlaytimePipe } from '@dcd/shared/utils/pipes';
+import { BungieDateTimePipe } from '@dcd/shared/utils/pipes';
 import { ExporterMetadata } from '@destiny-clan-dashboard/shared/data';
 
 interface ViewContext {

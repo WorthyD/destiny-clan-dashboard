@@ -7,8 +7,8 @@ import { CLAN_ROSTER_VIEWER_METADATA } from './clan-roster-metadata';
 import { CLAN_ROSTER_FILTERER_METADATA } from './clan-roster-metadata/ClanRosterFilterer';
 import { CLAN_ROSTER_SORTER_METADATA } from './clan-roster-metadata/ClanRosterSorter';
 // import { CLAN_ROSTER_EXPORTER_METADATA } from './clan-roster-metadata/ClanRosterExporter';
-import { ClanMemberProfile } from '@shared/models/ClanMemberProfile';
-import { BungieDatePipe, BungieDateTimePipe } from '@destiny-clan-dashboard/shared/pipes/bungie-date-pipe';
+import { ClanMemberProfile } from '@dcd/shared/models';
+import { BungieDatePipe, BungieDateTimePipe } from '@dcd/shared/utils/pipes';
 
 interface RosterResources {
   viewer: Viewer;
