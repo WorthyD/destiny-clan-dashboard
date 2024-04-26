@@ -1,7 +1,7 @@
 import { ViewerMetadata } from '@destiny-clan-dashboard/shared/data';
 import { getBungieDisplayName } from '@destiny-clan-dashboard/shared/utils';
 import { ClanMemberProfile } from '@dcd/shared/models';
-import { ProfileLinkComponent } from '@destiny-clan-dashboard/components/shared/profile-link';
+import { ProfileLinkComponent } from '@dcd/shared/ui/profile-link';
 
 interface ViewContext {
   item: ClanMemberProfile;

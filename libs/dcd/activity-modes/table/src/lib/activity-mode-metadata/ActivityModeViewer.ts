@@ -3,7 +3,7 @@ import { getBungieDisplayName } from '@destiny-clan-dashboard/shared/utils';
 //import { ProfileRecentActivity } from '../../models/profile-recent-activity';
 import {ProfileRecentActivity} from '@dcd/activity-modes/models';
 
-import { ProfileLinkComponent } from '@destiny-clan-dashboard/components/shared/profile-link';
+import { ProfileLinkComponent } from '@dcd/shared/ui/profile-link';
 import { BungieDateTimePipe, PlaytimePipe } from '@dcd/shared/utils/pipes';
 
 export interface ActivityModeViewContext {

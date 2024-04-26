@@ -5,7 +5,7 @@ import { ActivityModeTableComponent } from './activity-mode-table.component';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 // eslint-disable-next-line @nx/enforce-module-boundaries
-import { TableViewComponent } from '@destiny-clan-dashboard/components/shared/table-view';
+import { TableViewComponent } from '@dcd/shared/ui/table-view';
 // eslint-disable-next-line @nx/enforce-module-boundaries
 import { RouterModule } from '@angular/router';
 import { BungieDateTimePipe, PlaytimePipe } from '@dcd/shared/utils/pipes';

@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SealDetailsComponent } from './seal-details.component';
 import { SealsDashboardRoutingModule } from './seal-detail-routing.module';
-import { TableViewComponent } from '@destiny-clan-dashboard/components/shared/table-view';
+import { TableViewComponent } from '@dcd/shared/ui/table-view';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { RouterModule } from '@angular/router';
