@@ -1,6 +1,5 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 //import { DataSource, Exporter, Filterer, Sorter, Viewer } from '@destiny-clan-dashboard/components';
-import { PlaytimePipe } from '@destiny-clan-dashboard/components/pipes';
 import { combineLatest, map, Observable, of, tap } from 'rxjs';
 //import { RecentActivityService } from '../data-access/recent-activity.service';
 import { RecentActivityService } from '@dcd/roster-recent-activity/data-access';
@@ -14,7 +13,7 @@ import {
   RECENT_ACTIVITY_VIEWER_METADATA
 } from './recent-activity-metadata';
 import { DataSource, Exporter, Filterer, Sorter, Viewer } from '@destiny-clan-dashboard/shared/data';
-import { BungieDateTimePipe } from '@destiny-clan-dashboard/shared/pipes/bungie-date-pipe';
+import { BungieDateTimePipe, PlaytimePipe } from '@dcd/shared/utils/pipes';
 
 interface RosterActivityResources {
   viewer: Viewer;

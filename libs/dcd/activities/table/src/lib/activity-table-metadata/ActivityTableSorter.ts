@@ -1,7 +1,7 @@
 
 import { SorterMetadata } from '@destiny-clan-dashboard/shared/data';
 import { compare, getBungieDisplayName } from '@destiny-clan-dashboard/shared/utils';
-import { ClanMemberProfile } from '@shared/models/ClanMemberProfile';
+import { ClanMemberProfile } from '@dcd/shared/models';
 
 export const ACTIVITY_SORTER_METADATA = new Map<string, SorterMetadata<ClanMemberProfile>>([
 

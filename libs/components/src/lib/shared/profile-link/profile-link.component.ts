@@ -1,11 +1,11 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { MemberProfile } from '@destiny-clan-dashboard/data/models';
-import { BungieDisplayNameModule } from '../../pipes/bungie-display-name';
+import { BungieDisplayNamePipe } from '@dcd/shared/utils/pipes';
 import { RouterModule } from '@angular/router';
 @Component({
   selector: 'lib-profile-link',
   standalone: true,
-  imports: [BungieDisplayNameModule, RouterModule],
+  imports: [BungieDisplayNamePipe, RouterModule],
   templateUrl: './profile-link.component.html',
   styleUrls: ['./profile-link.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush

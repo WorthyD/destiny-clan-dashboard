@@ -9,7 +9,7 @@ import {
   Viewer,
   ViewerMetadata
 } from '@destiny-clan-dashboard/shared/data';
-import { PlaytimePipe } from '@destiny-clan-dashboard/components/pipes';
+import { PlaytimePipe } from '@dcd/shared/utils/pipes';
 import { DestinyDefinitionsDestinyActivityModeDefinition } from 'bungie-api-angular';
 import { TrackedDuration } from 'libs/data/src/lib/clan/clan-member-recent-activity/clan-member-recent-activity.serializer';
 import { map, Observable, of, switchMap, tap } from 'rxjs';
@@ -21,7 +21,7 @@ import { ProfileRecentActivity } from '@dcd/activity-modes/models';
 import { ACTIVITY_MODE_FILTERER_METADATA } from './activity-mode-metadata/ActivityModeFilterer';
 import { ACTIVITY_MODE_SORTER_METADATA } from './activity-mode-metadata/ActivityModeSorter';
 import { ActivityModeViewContext, ACTIVITY_MODE_VIEWER_METADATA } from './activity-mode-metadata/ActivityModeViewer';
-import { BungieDateTimePipe } from '@destiny-clan-dashboard/shared/pipes/bungie-date-pipe';
+import { BungieDateTimePipe } from '@dcd/shared/utils/pipes';
 
 @Component({
   selector: 'app-activity-mode-table',

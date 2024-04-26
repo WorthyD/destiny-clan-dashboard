@@ -1,6 +1,5 @@
 import { Route } from '@angular/router';
-import { ClanResolveGuard } from './core/guards/clan.guard';
-import { WrapperComponent } from '@dcd/layout';
+import { WrapperComponent, ClanResolveGuard } from '@dcd/layout';
 // import { WrapperComponent } from '../../../../libs/dcd/layout/src/lib/wrapper/wrapper.component';
 
 export const appRoutes: Route[] = [
@@ -11,12 +10,10 @@ export const appRoutes: Route[] = [
     children: [
       {
         path: '',
-        loadChildren: () => import('./features/clans-details/clans-details-shell/clans-details.module').then((module) => module.ClansDetailsModule)
+        loadChildren: () => import('@dcd/dashboard/shell').then((module) => module.ClansDetailsModule)
       },
       {
         path: 'roster',
-        //loadChildren: () => import('./views/roster/roster.module').then((module) => module.RosterModule)
-
         loadChildren: () => import('@dcd/clans-roster/shell').then((module) => module.ClansRosterModule)
       },
       {
@@ -29,7 +26,7 @@ export const appRoutes: Route[] = [
       },
       {
         path: 'player',
-        loadChildren: () => import('./features/player/player-shell/player-shell.module').then((module) => module.PlayerShellModule)
+        loadChildren: () => import('@dcd/player/shell').then((module) => module.PlayerShellModule)
       },
       {
         path: 'activity-modes',
@@ -37,12 +34,11 @@ export const appRoutes: Route[] = [
       },
       {
         path: 'config',
-        //loadChildren: () => import('./views/config/config.module').then((module) => module.ConfigModule)
         loadChildren: () => import('@dcd/config/shell').then((module) => module.ConfigShellModule)
       },
       {
         path: 'sandbox',
-        loadChildren: () => import('./features/sandbox/sandbox-shell/sandbox-shell.module').then((module) => module.SandboxShellModule)
+        loadChildren: () => import('@dcd/sandbox').then((module) => module.SandboxShellModule)
       }
     ]
   },
@@ -50,7 +46,8 @@ export const appRoutes: Route[] = [
     path: 'home',
     // TODO: Clan Guard
     //canActivate: [ClanResolveGuard],
-    loadChildren: () => import('@destiny-clan-dashboard/clan-search/feature/shell').then((module) => module.ClanSearchModule)
+    loadChildren: () =>
+      import('@destiny-clan-dashboard/clan-search/feature/shell').then((module) => module.ClanSearchModule)
   },
   { path: '**', redirectTo: '', pathMatch: 'full' }
 ];

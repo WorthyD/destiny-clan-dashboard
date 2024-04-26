@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 // import { RecordDefin itionService } from '@core/definition-services/record-definition.service';
 import { SeasonService, DefinitionService } from '@dcd/shared/data-access/definitions';
-import { ClansMembersService } from '@core/services/clans-members.service';
 import { MemberProfile } from '@destiny-clan-dashboard/data/models';
 import { getClanMemberId, getMemberProfileId } from '@destiny-clan-dashboard/shared/utils';
 import { ClanProfileService } from 'libs/data/src/lib/clan/profiles/profile.service';
@@ -9,19 +8,24 @@ import { profileSerializer } from 'libs/data/src/lib/profile/profile.serializer'
 import { from, map, mergeMap, Observable, switchMap, toArray } from 'rxjs';
 import { GlobalSealsService } from '@dcd/shared/data-access/seals';
 import { SealClanMember, SealListItem } from '@dcd/seals/models';
+import { Store } from '@ngrx/store';
+import { selectAllClansWithMembers } from '@dcd/shared/data-access/store';
 
 @Injectable({
   providedIn: 'root'
 })
 export class SealsService {
   constructor(
+    private store: Store,
     private definitionService: DefinitionService,
     // private recordNodeService: RecordDefinitionService,
     private seasonService: SeasonService,
-    private clansMembersService: ClansMembersService,
+    //private clansMembersService: ClansMembersService,
     private profileService: ClanProfileService,
     private globalSeals: GlobalSealsService
   ) {}
+
+  clanMembers$  = this.store.select(selectAllClansWithMembers);
   //legacySealNode = this.presentationNodeService.definitions[1881970629]; //.getDefinitionsByHash(1881970629);
   // currentSealNodes = this.definitionService.presentationDefinition[this.appConfig.constants.CURRENT_SEALS_HASH];
   // //allNodes = this.getNodes(this.currentSealNodes).concat(this.getNodes(this.legacySealNode));
@@ -42,7 +46,7 @@ export class SealsService {
   // }
   sealNodes = this.globalSeals.sealNodes;
 
-  clanProfiles$ = this.clansMembersService.clanMembers$.pipe(
+  clanProfiles$ = this.clanMembers$.pipe(
     switchMap((clansAndMembers) => {
       return from(clansAndMembers).pipe(
         mergeMap((clanAndMembers) => {

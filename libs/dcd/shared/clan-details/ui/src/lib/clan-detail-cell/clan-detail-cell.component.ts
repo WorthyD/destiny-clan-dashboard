@@ -4,14 +4,22 @@ import { GroupsV2GroupV2 } from 'bungie-api-angular';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { MatListModule } from '@angular/material/list';
-import {BungieDatePipe} from '@destiny-clan-dashboard/shared/pipes/bungie-date-pipe';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { BungieDatePipe } from '@dcd/shared/utils/pipes';
 
 @Component({
   selector: 'dcd-clan-detail-cell',
   standalone: true,
-  imports: [CommonModule, MatCardModule, MatButtonModule, MatListModule, BungieDatePipe, MatIconModule, MatTooltipModule],
+  imports: [
+    CommonModule,
+    MatCardModule,
+    MatButtonModule,
+    MatListModule,
+    BungieDatePipe,
+    MatIconModule,
+    MatTooltipModule
+  ],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './clan-detail-cell.component.html',
   styleUrls: ['./clan-detail-cell.component.scss']

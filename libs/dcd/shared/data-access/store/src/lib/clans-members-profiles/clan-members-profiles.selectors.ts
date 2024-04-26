@@ -3,7 +3,7 @@ import { createSelector, createFeatureSelector } from '@ngrx/store';
 // import { ClansMembersProfilesState, ClansMembersProfilesAdapter } from './clan-members-profiles.state';
 //import { selectAllClansWithMembers } from '../clans-with-members/clans-with-members.selectors';
 //import { selectAllClansWithMembersProfiles } from '../clans-with-members-profiles/clans-with-members-profiles.selectors';
-import { ClanMemberProfile } from '@shared/models/ClanMemberProfile';
+import { ClanMemberProfile } from '@dcd/shared/models';
 import { getClanMemberId, getMemberProfileId } from '@destiny-clan-dashboard/shared/utils';
 import { MemberProfile } from '@destiny-clan-dashboard/data/models';
 import { selectAllClansWithMembers } from '../clans-with-members';

@@ -7,7 +7,7 @@ import { Store } from '@ngrx/store';
 // } from '@core/store/clans-members-profiles/clan-members-profiles.selectors';
 import { selectAllClansMembersProfiles, selectClanMemberProfileStateLoading } from '@dcd/shared/data-access/store';
 
-import { ClanMemberProfile } from '@shared/models/ClanMemberProfile';
+import { ClanMemberProfile } from '@dcd/shared/models';
 import { ClanBungieInfoService } from 'libs/data/src/lib/clan/bungie-info/bungie-info.service';
 import { ClanRosterItem } from '@dcd/clans-roster/models';
 import { BungieInfo } from '@destiny-clan-dashboard/data/models';

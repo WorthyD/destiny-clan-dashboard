@@ -3,7 +3,7 @@ import { Store } from '@ngrx/store';
 import { loadManifest, selectManifestError, selectManifestState } from '@dcd/shared/data-access/store';
 import { DomSanitizer } from '@angular/platform-browser';
 import { MatIconModule, MatIconRegistry } from '@angular/material/icon';
-import { registerIcons } from '@destiny-clan-dashboard/components/icons';
+import { registerIcons } from '@dcd/shared/ui/icons';
 import { catchError, filter, map, of } from 'rxjs';
 import { NavigationEnd, Router, RouterModule } from '@angular/router';
 import { MatButtonModule } from '@angular/material/button';

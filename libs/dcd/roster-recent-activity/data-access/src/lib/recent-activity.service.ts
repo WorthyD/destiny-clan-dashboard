@@ -9,15 +9,18 @@ import { ProfileRecentActivity } from '@dcd/roster-recent-activity/models';
 
 ///import { RecentActivityModule } from '../recent-activity-shell/recent-activity.module';
 
-import { ClansMembersService } from '@core/services/clans-members.service';
 import { SeasonService } from '@dcd/shared/data-access/definitions';
 import { ClanProfileService } from '@destiny-clan-dashboard/data/clan/profiles/profile.service';
+import { Store } from '@ngrx/store';
+import { selectAllClansWithMembers } from '@dcd/shared/data-access/store';
 // import { SeasonService } from '@core/services/season.service';
 
 @Injectable()
 export class RecentActivityService {
+  clanMembers$ = this.store.select(selectAllClansWithMembers);
+
   // TODO: Optimize this to work with store better.
-  activeClanActivity$: Observable<ProfileRecentActivity[]> = this.memberService.clanMembers$.pipe(
+  activeClanActivity$: Observable<ProfileRecentActivity[]> = this.clanMembers$.pipe(
     switchMap((clansAndMembers) => {
       return from(clansAndMembers).pipe(
         mergeMap((clanAndMembers) => {
@@ -63,7 +66,9 @@ export class RecentActivityService {
   );
 
   constructor(
-    private memberService: ClansMembersService,
+    //private memberService: ClansMembersService,
+
+    private store: Store,
     private profileService: ClanProfileService,
     private profileActivityService: ProfileRecentActivityWorkerService,
     private seasonService: SeasonService

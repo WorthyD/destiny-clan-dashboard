@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
-import { ClanConfigMembers } from '@core/services/clans-members.service';
 import { TrackedDuration } from 'libs/data/src/lib/clan/clan-member-recent-activity/clan-member-recent-activity.serializer';
 //import { MemberProfile } from 'projects/data/src/lib/models';
 import { AggregateType } from 'libs/data/src/lib/stat-aggregators/clan-aggregate-time';
 import { BehaviorSubject, Observable, of, Subject } from 'rxjs';
 import { environment } from '../../../environments/environment';
+import { ClanConfigMembers } from '@dcd/shared/models';
 
 @Injectable({
   providedIn: 'root'
