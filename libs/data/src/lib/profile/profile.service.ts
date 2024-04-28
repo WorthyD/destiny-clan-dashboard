@@ -1,5 +1,5 @@
 import { from, mergeMap, Observable } from 'rxjs';
-import { ClanMember } from '../models/ClanMember';
+import { ClanMember } from '@dcd/shared/models';
 export class ProfileService {
   // 100 Profiles
   // 104 Profile Progression

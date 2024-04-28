@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 //import { MemberProfile, ClanMember } from 'bungie-models';
 import { BehaviorSubject, Observable, of, Subject } from 'rxjs';
 import { environment } from '../../../environments/environment';
-import { MemberProfile } from '@destiny-clan-dashboard/data/models';
+import { MemberProfile } from '@dcd/shared/models';
 import { SeasonService } from '@dcd/shared/data-access/definitions';
 
 @Injectable()

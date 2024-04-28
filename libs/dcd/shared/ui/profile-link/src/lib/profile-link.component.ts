@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
-import { MemberProfile } from '@destiny-clan-dashboard/data/models';
+import { MemberProfile } from '@dcd/shared/models';
 import { BungieDisplayNamePipe } from '@dcd/shared/utils/pipes';
 import { RouterModule } from '@angular/router';
 @Component({

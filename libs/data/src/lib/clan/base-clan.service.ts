@@ -1,22 +1,22 @@
 import { ClanDatabase } from './clan-database';
-import { DBObject, StoreId } from '../db/clan-indexed-db';
+import { ClanDbObject, ClanStoreId } from '@dcd/shared/utils/legacy-db';
 import { isValidDate, nowPlusMinutes } from '@destiny-clan-dashboard/shared/utils';
 
 export class BaseClanService {
   tableName;
-  constructor(private clanDbBase: ClanDatabase, private tableNameBase: StoreId) {
+  constructor(private clanDbBase: ClanDatabase, private tableNameBase: ClanStoreId) {
     this.tableName = tableNameBase;
   }
 
-  getDataFromCache(clanId: string, rowId: string): Promise<DBObject> {
+  getDataFromCache(clanId: string, rowId: string): Promise<ClanDbObject> {
     return this.clanDbBase.getById(clanId, this.tableNameBase, rowId);
   }
 
-  getAllDataFromCache(clanId: string): Promise<DBObject[]> {
+  getAllDataFromCache(clanId: string): Promise<ClanDbObject[]> {
     return this.clanDbBase.getAll(clanId, this.tableNameBase);
   }
 
-  isCacheValid(cachedData: DBObject, minuteExpiration: number, lastActivity?: Date) {
+  isCacheValid(cachedData: ClanDbObject, minuteExpiration: number, lastActivity?: Date) {
     if (cachedData && cachedData.createDate) {
       const cacheDate = cachedData.createDate;
       let expireDate;

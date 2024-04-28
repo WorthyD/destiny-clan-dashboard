@@ -10,7 +10,7 @@ import { selectAllClansMembersProfiles, selectClanMemberProfileStateLoading } fr
 import { ClanMemberProfile } from '@dcd/shared/models';
 import { ClanBungieInfoService } from 'libs/data/src/lib/clan/bungie-info/bungie-info.service';
 import { ClanRosterItem } from '@dcd/clans-roster/models';
-import { BungieInfo } from '@destiny-clan-dashboard/data/models';
+import { BungieInfo } from '@dcd/shared/models';
 
 @Injectable()
 export class ClansRosterService {

@@ -3,7 +3,7 @@ import { Inject, Injectable } from '@angular/core';
 import { Destiny2Service } from 'bungie-api-angular';
 import { map, Observable, of, switchMap, take } from 'rxjs';
 import { WindowToken } from '@dcd/shared/tokens';
-import { IdbKeyValService } from '../storage/idb-key-val.service';
+import { IdbKeyValService } from '@dcd/shared/utils/storage';
 import { nowPlusMinutes } from '@destiny-clan-dashboard/shared/utils';
 
 export const STATUS_EXTRACTING_TABLES = 'extracting tables';

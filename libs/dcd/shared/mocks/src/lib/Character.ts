@@ -1,4 +1,4 @@
-import { Character } from 'projects/data/src/lib/models/Character';
+import { Character } from '@dcd/shared/models';
 export const MOCK_CHARACTER: Character = {
   membershipId: 4611686018470541488,
   membershipType: 1,

@@ -1,5 +1,4 @@
-import { GroupsV2GroupV2 } from 'bungie-api-angular/lib/model/groupsV2GroupV2';
-import { ClanDetails } from '../ClanDetails';
+import { ClanDetails } from '@dcd/shared/models';
 
 export const getMockClan = (overrideClan: Partial<ClanDetails>): ClanDetails => {
   return {

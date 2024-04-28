@@ -5,7 +5,7 @@ import { GroupV2Service } from 'bungie-api-angular';
 import { ClanDatabase } from '../clan-database';
 import { ClanDetailsService } from './clan-details.service';
 import { DBObject } from '../../db/clan-indexed-db';
-import { ClanDetails } from '../../models/ClanDetails';
+import { ClanDetails } from '@dcd/shared/models';
 import { getMockClan } from '../../models/__mocks__/clan-details';
 import { defer, of } from 'rxjs';
 

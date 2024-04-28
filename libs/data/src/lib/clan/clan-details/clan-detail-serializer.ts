@@ -1,5 +1,5 @@
 import { GroupsV2GroupV2, GroupsV2GroupV2ClanInfoAndInvestment } from 'bungie-api-angular';
-import { ClanDetails } from '../../models/ClanDetails';
+import { ClanDetails } from '@dcd/shared/models';
 
 export function clanDetailSerializer(group: GroupsV2GroupV2, progressionHashes: string[]): ClanDetails {
   return {

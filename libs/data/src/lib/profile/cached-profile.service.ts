@@ -1,11 +1,10 @@
 import { Injectable } from '@angular/core';
 import { createStore, UseStore } from 'idb-keyval';
 import { catchError, from, map, mergeMap, Observable, of } from 'rxjs';
-import { IdbKeyValService } from '../storage';
+import { IdbKeyValService } from '@dcd/shared/utils/storage';
 import { nowPlusDays, unixTimeStampToDate } from '@destiny-clan-dashboard/shared/utils';
 import { ProfileService } from './profile.service';
-import { MemberProfile } from '../models/MemberProfile';
-
+import { MemberProfile } from '@dcd/shared/models';
 export class CachedProfileService extends ProfileService {
   profileStore: UseStore;
   constructor(private idbKeyValService: IdbKeyValService, private apiKey: string) {

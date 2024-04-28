@@ -1,6 +1,6 @@
 import { Pipe, PipeTransform } from '@angular/core';
 import { getDungeonReportUrl } from './base-dungeon-report';
-import { ClanMember } from '@destiny-clan-dashboard/data/models';
+import { ClanMember } from '@dcd/shared/models';
 
 @Pipe({
   name: 'dungeonReportUrl',

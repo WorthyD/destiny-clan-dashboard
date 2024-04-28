@@ -5,9 +5,9 @@ import { Observable, from, of } from 'rxjs';
 //import { StoreId } from '../app-indexed-db';
 
 import { nowPlusDays, unixTimeStampToDate } from '@destiny-clan-dashboard/shared/utils';
-import { StoreId } from '../../db/clan-indexed-db';
+import { ClanStoreId } from '@dcd/shared/utils/legacy-db';
 import { ClanDatabase } from '../clan-database';
-import { ClanMember } from '../../models/ClanMember';
+import { ClanMember } from '@dcd/shared/models';
 import { ProfileService } from '../../profile/profile.service';
 import { profileSerializer } from '../../profile/profile.serializer';
 //import { MemberProfile } from '../../models/MemberProfile';
@@ -16,7 +16,7 @@ import { profileSerializer } from '../../profile/profile.serializer';
 interface MemberProfile {}
 
 export class ClanProfileService extends ProfileService {
-  private tableName: StoreId = StoreId.MemberProfiles;
+  private tableName: ClanStoreId = ClanStoreId.MemberProfiles;
   private concurrentRequests = 20;
 
   //  private profileComponents = [100, 104, 200, 202, 800, 900, 1100];

@@ -9,9 +9,9 @@ import { mergeMap, map, toArray } from 'rxjs/operators';
 //import { MemberProfile } from 'projects/bungie-models/src/lib/models/MemberProfile';
 //import { MemberActivityRecentStats } from 'projects/bungie-models/src/lib/models/MemberActivityRecentStats';
 import { ClanDatabase } from '../clan-database';
-import { StoreId } from '../../db/clan-indexed-db';
+import { ClanStoreId } from '@dcd/shared/utils/legacy-db';
 // import { MemberProfile } from '../../models';
-import { MemberActivityRecentStats } from '../../models/MemberActivityRecentStats';
+import { MemberActivityRecentStats } from '@dcd/shared/models';
 import { clanMemberRecentActivitySerializer, TrackedDuration } from './clan-member-recent-activity.serializer';
 
 interface MemberProfile {
@@ -23,7 +23,7 @@ export class ClanMemberRecentActivityService extends BaseMemberActivityService {
   constructor(private clanDB: ClanDatabase, private baseApiKey: string) {
     super(
       clanDB,
-      StoreId.MemberRecentActivities,
+      ClanStoreId.MemberRecentActivities,
       baseApiKey,
       new Date(new Date().setDate(new Date().getDate() + ((2 + 7 - new Date().getDay()) % 7) - 90)),
       8,

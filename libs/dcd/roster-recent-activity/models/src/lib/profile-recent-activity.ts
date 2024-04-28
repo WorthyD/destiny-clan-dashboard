@@ -1,5 +1,6 @@
-import { ActivityStats, MemberProfile } from '@destiny-clan-dashboard/data/models';
+import { MemberProfile } from '@dcd/shared/models';
 import { GroupsV2GroupMember } from 'bungie-api-angular/lib/model/groupsV2GroupMember';
+import { ActivityStats } from '@dcd/shared/models';
 //import { GroupsV2GroupMember } from 'bungie-api-angular/';
 
 export interface ProfileRecentActivity {

@@ -4,7 +4,7 @@
 // import { of } from 'rxjs';
 
 import { ClanDatabase } from '../../clan/clan-database';
-import { MemberActivityTime } from '../../models/MemberActivityTime';
+import { MemberActivityTime } from '@dcd/shared/models';
 import { BaseClanAggregateTimeService } from './base-clan-aggregate-time.service';
 
 // import { ClanDatabase, ClanMemberRecentActivityService,  } from '../../clan-db';

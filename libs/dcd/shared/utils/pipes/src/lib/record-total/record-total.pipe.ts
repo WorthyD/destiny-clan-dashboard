@@ -1,5 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { MemberProfile, RecordDefinition } from '@destiny-clan-dashboard/data/models';
+import { MemberProfile, RecordDefinition } from '@dcd/shared/models';
 import { hasCompleted } from './has-completed';
 
 @Pipe({

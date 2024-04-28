@@ -1,5 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { MembershipTypes } from '@destiny-clan-dashboard/data/models/enums';
+import { MembershipTypes } from '@dcd/shared/models';
 
 @Pipe({
   name: 'memberType',

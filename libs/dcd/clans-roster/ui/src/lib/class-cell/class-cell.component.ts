@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, Input, Pipe, PipeTransform } from '@angular/core';
-import { MemberProfile } from '@destiny-clan-dashboard/data/models';
+import { MemberProfile } from'@dcd/shared/models';
 @Pipe({
   name: 'classicon',
   pure: true,

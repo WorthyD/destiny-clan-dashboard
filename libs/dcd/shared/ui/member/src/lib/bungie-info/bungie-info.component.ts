@@ -3,7 +3,7 @@ import { NgFor, NgIf } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
 import { MatListModule } from '@angular/material/list';
 import { MatIconModule } from '@angular/material/icon';
-import { BungieInfo } from '@destiny-clan-dashboard/data/models';
+import { BungieInfo } from '@dcd/shared/models';
 import { BungieDatePipe, DateAgoPipe } from '@dcd/shared/utils/pipes';
 
 @Component({

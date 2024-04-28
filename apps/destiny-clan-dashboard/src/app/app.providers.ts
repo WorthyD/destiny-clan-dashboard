@@ -20,7 +20,7 @@ import { ProfileWorkerService } from './workers/profile-worker/profile-worker.se
 import { ProfileRecentActivityWorkerService as ProfileRecentActivityWorkerServiceFake } from '@dcd/shared/data-access/member-activity';
 import { ProfileRecentActivityWorkerService } from './workers/profile-recent-activity/profile-recent-activity.service';
 import { LocationToken, WindowToken, locationProvider, windowProvider } from '@dcd/shared/tokens';
-import { IdbKeyValService } from '@destiny-clan-dashboard/data/storage';
+import { IdbKeyValService } from '@dcd/shared/utils/storage';
 import { ClanMembersService } from '@destiny-clan-dashboard/data/clan/clan-members';
 import { ApiKeyInterceptor } from '@dcd/shared/utils/api-key-interceptor';
 import { ClanDatabase } from '@destiny-clan-dashboard/data/clan/clan-database';

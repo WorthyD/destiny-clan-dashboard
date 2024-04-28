@@ -3,7 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { BehaviorSubject, filter, map, Observable, switchMap, tap } from 'rxjs';
 import { PlayerService } from '@dcd/player/data-access';
 import { BungieInfoService } from 'libs/data/src/lib/profile/bungie-info.service';
-import { BungieInfo } from '@destiny-clan-dashboard/data/models';
+import { BungieInfo } from '@dcd/shared/models';
 import { convertSealAndProfile } from '@dcd/shared/ui/member';
 import { GlobalSealsService } from '@dcd/shared/data-access/seals';
 import { DefinitionService } from '@dcd/shared/data-access/definitions';

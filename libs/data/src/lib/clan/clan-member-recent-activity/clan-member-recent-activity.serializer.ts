@@ -1,6 +1,6 @@
 // import { MemberActivityStats, MemberActivityRecentStats, MemberActivityRecentStatsActivity } from 'bungie-models';
-import { MemberActivityRecentStats, MemberActivityRecentStatsActivity } from '../../models/MemberActivityRecentStats';
-import { MemberActivityStats } from '../../models/MemberActivityStat';
+import { MemberActivityRecentStats, MemberActivityRecentStatsActivity } from'@dcd/shared/models';
+import { MemberActivityStats } from '@dcd/shared/models';
 // import { MemberActivityRecentStats } from 'projects/components/src/lib/clan-roster-activity-table/clan-roster-activity-table.component';
 import { groupActivities } from '@destiny-clan-dashboard/shared/utils';
 //import { getBungieStartDate } from '../../utility/date-utils';
