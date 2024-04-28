@@ -3,7 +3,7 @@ import { Destiny2Service, GroupsV2GroupMember, GroupV2Service } from 'bungie-api
 //import { DBObject, StoreId } from '../app-indexed-db';
 
 import { map, take, catchError, mergeMap, switchMap, shareReplay, concatMap } from 'rxjs/operators';
-import { StoreId } from '../../db/clan-indexed-db';
+import { ClanStoreId } from '@dcd/shared/utils/legacy-db';
 import { ClanDatabase } from '../clan-database';
 import { of, from, Observable } from 'rxjs';
 import { BaseClanService } from '../base-clan.service';
@@ -13,7 +13,7 @@ import { ClanMembersServiceInterface } from './clan-members.interface';
 export class ClanMembersService extends BaseClanService implements ClanMembersServiceInterface {
   private rowId = 'ClanMembers';
   constructor(private groupService: GroupV2Service, private clanDb: ClanDatabase) {
-    super(clanDb, StoreId.ClanDetails);
+    super(clanDb, ClanStoreId.ClanDetails);
   }
 
   private getClanMembersFromAPI(clanId: string) {
@@ -58,11 +58,11 @@ export class ClanMembersService extends BaseClanService implements ClanMembersSe
     );
   }
   getClanMembersCachedSerialized(clanId: string): Observable<GroupsV2GroupMember[]> {
-  //   console.log(`getting-${clanId}`);
+    //   console.log(`getting-${clanId}`);
     return from(this.getDataFromCache(clanId, this.rowId))
       .pipe(
         map((x) => {
-        //   console.log(`getting-done-${clanId}`);
+          //   console.log(`getting-done-${clanId}`);
           return x?.data;
         })
       )

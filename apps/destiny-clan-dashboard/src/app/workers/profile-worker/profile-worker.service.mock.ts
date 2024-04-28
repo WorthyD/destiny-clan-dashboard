@@ -1,5 +1,5 @@
 import { BehaviorSubject, delay, of, take, tap } from 'rxjs';
-import { MemberProfile } from '@destiny-clan-dashboard/data/models';
+import { MemberProfile } from '@dcd/shared/models';
 
 export class ProfileWorkerServiceMock {
   constructor() {}

@@ -1,4 +1,4 @@
-import { MembershipTypes } from "@destiny-clan-dashboard/data/models/enums";
+import { MembershipTypes } from '@dcd/shared/models';;
 
 const baseUrl = 'https://dungeon.report';
 const getPSUrl = (displayName: string) => {

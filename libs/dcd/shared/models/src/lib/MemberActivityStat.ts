@@ -1,3 +1,5 @@
+import { DestinyHistoricalStatsDestinyHistoricalStatsValuePair } from "./DestinyHistoricalStatsDestinyHistoricalStatsPeriodGroup";
+
 export interface MemberActivityStat {
   period?: string;
 
@@ -28,7 +30,7 @@ interface DestinyHistoricalStatsDestinyHistoricalStatsValue {
   weighted?: DestinyHistoricalStatsDestinyHistoricalStatsValuePair;
   activityId?: number;
 }
-export interface DestinyHistoricalStatsDestinyHistoricalStatsValuePair {
-  value?: number;
-  displayValue?: string;
-}
+// export interface DestinyHistoricalStatsDestinyHistoricalStatsValuePair {
+//   value?: number;
+//   displayValue?: string;
+// }

@@ -1,4 +1,4 @@
-import { MembershipTypes } from "@destiny-clan-dashboard/data/models";
+import { MembershipTypes } from '@dcd/shared/models';
 
 const baseUrl = 'https://raid.report';
 const getPSUrl = (displayName: string) => {

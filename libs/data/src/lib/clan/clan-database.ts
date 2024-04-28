@@ -1,31 +1,31 @@
 // import { Injectable } from '@angular/core';
-import { AppIndexedDb, StoreId, DBObject, STORE_IDS } from '../db/clan-indexed-db';
+import { ClanIndexedDb, ClanStoreId, ClanDbObject, CLAN_STORE_IDS } from '@dcd/shared/utils/legacy-db'
 
 //  @Injectable({providedIn: 'root'})
 export class ClanDatabase {
-  private databases: { [key: string]: AppIndexedDb };
+  private databases: { [key: string]: ClanIndexedDb };
   //  private database: AppIndexedDb;
   constructor() {
     this.databases = {};
   }
 
-  getAll(repository: string, type: StoreId): Promise<DBObject[]> {
+  getAll(repository: string, type: ClanStoreId): Promise<ClanDbObject[]> {
     return this.getDatabase(repository).getAllData(type);
   }
 
-  getById(repository: string, type: StoreId, id: string): Promise<DBObject> {
+  getById(repository: string, type: ClanStoreId, id: string): Promise<ClanDbObject> {
     return this.getDatabase(repository).getById(type, id);
   }
 
-  update(repository: string, type: StoreId, entities: any[]): Promise<void> {
+  update(repository: string, type: ClanStoreId, entities: any[]): Promise<void> {
     return this.getDatabase(repository).updateValues(entities, type);
   }
 
-  remove(repository: string, type: StoreId, ids: string[]): Promise<void> {
+  remove(repository: string, type: ClanStoreId, ids: string[]): Promise<void> {
     return this.getDatabase(repository).removeValues(ids, type);
   }
 
-  removeAll(repository: string, type: StoreId) {
+  removeAll(repository: string, type: ClanStoreId) {
     return this.getDatabase(repository).removeAllValues(type);
   }
 
@@ -34,7 +34,7 @@ export class ClanDatabase {
   }
 
   purgeDatabase(repository: string) {
-    STORE_IDS.forEach((storeId) => {
+    CLAN_STORE_IDS.forEach((storeId) => {
       this.getDatabase(repository, false).removeAllValues(storeId);
     });
   }
@@ -43,7 +43,7 @@ export class ClanDatabase {
     if (this.databases && this.databases[repository]) {
       return this.databases[repository];
     }
-    const newDB = new AppIndexedDb(repository, initializeValues);
+    const newDB = new ClanIndexedDb(repository, initializeValues);
     this.databases[repository] = newDB;
     return this.databases[repository];
   }

@@ -1,7 +1,6 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { MemberProfile } from '@destiny-clan-dashboard/data/models';
-import { MembershipTypes } from '@destiny-clan-dashboard/data/models/enums';
-
+import { MemberProfile } from '@dcd/shared/models';
+import { MembershipTypes } from '@dcd/shared/models';
 @Pipe({
   name: 'destinyTrackerUrl',
   standalone: true

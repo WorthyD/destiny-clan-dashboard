@@ -1,5 +1,4 @@
-import { SealDefinition } from "../SealDefinition";
-
+import { SealDefinition } from '@dcd/shared/models';
 export const MOCK_SEAL_DEFINITION: SealDefinition = {
   displayProperties: {
     description: 'Complete Event Challenges during the Festival of the Lost. Progress resets at the end of the event.',
@@ -67,5 +66,5 @@ export const MOCK_SEAL_DEFINITION: SealDefinition = {
   parentNodeHashes: [616318467],
   hash: 2592822840,
   index: 1319,
-  redacted: false,
+  redacted: false
 };

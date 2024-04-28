@@ -8,7 +8,7 @@ import { map, mergeMap } from 'rxjs/operators';
 import { ClanDatabase } from '../../clan/clan-database';
 import { ClanMemberRecentActivityService } from '../../clan/clan-member-recent-activity/clan-member-recent-activity.service';
 // import {  MemberProfile } from '../../models/MemberProfile';
-import { MemberActivityTime } from '../../models/MemberActivityTime';
+import { MemberActivityTime } from '@dcd/shared/models';
 // import { AppConfig } from 'src/app/app.config';
 // import { ClanMemberRecentActivityService } from '../../clan-db/clan-member-recent-activity/clan-member-recent-activity.service';
 // import { ClanDatabase } from '../../clan-db/ClanDatabase';

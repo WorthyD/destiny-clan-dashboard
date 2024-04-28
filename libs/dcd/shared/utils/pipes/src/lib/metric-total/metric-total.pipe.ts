@@ -1,5 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { MemberProfile } from '@destiny-clan-dashboard/data/models';
+import { MemberProfile } from '@dcd/shared/models';
 
 @Pipe({
   name: 'metricTotal',

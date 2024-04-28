@@ -88,8 +88,10 @@
       "@dcd/shared/utils/api-key-interceptor": ["libs/dcd/shared/utils/api-key-interceptor/src/index.ts"],
       "@dcd/shared/utils/app-config": ["libs/dcd/shared/utils/app-config/src/index.ts"],
       "@dcd/shared/utils/directives": ["libs/dcd/shared/utils/directives/src/index.ts"],
+      "@dcd/shared/utils/legacy-db": ["libs/dcd/shared/utils/legacy-db/src/index.ts"],
       "@dcd/shared/utils/local-storage": ["libs/dcd/shared/utils/local-storage/src/index.ts"],
       "@dcd/shared/utils/pipes": ["libs/dcd/shared/utils/pipes/src/index.ts"],
+      "@dcd/shared/utils/storage": ["libs/dcd/shared/utils/storage/src/index.ts"],
       "@destiny-clan-dashboard/clan-search/data-access": ["libs/dcd/clan-search/data-access/src/index.ts"],
       "@destiny-clan-dashboard/clan-search/feature/clan-search-curated-view": [
         "libs/dcd/clan-search/feature/clan-search-curated-view/src/index.ts"

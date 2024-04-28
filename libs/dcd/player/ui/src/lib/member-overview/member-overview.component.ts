@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MemberProfile } from '@destiny-clan-dashboard/data/models';
+import { MemberProfile } from '@dcd/shared/models';
 import { MatCardModule } from '@angular/material/card';
 import { BungieDateTimePipe } from '@dcd/shared/utils/pipes';
 import {
@@ -10,8 +10,8 @@ import {
   BungieInfoComponent
 } from '@dcd/shared/ui/member';
 
-import { Character } from 'libs/data/src/lib/models/Character';
-import { ClanMemberSeasonPassProgression } from 'libs/data/src/lib/models/ClanMemberSeasonPass';
+import { Character } from '@dcd/shared/models';
+import { ClanMemberSeasonPassProgression } from '@dcd/shared/models';
 import { SeasonService } from '@dcd/shared/data-access/definitions';
 // import { Observable } from 'rxjs';
 // import { GlobalSealsService } from '@core/services/global-seals.service';

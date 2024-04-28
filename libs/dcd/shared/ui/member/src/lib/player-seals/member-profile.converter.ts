@@ -1,4 +1,4 @@
-import { MemberProfile } from '@destiny-clan-dashboard/data/models';
+import { MemberProfile } from '@dcd/shared/models';
 import { PlayerSeal } from './player-seal';
 import { DestinyDefinitionsPresentationDestinyPresentationNodeDefinition } from 'bungie-api-angular/lib/model/destinyDefinitionsPresentationDestinyPresentationNodeDefinition';
 import {  DefinitionService } from '@dcd/shared/data-access/definitions';

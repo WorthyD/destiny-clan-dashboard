@@ -2,7 +2,7 @@ import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule, NgIf } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
 import { ClassTypeTextPipe, RaceTypeTextPipe } from '@dcd/shared/utils/pipes';
-import { Character } from 'libs/data/src/lib/models/Character';
+import { Character } from '@dcd/shared/models';
 
 @Component({
   selector: 'lib-character-card',

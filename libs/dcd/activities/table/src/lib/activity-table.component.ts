@@ -8,7 +8,7 @@ import {
   Viewer,
   ViewerMetadata
 } from '@destiny-clan-dashboard/shared/data';
-import { CollectionDefinition, MetricDefinition, RecordDefinition } from '@destiny-clan-dashboard/data/models';
+import { CollectionDefinition, MetricDefinition, RecordDefinition } from '@dcd/shared/models';
 import { ClanMemberProfile } from '@dcd/shared/models';
 import { filter, map, Observable, of, startWith, switchMap, tap } from 'rxjs';
 import { ActivitiesService } from '@dcd/activities/data-access';

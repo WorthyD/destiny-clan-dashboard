@@ -4,7 +4,7 @@ import { map, mergeMap, toArray } from 'rxjs/operators';
 import { ClanDatabase } from '../clan/clan-database';
 import { TrackedDuration } from '../clan/clan-member-recent-activity/clan-member-recent-activity.serializer';
 import { ClanMemberRecentActivityService } from '../clan/clan-member-recent-activity/clan-member-recent-activity.service';
-import { ActivityStats } from '../models/ActivityStats';
+ import { ActivityStats } from '@dcd/shared/models';
 // import { ActivityStats } from '../models';
 // import { ClanDatabase, ClanMemberRecentActivityService } from '../clan-db';
 

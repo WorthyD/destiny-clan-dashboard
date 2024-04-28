@@ -2,7 +2,7 @@ import { AppState } from '../core.state';
 import { createEntityAdapter, EntityAdapter, EntityState } from '@ngrx/entity';
 //   import { ClanConfig } from '../../../../../../../libs/dcd/shared/data-access/store/src/lib/clans/clans.state';
 import { GroupsV2GroupMember } from 'bungie-api-angular/lib/model/groupsV2GroupMember';
-import { MemberProfile } from '@destiny-clan-dashboard/data/models';
+import { MemberProfile } from '@dcd/shared/models';
 import { ClanConfig } from '@dcd/shared/models';
 
 export interface ClanWithMembersAndProfiles {

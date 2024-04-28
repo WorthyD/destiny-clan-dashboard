@@ -1,4 +1,4 @@
-import { DESTINY_ACTIVITY_MODES } from '@destiny-clan-dashboard/data/models';
+import { DESTINY_ACTIVITY_MODES } from '@dcd/shared/models';
 import { DefinitionService } from '@dcd/shared/data-access/definitions';
 import { Injectable } from '@angular/core';
 import { of, switchMap } from 'rxjs';

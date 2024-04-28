@@ -5,7 +5,7 @@ import { createSelector, createFeatureSelector } from '@ngrx/store';
 //import { selectAllClansWithMembersProfiles } from '../clans-with-members-profiles/clans-with-members-profiles.selectors';
 import { ClanMemberProfile } from '@dcd/shared/models';
 import { getClanMemberId, getMemberProfileId } from '@destiny-clan-dashboard/shared/utils';
-import { MemberProfile } from '@destiny-clan-dashboard/data/models';
+import { MemberProfile } from '@dcd/shared/models';
 import { selectAllClansWithMembers } from '../clans-with-members';
 import { selectAllClansWithMembersProfiles } from '../clans-with-members-profiles';
 

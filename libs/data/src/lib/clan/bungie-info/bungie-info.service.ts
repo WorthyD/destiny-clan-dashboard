@@ -2,14 +2,15 @@ import { map, catchError, mergeMap, bufferTime, toArray } from 'rxjs/operators';
 import { Observable, from, of, throwError } from 'rxjs';
 // import { profileSerializer } from './profile.serializer';
 import { isValidDate, nowPlusDays, unixTimeStampToDate } from '@destiny-clan-dashboard/shared/utils';
-import { StoreId } from '../../db/clan-indexed-db';
+import { ClanStoreId } from '@dcd/shared/utils/legacy-db';
 import { ClanDatabase } from '../clan-database';
-import { ClanMember } from '../../models/ClanMember';
-import { BungieInfo } from '../../models/BungieInfo';
+import { ClanMember } from '@dcd/shared/models';
+import { BungieInfo } from '@dcd/shared/models';
+//import { BungieInfo } from '../../models/BungieInfo';
 interface MemberProfile {}
 
 export class ClanBungieInfoService {
-  private tableName: StoreId = StoreId.BungieInfo;
+  private tableName: ClanStoreId = ClanStoreId.BungieInfo;
   private concurrentRequests = 20;
   private CACHE_EXPIRATION = -1;
 

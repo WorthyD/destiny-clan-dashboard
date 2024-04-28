@@ -9,9 +9,9 @@ import { groupActivitiesByDate } from '@destiny-clan-dashboard/shared/utils';
 import { mergeMap, map, catchError, toArray, switchMap, tap } from 'rxjs/operators';
 import { Observable, of, from, defer, concat, EMPTY, forkJoin } from 'rxjs';
 import { ClanDatabase } from './clan-database';
-import { DBObject, StoreId } from '../db/clan-indexed-db';
-import { MemberActivityStats } from '../models/MemberActivityStat';
-import { MemberActivityTime } from '../models/MemberActivityTime';
+import { ClanDbObject, ClanStoreId } from '@dcd/shared/utils/legacy-db';
+import { MemberActivityStats } from '@dcd/shared/models';
+import { MemberActivityTime } from '@dcd/shared/models';
 import { clanMemberActivitySerializer } from './clan-member-activity/clan-member-activity.serializer';
 //import { MemberProfile } from '../models';
 //import { clanMemberActivitySerializer } from './clan-member-activity/clan-member-activity.serializer';
@@ -29,7 +29,7 @@ export class BaseMemberActivityService extends BaseClanService {
   private ACTIVITY_GET_COUNT = 250;
   constructor(
     private clanDbPBase: ClanDatabase,
-    private tableNamePBase: StoreId,
+    private tableNamePBase: ClanStoreId,
     private apiKey: string,
     // private d2ServiceBase: Destiny2Service,
     public startValue: Date,
@@ -154,7 +154,7 @@ export class BaseMemberActivityService extends BaseClanService {
    * Determines if Cached data is fresh enough to use. Triggers new call if too old.
    *
    */
-  verifyCacheIntegrity(clanId, memberProfile: MemberProfile, characterId, cachedData: DBObject) {
+  verifyCacheIntegrity(clanId, memberProfile: MemberProfile, characterId, cachedData: ClanDbObject) {
     const characterActivityId = this.getMemberActivityId(memberProfile, characterId);
     if (this.isCacheValid(cachedData, 720, new Date(memberProfile.profile.data.dateLastPlayed))) {
       return of(cachedData.data);
@@ -171,7 +171,7 @@ export class BaseMemberActivityService extends BaseClanService {
     member: MemberProfile,
     characterId: number,
     characterActivityId: string,
-    cachedData: DBObject
+    cachedData: ClanDbObject
     //): Observable<Array<DestinyHistoricalStatsDestinyHistoricalStatsPeriodGroup>> {
   ): Observable<Array<any>> {
     return this.getAllRecentActivity(member, characterId).pipe(
@@ -203,7 +203,7 @@ export class BaseMemberActivityService extends BaseClanService {
 
   groupActivitiesToMember(
     memberProfile: MemberProfile,
-    allActivities: DBObject[],
+    allActivities: ClanDbObject[],
     activityMode: number = 0,
     activityTypeId: number = 0
   ) {
@@ -242,7 +242,7 @@ export class BaseMemberActivityService extends BaseClanService {
 
   groupActivitiesToMembers(
     memberProfiles: MemberProfile[],
-    allActivities: DBObject[],
+    allActivities: ClanDbObject[],
     activityMode: number = 0,
     activityTypeId = 0
   ): any[] {

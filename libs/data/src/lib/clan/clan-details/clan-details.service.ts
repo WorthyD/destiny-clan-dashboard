@@ -5,7 +5,7 @@ import { map, take, catchError, mergeMap, switchMap } from 'rxjs/operators';
 import { ClanDatabase } from '../clan-database';
 import { of, from } from 'rxjs';
 import { BaseClanService } from '../base-clan.service';
-import { StoreId } from '../../db/clan-indexed-db';
+import { ClanStoreId } from '@dcd/shared/utils/legacy-db';
 import { clanDetailSerializer } from './clan-detail-serializer';
 import { CLAN_LEVEL_HASH } from '../../hashes/clan-details';
 
@@ -15,7 +15,7 @@ export class ClanDetailsService extends BaseClanService {
   private rowId = 'ClanDetails';
 
   constructor(private groupService: GroupV2Service, private clanDb: ClanDatabase) {
-    super(clanDb, StoreId.ClanDetails);
+    super(clanDb, ClanStoreId.ClanDetails);
   }
   private getClanDetailsFromAPI(clanId: string) {
     return this.groupService.groupV2GetGroup(clanId as unknown as number);

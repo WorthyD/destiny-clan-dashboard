@@ -1,5 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { ClanMember, MembershipTypes } from '@destiny-clan-dashboard/data/models';
+import { ClanMember, MembershipTypes } from '@dcd/shared/models';
 // import { ClanMember } from 'bungie-models';
 // import { MembershipTypes } from '@destiny-clan-dashboard/models/enums';
 

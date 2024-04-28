@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, Input, OnChanges, SimpleChanges } from '@angular/core';
-import { CollectionDefinition, MetricDefinition, RecordDefinition } from '@destiny-clan-dashboard/data/models';
+import { CollectionDefinition, MetricDefinition, RecordDefinition } from '@dcd/shared/models';
 //import { ActivitiesService } from '../data-access/activities.service';
 import { ActivitiesService } from '@dcd/activities/data-access';
 import { Observable, map, of, startWith, tap } from 'rxjs';
