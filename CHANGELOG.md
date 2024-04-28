@@ -1,3 +1,7 @@
+## [1.2.10](https://github.com/WorthyD/destiny-clan-dashboard/compare/1.2.9...1.2.10) (2024-04-28)
+
+
+
 ## [1.2.9](https://github.com/WorthyD/destiny-clan-dashboard/compare/1.2.8...1.2.9) (2024-04-26)
 
 
@@ -11,10 +15,6 @@
 
 
 ## [1.2.6](https://github.com/WorthyD/destiny-clan-dashboard/compare/1.2.5...1.2.6) (2024-04-25)
-
-
-
-## [1.2.5](https://github.com/WorthyD/destiny-clan-dashboard/compare/1.2.4...1.2.5) (2024-04-24)
 
 
 
