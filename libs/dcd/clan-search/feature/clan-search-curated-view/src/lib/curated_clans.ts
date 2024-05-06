@@ -1,4 +1,4 @@
-import { ClanConfig } from '@core/store/clans';
+import { ClanConfig } from '@dcd/shared/models'
 const dod_clans_pc = [
   2073131, // Chums
   5018079, //compadres

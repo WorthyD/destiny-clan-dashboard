@@ -5,10 +5,8 @@ import {
   DataSource,
   Filterer,
   Sorter,
-  SorterMetadata,
   Viewer,
-  ViewerMetadata
-} from '@destiny-clan-dashboard/shared/data';
+} from '@dcd/shared/data';
 import { PlaytimePipe } from '@dcd/shared/utils/pipes';
 import { DestinyDefinitionsDestinyActivityModeDefinition } from 'bungie-api-angular';
 import { TrackedDuration } from 'libs/data/src/lib/clan/clan-member-recent-activity/clan-member-recent-activity.serializer';
@@ -22,6 +20,7 @@ import { ACTIVITY_MODE_FILTERER_METADATA } from './activity-mode-metadata/Activi
 import { ACTIVITY_MODE_SORTER_METADATA } from './activity-mode-metadata/ActivityModeSorter';
 import { ActivityModeViewContext, ACTIVITY_MODE_VIEWER_METADATA } from './activity-mode-metadata/ActivityModeViewer';
 import { BungieDateTimePipe } from '@dcd/shared/utils/pipes';
+import { SorterMetadata, ViewerMetadata } from '@dcd/shared/data-models';
 
 @Component({
   selector: 'app-activity-mode-table',

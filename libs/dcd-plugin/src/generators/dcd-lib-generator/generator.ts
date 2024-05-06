@@ -42,4 +42,4 @@ export async function dcdLibGeneratorGenerator(tree: Tree, options: DcdLibGenera
 }
 
 export default dcdLibGeneratorGenerator;
-//nx g @nx/angular:library data-util --directory=libs/dcd/shared/data --importPath="@destiny-clan-dashboard/shared/data" --skip-module --standalone=false
+//nx g @nx/angular:library data-util --directory=libs/dcd/shared/data --importPath="@dcd/shared/data" --skip-module --standalone=false

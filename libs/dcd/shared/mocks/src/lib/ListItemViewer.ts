@@ -1,4 +1,4 @@
-import { ViewerMetadata } from '../data/viewer';
+import { ViewerMetadata } from '@dcd/shared/data-models';
 import { MockListItem } from './ListItems';
 export const EXAMPLE_VIEWER_METADATA = new Map<string, ViewerMetadata<MockListItem>>([
   [

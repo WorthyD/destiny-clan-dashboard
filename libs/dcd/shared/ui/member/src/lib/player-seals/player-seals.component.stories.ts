@@ -1,23 +1,52 @@
-import { moduleMetadata, Story } from '@storybook/angular';
-import { StorybookModule } from '../../storybook/storybook.module';
+import type { Meta, StoryObj } from '@storybook/angular';
 import { PlayerSealsComponent } from './player-seals.component';
-import { sealInfo } from './_MOCK_PLAYER_SEAL';
 
-export default {
-  title: 'Seals / Player Seals',
+const meta: Meta<PlayerSealsComponent> = {
   component: PlayerSealsComponent,
-  decorators: [
-    moduleMetadata({
-      imports: [PlayerSealsComponent, StorybookModule]
-    })
-  ]
+  title: 'Shared/Member/PlayerSealsComponent'
 };
-const Template: Story<PlayerSealsComponent> = (args) => ({
-  props: args
-});
+export default meta;
+type Story = StoryObj<PlayerSealsComponent>;
 
-export const base = Template.bind({});
-base.args = {
-  playerSeals: sealInfo
+export const Primary: Story = {
+  args: {
+    playerSeals: [
+      {
+        complete: true,
+        gilded: true,
+        gildedCount: 9,
+        progress: 100,
+        sealDescription: 'Complete all Season of the Splicer Triumphs.',
+        sealImage: '/common/destiny2_content/icons/7d3fd563a549e9b75b8702268081ab70.png',
+        sealTitle: 'Splicer'
+      },
+      {
+        complete: true,
+        gilded: false,
+        gildedCount: 9,
+        progress: 100,
+        sealDescription: 'Complete all Season of the Splicer Triumphs.',
+        sealImage: '/common/destiny2_content/icons/7d3fd563a549e9b75b8702268081ab70.png',
+        sealTitle: 'Splicer'
+      },
+      {
+        complete: false,
+        gilded: false,
+        progress: 17,
+        gildedCount: 9,
+        sealDescription: 'Beneath Venus, evil stirs…',
+        sealImage: '/common/destiny2_content/icons/7d3fd563a549e9b75b8702268081ab70.png',
+        sealTitle: 'Vault of Glass'
+      },
+      {
+        complete: false,
+        gilded: false,
+        progress: 20,
+        gildedCount: 9,
+        sealDescription: 'Complete all Flawless Triumphs.',
+        sealImage: '/common/destiny2_content/icons/7d3fd563a549e9b75b8702268081ab70.png',
+        sealTitle: 'Flawless'
+      }
+    ]
+  }
 };
-base.argTypes = {};

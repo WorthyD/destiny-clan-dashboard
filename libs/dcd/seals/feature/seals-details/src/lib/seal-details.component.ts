@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { DataSource, Exporter, Filterer, Sorter, Viewer } from '@destiny-clan-dashboard/shared/data';
+import { DataSource, Exporter, Filterer, Sorter, Viewer } from '@dcd/shared/data';
 import { combineLatest, filter, map, Observable, of, switchMap, tap } from 'rxjs';
 import { SealsService } from '@dcd/seals/data-access';
 import {SealClanMember} from '@dcd/seals/models';

@@ -1,4 +1,4 @@
-import { FiltererMetadata, textMatchesEquality } from '@destiny-clan-dashboard/shared/data';
+import { FiltererMetadata } from '@dcd/shared/data-models';
 import { ClanMemberProfile } from '@dcd/shared/models';
 // import { numberMatchesEquality } from '../data/utility/filter-matcher';
 // import { MockListItem } from './ListItems';

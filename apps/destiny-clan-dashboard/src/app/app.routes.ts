@@ -47,7 +47,7 @@ export const appRoutes: Route[] = [
     // TODO: Clan Guard
     //canActivate: [ClanResolveGuard],
     loadChildren: () =>
-      import('@destiny-clan-dashboard/clan-search/feature/shell').then((module) => module.ClanSearchModule)
+      import('@dcd/clan-search/feature/shell').then((module) => module.ClanSearchModule)
   },
   { path: '**', redirectTo: '', pathMatch: 'full' }
 ];

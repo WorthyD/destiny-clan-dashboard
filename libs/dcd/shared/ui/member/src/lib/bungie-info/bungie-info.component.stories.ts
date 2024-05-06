@@ -1,35 +1,24 @@
-import { moduleMetadata } from '@storybook/angular';
-import { USER } from './_MOCK_BUNGIE_INFO';
-import { StorybookModule } from '../../storybook/storybook.module';
+import type { Meta, StoryObj } from '@storybook/angular';
 import { BungieInfoComponent } from './bungie-info.component';
+import { BungieInfo } from '@dcd/shared/models';
+import { getFakeStaticBungieInfo } from '@dcd/shared/mocks';
 
-export default {
-  title: 'Clan Member / Bungie Info',
-  decorators: [
-    moduleMetadata({
-      imports: [BungieInfoComponent, StorybookModule]
-    })
-  ]
+const meta: Meta<BungieInfoComponent> = {
+  component: BungieInfoComponent,
+  title: 'Shared/Member/BungieInfoComponent'
 };
+export default meta;
+type Story = StoryObj<BungieInfoComponent>;
 
-export const base = () => ({
-  component: BungieInfoComponent,
-  template: `
-        <lib-bungie-info [bungieInfo]="bungieInfo" [isLoading]="isLoading"></lib-bungie-info>
-   `,
-  props: {
-    bungieInfo: USER,
-    isLoading: false
-  }
-});
-
-export const loading = () => ({
-  component: BungieInfoComponent,
-  template: `
-        <lib-bungie-info [bungieInfo]="bungieInfo" [isLoading]="isLoading"></lib-bungie-info>
-   `,
-  props: {
-    bungieInfo: USER,
+export const Loading: Story = {
+  args: {
     isLoading: true
   }
-});
+};
+
+export const Primary: Story = {
+  args: {
+    isLoading: false,
+    bungieInfo: getFakeStaticBungieInfo() as BungieInfo
+  }
+};

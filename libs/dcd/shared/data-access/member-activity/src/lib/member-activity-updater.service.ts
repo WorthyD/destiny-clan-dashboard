@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { ProfileRecentActivityWorkerService } from './profile-recent-activity.fake.service';
 import { from, map, mergeMap, Observable, of, take, toArray } from 'rxjs';
-import { nowPlusMinutes } from '@destiny-clan-dashboard/shared/utils';
+import { nowPlusMinutes } from '@dcd/shared/utils';
 import { AppConfigService } from '@dcd/shared/utils/app-config';
 import {
   addNotification,

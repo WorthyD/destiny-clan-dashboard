@@ -9,20 +9,19 @@ import { MatDividerModule } from '@angular/material/divider';
 import { DisplayOptionsComponent } from '@dcd/shared/ui/display-options';
 
 import {
-  RenderedView,
   Viewer,
-  ViewLabel,
   Exporter,
   DataSource,
   Filterer,
   Grouper,
   Sorter
-} from '@destiny-clan-dashboard/shared/data';
+} from '@dcd/shared/data';
 
 import { RenderedViewModule } from '@dcd/shared/ui/rendered-view';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { RenderedView, ViewLabel } from '@dcd/shared/data-models';
 
 export interface Item {
   id: string;

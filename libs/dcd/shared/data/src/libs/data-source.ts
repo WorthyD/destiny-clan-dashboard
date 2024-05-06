@@ -1,20 +1,5 @@
-import {Observable, of} from 'rxjs';
-
-export interface DataSourceMetadata<T> {
-  label: string;
-  type: string;
-  accessor: (item: T) => any;
-}
-
-export interface DataLabel {
-  id: string;
-  label: string;
-}
-
-export interface DataSourceOptions<T> {
-  data?: Observable<T[]>|T[];
-  metadata?: Map<string, DataSourceMetadata<T>>;
-}
+import { DataLabel, DataSourceMetadata, DataSourceOptions } from '@dcd/shared/data-models';
+import { Observable, of } from 'rxjs';
 
 export class DataSource<T = any> {
   private metadata: Map<string, DataSourceMetadata<T>>;
@@ -37,7 +22,7 @@ export class DataSource<T = any> {
     const dataLabelsWithType: DataLabel[] = [];
     this.metadata.forEach((value, key) => {
       if (value.type === type) {
-        dataLabelsWithType.push({id: key, label: value.label});
+        dataLabelsWithType.push({ id: key, label: value.label });
       }
     });
     return dataLabelsWithType;

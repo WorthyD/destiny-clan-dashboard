@@ -2,7 +2,7 @@
 import { MemberActivityRecentStats, MemberActivityRecentStatsActivity } from'@dcd/shared/models';
 import { MemberActivityStats } from '@dcd/shared/models';
 // import { MemberActivityRecentStats } from 'projects/components/src/lib/clan-roster-activity-table/clan-roster-activity-table.component';
-import { groupActivities } from '@destiny-clan-dashboard/shared/utils';
+import { groupActivities } from '@dcd/shared/utils';
 //import { getBungieStartDate } from '../../utility/date-utils';
 //import { groupActivitiesByWeek } from '../../utility/group-activity-by-week';
 export interface TrackedDuration {

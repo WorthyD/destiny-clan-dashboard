@@ -9,7 +9,7 @@ import { RouterModule } from '@angular/router';
         path: '',
         loadChildren: () =>
           // import('../clan-search-view/clan-search-view.module').then((module) => module.ClanSearchViewModule)
-          import('@destiny-clan-dashboard/clan-search/feature/clan-search-view').then((module) => module.ClanSearchViewModule)
+          import('@dcd/clan-search/feature/clan-search-view').then((module) => module.ClanSearchViewModule)
       },
       // {
       //   path: ':key',

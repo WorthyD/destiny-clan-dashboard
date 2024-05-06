@@ -13,7 +13,7 @@ import { AppOfflineDialogComponent } from '@dcd/shared/ui/app-offline-dialog';
 
 // import { environment } from 'apps/destiny-clan-dashboard/src/environments/environment';
 import deepEqual from 'deep-equal';
-import { isMobile } from '@destiny-clan-dashboard/shared/utils';
+import { isMobile } from '@dcd/shared/utils';
 import { BungieInfoUpdaterService } from '@dcd/shared/data-access/bungie-info';
 import { ClanConfig } from '@dcd/shared/models';
 

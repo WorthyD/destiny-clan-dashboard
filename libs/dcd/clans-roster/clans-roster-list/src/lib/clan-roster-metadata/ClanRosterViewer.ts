@@ -1,4 +1,4 @@
-import { ViewerMetadata } from '@destiny-clan-dashboard/shared/data';
+// import { ViewerMetadata } from '@dcd/shared/data';
 
 // import { MemberTypeComponent } from '@destiny-clan-dashboard/components/icons';
 import { MemberTypeComponent } from '@dcd/shared/ui/icons';
@@ -7,6 +7,7 @@ import { MembershipTypes } from '@dcd/shared/models';
 import { ClanRosterItem } from '@dcd/clans-roster/models';
 import { ProfileLinkComponent } from '@dcd/shared/ui/profile-link';
 import { BungieDatePipe, BungieDateTimePipe } from '@dcd/shared/utils/pipes';
+import { ViewerMetadata } from '@dcd/shared/data-models';
 
 interface ViewContext {
   item: ClanRosterItem;

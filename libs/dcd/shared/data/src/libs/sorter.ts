@@ -1,24 +1,8 @@
+import { SortComparator, SortLabel, SorterContextProvider, SorterMetadata, SorterOptions, SorterState } from '@dcd/shared/data-models';
 import {combineLatest, EMPTY, Observable, ReplaySubject} from 'rxjs';
 import {map, startWith} from 'rxjs/operators';
 
-export interface SorterState {
-  sort: string;
-  reverse: boolean;
-}
 
-export type SortComparator<T, C> = (a: T, b: T, context: C) => number;
-
-export interface SorterMetadata<T = any, C = any> {
-  label: string;
-  comparator: SortComparator<T, C>;
-}
-
-export type SorterContextProvider<C> = Observable<C>;
-
-export interface SortLabel {
-  id: string;
-  label: string;
-}
 
 function sortItems<T, C>(
     items: T[], comparator: SortComparator<T, C>, reverse: boolean, context: C) {
@@ -31,11 +15,7 @@ function sortItems<T, C>(
   return items;
 }
 
-export interface SorterOptions<T, C> {
-  metadata?: Map<string, SorterMetadata<T, C>>;
-  contextProvider?: SorterContextProvider<C>;
-  initialState?: SorterState;
-}
+
 
 export class Sorter<T = any, C = any> {
   private metadata: Map<string, SorterMetadata<T, C>>;

@@ -1,5 +1,5 @@
 import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
-import { CommonModule, NgIf } from '@angular/common';
+import {  NgIf } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
 import { ClassTypeTextPipe, RaceTypeTextPipe } from '@dcd/shared/utils/pipes';
 import { Character } from '@dcd/shared/models';

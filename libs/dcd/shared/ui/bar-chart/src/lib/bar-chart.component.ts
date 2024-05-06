@@ -24,8 +24,12 @@ import {
   ApexXAxis,
   ApexYAxis
 } from 'ng-apexcharts';
-import { compare } from '@destiny-clan-dashboard/shared/utils';
+import { compare } from '@dcd/shared/utils';
 import { PlaytimePipe } from '@dcd/shared/utils/pipes';
+export interface BarChartUnit {
+  date: string;
+  seconds: number;
+}
 
 @Component({
   selector: 'lib-bar-chart',
@@ -66,11 +70,11 @@ export class BarChartComponent implements OnInit {
 
   _events;
   @Input()
-  get events(): [] {
+  get events(): BarChartUnit[] {
     return this._events;
   }
 
-  set events(value) {
+  set events(value: BarChartUnit[]) {
     if (value && value.length && value !== this._events) {
       this._events = value;
       this.updateChart(this._events);

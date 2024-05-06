@@ -1,6 +1,6 @@
 import { ClanDatabase } from './clan-database';
 import { ClanDbObject, ClanStoreId } from '@dcd/shared/utils/legacy-db';
-import { isValidDate, nowPlusMinutes } from '@destiny-clan-dashboard/shared/utils';
+import { isValidDate, nowPlusMinutes } from '@dcd/shared/utils';
 
 export class BaseClanService {
   tableName;

@@ -1,13 +1,6 @@
 import { ChangeDetectionStrategy, Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import {
-  DataSource,
-  Filterer,
-  Sorter,
-  SorterMetadata,
-  Viewer,
-  ViewerMetadata
-} from '@destiny-clan-dashboard/shared/data';
+import { DataSource, Filterer, Sorter, Viewer } from '@dcd/shared/data';
 import { CollectionDefinition, MetricDefinition, RecordDefinition } from '@dcd/shared/models';
 import { ClanMemberProfile } from '@dcd/shared/models';
 import { filter, map, Observable, of, startWith, switchMap, tap } from 'rxjs';
@@ -15,6 +8,7 @@ import { ActivitiesService } from '@dcd/activities/data-access';
 import { ACTIVITY_FILTERER_METADATA } from './activity-table-metadata/ActivityTableFilterer';
 import { ACTIVITY_SORTER_METADATA } from './activity-table-metadata/ActivityTableSorter';
 import { ACTIVITY_VIEWER_METADATA } from './activity-table-metadata/ActivityTableViewer';
+import { SorterMetadata, ViewerMetadata } from '@dcd/shared/data-models';
 interface ViewContext {
   item: ClanMemberProfile;
 }
@@ -71,7 +65,7 @@ export class ActivityTableComponent {
   isLoading = true;
   activityViewer: Viewer = new Viewer();
   activityFilterer = new Filterer({ metadata: ACTIVITY_FILTERER_METADATA });
-  activitySorter: Sorter | undefined = undefined;;
+  activitySorter: Sorter | undefined = undefined;
 
   activityInfo$: Observable<DataSource> = this.vm$?.pipe(
     switchMap((vm) => {

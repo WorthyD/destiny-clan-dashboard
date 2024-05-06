@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 // import { RecordDefin itionService } from '@core/definition-services/record-definition.service';
 import { SeasonService, DefinitionService } from '@dcd/shared/data-access/definitions';
 import { MemberProfile } from '@dcd/shared/models';
-import { getClanMemberId, getMemberProfileId } from '@destiny-clan-dashboard/shared/utils';
+import { getClanMemberId, getMemberProfileId } from '@dcd/shared/utils';
 import { ClanProfileService } from 'libs/data/src/lib/clan/profiles/profile.service';
 import { profileSerializer } from 'libs/data/src/lib/profile/profile.serializer';
 import { from, map, mergeMap, Observable, switchMap, toArray } from 'rxjs';

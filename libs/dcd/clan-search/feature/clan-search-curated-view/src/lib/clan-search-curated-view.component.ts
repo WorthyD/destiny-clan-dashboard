@@ -1,9 +1,10 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { ClanConfig } from '@core/store/clans';
+///import { ClanConfig } from '@core/store/clans';
 import { combineLatest, map } from 'rxjs';
-import { ClanSearchService } from '@destiny-clan-dashboard/clan-search/data-access';
+import { ClanSearchService } from '@dcd/clan-search/data-access';
 import { ALL_CLANS } from './curated_clans';
+import { ClanConfig } from '@dcd/shared/models';
 
 @Component({
   selector: 'app-clan-search-curated-view',

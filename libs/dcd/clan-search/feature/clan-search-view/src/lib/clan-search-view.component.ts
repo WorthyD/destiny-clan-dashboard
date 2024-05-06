@@ -4,7 +4,7 @@ import { Store } from '@ngrx/store';
 import { GroupsV2GroupV2Card } from 'bungie-api-angular/lib/model/groupsV2GroupV2Card';
 import { catchError, Observable, of, switchMap, tap } from 'rxjs';
 // import { ClanSearchService } from '../data-access/clan-search.service';
-import { ClanSearchService } from '@destiny-clan-dashboard/clan-search/data-access';
+import { ClanSearchService } from '@dcd/clan-search/data-access';
 
 @Component({
   selector: 'app-clan-search-view',

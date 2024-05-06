@@ -1,5 +1,5 @@
-import { ViewerMetadata } from '@destiny-clan-dashboard/shared/data';
-import { getBungieDisplayName } from '@destiny-clan-dashboard/shared/utils';
+import { ViewerMetadata } from '@dcd/shared/data-models';
+import { getBungieDisplayName } from '@dcd/shared/utils';
 //import { ProfileRecentActivity } from '../../models/profile-recent-activity';
 import {ProfileRecentActivity} from '@dcd/activity-modes/models';
 

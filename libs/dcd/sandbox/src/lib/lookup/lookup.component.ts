@@ -73,4 +73,7 @@ export class LookupComponent {
         this.updateDisplay(result);
       });
   }
+  bungieInfoLookup() {
+
+  }
 }

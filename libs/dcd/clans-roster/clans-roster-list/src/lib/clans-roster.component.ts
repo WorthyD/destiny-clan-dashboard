@@ -1,5 +1,5 @@
 import { Component, ViewEncapsulation, ChangeDetectionStrategy } from '@angular/core';
-import { DataSource, Exporter, Filterer, Sorter, Viewer } from '@destiny-clan-dashboard/shared/data';
+import { DataSource, Exporter, Filterer, Sorter, Viewer } from '@dcd/shared/data';
 import { map, Observable, of, tap } from 'rxjs';
 
 import { ClansRosterService } from '@dcd/clans-roster/data-access';
