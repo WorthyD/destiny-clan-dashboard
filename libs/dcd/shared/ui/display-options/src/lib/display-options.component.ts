@@ -6,9 +6,10 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 import { take } from 'rxjs';
-import { Grouper, GroupLabel } from '@destiny-clan-dashboard/shared/data';
-import { Sorter, SortLabel } from '@destiny-clan-dashboard/shared/data';
-import { Viewer, ViewLabel } from '@destiny-clan-dashboard/shared/data';
+import { Grouper } from '@dcd/shared/data';
+import { Sorter } from '@dcd/shared/data';
+import { Viewer } from '@dcd/shared/data';
+import { GroupLabel, SortLabel, ViewLabel } from '@dcd/shared/data-models';
 
 @Component({
   selector: 'lib-display-options',

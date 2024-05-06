@@ -15,6 +15,53 @@
     },
     "lint": {
       "executor": "@nx/eslint:lint"
+    },
+    "storybook": {
+      "executor": "@storybook/angular:start-storybook",
+      "options": {
+        "port": 4400,
+        "configDir": "libs/dcd/shared/ui/skeleton-chart-loader/.storybook",
+        "browserTarget": "shared-ui-skeleton-chart-loader:build-storybook",
+        "compodoc": false
+      },
+      "configurations": {
+        "ci": {
+          "quiet": true
+        }
+      }
+    },
+    "build-storybook": {
+      "executor": "@storybook/angular:build-storybook",
+      "outputs": ["{options.outputDir}"],
+      "options": {
+        "outputDir": "dist/storybook/shared-ui-skeleton-chart-loader",
+        "configDir": "libs/dcd/shared/ui/skeleton-chart-loader/.storybook",
+        "browserTarget": "shared-ui-skeleton-chart-loader:build-storybook",
+        "compodoc": false
+      },
+      "configurations": {
+        "ci": {
+          "quiet": true
+        }
+      }
+    },
+    "test-storybook": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "test-storybook -c libs/dcd/shared/ui/skeleton-chart-loader/.storybook --url=http://localhost:4400"
+      }
+    },
+    "static-storybook": {
+      "executor": "@nx/web:file-server",
+      "options": {
+        "buildTarget": "shared-ui-skeleton-chart-loader:build-storybook",
+        "staticFilePath": "dist/storybook/shared-ui-skeleton-chart-loader"
+      },
+      "configurations": {
+        "ci": {
+          "buildTarget": "shared-ui-skeleton-chart-loader:build-storybook:ci"
+        }
+      }
     }
   }
 }

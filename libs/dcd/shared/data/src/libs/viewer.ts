@@ -1,55 +1,14 @@
-import { tryJSONParse } from '@destiny-clan-dashboard/shared/utils';
+import {
+  RenderedView,
+  ViewerContextProvider,
+  ViewerMetadata,
+  ViewerOptions,
+  ViewerState,
+  ViewLabel
+} from '@dcd/shared/data-models';
+import { tryJSONParse } from '@dcd/shared/utils';
 import { combineLatest, EMPTY, Observable, ReplaySubject } from 'rxjs';
 import { map, startWith, take } from 'rxjs/operators';
-
-export interface ViewerState {
-  views: string[];
-}
-
-interface RenderedViewWithText {
-  text: string;
-  classList?: string | string[];
-  styles?: { [key in string]: string };
-}
-interface RenderedWithComponent {
-  component: any;
-  data: any;
-  classList?: string | string[];
-  styles?: { [key in string]: string };
-}
-
-interface RenderedViewWithChildren {
-  children: RenderedView[];
-  classList?: string | string[];
-  styles?: { [key in string]: string };
-}
-
-export type RenderedView = RenderedViewWithText | RenderedViewWithChildren | RenderedWithComponent;
-
-export interface ViewerMetadata<T = any, C = any> {
-  label: string;
-  tooltip?: string;
-  isSticky?: boolean;
-  labelClass?: string;
-  plainText: (item: T, context: C) => string | null;
-  render: (item: T, context: C) => RenderedView | null;
-}
-
-export interface ViewLabel {
-  id: string;
-  isSticky: boolean;
-  label: string;
-  tooltip?: string;
-  labelClass?: string;
-}
-
-export type ViewerContextProvider<T, C> = Observable<(item: T) => C>;
-
-export interface ViewerOptions<T, C> {
-  metadata?: Map<string, ViewerMetadata<T, C>>;
-  contextProvider?: ViewerContextProvider<T, C>;
-  initialState?: ViewerState;
-}
 
 /** The viewer carries information to render the items to the view. */
 export class Viewer<T = any, C = any> {

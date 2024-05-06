@@ -1,7 +1,7 @@
 import { BaseClanService } from './base-clan.service';
 //import { ClanDatabase } from './ClanDatabase';
 //import { StoreId, DBObject } from './app-indexed-db';
-import { groupActivitiesByDate } from '@destiny-clan-dashboard/shared/utils';
+import { groupActivitiesByDate } from '@dcd/shared/utils';
 
 //import { Destiny2Service, DestinyHistoricalStatsDestinyHistoricalStatsPeriodGroup } from 'bungie-api-angular';
 

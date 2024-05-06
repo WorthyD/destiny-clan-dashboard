@@ -1,5 +1,7 @@
-import { getGroupByValue, GrouperMetadata } from "../data/grouper";
-import { MockListItem } from "./ListItems";
+import { getGroupByValue } from '@dcd/shared/data';
+import { GrouperMetadata } from '@dcd/shared/data-models';
+
+import { MockListItem } from './ListItems';
 
 export const EXAMPLE_GROUPER_METADATA = new Map<string, GrouperMetadata<MockListItem>>([
   [
@@ -12,9 +14,10 @@ export const EXAMPLE_GROUPER_METADATA = new Map<string, GrouperMetadata<MockList
     }
   ],
   [
-    'isPublic', {
+    'isPublic',
+    {
       label: 'IsPublic',
-      groupingFunction: items => getGroupByValue(items, 'isPublic'),
+      groupingFunction: (items) => getGroupByValue(items, 'isPublic')
     }
-  ],
+  ]
 ]);

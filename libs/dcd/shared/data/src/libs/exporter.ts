@@ -1,16 +1,6 @@
+import { ExporterContextProvider, ExporterMetadata, ExporterOptions } from '@dcd/shared/data-models';
+
 import { combineLatest, EMPTY, Observable, startWith, take } from 'rxjs';
-
-export interface ExporterMetadata<T = any, C = any> {
-  label: string;
-  text: (item: T, context: C) => string | null;
-}
-export type ExporterContextProvider<T, C> = Observable<(item: T) => C>;
-
-export interface ExporterOptions<T, C> {
-  metadata?: Map<string, ExporterMetadata<T, C>>;
-  contextProvider?: ExporterContextProvider<T, C>;
-  // initialState?: SorterState;
-}
 
 export class Exporter<T = any, C = any> {
   private metadata: Map<string, ExporterMetadata<T, C>>;

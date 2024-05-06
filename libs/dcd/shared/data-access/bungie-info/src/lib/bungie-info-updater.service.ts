@@ -5,7 +5,7 @@ import { AppConfigService } from '@dcd/shared/utils/app-config';
 // import { addNotification, removeNotification, updateNotification } from '@core/store/notifications';
 import { Store } from '@ngrx/store';
 // import { ClanDatabase } from 'libs/data/src/lib/clan/clan-database';
-import { nowPlusMinutes } from '@destiny-clan-dashboard/shared/utils';
+import { nowPlusMinutes } from '@dcd/shared/utils';
 import { filter, from, map, mergeMap, Observable, of, take, toArray } from 'rxjs';
 
 import { BungieInfoWorkerService } from './bungie-info-worker.fake.service';

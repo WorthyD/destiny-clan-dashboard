@@ -1,4 +1,6 @@
-import { DateEquality, NumberEquality, StateEquality, TextEquality } from './filterer-types';
+///import { DateEquality, NumberEquality, StateEquality, TextEquality } from './filterer-types';
+
+import { DateEquality, NumberEquality, StateEquality, TextEquality } from "@dcd/shared/data-models";
 
 const OR = ' OR ';
 const AND = ' AND ';

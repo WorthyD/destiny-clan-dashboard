@@ -1,4 +1,4 @@
-import { SorterMetadata } from '../data/sorter';
+import { SorterMetadata } from '@dcd/shared/data-models';
 import { MockListItem } from './ListItems';
 export const EXAMPLE_SORTER_METADATA = new Map<string, SorterMetadata<MockListItem>>([
   [

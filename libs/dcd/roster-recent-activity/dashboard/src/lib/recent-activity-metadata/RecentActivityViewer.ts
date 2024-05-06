@@ -1,10 +1,10 @@
 //import { ViewerMetadata } from '@destiny-clan-dashboard/components';
 //import { BungieDateTimePipe } from '@dcd/shared/utils/pipes';
-import { PlaytimePipe } from '@destiny-clan-dashboard/components/pipes/playtime';
+//import { PlaytimePipe } from '@dcd/components/pipes';
 // import { ProfileRecentActivity } from '../../models/profile-recent-activity';
 import { ProfileRecentActivity } from '@dcd/roster-recent-activity/models';
-import { BungieDateTimePipe } from '@dcd/shared/utils/pipes';
-import { ViewerMetadata } from '@destiny-clan-dashboard/shared/data';
+import { BungieDateTimePipe, PlaytimePipe } from '@dcd/shared/utils/pipes';
+import { ViewerMetadata } from '@dcd/shared/data-models';
 
 interface ViewContext {
   item: ProfileRecentActivity;

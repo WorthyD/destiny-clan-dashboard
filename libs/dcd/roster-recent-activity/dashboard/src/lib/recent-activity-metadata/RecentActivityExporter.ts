@@ -1,7 +1,7 @@
 import { ProfileRecentActivity } from '@dcd/roster-recent-activity/models';
 import { PlaytimePipe } from '@dcd/shared/utils/pipes';
 import { BungieDateTimePipe } from '@dcd/shared/utils/pipes';
-import { ExporterMetadata } from '@destiny-clan-dashboard/shared/data';
+import { ExporterMetadata } from '@dcd/shared/data-models';
 
 interface ViewContext {
   item: ProfileRecentActivity;

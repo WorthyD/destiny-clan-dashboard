@@ -1,6 +1,6 @@
 import { Pipe, PipeTransform } from '@angular/core';
 import { MemberProfile } from '@dcd/shared/models';
-import { getBungieDisplayName } from '@destiny-clan-dashboard/shared/utils';
+import { getBungieDisplayName } from '@dcd/shared/utils';
 
 @Pipe({
   name: 'bungieDisplayName',

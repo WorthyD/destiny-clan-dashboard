@@ -6,7 +6,7 @@ import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { sampleTime } from 'rxjs';
-import { ClanSearchResultItem } from '@destiny-clan-dashboard/clan-search/utils/clan-search-models';
+import { ClanSearchResultItem } from '@dcd/clan-search/utils/clan-search-models';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 @Component({
   selector: 'app-clan-search-autocomplete',

@@ -4,7 +4,7 @@ import { Observable, from, of } from 'rxjs';
 
 //import { StoreId } from '../app-indexed-db';
 
-import { nowPlusDays, unixTimeStampToDate } from '@destiny-clan-dashboard/shared/utils';
+import { nowPlusDays, unixTimeStampToDate } from '@dcd/shared/utils';
 import { ClanStoreId } from '@dcd/shared/utils/legacy-db';
 import { ClanDatabase } from '../clan-database';
 import { ClanMember } from '@dcd/shared/models';

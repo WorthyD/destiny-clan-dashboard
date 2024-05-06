@@ -8,7 +8,7 @@ import { ClanMembersService } from '@destiny-clan-dashboard/data/clan/clan-membe
 import { from, Observable, of } from 'rxjs';
 import { GroupsV2GroupMember } from 'bungie-api-angular';
 import { ProfileWorkerService } from './profile-worker.fake.service';
-import { nowPlusMinutes } from '@destiny-clan-dashboard/shared/utils';
+import { nowPlusMinutes } from '@dcd/shared/utils';
 import { AppConfigService } from '@dcd/shared/utils/app-config';
 import { ClanProfileService } from 'libs/data/src/lib/clan/profiles/profile.service';
 import { ClanDatabase } from 'libs/data/src/lib/clan/clan-database';

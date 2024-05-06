@@ -1,36 +1,34 @@
-import { moduleMetadata } from '@storybook/angular';
-
-import { StorybookModule } from '../../storybook/storybook.module';
+import type { Meta, StoryObj } from '@storybook/angular';
 import { SeasonPassComponent } from './season-pass.component';
-import { MOCK_SEASON_PROGRESSION, MOCK_SEASON_PROGRESSION_MAX } from './_MOCK_SEASON_PROGRESSION';
-export default {
-    title: 'Clan Member / Season Pass Progression',
-    decorators: [
-        moduleMetadata({
-            imports: [SeasonPassComponent, StorybookModule],
-        }),
-    ],
+import { getSeasonProgression, getSeasonMaxProgression } from '@dcd/shared/mocks';
+
+const meta: Meta<SeasonPassComponent> = {
+  component: SeasonPassComponent,
+  title: 'Shared/Member/SeasonPassComponent'
+};
+export default meta;
+type Story = StoryObj<SeasonPassComponent>;
+
+export const Primary: Story = {
+  args: {
+    subTitle: '',
+    isLoading: false,
+    clanMemberSeasonPass: getSeasonProgression()
+  }
 };
 
-export const base = () => ({
-    component: SeasonPassComponent,
-    template: `<lib-season-pass [clanMemberSeasonPass]="clanMemberSeasonPass"></lib-season-pass>`,
-    props: {
-        clanMemberSeasonPass: MOCK_SEASON_PROGRESSION,
-    },
-});
-export const baseMaxLevel = () => ({
-    component: SeasonPassComponent,
-    template: `<lib-season-pass [clanMemberSeasonPass]="clanMemberSeasonPass"></lib-season-pass>`,
-    props: {
-        clanMemberSeasonPass: MOCK_SEASON_PROGRESSION_MAX,
-    },
-});
+export const Max: Story = {
+  args: {
+    subTitle: 'Sub title',
+    isLoading: false,
 
-export const loading = () => ({
-    component: SeasonPassComponent,
-    template: `<lib-season-pass [clanMemberSeasonPass]="clanMemberSeasonPass" [isLoading]="true"></lib-season-pass>`,
-    props: {
-        clanMemberSeasonPass: MOCK_SEASON_PROGRESSION,
-    },
-});
+    clanMemberSeasonPass: getSeasonMaxProgression()
+  }
+};
+
+export const Loading: Story = {
+  args: {
+    subTitle: 'Loading Progress',
+    isLoading: true
+  }
+};

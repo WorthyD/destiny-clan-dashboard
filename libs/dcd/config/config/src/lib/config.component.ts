@@ -4,7 +4,7 @@ import { Store } from '@ngrx/store';
 import { selectAllClans, removeClan } from '@dcd/shared/data-access/store';
 import { ClanDatabase } from '@destiny-clan-dashboard/data/clan/clan-database';
 import { MatButtonModule } from '@angular/material/button';
-import { ClanDetailComponent } from '@destiny-clan-dashboard/shared/clan-details/feature';
+import { ClanDetailComponent } from '@dcd/shared/clan-details/feature';
 import { CommonModule } from '@angular/common';
 
 @Component({

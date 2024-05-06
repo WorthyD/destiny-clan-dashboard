@@ -7,7 +7,7 @@ import { SeasonService, DefinitionService } from '@dcd/shared/data-access/defini
 //   selectClanMemberProfileStateLoading
 // } from '@core/store/clans-members-profiles/clan-members-profiles.selectors';
 
-import { getClanMemberId, getMemberProfileId } from '@destiny-clan-dashboard/shared/utils';
+import { getClanMemberId, getMemberProfileId } from '@dcd/shared/utils';
 import { Store } from '@ngrx/store';
 import { ClanMemberProfile } from '@dcd/shared/models';
 import { ClanProfileService } from 'libs/data/src/lib/clan/profiles/profile.service';

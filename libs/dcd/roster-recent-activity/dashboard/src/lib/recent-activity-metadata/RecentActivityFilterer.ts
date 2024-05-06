@@ -1,7 +1,7 @@
 //import { FiltererMetadata, textMatchesEquality } from '@destiny-clan-dashboard/components';
 // import { ProfileRecentActivity } from '../../models/profile-recent-activity';
 import { ProfileRecentActivity } from '@dcd/roster-recent-activity/models';
-import { FiltererMetadata } from '@destiny-clan-dashboard/shared/data';
+import { FiltererMetadata } from '@dcd/shared/data-models';
 // import { numberMatchesEquality } from '../data/utility/filter-matcher';
 // import { MockListItem } from './ListItems';
 

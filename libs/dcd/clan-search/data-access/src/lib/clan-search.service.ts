@@ -1,12 +1,11 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { addClan } from 'libs/dcd/shared/data-access/store/src/lib/clans';
-import { selectAllClans } from 'libs/dcd/shared/data-access/store/src/lib/clans/clans.selectors';
+import { selectAllClans, addClan } from '@dcd/shared/data-access/store';
 import { Store } from '@ngrx/store';
 import { GroupsV2GroupV2Card, GroupV2Service } from 'bungie-api-angular';
 import { forkJoin, map, Observable, of, take } from 'rxjs';
-import { ClanSearchResultItem } from '@destiny-clan-dashboard/clan-search/utils/clan-search-models';
+import { ClanSearchResultItem } from '@dcd/clan-search/utils/clan-search-models';
 
 @Injectable()
 export class ClanSearchService {

@@ -1,8 +1,8 @@
 //  component originated form https://github.com/crafted/crafted
 import { ChangeDetectionStrategy, Component, Input, OnInit, ViewChild } from '@angular/core';
 import { Observable } from 'rxjs';
-import { RenderedView } from '@destiny-clan-dashboard/shared/data';
 import { RenderedViewDynamicCompDirective } from './rendered-view-component.directive';
+import { RenderedView } from '@dcd/shared/data-models';
 
 @Component({
   selector: 'lib-rendered-view',
@@ -28,7 +28,7 @@ export class RenderedViewComponent implements OnInit {
       const componentRef = viewContainerRef.createComponent(this.component);
       for (const property in this.data) {
         componentRef.instance[property] = this.data[property];
-    }
+      }
     }
   }
 }

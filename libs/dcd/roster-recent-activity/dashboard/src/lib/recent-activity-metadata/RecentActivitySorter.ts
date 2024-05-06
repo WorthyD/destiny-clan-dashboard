@@ -3,7 +3,7 @@
 //import { SorterMetadata } from '@destiny-clan-dashboard/components';
 // import { ProfileRecentActivity } from '../../models/profile-recent-activity';
 import { ProfileRecentActivity } from '@dcd/roster-recent-activity/models';
-import { SorterMetadata } from '@destiny-clan-dashboard/shared/data';
+import { SorterMetadata } from '@dcd/shared/data-models';
 
 // import { MockListItem } from './ListItems';
 export const RECENT_ACTIVITY_SORTER_METADATA = new Map<string, SorterMetadata<ProfileRecentActivity>>([

@@ -12,7 +12,7 @@ import {
   RECENT_ACTIVITY_SORTER_METADATA,
   RECENT_ACTIVITY_VIEWER_METADATA
 } from './recent-activity-metadata';
-import { DataSource, Exporter, Filterer, Sorter, Viewer } from '@destiny-clan-dashboard/shared/data';
+import { DataSource, Exporter, Filterer, Sorter, Viewer } from '@dcd/shared/data';
 import { BungieDateTimePipe, PlaytimePipe } from '@dcd/shared/utils/pipes';
 
 interface RosterActivityResources {

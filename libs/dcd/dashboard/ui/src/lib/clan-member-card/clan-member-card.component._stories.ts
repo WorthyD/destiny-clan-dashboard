@@ -3,7 +3,6 @@ import { Meta, moduleMetadata, Story } from '@storybook/angular';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { ClanMemberCardComponent } from './clan-member-card.component';
-import { MOCK_CLAN } from 'projects/data/src/lib/models/__mocks__/clan-details';
 
 const MEMBERS = [];
 const names = [
