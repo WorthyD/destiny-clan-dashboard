@@ -1,27 +1,28 @@
 @mixin set-dark-variables($theme) {
-  $bg2: map-get($theme, background);
-  $fg2: map-get($theme, foreground);
+  // $bg2: map-get($theme, background);
+  // $fg2: map-get($theme, foreground);
 
-  $primary: map-get($theme, primary);
-  $warning: map-get($theme, warn);
+  // $primary: map-get($theme, primary);
+  // $warning: map-get($theme, warn);
 
-  //  @debug $warn;
+  //@debug $theme;
 
   :root {
-    --app-text-color: #{mat.get-color-from-palette($fg2, text)};
+    // --app-text-color: #{mat.get-color-from-palette($fg2, text)};
+    /// --app-text-color: --mat-app-text-color;
 
-    --app-background-color: #{mat.get-color-from-palette($bg2, background)};
-    --app-card-color: #{mat.get-color-from-palette($bg2, card)};
-    --app-dialog-color: #{mat.get-color-from-palette($bg2, dialog)};
+    // --mat-app-background-color: #{mat.get-color-from-palette($bg2, background)};
+    // --mdc-elevated-card-container-color: #{mat.get-color-from-palette($bg2, card)};
+    // --app-dialog-color: #{mat.get-color-from-palette($bg2, dialog)};
 
-    --app-skeleton-bg: rgba(255, 255, 255, 0.13);
+    // --app-skeleton-bg: rgba(255, 255, 255, 0.13);
 
-    --app-primary-color-text: #{mat.get-color-from-palette($primary, default-contrast)};
-    --app-primary-color: #{mat.get-color-from-palette($primary)};
-    --app-primary-color-darker: #{mat.get-color-from-palette($primary, darker)};
+    // --app-primary-color-text: #{mat.get-color-from-palette($primary, default-contrast)};
+    // --app-primary-color: #{mat.get-color-from-palette($primary)};
+    // --app-primary-color-darker: #{mat.get-color-from-palette($primary, darker)};
 
-    --app-warning-background: #{mat.get-color-from-palette($warning, default)};
-    --app-warning-text: #{mat.get-color-from-palette($warning, default-contrast)};
+    // --app-warning-background: #{mat.get-color-from-palette($warning, default)};
+    // --app-warning-text: #{mat.get-color-from-palette($warning, default-contrast)};
 
     --app-online-color: green;
   }

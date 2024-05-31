@@ -9,8 +9,8 @@
     --app-text-color: #{mat.get-color-from-palette($fg2, text)};
 
     // Background colors
-    --app-background-color: #{mat.get-color-from-palette($bg2, background)};
-    --app-card-color: #{mat.get-color-from-palette($bg2, card)};
+    --mat-app-background-color: #{mat.get-color-from-palette($bg2, background)};
+    --mdc-elevated-card-container-color: #{mat.get-color-from-palette($bg2, card)};
     --app-dialog-color: #{mat.get-color-from-palette($bg2, dialog)};
 
     --app-skeleton-bg: rgba(0, 0, 0, 0.11);

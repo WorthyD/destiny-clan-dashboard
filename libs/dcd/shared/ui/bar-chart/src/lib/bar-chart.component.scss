@@ -11,7 +11,7 @@
 
 .activity-bar {
   opacity: 0.6;
-  fill: var(--app-text-color);
+  fill: var(--mat-app-text-color);
 
   transition: opacity 0.5s;
   &:hover {
@@ -22,7 +22,7 @@
 //   // fill: mat.get-color-from-palette($fg, text);
 // }
 .apexcharts-text {
-  fill: var(--app-text-color);
+  fill: var(--mat-app-text-color);
 }
 // .apexcharts-yaxis-title {
 //   //fill: mat.get-color-from-palette($fg, text);
@@ -52,16 +52,16 @@
 //   }
 // }
 .activity-tooltip {
-  background-color: var(--app-background-color);
+  background-color: var(--mat-app-background-color);
   // background: mat.get-color-from-palette($bg, background);
 }
 .apexcharts-tooltip {
-  background-color: var(--app-background-color) !important;
+  background-color: var(--mat-app-background-color) !important;
   .apexcharts-tooltip-title {
-    background-color: var(--app-background-color) !important;
-    color: var(--app-text-color) !important;
+    background-color: var(--mat-app-background-color) !important;
+    color: var(--mat-app-text-color) !important;
   }
   .apexcharts-tooltip-text {
-    color: var(--app-text-color) !important;
+    color: var(--mat-app-text-color) !important;
   }
 }
