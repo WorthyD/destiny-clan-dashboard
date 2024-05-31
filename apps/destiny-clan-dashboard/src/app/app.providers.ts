@@ -3,7 +3,7 @@ import { provideRouter, withEnabledBlockingInitialNavigation } from '@angular/ro
 import { appRoutes } from './app.routes';
 import { provideStore } from '@ngrx/store';
 import { provideEffects } from '@ngrx/effects';
-import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, provideHttpClient, withInterceptors } from '@angular/common/http';
 import { coreEffects, coreReducers, metaReducers } from '@dcd/shared/data-access/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from '../environments/environment';
@@ -35,6 +35,9 @@ import { ProfileRecentActivityWorkerService as ProfileRecentActivityWorkerServic
 export const appProviders: ApplicationConfig = {
   providers: [
     // Routes
+    provideHttpClient(
+      withInterceptors([ApiKeyInterceptor])
+    ),
     provideRouter(appRoutes, withEnabledBlockingInitialNavigation()),
     // Custom providers
     { provide: BungieInfoWorkerServiceFake, useClass: BungieInfoWorkerService },
@@ -58,15 +61,14 @@ export const appProviders: ApplicationConfig = {
       },
       deps: [ClanDatabase]
     },
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: ApiKeyInterceptor,
-      multi: true
-    },
+    // {
+    //   provide: HTTP_INTERCEPTORS,
+    //   useClass: ApiKeyInterceptor,
+    //   multi: true
+    // },
 
     // Imported Providers
-    importProvidersFrom(HttpClientModule, ClanDbModule, SealsModule, BrowserAnimationsModule),
-
+    importProvidersFrom(ClanDbModule, SealsModule, BrowserAnimationsModule),
     // NGRX Providers
     provideStore(coreReducers, { metaReducers }),
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production }).providers,
