@@ -4,12 +4,13 @@ import { SeasonService, DefinitionService } from '@dcd/shared/data-access/defini
 import { MemberProfile } from '@dcd/shared/models';
 import { getClanMemberId, getMemberProfileId } from '@dcd/shared/utils';
 import { ClanProfileService } from 'libs/data/src/lib/clan/profiles/profile.service';
-import { profileSerializer } from 'libs/data/src/lib/profile/profile.serializer';
+// import { profileSerializer } from 'libs/data/src/lib/profile/profile.serializer';
 import { from, map, mergeMap, Observable, switchMap, toArray } from 'rxjs';
 import { GlobalSealsService } from '@dcd/shared/data-access/seals';
 import { SealClanMember, SealListItem } from '@dcd/seals/models';
 import { Store } from '@ngrx/store';
 import { selectAllClansWithMembers } from '@dcd/shared/data-access/store';
+import { profileSerializer } from '@dcd/shared/data-access/profile';
 
 @Injectable({
   providedIn: 'root'

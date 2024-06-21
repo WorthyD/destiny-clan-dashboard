@@ -23,14 +23,14 @@ import { LocationToken, WindowToken, locationProvider, windowProvider } from '@d
 import { IdbKeyValService } from '@dcd/shared/utils/storage';
 import { ClanMembersService } from '@destiny-clan-dashboard/data/clan/clan-members';
 import { ApiKeyInterceptor } from '@dcd/shared/utils/api-key-interceptor';
-import { ClanDatabase } from '@destiny-clan-dashboard/data/clan/clan-database';
 import { ClanBungieInfoService } from '@destiny-clan-dashboard/data/clan/bungie-info/bungie-info.service';
 import { ClanProfileService } from '@destiny-clan-dashboard/data/clan/profiles/profile.service';
-import { ClanDbModule } from '@destiny-clan-dashboard/data/clan';
 import { ProfileRecentActivityWorkerService as ProfileRecentActivityWorkerServiceFakeSecond } from '@dcd/roster-recent-activity/data-access';
 import { ProfileRecentActivityWorkerService as ProfileRecentActivityWorkerServiceFakeThird } from '@dcd/activity-modes/data-access';
 import { ProfileRecentActivityWorkerService as ProfileRecentActivityWorkerServiceFakeFourth } from '@dcd/activities/data-access';
 import { ProfileRecentActivityWorkerService as ProfileRecentActivityWorkerServiceFakeFifth } from '@dcd/dashboard/data-access';
+import { ClanDatabase, ClanDbModule } from '@dcd/shared/clan-db';
+import { ClanDetailsService } from '@destiny-clan-dashboard/data/clan/clan-details';
 
 export const appProviders: ApplicationConfig = {
   providers: [
@@ -82,6 +82,7 @@ export const appProviders: ApplicationConfig = {
     // Standard providers
     AppConfigService,
     IdbKeyValService,
-    ClanMembersService
+    ClanMembersService,
+    ClanDetailsService
   ]
 };

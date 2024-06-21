@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { PlayerShellRoutingModule } from './player-shell-routing.module';
 //import { PlayerDetailModule } from '../player-detail/player-detail.module';
 import { PlayerDetailModule } from '@dcd/player/detail';
-import { CachedProfileService } from '@destiny-clan-dashboard/data/profile';
+import { CachedProfileService } from '@dcd/shared/data-access/profile';
 //import { environment } from '../../../../environments/environment';
 import { IdbKeyValService } from '@dcd/shared/utils/storage';
 // import { PlayerService } from '../data-access/player.service';

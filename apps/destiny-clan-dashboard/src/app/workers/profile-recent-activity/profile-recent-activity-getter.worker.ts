@@ -5,7 +5,7 @@
 //import { ClanDatabase } from 'projects/data/src/lib/clan-db/ClanDatabase';
 // import { ClanMemberRecentActivityService } from 'projects/data/src/lib/clan/clan-member-recent-activity/clan-member-recent-activity.service';
 
-import { ClanDatabase } from 'libs/data/src/lib/clan/clan-database';
+import { ClanDatabase } from '@dcd/shared/clan-db';
 import { ClanActivityService } from 'libs/data/src/lib/stat-aggregators/clan-activity.service';
 import { from } from 'rxjs';
 import { take } from 'rxjs/operators';

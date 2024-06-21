@@ -3,9 +3,9 @@ import { Observable, from, of, throwError } from 'rxjs';
 // import { profileSerializer } from './profile.serializer';
 import { isValidDate, nowPlusDays, unixTimeStampToDate } from '@dcd/shared/utils';
 import { ClanStoreId } from '@dcd/shared/utils/legacy-db';
-import { ClanDatabase } from '../clan-database';
 import { ClanMember } from '@dcd/shared/models';
 import { BungieInfo } from '@dcd/shared/models';
+import { ClanDatabase } from '@dcd/shared/clan-db';
 //import { BungieInfo } from '../../models/BungieInfo';
 interface MemberProfile {}
 

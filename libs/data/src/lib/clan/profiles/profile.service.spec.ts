@@ -9,9 +9,7 @@ import { Destiny2Service } from 'bungie-api-angular';
 //   MOCK_RESP_ACTIVITIES_PAGE2,
 //   MOCK_RESP_ACTIVITIES_PAGE3
 // } from '../../testing-utils/objects/member-activities.mock';
-import { HttpErrorResponse } from '@angular/common/http';
 //import { ClanDatabase } from '../ClanDatabase';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { ClanDatabase } from '../clan-database';
 import { ClanProfileService } from './profile.service';
 // import { of, defer, forkJoin } from 'rxjs';

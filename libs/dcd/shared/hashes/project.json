@@ -1,0 +1,13 @@
+{
+  "name": "shared-hashes",
+  "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/dcd/shared/hashes/src",
+  "prefix": "dcd",
+  "projectType": "library",
+  "tags": ["type:model"],
+  "targets": {
+    "lint": {
+      "executor": "@nx/eslint:lint"
+    }
+  }
+}

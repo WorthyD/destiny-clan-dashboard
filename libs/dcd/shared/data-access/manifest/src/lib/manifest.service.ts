@@ -4,7 +4,7 @@ import { Injectable } from '@angular/core';
 import {  DefinitionService } from '@dcd/shared/data-access/definitions';
 //import { MilestoneDefinitionService } from '@core/definition-services/milestone-definition.service';
 // import { RecordDefinitionService } from '@core/definition-services/record-definition.service';
-import { ManifestLoaderService } from '@destiny-clan-dashboard/data/manifest';
+import { ManifestLoaderService } from './manifest-loader.service';
 import { catchError, map } from 'rxjs';
 
 @Injectable({

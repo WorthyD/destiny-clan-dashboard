@@ -1,10 +1,10 @@
 // import { ActivityStats, MemberProfile, ClanMember } from 'bungie-models';
 import { forkJoin, from, Observable, of } from 'rxjs';
 import { map, mergeMap, toArray } from 'rxjs/operators';
-import { ClanDatabase } from '../clan/clan-database';
-import { TrackedDuration } from '../clan/clan-member-recent-activity/clan-member-recent-activity.serializer';
+import { ClanDatabase } from '@dcd/shared/clan-db';
 import { ClanMemberRecentActivityService } from '../clan/clan-member-recent-activity/clan-member-recent-activity.service';
  import { ActivityStats } from '@dcd/shared/models';
+import { TrackedDuration } from '@dcd/shared/utils/serializers';
 // import { ActivityStats } from '../models';
 // import { ClanDatabase, ClanMemberRecentActivityService } from '../clan-db';
 

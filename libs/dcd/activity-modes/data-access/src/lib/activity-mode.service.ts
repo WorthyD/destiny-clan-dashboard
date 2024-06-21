@@ -5,10 +5,10 @@ import { of, switchMap } from 'rxjs';
 //import { ProfileRecentActivityWorkerService } from '../../../workers/profile-recent-activity/profile-recent-activity.service';
 import { ProfileRecentActivityWorkerService } from './profile-recent-activity.fake.service';
 import { DestinyDefinitionsDestinyActivityModeDefinition } from 'bungie-api-angular';
-import { TrackedDuration } from 'libs/data/src/lib/clan/clan-member-recent-activity/clan-member-recent-activity.serializer';
 import { Store } from '@ngrx/store';
 import { selectAllClansWithMembersProfiles } from '@dcd/shared/data-access/store';
 import { ClanConfigMembers } from '@dcd/shared/models';
+import { TrackedDuration } from '@dcd/shared/utils/serializers';
 
 @Injectable()
 export class ActivityModeService {
