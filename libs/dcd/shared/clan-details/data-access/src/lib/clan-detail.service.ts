@@ -4,7 +4,7 @@ import { Store } from '@ngrx/store';
 import { GroupsV2GroupV2, GroupsV2GroupV2Card, GroupV2Service } from 'bungie-api-angular';
 import { catchError, map, Observable, of } from 'rxjs';
 
-import { ClanDatabase } from 'libs/data/src/lib/clan/clan-database';
+import { ClanDatabase } from '@dcd/shared/clan-db';
 import { addClan, removeClan, resetClan } from 'libs/dcd/shared/data-access/store/src/lib/clans/clans.actions';
 
 @Injectable({

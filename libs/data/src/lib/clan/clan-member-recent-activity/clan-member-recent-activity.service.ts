@@ -1,18 +1,17 @@
-import { BaseMemberActivityService } from '../base-member-activity.service';
 // import { ClanDatabase } from '../ClanDatabase';
 // import { StoreId } from '../app-indexed-db';
 import { from, Observable } from 'rxjs';
 import { mergeMap, map, toArray } from 'rxjs/operators';
 // import { MemberActivityStats, MemberProfile, MemberActivityRecentStats } from 'bungie-models';
 
-//import { clanMemberRecentActivitySerializer } from './clan-member-recent-activity.serializer';
 //import { MemberProfile } from 'projects/bungie-models/src/lib/models/MemberProfile';
 //import { MemberActivityRecentStats } from 'projects/bungie-models/src/lib/models/MemberActivityRecentStats';
-import { ClanDatabase } from '../clan-database';
+import { ClanDatabase } from '@dcd/shared/clan-db';
 import { ClanStoreId } from '@dcd/shared/utils/legacy-db';
 // import { MemberProfile } from '../../models';
 import { MemberActivityRecentStats } from '@dcd/shared/models';
-import { clanMemberRecentActivitySerializer, TrackedDuration } from './clan-member-recent-activity.serializer';
+import { BaseMemberActivityService } from '@dcd/shared/data-access/base-services';
+import { clanMemberRecentActivitySerializer, TrackedDuration } from '@dcd/shared/utils/serializers';
 
 interface MemberProfile {
   profile: any;

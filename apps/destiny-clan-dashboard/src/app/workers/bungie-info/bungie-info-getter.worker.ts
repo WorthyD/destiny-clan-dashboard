@@ -1,5 +1,6 @@
+import { ClanDatabase } from '@dcd/shared/clan-db';
 import { ClanBungieInfoService } from 'libs/data/src/lib/clan/bungie-info/bungie-info.service';
-import { ClanDatabase } from 'libs/data/src/lib/clan/clan-database';
+// import { ClanDatabase } from 'libs/data/src/lib/clan/clan-database';
 
 import { take } from 'rxjs/operators';
 

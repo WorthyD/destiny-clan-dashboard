@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { ClanConfigMembers } from '@dcd/shared/models';
-import { TrackedDuration } from 'libs/data/src/lib/clan/clan-member-recent-activity/clan-member-recent-activity.serializer';
-import { AggregateType } from 'libs/data/src/lib/stat-aggregators/clan-aggregate-time';
 import { Observable } from 'rxjs';
+import { AggregateType } from '@dcd/shared/utils/stat-aggregators';
+import { TrackedDuration } from '@dcd/shared/utils/serializers';
 
 @Injectable()
 export class ProfileRecentActivityWorkerService {

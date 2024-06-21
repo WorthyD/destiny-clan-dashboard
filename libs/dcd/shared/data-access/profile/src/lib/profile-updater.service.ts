@@ -4,14 +4,14 @@ import { mergeMap, map, catchError, toArray, switchMap, tap, take, filter } from
 // import { ClanConfig, selectEnabledClans, updateClanProfileSync } from '../../../../../../../libs/dcd/shared/data-access/store/src/lib/clans';
 import { updateClanProfileSync } from '@dcd/shared/data-access/store';
 
-import { ClanMembersService } from '@destiny-clan-dashboard/data/clan/clan-members';
+// import { ClanMembersService } from '@destiny-clan-dashboard/data/clan/clan-members';
 import { from, Observable, of } from 'rxjs';
-import { GroupsV2GroupMember } from 'bungie-api-angular';
+// import { GroupsV2GroupMember } from 'bungie-api-angular';
 import { ProfileWorkerService } from './profile-worker.fake.service';
 import { nowPlusMinutes } from '@dcd/shared/utils';
 import { AppConfigService } from '@dcd/shared/utils/app-config';
 import { ClanProfileService } from 'libs/data/src/lib/clan/profiles/profile.service';
-import { ClanDatabase } from 'libs/data/src/lib/clan/clan-database';
+import { ClanDatabase } from '@dcd/shared/clan-db';
 /// import { addNotification, removeNotification, updateNotification } from '../../store/notifications';
 import { SeasonService } from '@dcd/shared/data-access/definitions';
 import { addNotification, removeNotification, updateNotification } from '@dcd/shared/data-access/store';

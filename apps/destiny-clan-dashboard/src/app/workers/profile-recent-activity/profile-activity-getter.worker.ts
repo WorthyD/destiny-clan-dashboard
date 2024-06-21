@@ -1,10 +1,12 @@
-import { ClanDatabase } from 'libs/data/src/lib/clan/clan-database';
-import { ClanMemberRecentActivityService } from 'libs/data/src/lib/clan/clan-member-recent-activity/clan-member-recent-activity.service';
-import { DailyClanAggregateTimeService } from 'libs/data/src/lib/stat-aggregators/clan-aggregate-time';
+//import { ClanDatabase } from 'libs/data/src/lib/clan/clan-database';
+//i//mport { ClanMemberRecentActivityService } from 'libs/data/src/lib/clan/clan-member-recent-activity/clan-member-recent-activity.service';
+import { ClanDatabase } from '@dcd/shared/clan-db';
+// import { DailyClanAggregateTimeService } from 'libs/data/src/lib/stat-aggregators/clan-aggregate-time';
+import { AggregateType, DailyClanAggregateTimeService } from '@dcd/shared/utils/stat-aggregators';
+import { ClanMemberRecentActivityService } from '@destiny-clan-dashboard/data/clan/clan-member-recent-activity/clan-member-recent-activity.service';
 import { from, of } from 'rxjs';
 import { filter, map, mergeMap, switchMap, take, toArray } from 'rxjs/operators';
 // import { AggregateType } from '../../../../../data/src/lib/stat-aggregators/clan-aggregate-time';
-import { AggregateType } from '@destiny-clan-dashboard/data/stat-aggregators/clan-aggregate-time';
 interface MSGData {
   apiKey: string;
   statAggregatorType: AggregateType;
@@ -38,7 +40,7 @@ addEventListener('message', ({ data }: { data: MSGData }) => {
       map((x) => {
         let statAggregator;
         if (statAggregatorType === 'daily') {
-          statAggregator = new DailyClanAggregateTimeService(clanDatabase, apiKey);
+          statAggregator = new DailyClanAggregateTimeService();
         }
         //const aggregator = getAggregator(statAggregatorType);
         return statAggregator.getClanActivityStatsForDuration(x, 0);

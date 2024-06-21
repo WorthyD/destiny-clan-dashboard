@@ -4,10 +4,11 @@ import { Destiny2Service, GroupsV2GroupMember, GroupV2Service } from 'bungie-api
 
 import { map, take, catchError, mergeMap, switchMap, shareReplay, concatMap } from 'rxjs/operators';
 import { ClanStoreId } from '@dcd/shared/utils/legacy-db';
-import { ClanDatabase } from '../clan-database';
+import { ClanDatabase } from '@dcd/shared/clan-db';
 import { of, from, Observable } from 'rxjs';
-import { BaseClanService } from '../base-clan.service';
+// import { BaseClanService } from '../base-clan.service';
 import { ClanMembersServiceInterface } from './clan-members.interface';
+import { BaseClanService } from '@dcd/shared/data-access/base-services';
 
 @Injectable()
 export class ClanMembersService extends BaseClanService implements ClanMembersServiceInterface {

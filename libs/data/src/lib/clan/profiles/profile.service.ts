@@ -6,13 +6,14 @@ import { Observable, from, of } from 'rxjs';
 
 import { nowPlusDays, unixTimeStampToDate } from '@dcd/shared/utils';
 import { ClanStoreId } from '@dcd/shared/utils/legacy-db';
-import { ClanDatabase } from '../clan-database';
+import { ClanDatabase } from '@dcd/shared/clan-db';
 import { ClanMember } from '@dcd/shared/models';
-import { ProfileService } from '../../profile/profile.service';
-import { profileSerializer } from '../../profile/profile.serializer';
+//import { ProfileService } from '../../profile/profile.service';
+// import { profileSerializer } from '../../profile/profile.serializer';
 //import { MemberProfile } from '../../models/MemberProfile';
 // import { ClanMember } from 'projects/bungie-models/src/lib/models/ClanMember';
 // import { latestSeason } from 'projects/bungie-models/src/lib/entities/seasons/season-latest';
+import { ProfileService, profileSerializer } from '@dcd/shared/data-access/profile';
 interface MemberProfile {}
 
 export class ClanProfileService extends ProfileService {

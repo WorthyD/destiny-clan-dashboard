@@ -9,10 +9,10 @@ export class IdbKeyValService implements DataStore {
     this.defaultStore = createStore('D2Dashboard', 'data');
   }
 
-  get<T = any>(key: string, customStore = undefined): Promise<T | undefined> {
+  get<T = any>(key: string, customStore: UseStore | undefined = undefined): Promise<T | undefined> {
     return get(key, customStore || this.defaultStore);
   }
-  set(key: string, value: any, customStore = undefined): Promise<void> {
+  set(key: string, value: any, customStore: UseStore | undefined = undefined): Promise<void> {
     return set(key, value, customStore || this.defaultStore);
   }
 }
