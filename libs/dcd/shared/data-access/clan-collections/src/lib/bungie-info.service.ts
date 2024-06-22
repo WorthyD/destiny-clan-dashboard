@@ -17,10 +17,10 @@ export class ClanBungieInfoService {
   constructor(private clanDb: ClanDatabase, private apiKey: string) {}
 
   private getProfileId(member: ClanMember) {
-    return `${member.destinyUserInfo.membershipType}-${member.destinyUserInfo.membershipId}`;
+    return `${member.destinyUserInfo?.membershipType}-${member.destinyUserInfo?.membershipId}`;
   }
   private getBungieNetMembershipId(member: ClanMember) {
-    return member.bungieNetUserInfo.membershipId;
+    return member.bungieNetUserInfo?.membershipId;
   }
 
   private getBungieInfoFromCache(clanId: string, member: ClanMember) {
@@ -106,7 +106,7 @@ export class ClanBungieInfoService {
   getSerializedBungieInfosWithProgress(
     clanId: string,
     members: ClanMember[],
-    progress?: (done) => any
+    progress?: (done: any) => any
   ): Observable<BungieInfo[]> {
     let complete = 0;
     return from(members)

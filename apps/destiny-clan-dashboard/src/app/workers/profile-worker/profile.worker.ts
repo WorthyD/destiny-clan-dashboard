@@ -1,7 +1,7 @@
 //import { ClanDatabase } from 'libs/data/src/lib/clan/clan-database';
 //import { ClanProfileService } from 'libs/data/src/lib/clan/profiles/profile.service';
 import { ClanDatabase } from '@dcd/shared/clan-db';
-import { ClanProfileService } from '@destiny-clan-dashboard/data/clan/profiles/profile.service';
+import { ClanProfileService } from '@dcd/shared/data-access/clan-collections';
 import { take } from 'rxjs/operators';
 
 addEventListener('message', ({ data }) => {

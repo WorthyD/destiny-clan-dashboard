@@ -3,7 +3,7 @@
 // import { ClanDatabase } from 'projects/data/src/lib/clan-db/ClanDatabase';
 //import { ClanDatabase } from 'libs/data/src/lib/clan/clan-database';
 import { ClanDatabase } from '@dcd/shared/clan-db';
-import { ClanMemberRecentActivityService } from 'libs/data/src/lib/clan/clan-member-recent-activity/clan-member-recent-activity.service';
+import { ClanMemberRecentActivityService } from '@dcd/shared/data-access/clan-collections';
 import { take } from 'rxjs/operators';
 
 addEventListener('message', ({ data }) => {

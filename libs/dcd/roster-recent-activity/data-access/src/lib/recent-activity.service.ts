@@ -10,7 +10,7 @@ import { ProfileRecentActivity } from '@dcd/roster-recent-activity/models';
 ///import { RecentActivityModule } from '../recent-activity-shell/recent-activity.module';
 
 import { SeasonService } from '@dcd/shared/data-access/definitions';
-import { ClanProfileService } from '@destiny-clan-dashboard/data/clan/profiles/profile.service';
+import { ClanProfileService } from '@dcd/shared/data-access/clan-collections';
 import { Store } from '@ngrx/store';
 import { selectAllClansWithMembers } from '@dcd/shared/data-access/store';
 // import { SeasonService } from '@core/services/season.service';

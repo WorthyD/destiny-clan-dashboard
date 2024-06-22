@@ -4,10 +4,10 @@ import { Destiny2Service, GroupV2Service } from 'bungie-api-angular';
 import { map, take, catchError, mergeMap, switchMap } from 'rxjs/operators';
 import { of, from } from 'rxjs';
 import { ClanStoreId } from '@dcd/shared/utils/legacy-db';
-import { clanDetailSerializer } from './clan-detail-serializer';
 import { CLAN_LEVEL_HASH } from '@dcd/shared/hashes';
 import { BaseClanService } from '@dcd/shared/data-access/base-services';
 import { ClanDatabase } from '@dcd/shared/clan-db';
+import { clanDetailSerializer } from '@dcd/shared/utils/serializers';
 
 @Injectable()
 export class ClanDetailsService extends BaseClanService {

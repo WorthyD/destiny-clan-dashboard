@@ -3,7 +3,7 @@
 import { ClanDatabase } from '@dcd/shared/clan-db';
 // import { DailyClanAggregateTimeService } from 'libs/data/src/lib/stat-aggregators/clan-aggregate-time';
 import { AggregateType, DailyClanAggregateTimeService } from '@dcd/shared/utils/stat-aggregators';
-import { ClanMemberRecentActivityService } from '@destiny-clan-dashboard/data/clan/clan-member-recent-activity/clan-member-recent-activity.service';
+import { ClanMemberRecentActivityService } from '@dcd/shared/data-access/clan-collections';
 import { from, of } from 'rxjs';
 import { filter, map, mergeMap, switchMap, take, toArray } from 'rxjs/operators';
 // import { AggregateType } from '../../../../../data/src/lib/stat-aggregators/clan-aggregate-time';

@@ -1,10 +1,9 @@
 import { TestBed } from '@angular/core/testing';
+import { APP_CONFIG, getAppConfigProvider } from './app-config.token';
 
-import { AppConfigService } from './app-config.service';
 import { AppConfig } from './app-config.interface';
 
 describe('AppConfigService', () => {
-  let service: AppConfigService;
   const defaultConfig: AppConfig = {
     apiKey: '1234',
     appVersion: '1.0.0',
@@ -18,15 +17,19 @@ describe('AppConfigService', () => {
     production: false,
     useMocks: false
   };
+  let providedConfig: AppConfig;
 
   beforeEach(() => {
-    service = new AppConfigService(defaultConfig);
+    TestBed.configureTestingModule({
+      providers: [getAppConfigProvider(defaultConfig)]
+    });
+    providedConfig = TestBed.inject(APP_CONFIG);
   });
 
   it('should be created', () => {
-    expect(service).toBeTruthy();
+    expect(providedConfig).toBeTruthy();
   });
-  it('should return default config', () => {
-    expect(service.config).toEqual(defaultConfig);
+  it('should be have value', () => {
+    expect(providedConfig).toEqual(defaultConfig);
   });
 });

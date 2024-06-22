@@ -10,7 +10,8 @@ import { SeasonService, DefinitionService } from '@dcd/shared/data-access/defini
 import { getClanMemberId, getMemberProfileId } from '@dcd/shared/utils';
 import { Store } from '@ngrx/store';
 import { ClanMemberProfile } from '@dcd/shared/models';
-import { ClanProfileService } from 'libs/data/src/lib/clan/profiles/profile.service';
+// import { ClanProfileService } from 'libs/data/src/lib/clan/profiles/profile.service';
+import { ClanProfileService } from '@dcd/shared/data-access/clan-collections';
 import { from, map, mergeMap, Observable, switchMap, take, toArray } from 'rxjs';
 // import {
 //   CuratedActivityGroupDefinitions,

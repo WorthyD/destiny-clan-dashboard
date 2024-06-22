@@ -8,7 +8,7 @@ import { Store } from '@ngrx/store';
 import { selectAllClansMembersProfiles, selectClanMemberProfileStateLoading } from '@dcd/shared/data-access/store';
 
 import { ClanMemberProfile } from '@dcd/shared/models';
-import { ClanBungieInfoService } from 'libs/data/src/lib/clan/bungie-info/bungie-info.service';
+import { ClanBungieInfoService } from '@dcd/shared/data-access/clan-collections';
 import { ClanRosterItem } from '@dcd/clans-roster/models';
 import { BungieInfo } from '@dcd/shared/models';
 

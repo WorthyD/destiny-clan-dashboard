@@ -1,6 +1,6 @@
 //import { ClanDatabase } from 'libs/data/src/lib/clan/clan-database';
 import { ClanDatabase } from '@dcd/shared/clan-db';
-import { ClanBungieInfoService } from 'libs/data/src/lib/clan/bungie-info/bungie-info.service';
+import { ClanBungieInfoService } from '@dcd/shared/data-access/clan-collections';
 import { take } from 'rxjs/operators';
 
 addEventListener('message', ({ data }) => {
