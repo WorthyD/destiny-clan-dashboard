@@ -10,7 +10,7 @@ import { from, Observable, of } from 'rxjs';
 import { ProfileWorkerService } from './profile-worker.fake.service';
 import { nowPlusMinutes } from '@dcd/shared/utils';
 import { AppConfigService } from '@dcd/shared/utils/app-config';
-import { ClanProfileService } from 'libs/data/src/lib/clan/profiles/profile.service';
+import { ClanProfileService } from '@dcd/shared/data-access/clan-collections';
 import { ClanDatabase } from '@dcd/shared/clan-db';
 /// import { addNotification, removeNotification, updateNotification } from '../../store/notifications';
 import { SeasonService } from '@dcd/shared/data-access/definitions';

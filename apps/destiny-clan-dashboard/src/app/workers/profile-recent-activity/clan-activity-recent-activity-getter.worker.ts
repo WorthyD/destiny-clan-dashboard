@@ -2,11 +2,11 @@
 
 //import { ClanDatabase } from 'libs/data/src/lib/clan/clan-database';
 // import { ClanMemberRecentActivityService } from 'projects/data/src/lib/clan/clan-member-recent-activity/clan-member-recent-activity.service';
-import { ClanActivityService } from 'libs/data/src/lib/stat-aggregators/clan-activity.service';
 import { getClanMemberId, getMemberProfileId } from '@dcd/shared/utils';
 import { filter, from, map, mergeMap, toArray } from 'rxjs';
 import { ClanDatabase } from '@dcd/shared/clan-db';
 import { TrackedDuration } from '@dcd/shared/utils/serializers';
+import { ClanActivityService } from '@dcd/shared/data-access/clan-collections';
 
 // import { ClanDatabase } from 'projects/data/src/lib/clan/clan-database';
 // import { ClanMemberRecentActivityService } from 'projects/data/src/lib/clan/clan-member-recent-activity/clan-member-recent-activity.service';

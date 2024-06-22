@@ -6,7 +6,7 @@ import { map, mergeMap, switchMap, toArray } from 'rxjs/operators';
 import { setClansWMembersProfiles } from './clans-with-members-profiles.actions';
 import { selectAllClansWithMembers } from '../clans-with-members/clans-with-members.selectors';
 import { setClansWMembers } from '../clans-with-members/clans-with-members.actions';
-import { ClanProfileService } from 'libs/data/src/lib/clan/profiles/profile.service';
+import { ClanProfileService } from '@dcd/shared/data-access/clan-collections';
 import { SeasonService } from '@dcd/shared/data-access/definitions';
 
 @Injectable()

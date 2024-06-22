@@ -2,14 +2,14 @@ import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { mergeMap, map, catchError, toArray, switchMap, tap, take, filter } from 'rxjs/operators';
 import { removeClan, selectEnabledClans, updateClan } from '@dcd/shared/data-access/store';
-import { ClanMembersService } from '@destiny-clan-dashboard/data/clan/clan-members';
+import { ClanMembersService } from '@dcd/shared/data-access/clan-collections';
 import { from, of } from 'rxjs';
 import { AppConfigService } from '@dcd/shared/utils/app-config';
 import { ProfileUpdaterService } from '@dcd/shared/data-access/profile';
 import { MemberActivityUpdaterService } from '@dcd/shared/data-access/member-activity';
-import { ClanDetailsService } from '@destiny-clan-dashboard/data/clan/clan-details';
 import { MatDialog } from '@angular/material/dialog';
 import { AppOfflineDialogComponent } from '@dcd/shared/ui/app-offline-dialog';
+import { ClanDetailsService } from '@dcd/shared/data-access/clan-collections';
 
 // import { environment } from 'apps/destiny-clan-dashboard/src/environments/environment';
 import deepEqual from 'deep-equal';

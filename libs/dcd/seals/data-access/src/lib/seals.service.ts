@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { SeasonService, DefinitionService } from '@dcd/shared/data-access/definitions';
 import { MemberProfile } from '@dcd/shared/models';
 import { getClanMemberId, getMemberProfileId } from '@dcd/shared/utils';
-import { ClanProfileService } from 'libs/data/src/lib/clan/profiles/profile.service';
+import { ClanProfileService } from '@dcd/shared/data-access/clan-collections';
 // import { profileSerializer } from 'libs/data/src/lib/profile/profile.serializer';
 import { from, map, mergeMap, Observable, switchMap, toArray } from 'rxjs';
 import { GlobalSealsService } from '@dcd/shared/data-access/seals';
