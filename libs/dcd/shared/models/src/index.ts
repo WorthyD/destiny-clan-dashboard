@@ -1,4 +1,4 @@
-export * from './lib/ActivityStats'
+export * from './lib/ActivityStats';
 export * from './lib/BungieInfo';
 export * from './lib/Character';
 export * from './lib/ClanConfig';
@@ -14,6 +14,7 @@ export * from './lib/DestinyActivityModeCategory';
 export * from './lib/DestinyActivityModeType';
 export * from './lib/DestinyHistoricalStatsDestinyHistoricalStatsPeriodGroup';
 // export * from './lib/MemberActivityRecentStats';
+
 export * from './lib/MemberActivityStat';
 export * from './lib/MemberActivityTime';
 export * from './lib/MetricDefinition';

@@ -8,7 +8,7 @@ import { MembershipTypes } from '@dcd/shared/models';
 export class DestinyTrackerUrlPipe implements PipeTransform {
   readonly baseUrl = 'https://destinytracker.com/destiny-2/profile';
   transform(value: MemberProfile): string {
-    switch (value.profile.data.userInfo.membershipType) {
+    switch (value.profile?.data?.userInfo?.membershipType) {
       case MembershipTypes.Xbox:
         return this.getXBOXUrl(value);
       case MembershipTypes.Psn:
@@ -22,17 +22,17 @@ export class DestinyTrackerUrlPipe implements PipeTransform {
     }
   }
   getPSUrl(value: MemberProfile) {
-    return `${this.baseUrl}/psn/${escape(value.profile.data.userInfo.displayName)}`;
+    return `${this.baseUrl}/psn/${escape(value?.profile?.data?.userInfo?.displayName || '')}`;
   }
 
   getXBOXUrl(value: MemberProfile) {
-    return `${this.baseUrl}/xbl/${escape(value.profile.data.userInfo.displayName)}`;
+    return `${this.baseUrl}/xbl/${escape(value.profile?.data?.userInfo?.displayName || '')}`;
   }
 
   getPCUrl(value: MemberProfile) {
-    return `${this.baseUrl}/steam/${value.profile.data.userInfo.membershipId}`;
+    return `${this.baseUrl}/steam/${value.profile?.data?.userInfo?.membershipId}`;
   }
   getStadiaUrl(value: MemberProfile) {
-    return `${this.baseUrl}/stadia/${value.profile.data.userInfo.membershipId}`;
+    return `${this.baseUrl}/stadia/${value.profile?.data?.userInfo?.membershipId}`;
   }
 }

@@ -8,6 +8,6 @@ export class TriumphReportPipe implements PipeTransform {
   readonly baseUrl = 'https://triumph.report/';
 
   transform(value: MemberProfile): unknown {
-    return `${this.baseUrl}${value.profile.data?.userInfo?.membershipType}/${value.profile.data?.userInfo?.membershipId}`;
+    return `${this.baseUrl}${value.profile?.data?.userInfo?.membershipType}/${value.profile?.data?.userInfo?.membershipId}`;
   }
 }

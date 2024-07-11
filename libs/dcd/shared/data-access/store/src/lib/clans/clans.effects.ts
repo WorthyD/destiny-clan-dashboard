@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { LocalStorageService } from '@dcd/shared/utils/local-storage';
-import { Actions, createEffect, ofType, concatLatestFrom } from '@ngrx/effects';
+import { Actions, createEffect, ofType } from '@ngrx/effects';
+import { concatLatestFrom } from '@ngrx/operators';
 import { Store } from '@ngrx/store';
 import { map } from 'rxjs/operators';
 import * as clanActions from './clans.actions';
@@ -10,7 +11,11 @@ import { tap } from 'rxjs/operators';
 const CLANS_KEY = 'clans';
 @Injectable()
 export class ClansEffects {
-  constructor(private actions$: Actions, private store: Store, private localStorageService: LocalStorageService) {}
+  constructor(
+    private actions$: Actions,
+    private store: Store,
+    private localStorageService: LocalStorageService
+  ) {}
 
   persistSettings$ = createEffect(
     () => {

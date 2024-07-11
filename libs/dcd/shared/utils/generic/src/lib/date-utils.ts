@@ -2,16 +2,17 @@ export function isValidDate(d: any) {
   return d instanceof Date && !isNaN(d.getTime());
 }
 
-export function nowPlusMinutes(minutes: number) {
-  return new Date(new Date().setMinutes(new Date().getMinutes() + minutes));
+export function nowPlusMinutes(minutes: number, now: Date = new Date()) {
+  const nowMinutes = now.getMinutes();
+  return new Date(now.setMinutes(nowMinutes + minutes));
 }
 
-export function nowPlusDays(days: number) {
-  return new Date(new Date().setDate(new Date().getDate() + days));
+export function nowPlusDays(days: number, now: Date = new Date()) {
+  return new Date(now.setDate(now.getDate() + days));
 }
 
-export function nowPlusWeeks(weeks: number) {
-  return new Date(new Date().setDate(new Date().getDate() + weeks * 7));
+export function nowPlusWeeks(weeks: number, now: Date = new Date()) {
+  return new Date(now.setDate(now.getDate() + weeks * 7));
 }
 
 export function dateToUnixTimeStamp(d: Date) {
@@ -48,25 +49,10 @@ function addDays(date: Date, days: number) {
   date.setDate(date.getDate() + days);
   return date;
 }
+
+const daysOfWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 export function getDayOfWeek(dayIndex: number) {
-  switch (dayIndex) {
-    case 0:
-      return 'Sunday';
-    case 1:
-      return 'Monday';
-    case 2:
-      return 'Tuesday';
-    case 3:
-      return 'Wednesday';
-    case 4:
-      return 'Thursday';
-    case 5:
-      return 'Friday';
-    case 6:
-      return 'Saturday';
-    default:
-      return '';
-  }
+  return dayIndex < 7 ? daysOfWeek[dayIndex] : '';
 }
 
 export function playtime(input: number, showSeconds: boolean = true): string {

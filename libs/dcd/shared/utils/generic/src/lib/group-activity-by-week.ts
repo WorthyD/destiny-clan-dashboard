@@ -2,7 +2,8 @@
 // import { MemberActivityRecentStatsActivity } from '../models';
 import { getBungieStartDate } from './date-utils';
 import { groupActivities } from './group-activity-by-date';
-import { MemberActivityRecentStatsActivity } from './util.models';
+// import { MemberActivityRecentStatsActivity } from './util.models';
+import { MemberActivityRecentStatsActivity } from '@dcd/shared/models';
 
 interface ActivitiesToGroupModel {
   period: Date | string | number;
