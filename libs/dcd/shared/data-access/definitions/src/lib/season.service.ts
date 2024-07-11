@@ -23,8 +23,6 @@ export class SeasonService {
     seasons: { [key: string]: DestinyDefinitionsSeasonsDestinySeasonDefinition },
     seasonPasses: { [key: string]: DestinyDefinitionsSeasonsDestinySeasonPassDefinition }
   ) {
-    console.log('season', seasons);
-    console.log('seasone', seasonPasses);
     const now = new Date();
     const currentSeasonKey = Object.keys(seasons).find((seasonKey) => {
       const season = seasons[seasonKey];

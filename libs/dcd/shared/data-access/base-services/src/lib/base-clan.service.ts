@@ -25,13 +25,13 @@ export class BaseClanService {
           expireDate = lastActivity;
         } else {
           const minuteXP = nowPlusMinutes(-minuteExpiration);
-          const lastActivityXP = lastActivity;
+          const lastActivityXP = lastActivity!;
           expireDate = minuteXP > lastActivityXP ? lastActivityXP : minuteXP;
         }
       } else {
         expireDate = nowPlusMinutes(-minuteExpiration);
       }
-      return cacheDate > expireDate;
+      return cacheDate > expireDate!;
     }
     return false;
   }

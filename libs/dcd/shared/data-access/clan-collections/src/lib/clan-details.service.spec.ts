@@ -2,12 +2,12 @@ import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { TestBed } from '@angular/core/testing';
 
 import { GroupV2Service } from 'bungie-api-angular';
-import { ClanDatabase } from '../clan-database';
+import { ClanDatabase } from '@dcd/shared/clan-db';
 import { ClanDetailsService } from './clan-details.service';
-import { DBObject } from '../../db/clan-indexed-db';
 import { ClanDetails } from '@dcd/shared/models';
-import { getMockClan } from '../../models/__mocks__/clan-details';
+import { getMockClan } from '@dcd/shared/mocks';
 import { defer, of } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
 
 // import { ClanDetailsService } from './clan-details.service';
 // // import { ClanDatabase } from '../ClanDatabase';
@@ -19,12 +19,15 @@ import { defer, of } from 'rxjs';
 // import { ClanDatabase } from '../clan-database';
 // import { nowPlusDays } from '../../utility/date-utils';
 // import { DBObject } from '../../db/clan-indexed-db';
-jest.mock('../clan-database');
+jest.mock('@dcd/shared/clan-db');
 jest.mock('bungie-api-angular');
 const mockedDatabase = ClanDatabase as jest.Mock<ClanDatabase>;
 const mockedGroupService = GroupV2Service as unknown as jest.Mock<GroupV2Service>;
 
-const getMockClanObject: (id?: string, createDate?: Date, data?: Partial<ClanDetails>) => Partial<DBObject> = (
+jest.mock('@angular/common/http');
+const mockedHttpClient = HttpClient as unknown as jest.Mock<HttpClient>;
+
+const getMockClanObject: (id?: string, createDate?: Date, data?: Partial<ClanDetails>) => any = (
   id = '',
   createDate = new Date(),
   data = {}
@@ -41,7 +44,11 @@ describe('ClanDetailsService', () => {
   let service: ClanDetailsService;
   // let dbService: ClanDatabase;
   // let d2GroupService: GroupV2Service;
-  const getFreshService = (clanDbPBase = new ClanDatabase(), groupService = new GroupV2Service(null, '', null)) => {
+  const getFreshService = (
+    clanDbPBase = new ClanDatabase(),
+    // @ts-ignore
+    groupService = new GroupV2Service(null, '', null)
+  ) => {
     return new ClanDetailsService(groupService, clanDbPBase);
   };
 
@@ -194,7 +201,6 @@ describe('ClanDetailsService', () => {
         done();
       });
     });
-
   });
 
   //   describe('clanDetails', () => {

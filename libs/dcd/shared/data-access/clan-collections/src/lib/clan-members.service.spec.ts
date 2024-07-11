@@ -4,7 +4,7 @@ import { GroupV2Service } from 'bungie-api-angular';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 import { ClanMembersService } from './clan-members.service';
-import { ClanDatabase } from '../clan-database';
+import { ClanDatabase } from '@dcd/shared/clan-db';
 
 describe('ClanMembersService', () => {
   let service: ClanMembersService;

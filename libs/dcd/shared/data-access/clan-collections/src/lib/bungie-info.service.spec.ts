@@ -4,7 +4,7 @@ import { ClanBungieInfoService } from './bungie-info.service';
 import { ClanDbObject } from '@dcd/shared/utils/legacy-db';
 import { ClanDatabase } from '@dcd/shared/clan-db';
 
-jest.mock('../clan-database');
+jest.mock('@dcd/shared/clan-db');
 const mockedDatabase = ClanDatabase as jest.Mock<ClanDatabase>;
 const getMockClanObject: (id?: string, createDate?: Date, data?: BungieInfo) => Partial<ClanDbObject> = (
   id = '',
