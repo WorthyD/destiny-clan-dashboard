@@ -12,9 +12,9 @@ export class RecordTotalPipe implements PipeTransform {
       const record =
         definition.scope === 1
           ? cur.characterRecords?.data
-            ? (Object.values(cur.characterRecords.data)[0] as unknown as any)?.records[definition.hash]
+            ? (Object.values(cur.characterRecords.data)[0] as unknown as any)?.records[definition.hash!]
             : undefined
-          : cur.profileRecords?.data?.records[definition.hash];
+          : cur.profileRecords?.data?.records[definition.hash!];
       const value = hasCompleted(record) ? 1 : 0;
 
       return prev + value;

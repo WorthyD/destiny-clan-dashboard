@@ -6,10 +6,7 @@ describe('LocalStorageService', () => {
   let service: LocalStorageService;
 
   beforeEach(() => {
-    TestBed.configureTestingModule({
-      providers: [LocalStorageService]
-    });
-    service = TestBed.inject<LocalStorageService>(LocalStorageService);
+    service = new LocalStorageService();
   });
 
   afterEach(() => localStorage.clear());
@@ -28,7 +25,7 @@ describe('LocalStorageService', () => {
     service.setItem('TEST', 'item');
     expect(service.getItem('TEST')).toBe('item');
     service.removeItem('TEST');
-    expect(service.getItem('TEST')).toBe(null);
+    expect(service.getItem('TEST')).toBe(undefined);
   });
 
   it('should load initial state', () => {

@@ -1,4 +1,4 @@
-import { getBungieStartDate, nowPlusDays } from './date-utils';
+import {  nowPlusDays } from './date-utils';
 import { groupActivitiesByDate, groupActivityStatsByDate } from './group-activity-by-date';
 const _MOCK_DATA = [
   {

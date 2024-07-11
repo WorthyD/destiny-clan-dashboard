@@ -25,15 +25,14 @@ export class DateAgoPipe implements PipeTransform {
       };
       let counter;
 
-      for (const i in intervals) {
-        if (i) {
-          counter = Math.floor(seconds / intervals[i]);
-          if (counter > 0) {
-            if (counter === 1) {
-              return counter + ' ' + i + ' ago'; // singular (1 day ago)
-            } else {
-              return counter + ' ' + i + 's ago'; // plural (2 days ago)
-            }
+      for (const i of Object.keys(intervals)) {
+        // @ts-expect-error
+        counter = Math.floor(seconds / intervals[i]);
+        if (counter > 0) {
+          if (counter === 1) {
+            return counter + ' ' + i + ' ago'; // singular (1 day ago)
+          } else {
+            return counter + ' ' + i + 's ago'; // plural (2 days ago)
           }
         }
       }

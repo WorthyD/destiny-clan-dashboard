@@ -1,8 +1,8 @@
-import { MetricTotalPipe } from './metric-total.pipe';
+import { RecordTotalPipe } from './record-total.pipe';
 
-describe('MetricTotalPipe', () => {
+describe('RecordTotalPipe', () => {
   it('create an instance', () => {
-    const pipe = new MetricTotalPipe();
+    const pipe = new RecordTotalPipe();
     expect(pipe).toBeTruthy();
   });
 });
