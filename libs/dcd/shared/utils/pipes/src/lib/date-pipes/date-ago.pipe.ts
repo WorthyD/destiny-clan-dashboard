@@ -26,7 +26,7 @@ export class DateAgoPipe implements PipeTransform {
       let counter;
 
       for (const i of Object.keys(intervals)) {
-        // @ts-expect-error
+        // @ts-ignore
         counter = Math.floor(seconds / intervals[i]);
         if (counter > 0) {
           if (counter === 1) {
