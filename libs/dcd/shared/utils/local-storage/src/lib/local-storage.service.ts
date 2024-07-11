@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-
+import { tryJSONParse } from '@dcd/shared/utils';
 const APP_PREFIX = 'D2DASH-';
 
 @Injectable({
@@ -13,7 +13,7 @@ export class LocalStorageService {
       if (storageKey.includes(APP_PREFIX)) {
         const stateKeys = storageKey
           .replace(APP_PREFIX, '')
-          //.toLowerCase()
+          .toLowerCase()
           .split('.')
           .map((key) =>
             key
@@ -24,7 +24,7 @@ export class LocalStorageService {
         let currentStateRef = state;
         stateKeys.forEach((key, index) => {
           if (index === stateKeys.length - 1) {
-            currentStateRef[key] = JSON.parse(localStorage.getItem(storageKey));
+            currentStateRef[key] = JSON.parse(localStorage.getItem(storageKey) ?? '');
             return;
           }
           currentStateRef[key] = currentStateRef[key] || {};
@@ -39,8 +39,8 @@ export class LocalStorageService {
     localStorage.setItem(`${APP_PREFIX}${key}`, JSON.stringify(value));
   }
 
-  getItem(key: string) {
-    return JSON.parse(localStorage.getItem(`${APP_PREFIX}${key}`));
+  getItem<T>(key: string): T | undefined {
+    return tryJSONParse<T>(localStorage.getItem(`${APP_PREFIX}${key}`) ?? '');
   }
 
   removeItem(key: string) {
@@ -51,7 +51,7 @@ export class LocalStorageService {
   testLocalStorage() {
     const testValue = 'testValue';
     const testKey = 'testKey';
-    let retrievedValue: string;
+    let retrievedValue: string | undefined;
     const errorMessage = 'localStorage did not return expected value';
 
     this.setItem(testKey, testValue);

@@ -9,9 +9,9 @@ import { ClanMember } from '@dcd/shared/models';
 export class DungeonReportUrlPipe implements PipeTransform {
   transform(value: ClanMember): unknown {
     return getDungeonReportUrl(
-      value.destinyUserInfo.membershipType,
-      value.destinyUserInfo.displayName,
-      value.destinyUserInfo.membershipId
+      value.destinyUserInfo?.membershipType ?? 0,
+      value.destinyUserInfo?.displayName ?? '',
+      value.destinyUserInfo?.membershipId ?? 0
     );
   }
 }

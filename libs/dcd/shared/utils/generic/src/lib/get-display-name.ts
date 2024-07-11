@@ -1,4 +1,4 @@
-import { ClanMember, MemberProfile } from "./util.models";
+import { ClanMember, MemberProfile } from "@dcd/shared/models";
 
 export function getMemberName(member: ClanMember) {
   return `${member?.destinyUserInfo?.displayName || 'Unknown'}`;

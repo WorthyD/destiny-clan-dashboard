@@ -4,13 +4,20 @@
   "plugins": ["@nx", "functional", "unused-imports", "no-autofix"],
   "overrides": [
     {
+      "files": "*.ts"
+    },
+    {
       "files": "*.json",
       "parser": "jsonc-eslint-parser",
       "rules": {}
     },
     {
       "files": ["*.ts", "*.tsx", "*.js", "*.jsx"],
+      "parserOptions": {
+        "project": ["tsconfig.base.json"]
+      },
       "rules": {
+        "complexity": ["warn", 2],
         "@nx/enforce-module-boundaries": [
           "error",
           {

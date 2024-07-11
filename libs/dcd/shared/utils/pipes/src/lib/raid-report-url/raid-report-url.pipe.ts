@@ -9,9 +9,9 @@ import { ClanMember } from '@dcd/shared/models';
 export class RaidReportUrlPipe implements PipeTransform {
   transform(value: ClanMember): string {
     return getRaidReportUrl(
-      value.destinyUserInfo.membershipType,
-      value.destinyUserInfo.displayName,
-      value.destinyUserInfo.membershipId
+      value.destinyUserInfo!.membershipType!,
+      value.destinyUserInfo!.displayName!,
+      value.destinyUserInfo!.membershipId!
     );
   }
 }

@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Actions, createEffect, ofType, concatLatestFrom } from '@ngrx/effects';
+import { Actions, createEffect, ofType } from '@ngrx/effects';
+import { concatLatestFrom } from '@ngrx/operators';
 import { Store } from '@ngrx/store';
 import { from, of } from 'rxjs';
 import { catchError, map, mergeMap, switchMap, toArray } from 'rxjs/operators';
@@ -15,7 +16,11 @@ import { ClanWithMembers } from './clans-with-members.state';
 
 @Injectable()
 export class ClansWithMembersEffects {
-  constructor(private actions$: Actions, private store: Store, private memberService: ClanMembersService) {}
+  constructor(
+    private actions$: Actions,
+    private store: Store,
+    private memberService: ClanMembersService
+  ) {}
 
   setClansWithMembers = createEffect(() => {
     return this.actions$.pipe(

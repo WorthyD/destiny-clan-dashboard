@@ -8,9 +8,9 @@ import { MemberProfile } from '@dcd/shared/models';
 export class DungeonReportProfileUrlPipe implements PipeTransform {
   transform(value: MemberProfile): string {
     return getDungeonReportUrl(
-      value.profile.data.userInfo.membershipType,
-      value.profile.data.userInfo.displayName,
-      value.profile.data.userInfo.membershipId
+      value.profile?.data?.userInfo?.membershipType ?? 0,
+      value.profile?.data?.userInfo?.displayName ?? '',
+      value.profile?.data?.userInfo?.membershipId ?? 0
     );
   }
 }

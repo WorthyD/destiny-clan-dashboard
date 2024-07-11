@@ -1,4 +1,9 @@
-export const hasCompleted = (value): boolean => {
+interface hasCompletedProps {
+  state: unknown;
+  objectives: { complete: boolean }[];
+  intervalObjectives: { complete: boolean }[];
+}
+export const hasCompleted = (value: hasCompletedProps): boolean => {
   if (value === undefined || value.state === undefined) {
     return false;
   }

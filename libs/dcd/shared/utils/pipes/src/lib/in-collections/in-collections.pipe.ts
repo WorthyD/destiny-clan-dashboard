@@ -1,6 +1,6 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { DestinyComponentsCollectiblesDestinyCollectibleComponent } from 'bungie-api-angular';
 import { hasItem } from './has-item';
+import { DestinyComponentsCollectiblesDestinyCollectibleComponent } from 'bungie-api-angular/lib/model/destinyComponentsCollectiblesDestinyCollectibleComponent';
 
 @Pipe({
   name: 'inCollections',

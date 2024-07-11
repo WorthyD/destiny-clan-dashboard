@@ -39,7 +39,7 @@ export function groupActivitiesByDate(data: ActivitiesToGroupModel[]) {
   return groupActivities(raw);
 }
 
-export function groupActivityStatsByDate(data: { date: string; seconds: number }[]) {
+export function groupActivityStatsByDate(data: { date: string | Date; seconds: number }[]) {
   return groupActivities(
     data.map((x) => {
       return { date: formatDate(x.date), seconds: x.seconds };

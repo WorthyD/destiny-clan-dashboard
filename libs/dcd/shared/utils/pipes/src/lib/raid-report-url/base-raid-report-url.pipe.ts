@@ -10,7 +10,7 @@ import { ClanMember, MembershipTypes } from '@dcd/shared/models';
 export class RaidReportUrlPipe implements PipeTransform {
   readonly baseUrl = 'https://raid.report';
   transform(value: ClanMember): string {
-    switch (value.destinyUserInfo.membershipType) {
+    switch (value.destinyUserInfo?.membershipType) {
       case MembershipTypes.Xbox:
         return this.getXBOXUrl(value);
       case MembershipTypes.Psn:
@@ -25,17 +25,17 @@ export class RaidReportUrlPipe implements PipeTransform {
   }
 
   getPSUrl(value: ClanMember) {
-    return `${this.baseUrl}/ps/${escape(value.destinyUserInfo.displayName)}`;
+    return `${this.baseUrl}/ps/${escape(value.destinyUserInfo?.displayName ?? '')}`;
   }
 
   getXBOXUrl(value: ClanMember) {
-    return `${this.baseUrl}/xb/${escape(value.destinyUserInfo.displayName)}`;
+    return `${this.baseUrl}/xb/${escape(value?.destinyUserInfo?.displayName ?? '')}`;
   }
 
   getPCUrl(value: ClanMember) {
-    return `${this.baseUrl}/pc/${value.destinyUserInfo.membershipId}`;
+    return `${this.baseUrl}/pc/${value.destinyUserInfo?.membershipId}`;
   }
   getStadiaUrl(value: ClanMember) {
-    return `${this.baseUrl}/stadia/${value.destinyUserInfo.membershipId}`;
+    return `${this.baseUrl}/stadia/${value.destinyUserInfo?.membershipId}`;
   }
 }

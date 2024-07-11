@@ -1,4 +1,4 @@
-import { ClanMember, MemberProfile } from "./util.models";
+import { ClanMember, MemberProfile } from "@dcd/shared/models";
 
 export function getClanMemberId(member: ClanMember) {
   return `${member?.destinyUserInfo?.membershipType}-${member?.destinyUserInfo?.membershipId}`;
