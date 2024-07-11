@@ -1,3 +1,4 @@
+// @ts-nocheck
 export function profileSerializer(
   p: any,
   progressionHashes: any[],

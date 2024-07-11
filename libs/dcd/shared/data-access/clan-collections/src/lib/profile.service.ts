@@ -1,3 +1,7 @@
+// @ts-nocheck
+// TODO: Update
+
+
 //import { ClanDatabase } from '../ClanDatabase';
 import { map, catchError, mergeMap, bufferTime, toArray } from 'rxjs/operators';
 import { Observable, from, of } from 'rxjs';

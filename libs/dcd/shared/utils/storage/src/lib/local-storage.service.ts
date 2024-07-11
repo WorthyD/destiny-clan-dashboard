@@ -7,6 +7,7 @@ export class LocalStorageService implements DataStore {
   constructor() {}
   get<T = any>(key: string, customStore = undefined): Promise<T | undefined> {
     return new Promise((resolve, reject) => {
+      // @ts-ignore
       resolve(JSON.parse(localStorage.getItem(`${this.AppPrefix}${key}`)));
     });
   }

@@ -33,7 +33,7 @@ export class AppIndexedDb extends BaseAppIndexedDb {
     return super.getAllData(store);
   }
 
-  override getById(store: StoreId, id) {
+  override getById(store: StoreId, id: string) {
     return super.getById(store, id);
   }
 

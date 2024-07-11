@@ -1,4 +1,4 @@
-import { ClanConfig } from '@dcd/shared/models'
+import { ClanConfig } from '@dcd/shared/models';
 const dod_clans_pc = [
   2073131, // Chums
   5018079, //compadres
@@ -38,8 +38,8 @@ interface CuratedClan {
   }[];
 }
 
-function m(c) {
-  return c.map((x) => {
+function m(c: any) {
+  return c.map((x: any) => {
     return {
       clanId: x.toString(),
       clanName: '',

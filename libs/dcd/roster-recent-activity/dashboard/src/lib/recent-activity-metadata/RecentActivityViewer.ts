@@ -1,3 +1,4 @@
+// @ts-nocheck
 //import { ViewerMetadata } from '@destiny-clan-dashboard/components';
 //import { BungieDateTimePipe } from '@dcd/shared/utils/pipes';
 //import { PlaytimePipe } from '@dcd/components/pipes';

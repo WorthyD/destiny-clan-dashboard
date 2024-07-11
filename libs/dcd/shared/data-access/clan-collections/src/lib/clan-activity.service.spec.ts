@@ -1,6 +1,6 @@
 // import { TestBed } from '@angular/core/testing';
 
-import { ClanDatabase } from '../clan/clan-database';
+import { ClanDatabase } from '@dcd/shared/clan-db';
 import { ClanActivityService } from './clan-activity.service';
 
 // import { ClanActivityService } from './clan-activity.service';

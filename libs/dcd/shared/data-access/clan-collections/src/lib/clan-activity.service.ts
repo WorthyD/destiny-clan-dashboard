@@ -4,7 +4,7 @@ import { map, mergeMap, toArray } from 'rxjs/operators';
 import { ClanDatabase } from '@dcd/shared/clan-db';
 import { ClanMemberRecentActivityService } from '@dcd/shared/data-access/clan-collections';
 
- import { ActivityStats } from '@dcd/shared/models';
+import { ActivityStats } from '@dcd/shared/models';
 import { TrackedDuration } from '@dcd/shared/utils/serializers';
 // import { ActivityStats } from '../models';
 // import { ClanDatabase, ClanMemberRecentActivityService } from '../clan-db';
@@ -12,7 +12,10 @@ import { TrackedDuration } from '@dcd/shared/utils/serializers';
 export class ClanActivityService {
   readonly CONCURRENT_COUNT = 10;
   private memberActivityService: ClanMemberRecentActivityService;
-  constructor(private clanDb: ClanDatabase, private apiKey) {
+  constructor(
+    private clanDb: ClanDatabase,
+    private apiKey: string
+  ) {
     this.memberActivityService = new ClanMemberRecentActivityService(clanDb, apiKey);
   }
 

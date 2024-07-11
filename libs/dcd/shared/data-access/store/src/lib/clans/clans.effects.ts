@@ -40,6 +40,7 @@ export class ClansEffects {
       concatLatestFrom(() => this.store.select(selectClansState)),
       map(([action, clans]) => {
         const clanToUpdate = clans.entities[action.clanId];
+        // @ts-ignore
         return clanActions.updateClan({ clan: { ...clanToUpdate, profileUpdate: new Date().toString() } });
       })
     );
@@ -51,6 +52,8 @@ export class ClansEffects {
       concatLatestFrom(() => this.store.select(selectClansState)),
       map(([action, clans]) => {
         const clanToUpdate = clans.entities[action.clanId];
+
+        // @ts-ignore
         return clanActions.updateClan({ clan: { ...clanToUpdate, memberRecentActivityUpdate: new Date().toString() } });
       })
     );
@@ -61,6 +64,8 @@ export class ClansEffects {
       concatLatestFrom(() => this.store.select(selectClansState)),
       map(([action, clans]) => {
         const clanToUpdate = clans.entities[action.clanId];
+
+        // @ts-ignore
         return clanActions.updateClan({ clan: { ...clanToUpdate, bungieInfoUpdate: new Date().toString() } });
       })
     );

@@ -56,7 +56,7 @@ export class ClanBungieInfoService {
       mergeMap((cachedData) => {
         if (cachedData && cachedData.createDate) {
           const cacheDate = cachedData.createDate;
-          const lastStatusChange = unixTimeStampToDate(member.lastOnlineStatusChange);
+          const lastStatusChange = unixTimeStampToDate(member.lastOnlineStatusChange!);
           const staleXP = nowPlusDays(this.CACHE_EXPIRATION);
           // Make sure we recapture new data after season change
           const expireDate = !isValidDate(lastStatusChange) || staleXP > lastStatusChange ? staleXP : lastStatusChange;

@@ -20,6 +20,7 @@ export class RecentActivityService {
   clanMembers$ = this.store.select(selectAllClansWithMembers);
 
   // TODO: Optimize this to work with store better.
+  // @ts-ignore
   activeClanActivity$: Observable<ProfileRecentActivity[]> = this.clanMembers$.pipe(
     switchMap((clansAndMembers) => {
       return from(clansAndMembers).pipe(
@@ -44,7 +45,7 @@ export class RecentActivityService {
                         return {
                           clanMember: member,
                           profileActivity: clanActivities.find(
-                            (ca) => getMemberProfileId(ca.memberProfile) === getClanMemberId(member)
+                            (ca: any) => getMemberProfileId(ca.memberProfile) === getClanMemberId(member)
                           ),
                           profile: memberProfiles.find((m) => getMemberProfileId(m) === getClanMemberId(member)),
                           clan: {

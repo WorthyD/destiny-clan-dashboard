@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { SearchErrorDialogComponent } from './search-error-dialog.component';
+import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 describe('SearchErrorDialogComponent', () => {
   let component: SearchErrorDialogComponent;
@@ -8,9 +9,11 @@ describe('SearchErrorDialogComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ SearchErrorDialogComponent ]
-    })
-    .compileComponents();
+      imports: [SearchErrorDialogComponent],
+      providers: [
+        { provide: MAT_DIALOG_DATA, useValue: {} },
+      ]
+    }).compileComponents();
   }));
 
   beforeEach(() => {

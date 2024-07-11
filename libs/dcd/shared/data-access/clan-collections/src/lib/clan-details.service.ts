@@ -32,7 +32,7 @@ export class ClanDetailsService extends BaseClanService {
         return this.getClanDetailsFromAPI(clanId).pipe(
           map((clanDetail) => {
             if (clanDetail.Response) {
-              const clanDetails = clanDetailSerializer(clanDetail.Response.detail, [CLAN_LEVEL_HASH]);
+              const clanDetails = clanDetailSerializer(clanDetail.Response.detail!, [CLAN_LEVEL_HASH]);
               this.updateDB(clanId, this.rowId, clanDetails);
 
               return clanDetails;

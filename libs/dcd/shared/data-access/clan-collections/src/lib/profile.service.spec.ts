@@ -10,7 +10,7 @@ import { Destiny2Service } from 'bungie-api-angular';
 //   MOCK_RESP_ACTIVITIES_PAGE3
 // } from '../../testing-utils/objects/member-activities.mock';
 //import { ClanDatabase } from '../ClanDatabase';
-import { ClanDatabase } from '../clan-database';
+import { ClanDatabase } from '@dcd/shared/clan-db';
 import { ClanProfileService } from './profile.service';
 // import { of, defer, forkJoin } from 'rxjs';
 

@@ -1,3 +1,5 @@
+// @ts-nocheck
+// TODO: UPDate
 import { Inject, Injectable } from '@angular/core';
 
 import { Destiny2Service } from 'bungie-api-angular';

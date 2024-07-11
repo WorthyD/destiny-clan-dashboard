@@ -19,7 +19,7 @@ export class ClanSearchViewComponent {
 
   bgClass = `bg-${Math.floor(Math.random() * 3) + 1}`;
   loading = false;
-  autoCompleteResults$: Observable<any>;
+  autoCompleteResults$!: Observable<any>;
   versionNumber = this.appConfig.config.appVersion;
   searchClans(search: any) {
     this.autoCompleteResults$ = of(search).pipe(

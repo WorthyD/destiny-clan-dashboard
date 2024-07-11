@@ -55,4 +55,4 @@ export const CLAN_ROSTER_EXPORTER_METADATA = new Map<string, ExporterMetadata<Pr
   ]
 ]);
 
-const convertToMinutes = (totalSeconds) => String(Math.floor(totalSeconds / 60));
+//const convertToMinutes = (totalSeconds) => String(Math.floor(totalSeconds / 60));

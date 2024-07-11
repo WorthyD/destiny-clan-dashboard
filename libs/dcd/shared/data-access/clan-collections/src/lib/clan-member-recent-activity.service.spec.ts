@@ -13,7 +13,7 @@ import { Destiny2Service } from 'bungie-api-angular';
 import { HttpErrorResponse } from '@angular/common/http';
 //import { ClanDatabase } from '../ClanDatabase';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { ClanDatabase } from '../clan-database';
+import { ClanDatabase } from '@dcd/shared/clan-db';
 // import { of, defer, forkJoin } from 'rxjs';
 
 describe('ClanMemberRecentActivityService', () => {

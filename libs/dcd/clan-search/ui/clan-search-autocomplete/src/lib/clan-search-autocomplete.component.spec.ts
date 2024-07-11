@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 import { ClanSearchAutocompleteComponent } from './clan-search-autocomplete.component';
 
@@ -8,9 +9,8 @@ describe('ClanSearchAutocompleteComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ ClanSearchAutocompleteComponent ]
-    })
-    .compileComponents();
+      imports: [ClanSearchAutocompleteComponent, NoopAnimationsModule]
+    }).compileComponents();
 
     fixture = TestBed.createComponent(ClanSearchAutocompleteComponent);
     component = fixture.componentInstance;

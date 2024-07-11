@@ -1,3 +1,5 @@
+// @ts-nocheck
+// TODO: Update
 import { GroupsV2GroupV2, GroupsV2GroupV2ClanInfoAndInvestment } from 'bungie-api-angular';
 import { ClanDetails } from '@dcd/shared/models';
 
