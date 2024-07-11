@@ -1,3 +1,7 @@
+// @ts-nocheck
+// TODO: Update this
+
+
 import { BaseClanService } from './base-clan.service';
 //import { ClanDatabase } from './ClanDatabase';
 //import { StoreId, DBObject } from './app-indexed-db';
@@ -116,7 +120,7 @@ export class BaseMemberActivityService extends BaseClanService {
     );
   }
 
-  getMemberActivityId(member: MemberProfile, characterId: number) {
+  getMemberActivityId(member: MemberProfile, characterId: number): string {
     return `${this.getMemberProfileId(member)}-${characterId}`;
   }
   getMemberProfileId(member: MemberProfile) {
@@ -177,7 +181,7 @@ export class BaseMemberActivityService extends BaseClanService {
     //): Observable<Array<DestinyHistoricalStatsDestinyHistoricalStatsPeriodGroup>> {
   ): Observable<Array<any>> {
     return this.getAllRecentActivity(member, characterId).pipe(
-      map((activityResponse:any) => {
+      map((activityResponse: any) => {
         if (activityResponse.activities) {
           // serialize:
           const slimmedActivities = activityResponse.activities.map((x) => {

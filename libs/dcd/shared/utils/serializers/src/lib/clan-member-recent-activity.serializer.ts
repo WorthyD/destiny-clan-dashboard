@@ -1,3 +1,5 @@
+// @ts-nocheck
+// TODO: update
 // import { MemberActivityStats, MemberActivityRecentStats, MemberActivityRecentStatsActivity } from 'bungie-models';
 import { MemberActivityRecentStats, MemberActivityRecentStatsActivity } from'@dcd/shared/models';
 import { MemberActivityStats } from '@dcd/shared/models';

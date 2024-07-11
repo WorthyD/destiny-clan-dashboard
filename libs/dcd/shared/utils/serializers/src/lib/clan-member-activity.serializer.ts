@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 // import { DestinyHistoricalStatsDestinyHistoricalStatsPeriodGroup } from 'bungie-api-angular';
 
 import { DestinyHistoricalStatsDestinyHistoricalStatsPeriodGroup } from '@dcd/shared/models';

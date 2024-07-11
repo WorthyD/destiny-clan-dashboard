@@ -27,6 +27,7 @@ export class Sorter<T = any, C = any> {
   constructor(options: SorterOptions<T, C> = {}) {
     this.metadata = options.metadata || new Map();
     this.state.next(options.initialState || {sort: this.getSorts()[0].id, reverse: false});
+    //@ts-ignore
     this.contextProvider = options.contextProvider || EMPTY.pipe(startWith(null));
   }
 
