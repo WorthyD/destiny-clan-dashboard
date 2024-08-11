@@ -12,5 +12,5 @@ import { RouterModule } from '@angular/router';
 })
 export class ProfileLinkComponent {
   @Input()
-  profile: MemberProfile;
+  profile!: MemberProfile;
 }

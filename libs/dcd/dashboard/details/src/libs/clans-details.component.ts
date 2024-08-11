@@ -22,8 +22,8 @@ export class ClansDetailsComponent implements OnChanges {
   //     clansLoading
   //   }))
   // );
-  @Input() clanConfig: ClanConfig;
-  clanDetails$: Observable<GroupsV2GroupV2>;
+  @Input() clanConfig!: ClanConfig;
+  clanDetails$!: Observable<GroupsV2GroupV2>;
   loading = false;
 
   ngOnChanges(changes: SimpleChanges): void {

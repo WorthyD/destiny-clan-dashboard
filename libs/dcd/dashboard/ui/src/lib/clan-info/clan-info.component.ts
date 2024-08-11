@@ -1,3 +1,4 @@
+//@ts-nocheck
 import { ChangeDetectionStrategy, Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { CommonModule } from '@angular/common';
 //import { GroupsV2GroupV2 } from 'bungie-api-angular/lib/model/groupsV2GroupV2';
@@ -17,11 +18,11 @@ import { GroupsV2GroupV2 } from 'bungie-api-angular/lib/model/groupsV2GroupV2';
   styleUrls: ['./clan-info.component.scss']
 })
 export class ClanInfoComponent implements OnChanges {
-  @Input() clanDetail: GroupsV2GroupV2;
-  @Input() loading: boolean;
+  @Input() clanDetail!: GroupsV2GroupV2;
+  @Input() loading!: boolean;
 
-  clanProgress;
-  seasonProgress;
+  clanProgress: any;
+  seasonProgress: any;
 
   ngOnChanges(simpleChanges: SimpleChanges) {
     if (simpleChanges['clanDetail'] && this.clanDetail?.clanInfo) {

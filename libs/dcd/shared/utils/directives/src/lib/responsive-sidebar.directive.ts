@@ -12,7 +12,7 @@ import { map, takeUntil, filter } from 'rxjs/operators';
 export class ResponsiveSidebarDirective implements OnInit, OnDestroy {
   destroy$ = new Subject();
 
-  @Input() libResponsiveSidebar: number;
+  @Input() libResponsiveSidebar!: number;
 
   @Input() canOpen = () => true;
 

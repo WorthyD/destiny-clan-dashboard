@@ -56,8 +56,8 @@ export class PlayerOverviewComponent {
     switchMap((profile) => {
       this.bungieInfoLoadingSource$.next(true);
       return this.bungieInfoService.getBungieInformation(
-        profile.profile.data.userInfo.membershipType,
-        profile.profile.data.userInfo.membershipId
+        profile?.profile?.data?.userInfo?.membershipType ?? 0,
+        profile?.profile?.data?.userInfo?.membershipId ?? 0
       );
     }),
     map((response) => {

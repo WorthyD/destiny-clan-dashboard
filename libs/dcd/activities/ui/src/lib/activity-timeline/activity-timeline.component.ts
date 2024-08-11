@@ -14,8 +14,8 @@ import { SkeletonChartLoaderComponent } from '@dcd/shared/ui/skeleton-chart-load
 })
 export class ActivityTimelineComponent {
   @Input()
-  events;
+  events!: any;
 
   @Input()
-  loading: boolean;
+  loading!: boolean;
 }

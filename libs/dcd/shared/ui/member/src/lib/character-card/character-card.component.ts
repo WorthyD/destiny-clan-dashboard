@@ -1,5 +1,5 @@
 import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
-import {  NgIf } from '@angular/common';
+import { NgIf } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
 import { ClassTypeTextPipe, RaceTypeTextPipe } from '@dcd/shared/utils/pipes';
 import { Character } from '@dcd/shared/models';
@@ -13,8 +13,8 @@ import { Character } from '@dcd/shared/models';
     <ng-container *ngIf="!isLoading; else loading">
       <mat-card *ngIf="character">
         <mat-card-header>
-          <mat-card-title>{{ character.classType | classTypeText }} - {{ character.light }}</mat-card-title>
-          <mat-card-subtitle>{{ character.raceType | raceTypeText }} </mat-card-subtitle>
+          <mat-card-title>{{ character.classType ?? 0 | classTypeText }} - {{ character.light }}</mat-card-title>
+          <mat-card-subtitle>{{ character.raceType ?? 0 | raceTypeText }} </mat-card-subtitle>
         </mat-card-header>
         <mat-card-content></mat-card-content>
       </mat-card>
@@ -37,8 +37,8 @@ export class CharacterCardComponent {
     time played total, time played this season, emblem, current title
   */
   @Input()
-  character: Character;
+  character: Character = {};
 
   @Input()
-  isLoading: boolean;
+  isLoading: boolean = false;
 }

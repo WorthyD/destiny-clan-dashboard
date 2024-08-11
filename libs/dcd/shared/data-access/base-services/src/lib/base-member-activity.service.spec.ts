@@ -1,7 +1,7 @@
 import { catchError, of, take } from 'rxjs';
-import { DBObject, StoreId } from '../db/clan-indexed-db';
 import { BaseMemberActivityService } from './base-member-activity.service';
-import { ClanDatabase } from './clan-database';
+import { ClanDatabase } from '@dcd/shared/clan-db';
+import { DBObject, StoreId } from 'libs/dcd/shared/utils/legacy-db/src/lib/clan-indexed-db';
 
 const mockProfile = {
   profile: {
@@ -42,7 +42,7 @@ const mockActivityObj: Partial<DBObject> = {
     }
   ]
 };
-jest.mock('./clan-database');
+jest.mock('@dcd/shared/clan-db');
 
 const mockedDatabase = ClanDatabase as jest.Mock<ClanDatabase>;
 

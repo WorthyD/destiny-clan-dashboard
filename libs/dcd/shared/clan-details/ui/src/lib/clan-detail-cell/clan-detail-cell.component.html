@@ -4,36 +4,40 @@
       <mat-card-title-group>
         <!-- TODO: Clan Banner -->
         <mat-card-title>
-          <div class="title-spacer">{{clanDetail.name}} <ng-container *ngIf="clanDetail?.clanInfo?.clanCallsign">
-              [{{clanDetail.clanInfo.clanCallsign}}]</ng-container>
+          <div class="title-spacer">
+            {{ clanDetail?.name }}
+            <ng-container *ngIf="clanDetail?.clanInfo?.clanCallsign">
+              [{{ clanDetail?.clanInfo?.clanCallsign }}]</ng-container
+            >
           </div>
-          <a mat-icon-button href="https://www.bungie.net/en/ClanV2?groupid={{clanDetail.groupId}}" target="_blank"
-            matTooltip="Bungie Group Page">
+          <a
+            mat-icon-button
+            href="https://www.bungie.net/en/ClanV2?groupid={{ clanDetail?.groupId }}"
+            target="_blank"
+            matTooltip="Bungie Group Page"
+          >
             <mat-icon>open_in_new</mat-icon>
           </a>
         </mat-card-title>
         <mat-card-subtitle>
-          {{clanDetail?.motto}}
+          {{ clanDetail?.motto }}
         </mat-card-subtitle>
       </mat-card-title-group>
     </mat-card-header>
     <mat-card-content>
       <mat-list>
-        <mat-list-item>
-          <mat-icon matListItemIcon>groups</mat-icon>{{clanDetail.memberCount}} Members
-        </mat-list-item>
+        <mat-list-item> <mat-icon matListItemIcon>groups</mat-icon>{{ clanDetail?.memberCount }} Members </mat-list-item>
         <mat-list-item>
           <mat-icon matListItemIcon>calendar_month</mat-icon> Created
-          {{clanDetail.creationDate | bungieDate}}
+          {{ clanDetail?.creationDate ?? '' | bungieDate }}
         </mat-list-item>
         <!-- TODO: OPEN INVITE ONLY -->
       </mat-list>
-
     </mat-card-content>
     <mat-card-actions align="end">
       <button *ngIf="showReset" mat-button (click)="resetClan.emit(clanDetail)">Reset</button>
       <button *ngIf="showAdd" mat-button (click)="addClan.emit(clanDetail)">Add</button>
-      <button *ngIf="!showAdd" mat-button (click)="removeClan.emit(clanDetail.groupId.toString())">Remove</button>
+      <button *ngIf="!showAdd" mat-button (click)="removeClan.emit(clanDetail?.groupId?.toString())">Remove</button>
     </mat-card-actions>
   </mat-card>
 </ng-container>
@@ -59,7 +63,6 @@
         </mat-list-item>
         <!-- TODO: OPEN INVITE ONLY -->
       </mat-list>
-
     </mat-card-content>
     <mat-card-actions align="end">
       <span class="skeleton-item skeleton-button"></span>

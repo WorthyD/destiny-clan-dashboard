@@ -8,7 +8,7 @@ describe('SealsListComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ SealsListComponent ]
+      imports:[SealsListComponent]
     })
     .compileComponents();
 

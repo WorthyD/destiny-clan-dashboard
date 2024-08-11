@@ -7,10 +7,10 @@ import { MemberTypePipe } from '@dcd/shared/utils/pipes';
   standalone: true,
   imports: [MemberTypePipe, MatIconModule],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  template: `<mat-icon [svgIcon]="type | memberType" class="ico-{{ type | memberType }}">{{type}}</mat-icon>`,
+  template: `<mat-icon [svgIcon]="type | memberType" class="ico-{{ type | memberType }}">{{ type }}</mat-icon>`,
   encapsulation: ViewEncapsulation.None
 })
 export class MemberTypeIconComponent {
   @Input()
-  type;
+  type = 0;
 }

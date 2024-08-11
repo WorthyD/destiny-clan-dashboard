@@ -1,6 +1,9 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
+import { provideMockStore } from '@ngrx/store/testing';
+import { RouterTestingModule } from '@angular/router/testing';
 import { SealDetailsComponent } from './seal-details.component';
+import { SealsService } from '@dcd/seals/data-access';
 
 describe('SealDetailsComponent', () => {
   let component: SealDetailsComponent;
@@ -8,9 +11,10 @@ describe('SealDetailsComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ SealDetailsComponent ]
-    })
-    .compileComponents();
+      imports: [RouterTestingModule],
+      providers: [provideMockStore(), { provide: SealsService, useValue: {} }],
+      declarations: [SealDetailsComponent]
+    }).compileComponents();
 
     fixture = TestBed.createComponent(SealDetailsComponent);
     component = fixture.componentInstance;

@@ -14,11 +14,14 @@ interface MemberInfo {
   styleUrls: ['./player-detail.component.scss']
 })
 export class PlayerDetailComponent {
-  constructor(private route: ActivatedRoute, private playerService: PlayerService) {}
+  constructor(
+    private route: ActivatedRoute,
+    private playerService: PlayerService
+  ) {}
   memberInfo$: Observable<MemberInfo> = this.route.paramMap.pipe(
     map((params) => {
       const playerInfo = params.get('player-id');
-      return { memberType: playerInfo.split('-')[0], memberId: playerInfo.split('-')[1] };
+      return { memberType: playerInfo?.split('-')[0] ?? '', memberId: playerInfo?.split('-')[1] ?? '' };
     })
   );
 

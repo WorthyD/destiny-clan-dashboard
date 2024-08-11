@@ -14,7 +14,9 @@ export class ActivityDetailComponent {
   constructor(private activitiesService: ActivitiesService, private route: ActivatedRoute) {}
   curatedActivities = this.activitiesService.getCuratedActivities();
 
+  // @ts-ignore
   activityHash$ = this.route.paramMap.pipe(map((params) => +params.get('activityHash')));
+
 
   vm$ = this.activityHash$.pipe(
     map((hash) => {

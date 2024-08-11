@@ -18,13 +18,13 @@ import { ProfileLinkComponent } from '@dcd/shared/ui/profile-link';
 })
 export class ClanMemberCardComponent {
   @Input()
-  cardTitle: string;
+  cardTitle!: string;
 
   @Input()
-  members: ClanMemberProfile[];
+  members!: ClanMemberProfile[];
 
   @Input()
-  isLoading: boolean;
+  isLoading!: boolean;
 
-  @Input() itemTemplate: TemplateRef<any>;
+  @Input() itemTemplate!: TemplateRef<any>;
 }

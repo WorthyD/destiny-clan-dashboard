@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ClanDetailComponent } from './clan-detail.component';
+import { ClanDetailService } from '@dcd/shared/clan-details/data-access';
 
 describe('ClanDetailComponent', () => {
   let component: ClanDetailComponent;
@@ -8,9 +9,14 @@ describe('ClanDetailComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ ClanDetailComponent ]
-    })
-    .compileComponents();
+      imports: [ClanDetailComponent],
+      providers: [
+        {
+          provide: ClanDetailService,
+          useValue: {}
+        }
+      ]
+    }).compileComponents();
 
     fixture = TestBed.createComponent(ClanDetailComponent);
     component = fixture.componentInstance;

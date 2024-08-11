@@ -32,7 +32,7 @@ export class SealDetailsComponent {
 
   sealHash$ = this.route.paramMap.pipe(
     map((params) => {
-      return this.sealsService.sealNodes.find((x) => x.hash === +params.get('hash'));
+      return this.sealsService.sealNodes.find((x) => x.hash === +params.get('hash')!);
     })
   );
 

@@ -14,11 +14,11 @@ import { SkeletonChartLoaderComponent } from '@dcd/shared/ui/skeleton-chart-load
 })
 export class ClanActivityBarChartComponent {
   @Input()
-  events;
+  events!: any;
 
   @Input()
-  loading: boolean;
+  loading!: boolean;
 
   @Input()
-  updating: boolean;
+  updating!: boolean;
 }

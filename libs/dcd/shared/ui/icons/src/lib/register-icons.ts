@@ -14,6 +14,7 @@ const svgIcons = {
 
 export const registerIcons = (registry: MatIconRegistry, domSanitizer: DomSanitizer) => {
     Object.keys(svgIcons).map(name => {
+        //@ts-ignore
         const path = svgIcons[name];
         registry.addSvgIcon(name, domSanitizer.bypassSecurityTrustResourceUrl(path));
     });

@@ -135,7 +135,7 @@ describe('DailyClanAggregateTimeService', () => {
     //       date: x,
     //       seconds: 100
     //     };
-    service = new DailyClanAggregateTimeService(null, '');
+    service = new DailyClanAggregateTimeService();
   });
 
   it('should be created', () => {

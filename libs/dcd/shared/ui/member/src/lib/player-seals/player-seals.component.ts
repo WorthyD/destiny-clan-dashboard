@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
-import {  NgFor } from '@angular/common';
+import { NgFor } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { PlayerSealComponent } from './player-seal.component';
@@ -17,7 +17,7 @@ export class PlayerSealsComponent {
   gildedSeals: PlayerSeal[] = [];
   completedSeals: PlayerSeal[] = [];
   partialSeals: PlayerSeal[] = [];
-  _playerSeals;
+  _playerSeals: PlayerSeal[] = [];
 
   @Input()
   get playerSeals(): PlayerSeal[] {

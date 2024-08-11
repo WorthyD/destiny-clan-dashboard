@@ -8,7 +8,7 @@ describe('ClassCellComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ClassCellComponent ]
+      imports: [ ClassCellComponent ]
     })
     .compileComponents();
 

@@ -1,8 +1,9 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { catchError, from, of } from 'rxjs';
-import { MockListItem, MOCK_LIST_ITEMS } from '../__mocks__/ListItems';
-import { EXAMPLE_SORTER_METADATA } from '../__mocks__/ListItemSorter';
-import { Sorter, SorterMetadata } from './sorter';
+//import { MockListItem, MOCK_LIST_ITEMS } from '../__mocks__/ListItems';
+//import { EXAMPLE_SORTER_METADATA } from '../__mocks__/ListItemSorter';
+import { EXAMPLE_SORTER_METADATA, MOCK_LIST_ITEMS } from '@dcd/shared/mocks';
+import { Sorter } from './sorter';
 
 describe('Sorter', () => {
   beforeEach(async () => {});
@@ -70,7 +71,7 @@ describe('Sorter', () => {
   });
 
   describe('isEquivalent', () => {
-    it('should return true when same', (done) => {
+    it('should return true when same', async () => {
       const sorter = new Sorter({ metadata: EXAMPLE_SORTER_METADATA });
       const sortState = { sort: 'id', reverse: false };
       sorter.setState(sortState);
@@ -78,11 +79,10 @@ describe('Sorter', () => {
       const sortObs = sorter.isEquivalent(sortState);
 
       sortObs.subscribe((x) => {
-        expect(x).toBeTrue();
-        done();
+        expect(x).toBe(true);
       });
     });
-    it('should return false when diff', (done) => {
+    it('should return false when diff', async () => {
       const sorter = new Sorter({ metadata: EXAMPLE_SORTER_METADATA });
       const sortState = { sort: 'id', reverse: false };
       sorter.setState(sortState);
@@ -90,8 +90,7 @@ describe('Sorter', () => {
       const sortObs = sorter.isEquivalent({ sort: 'test', reverse: false });
 
       sortObs.subscribe((x) => {
-        expect(x).toBeFalse();
-        done();
+        expect(x).toBe(true);
       });
     });
   });

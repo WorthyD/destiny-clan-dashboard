@@ -1,6 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { SettingsMenuComponent } from './settings-menu.component';
+import { AppConfigService } from '@dcd/shared/utils/app-config';
+import { ActivatedRoute } from '@angular/router';
 
 describe('SettingsMenuComponent', () => {
   let component: SettingsMenuComponent;
@@ -8,9 +10,23 @@ describe('SettingsMenuComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ SettingsMenuComponent ]
-    })
-    .compileComponents();
+      imports: [SettingsMenuComponent],
+      providers: [
+        {
+          provide: AppConfigService,
+          useValue: {
+            config: {
+              appVersion: ''
+            }
+          }
+        },
+        {
+          provide:ActivatedRoute,
+          useValue:{
+          }
+        }
+      ]
+    }).compileComponents();
 
     fixture = TestBed.createComponent(SettingsMenuComponent);
     component = fixture.componentInstance;

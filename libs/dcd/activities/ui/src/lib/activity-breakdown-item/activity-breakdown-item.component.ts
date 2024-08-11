@@ -12,7 +12,7 @@ import { MatCardModule } from '@angular/material/card';
   standalone: true
 })
 export class ActivityBreakdownItemComponent {
-  @Input() title: string;
+  @Input() title!: string;
   @Input() iconUrl?: string;
   @Input() description?: string;
   @Input() label?: string;

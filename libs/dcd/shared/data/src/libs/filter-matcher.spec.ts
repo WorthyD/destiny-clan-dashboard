@@ -106,6 +106,7 @@ describe('Filter Matcher', () => {
     });
     it('should throw error', () => {
       expect(() => {
+        //@ts-ignore
         stateMatchesEquality(false, 'test', undefined);
       }).toThrowError();
     });

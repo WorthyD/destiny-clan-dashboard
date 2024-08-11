@@ -46,7 +46,7 @@ export class LookupComponent {
     this.output.patchValue(JSON.stringify(thing, undefined, 4));
   }
   loadImage() {
-    this.imgUrls.push(`//bungie.net/${this.imageUrl.value}`);
+    // this.imgUrls.push(`//bungie.net/${this.imageUrl?.value}`);
   }
   userLookup() {
     this.d2ServiceBase

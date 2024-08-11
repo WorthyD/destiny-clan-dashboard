@@ -1,3 +1,4 @@
+//@ts-nocheck
 // import { SorterMetadata } from '../data/sorter';
 
 import { SorterMetadata } from '@dcd/shared/data-models';

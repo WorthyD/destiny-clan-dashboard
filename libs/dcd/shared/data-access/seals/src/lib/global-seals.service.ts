@@ -6,7 +6,10 @@ import { DestinyDefinitionsPresentationDestinyPresentationNodeDefinition } from 
 
 @Injectable()
 export class GlobalSealsService {
-  constructor(private appConfig: AppConfigService, private definitionService: DefinitionService) {}
+  constructor(
+    private appConfig: AppConfigService,
+    private definitionService: DefinitionService
+  ) {}
   currentSealNodes = this.definitionService.presentationDefinition[this.appConfig.config.constants.CURRENT_SEALS_HASH];
   legacySealNodes = this.definitionService.presentationDefinition[this.appConfig.config.constants.LEGACY_SEALS_HASH];
 
@@ -21,8 +24,8 @@ export class GlobalSealsService {
     this.allNodesWLegacy
   );
 
-  private getNodes(node) {
-    return node.children.presentationNodes.map((x) => x.presentationNodeHash);
+  private getNodes(node: any) {
+    return node.children.presentationNodes.map((x:any) => x.presentationNodeHash);
   }
 
   private getDefinitionsByHash(allNodes: any[]) {

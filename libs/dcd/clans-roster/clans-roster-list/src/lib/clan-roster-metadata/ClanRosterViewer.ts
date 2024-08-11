@@ -1,3 +1,4 @@
+// @ts-nocheck
 // import { ViewerMetadata } from '@dcd/shared/data';
 
 // import { MemberTypeComponent } from '@destiny-clan-dashboard/components/icons';

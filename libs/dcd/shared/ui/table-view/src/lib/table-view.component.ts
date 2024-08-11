@@ -68,33 +68,33 @@ interface TablePage {
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class TableViewComponent implements OnChanges {
-  displayedColumns: Observable<string[]>;
+  displayedColumns!: Observable<string[]>;
 
-  views: ViewLabel[];
+  views!: ViewLabel[];
 
-  renderedHtml: Observable<Map<Item, Map<string, Observable<RenderedView>>>>;
+  renderedHtml!: Observable<Map<Item, Map<string, Observable<RenderedView>>>>;
 
-  @Input() header: string;
-  @Input() isLoading: boolean = undefined;
+  @Input() header!: string;
+  @Input() isLoading: boolean = false;
 
-  @Input() filterer: Filterer;
+  @Input() filterer!: Filterer;
 
-  @Input() viewer: Viewer;
+  @Input() viewer!: Viewer;
 
-  @Input() grouper: Grouper;
+  @Input() grouper!: Grouper;
 
-  @Input() sorter: Sorter;
+  @Input() sorter!: Sorter;
 
-  @Input() dataSource: DataSource;
+  @Input() dataSource!: DataSource;
 
-  @Input() exporter: Exporter;
+  @Input() exporter!: Exporter;
 
-  itemCount: Observable<number>;
+  itemCount!: Observable<number>;
   loadingSize = new Array(25).fill('_').map((x) => x);
 
   page: BehaviorSubject<TablePage> = new BehaviorSubject({ size: 25, index: 0 });
 
-  renderedData: Observable<Item[]>;
+  renderedData!: Observable<Item[]>;
   constructor() {}
 
   ngOnChanges(changes: SimpleChanges): void {
