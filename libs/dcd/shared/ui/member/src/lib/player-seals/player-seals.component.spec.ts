@@ -1,5 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { PlayerSealsComponent } from './player-seals.component';
 
 describe('PlayerSealsComponent', () => {
@@ -8,9 +8,8 @@ describe('PlayerSealsComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ PlayerSealsComponent ]
-    })
-    .compileComponents();
+      imports: [PlayerSealsComponent, NoopAnimationsModule]
+    }).compileComponents();
 
     fixture = TestBed.createComponent(PlayerSealsComponent);
     component = fixture.componentInstance;

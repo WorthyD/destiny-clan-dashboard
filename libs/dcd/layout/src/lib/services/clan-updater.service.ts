@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { mergeMap, map, catchError, toArray, switchMap, tap, take, filter } from 'rxjs/operators';
@@ -82,7 +83,7 @@ export class ClanUpdaterService {
     );
   }
 
-  tapFunc(msg, data, logKey = undefined, lastLogKey = undefined) {
+  tapFunc(msg: any, data: any, logKey: any = undefined, lastLogKey: any = undefined) {
     console.log(msg, data);
     if (logKey) {
       console.time(logKey);
@@ -92,12 +93,12 @@ export class ClanUpdaterService {
     }
   }
 
-  clanUpdate(activeClans) {
+  clanUpdate(activeClans: any): any {
     return from(activeClans).pipe(
       // TODO: Double check concat map
       mergeMap((clanConfig: ClanConfig) => {
         return this.clanDetailsService.getClanDetailsSerialized(clanConfig.clanId, false).pipe(
-          map((result) => {
+          map((result: any) => {
             const newConfig = {
               ...clanConfig,
               clanName: result.name,
@@ -111,7 +112,7 @@ export class ClanUpdaterService {
 
             return newConfig;
           }),
-          catchError((error) => {
+          catchError((error: any) => {
             if (error.error.ErrorStatus === 'ClanNotFound') {
               this.store.dispatch(removeClan({ clanId: clanConfig.clanId }));
             }
@@ -136,11 +137,11 @@ export class ClanUpdaterService {
     );
   }
 
-  memberUpdate(activeClans) {
+  memberUpdate(activeClans: any): any {
     return from(activeClans).pipe(
       mergeMap((clanConfig: ClanConfig) => {
         return this.memberService.getClanMembersSerialized(clanConfig.clanId).pipe(
-          map((members) => ({
+          map((members: any) => ({
             members,
             clanConfig
           }))

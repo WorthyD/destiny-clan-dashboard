@@ -8,7 +8,7 @@ describe('DisplayOptionsComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ DisplayOptionsComponent ]
+      imports: [ DisplayOptionsComponent ]
     })
     .compileComponents();
 

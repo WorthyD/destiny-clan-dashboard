@@ -11,6 +11,6 @@ import { MatIconModule } from '@angular/material/icon';
 })
 export class MemberTypeComponent {
   @Input()
-  type;
+  type: any;
   constructor() {}
 }

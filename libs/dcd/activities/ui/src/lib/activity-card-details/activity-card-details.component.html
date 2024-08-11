@@ -1,16 +1,16 @@
 <mat-card>
   <mat-card-header>
     <mat-card-title-group>
-      <mat-card-title>{{ activityDefinition.displayProperties.name }}</mat-card-title>
+      <mat-card-title>{{ activityDefinition?.displayProperties?.name }}</mat-card-title>
     </mat-card-title-group>
   </mat-card-header>
-  <img mat-card-image src="https://www.bungie.net/{{ activityDefinition.pgcrImage }}" alt="" />
+  <img mat-card-image src="https://www.bungie.net/{{ activityDefinition?.pgcrImage }}" alt="" />
   <mat-card-content>
     <p>
-      {{ activityDefinition.displayProperties.description }}
+      {{ activityDefinition?.displayProperties?.description }}
     </p>
   </mat-card-content>
   <mat-card-actions align="end">
-    <a mat-button [routerLink]="activityDefinition.hash.toString()">View</a>
+    <a mat-button [routerLink]="activityDefinition?.hash?.toString()">View</a>
   </mat-card-actions>
 </mat-card>

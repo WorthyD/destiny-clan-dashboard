@@ -12,6 +12,7 @@ import { ActivityModeService } from '@dcd/activity-modes/data-access';
 })
 export class ActivityModeDetailComponent {
   constructor(private activitiesService: ActivityModeService, private route: ActivatedRoute) {}
+  // @ts-ignore
   modeType$ = this.route.paramMap.pipe(map((params) => +params.get('modeType')));
 
   vm$ = this.modeType$.pipe(

@@ -6,7 +6,14 @@ describe('ActivityModeService', () => {
   let service: ActivityModeService;
 
   beforeEach(() => {
-    TestBed.configureTestingModule({});
+    TestBed.configureTestingModule({
+      providers: [
+        {
+          provide: ActivityModeService!,
+          useValue: {}
+        }
+      ]
+    });
     service = TestBed.inject(ActivityModeService);
   });
 

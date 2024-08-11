@@ -36,9 +36,9 @@ import { SeasonService } from '@dcd/shared/data-access/definitions';
 })
 export class MemberOverviewComponent implements OnChanges {
   @Input()
-  memberOverview!: MemberProfile;
+  memberOverview: MemberProfile = {};
   @Input()
-  isLoading!: boolean;
+  isLoading: boolean = false;
 
   characters: Character[] = [];
   seasonPass: ClanMemberSeasonPassProgression | undefined;

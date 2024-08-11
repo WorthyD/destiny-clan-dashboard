@@ -27,7 +27,7 @@ export class NotificationsComponent implements OnChanges {
   isOpen = false;
   manualDismiss = false;
 
-  @Input() notifications: Notification[];
+  @Input() notifications: Notification[] = [];
   constructor() {}
 
   ngOnChanges(simpleChanges: SimpleChanges) {

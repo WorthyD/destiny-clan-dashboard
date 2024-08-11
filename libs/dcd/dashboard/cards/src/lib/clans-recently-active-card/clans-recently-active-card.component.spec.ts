@@ -1,6 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ClansRecentlyActiveCardComponent } from './clans-recently-active-card.component';
+import { ClansDetailsService } from '@dcd/dashboard/data-access';
+import { of } from 'rxjs';
 
 describe('ClansRecentlyActiveCardComponent', () => {
   let component: ClansRecentlyActiveCardComponent;
@@ -8,9 +10,16 @@ describe('ClansRecentlyActiveCardComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ClansRecentlyActiveCardComponent ]
-    })
-    .compileComponents();
+      declarations: [ClansRecentlyActiveCardComponent],
+      providers: [
+        {
+          provide: ClansDetailsService,
+          useValue: {
+            lastLoginMembers$: of(null)
+          }
+        }
+      ]
+    }).compileComponents();
 
     fixture = TestBed.createComponent(ClansRecentlyActiveCardComponent);
     component = fixture.componentInstance;

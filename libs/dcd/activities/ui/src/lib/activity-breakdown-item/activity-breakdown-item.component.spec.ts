@@ -8,7 +8,7 @@ describe('ActivityBreakdownItemComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ActivityBreakdownItemComponent ]
+      imports: [ ActivityBreakdownItemComponent ]
     })
     .compileComponents();
 

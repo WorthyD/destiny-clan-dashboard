@@ -4,13 +4,13 @@
       <div class="h2">In Game Time</div>
     </div>
     <div class="chart-container" *ngIf="!loading; else loadingTemplate">
-      <ng-container *ngIf="events.length > 0; else firstTimeLoading">
+      <ng-container *ngIf="events?.length > 0; else firstTimeLoading">
         <lib-bar-chart [events]="events" convertTo="Hours"></lib-bar-chart>
       </ng-container>
       <!-- <div class="h3">Feature coming soon </div> -->
     </div>
-    <div *ngIf="updating && events.length > 0" class="update-info">Updating...</div>
-    <div *ngIf="updating && events.length === 0" class="chart-container">
+    <div *ngIf="updating && events?.length > 0" class="update-info">Updating...</div>
+    <div *ngIf="updating && events?.length === 0" class="chart-container">
       <!-- <lib-loading></lib-loading> -->
       <div class="text-center">
         <div class="h3">Loading Initial Data...</div>

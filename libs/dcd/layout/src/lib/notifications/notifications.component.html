@@ -1,5 +1,5 @@
 <button mat-icon-button (click)="sync()" cdkOverlayOrigin #trigger="cdkOverlayOrigin">
-  <mat-icon [ngClass]="{'syncing': notifications.length > 0 }">
+  <mat-icon [ngClass]="{'syncing': notifications!.length > 0 }">
     sync
   </mat-icon>
 </button>

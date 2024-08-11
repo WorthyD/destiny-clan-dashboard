@@ -14,8 +14,8 @@ import { MatButtonModule } from '@angular/material/button';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ActivityCardDetailsComponent {
-  @Input() activityDefinition: DestinyDefinitionsDestinyActivityDefinition;
-  @Input() title: string;
-  @Input() itemTemplate: TemplateRef<HTMLElement>;
+  @Input() activityDefinition?: DestinyDefinitionsDestinyActivityDefinition;
+  @Input() title!: string;
+  @Input() itemTemplate!: TemplateRef<HTMLElement>;
   @Output() viewActivity = new EventEmitter<number>();
 }

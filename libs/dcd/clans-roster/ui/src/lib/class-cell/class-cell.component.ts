@@ -34,9 +34,9 @@ export class ClassIconPipe implements PipeTransform {
   imports: [CommonModule, ClassIconPipe]
 })
 export class ClassCellComponent {
-  @Input() characterHash: string;
+  @Input() characterHash!: string;
 
-  @Input() profile: MemberProfile;
+  @Input() profile!: MemberProfile;
 
   constructor() {}
 

@@ -25,11 +25,11 @@ import { BungieDatePipe } from '@dcd/shared/utils/pipes';
   styleUrls: ['./clan-detail-cell.component.scss']
 })
 export class ClanDetailCellComponent {
-  @Input() clanDetail: GroupsV2GroupV2 | undefined = undefined;
+  @Input() clanDetail: GroupsV2GroupV2 | undefined | null = undefined;
   @Input() loading: boolean = false;
   @Input() showAdd: boolean = false;
   @Input() showReset: boolean = false;
   @Output() removeClan = new EventEmitter<string>();
-  @Output() addClan = new EventEmitter<GroupsV2GroupV2>();
-  @Output() resetClan = new EventEmitter<GroupsV2GroupV2>();
+  @Output() addClan = new EventEmitter<GroupsV2GroupV2 | undefined | null>();
+  @Output() resetClan = new EventEmitter<GroupsV2GroupV2 | undefined | null>();
 }

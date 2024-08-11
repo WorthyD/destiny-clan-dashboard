@@ -132,7 +132,7 @@ import { MatBadgeModule } from '@angular/material/badge';
 })
 export class PlayerSealComponent {
   @Input()
-  playerSeal: PlayerSeal;
+  playerSeal!: PlayerSeal;
 
   constructor() {}
 }

@@ -26,7 +26,7 @@ export class SealsService {
     private globalSeals: GlobalSealsService
   ) {}
 
-  clanMembers$  = this.store.select(selectAllClansWithMembers);
+  clanMembers$ = this.store.select(selectAllClansWithMembers);
   //legacySealNode = this.presentationNodeService.definitions[1881970629]; //.getDefinitionsByHash(1881970629);
   // currentSealNodes = this.definitionService.presentationDefinition[this.appConfig.constants.CURRENT_SEALS_HASH];
   // //allNodes = this.getNodes(this.currentSealNodes).concat(this.getNodes(this.legacySealNode));
@@ -54,7 +54,7 @@ export class SealsService {
           const hashes = this.globalSeals.sealNodes
             .filter((x) => x.completionRecordHash)
             .map((x) => x.completionRecordHash);
-          const gildedHashes = [];
+          const gildedHashes: any[] = [];
           hashes.forEach((hash) => {
             const record = this.definitionService.recordDefinition[hash as number];
             if (record.titleInfo && record.titleInfo.gildingTrackingRecordHash) {
@@ -117,7 +117,7 @@ export class SealsService {
     })
   );
 
-  getSealDetails$(sealHash): Observable<SealClanMember[]> {
+  getSealDetails$(sealHash: any): Observable<SealClanMember[]> {
     const sealCompletionHash = this.globalSeals.sealNodes.find((h) => h.hash == sealHash)?.completionRecordHash;
     const sealRecord = this.definitionService.recordDefinition[sealCompletionHash as number];
     const sealGildingRecord =
@@ -128,7 +128,8 @@ export class SealsService {
     return this.clanProfiles$.pipe(
       map((clanProfiles) => {
         return clanProfiles.map((clanProfile) => {
-          const profileProgression = clanProfile.profile.profileRecords.data.records[sealCompletionHash]?.objectives[0];
+          const profileProgression =
+            clanProfile.profile.profileRecords.data.records[sealCompletionHash!]?.objectives[0];
           const gildedProgression =
             sealGildingRecord > 0 ? clanProfile.profile.profileRecords.data.records[sealGildingRecord] : undefined;
 
@@ -147,14 +148,14 @@ export class SealsService {
                   ? Math.floor((profileProgression?.progress / profileProgression?.completionValue) * 100)
                   : 0
             }
-          };
+          } as unknown as SealClanMember;
         });
       })
     );
   }
 
-  private getCompletionCount(memberProfiles, completionHash) {
-    return memberProfiles.filter((m) => {
+  private getCompletionCount(memberProfiles: any, completionHash: any) {
+    return memberProfiles.filter((m: any) => {
       const records = m.profile?.profileRecords?.data?.records[completionHash]?.objectives[0];
 
       if (records) {
