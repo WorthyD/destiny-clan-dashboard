@@ -14,7 +14,7 @@ export class DailyClanAggregateTimeService extends BaseClanAggregateTimeService 
     const x = this.filterDates(memberActivities, nowPlusDays(-days));
 
     const activities = [...x.map((y) => y.activities)];
-    const flatActivities = [].concat.apply([], activities);
+    const flatActivities = [].concat.apply([], activities as any[]);
     const summedActivities = groupActivityStatsByDate(flatActivities);
     return summedActivities;
   }

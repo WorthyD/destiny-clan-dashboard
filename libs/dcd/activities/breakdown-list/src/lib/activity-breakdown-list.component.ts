@@ -1,3 +1,4 @@
+//@ts-nocheck
 import { ChangeDetectionStrategy, Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { CollectionDefinition, MetricDefinition, RecordDefinition } from '@dcd/shared/models';
 //import { ActivitiesService } from '../data-access/activities.service';

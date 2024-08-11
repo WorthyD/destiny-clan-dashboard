@@ -1,5 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { BungieInfoComponent } from './bungie-info.component';
 
 describe('BungieInfoComponent', () => {
@@ -8,9 +8,9 @@ describe('BungieInfoComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ BungieInfoComponent ]
-    })
-    .compileComponents();
+      providers: [],
+      imports: [BungieInfoComponent, NoopAnimationsModule]
+    }).compileComponents();
 
     fixture = TestBed.createComponent(BungieInfoComponent);
     component = fixture.componentInstance;

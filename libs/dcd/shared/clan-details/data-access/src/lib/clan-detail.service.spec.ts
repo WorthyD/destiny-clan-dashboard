@@ -4,8 +4,8 @@ import { GroupV2Service } from 'bungie-api-angular';
 import { ClanDetailService } from './clan-detail.service';
 import { HttpClient } from '@angular/common/http';
 import { Store } from '@ngrx/store';
+import { ClanDatabase } from '@dcd/shared/clan-db';
 
-import { ClanDatabase } from 'libs/data/src/lib/clan/clan-database';
 
 describe('ClanDetailService', () => {
   let service: ClanDetailService;
@@ -18,7 +18,6 @@ describe('ClanDetailService', () => {
     const db = {} as ClanDatabase;
 
     service = new ClanDetailService(gsv2, httpClient, store, db);
-    service = TestBed.inject(ClanDetailService);
   });
 
   it('should be created', () => {

@@ -22,7 +22,7 @@ export function convertSealAndProfile(
         ? sealRecord.titleInfo.gildingTrackingRecordHash
         : 0;
 
-    const profileProgression = profile.profileRecords.data.records[sealCompletionHash]?.objectives[0];
+    const profileProgression = profile.profileRecords.data.records[sealCompletionHash!]?.objectives[0];
     const gildedProgression =
       sealGildingRecord > 0 ? profile.profileRecords.data.records[sealGildingRecord] : undefined;
 
@@ -35,9 +35,9 @@ export function convertSealAndProfile(
         profileProgression?.progress > 0
           ? Math.floor((profileProgression?.progress / profileProgression?.completionValue) * 100)
           : 0,
-      sealDescription: seal.displayProperties.description,
-      sealImage: seal.displayProperties.icon,
-      sealTitle: seal.displayProperties.name
-    };
+      sealDescription: seal.displayProperties?.description,
+      sealImage: seal.displayProperties?.icon,
+      sealTitle: seal.displayProperties?.name
+    } as PlayerSeal;
   });
 }

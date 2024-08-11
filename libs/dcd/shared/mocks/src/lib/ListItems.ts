@@ -2,7 +2,7 @@ export interface MockListItem {
   id: number;
   name: string;
   startDate: string;
-  isPublic;
+  isPublic:unknown;
 }
 const names = [
   'Sweeney Herring',

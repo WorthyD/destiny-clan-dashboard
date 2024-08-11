@@ -12,8 +12,8 @@ import { MatListModule } from '@angular/material/list';
   styleUrls: ['./collapsible-list.component.scss']
 })
 export class CollapsibleListComponent {
-  @Input() title: string;
-  @Input() items: any[];
-  @Input() itemTemplate: TemplateRef<any>;
+  @Input() title!: string;
+  @Input() items!: any[];
+  @Input() itemTemplate!: TemplateRef<any>;
   //@Output() viewActivity = new EventEmitter<number>();
 }

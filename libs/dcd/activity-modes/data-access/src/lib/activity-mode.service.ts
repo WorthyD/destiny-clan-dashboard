@@ -57,6 +57,7 @@ export class ActivityModeService {
 
   getActivityModeDefinition(modeType: number) {
     const x = Object.keys(this.definitionService.activityModeDefinition).map(
+      // @ts-ignore
       (x) => this.definitionService.activityModeDefinition[x]
     ) as DestinyDefinitionsDestinyActivityModeDefinition[];
     return x.find((y) => y.modeType === modeType);
@@ -65,6 +66,7 @@ export class ActivityModeService {
   getGroupedActivityModes() {
     const groups = DESTINY_ACTIVITY_MODES;
     const definitions = Object.keys(this.definitionService.activityModeDefinition).map(
+      // @ts-ignore
       (x) => this.definitionService.activityModeDefinition[x]
     );
     return groups.map((x) => {

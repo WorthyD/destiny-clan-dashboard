@@ -11,9 +11,9 @@ import { RenderedView } from '@dcd/shared/data-models';
 })
 export class RenderedViewComponent implements OnInit {
   @ViewChild(RenderedViewDynamicCompDirective, { static: true }) libDynamicComp!: RenderedViewDynamicCompDirective;
-  views: Observable<RenderedView[]>;
+  views!: Observable<RenderedView[]>;
 
-  @Input() text: string;
+  @Input() text!: string;
 
   @Input() childrenViews: RenderedView[] = [];
   @Input() component: any;
@@ -25,7 +25,7 @@ export class RenderedViewComponent implements OnInit {
       const viewContainerRef = this.libDynamicComp.viewContainerRef;
       viewContainerRef.clear();
 
-      const componentRef = viewContainerRef.createComponent(this.component);
+      const componentRef: any = viewContainerRef.createComponent(this.component);
       for (const property in this.data) {
         componentRef.instance[property] = this.data[property];
       }

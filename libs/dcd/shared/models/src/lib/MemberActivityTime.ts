@@ -6,7 +6,7 @@ export interface MemberActivityTime {
   activities: MemberActivityTimeActivities[];
 }
 
-interface MemberActivityTimeActivities {
+export interface MemberActivityTimeActivities {
   date: Date;
   seconds: number;
 }

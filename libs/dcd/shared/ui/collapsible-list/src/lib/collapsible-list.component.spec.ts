@@ -1,5 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { CollapsibleListComponent } from './collapsible-list.component';
 
 describe('CollapsibleListComponent', () => {
@@ -8,7 +8,8 @@ describe('CollapsibleListComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ CollapsibleListComponent ]
+      imports: [ CollapsibleListComponent, NoopAnimationsModule ],
+
     })
     .compileComponents();
 

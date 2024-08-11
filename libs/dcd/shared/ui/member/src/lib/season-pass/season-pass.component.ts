@@ -15,19 +15,25 @@ import { ClanMemberSeasonPassProgression } from '@dcd/shared/models';
 })
 export class SeasonPassComponent {
   @Input()
-  subTitle: string;
+  subTitle!: string;
 
   @Input()
-  clanMemberSeasonPass: ClanMemberSeasonPassProgression;
+  clanMemberSeasonPass!: ClanMemberSeasonPassProgression;
 
   @Input()
-  isLoading: boolean;
+  isLoading!: boolean;
 
   get seasonPassProgress() {
-    return this.clanMemberSeasonPass?.progression?.level + this.clanMemberSeasonPass?.prestigeProgression?.level;
+    return (
+      (this.clanMemberSeasonPass?.progression?.level ?? 0) +
+      (this.clanMemberSeasonPass?.prestigeProgression?.level ?? 0)
+    );
   }
 
   get seasonPassProgressBarValue() {
-    return (this.clanMemberSeasonPass?.progression?.level / this.clanMemberSeasonPass?.progression?.levelCap) * 100;
+    return (
+      ((this.clanMemberSeasonPass?.progression?.level ?? 0) / (this.clanMemberSeasonPass?.progression?.levelCap ?? 0)) *
+      100
+    );
   }
 }

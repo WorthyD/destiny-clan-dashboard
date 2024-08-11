@@ -10,7 +10,10 @@
       <div class="mb-3">
         <div
           class="float-right"
-          *ngIf="clanMemberSeasonPass?.progression?.level < clanMemberSeasonPass?.progression?.levelCap; else maxLevel"
+          *ngIf="
+            (clanMemberSeasonPass?.progression?.level ?? 0) < (clanMemberSeasonPass?.progression?.levelCap ?? 100);
+            else maxLevel
+          "
         >
           {{ clanMemberSeasonPass?.progression?.level }} / {{ clanMemberSeasonPass?.progression?.levelCap }}
         </div>

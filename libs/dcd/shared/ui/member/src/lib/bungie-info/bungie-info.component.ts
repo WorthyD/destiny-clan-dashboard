@@ -15,7 +15,7 @@ import { BungieDatePipe, DateAgoPipe } from '@dcd/shared/utils/pipes';
   styleUrls: ['./bungie-info.component.scss']
 })
 export class BungieInfoComponent {
-  _bungieInfo: BungieInfo;
+  _bungieInfo: BungieInfo = {};
   @Input()
   get bungieInfo(): BungieInfo {
     return this._bungieInfo;
@@ -26,9 +26,9 @@ export class BungieInfoComponent {
   }
 
   @Input()
-  isLoading: boolean;
+  isLoading: boolean = false;
 
-  linkedAccounts = [];
+  linkedAccounts: { icon: string; name: string; description: string }[] = [];
   constructor() {}
 
   // ngOnInit(): void {}

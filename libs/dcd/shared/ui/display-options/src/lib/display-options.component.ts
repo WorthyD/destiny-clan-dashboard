@@ -20,17 +20,17 @@ import { GroupLabel, SortLabel, ViewLabel } from '@dcd/shared/data-models';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class DisplayOptionsComponent implements OnChanges {
-  groups: GroupLabel[];
+  groups!: GroupLabel[];
 
-  sorts: SortLabel[];
+  sorts!: SortLabel[];
 
-  views: ViewLabel[];
+  views!: ViewLabel[];
 
-  @Input() grouper: Grouper;
+  @Input() grouper!: Grouper;
 
-  @Input() sorter: Sorter;
+  @Input() sorter!: Sorter;
 
-  @Input() viewer: Viewer;
+  @Input() viewer!: Viewer;
 
   constructor() {}
 
