@@ -1,0 +1,30 @@
+<mat-card>
+  @if (!isLoading) {
+    <mat-card-header>
+      <mat-card-title>{{ memberOverview?.profile?.data?.userInfo?.displayName }} </mat-card-title>
+      <mat-card-subtitle> </mat-card-subtitle>
+    </mat-card-header>
+
+    <mat-card-content>
+      <section>Last Online: {{ memberOverview?.profile?.data?.dateLastPlayed | bungieDateTime }}</section>
+      <section class="platforms">
+        Platforms:
+        <ng-container *ngFor="let type of memberOverview?.profile?.data?.userInfo?.applicableMembershipTypes">
+          <lib-member-type-icon [type]="type" class="platform-icon"></lib-member-type-icon>
+        </ng-container>
+      </section>
+    </mat-card-content>
+  } @else {
+    <mat-card-header>
+      <mat-card-title><span class="skeleton-item skeleton-title"></span></mat-card-title>
+      <mat-card-subtitle> </mat-card-subtitle>
+    </mat-card-header>
+
+    <mat-card-content>
+      <section><span class="skeleton-item skeleton-list"></span></section>
+      <section class="platforms">
+        <span class="skeleton-item skeleton-list"></span>
+      </section>
+    </mat-card-content>
+  }
+</mat-card>

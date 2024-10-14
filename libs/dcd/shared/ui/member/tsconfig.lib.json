@@ -13,7 +13,13 @@
     "jest.config.ts",
     "src/**/*.test.ts",
     "**/*.stories.ts",
-    "**/*.stories.js"
+    "**/*.stories.js",
+    "cypress/**/*",
+    "cypress.config.ts",
+    "**/*.cy.ts",
+    "**/*.cy.js",
+    "**/*.cy.tsx",
+    "**/*.cy.jsx"
   ],
   "include": ["src/**/*.ts"]
 }

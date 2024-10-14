@@ -13,8 +13,12 @@ import { MatButtonModule } from '@angular/material/button';
 import { SettingsMenuComponent } from './settings-menu/settings-menu.component';
 
 import { MatDialogModule } from '@angular/material/dialog';
+
+import { providePlayerSidebar } from '@dcd/player-sidebar/data-access';
+import { PlayerSidebarComponent } from '@dcd/player-sidebar/feature';
 @NgModule({
   declarations: [WrapperComponent],
+  providers: [],
   imports: [
     CommonModule,
     MatDialogModule,
@@ -26,7 +30,8 @@ import { MatDialogModule } from '@angular/material/dialog';
     MatToolbarModule,
     MatIconModule,
     MatButtonModule,
-    SettingsMenuComponent
+    SettingsMenuComponent,
+    PlayerSidebarComponent
   ]
 })
 export class LayoutModule {}

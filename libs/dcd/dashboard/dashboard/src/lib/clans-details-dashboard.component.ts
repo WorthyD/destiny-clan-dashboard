@@ -1,6 +1,8 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 //import { ClansDetailsService } from '../data-access/clans-details.service';
 import { ClansDetailsService } from '@dcd/dashboard/data-access';
+import { PlayerSidebarStore } from '@dcd/player-sidebar/data-access';
+import { MemberProfile } from '@dcd/shared/models';
 
 @Component({
   selector: 'app-clans-details-dashboard',
@@ -9,6 +11,21 @@ import { ClansDetailsService } from '@dcd/dashboard/data-access';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ClansDetailsDashboardComponent {
+  private playerSidebarStore = inject(PlayerSidebarStore);
   constructor(private clansDetailsService: ClansDetailsService) {}
   clans$ = this.clansDetailsService.activeClans$;
+
+  viewProfile(profile: MemberProfile) {
+    console.log('viewing profile', profile);
+    if (profile.profile?.data?.userInfo?.membershipType && profile.profile?.data?.userInfo?.membershipId) {
+      this.playerSidebarStore
+        .load(
+          profile.profile?.data?.userInfo.membershipType?.toString(),
+          profile.profile?.data?.userInfo?.membershipId.toString()
+        )
+        .then((x) => {
+          console.log('done');
+        });
+    }
+  }
 }

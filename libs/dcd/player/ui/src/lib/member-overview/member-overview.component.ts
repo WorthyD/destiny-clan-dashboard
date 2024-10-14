@@ -7,7 +7,8 @@ import {
   MemberTypeIconComponent,
   CharacterCardComponent,
   SeasonPassComponent,
-  BungieInfoComponent
+  BungieInfoComponent,
+  MemberSharedOverviewComponent
 } from '@dcd/shared/ui/member';
 
 import { Character } from '@dcd/shared/models';
@@ -26,6 +27,7 @@ import { SeasonService } from '@dcd/shared/data-access/definitions';
     BungieDateTimePipe,
     MemberTypeIconComponent,
     CharacterCardComponent,
+    MemberSharedOverviewComponent,
     SeasonPassComponent,
     BungieInfoComponent
     // PlayerSealsComponent

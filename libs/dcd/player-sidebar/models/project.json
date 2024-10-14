@@ -1,0 +1,13 @@
+{
+  "name": "player-sidebar-models",
+  "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/dcd/player-sidebar/model/src",
+  "prefix": "dcd",
+  "projectType": "library",
+  "tags": ["type:model"],
+  "targets": {
+    "lint": {
+      "executor": "@nx/eslint:lint"
+    }
+  }
+}

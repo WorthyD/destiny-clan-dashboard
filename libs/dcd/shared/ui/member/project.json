@@ -3,8 +3,8 @@
   "$schema": "../../../../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "libs/dcd/shared/ui/member/src",
   "prefix": "dcd",
-  "tags": ["type:ui"],
   "projectType": "library",
+  "tags": ["type:ui"],
   "targets": {
     "test": {
       "executor": "@nx/jest:jest",
@@ -43,6 +43,15 @@
         "ci": {
           "quiet": true
         }
+      }
+    },
+    "component-test": {
+      "executor": "@nx/cypress:cypress",
+      "options": {
+        "cypressConfig": "libs/dcd/shared/ui/member/cypress.config.ts",
+        "testingType": "component",
+        "skipServe": true,
+        "devServerTarget": "destiny-clan-dashboard:build"
       }
     }
   }

@@ -1,4 +1,3 @@
-
 // Local model to work with web workers
 export interface MemberProfile {
   id?: number;
@@ -14,7 +13,6 @@ export interface MemberProfile {
   characterProgressions?: any;
   characterRecords?: any;
   characterCollectibles?: any;
-
 }
 export interface DestinyResponsesDestinyProfileResponseProfile {
   data?: DestinyEntitiesProfilesDestinyProfileComponent;
@@ -36,6 +34,7 @@ export interface DestinyEntitiesProfilesDestinyProfileComponent {
   activeEventCardHash?: number;
   currentGuardianRank?: number;
   lifetimeHighestGuardianRank?: number;
+  renewedGuardianRank?: number;
 }
 export interface DestinyEntitiesProfilesDestinyProfileComponentUserInfo {
   supplementalDisplayName?: string;
