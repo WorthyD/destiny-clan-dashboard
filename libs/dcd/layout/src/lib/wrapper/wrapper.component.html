@@ -69,6 +69,18 @@
     <mat-sidenav-content>
       <router-outlet></router-outlet>
     </mat-sidenav-content>
+
+    <mat-sidenav
+      #sidenav
+      mode="side"
+      [opened]="selectedProfile() !== undefined"
+      position="end"
+      (closed)="closeSidebar()"
+    >
+      {{ selectedProfile() | json }}
+      {{ selectedLoading() }}
+      <dcd-player-sidebar></dcd-player-sidebar>
+    </mat-sidenav>
   </mat-sidenav-container>
   <div class="footer-spacer"></div>
   <footer [ngClass]="{ open: footerOpen }">
@@ -83,7 +95,8 @@
     </div>
     <div class="footer-content">
       <div>
-        Source code hosted on <a href="https://github.com/WorthyD/destiny-clan-dashboard" target="_blank">Github</a>. <a href="https://github.com/WorthyD/destiny-clan-dashboard/issues" target="_blank">File a bug</a> or
+        Source code hosted on <a href="https://github.com/WorthyD/destiny-clan-dashboard" target="_blank">Github</a>.
+        <a href="https://github.com/WorthyD/destiny-clan-dashboard/issues" target="_blank">File a bug</a> or
         <a href="" disabled target="_blank">join the Discord (coming soon)</a> for assistance or request a feature.
       </div>
       <div>

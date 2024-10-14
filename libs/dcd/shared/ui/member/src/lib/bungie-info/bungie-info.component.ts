@@ -29,7 +29,8 @@ export class BungieInfoComponent {
   isLoading: boolean = false;
 
   linkedAccounts: { icon: string; name: string; description: string }[] = [];
-  constructor() {}
+  constructor() {
+  }
 
   // ngOnInit(): void {}
 
