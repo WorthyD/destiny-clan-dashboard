@@ -6,7 +6,7 @@
   </mat-card-header>
   <mat-card-content>
     <ng-container *ngIf="!isLoading; else loading">
-      <mat-list>
+      <mat-list data-cy="bungie-info-about">
         <div mat-subheader>About</div>
         <mat-list-item>
           <img matListItemAvatar [src]="'https://bungie.net' + bungieInfo?.profilePicturePath" alt="..." />
@@ -35,7 +35,7 @@
 </mat-card>
 <ng-template #loading>
   <!-- <lib-loading></lib-loading> -->
-  <mat-list>
+  <mat-list data-cy="bungie-info-loading">
     <div mat-subheader>About</div>
     <mat-list-item>
       <mat-icon matListItemIcon>account_circle</mat-icon>

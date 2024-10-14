@@ -31,6 +31,7 @@ import { ProfileRecentActivityWorkerService as ProfileRecentActivityWorkerServic
 import { ProfileRecentActivityWorkerService as ProfileRecentActivityWorkerServiceFakeFourth } from '@dcd/activities/data-access';
 import { ProfileRecentActivityWorkerService as ProfileRecentActivityWorkerServiceFakeFifth } from '@dcd/dashboard/data-access';
 import { ClanDatabase, ClanDbModule } from '@dcd/shared/clan-db';
+import { providePlayerSidebar } from '@dcd/player-sidebar/data-access';
 //import { ClanDetailsService } from '@destiny-clan-dashboard/data/clan/clan-details';
 
 export const appProviders: ApplicationConfig = {
@@ -67,6 +68,7 @@ export const appProviders: ApplicationConfig = {
     //   useClass: ApiKeyInterceptor,
     //   multi: true
     // },
+    providePlayerSidebar(),
 
     // Imported Providers
     importProvidersFrom(ClanDbModule, SealsModule, BrowserAnimationsModule),
