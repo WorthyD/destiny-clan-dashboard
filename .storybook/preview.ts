@@ -32,3 +32,4 @@ export const decorators = [
     imports: [StorybookModule, BrowserAnimationsModule]
   })
 ];
+export const tags = ['autodocs'];
