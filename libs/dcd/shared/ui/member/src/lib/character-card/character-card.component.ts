@@ -11,7 +11,7 @@ import { Character } from '@dcd/shared/models';
   imports: [NgIf, MatCardModule, ClassTypeTextPipe, RaceTypeTextPipe],
   template: `
     <ng-container *ngIf="!isLoading; else loading">
-      <mat-card *ngIf="character">
+      <mat-card *ngIf="character" appearance="outlined">
         <mat-card-header>
           <mat-card-title>{{ character.classType ?? 0 | classTypeText }} - {{ character.light }}</mat-card-title>
           <mat-card-subtitle>{{ character.raceType ?? 0 | raceTypeText }} </mat-card-subtitle>
@@ -20,7 +20,7 @@ import { Character } from '@dcd/shared/models';
       </mat-card>
     </ng-container>
     <ng-template #loading>
-      <mat-card>
+      <mat-card appearance="outlined">
         <mat-card-header>
           <mat-card-title><span class="skeleton-item skeleton-title"></span></mat-card-title>
           <mat-card-subtitle><span class="skeleton-item skeleton-title"></span> </mat-card-subtitle>

@@ -11,7 +11,7 @@
       </div>
     </mat-toolbar-row>
   </mat-toolbar>
-  <mat-sidenav-container hasBackdrop="false">
+  <mat-sidenav-container hasBackdrop="false" (backdropClick)="closeSidebar()">
     <mat-sidenav [libResponsiveSidebar]="960" #sidenav mode="side" opened>
       <mat-nav-list class="clan-nav">
         <div class="section-nav">
@@ -67,19 +67,17 @@
       </mat-nav-list>
     </mat-sidenav>
     <mat-sidenav-content>
-      <router-outlet></router-outlet>
+      <router-outlet (deactivate)="closeSidebar()"></router-outlet>
     </mat-sidenav-content>
 
     <mat-sidenav
-      #sidenav
+      #playersidenav
       mode="side"
       [opened]="selectedProfile() !== undefined"
       position="end"
       (closed)="closeSidebar()"
     >
-      {{ selectedProfile() | json }}
-      {{ selectedLoading() }}
-      <dcd-player-sidebar></dcd-player-sidebar>
+      <dcd-player-sidebar (closeSidebar)="closeSidebar()"></dcd-player-sidebar>
     </mat-sidenav>
   </mat-sidenav-container>
   <div class="footer-spacer"></div>

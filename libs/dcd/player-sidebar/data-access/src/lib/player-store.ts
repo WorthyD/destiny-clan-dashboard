@@ -10,14 +10,14 @@ export interface MemberObj {
   membershipId: string;
 }
 export interface PlayerSidebarState {
-  loading: boolean;
+  profileLoading: boolean;
   loaded: boolean;
   profile?: MemberProfile;
   memberObj?: MemberObj;
 }
 
 const initialState: PlayerSidebarState = {
-  loading: false,
+  profileLoading: false,
   loaded: false,
   memberObj: undefined,
   profile: undefined
@@ -30,7 +30,6 @@ export const PlayerSidebarStore = signalStore(
   withState(initialState),
   withComputed((store) => ({
     selectedProfile: computed(() => {
-
       if (store?.memberObj) {
         return store?.memberObj();
       }
@@ -39,14 +38,18 @@ export const PlayerSidebarStore = signalStore(
   })),
   withMethods((store, playerService = inject(PlayerService)) => ({
     async load(membershipType: string, membershipId: string): Promise<void> {
-      patchState(store, (state) => ({ ...state, loading: true, memberObj: { membershipId, membershipType } }));
+      patchState(store, (state) => ({
+        ...initialState,
+        profileLoading: true,
+        loading: true,
+        memberObj: { membershipId, membershipType }
+      }));
 
-      //console.log('loading', store);
       const x = await playerService.getPlayerInfo(membershipType, membershipId);
 
       patchState(store, { profile: x as unknown as Player });
 
-      patchState(store, { loading: false, loaded: true });
+      patchState(store, { profileLoading: false, loaded: true });
     },
     clear(): void {
       patchState(store, initialState);

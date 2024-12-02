@@ -1,2 +1,29 @@
-stuff
-<dcd-shared-member-overview [isLoading]="store.loading()" [memberOverview]="store.profile!()"></dcd-shared-member-overview>
+<div>
+  <button mat-icon-button (click)="closeSidebar.emit()">
+    <mat-icon>close</mat-icon>
+  </button>
+  <dcd-shared-member-overview
+    [isLoading]="store.profileLoading()"
+    [memberOverview]="store.profile!()"
+  ></dcd-shared-member-overview>
+
+  @if (!store.profileLoading()) {
+    <div *ngFor="let character of characters()" class="character-card">
+      <lib-character-card [character]="character"></lib-character-card>
+    </div>
+  } @else {
+    <div *ngFor="let character of ['', '', '']" class="character-card">
+      <lib-character-card [isLoading]="true"></lib-character-card>
+    </div>
+  }
+
+  @if (!store.profileLoading()) {
+    <a
+      mat-button
+      routerLink="/player/{{ profile?.profile?.data?.userInfo?.membershipType }}-{{
+        profile?.profile?.data?.userInfo?.membershipId
+      }}"
+      >View Profile</a
+    >
+  }
+</div>
