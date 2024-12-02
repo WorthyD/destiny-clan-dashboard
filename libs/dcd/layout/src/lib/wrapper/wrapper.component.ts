@@ -1,10 +1,11 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, OnInit, ViewChild } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { take } from 'rxjs';
 import { ClanUpdaterService } from '../services/clan-updater.service';
 import { AppConfigService } from '@dcd/shared/utils/app-config';
 import { getAllNotifications, initializeClanItems } from '@dcd/shared/data-access/store';
 import { providePlayerSidebar, PlayerSidebarStore } from '@dcd/player-sidebar/data-access';
+import { MatSidenav } from '@angular/material/sidenav';
 
 @Component({
   selector: 'app-wrapper',
@@ -13,6 +14,8 @@ import { providePlayerSidebar, PlayerSidebarStore } from '@dcd/player-sidebar/da
 })
 export class WrapperComponent implements OnInit {
   readonly #playerSidebarStore = inject(PlayerSidebarStore);
+  @ViewChild('playersidenav') playersidenav: MatSidenav;
+
   constructor(
     private clanUpdaterService: ClanUpdaterService,
     private store: Store,
@@ -27,7 +30,7 @@ export class WrapperComponent implements OnInit {
   versionNumber = this.appConfig.config.appVersion;
 
   selectedProfile = this.#playerSidebarStore.selectedProfile;
-  selectedLoading = this.#playerSidebarStore.loading;
+  selectedLoading = this.#playerSidebarStore.profileLoading;
 
   ngOnInit(): void {
     this.loading = true;
@@ -40,6 +43,7 @@ export class WrapperComponent implements OnInit {
   //  console.log('selected Profile', this.#playerSidebarStore.selectedProfile().loaded())
   }
   closeSidebar() {
+    this.playersidenav.close();
     this.#playerSidebarStore.clear();
   }
 }
