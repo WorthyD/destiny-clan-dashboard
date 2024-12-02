@@ -91,5 +91,6 @@
         "cacheableOperations": ["build-storybook", "component-test"]
       }
     }
-  }
+  },
+  "useLegacyCache": true
 }
