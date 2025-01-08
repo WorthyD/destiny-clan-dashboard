@@ -14,7 +14,7 @@ import { MatSidenav } from '@angular/material/sidenav';
 })
 export class WrapperComponent implements OnInit {
   readonly #playerSidebarStore = inject(PlayerSidebarStore);
-  @ViewChild('playersidenav') playersidenav: MatSidenav;
+  @ViewChild('playersidenav') playerSideNav!: MatSidenav;
 
   constructor(
     private clanUpdaterService: ClanUpdaterService,
@@ -43,7 +43,7 @@ export class WrapperComponent implements OnInit {
   //  console.log('selected Profile', this.#playerSidebarStore.selectedProfile().loaded())
   }
   closeSidebar() {
-    this.playersidenav.close();
+    this.playerSideNav.close();
     this.#playerSidebarStore.clear();
   }
 }

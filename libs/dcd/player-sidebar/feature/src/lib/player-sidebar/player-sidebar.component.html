@@ -1,7 +1,7 @@
-<div>
-  <button mat-icon-button (click)="closeSidebar.emit()">
-    <mat-icon>close</mat-icon>
-  </button>
+<button mat-icon-button (click)="closeSidebar.emit()">
+  <mat-icon>close</mat-icon>
+</button>
+<section class="player-sidebar__main">
   <dcd-shared-member-overview
     [isLoading]="store.profileLoading()"
     [memberOverview]="store.profile!()"
@@ -16,14 +16,9 @@
       <lib-character-card [isLoading]="true"></lib-character-card>
     </div>
   }
-
+</section>
+<div class="player-sidebar__footer">
   @if (!store.profileLoading()) {
-    <a
-      mat-button
-      routerLink="/player/{{ profile?.profile?.data?.userInfo?.membershipType }}-{{
-        profile?.profile?.data?.userInfo?.membershipId
-      }}"
-      >View Profile</a
-    >
+    <a mat-button routerLink="{{ store.profile!() | profileUrl }}">View Profile</a>
   }
 </div>
