@@ -20,3 +20,4 @@ export * from './lib/raid-report-url/raid-report-profile-url.pipe';
 export * from './lib/raid-report-url/raid-report-url.pipe';
 export * from './lib/record-total/record-total.pipe';
 export * from './lib/triumph-report/triumph-report.pipe';
+export * from './lib/profile-url/profile-url.pipe';

@@ -10,9 +10,10 @@ import {
 import { PlayerSidebarStore } from '@dcd/player-sidebar/data-access';
 import { Character, MemberProfile } from '@dcd/shared/models';
 import { MatIcon } from '@angular/material/icon';
-import { MatButton, MatIconButton } from '@angular/material/button';
+import { MatButton, MatButtonModule, MatIconButton } from '@angular/material/button';
 
 import { RouterModule } from '@angular/router';
+import { ProfileUrlPipe } from '@dcd/shared/utils/pipes';
 
 @Component({
   selector: 'dcd-player-sidebar',
@@ -23,8 +24,9 @@ import { RouterModule } from '@angular/router';
     CharacterCardComponent,
     MatIcon,
     MatIconButton,
-    MatButton,
-    RouterModule
+    MatButtonModule,
+    RouterModule,
+    ProfileUrlPipe
   ],
   templateUrl: './player-sidebar.component.html',
   styleUrl: './player-sidebar.component.scss'

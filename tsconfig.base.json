@@ -116,6 +116,7 @@
       "@dcd/shared/utils/serializers": ["libs/dcd/shared/utils/serializers/src/index.ts"],
       "@dcd/shared/utils/stat-aggregators": ["libs/dcd/shared/utils/stat-aggregators/src/index.ts"],
       "@dcd/shared/utils/storage": ["libs/dcd/shared/utils/storage/src/index.ts"],
+      "@dcd/shared/utils/url-helpers": ["libs/dcd/shared/utils/url-helpers/src/index.ts"],
       "@environment/*": ["apps/destiny-clan-dashboard/src/app/environments/*"],
       "dcd-plugin": ["libs/dcd-plugin/src/index.ts"],
       "storybook-host": ["libs/storybook-host/src/index.ts"]
