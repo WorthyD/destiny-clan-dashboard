@@ -4,5 +4,7 @@ export enum MembershipTypes {
   Steam = 3,
   Blizzard = 4,
   Stadia = 5,
-  Demon = 10
+  Epic = 6,
+  Demon = 10,
+  Next = 254
 }

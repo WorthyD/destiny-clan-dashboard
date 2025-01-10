@@ -5,7 +5,8 @@ import {
   CharacterCardComponent,
   SeasonPassComponent,
   BungieInfoComponent,
-  MemberSharedOverviewComponent
+  MemberSharedOverviewComponent,
+  PlayerSnapshotComponent
 } from '@dcd/shared/ui/member';
 import { PlayerSidebarStore } from '@dcd/player-sidebar/data-access';
 import { Character, MemberProfile } from '@dcd/shared/models';
@@ -14,6 +15,7 @@ import { MatButton, MatButtonModule, MatIconButton } from '@angular/material/but
 
 import { RouterModule } from '@angular/router';
 import { ProfileUrlPipe } from '@dcd/shared/utils/pipes';
+import { BungieDisplayNamePipe } from "../../../../../shared/utils/pipes/src/lib/bungie-display-name/bungie-display-name.pipe";
 
 @Component({
   selector: 'dcd-player-sidebar',
@@ -26,8 +28,10 @@ import { ProfileUrlPipe } from '@dcd/shared/utils/pipes';
     MatIconButton,
     MatButtonModule,
     RouterModule,
-    ProfileUrlPipe
-  ],
+    ProfileUrlPipe,
+    BungieDisplayNamePipe,
+    PlayerSnapshotComponent
+],
   templateUrl: './player-sidebar.component.html',
   styleUrl: './player-sidebar.component.scss'
 })

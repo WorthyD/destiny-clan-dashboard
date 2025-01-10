@@ -1,10 +1,18 @@
-<button mat-icon-button (click)="closeSidebar.emit()">
-  <mat-icon>close</mat-icon>
-</button>
-<section class="player-sidebar__main">
+<section class="player-sidebar">
+  <section class="player-sidebar__header">
+    @if (!store.profileLoading()) {
+      <h2>{{ store.profile!() | bungieDisplayName }}</h2>
+    } @else {
+      <h2 class="skeleton-item skeleton-full-width"></h2>
+    }
+    <button mat-icon-button (click)="closeSidebar.emit()">
+      <mat-icon>close</mat-icon>
+    </button>
+  </section>
   <dcd-shared-member-overview
     [isLoading]="store.profileLoading()"
     [memberOverview]="store.profile!()"
+    class="profile-card"
   ></dcd-shared-member-overview>
 
   @if (!store.profileLoading()) {
@@ -16,9 +24,18 @@
       <lib-character-card [isLoading]="true"></lib-character-card>
     </div>
   }
+  @if (!store.profileLoading()) {
+    <div class="snapshot-card">
+      <dcd-player-snapshot [profile]="store.profile!()!"></dcd-player-snapshot>
+    </div>
+  } @else {
+    <div class="snapshot-card">
+      <dcd-player-snapshot [isLoading]="true"></dcd-player-snapshot>
+    </div>
+  }
 </section>
 <div class="player-sidebar__footer">
   @if (!store.profileLoading()) {
-    <a mat-button routerLink="{{ store.profile!() | profileUrl }}">View Profile</a>
+    <a mat-stroked-button routerLink="{{ store.profile!() | profileUrl }}">View Profile</a>
   }
 </div>

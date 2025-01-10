@@ -6,3 +6,4 @@ export * from './lib/player-seals/player-seal.component';
 export * from './lib/player-seals/member-profile.converter';
 export * from './lib/player-seals/player-seals.component';
 export * from './lib/season-pass/season-pass.component';
+export * from './lib/player-snapshot/player-snapshot.component';
