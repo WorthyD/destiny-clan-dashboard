@@ -29,8 +29,7 @@ export class BungieInfoComponent {
   isLoading: boolean = false;
 
   linkedAccounts: { icon: string; name: string; description: string }[] = [];
-  constructor() {
-  }
+  constructor() {}
 
   // ngOnInit(): void {}
 
@@ -65,6 +64,14 @@ export class BungieInfoComponent {
         icon: 'stadia',
         name: this.bungieInfo.stadiaDisplayName,
         description: 'Stadia'
+      });
+    }
+
+    if (this.bungieInfo.egsDisplayName) {
+      tempLinkedAccounts.push({
+        icon: 'epic',
+        name: this.bungieInfo.egsDisplayName,
+        description: 'Epic'
       });
     }
 

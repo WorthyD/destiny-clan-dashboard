@@ -32,6 +32,7 @@ export interface BungieInfo {
   steamDisplayName?: string;
   stadiaDisplayName?: string;
   twitchDisplayName?: string;
+  egsDisplayName?:string;
   cachedBungieGlobalDisplayName?: string;
   cachedBungieGlobalDisplayNameCode?: number;
 }
