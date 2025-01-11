@@ -16,16 +16,11 @@ export class ClansDetailsDashboardComponent {
   clans$ = this.clansDetailsService.activeClans$;
 
   viewProfile(profile: MemberProfile) {
-    console.log('viewing profile', profile);
     if (profile.profile?.data?.userInfo?.membershipType && profile.profile?.data?.userInfo?.membershipId) {
-      this.playerSidebarStore
-        .load(
-          profile.profile?.data?.userInfo.membershipType?.toString(),
-          profile.profile?.data?.userInfo?.membershipId.toString()
-        )
-        .then((x) => {
-          console.log('done');
-        });
+      this.playerSidebarStore.load(
+        profile.profile?.data?.userInfo.membershipType?.toString(),
+        profile.profile?.data?.userInfo?.membershipId.toString()
+      );
     }
   }
 }

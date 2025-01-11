@@ -1,14 +1,16 @@
 :host {
   display: flex;
   flex-direction: column;
-  height: 100%;
+  height: 99%;
   min-width: 400px;
-  overflow: hidden;
-  padding: 0 1rem;
+  // overflow: hidden;
 }
 
 .player-sidebar {
   flex: 1;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
   &__header {
     display: flex;
     align-items: center;
@@ -16,16 +18,24 @@
       flex: 1;
       margin-bottom: 0;
     }
+    padding: 0 1rem;
+  }
+  &__body {
+    flex: 1;
+    overflow-y: auto;
+    padding: 0 1rem;
   }
   &__footer {
-    padding-bottom:1rem;
+    padding: 1rem;
     a {
       width: 100%;
     }
   }
 
   .profile-card,
-  .character-card {
+  .character-card,
+  .season-card {
+    display: block;
     margin-bottom: 1rem;
   }
 }

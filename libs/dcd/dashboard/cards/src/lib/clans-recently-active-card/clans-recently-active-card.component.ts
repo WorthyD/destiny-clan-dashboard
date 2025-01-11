@@ -1,6 +1,7 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Output } from '@angular/core';
 import { combineLatest, map, startWith } from 'rxjs';
 import { ClansDetailsService } from '@dcd/dashboard/data-access';
+import { MemberProfile } from '@dcd/shared/models';
 
 @Component({
   selector: 'app-clans-recently-active-card',
@@ -9,6 +10,7 @@ import { ClansDetailsService } from '@dcd/dashboard/data-access';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ClansRecentlyActiveCardComponent {
+  @Output() viewProfile = new EventEmitter<MemberProfile>();
   constructor(private clansDetailsService: ClansDetailsService) {}
 
   lastLoginMembers$ = this.clansDetailsService.lastLoginMembers$.pipe(startWith([]));

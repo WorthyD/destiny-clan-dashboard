@@ -8,7 +8,7 @@
     <mat-card-content>
       <section>Last Online: {{ memberOverview?.profile?.data?.dateLastPlayed | bungieDateTime }}</section>
       <section class="platforms">
-        Platforms:
+        Platforms:&nbsp;
         <ng-container *ngFor="let type of memberOverview?.profile?.data?.userInfo?.applicableMembershipTypes">
           <lib-member-type-icon [type]="type" class="platform-icon"></lib-member-type-icon>
         </ng-container>

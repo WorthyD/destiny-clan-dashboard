@@ -15,7 +15,8 @@ import { MatButton, MatButtonModule, MatIconButton } from '@angular/material/but
 
 import { RouterModule } from '@angular/router';
 import { ProfileUrlPipe } from '@dcd/shared/utils/pipes';
-import { BungieDisplayNamePipe } from "../../../../../shared/utils/pipes/src/lib/bungie-display-name/bungie-display-name.pipe";
+import { BungieDisplayNamePipe } from '../../../../../shared/utils/pipes/src/lib/bungie-display-name/bungie-display-name.pipe';
+import { SeasonService } from '@dcd/shared/data-access/definitions';
 
 @Component({
   selector: 'dcd-player-sidebar',
@@ -30,8 +31,9 @@ import { BungieDisplayNamePipe } from "../../../../../shared/utils/pipes/src/lib
     RouterModule,
     ProfileUrlPipe,
     BungieDisplayNamePipe,
-    PlayerSnapshotComponent
-],
+    PlayerSnapshotComponent,
+    SeasonPassComponent
+  ],
   templateUrl: './player-sidebar.component.html',
   styleUrl: './player-sidebar.component.scss'
 })
@@ -39,11 +41,12 @@ export class PlayerSidebarComponent {
   @Output() closeSidebar = new EventEmitter();
 
   readonly store = inject(PlayerSidebarStore);
-  // characters: Character[] = [];
+  readonly seasonService = inject(SeasonService);
 
   profile = this.store.profile!();
   characters = computed(() => {
     const p = this.store.profile!();
+    console.log(p);
     if (p) {
       return p.profile?.data?.characterIds?.map((id) => {
         return p.characters.data[id];
@@ -52,8 +55,22 @@ export class PlayerSidebarComponent {
     return [];
   });
 
-  //constructor(private readonly playerSidebarStore:PlayerSidebarStore){}
+  seasonProgress = computed(() => {
+    const p = this.store.profile!();
+    const currentSeason = this.seasonService.currentSeasonProgress;
+    console.log(p);
+    console.log(currentSeason);
+    const characterId = p?.profile?.data?.characterIds?.[0] || 0;
 
-  // memberOverview = this.playerSidebarStore.profile!() as MemberProfile;
-  // isLoading = this.playerSidebarStore.loading();
+    if (characterId > 0 && p?.characterProgressions?.data[characterId]?.progressions) {
+      console.log('here');
+      const characterProgressions = p?.characterProgressions?.data[characterId].progressions;
+      return {
+        progression: characterProgressions[currentSeason!.rewardProgressionHash!],
+        prestigeProgression: characterProgressions[currentSeason!.prestigeProgressionHash!]
+      };
+    }
+    return undefined;
+  });
+
 }
