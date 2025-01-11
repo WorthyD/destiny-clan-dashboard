@@ -13,4 +13,7 @@ import { RouterModule } from '@angular/router';
 export class ProfileLinkComponent {
   @Input()
   profile!: MemberProfile;
+
+  @Input()
+  showSidebar? = false;
 }

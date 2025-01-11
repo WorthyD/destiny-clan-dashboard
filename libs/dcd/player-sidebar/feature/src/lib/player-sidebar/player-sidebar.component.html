@@ -9,33 +9,45 @@
       <mat-icon>close</mat-icon>
     </button>
   </section>
-  <dcd-shared-member-overview
-    [isLoading]="store.profileLoading()"
-    [memberOverview]="store.profile!()"
-    class="profile-card"
-  ></dcd-shared-member-overview>
+  <section class="player-sidebar__body slim-scroll">
+    <dcd-shared-member-overview
+      [isLoading]="store.profileLoading()"
+      [memberOverview]="store.profile!()"
+      class="profile-card"
+    ></dcd-shared-member-overview>
 
-  @if (!store.profileLoading()) {
-    <div *ngFor="let character of characters()" class="character-card">
-      <lib-character-card [character]="character"></lib-character-card>
+    @if (!store.profileLoading()) {
+      <div *ngFor="let character of characters()" class="character-card">
+        <lib-character-card [character]="character"></lib-character-card>
+      </div>
+    } @else {
+      <div *ngFor="let character of ['', '', '']" class="character-card">
+        <lib-character-card [isLoading]="true"></lib-character-card>
+      </div>
+    }
+
+    <div class="season-card">
+      <lib-season-pass
+        [clanMemberSeasonPass]="seasonProgress()"
+        [isLoading]="store.profileLoading()"
+        subTitle="Current Season"
+      >
+      </lib-season-pass>
     </div>
-  } @else {
-    <div *ngFor="let character of ['', '', '']" class="character-card">
-      <lib-character-card [isLoading]="true"></lib-character-card>
-    </div>
-  }
-  @if (!store.profileLoading()) {
-    <div class="snapshot-card">
-      <dcd-player-snapshot [profile]="store.profile!()!"></dcd-player-snapshot>
-    </div>
-  } @else {
-    <div class="snapshot-card">
-      <dcd-player-snapshot [isLoading]="true"></dcd-player-snapshot>
-    </div>
-  }
+
+    @if (!store.profileLoading()) {
+      <div class="snapshot-card">
+        <dcd-player-snapshot [profile]="store.profile!()!"></dcd-player-snapshot>
+      </div>
+    } @else {
+      <div class="snapshot-card">
+        <dcd-player-snapshot [isLoading]="true"></dcd-player-snapshot>
+      </div>
+    }
+  </section>
+  <section class="player-sidebar__footer">
+    @if (!store.profileLoading()) {
+      <a mat-stroked-button routerLink="{{ store.profile!() | profileUrl }}">View Profile</a>
+    }
+  </section>
 </section>
-<div class="player-sidebar__footer">
-  @if (!store.profileLoading()) {
-    <a mat-stroked-button routerLink="{{ store.profile!() | profileUrl }}">View Profile</a>
-  }
-</div>

@@ -13,7 +13,7 @@
     <app-clans-highest-season-pass-level-card (viewProfile)="viewProfile($event)"
       class="clans-details__info-card"
     ></app-clans-highest-season-pass-level-card>
-    <app-clans-recently-active-card class="clans-details__info-card"></app-clans-recently-active-card>
-    <app-clans-inactive-card class="clans-details__info-card"></app-clans-inactive-card>
+    <app-clans-recently-active-card class="clans-details__info-card" (viewProfile)="viewProfile($event)"></app-clans-recently-active-card>
+    <app-clans-inactive-card class="clans-details__info-card" (viewProfile)="viewProfile($event)"></app-clans-inactive-card>
   </div>
 </div>

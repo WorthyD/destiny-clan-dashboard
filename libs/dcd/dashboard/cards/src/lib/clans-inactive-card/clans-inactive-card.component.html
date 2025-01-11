@@ -1,10 +1,15 @@
 <ng-container *ngIf="vm$ | async as vm">
-    <dcd-clan-member-card [cardTitle]="'Longest Away Members'" [itemTemplate]="itemTemplate" [isLoading]="vm.isLoading"
-      [members]="vm.inactiveMemberList">
-      <ng-template let-member #itemTemplate>
-        <div>
-          {{member.profile?.profile.data.dateLastPlayed |  bungieDate}}
-        </div>
-      </ng-template>
-    </dcd-clan-member-card>
-  </ng-container>
+  <dcd-clan-member-card
+    [cardTitle]="'Longest Away Members'"
+    [itemTemplate]="itemTemplate"
+    [isLoading]="vm.isLoading"
+    [members]="vm.inactiveMemberList"
+    (viewProfile)="viewProfile.emit($event)"
+  >
+    <ng-template let-member #itemTemplate>
+      <div>
+        {{ member.profile?.profile.data.dateLastPlayed | bungieDate }}
+      </div>
+    </ng-template>
+  </dcd-clan-member-card>
+</ng-container>
