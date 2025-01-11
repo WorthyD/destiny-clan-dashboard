@@ -1,6 +1,6 @@
 {
   "name": "destiny-clan-dashboard",
-  "version": "1.2.15",
+  "version": "1.3.0",
   "scripts": {
     "start": "nx run destiny-clan-dashboard:serve -- --port=4321",
     "build": "nx run destiny-clan-dashboard:build",
